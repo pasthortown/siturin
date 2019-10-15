@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SIETE Database</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <!-- Bootstrap 3.3.5 -->
+  <link rel="stylesheet" href="bower/admin-lte/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower/ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="bower/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="bower/datatables.net-buttons-bs/css/buttons.bootstrap.min.css">
+  <!-- Code Mirror -->
+  <link rel="stylesheet" href="bower/codemirror/codemirror.css">
+  <!-- Fonts -->
+  <link href='fonts/indieflower/indie-flower.css' rel='stylesheet' type='text/css'>
+  <link href='fonts/source-sans-pro/source-sans-pro.css' rel='stylesheet' type='text/css'>
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="bower/admin-lte/dist/css/AdminLTE.min.css">
+  <!-- Salvattore -->
+  <link rel="stylesheet" href="bower/salvattore/salvattore.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="bower/admin-lte/dist/css/skins/_all-skins.min.css">
+  <!-- SchemaSpy -->
+  <link rel="stylesheet" href="schemaSpy.css">
+  
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="bower/html5shiv/html5shiv.min.js"></script>
+  <script src="bower/respond/respond.min.js"></script>
+  <![endif]-->
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper">
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="index.html" class="navbar-brand"><b>SIETE</b> Database</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Tables <span class="sr-only">(current)</span></a></li>
+			<li><a href="columns.html" title="All of the columns in the schema">Columns</a></li>
+			<li><a href="constraints.html" title="Useful for diagnosing error messages that just give constraint name or number">Constraints</a></li>
+			<li><a href="relationships.html" title="Diagram of table relationships">Relationships</a></li>
+			<li><a href="orphans.html" title="View of tables with neither parents nor children">Orphan&nbsp;Tables</a></li>				
+			<li><a href="anomalies.html" title="Things that might not be quite right">Anomalies</a></li>
+			<li><a href="routines.html" title="Procedures and functions">Routines</a></li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+        <!-- Navbar Right Menu -->
+
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Main content -->
+  <!-- Full Width Column -->
+  <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>All Relationships</h1>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+				<div class="box box-primary">		
+			<div class="box-header with-border">
+              <i class="fa fa-code-fork"></i>
+              <h3 class="box-title">Diagrams</h3>
+            </div>	
+			<div class="box-body">	
+			<div class="nav-tabs-custom" style="cursor: move;">
+            <!-- Tabs within a box -->
+			<h5>By default only columns that are primary keys, foreign keys or indexes are shown.</h5>
+            <ul class="nav nav-tabs pull-left ui-sortable-handle">
+			  			              <li class="active"><a href="#compactDegreeImg-chart" data-toggle="tab" aria-expanded="true">Compact</a></li>			  			 
+			  			              <li class=""><a href="#largeDegreeImg-chart" data-toggle="tab" aria-expanded="true">Large</a></li>			  			 
+            </ul>
+            <div class="tab-content no-padding">            
+				<div class="chart tab-pane active" id="compactDegreeImg-chart" style="position: relative; overflow-x:auto;">
+																					<map id="compactRelationshipsDiagram" name="compactRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/establishment_certification_attachments.html" title="establishment_certification_attachments" alt="" coords="244,140,745,257">
+<area shape="rect" id="node2" href="tables/establishment_certification_types.html" title="establishment_certification_types" alt="" coords="318,5,671,123">
+<area shape="rect" id="node3" href="tables/establishment_certifications.html" title="establishment_certifications" alt="" coords="803,28,1235,204">
+<area shape="rect" id="node4" href="tables/establishment_establishment_certification.html" title="establishment_establishment_certification" alt="" coords="1292,129,1724,305">
+<area shape="rect" id="node11" href="tables/establishments.html" title="establishments" alt="" coords="850,936,1187,1171">
+<area shape="rect" id="node5" href="tables/establishment_language.html" title="establishment_language" alt="" coords="1373,453,1643,629">
+<area shape="rect" id="node17" href="tables/languages.html" title="languages" alt="" coords="942,221,1095,339">
+<area shape="rect" id="node6" href="tables/establishment_pictures.html" title="establishment_pictures" alt="" coords="1336,907,1680,1053">
+<area shape="rect" id="node7" href="tables/establishment_preview_register_code.html" title="establishment_preview_register_code" alt="" coords="1314,1071,1702,1247">
+<area shape="rect" id="node20" href="tables/preview_register_codes.html" title="preview_register_codes" alt="" coords="889,1188,1149,1335">
+<area shape="rect" id="node8" href="tables/establishment_property_types.html" title="establishment_property_types" alt="" coords="334,1093,655,1211">
+<area shape="rect" id="node9" href="tables/establishment_states.html" title="establishment_states" alt="" coords="1387,1264,1629,1440">
+<area shape="rect" id="node23" href="tables/states.html" title="states" alt="" coords="943,1352,1094,1469">
+<area shape="rect" id="node10" href="tables/establishment_worker.html" title="establishment_worker" alt="" coords="1384,1457,1632,1633">
+<area shape="rect" id="node28" href="tables/workers.html" title="workers" alt="" coords="920,1487,1117,1663">
+<area shape="rect" id="node21" href="tables/ruc_name_types.html" title="ruc_name_types" alt="" coords="397,1228,593,1345">
+<area shape="rect" id="node22" href="tables/rucs.html" title="rucs" alt="" coords="387,660,603,807">
+<area shape="rect" id="node26" href="tables/ubications.html" title="ubications" alt="" coords="417,959,572,1076">
+<area shape="rect" id="node12" href="tables/franchise_chain_name_ruc.html" title="franchise_chain_name_ruc" alt="" coords="877,356,1161,532">
+<area shape="rect" id="node13" href="tables/franchise_chain_names.html" title="franchise_chain_names" alt="" coords="367,385,623,503">
+<area shape="rect" id="node14" href="tables/genders.html" title="genders" alt="" coords="419,1509,570,1627">
+<area shape="rect" id="node15" href="tables/group_givens.html" title="group_givens" alt="" coords="880,713,1157,919">
+<area shape="rect" id="node16" href="tables/group_types.html" title="group_types" alt="" coords="333,824,657,941">
+<area shape="rect" id="node19" href="tables/person_representatives.html" title="person_representatives" alt="" coords="364,525,625,643">
+<area shape="rect" id="node18" href="tables/person_representative_attachments.html" title="person_representative_attachments" alt="" coords="789,549,1248,696">
+<area shape="rect" id="node24" href="tables/system_names.html" title="system_names" alt="" coords="402,1363,587,1480">
+<area shape="rect" id="node25" href="tables/tax_payer_types.html" title="tax_payer_types" alt="" coords="5,689,200,807">
+<area shape="rect" id="node27" href="tables/worker_groups.html" title="worker_groups" alt="" coords="401,1644,588,1761">
+</map>
+
+					<a name='diagram'><img id='compactDegreeImg' src='diagrams/summary/relationships.real.compact.png' usemap='#compactRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							
+				</div>
+				<div class="chart tab-pane " id="largeDegreeImg-chart" style="position: relative; overflow-x:auto;">
+																					<map id="largeRelationshipsDiagram" name="largeRelationshipsDiagram">
+<area shape="rect" id="node1" href="tables/establishment_certification_attachments.html" title="establishment_certification_attachments" alt="" coords="244,263,745,503">
+<area shape="rect" id="node2" href="tables/establishment_certification_types.html" title="establishment_certification_types" alt="" coords="318,5,671,245">
+<area shape="rect" id="node3" href="tables/establishment_certifications.html" title="establishment_certifications" alt="" coords="803,75,1235,285">
+<area shape="rect" id="node4" href="tables/establishment_establishment_certification.html" title="establishment_establishment_certification" alt="" coords="1292,173,1724,384">
+<area shape="rect" id="node11" href="tables/establishments.html" title="establishments" alt="" coords="850,1361,1187,1895">
+<area shape="rect" id="node5" href="tables/establishment_language.html" title="establishment_language" alt="" coords="1373,587,1643,797">
+<area shape="rect" id="node17" href="tables/languages.html" title="languages" alt="" coords="942,303,1095,484">
+<area shape="rect" id="node6" href="tables/establishment_pictures.html" title="establishment_pictures" alt="" coords="1336,1185,1680,1455">
+<area shape="rect" id="node7" href="tables/establishment_preview_register_code.html" title="establishment_preview_register_code" alt="" coords="1314,1512,1702,1723">
+<area shape="rect" id="node20" href="tables/preview_register_codes.html" title="preview_register_codes" alt="" coords="889,1912,1149,2123">
+<area shape="rect" id="node8" href="tables/establishment_property_types.html" title="establishment_property_types" alt="" coords="334,1857,655,2039">
+<area shape="rect" id="node9" href="tables/establishment_states.html" title="establishment_states" alt="" coords="1387,1820,1629,2060">
+<area shape="rect" id="node23" href="tables/states.html" title="states" alt="" coords="943,2140,1094,2351">
+<area shape="rect" id="node10" href="tables/establishment_worker.html" title="establishment_worker" alt="" coords="1384,2239,1632,2449">
+<area shape="rect" id="node28" href="tables/workers.html" title="workers" alt="" coords="920,2368,1117,2608">
+<area shape="rect" id="node21" href="tables/ruc_name_types.html" title="ruc_name_types" alt="" coords="397,2056,593,2237">
+<area shape="rect" id="node22" href="tables/rucs.html" title="rucs" alt="" coords="387,997,603,1296">
+<area shape="rect" id="node26" href="tables/ubications.html" title="ubications" alt="" coords="417,1600,572,1840">
+<area shape="rect" id="node12" href="tables/franchise_chain_name_ruc.html" title="franchise_chain_name_ruc" alt="" coords="877,501,1161,712">
+<area shape="rect" id="node13" href="tables/franchise_chain_names.html" title="franchise_chain_names" alt="" coords="367,589,623,771">
+<area shape="rect" id="node14" href="tables/genders.html" title="genders" alt="" coords="419,2475,570,2656">
+<area shape="rect" id="node15" href="tables/group_givens.html" title="group_givens" alt="" coords="880,1075,1157,1344">
+<area shape="rect" id="node16" href="tables/group_types.html" title="group_types" alt="" coords="333,1313,657,1583">
+<area shape="rect" id="node19" href="tables/person_representatives.html" title="person_representatives" alt="" coords="364,799,625,980">
+<area shape="rect" id="node18" href="tables/person_representative_attachments.html" title="person_representative_attachments" alt="" coords="789,729,1248,1057">
+<area shape="rect" id="node24" href="tables/system_names.html" title="system_names" alt="" coords="402,2255,587,2436">
+<area shape="rect" id="node25" href="tables/tax_payer_types.html" title="tax_payer_types" alt="" coords="5,1203,200,1413">
+<area shape="rect" id="node27" href="tables/worker_groups.html" title="worker_groups" alt="" coords="401,2673,588,2913">
+</map>
+
+					<a name='diagram'><img id='largeDegreeImg' src='diagrams/summary/relationships.real.large.png' usemap='#largeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							
+				</div>
+			  			</div>
+			</div>
+		  </div><!-- /.box-body -->
+		</div>
+		      </section>    
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div>
+      <div class="pull-right hidden-xs">
+        <a href="https://github.com/schemaspy/schemaspy" title="GitHub for SchemaSpy"><i class="fa fa-github-square fa-2x"></i></a>
+        <a href="http://stackoverflow.com/questions/tagged/schemaspy" title="StackOverflow for SchemaSpy"><i class="fa fa-stack-overflow fa-2x"></i></a>
+      </div>
+      <strong>Generated by <a href="http://schemaspy.org/" class="logo-text"><i class="fa fa-database"></i> SchemaSpy 6.0.0</a></strong>
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="bower/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="bower/admin-lte/plugins/jQueryUI/jquery-ui.min.js"></script>
+<!-- Bootstrap 3.3.5 -->
+<script src="bower/admin-lte/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="bower/datatables.net/jquery.dataTables.min.js"></script>
+<script src="bower/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower/datatables.net-buttons/dataTables.buttons.min.js"></script>
+<script src="bower/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="bower/datatables.net-buttons/buttons.html5.min.js"></script>
+<script src="bower/datatables.net-buttons/buttons.print.min.js"></script>
+<script src="bower/datatables.net-buttons/buttons.colVis.min.js"></script>
+<!-- SheetJS -->
+<script src="bower/js-xlsx/xlsx.full.min.js"></script>
+<!-- pdfmake -->
+<script src="bower/pdfmake/pdfmake.min.js"></script>
+<script src="bower/pdfmake/vfs_fonts.js"></script>
+<!-- SlimScroll -->
+<script src="bower/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="bower/admin-lte/plugins/fastclick/fastclick.js"></script>
+<!-- Salvattore -->
+<script src="bower/salvattore/salvattore.min.js"></script>
+<!-- AnchorJS -->
+<script src="bower/anchor-js/anchor.min.js"></script>
+<!-- CodeMirror -->
+<script src="bower/codemirror/codemirror.js"></script>
+<script src="bower/codemirror/sql.js"></script>
+<!-- AdminLTE App -->
+<script src="bower/admin-lte/dist/js/app.min.js"></script>
+<script src="relationships.js"></script>
+<script src="schemaSpy.js"></script>
+</body>
+</html>
