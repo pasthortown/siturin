@@ -16,19 +16,19 @@ INSERT INTO public.account_rols(
 	VALUES (4, 'Administrador Establecimiento', 'Administrador Establecimiento', 4, '-');
 INSERT INTO public.account_rols(
 	id, name, description, code, father_code)
-	VALUES (5, 'Administrador Establecimiento', 'Inspector', 5, '-');
+	VALUES (5, 'Inspector', 'Inspector', 5, '-');
 INSERT INTO public.account_rols(
 	id, name, description, code, father_code)
-	VALUES (6, 'Administrador Establecimiento', 'Técnico Financiero', 6, '-');
+	VALUES (6, 'Técnico Financiero', 'Técnico Financiero', 6, '-');
 INSERT INTO public.account_rols(
 	id, name, description, code, father_code)
-	VALUES (7, 'Administrador Establecimiento', 'Administrador Financiero', 7, '-');
+	VALUES (7, 'Administrador Financiero', 'Administrador Financiero', 7, '-');
 INSERT INTO public.account_rols(
 	id, name, description, code, father_code)
-	VALUES (8, 'Administrador Establecimiento', 'Administrador Registro y Control', 8, '-');
+	VALUES (8, 'Administrador Registro y Control', 'Administrador Registro y Control', 8, '-');
 INSERT INTO public.account_rols(
 	id, name, description, code, father_code)
-	VALUES (9, 'Administrador Establecimiento', 'Coordinador Zonal', 9, '-');
+	VALUES (9, 'Coordinador Zonal', 'Coordinador Zonal', 9, '-');
 
 cualquiernombre@turismo.gob.ec
 mintur.123
