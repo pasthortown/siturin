@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SIETEALOJAMIENTO Database</title>
+  <title>ALOJAMIENTO Database</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.html" class="navbar-brand"><b>SIETEALOJAMIENTO</b> Database</a>
+          <a href="index.html" class="navbar-brand"><b>ALOJAMIENTO</b> Database</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -83,7 +83,7 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 			  <i class="ion ion-key"></i>
-              <h3 class="box-title">27 Foreign Key Constraints</h3>
+              <h3 class="box-title">35 Foreign Key Constraints</h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -146,6 +146,50 @@
 				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
 				</tr>
 				<tr>
+				 <td>register_procedures_procedure_justification_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/register_procedures.html'>register_procedures</a><span>.procedure_justification_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/procedure_justifications.html'>procedure_justifications</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>register_procedures_register_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/register_procedures.html'>register_procedures</a><span>.register_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/registers.html'>registers</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
 				 <td>approval_state_attachments_approval_state_id_foreign</td>
 				 <td>
 				  <table border='0' cellspacing='0' cellpadding='0'>
@@ -183,6 +227,28 @@
 				   <tr>
 					<td>
 						<a href='tables/bed_types.html'>bed_types</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>property_title_attachments_register_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/property_title_attachments.html'>property_title_attachments</a><span>.register_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/registers.html'>registers</a><span>.id</span>
 					</td>
 				   </tr>
 				  </table>				 
@@ -315,6 +381,28 @@
 				   <tr>
 					<td>
 						<a href='tables/capacities.html'>capacities</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>authorization_attachments_register_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/authorization_attachments.html'>authorization_attachments</a><span>.register_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/registers.html'>registers</a><span>.id</span>
 					</td>
 				   </tr>
 				  </table>				 
@@ -520,6 +608,28 @@
 				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
 				</tr>
 				<tr>
+				 <td>reception_rooms_register_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/reception_rooms.html'>reception_rooms</a><span>.register_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/registers.html'>registers</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
 				 <td>tariffs_tariff_type_id_foreign</td>
 				 <td>
 				  <table border='0' cellspacing='0' cellpadding='0'>
@@ -535,6 +645,50 @@
 				   <tr>
 					<td>
 						<a href='tables/tariff_types.html'>tariff_types</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>tariffs_register_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/tariffs.html'>tariffs</a><span>.register_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/registers.html'>registers</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>tariffs_capacity_type_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/tariffs.html'>tariffs</a><span>.capacity_type_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/capacity_types.html'>capacity_types</a><span>.id</span>
 					</td>
 				   </tr>
 				  </table>				 
@@ -645,6 +799,28 @@
 				   <tr>
 					<td>
 						<a href='tables/complementary_service_foods.html'>complementary_service_foods</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>procedure_justifications_procedure_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/procedure_justifications.html'>procedure_justifications</a><span>.procedure_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/procedures.html'>procedures</a><span>.id</span>
 					</td>
 				   </tr>
 				  </table>				 

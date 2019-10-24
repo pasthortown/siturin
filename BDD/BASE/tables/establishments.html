@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>establishments - SIETE Database</title>
+  <title>establishments - BASE Database</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../index.html" class="navbar-brand"><b>SIETE</b> Database</a>
+          <a href="../index.html" class="navbar-brand"><b>BASE</b> Database</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -244,7 +244,7 @@
 				 <td></td>
 				</tr>
 				<tr>
-				 <td><span id="address">address</span></td>
+				 <td><span id="address_main_street">address_main_street</span></td>
 				 <td>varchar</td>
 				 <td>255</td>
 				 <td title='nullable'>√</td>
@@ -363,6 +363,57 @@
 				 <td></td>
 				</tr>
 				<tr>
+				 <td><span id="address_secondary_street">address_secondary_street</span></td>
+				 <td>varchar</td>
+				 <td>255</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
+				 <td><span id="address_number">address_number</span></td>
+				 <td>varchar</td>
+				 <td>20</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
+				 <td><span id="franchise_chain_name">franchise_chain_name</span></td>
+				 <td>varchar</td>
+				 <td>50</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
 				 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="ruc_id">ruc_id</span></td>
 				 <td>int4</td>
 				 <td>10</td>
@@ -464,7 +515,7 @@
 				</tr>
 								</tbody>
 				</table>
-				<p title='16 columns'>Table contained <span id="recordNumber">2</span> rows<p/>
+				<p title='19 columns'>Table contained <span id="recordNumber">0</span> rows<p/>
 			</div>
 		</div>
 		<div class="box box-primary">		
@@ -523,42 +574,41 @@
             <div class="tab-content no-padding">            
 				<div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="establishment_establishment_certification.html" title="establishment_establishment_certification" alt="" coords="877,5,1309,181">
-<area shape="rect" id="node2" href="establishments.html" title="establishments" alt="" coords="371,516,833,1055">
-<area shape="rect" id="node8" href="establishment_property_types.html" title="establishment_property_types" alt="" coords="5,981,327,1099">
-<area shape="rect" id="node9" href="rucs.html" title="rucs" alt="" coords="58,683,274,829">
-<area shape="rect" id="node10" href="ruc_name_types.html" title="ruc_name_types" alt="" coords="68,1116,264,1233">
-<area shape="rect" id="node11" href="ubications.html" title="ubications" alt="" coords="89,847,243,964">
-<area shape="rect" id="node3" href="establishment_language.html" title="establishment_language" alt="" coords="959,199,1228,375">
-<area shape="rect" id="node4" href="establishment_pictures.html" title="establishment_pictures" alt="" coords="921,392,1265,539">
-<area shape="rect" id="node5" href="establishment_preview_register_code.html" title="establishment_preview_register_code" alt="" coords="899,556,1287,732">
-<area shape="rect" id="node6" href="establishment_states.html" title="establishment_states" alt="" coords="973,749,1214,925">
-<area shape="rect" id="node7" href="establishment_worker.html" title="establishment_worker" alt="" coords="969,943,1217,1119">
+<area shape="rect" id="node1" href="establishment_establishment_certification.html" title="establishment_establishment_certification" alt="" coords="807,5,1185,181">
+<area shape="rect" id="node2" href="establishments.html" title="establishments" alt="" coords="343,516,763,1143">
+<area shape="rect" id="node8" href="establishment_property_types.html" title="establishment_property_types" alt="" coords="5,1069,299,1187">
+<area shape="rect" id="node9" href="rucs.html" title="rucs" alt="" coords="55,771,249,917">
+<area shape="rect" id="node10" href="ruc_name_types.html" title="ruc_name_types" alt="" coords="54,1204,250,1321">
+<area shape="rect" id="node11" href="ubications.html" title="ubications" alt="" coords="25,935,279,1052">
+<area shape="rect" id="node3" href="establishment_language.html" title="establishment_language" alt="" coords="869,199,1123,375">
+<area shape="rect" id="node4" href="establishment_pictures.html" title="establishment_pictures" alt="" coords="845,392,1147,539">
+<area shape="rect" id="node5" href="establishment_preview_register_code.html" title="establishment_preview_register_code" alt="" coords="820,556,1172,732">
+<area shape="rect" id="node6" href="establishment_states.html" title="establishment_states" alt="" coords="881,749,1111,925">
+<area shape="rect" id="node7" href="establishment_worker.html" title="establishment_worker" alt="" coords="877,943,1115,1119">
 </map>
 
 					<a name='diagram'><img id='oneDegreeImg' src='../diagrams/establishments.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							
 				</div>
 				<div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="establishment_establishment_certification.html" title="establishment_establishment_certification" alt="" coords="1116,31,1548,207">
-<area shape="rect" id="node2" href="establishment_certifications.html" title="establishment_certifications" alt="" coords="702,5,979,93">
-<area shape="rect" id="node3" href="establishments.html" title="establishments" alt="" coords="609,532,1072,1071">
-<area shape="rect" id="node13" href="establishment_property_types.html" title="establishment_property_types" alt="" coords="244,945,565,1063">
-<area shape="rect" id="node14" href="rucs.html" title="rucs" alt="" coords="297,213,513,360">
-<area shape="rect" id="node15" href="ruc_name_types.html" title="ruc_name_types" alt="" coords="307,1080,503,1197">
-<area shape="rect" id="node16" href="ubications.html" title="ubications" alt="" coords="327,811,482,928">
-<area shape="rect" id="node4" href="establishment_language.html" title="establishment_language" alt="" coords="1197,283,1467,459">
-<area shape="rect" id="node5" href="languages.html" title="languages" alt="" coords="764,321,917,409">
-<area shape="rect" id="node6" href="establishment_pictures.html" title="establishment_pictures" alt="" coords="1160,669,1504,816">
-<area shape="rect" id="node7" href="establishment_preview_register_code.html" title="establishment_preview_register_code" alt="" coords="1138,476,1526,652">
-<area shape="rect" id="node8" href="preview_register_codes.html" title="preview_register_codes" alt="" coords="717,427,964,515">
-<area shape="rect" id="node9" href="establishment_states.html" title="establishment_states" alt="" coords="1211,867,1453,1043">
-<area shape="rect" id="node10" href="states.html" title="states" alt="" coords="779,1088,902,1176">
-<area shape="rect" id="node11" href="establishment_worker.html" title="establishment_worker" alt="" coords="1208,1127,1456,1303">
-<area shape="rect" id="node12" href="workers.html" title="workers" alt="" coords="771,1193,911,1281">
-<area shape="rect" id="node19" href="tax_payer_types.html" title="tax_payer_types" alt="" coords="5,245,200,333">
-<area shape="rect" id="node17" href="franchise_chain_name_ruc.html" title="franchise_chain_name_ruc" alt="" coords="706,111,975,199">
-<area shape="rect" id="node18" href="group_givens.html" title="group_givens" alt="" coords="752,216,929,304">
+<area shape="rect" id="node1" href="establishment_establishment_certification.html" title="establishment_establishment_certification" alt="" coords="1045,5,1424,181">
+<area shape="rect" id="node2" href="establishment_certifications.html" title="establishment_certifications" alt="" coords="651,32,931,120">
+<area shape="rect" id="node3" href="establishments.html" title="establishments" alt="" coords="581,453,1001,1080">
+<area shape="rect" id="node13" href="establishment_property_types.html" title="establishment_property_types" alt="" coords="244,955,537,1072">
+<area shape="rect" id="node14" href="rucs.html" title="rucs" alt="" coords="294,396,487,543">
+<area shape="rect" id="node15" href="ruc_name_types.html" title="ruc_name_types" alt="" coords="293,1089,489,1207">
+<area shape="rect" id="node16" href="ubications.html" title="ubications" alt="" coords="264,820,517,937">
+<area shape="rect" id="node4" href="establishment_language.html" title="establishment_language" alt="" coords="1108,204,1361,380">
+<area shape="rect" id="node5" href="languages.html" title="languages" alt="" coords="715,243,868,331">
+<area shape="rect" id="node6" href="establishment_pictures.html" title="establishment_pictures" alt="" coords="1084,591,1385,737">
+<area shape="rect" id="node7" href="establishment_preview_register_code.html" title="establishment_preview_register_code" alt="" coords="1059,397,1411,573">
+<area shape="rect" id="node8" href="preview_register_codes.html" title="preview_register_codes" alt="" coords="665,348,918,436">
+<area shape="rect" id="node9" href="establishment_states.html" title="establishment_states" alt="" coords="1119,811,1350,987">
+<area shape="rect" id="node10" href="states.html" title="states" alt="" coords="729,1097,853,1185">
+<area shape="rect" id="node11" href="establishment_worker.html" title="establishment_worker" alt="" coords="1116,1115,1353,1291">
+<area shape="rect" id="node12" href="workers.html" title="workers" alt="" coords="723,1203,860,1291">
+<area shape="rect" id="node18" href="tax_payer_types.html" title="tax_payer_types" alt="" coords="5,428,200,516">
+<area shape="rect" id="node17" href="group_givens.html" title="group_givens" alt="" coords="702,137,881,225">
 </map>
 
 					<a name='diagram'><img id='twodegreesDegreeImg' src='../diagrams/establishments.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							

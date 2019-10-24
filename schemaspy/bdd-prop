@@ -3,11 +3,11 @@ schemaspy.t=pgsql
 # optional path to alternative jdbc drivers.
 schemaspy.dp=postgresql-42.2.5.jar
 # database properties: host, port number, name user, password
-schemaspy.host=192.168.20.51:5432
+schemaspy.host=127.0.0.1:5432
 schemaspy.port=5432
-schemaspy.db=SIETEALOJAMIENTO
-schemaspy.u=prueba
-schemaspy.p=12345678
+schemaspy.db=ALOJAMIENTO
+schemaspy.u=postgres
+schemaspy.p=postgres
 # output dir to save generated files
 schemaspy.o=dbschema
 # db scheme for which generate diagrams

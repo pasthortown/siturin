@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>requisites - SIETEALOJAMIENTO Database</title>
+  <title>requisites - ALOJAMIENTO Database</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" sizes="16x16" href="../favicon.png">
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../index.html" class="navbar-brand"><b>SIETEALOJAMIENTO</b> Database</a>
+          <a href="../index.html" class="navbar-brand"><b>ALOJAMIENTO</b> Database</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -172,7 +172,7 @@
 				<tr>
 				 <td><span id="name">name</span></td>
 				 <td>varchar</td>
-				 <td>100</td>
+				 <td>2048</td>
 				 <td title='nullable'>√</td>
 				 <td title=''></td>
 				 <td>null</td>
@@ -238,6 +238,74 @@
 				 <td></td>
 				</tr>
 				<tr>
+				 <td><span id="mandatory">mandatory</span></td>
+				 <td>bool</td>
+				 <td>1</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
+				 <td><span id="type">type</span></td>
+				 <td>varchar</td>
+				 <td>255</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
+				 <td><span id="params">params</span></td>
+				 <td>varchar</td>
+				 <td>2048</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
+				 <td><span id="code">code</span></td>
+				 <td>varchar</td>
+				 <td>20</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
+				<tr>
 				 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="register_type_id">register_type_id</span></td>
 				 <td>int4</td>
 				 <td>10</td>
@@ -264,7 +332,7 @@
 				</tr>
 								</tbody>
 				</table>
-				<p title='8 columns'>Table contained <span id="recordNumber">15</span> rows<p/>
+				<p title='12 columns'>Table contained <span id="recordNumber">5727</span> rows<p/>
 			</div>
 		</div>
 		<div class="box box-primary">		
@@ -323,21 +391,21 @@
             <div class="tab-content no-padding">            
 				<div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="register_requisites.html" title="register_requisites" alt="" coords="593,5,812,181">
-<area shape="rect" id="node2" href="requisites.html" title="requisites" alt="" coords="231,32,549,336">
-<area shape="rect" id="node3" href="register_types.html" title="register_types" alt="" coords="5,240,187,357">
+<area shape="rect" id="node1" href="register_requisites.html" title="register_requisites" alt="" coords="573,5,789,181">
+<area shape="rect" id="node2" href="requisites.html" title="requisites" alt="" coords="232,32,529,453">
+<area shape="rect" id="node3" href="register_types.html" title="register_types" alt="" coords="5,357,188,475">
 </map>
 
 					<a name='diagram'><img id='oneDegreeImg' src='../diagrams/requisites.1degree.png' usemap='#oneDegreeRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							
 				</div>
 				<div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="bed_types.html" title="bed_types" alt="" coords="313,5,467,93">
-<area shape="rect" id="node2" href="register_types.html" title="register_types" alt="" coords="5,267,187,384">
-<area shape="rect" id="node3" href="capacity_types.html" title="capacity_types" alt="" coords="297,111,483,199">
-<area shape="rect" id="node4" href="register_requisites.html" title="register_requisites" alt="" coords="593,333,812,509">
-<area shape="rect" id="node5" href="registers.html" title="registers" alt="" coords="319,537,461,625">
-<area shape="rect" id="node6" href="requisites.html" title="requisites" alt="" coords="231,216,549,520">
+<area shape="rect" id="node1" href="bed_types.html" title="bed_types" alt="" coords="304,5,457,93">
+<area shape="rect" id="node2" href="register_types.html" title="register_types" alt="" coords="5,325,188,443">
+<area shape="rect" id="node3" href="capacity_types.html" title="capacity_types" alt="" coords="289,111,473,199">
+<area shape="rect" id="node4" href="register_requisites.html" title="register_requisites" alt="" coords="573,392,789,568">
+<area shape="rect" id="node5" href="registers.html" title="registers" alt="" coords="308,655,453,743">
+<area shape="rect" id="node6" href="requisites.html" title="requisites" alt="" coords="232,216,529,637">
 </map>
 
 					<a name='diagram'><img id='twodegreesDegreeImg' src='../diagrams/requisites.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							

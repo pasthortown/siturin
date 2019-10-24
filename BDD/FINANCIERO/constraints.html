@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SIETEFINANCIERO Database</title>
+  <title>FINANCIERO Database</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.html" class="navbar-brand"><b>SIETEFINANCIERO</b> Database</a>
+          <a href="index.html" class="navbar-brand"><b>FINANCIERO</b> Database</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -83,7 +83,7 @@
 		<div class="box box-primary">
 			<div class="box-header with-border">
 			  <i class="ion ion-key"></i>
-              <h3 class="box-title">7 Foreign Key Constraints</h3>
+              <h3 class="box-title">8 Foreign Key Constraints</h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -101,6 +101,28 @@
 				</tr>
 				</thead>
 				<tbody>
+				<tr>
+				 <td>declaration_attachments_declaration_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/declaration_attachments.html'>declaration_attachments</a><span>.declaration_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/declarations.html'>declarations</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
 				<tr>
 				 <td>declaration_items_declaration_item_category_id_foreign</td>
 				 <td>
@@ -168,6 +190,50 @@
 				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
 				</tr>
 				<tr>
+				 <td>declaration_item_values_declaration_item_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/declaration_item_values.html'>declaration_item_values</a><span>.declaration_item_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/declaration_items.html'>declaration_items</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
+				 <td>pay_attachments_pay_id_foreign</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/pay_attachments.html'>pay_attachments</a><span>.pay_id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>			 
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				   <tr>
+					<td>
+						<a href='tables/pays.html'>pays</a><span>.id</span>
+					</td>
+				   </tr>
+				  </table>				 
+				 </td>	
+				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+				</tr>
+				<tr>
 				 <td>declaration_declaration_item_value_declaration_id_foreign</td>
 				 <td>
 				  <table border='0' cellspacing='0' cellpadding='0'>
@@ -205,50 +271,6 @@
 				   <tr>
 					<td>
 						<a href='tables/declaration_item_values.html'>declaration_item_values</a><span>.id</span>
-					</td>
-				   </tr>
-				  </table>				 
-				 </td>	
-				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
-				</tr>
-				<tr>
-				 <td>pay_attachments_pay_id_foreign</td>
-				 <td>
-				  <table border='0' cellspacing='0' cellpadding='0'>
-				   <tr>
-					<td>
-						<a href='tables/pay_attachments.html'>pay_attachments</a><span>.pay_id</span>
-					</td>
-				   </tr>
-				  </table>				 
-				 </td>			 
-				 <td>
-				  <table border='0' cellspacing='0' cellpadding='0'>
-				   <tr>
-					<td>
-						<a href='tables/pays.html'>pays</a><span>.id</span>
-					</td>
-				   </tr>
-				  </table>				 
-				 </td>	
-				 <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
-				</tr>
-				<tr>
-				 <td>declaration_item_values_declaration_item_id_foreign</td>
-				 <td>
-				  <table border='0' cellspacing='0' cellpadding='0'>
-				   <tr>
-					<td>
-						<a href='tables/declaration_item_values.html'>declaration_item_values</a><span>.declaration_item_id</span>
-					</td>
-				   </tr>
-				  </table>				 
-				 </td>			 
-				 <td>
-				  <table border='0' cellspacing='0' cellpadding='0'>
-				   <tr>
-					<td>
-						<a href='tables/declaration_items.html'>declaration_items</a><span>.id</span>
 					</td>
 				   </tr>
 				  </table>				 

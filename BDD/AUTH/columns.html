@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SIETEAUTH Database</title>
+  <title>AUTH Database</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
@@ -46,7 +46,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.html" class="navbar-brand"><b>SIETEAUTH</b> Database</a>
+          <a href="index.html" class="navbar-brand"><b>AUTH</b> Database</a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -106,94 +106,6 @@
 				</thead>
 				<tbody>
 					<tr>
-					 <td>profile_pictures</td>
-					 <td>Table</td>
-					 <td>file_name</td>
-					 <td>varchar</td>
-					 <td>50</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>account_rol_assigments</td>
-					 <td>Table</td>
-					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>account_rol_id</td>
-					 <td>int4</td>
-					 <td>10</td>
-					 <td title=''></td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>migrations</td>
-					 <td>Table</td>
-					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
-					 <td>serial</td>
-					 <td>10</td>
-					 <td title=''></td>
-					 <td title='Automatically updated by the database'>√</td>
-					 <td>nextval(&#39;migrations_id_seq&#39;::regclass)</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>account_rol_assigments</td>
-					 <td>Table</td>
-					 <td>created_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>logs</td>
-					 <td>Table</td>
-					 <td>created_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>auth_locations</td>
-					 <td>Table</td>
-					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>account_rol_id</td>
-					 <td>int4</td>
-					 <td>10</td>
-					 <td title=''></td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>users</td>
-					 <td>Table</td>
-					 <td>created_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>account_rols</td>
-					 <td>Table</td>
-					 <td>updated_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
 					 <td>account_rols</td>
 					 <td>Table</td>
 					 <td>father_code</td>
@@ -207,20 +119,9 @@
 					<tr>
 					 <td>account_rols</td>
 					 <td>Table</td>
-					 <td>created_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>users</td>
-					 <td>Table</td>
-					 <td>name</td>
-					 <td>varchar</td>
-					 <td>100</td>
+					 <td>description</td>
+					 <td>text</td>
+					 <td>2147483647</td>
 					 <td title='nullable'>√</td>
 					 <td title=''></td>
 					 <td>null</td>
@@ -240,6 +141,50 @@
 					<tr>
 					 <td>users</td>
 					 <td>Table</td>
+					 <td>name</td>
+					 <td>varchar</td>
+					 <td>100</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>users</td>
+					 <td>Table</td>
+					 <td>created_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>auth_locations</td>
+					 <td>Table</td>
+					 <td>created_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>profile_pictures</td>
+					 <td>Table</td>
+					 <td>file_name</td>
+					 <td>varchar</td>
+					 <td>50</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>users</td>
+					 <td>Table</td>
 					 <td>updated_at</td>
 					 <td>timestamp</td>
 					 <td>22</td>
@@ -251,20 +196,86 @@
 					<tr>
 					 <td>account_rols</td>
 					 <td>Table</td>
-					 <td>description</td>
-					 <td>text</td>
-					 <td>2147483647</td>
+					 <td>created_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
 					 <td title='nullable'>√</td>
 					 <td title=''></td>
 					 <td>null</td>
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>profile_pictures</td>
+					 <td>account_rol_assigments</td>
 					 <td>Table</td>
-					 <td>file</td>
-					 <td>text</td>
-					 <td>2147483647</td>
+					 <td>created_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>logs</td>
+					 <td>Table</td>
+					 <td>created_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>account_rol_assigments</td>
+					 <td>Table</td>
+					 <td>updated_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>account_rols</td>
+					 <td>Table</td>
+					 <td>code</td>
+					 <td>varchar</td>
+					 <td>50</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>auth_locations</td>
+					 <td>Table</td>
+					 <td>id_ubication</td>
+					 <td>int4</td>
+					 <td>10</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>users</td>
+					 <td>Table</td>
+					 <td>address_map_longitude</td>
+					 <td>float8</td>
+					 <td>17</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>auth_locations</td>
+					 <td>Table</td>
+					 <td>updated_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
 					 <td title='nullable'>√</td>
 					 <td title=''></td>
 					 <td>null</td>
@@ -282,11 +293,143 @@
 					 <td></td>
 					</tr>
 					<tr>
+					 <td>logs</td>
+					 <td>Table</td>
+					 <td>date_time</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>account_rol_assigments</td>
+					 <td>Table</td>
+					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
+					 <td>serial</td>
+					 <td>10</td>
+					 <td title=''></td>
+					 <td title='Automatically updated by the database'>√</td>
+					 <td>nextval(&#39;account_rol_assigments_id_seq&#39;::regclass)</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>account_rols</td>
+					 <td>Table</td>
+					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
+					 <td>serial</td>
+					 <td>10</td>
+					 <td title=''></td>
+					 <td title='Automatically updated by the database'>√</td>
+					 <td>nextval(&#39;account_rols_id_seq&#39;::regclass)</td>
+					 <td></td>
+					</tr>
+					<tr>
 					 <td>users</td>
 					 <td>Table</td>
-					 <td>ruc</td>
+					 <td>main_phone_number</td>
 					 <td>varchar</td>
-					 <td>13</td>
+					 <td>10</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>account_rol_assigments</td>
+					 <td>Table</td>
+					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>user_id</td>
+					 <td>int4</td>
+					 <td>10</td>
+					 <td title=''></td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>logs</td>
+					 <td>Table</td>
+					 <td>request</td>
+					 <td>text</td>
+					 <td>2147483647</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>users</td>
+					 <td>Table</td>
+					 <td>identification</td>
+					 <td>varchar</td>
+					 <td>10</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>profile_pictures</td>
+					 <td>Table</td>
+					 <td>created_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>profile_pictures</td>
+					 <td>Table</td>
+					 <td>updated_at</td>
+					 <td>timestamp</td>
+					 <td>22</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>logs</td>
+					 <td>Table</td>
+					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>user_id</td>
+					 <td>int4</td>
+					 <td>10</td>
+					 <td title=''></td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>migrations</td>
+					 <td>Table</td>
+					 <td>migration</td>
+					 <td>varchar</td>
+					 <td>255</td>
+					 <td title=''></td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>profile_pictures</td>
+					 <td>Table</td>
+					 <td>file</td>
+					 <td>text</td>
+					 <td>2147483647</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>auth_locations</td>
+					 <td>Table</td>
+					 <td>id_user</td>
+					 <td>int4</td>
+					 <td>10</td>
 					 <td title='nullable'>√</td>
 					 <td title=''></td>
 					 <td>null</td>
@@ -304,42 +447,31 @@
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>auth_locations</td>
+					 <td>migrations</td>
 					 <td>Table</td>
 					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
 					 <td>serial</td>
 					 <td>10</td>
 					 <td title=''></td>
 					 <td title='Automatically updated by the database'>√</td>
-					 <td>nextval(&#39;auth_locations_id_seq&#39;::regclass)</td>
+					 <td>nextval(&#39;migrations_id_seq&#39;::regclass)</td>
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>account_rols</td>
-					 <td>Table</td>
-					 <td>name</td>
-					 <td>varchar</td>
-					 <td>50</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>account_rols</td>
+					 <td>logs</td>
 					 <td>Table</td>
 					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
 					 <td>serial</td>
 					 <td>10</td>
 					 <td title=''></td>
 					 <td title='Automatically updated by the database'>√</td>
-					 <td>nextval(&#39;account_rols_id_seq&#39;::regclass)</td>
+					 <td>nextval(&#39;logs_id_seq&#39;::regclass)</td>
 					 <td></td>
 					</tr>
 					<tr>
 					 <td>users</td>
 					 <td>Table</td>
-					 <td>identification</td>
+					 <td>secondary_phone_number</td>
 					 <td>varchar</td>
 					 <td>10</td>
 					 <td title='nullable'>√</td>
@@ -359,20 +491,9 @@
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>auth_locations</td>
+					 <td>account_rol_assigments</td>
 					 <td>Table</td>
-					 <td>created_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>migrations</td>
-					 <td>Table</td>
-					 <td>batch</td>
+					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>account_rol_id</td>
 					 <td>int4</td>
 					 <td>10</td>
 					 <td title=''></td>
@@ -381,106 +502,18 @@
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>account_rol_assigments</td>
-					 <td>Table</td>
-					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
-					 <td>serial</td>
-					 <td>10</td>
-					 <td title=''></td>
-					 <td title='Automatically updated by the database'>√</td>
-					 <td>nextval(&#39;account_rol_assigments_id_seq&#39;::regclass)</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>profile_pictures</td>
-					 <td>Table</td>
-					 <td>created_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>users</td>
-					 <td>Table</td>
-					 <td>secondary_phone_number</td>
-					 <td>varchar</td>
-					 <td>10</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>logs</td>
-					 <td>Table</td>
-					 <td>request</td>
-					 <td>text</td>
-					 <td>2147483647</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>logs</td>
-					 <td>Table</td>
-					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
-					 <td>serial</td>
-					 <td>10</td>
-					 <td title=''></td>
-					 <td title='Automatically updated by the database'>√</td>
-					 <td>nextval(&#39;logs_id_seq&#39;::regclass)</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>logs</td>
-					 <td>Table</td>
-					 <td>date_time</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>users</td>
-					 <td>Table</td>
-					 <td>email</td>
-					 <td>varchar</td>
-					 <td>255</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
 					 <td>auth_locations</td>
 					 <td>Table</td>
-					 <td>code_ubication</td>
-					 <td>varchar</td>
-					 <td>100</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>account_rol_assigments</td>
-					 <td>Table</td>
-					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>user_id</td>
-					 <td>int4</td>
+					 <td class='primaryKey' title='Primary Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>id</td>
+					 <td>serial</td>
 					 <td>10</td>
 					 <td title=''></td>
-					 <td title=''></td>
-					 <td>null</td>
+					 <td title='Automatically updated by the database'>√</td>
+					 <td>nextval(&#39;auth_locations_id_seq&#39;::regclass)</td>
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>account_rol_assigments</td>
+					 <td>logs</td>
 					 <td>Table</td>
 					 <td>updated_at</td>
 					 <td>timestamp</td>
@@ -502,66 +535,11 @@
 					 <td></td>
 					</tr>
 					<tr>
-					 <td>account_rols</td>
-					 <td>Table</td>
-					 <td>code</td>
-					 <td>varchar</td>
-					 <td>50</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
 					 <td>users</td>
 					 <td>Table</td>
-					 <td>main_phone_number</td>
-					 <td>varchar</td>
-					 <td>10</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>auth_locations</td>
-					 <td>Table</td>
-					 <td>updated_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>migrations</td>
-					 <td>Table</td>
-					 <td>migration</td>
+					 <td>email</td>
 					 <td>varchar</td>
 					 <td>255</td>
-					 <td title=''></td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>profile_pictures</td>
-					 <td>Table</td>
-					 <td>file_type</td>
-					 <td>varchar</td>
-					 <td>50</td>
-					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>logs</td>
-					 <td>Table</td>
-					 <td>updated_at</td>
-					 <td>timestamp</td>
-					 <td>22</td>
 					 <td title='nullable'>√</td>
 					 <td title=''></td>
 					 <td>null</td>
@@ -570,21 +548,10 @@
 					<tr>
 					 <td>users</td>
 					 <td>Table</td>
-					 <td>address_map_latitude</td>
-					 <td>float8</td>
-					 <td>17</td>
+					 <td>ruc</td>
+					 <td>varchar</td>
+					 <td>13</td>
 					 <td title='nullable'>√</td>
-					 <td title=''></td>
-					 <td>null</td>
-					 <td></td>
-					</tr>
-					<tr>
-					 <td>logs</td>
-					 <td>Table</td>
-					 <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i>user_id</td>
-					 <td>int4</td>
-					 <td>10</td>
-					 <td title=''></td>
 					 <td title=''></td>
 					 <td>null</td>
 					 <td></td>
@@ -603,6 +570,17 @@
 					<tr>
 					 <td>profile_pictures</td>
 					 <td>Table</td>
+					 <td>file_type</td>
+					 <td>varchar</td>
+					 <td>50</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>account_rols</td>
+					 <td>Table</td>
 					 <td>updated_at</td>
 					 <td>timestamp</td>
 					 <td>22</td>
@@ -612,9 +590,31 @@
 					 <td></td>
 					</tr>
 					<tr>
+					 <td>account_rols</td>
+					 <td>Table</td>
+					 <td>name</td>
+					 <td>varchar</td>
+					 <td>50</td>
+					 <td title='nullable'>√</td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
+					 <td>migrations</td>
+					 <td>Table</td>
+					 <td>batch</td>
+					 <td>int4</td>
+					 <td>10</td>
+					 <td title=''></td>
+					 <td title=''></td>
+					 <td>null</td>
+					 <td></td>
+					</tr>
+					<tr>
 					 <td>users</td>
 					 <td>Table</td>
-					 <td>address_map_longitude</td>
+					 <td>address_map_latitude</td>
 					 <td>float8</td>
 					 <td>17</td>
 					 <td title='nullable'>√</td>

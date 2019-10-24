@@ -1,8 +1,8 @@
 migrations
 logs
+floor_authorization_certificates
 agreements
 group_givens
-franchise_chain_name_ruc
 establishment_worker
 establishment_states
 establishment_preview_register_code
@@ -24,7 +24,6 @@ ruc_name_types
 languages
 group_types
 genders
-franchise_chain_names
 establishment_property_types
 establishment_certification_types
 establishment_certification_attachments
