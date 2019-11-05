@@ -55,7 +55,12 @@
         *ngIf="!rucValidated"
         class="ml-2 badge badge-danger"
         >Incorrecto</span>
-        <input type="text" class="form-control" maxlength="13" id="ruc" placeholder="Número de RUC" [(ngModel)]="ruc.number" (keyup)="checkRuc()"/>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button type="button" class="btn btn-primary" (click)="checkRuc()"><span class="fas fa-sync"></span></button>
+          </div>
+          <input type="text" class="form-control" maxlength="13" id="ruc" placeholder="Número de RUC" [(ngModel)]="ruc.number" (keyup)="checkRuc()"/>
+        </div>
       </div>
       <div class="col-12 mb-3" *ngIf="rucValidated">
           <small id="rucDataIncomming"

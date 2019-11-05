@@ -1497,6 +1497,7 @@ export class RegistroComponent implements OnInit {
    this.clasifications_registers = [];
    this.showRequisites = false;
    this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
+      console.log(r);
       let esRegitro = false;
       this.specific_states.forEach(element => {
          if (element.id == this.rucEstablishmentRegisterSelected.status) {
@@ -1508,20 +1509,20 @@ export class RegistroComponent implements OnInit {
       if ( this.regionSelectedCode != '1' && esRegitro) {
          const clasificaciones = [];
          r.forEach(element => {
-            if (element.id !== 30 && element.id !== 44) {
-               if (element.id == 46) {
+            //if (element.id !== 30 && element.id !== 44) {
+               //if (element.id == 46) {
                   clasificaciones.push(element);
-               }
-            }
+               //}
+            //}
          });
          this.clasifications_registers = clasificaciones;
       } else {
          this.clasifications_registers = [];
          const clasificaciones = r as RegisterType[];
          clasificaciones.forEach(clasificacion => {
-            if (clasificacion.id == 46) {
+            //if (clasificacion.id == 46) {
                this.clasifications_registers.push(clasificacion);
-            }
+            //}
          });
       }
    }).catch( e => { console.log(e) });

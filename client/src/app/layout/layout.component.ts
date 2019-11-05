@@ -7,6 +7,7 @@ import { User } from '../models/profile/User';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { RegisterService } from '../services/CRUD/CATASTRO/register.service';
 import { Register } from '../models/CATASTRO/Register';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-layout',
@@ -121,6 +122,7 @@ export class LayoutComponent implements OnInit {
               sessionStorage.setItem('canMoreThanRegister',JSON.stringify(toReturn));
               sessionStorage.setItem('cuentaInterna',JSON.stringify(cuentaInterna));
               sessionStorage.setItem('establecimientos',JSON.stringify(establecimientos_id));
+              this.check_pendientes();
           }).catch( e => { console.log(e); });
           let redirigirProfile = false;
           if(user.main_phone_number == '' || typeof user.main_phone_number == 'undefined' || user.main_phone_number == null) {
@@ -129,6 +131,15 @@ export class LayoutComponent implements OnInit {
           if (redirigirProfile) {
             this.router.navigate(['/profile']);
           }
+        }).catch( e => { console.log(e); });
+    }
+
+    check_pendientes() {
+        const userData = JSON.parse(sessionStorage.getItem('user'));
+        this.catastroDataService.check_pendientes(userData.id).then( r => {
+            if (typeof r.title !== 'undefined' || r.title !== null) {
+                Swal.fire(r.title, r.message, r.type);
+            }
         }).catch( e => { console.log(e); });
     }
 }

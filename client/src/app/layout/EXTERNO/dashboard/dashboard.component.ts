@@ -2511,20 +2511,20 @@ export class DashboardComponent implements OnInit {
       if ( this.regionSelectedCode != '1' && esRegitro) {
          const clasificaciones = [];
          r.forEach(element => {
-            if (element.id !== 30 && element.id !== 44) {
-               if (element.id == 46) {
+            //if (element.id !== 30 && element.id !== 44) {
+            //   if (element.id == 46) {
                   clasificaciones.push(element);
-               }
-            }
+            //   }
+            //}
          });
          this.clasifications_registers = clasificaciones;
       } else {
          this.clasifications_registers = [];
          const clasificaciones = r as RegisterType[];
          clasificaciones.forEach(clasificacion => {
-            if (clasificacion.id == 46) {
+            //if (clasificacion.id == 46) {
                this.clasifications_registers.push(clasificacion);
-            }
+            //}
          });
       }
    }).catch( e => { console.log(e) });

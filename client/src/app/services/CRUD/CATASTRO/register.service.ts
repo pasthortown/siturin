@@ -37,6 +37,13 @@ export class RegisterService {
       }).catch( error => { this.handledError(error.json());  });
    }
 
+   check_pendientes(id_user: number): Promise<any> {
+      return this.http.post(this.url + 'pendientes', JSON.stringify(id_user), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }
+
    get_by_register_code(code: String): Promise<any> {
       return this.http.get(this.url + 'get_by_register_code?code=' + code.toString(), this.options).toPromise()
       .then( r => {
