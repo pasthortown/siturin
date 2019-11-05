@@ -38,7 +38,7 @@ export class RegisterService {
    }
 
    check_pendientes(id_user: number): Promise<any> {
-      return this.http.post(this.url + 'pendientes', JSON.stringify(id_user), this.options).toPromise()
+      return this.http.post(this.url + 'pendientes', JSON.stringify({id_user:id_user}), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
