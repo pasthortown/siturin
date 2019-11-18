@@ -9,6 +9,6 @@ export const environment = {
   api_financiero: 'http://ws-siturin-financiero.turismo.gob.ec/',
   api_mailer: 'http://ws-siturin-mailer.turismo.gob.ec/',
   api_catastro: 'http://ws-siturin-catastro.turismo.gob.ec/',
-  api_alimentos: 'http://ws-siturin-alimentos.turismo.gob.ec/',
+  api_alimentosbebidas: 'http://ws-siturin-alimentos.turismo.gob.ec/',
   gmapapiKey: 'AIzaSyCGUwCcM-LKjRK4rjbBJ06_GLmX2LaYzfg',
 };

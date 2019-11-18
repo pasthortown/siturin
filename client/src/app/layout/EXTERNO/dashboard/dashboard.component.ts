@@ -67,6 +67,7 @@ import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { PreviewRegisterCode } from 'src/app/models/BASE/PreviewRegisterCode';
 import { Ubication } from 'src/app/models/BASE/Ubication';
+import { RegisterTypeService as RegisterTypeAlimentosBebidasService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { Worker } from 'src/app/models/BASE/Worker';
 import { Register } from 'src/app/models/ALOJAMIENTO/Register';
 import { ComplementaryServiceType } from 'src/app/models/ALOJAMIENTO/ComplementaryServiceType';
@@ -391,6 +392,7 @@ export class DashboardComponent implements OnInit {
               private establishment_property_typeDataService: EstablishmentPropertyTypeService,
               private establishmentDataService: EstablishmentService,
               private register_typeDataService: RegisterTypeService,
+              private register_AlimentosBebidas_typeDataService: RegisterTypeAlimentosBebidasService,
               private requisiteDataService: RequisiteService,
               private bedTypeDataService: BedTypeService,
               private declarationDataService: DeclarationService,
@@ -2498,36 +2500,58 @@ export class DashboardComponent implements OnInit {
 
   getClasifications() {
    this.clasifications_registers = [];
+   this.categories_registers = [];
+   this.categorySelectedCode = '-';
    this.showRequisites = false;
-   this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
-      let esRegitro = false;
-      this.specific_states.forEach(element => {
-         if (element.id == this.rucEstablishmentRegisterSelected.status) {
-            if (element.name == 'Registro') {
-               esRegitro = true;
+   if (this.actividadSelected == '1') {
+      this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
+         let esRegitro = false;
+         this.specific_states.forEach(element => {
+            if (element.id == this.rucEstablishmentRegisterSelected.status) {
+               if (element.name == 'Registro') {
+                  esRegitro = true;
+               }
             }
-         }
-      });
-      if ( this.regionSelectedCode != '1' && esRegitro) {
-         const clasificaciones = [];
-         r.forEach(element => {
-            //if (element.id !== 30 && element.id !== 44) {
-            //   if (element.id == 46) {
-                  clasificaciones.push(element);
-            //   }
-            //}
          });
-         this.clasifications_registers = clasificaciones;
-      } else {
-         this.clasifications_registers = [];
-         const clasificaciones = r as RegisterType[];
-         clasificaciones.forEach(clasificacion => {
-            //if (clasificacion.id == 46) {
+         if ( this.regionSelectedCode != '1' && esRegitro) {
+            const clasificaciones = [];
+            r.forEach(element => {
+               clasificaciones.push(element);
+            });
+            this.clasifications_registers = clasificaciones;
+         } else {
+            this.clasifications_registers = [];
+            const clasificaciones = r as RegisterType[];
+            clasificaciones.forEach(clasificacion => {
                this.clasifications_registers.push(clasificacion);
-            //}
+            });
+         }
+      }).catch( e => { console.log(e) });
+   }
+   if (this.actividadSelected == '2') {
+      this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
+         let esRegitro = false;
+         this.specific_states.forEach(element => {
+            if (element.id == this.rucEstablishmentRegisterSelected.status) {
+               if (element.name == 'Registro') {
+                  esRegitro = true;
+               }
+            }
          });
-      }
-   }).catch( e => { console.log(e) });
+         const response = r as any[];
+         if ( this.regionSelectedCode != '1' && esRegitro) {
+            this.clasifications_registers = [];
+            response.forEach(element => {
+               this.clasifications_registers.push(element);
+            });
+         } else {
+            this.clasifications_registers = [];
+            response.forEach(element => {
+               this.clasifications_registers.push(element);
+            });
+         }
+      }).catch( e => { console.log(e) });
+   }
   }
 
   getRucNameTypes() {
@@ -4202,25 +4226,31 @@ guardarDeclaracion() {
   }
 
   validateRegister(): Boolean {
-     const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
-     const c3 = (this.categorySelectedCode == '-');
-     const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
-     const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
-     let c6: Boolean = false;
-     this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
-      if (!c6) {
-         c6 = (capacity.quantity * capacity.total_spaces == 0);
+      let toReturn: Boolean = false;
+      if (this.actividadSelected == '1') {
+         const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
+         const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
+         const c3 = (this.categorySelectedCode == '-');
+         const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
+         const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
+         let c6: Boolean = false;
+         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+            if (!c6) {
+               c6 = (capacity.quantity * capacity.total_spaces == 0);
+            }
+         });
+         let c7: Boolean = false;
+         this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register.forEach(complementaryServiceFood => {
+            if (!c7) {
+               c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
+            }
+         });
+         toReturn = c1 || c2 || c3 || c4 || c5 || c6 || c7;
+         return !toReturn;
       }
-     });
-     let c7: Boolean = false;
-     this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register.forEach(complementaryServiceFood => {
-      if (!c7) {
-         c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
-      }
-     });
-     const toReturn = c1 || c3 || c4 || c5 || c6 || c7;
-   return !toReturn;
-  }
+      toReturn = true;
+      return toReturn;
+   }
 
   removeComplementaryServiceType() {
    if (this.complementary_service_types_registerSelectedId === 0) {

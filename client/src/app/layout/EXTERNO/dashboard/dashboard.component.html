@@ -1283,9 +1283,10 @@
                                 <div class="form-group">
                                   <label>Actividad Turística</label><span *ngIf="actividadSelected == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
-                                  <select class="form-control" id="actividad" name="actividad" [(ngModel)]="actividadSelected" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                  <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                     <option value="-" selected>Seleccione...</option>
                                     <option value="1" selected>Alojamiento Turístico</option>
+                                    <option value="2" *ngIf="regionSelectedCode == '1'" selected>Alimentos y Bebidas</option>
                                   </select>
                                 </div>
                               </div>
@@ -1313,7 +1314,7 @@
                                   <select class="form-control" id="register_type_id" name="register_type_id"
                                     (change)="getAllowedInfo()" [(ngModel)]="
                                       rucEstablishmentRegisterSelected.register_type_id
-                                    " [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                    " [disabled]="!rucEstablishmentRegisterSelected.editable || actividadSelected == '2'">
                                     <option value="0" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of categories_registers

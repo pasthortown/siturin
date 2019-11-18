@@ -237,6 +237,87 @@
             </ul>
          </li>
       </div>
+      <div class="nested-menu">
+         <a class="list-group-item" (click)="addExpandClass('bdd alimentosbebidas')">
+            <span class="fas fa-database"></span>&nbsp;BDD ALIMENTOSBEBIDAS
+         </a>
+         <li class="nested" [class.expand]="showMenu === 'bdd alimentosbebidas'">
+            <ul class="submenu">
+               <li>
+                  <a [routerLink]="['/alimentos_register']" [routerLinkActive]="['router-link-active']" class="list-group-item">Register </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_capacity']" [routerLinkActive]="['router-link-active']" class="list-group-item">Capacity </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_complementary_service_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">ComplementaryServiceType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_register_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_register_type_image']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterTypeImage </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_requisite']" [routerLinkActive]="['router-link-active']" class="list-group-item">Requisite </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_register_requisite']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterRequisite </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_state']" [routerLinkActive]="['router-link-active']" class="list-group-item">State </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_register_state']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterState </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_capacity_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">CapacityType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_capacity_picture']" [routerLinkActive]="['router-link-active']" class="list-group-item">CapacityPicture </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_approval']" [routerLinkActive]="['router-link-active']" class="list-group-item">Approval </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_approval_state']" [routerLinkActive]="['router-link-active']" class="list-group-item">ApprovalState </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_approval_state_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">ApprovalStateAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_approval_state_report']" [routerLinkActive]="['router-link-active']" class="list-group-item">ApprovalStateReport </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_reception_room']" [routerLinkActive]="['router-link-active']" class="list-group-item">ReceptionRoom </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_procedure']" [routerLinkActive]="['router-link-active']" class="list-group-item">Procedure </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_procedure_justification']" [routerLinkActive]="['router-link-active']" class="list-group-item">ProcedureJustification </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_register_procedure']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterProcedure </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_property_title_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">PropertyTitleAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_authorization_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">AuthorizationAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_kitchen_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">KitchenType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_service_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">ServiceType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/alimentos_food_drink_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">FoodDrinkAttachment </a>
+               </li>
+            </ul>
+         </li>
+      </div>
       <div *ngIf="isAdmin" class="nested-menu">
          <a class="list-group-item" (click)="addExpandClass('bdd alojamiento')">
             <span class="fas fa-database"></span>&nbsp;BDD Alojamiento
@@ -254,6 +335,9 @@
                </li>
                <li>
                   <a [routerLink]="['/register_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">Tipos de Registro </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register_type_image']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterTypeImage </a>
                </li>
                <li>
                   <a [routerLink]="['/tariff_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">Tipos Tarifarios</a>

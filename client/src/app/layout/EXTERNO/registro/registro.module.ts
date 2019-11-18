@@ -51,6 +51,7 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { RegisterTypeService as RegisterTypeAlimentosBebidasService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
@@ -73,6 +74,7 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
     UserService,
     DinardapService,
     DeclarationItemService,
+    RegisterTypeAlimentosBebidasService,
     ReceptionRoomService,
     PropertyTitleAttachmentService,
     AuthorizationAttachmentService,

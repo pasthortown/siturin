@@ -137,7 +137,7 @@ export class LayoutComponent implements OnInit {
     check_pendientes() {
         const userData = JSON.parse(sessionStorage.getItem('user'));
         this.catastroDataService.check_pendientes(userData.id).then( r => {
-            if (typeof r.title !== 'undefined' || r.title !== null) {
+            if (typeof r.title !== 'undefined' && r.title !== null) {
                 Swal.fire(r.title, r.message, r.type);
             }
         }).catch( e => { console.log(e); });

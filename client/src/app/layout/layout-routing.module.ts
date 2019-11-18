@@ -126,6 +126,105 @@ const routes: Routes = [
             loadChildren: './CRUD/BASE/Agreement/agreement.module#AgreementModule'
          },
 
+         //ALIMENTOSBEBIDAS
+
+         {
+            path: 'alimentos_register',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/Register/register.module#RegisterModule'
+         },
+         {
+            path: 'alimentos_capacity',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/Capacity/capacity.module#CapacityModule'
+         },
+         {
+            path: 'alimentos_complementary_service_type',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ComplementaryServiceType/complementaryservicetype.module#ComplementaryServiceTypeModule'
+         },
+         {
+            path: 'alimentos_register_type',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/RegisterType/registertype.module#RegisterTypeModule'
+         },
+         {
+            path: 'alimentos_requisite',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/Requisite/requisite.module#RequisiteModule'
+         },
+         {
+            path: 'alimentos_register_requisite',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/RegisterRequisite/registerrequisite.module#RegisterRequisiteModule'
+         },
+         {
+            path: 'alimentos_state',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/State/state.module#StateModule'
+         },
+         {
+            path: 'alimentos_register_state',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/RegisterState/registerstate.module#RegisterStateModule'
+         },
+         {
+            path: 'alimentos_capacity_type',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/CapacityType/capacitytype.module#CapacityTypeModule'
+         },
+         {
+            path: 'alimentos_capacity_picture',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/CapacityPicture/capacitypicture.module#CapacityPictureModule'
+         },
+         {
+            path: 'alimentos_approval',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/Approval/approval.module#ApprovalModule'
+         },
+         {
+            path: 'alimentos_approval_state',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ApprovalState/approvalstate.module#ApprovalStateModule'
+         },
+         {
+            path: 'alimentos_approval_state_attachment',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ApprovalStateAttachment/approvalstateattachment.module#ApprovalStateAttachmentModule'
+         },
+         {
+            path: 'alimentos_approval_state_report',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ApprovalStateReport/approvalstatereport.module#ApprovalStateReportModule'
+         },
+         {
+            path: 'alimentos_reception_room',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ReceptionRoom/receptionroom.module#ReceptionRoomModule'
+         },
+         {
+            path: 'alimentos_procedure',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/Procedure/procedure.module#ProcedureModule'
+         },
+         {
+            path: 'alimentos_procedure_justification',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ProcedureJustification/procedurejustification.module#ProcedureJustificationModule'
+         },
+         {
+            path: 'alimentos_register_procedure',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/RegisterProcedure/registerprocedure.module#RegisterProcedureModule'
+         },
+         {
+            path: 'alimentos_property_title_attachment',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/PropertyTitleAttachment/propertytitleattachment.module#PropertyTitleAttachmentModule'
+         },
+         {
+            path: 'alimentos_authorization_attachment',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/AuthorizationAttachment/authorizationattachment.module#AuthorizationAttachmentModule'
+         },
+         {
+            path: 'alimentos_kitchen_type',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/KitchenType/kitchentype.module#KitchenTypeModule'
+         },
+         {
+            path: 'alimentos_service_type',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/ServiceType/servicetype.module#ServiceTypeModule'
+         },
+         {
+            path: 'alimentos_food_drink_attachment',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/FoodDrinkAttachment/fooddrinkattachment.module#FoodDrinkAttachmentModule'
+         },
+         {
+            path: 'alimentos_register_type_image',
+            loadChildren: './CRUD/ALIMENTOSBEBIDAS/RegisterTypeImage/registertypeimage.module#RegisterTypeImageModule'
+         },
+         
          //ALOJAMIENTO
          {
             path: 'tarifario-rack',
@@ -150,6 +249,10 @@ const routes: Routes = [
          {
             path: 'register_type',
             loadChildren: './CRUD/ALOJAMIENTO/RegisterType/registertype.module#RegisterTypeModule'
+         },
+         {
+            path: 'register_type_image',
+            loadChildren: './CRUD/ALOJAMIENTO/RegisterTypeImage/registertypeimage.module#RegisterTypeImageModule'
          },
          {
             path: 'requisite',
