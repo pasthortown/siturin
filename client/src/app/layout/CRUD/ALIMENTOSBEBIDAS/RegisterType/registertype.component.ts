@@ -85,9 +85,9 @@ export class RegisterTypeComponent implements OnInit {
    toCSV() {
       this.register_typeDataService.get().then( r => {
          const backupData = r as RegisterType[];
-         let output = 'id;name;description;code;father_code\n';
+         let output = 'id;name;description;code;father_code;min_points\n';
          backupData.forEach(element => {
-            output += element.id; + element.name + ';' + element.description + ';' + element.code + ';' + element.father_code + '\n';
+            output += element.id; + element.name + ';' + element.description + ';' + element.code + ';' + element.father_code + ';' + element.min_points + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

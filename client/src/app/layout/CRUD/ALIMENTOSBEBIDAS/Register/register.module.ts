@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { ComplementaryServiceTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/complementaryservicetype.service';
 import { RegisterTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { CapacityService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacity.service';
+import { KitchenTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
+import { ServiceTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 
 @NgModule({
    imports: [CommonModule,
@@ -20,6 +22,8 @@ import { CapacityService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/ca
                ComplementaryServiceTypeService,
                RegisterTypeService,
                CapacityService,
+               KitchenTypeService,
+               ServiceTypeService,
                RegisterService
                ]
 })

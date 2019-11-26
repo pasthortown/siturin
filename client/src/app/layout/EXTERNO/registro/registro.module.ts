@@ -57,6 +57,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -76,6 +79,8 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
     DeclarationItemService,
     RegisterTypeAlimentosBebidasService,
     ReceptionRoomService,
+    ServiceTypeService,
+    KitchenTypeService,
     PropertyTitleAttachmentService,
     AuthorizationAttachmentService,
     DeclarationItemCategoryService,
@@ -87,6 +92,7 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
     ComplementaryServiceFoodTypeService,
     EstablishmentPropertyTypeService,
     RequisiteService,
+    FoodDrinkAttachmentService,
     AgreementService,
     MailerService,
     UbicationService,

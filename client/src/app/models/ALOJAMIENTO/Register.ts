@@ -1,32 +1,30 @@
-import { Tariff } from './Tariff';
-import { ComplementaryServiceType } from './ComplementaryServiceType';
-import { RegisterRequisite } from './RegisterRequisite';
-import { ComplementaryServiceFood } from './ComplementaryServiceFood';
-import { Capacity } from './Capacity';
-
 export class Register {
    id: number;
    code: String;
    autorized_complementary_capacities: Boolean;
    autorized_complementary_food_capacities: Boolean;
    establishment_id: number;
-   complementary_service_types_on_register: ComplementaryServiceType[];
-   complementary_service_foods_on_register: ComplementaryServiceFood[];
+   complementary_service_types_on_register: any[];
+   complementary_service_foods_on_register: any[];
    register_type_id: number;
-   capacities_on_register: Capacity[];
-   requisites: RegisterRequisite[];
+   capacities_on_register: any[];
+   requisites: any[];
    editable: Boolean;
    total_spaces: number;
    total_habitations: number;
    total_beds: number;
    status: number;
-   tarifario_rack: Tariff[];
+   tarifario_rack: any[];
+   kitchen_types_on_register: any[];
+   service_types_on_register: any[];
    constructor() {
       this.id = 0;
       this.editable = true;
       this.tarifario_rack = [];
       this.complementary_service_types_on_register = [];
       this.complementary_service_foods_on_register = [];
+      this.kitchen_types_on_register = [];
+      this.service_types_on_register = [];
       this.capacities_on_register = [];
       this.establishment_id = 0;
       this.autorized_complementary_capacities = false;

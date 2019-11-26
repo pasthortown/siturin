@@ -30,6 +30,7 @@ import { BedTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/bedtype.servic
 import { BedType } from 'src/app/models/ALOJAMIENTO/BedType';
 import { Bed } from 'src/app/models/ALOJAMIENTO/Bed';
 import { Capacity } from 'src/app/models/ALOJAMIENTO/Capacity';
+import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 import { RegisterRequisite } from 'src/app/models/ALOJAMIENTO/RegisterRequisite';
 import { EstablishmentCertificationTypeService } from 'src/app/services/CRUD/BASE/establishmentcertificationtype.service';
 import { EstablishmentCertificationType } from 'src/app/models/BASE/EstablishmentCertificationType';
@@ -97,6 +98,12 @@ import { PropertyTitleAttachment } from 'src/app/models/ALOJAMIENTO/PropertyTitl
 import { AuthorizationAttachment } from 'src/app/models/ALOJAMIENTO/AuthorizationAttachment';
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { FoodDrinkAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/FoodDrinkAttachment';
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { ServiceType } from 'src/app/models/ALIMENTOSBEBIDAS/ServiceType';
+import { KitchenType } from 'src/app/models/ALIMENTOSBEBIDAS/KitchenType';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 
 @Component({
   selector: 'app-registro',
@@ -137,6 +144,7 @@ export class RegistroComponent implements OnInit {
   //DATOS RUC
   certificadoUsoSuelo: FloorAuthorizationCertificate = new FloorAuthorizationCertificate();
   tituloPropiedad: PropertyTitleAttachment = new PropertyTitleAttachment();
+  listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
   autorizacionCondomino: AuthorizationAttachment = new AuthorizationAttachment();
   roles:any[] = [];
   terminosCondiciones = false;
@@ -234,15 +242,19 @@ export class RegistroComponent implements OnInit {
   mostrarDataRegister = false;
   showRequisites = false;
   complementaryServiceFoodSelected: ComplementaryServiceFood = new ComplementaryServiceFood();
-  rucEstablishmentRegisterSelected: any = new Register();
+  rucEstablishmentRegisterSelected: Register = new Register();
   clasifications_registers: any[] = [];
   categories_registers: any[] = [];
   register_types: any[] = [];
   complementary_service_types: ComplementaryServiceType[] = [];
+  service_types: ServiceType[] = [];
+  kitchen_types: KitchenType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
   requisitesByRegisterType: Requisite[] = [];
   categorySelectedCode = '-';
   complementary_service_types_registerSelectedId = 0;
+  kitchen_type_registerSelectedId = 0;
+  service_type_registerSelectedId = 0;
   capacitySelected: Capacity = new Capacity();
   bedSelected: Bed = new Bed();
   alowed_bed_types: BedType[] = []; 
@@ -293,6 +305,9 @@ export class RegistroComponent implements OnInit {
               private agreementDataService: AgreementService,
               private rucNameTypeDataService: RucNameTypeService,
               private group_typeDataService: GroupTypeService,
+              private serviceTypeDataService: ServiceTypeService,
+              private kitchenTypeDataService: KitchenTypeService,
+              private foodDrinkAttachmentDataService: FoodDrinkAttachmentService,
               private languageDataService: LanguageService,
               private complementaryServiceFoodTypeDataService: ComplementaryServiceFoodTypeService,
               private establishmentPictureDataService: EstablishmentPictureService,
@@ -1430,6 +1445,13 @@ export class RegistroComponent implements OnInit {
       this.tituloPropiedad.property_title_attachment_file_name);
   }
 
+  downloadListaPrecios() {
+   this.downloadFile(
+      this.listaPrecios.food_drink_attachment_file,
+      this.listaPrecios.food_drink_attachment_file_type,
+      this.listaPrecios.food_drink_attachment_file_name);
+  }
+
   downloadAutorizacionCondominio() {
    this.downloadFile(
       this.autorizacionCondomino.authorization_attachment_file,
@@ -1454,6 +1476,10 @@ export class RegistroComponent implements OnInit {
 
   borrarPropertyTitle() {
    this.tituloPropiedad = new PropertyTitleAttachment();
+  }
+
+  borrarListaPrecios() {
+   this.listaPrecios = new FoodDrinkAttachment();
   }
 
   borrarAutorizacionCondominio() {
@@ -1527,6 +1553,8 @@ export class RegistroComponent implements OnInit {
       }).catch( e => { console.log(e) });
    }
    if (this.actividadSelected == '2') {
+      this.getServiceType();
+      this.getKitchenType();
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
          this.specific_states.forEach(element => {
@@ -1995,6 +2023,20 @@ export class RegistroComponent implements OnInit {
    }).catch( e => console.log(e) );
   }
 
+  getServiceType() {
+   this.service_types = [];
+   this.serviceTypeDataService.get().then( r => {
+      this.service_types = r as ServiceType[];
+   }).catch( e => console.log(e) );
+  }
+  
+  getKitchenType() {
+   this.kitchen_types = [];
+   this.kitchenTypeDataService.get().then( r => {
+      this.kitchen_types = r as KitchenType[];
+   }).catch( e => console.log(e) );
+  }
+
   getAllowedInfo(requisites?: RegisterRequisite[]) {
    this.getRequisitesByRegisterType(requisites);
    this.getBedTypes();
@@ -2075,13 +2117,19 @@ export class RegistroComponent implements OnInit {
 
   getCategories() {
    this.categories_registers = [];
+   this.rucEstablishmentRegisterSelected.capacities_on_register = []
    this.rucEstablishmentRegisterSelected.requisites = [];
+   this.rucEstablishmentRegisterSelected.register_type_id = 0;
+   this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = [];
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
+   this.rucEstablishmentRegisterSelected.service_types_on_register = [];
    if (this.actividadSelected == '1') {
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
+      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB())
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
       }).catch( e => { console.log(e) });
@@ -3123,6 +3171,21 @@ export class RegistroComponent implements OnInit {
    }
   }
 
+  CodificarArchivoListaPrecios(event) {
+   const reader = new FileReader();
+   if (event.target.files && event.target.files.length > 0) {
+    const file = event.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.listaPrecios.food_drink_attachment_file = reader.result.toString().split(',')[1];
+      this.listaPrecios.food_drink_attachment_file_type = file.type;
+      this.listaPrecios.food_drink_attachment_file_name = file.name;
+      this.listaPrecios.type = 'Lista Precios';
+      this.listaPrecios.date = new Date();
+    };
+   }
+  }
+
   CodificarArchivoAutorizacionCondominio(event) {
    const reader = new FileReader();
    if (event.target.files && event.target.files.length > 0) {
@@ -3214,6 +3277,14 @@ export class RegistroComponent implements OnInit {
     this.complementary_service_types_registerSelectedId = complementary_service_type.id;
   }
 
+  selectServiceType(serviceType: ServiceType) {
+      this.service_type_registerSelectedId = serviceType.id;
+  }
+   
+  selectKitchenType(kitchenType: KitchenType) {
+      this.kitchen_type_registerSelectedId = kitchenType.id;
+  }
+   
   getTramiteStatus(status_id: number) {
      this.states.forEach(state => {
         if (state.id == status_id) {
@@ -3259,6 +3330,52 @@ export class RegistroComponent implements OnInit {
     });
   }
 
+  addServiceType() {
+   if (this.service_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   this.service_types.forEach(service_type => {
+     if (service_type.id == this.service_type_registerSelectedId) {
+        let existe = false;
+        this.rucEstablishmentRegisterSelected.service_types_on_register.forEach(element => {
+           if (element.id == service_type.id) {
+              existe = true;
+           }
+        });
+        if (!existe) {
+           this.rucEstablishmentRegisterSelected.service_types_on_register.push(service_type);
+           this.service_type_registerSelectedId = 0;
+        } else {
+           this.toastr.errorToastr('El registro ya existe.', 'Error');
+        }
+     }
+   });
+ }
+
+ addKitchenType() {
+   if (this.kitchen_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   this.kitchen_types.forEach(kitchenType => {
+     if (kitchenType.id == this.kitchen_type_registerSelectedId) {
+        let existe = false;
+        this.rucEstablishmentRegisterSelected.kitchen_types_on_register.forEach(element => {
+           if (element.id == kitchenType.id) {
+              existe = true;
+           }
+        });
+        if (!existe) {
+           this.rucEstablishmentRegisterSelected.kitchen_types_on_register.push(kitchenType);
+           this.kitchen_type_registerSelectedId = 0;
+        } else {
+           this.toastr.errorToastr('El registro ya existe.', 'Error');
+        }
+     }
+   });
+ }
+
   validateRegister(): Boolean {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
@@ -3284,6 +3401,50 @@ export class RegistroComponent implements OnInit {
       }
       toReturn = true;
       return toReturn;
+  }
+
+  removeKitchenType() {
+   if (this.kitchen_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   const newKitchenTypes: any[] = [];
+   let eliminado = false;
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register.forEach(kitchenType => {
+     if (kitchenType.id !== this.kitchen_type_registerSelectedId) {
+         newKitchenTypes.push(kitchenType);
+     } else {
+        eliminado = true;
+     }
+   });
+   if (!eliminado) {
+     this.toastr.errorToastr('Registro no encontrado.', 'Error');
+     return;
+   }
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register = newKitchenTypes;
+   this.kitchen_type_registerSelectedId = 0;
+  }
+
+  removeServiceType() {
+   if (this.service_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   const newServiceTypes: ComplementaryServiceType[] = [];
+   let eliminado = false;
+   this.rucEstablishmentRegisterSelected.service_types_on_register.forEach(service_type => {
+     if (service_type.id !== this.service_type_registerSelectedId) {
+      newServiceTypes.push(service_type);
+     } else {
+        eliminado = true;
+     }
+   });
+   if (!eliminado) {
+     this.toastr.errorToastr('Registro no encontrado.', 'Error');
+     return;
+   }
+   this.rucEstablishmentRegisterSelected.service_types_on_register = newServiceTypes;
+   this.service_type_registerSelectedId = 0;
   }
 
   removeComplementaryServiceType() {

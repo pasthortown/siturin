@@ -17,6 +17,8 @@ import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENT
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 import { RegisterTypeService as RegisterTypeAlimentosBebidasService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
@@ -79,6 +81,8 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
     DinardapService,
     DeclarationItemService,
     ConsultorService,
+    KitchenTypeService,
+    ServiceTypeService,
     DeclarationItemCategoryService,
     DeclarationService,
     ProcedureJustificationService,
