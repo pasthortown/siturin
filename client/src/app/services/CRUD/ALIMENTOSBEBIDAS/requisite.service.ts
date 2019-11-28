@@ -44,6 +44,13 @@ export class RequisiteService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   get_filtered(filter: number): Promise<any> {
+      return this.http.get(this.url + 'filtered?filter=' + filter.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
    getBackUp(): Promise<any> {
       return this.http.get(this.url + 'backup', this.options).toPromise()
       .then( r => {

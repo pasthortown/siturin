@@ -35,6 +35,7 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { SystemNameService } from 'src/app/services/CRUD/BASE/systemname.service';
 import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
+import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { GenderService } from 'src/app/services/CRUD/BASE/gender.service';
 import { EstablishmentCertificationTypeService } from 'src/app/services/CRUD/BASE/establishmentcertificationtype.service';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
@@ -100,6 +101,7 @@ import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitch
     ExporterService,
     DocumentService,
     CapacityTypeService,
+    RequisiteABService,
     EstablishmentCertificationAttachmentService,
     EstablishmentPictureService,
     StateService,

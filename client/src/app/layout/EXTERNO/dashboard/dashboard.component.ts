@@ -3255,7 +3255,7 @@ guardarDeclaracion() {
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
-      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB())
+      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
       }).catch( e => { console.log(e) });

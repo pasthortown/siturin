@@ -1807,13 +1807,15 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0)">
                           <div class="col-12">
                             <div class="row mt-3">
                                 <h4 class="col-12">
-                                  <strong>Normativa</strong>
+                                  <strong>Normativa</strong>&nbsp;
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntos}}</span>&nbsp;
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
                                 </h4>
-                              </div>
+                            </div>
                           </div>
                           <div class="col-12">
                             <div class="alert alert-warning" role="alert">
@@ -1840,7 +1842,7 @@
                                             register_requisite.HTMLtype !== 'GRUPO 2' &&
                                             register_requisite.HTMLtype !== 'GRUPO 3' &&
                                             register_requisite.HTMLtype !== 'GRUPO 4' && 
-                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong></label>
+                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos: ({{register_requisite.score}})</strong></label>
                                           <h5>
                                             <strong
                                             *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
@@ -1870,10 +1872,10 @@
                                               type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="{{register_requisite.id}}" name="cumple" [(ngModel)]="
                                               register_requisite.fullfill
                                                   " (change)="changeFullfill(register_requisite)" /><label class="onoffswitch-label" for="{{register_requisite.id}}">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
+                                                <span class="onoffswitch-inner"></span>
+                                                <span class="onoffswitch-switch"></span>
+                                          </label>
+                                        </div>
                                           <select class="form-control" *ngIf="register_requisite.HTMLtype == 'YES / NO'"
                                           [(ngModel)]="register_requisite.value" [disabled]="!rucEstablishmentRegisterSelected.editable"
                                           >
@@ -2050,8 +2052,15 @@
                                 </div>
                               </div>
                             </div>
-
-                        </div>
+                            <div class="col-12" *ngIf="actividadSelected == '2'">
+                              <div class="row mt-3">
+                                  <h4 class="col-12">
+                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntos}}</span>&nbsp;
+                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
+                                  </h4>
+                              </div>
+                            </div>
+                          </div>
                       </div>
                     </div>
                     <div class="row mt-3">

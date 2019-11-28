@@ -32,6 +32,7 @@ import { Bed } from 'src/app/models/ALOJAMIENTO/Bed';
 import { Capacity } from 'src/app/models/ALOJAMIENTO/Capacity';
 import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 import { RegisterRequisite } from 'src/app/models/ALOJAMIENTO/RegisterRequisite';
+import { RegisterRequisite as RegisterABRequisite } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterRequisite';
 import { EstablishmentCertificationTypeService } from 'src/app/services/CRUD/BASE/establishmentcertificationtype.service';
 import { EstablishmentCertificationType } from 'src/app/models/BASE/EstablishmentCertificationType';
 import { Gender } from 'src/app/models/BASE/Gender';
@@ -73,6 +74,7 @@ import { GenderService } from 'src/app/services/CRUD/BASE/gender.service';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
 import { RegisterTypeService as RegisterTypeAlimentosBebidasService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { RequisiteService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { TariffType } from 'src/app/models/ALOJAMIENTO/TariffType';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
@@ -171,6 +173,8 @@ export class RegistroComponent implements OnInit {
   identificationRepresentativePersonValidated = false;
   identificationContactValidated = false;
   addressContactValidated = false;
+  totalABPuntos = 0;
+  categoryAB = 'Pendiente';
   emailContactValidated = false;
   mainPhoneContactValidated = false;
   secondaryPhoneContactValidated = true;
@@ -250,7 +254,7 @@ export class RegistroComponent implements OnInit {
   service_types: ServiceType[] = [];
   kitchen_types: KitchenType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
-  requisitesByRegisterType: Requisite[] = [];
+  requisitesByRegisterType: any[] = [];
   categorySelectedCode = '-';
   complementary_service_types_registerSelectedId = 0;
   kitchen_type_registerSelectedId = 0;
@@ -307,6 +311,7 @@ export class RegistroComponent implements OnInit {
               private group_typeDataService: GroupTypeService,
               private serviceTypeDataService: ServiceTypeService,
               private kitchenTypeDataService: KitchenTypeService,
+              private requisiteABDataService: RequisiteABService,
               private foodDrinkAttachmentDataService: FoodDrinkAttachmentService,
               private languageDataService: LanguageService,
               private complementaryServiceFoodTypeDataService: ComplementaryServiceFoodTypeService,
@@ -351,6 +356,23 @@ export class RegistroComponent implements OnInit {
       return true;
    }
    return false;
+  }
+
+  calcTotalPoints() {
+   let totalScore = 0;
+   this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+      if (element.fullfill) {
+         totalScore += element.score * 1;
+      }
+   });
+   this.totalABPuntos = totalScore;
+   this.categoryAB = 'Pendiente';
+   this.categories_registers.forEach(category => {
+      if (category.min_points <= this.totalABPuntos) {
+         this.categoryAB = category.name;
+         this.rucEstablishmentRegisterSelected.register_type_id = category.id;
+      }
+   });
   }
 
   onChangeTablePays(config: any, event?): any {
@@ -2106,6 +2128,9 @@ export class RegistroComponent implements OnInit {
      } else {
       register_requisite.value = 'false';
      }
+     if (this.actividadSelected == '2') {
+        this.calcTotalPoints();
+     }
   }
 
   getComplementaryServiceTypeCategories() {
@@ -2129,11 +2154,70 @@ export class RegistroComponent implements OnInit {
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
-      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB())
+      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+      this.totalABPuntos = 0;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         this.calcTotalPoints();
       }).catch( e => { console.log(e) });
+      this.getRequisitesABByRegisterType();
    }
+  }
+
+  getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.requisiteABDataService.get_filtered(categorySelectedID).then( r => {
+      this.requisitesByRegisterType = r as any[];
+      this.requisitesByRegisterType.forEach(element => {
+         const newRegisterRequisite = new RegisterABRequisite();
+         newRegisterRequisite.to_approve = element.to_approve;
+         newRegisterRequisite.score = element.score;
+         newRegisterRequisite.requisite_name = element.name;
+         newRegisterRequisite.requisite_id = element.id;
+         newRegisterRequisite.fullfill = true;
+         newRegisterRequisite.requisite_code = element.code;
+         newRegisterRequisite.mandatory = element.mandatory;
+         newRegisterRequisite.id = element.id;
+         newRegisterRequisite.requisite_father_code = element.father_code;
+         newRegisterRequisite.level = element.code.split('.').length;
+         newRegisterRequisite.HTMLtype = element.type;
+         newRegisterRequisite.fullfill = false;
+         if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+            newRegisterRequisite.value = 'false';
+         }
+         this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
+      });
+      this.showRequisites  = true;
+      if (typeof requisites !== 'undefined') {
+         this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
+            requisites.forEach(requisite_incomming => {
+               if (requisite.requisite_id == requisite_incomming.requisite_id) {
+                  requisite.value = requisite_incomming.value;
+                  requisite.fullfill = requisite_incomming.fullfill;
+                  requisite.id = requisite_incomming.id;
+                  requisite.register_id = requisite_incomming.register_id;
+               }
+            });
+         });
+      }
+      this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
+         const a_id = a.requisite_id;
+         const b_id = b.requisite_id;
+         return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+     });
+     
+   }).catch( e => { console.log(e) });
   }
 
   getEstablishmentCertificationTypesCategories() {
