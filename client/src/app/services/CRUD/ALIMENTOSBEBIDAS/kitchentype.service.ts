@@ -37,6 +37,13 @@ export class KitchenTypeService {
       }).catch( error => { this.handledError(error.json());  });
    }
 
+   getFiltered(filter: number): Promise<any> {
+      return this.http.get(this.url + 'filtered?filter=' + filter.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
    delete(id: number): Promise<any> {
       return this.http.delete(this.url + '?id=' + id.toString(), this.options).toPromise()
       .then( r => {

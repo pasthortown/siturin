@@ -61,6 +61,7 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -78,6 +79,7 @@ import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitch
     UserService,
     DinardapService,
     DeclarationItemService,
+    RegisterABService,
     RegisterTypeAlimentosBebidasService,
     ReceptionRoomService,
     ServiceTypeService,

@@ -30,6 +30,13 @@ export class ServiceTypeService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   getFiltered(filter: number): Promise<any> {
+      return this.http.get(this.url + 'filtered?filter=' + filter.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+   
    get_paginate(size: number, page: number): Promise<any> {
       return this.http.get(this.url + 'paginate?size=' + size.toString() + '&page=' + page.toString(), this.options).toPromise()
       .then( r => {

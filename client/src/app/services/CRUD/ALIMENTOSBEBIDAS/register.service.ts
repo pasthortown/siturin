@@ -17,6 +17,13 @@ export class RegisterService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
+   register_register_data(register: Register): Promise<any> {
+      return this.http.post(this.url + 'register_register_data', JSON.stringify(register), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }
+   
    get(id?: number): Promise<any> {
       if (typeof id === 'undefined') {
          return this.http.get(this.url, this.options).toPromise()

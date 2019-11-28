@@ -2610,14 +2610,26 @@ export class DashboardComponent implements OnInit {
 
   getServiceType() {
    this.service_types = [];
-   this.serviceTypeDataService.get().then( r => {
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.serviceTypeDataService.getFiltered(categorySelectedID).then( r => {
       this.service_types = r as ServiceType[];
    }).catch( e => console.log(e) );
   }
   
   getKitchenType() {
    this.kitchen_types = [];
-   this.kitchenTypeDataService.get().then( r => {
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.kitchenTypeDataService.getFiltered(categorySelectedID).then( r => {
       this.kitchen_types = r as KitchenType[];
    }).catch( e => console.log(e) );
   }
@@ -2653,8 +2665,6 @@ export class DashboardComponent implements OnInit {
       }).catch( e => { console.log(e) });
    }
    if (this.actividadSelected == '2') {
-      this.getServiceType();
-      this.getKitchenType();
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
          this.specific_states.forEach(element => {
@@ -3255,6 +3265,8 @@ guardarDeclaracion() {
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
+      this.getServiceType();
+      this.getKitchenType();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
