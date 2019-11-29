@@ -3,4 +3,10 @@ export class Capacity {
    quantity_tables: number;
    quantity_spaces: number;
    capacity_type_id: number;
+   constructor() {
+      this.quantity_tables = 0;
+      this.quantity_spaces = 0;
+      this.capacity_type_id = 0;
+      this.id = 0;
+   }
 }

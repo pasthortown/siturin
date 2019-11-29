@@ -1998,11 +1998,11 @@ export class RegistroComponent implements OnInit {
   }
 
   validateCapacidades(): Boolean {
-   return !(this.rucEstablishmentRegisterSelected.capacities_on_register[0].quantity_tables == 0 || this.rucEstablishmentRegisterSelected.capacities_on_register[0].capacity.quantity_spaces == 0);
+   return !(this.rucEstablishmentRegisterSelected.capacities_on_register[0].quantity_tables == 0 || this.rucEstablishmentRegisterSelected.capacities_on_register[0].quantity_spaces == 0);
   }
 
   saveAlimentosBebidas() {
-   if (!this.validateDeclaration()) {
+   if (!this.validateCapacidades()) {
       this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
       return;
    }
