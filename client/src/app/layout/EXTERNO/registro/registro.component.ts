@@ -1886,10 +1886,12 @@ export class RegistroComponent implements OnInit {
    }).catch( e => { console.log(e); });
    this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
-      this.tituloPropiedad.register_id = r.id;
-      this.autorizacionCondomino.register_id = r.id;
-      this.guardarTituloPropiedad();
-      this.guardarAutorizacionCondominos();
+      if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
+         this.tituloPropiedad.register_id = r.id;
+         this.autorizacionCondomino.register_id = r.id;
+         this.guardarTituloPropiedad();
+         this.guardarAutorizacionCondominos();      
+      }
       this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       const today = new Date();
@@ -2033,18 +2035,15 @@ export class RegistroComponent implements OnInit {
    this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
 
    }).catch( e => { console.log(e); });
-   //AQUI
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+      console.log(r);
+      return;
       this.certificadoUsoSuelo.register_id = r.id;
-      this.tituloPropiedad.register_id = r.id;
-      this.autorizacionCondomino.register_id = r.id;
-      this.guardarTituloPropiedad();
-      this.guardarAutorizacionCondominos();
       this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       const today = new Date();
       const tipo_tramite = 'REGISTRO';
-      const actividad = 'ALOJAMIENTO';
+      const actividad = 'ALIMENTOS Y BEBIDAS';
       let provincia = new Ubication();
       let canton = new Ubication();
       let parroquia = new Ubication();
@@ -2117,7 +2116,7 @@ export class RegistroComponent implements OnInit {
             ruc: this.user.ruc,
             nombreComercial: this.establishment_selected.commercially_known_name,
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico',
+            actividad: 'Alimentos y Bebidas',
             clasificacion: clasificacion,
             categoria: categoria,
             razon_social: this.razon_social,
