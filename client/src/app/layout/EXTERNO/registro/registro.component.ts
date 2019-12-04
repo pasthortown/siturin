@@ -23,6 +23,7 @@ import { Agreement } from 'src/app/models/BASE/Agreement';
 import { UserService } from 'src/app/services/profile/user.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
+import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 import { CapacityType } from 'src/app/models/ALOJAMIENTO/CapacityType';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
 import { TariffTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/tarifftype.service';
@@ -142,6 +143,7 @@ export class RegistroComponent implements OnInit {
    totalunoxmil = 0;
    regiones = [];
    regionSelectedCode = '-';
+   capacityTypesAB: any[] = [];
    franchiseChainNameValidated = false;
 
   //DATOS RUC
@@ -310,6 +312,7 @@ export class RegistroComponent implements OnInit {
               private agreementDataService: AgreementService,
               private rucNameTypeDataService: RucNameTypeService,
               private group_typeDataService: GroupTypeService,
+              private capacityTypeABDataService: CapacityTypeABService,
               private serviceTypeDataService: ServiceTypeService,
               private kitchenTypeDataService: KitchenTypeService,
               private requisiteABDataService: RequisiteABService,
@@ -2014,6 +2017,11 @@ export class RegistroComponent implements OnInit {
       this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
       return;
    }
+   this.capacityTypesAB.forEach(element => {
+      if (element.register_type_id == this.rucEstablishmentRegisterSelected.register_type_id) {
+         this.rucEstablishmentRegisterSelected.capacities_on_register[0].capacity_type_id = element.id;
+      }
+   });
    let mostradoError = false;
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
       if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
@@ -2326,6 +2334,7 @@ export class RegistroComponent implements OnInit {
    if (this.actividadSelected == '2') {
       this.getServiceType();
       this.getKitchenType();
+      this.getCapacityTypesAB();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
       this.totalABPuntos = 0;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
@@ -2334,6 +2343,13 @@ export class RegistroComponent implements OnInit {
       }).catch( e => { console.log(e) });
       this.getRequisitesABByRegisterType();
    }
+  }
+
+  getCapacityTypesAB() {
+     this.capacityTypesAB = [];
+     this.capacityTypeABDataService.get().then( r => {
+        this.capacityTypesAB = r as any[];
+     }).catch( e => { console.log(e); });
   }
 
   getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
