@@ -11,6 +11,7 @@ import { RegistroRoutingModule } from './registro-routing.module';
 import { PersonRepresentativeAttachmentService } from 'src/app/services/CRUD/BASE/personrepresentativeattachment.service';
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -86,6 +87,7 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
     KitchenTypeService,
     PropertyTitleAttachmentService,
     AuthorizationAttachmentService,
+    CapacityTypeABService,
     DeclarationItemCategoryService,
     DeclarationService,
     TaxPayerTypeService,
