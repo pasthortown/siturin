@@ -2159,8 +2159,18 @@ export class RegistroComponent implements OnInit {
   getRegistersOnRuc() {
    this.rucEstablishmentRegisterSelected = new Register();
    this.mostrarDataRegister = false;
+   this.ruc_registro_selected.registers = [];
+   this.registerABDataService.get_registers_by_ruc(this.user.ruc).then( r => {
+      const registers = r as any[];
+      registers.forEach(element => {
+         this.ruc_registro_selected.registers.push(element);
+      });
+   }).catch( e => { console.log(e); });
    this.registerDataService.get_registers_by_ruc(this.user.ruc).then( r => {
-      this.ruc_registro_selected.registers = r as any[];
+      const registers = r as any[];
+      registers.forEach(element => {
+         this.ruc_registro_selected.registers.push(element);
+      });
    }).catch( e => { console.log(e); });
   }
 
