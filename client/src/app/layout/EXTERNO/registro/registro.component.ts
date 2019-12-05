@@ -168,6 +168,7 @@ export class RegistroComponent implements OnInit {
   representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   cedulaEstablishmentContactData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   tax_payer_types: TaxPayerType[] = [];
+  registersByEstablishment: any[] = [];
   zonalSelectedCode = '-';
   provinciaSelectedCode = '-';
   cantonSelectedCode = '-';
@@ -432,7 +433,17 @@ export class RegistroComponent implements OnInit {
      'motel',
      'campamento',
      'refugio',
-     'resort '];
+     'resort ',
+     'cafetería',
+     'cafeteria',
+     'bar',
+     'restaurante',
+     'discoteca',
+     'catering',
+     'establecimiento móvil',
+     'establecimiento movil',
+     'plaza de comida',
+     ];
      let errorEnNombreDetectadoListaPalabras = false;
      palabrasNoPermitidas.forEach(palabraNoPermitida => {
         const nombre = palabraNoPermitida.toUpperCase();
@@ -3175,21 +3186,30 @@ export class RegistroComponent implements OnInit {
       return;
      }
     this.selectRegisterEstablishmentDeclaration(establishment);
-    let registerSelected = new Register();
+    if (this.actividadSelected == '1') {
+
+    }
+    this.registersByEstablishment = [];
+    let isAlojamiento = false;
     this.ruc_registro_selected.registers.forEach(register => {
        if (register.establishment.id == establishment.id) {
-         registerSelected = register.register;
+         this.registersByEstablishment.push(register);
+         if (register.activity == "ALOJAMIENTO") {
+            isAlojamiento = true;
+         }
        }
     });
-    if (registerSelected.id == 0) {
-      this.rucEstablishmentRegisterSelected = new Register();
-      this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
-      this.rucEstablishmentRegisterSelected.status = 11;
-      this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
-      this.mostrarDataRegister = true;
-    } else {
-      this.selectEstablishmentRegister(registerSelected, false);
-    }
+    if (isAlojamiento) {
+      if (this.registersByEstablishment[0].register.id == 0) {
+         this.rucEstablishmentRegisterSelected = new Register();
+         this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+         this.rucEstablishmentRegisterSelected.status = 11;
+         this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
+         this.mostrarDataRegister = true;
+       } else {
+         this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+       }
+    }    
     this.establishmentDataService.get_filtered(establishment.id).then( r => {
       this.establishment_selected = r.establishment as Establishment;
       this.recoverUbication();
