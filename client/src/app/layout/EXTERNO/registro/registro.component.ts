@@ -1449,6 +1449,19 @@ export class RegistroComponent implements OnInit {
      }
   }
 
+  guardarListaPrecios(register_id: number) {
+   this.listaPrecios.register_id = register_id;
+   if(this.listaPrecios.id == 0) {
+    this.foodDrinkAttachmentDataService.post(this.listaPrecios).then( r => { 
+
+    }).catch( e => { console.log(e); });
+   } else {
+    this.foodDrinkAttachmentDataService.put(this.listaPrecios).then( r => { 
+
+    }).catch( e => { console.log(e); });
+   }
+  }
+
   guardarTituloPropiedad() {
    if(this.tituloPropiedad.id == 0) {
     this.propertyTitleAttachmentDataService.post(this.tituloPropiedad).then( r => { 
@@ -2116,6 +2129,7 @@ export class RegistroComponent implements OnInit {
       this.certificadoUsoSuelo.register_id = r.id;
       this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
+      this.guardarListaPrecios(r.id);
       const today = new Date();
       const tipo_tramite = 'REGISTRO';
       const actividad = 'ALIMENTOS Y BEBIDAS';
@@ -2428,10 +2442,9 @@ export class RegistroComponent implements OnInit {
                   this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
                   this.rucEstablishmentRegisterSelected.requisites = [];
                   this.getRequisitesABByRegisterType(r.requisites);
-                  this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.requister.kitchen_types;
-                  this.rucEstablishmentRegisterSelected.service_types_on_register = r.requister.service_types;
-                  console.log(r);
-                  //AQUI
+                  this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.register.kitchen_types;
+                  this.rucEstablishmentRegisterSelected.service_types_on_register = r.register.service_types;
+                  this.getListaPrecios(r.register.id);
                }).catch( e => { console.log(e); });
             } else {
                this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
@@ -3207,6 +3220,12 @@ export class RegistroComponent implements OnInit {
      this.floorAuthorizationCertificateDataService.get_by_register_id(register_id).then( r => {
         this.certificadoUsoSuelo = r as FloorAuthorizationCertificate;
      }).catch( e => { console.log(e); });
+  }
+
+  getListaPrecios(register_id: number) {
+   this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
+      this.listaPrecios = r as FoodDrinkAttachment;
+   }).catch( e => { console.log(e); });
   }
 
   getTituloPropiedad(register_id: number) {
