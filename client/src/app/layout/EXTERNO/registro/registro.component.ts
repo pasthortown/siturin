@@ -2427,6 +2427,7 @@ export class RegistroComponent implements OnInit {
       this.getKitchenType();
       this.getCapacityTypesAB();
       this.totalABPuntos = 0;
+      this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
          this.ruc_registro_selected.registers.forEach(element => {
@@ -2444,7 +2445,6 @@ export class RegistroComponent implements OnInit {
                   this.getRequisitesABByRegisterType(r.requisites);
                   this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
                   this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
-                  console.log(this.rucEstablishmentRegisterSelected);
                   this.getListaPrecios(r.register.id);
                }).catch( e => { console.log(e); });
             } else {
