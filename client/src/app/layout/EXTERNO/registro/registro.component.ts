@@ -2426,12 +2426,14 @@ export class RegistroComponent implements OnInit {
                   this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
                   this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
                   this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                  this.rucEstablishmentRegisterSelected.requisites = [];
                   this.getRequisitesABByRegisterType(r.requisites);
                   console.log(r);
                   //AQUI
                }).catch( e => { console.log(e); });
             } else {
                this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+               this.rucEstablishmentRegisterSelected.requisites = [];
                this.getRequisitesABByRegisterType();
             }
          });
@@ -2499,7 +2501,6 @@ export class RegistroComponent implements OnInit {
          const b_id = b.requisite_id;
          return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
      });
-     
    }).catch( e => { console.log(e) });
   }
 
