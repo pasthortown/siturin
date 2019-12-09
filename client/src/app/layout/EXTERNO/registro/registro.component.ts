@@ -3268,6 +3268,7 @@ export class RegistroComponent implements OnInit {
          this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
        }
     } else {
+      this.mostrarDataRegister = true;
       this.canRestaurante = true;
       this.canCafeteria = true;
       this.canBar = true;
