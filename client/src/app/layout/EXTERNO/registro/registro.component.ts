@@ -176,6 +176,8 @@ export class RegistroComponent implements OnInit {
   cedulaEstablishmentContactData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   tax_payer_types: TaxPayerType[] = [];
   registersByEstablishment: any[] = [];
+  canAlojamiento = true;
+  canAlimentosBebidas = true;
   zonalSelectedCode = '-';
   registerTypesAB: any[] = [];
   provinciaSelectedCode = '-';
@@ -2410,15 +2412,30 @@ export class RegistroComponent implements OnInit {
       this.getServiceType();
       this.getKitchenType();
       this.getCapacityTypesAB();
-      //AQUI
-      console.log(this.ruc_registro_selected.registers);
-      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
       this.totalABPuntos = 0;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         this.calcTotalPoints();
+         this.ruc_registro_selected.registers.forEach(element => {
+            let clasificationAB = this.getRegisterABType(element);
+            if (clasificationAB.code == this.categorySelectedCode) {
+               this.registerABDataService.get_register_data(element.register.id).then( r => {
+                  this.rucEstablishmentRegisterSelected = r.register as Register;
+                  this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+                  this.rucEstablishmentRegisterSelected.editable = false;
+                  this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+                  this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+                  this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+                  this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                  this.getRequisitesABByRegisterType(r.requisites);
+                  console.log(r);
+                  //AQUI
+               }).catch( e => { console.log(e); });
+            } else {
+               this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+               this.getRequisitesABByRegisterType();
+            }
+         });
       }).catch( e => { console.log(e) });
-      this.getRequisitesABByRegisterType();
    }
   }
 
@@ -2476,6 +2493,7 @@ export class RegistroComponent implements OnInit {
             });
          });
       }
+      this.calcTotalPoints();
       this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
          const a_id = a.requisite_id;
          const b_id = b.requisite_id;
@@ -3249,11 +3267,17 @@ export class RegistroComponent implements OnInit {
     this.selectRegisterEstablishmentDeclaration(establishment);
     this.registersByEstablishment = [];
     let isAlojamiento = false;
+    this.canAlimentosBebidas = true;
+    this.canAlojamiento = true;
     this.ruc_registro_selected.registers.forEach(register => {
        if (register.establishment.id == establishment.id) {
          this.registersByEstablishment.push(register);
          if (register.activity == "ALOJAMIENTO") {
             isAlojamiento = true;
+            this.canAlimentosBebidas = false;
+         }
+         if (register.activity == "ALIMENTOS Y BEBIDAS") {
+            this.canAlojamiento = false;
          }
        }
     });
@@ -3277,18 +3301,7 @@ export class RegistroComponent implements OnInit {
       this.canEstablecimientoMovil = true;
       this.canPlazaComida = true;
       this.ruc_registro_selected.registers.forEach(register => {
-         let clasificationABCode = '';
-         let clasificationAB = null;
-         this.registerTypesAB.forEach(registerType => {
-            if (register.register.register_type_id == registerType.id) {
-               clasificationABCode = registerType.father_code;
-            }
-         });
-         this.registerTypesAB.forEach(registerType => {
-            if (clasificationABCode == registerType.code) {
-               clasificationAB = registerType;
-            }
-         });
+         let clasificationAB = this.getRegisterABType(register);
          //Restaurante
          if (clasificationAB.id == 9 || clasificationAB.id == 34) {
             this.canEstablecimientoMovil = false;
@@ -3387,6 +3400,22 @@ export class RegistroComponent implements OnInit {
    this.getDeclarationsByEstablishment(establishment.id);
    this.declaration_selected = new Declaration();
    this.mostrarDataDeclaration = false;
+  }
+
+  getRegisterABType(register: any): any {
+   let clasificationABCode = '';
+   let clasificationAB = null;
+   this.registerTypesAB.forEach(registerType => {
+      if (register.register.register_type_id == registerType.id) {
+         clasificationABCode = registerType.father_code;
+      }
+   });
+   this.registerTypesAB.forEach(registerType => {
+      if (clasificationABCode == registerType.code) {
+         clasificationAB = registerType;
+      }
+   });
+   return clasificationAB;
   }
 
   recoverUbication() {
@@ -3668,8 +3697,8 @@ export class RegistroComponent implements OnInit {
     this.registerDataService.get_register_data(register.id).then( r => {
        this.rucEstablishmentRegisterSelected = r.register as Register;
        this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
-      this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
-      this.getAutorizacionCondominos(this.rucEstablishmentRegisterSelected.id);
+       this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
+       this.getAutorizacionCondominos(this.rucEstablishmentRegisterSelected.id);
        this.getReceptionRoom(this.rucEstablishmentRegisterSelected.id);
        this.setCategory(this.rucEstablishmentRegisterSelected.register_type_id);
        this.rucEstablishmentRegisterSelected.editable = editable;

@@ -1217,8 +1217,8 @@
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                     <option value="-" selected>Seleccione...</option>
-                                    <option value="1" selected>Alojamiento Turístico</option>
-                                    <option value="2" *ngIf="regionSelectedCode == '1'" selected>Alimentos y Bebidas</option>
+                                    <option value="1" *ngIf="canAlojamiento" selected>Alojamiento Turístico</option>
+                                    <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas" selected>Alimentos y Bebidas</option>
                                   </select>
                                 </div>
                               </div>
