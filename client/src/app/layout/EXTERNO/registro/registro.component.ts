@@ -127,6 +127,13 @@ export class RegistroComponent implements OnInit {
    salaRecepciones: ReceptionRoom = new ReceptionRoom(); 
    establecimientos_pendiente = false;
    //PAGOS
+   canRestaurante = true;
+   canCafeteria = true;
+   canBar = true;
+   canDiscoteca = true;
+   canCatering = true;
+   canEstablecimientoMovil = true;
+   canPlazaComida = true;
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
    currentPagePays = 1;
@@ -170,6 +177,7 @@ export class RegistroComponent implements OnInit {
   tax_payer_types: TaxPayerType[] = [];
   registersByEstablishment: any[] = [];
   zonalSelectedCode = '-';
+  registerTypesAB: any[] = [];
   provinciaSelectedCode = '-';
   cantonSelectedCode = '-';
   groupTypeSelected: GroupType = new GroupType();
@@ -1062,6 +1070,7 @@ export class RegistroComponent implements OnInit {
 
   refresh() {
     this.fechasNombramiento();
+    this.getRegisterTypesAB();
     this.pays = [];
     this.consumoCedula = false;
     this.consumoCedulaEstablishmentContact = false;
@@ -1524,6 +1533,13 @@ export class RegistroComponent implements OnInit {
    this.autorizacionCondomino = new AuthorizationAttachment();
   }
 
+  getRegisterTypesAB() {
+   this.registerTypesAB = [];
+   this.register_AlimentosBebidas_typeDataService.get().then( r => {
+      this.registerTypesAB = r;
+   }).catch( e => { console.log(e); });
+  }
+
   getCapacityTypes() {
    this.allowed_capacity_types = [];
    this.capacityTypeDataService.get_filtered_by_register_type(this.rucEstablishmentRegisterSelected.register_type_id).then( r => {
@@ -1604,12 +1620,52 @@ export class RegistroComponent implements OnInit {
          if ( this.regionSelectedCode != '1' && esRegitro) {
             this.clasifications_registers = [];
             response.forEach(element => {
-               this.clasifications_registers.push(element);
+               if ((element.id == 9 || element.id == 34 ) && this.canRestaurante) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 2 || element.id == 27 ) && this.canCafeteria) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 3 || element.id == 30 ) && this.canBar) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 16 || element.id == 40 ) && this.canDiscoteca) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 24 || element.id == 48 ) && this.canCatering) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 20 || element.id == 44 ) && this.canEstablecimientoMovil) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 22 || element.id == 46 ) && this.canPlazaComida) {
+                  this.clasifications_registers.push(element);
+               }
             });
          } else {
             this.clasifications_registers = [];
             response.forEach(element => {
-               this.clasifications_registers.push(element);
+               if ((element.id == 9 || element.id == 34 ) && this.canRestaurante) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 2 || element.id == 27 ) && this.canCafeteria) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 3 || element.id == 30 ) && this.canBar) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 16 || element.id == 40 ) && this.canDiscoteca) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 24 || element.id == 48 ) && this.canCatering) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 20 || element.id == 44 ) && this.canEstablecimientoMovil) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 22 || element.id == 46 ) && this.canPlazaComida) {
+                  this.clasifications_registers.push(element);
+               }
             });
          }
       }).catch( e => { console.log(e) });
@@ -2354,6 +2410,8 @@ export class RegistroComponent implements OnInit {
       this.getServiceType();
       this.getKitchenType();
       this.getCapacityTypesAB();
+      //AQUI
+      console.log(this.ruc_registro_selected.registers);
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
       this.totalABPuntos = 0;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
@@ -2501,6 +2559,9 @@ export class RegistroComponent implements OnInit {
   }
 
   getCantonesEstablishment() {
+   if (this.provinciaEstablishmentSelectedCode == '-') {
+      return;
+   }
    this.provinciasEstablishment.forEach(provincia => {
       if(provincia.code == this.provinciaEstablishmentSelectedCode){
          this.zonalEstablishmentSelectedCode = provincia.father_code.toString();
@@ -3186,9 +3247,6 @@ export class RegistroComponent implements OnInit {
       return;
      }
     this.selectRegisterEstablishmentDeclaration(establishment);
-    if (this.actividadSelected == '1') {
-
-    }
     this.registersByEstablishment = [];
     let isAlojamiento = false;
     this.ruc_registro_selected.registers.forEach(register => {
@@ -3209,7 +3267,70 @@ export class RegistroComponent implements OnInit {
        } else {
          this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
        }
-    }    
+    } else {
+      this.canRestaurante = true;
+      this.canCafeteria = true;
+      this.canBar = true;
+      this.canDiscoteca = true;
+      this.canCatering = true;
+      this.canEstablecimientoMovil = true;
+      this.canPlazaComida = true;
+      this.ruc_registro_selected.registers.forEach(register => {
+         let clasificationABCode = '';
+         let clasificationAB = null;
+         this.registerTypesAB.forEach(registerType => {
+            if (register.register.register_type_id == registerType.id) {
+               clasificationABCode = registerType.father_code;
+            }
+         });
+         this.registerTypesAB.forEach(registerType => {
+            if (clasificationABCode == registerType.code) {
+               clasificationAB = registerType;
+            }
+         });
+         //Restaurante
+         if (clasificationAB.id == 9 || clasificationAB.id == 34) {
+            this.canEstablecimientoMovil = false;
+            this.canPlazaComida = false;
+         }
+         //Cafeteria
+         if (clasificationAB.id == 2 || clasificationAB.id == 27) {
+            this.canEstablecimientoMovil = false;
+            this.canPlazaComida = false;
+         }
+         //Bar
+         if (clasificationAB.id == 3 || clasificationAB.id == 30) {
+            this.canEstablecimientoMovil = false;
+            this.canPlazaComida = false;
+         }
+         //Discoteca
+         if (clasificationAB.id == 16 || clasificationAB.id == 40) {
+            this.canEstablecimientoMovil = false;
+            this.canPlazaComida = false;
+         }
+         //Catering
+         if (clasificationAB.id == 24 || clasificationAB.id == 48) {
+            this.canEstablecimientoMovil = false;
+            this.canPlazaComida = false;
+         }
+         //EstablecimientoMovil
+         if (clasificationAB.id == 20 || clasificationAB.id == 44) {
+            this.canRestaurante = false;
+            this.canCafeteria = false;
+            this.canBar = false;
+            this.canDiscoteca = false;
+            this.canCatering = false;
+         }
+         //PlazaComida
+         if (clasificationAB.id == 22 || clasificationAB.id == 46) {
+            this.canRestaurante = false;
+            this.canCafeteria = false;
+            this.canBar = false;
+            this.canDiscoteca = false;
+            this.canCatering = false;
+         }
+      });
+    }
     this.establishmentDataService.get_filtered(establishment.id).then( r => {
       this.establishment_selected = r.establishment as Establishment;
       this.recoverUbication();
