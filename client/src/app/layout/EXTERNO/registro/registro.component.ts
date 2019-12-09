@@ -2444,6 +2444,7 @@ export class RegistroComponent implements OnInit {
                   this.getRequisitesABByRegisterType(r.requisites);
                   this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.register.kitchen_types;
                   this.rucEstablishmentRegisterSelected.service_types_on_register = r.register.service_types;
+                  console.log(this.rucEstablishmentRegisterSelected);
                   this.getListaPrecios(r.register.id);
                }).catch( e => { console.log(e); });
             } else {
