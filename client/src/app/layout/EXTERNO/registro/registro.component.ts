@@ -2428,6 +2428,8 @@ export class RegistroComponent implements OnInit {
                   this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
                   this.rucEstablishmentRegisterSelected.requisites = [];
                   this.getRequisitesABByRegisterType(r.requisites);
+                  this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.requister.kitchen_types;
+                  this.rucEstablishmentRegisterSelected.service_types_on_register = r.requister.service_types;
                   console.log(r);
                   //AQUI
                }).catch( e => { console.log(e); });
