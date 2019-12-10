@@ -3871,6 +3871,13 @@ export class RegistroComponent implements OnInit {
             }
          });
          toReturn = c1 || c2 || c3 || c4 || c5 || c6 || c7;
+         console.log('c1:' + c1);
+         console.log('c2:' + c2);
+         console.log('c3:' + c3);
+         console.log('c4:' + c4);
+         console.log('c5:' + c5);
+         console.log('c6:' + c6);
+         console.log('c7:' + c7);
          return !toReturn;
       }
       toReturn = true;
