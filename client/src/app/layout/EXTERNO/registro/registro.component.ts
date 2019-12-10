@@ -1635,50 +1635,50 @@ export class RegistroComponent implements OnInit {
          if ( this.regionSelectedCode != '1' && esRegitro) {
             this.clasifications_registers = [];
             response.forEach(element => {
-               if ((element.id == 9 || element.id == 34 ) && this.canRestaurante) {
+               if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 2 || element.id == 27 ) && this.canCafeteria) {
+               if ((element.id == 2 || element.id == 33 ) && this.canCafeteria) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 3 || element.id == 30 ) && this.canBar) {
+               if ((element.id == 6 || element.id == 37 ) && this.canBar) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 16 || element.id == 40 ) && this.canDiscoteca) {
+               if ((element.id == 18 || element.id == 49 ) && this.canDiscoteca) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 24 || element.id == 48 ) && this.canCatering) {
+               if ((element.id == 29 || element.id == 60 ) && this.canCatering) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 20 || element.id == 44 ) && this.canEstablecimientoMovil) {
+               if ((element.id == 23 || element.id == 54 ) && this.canEstablecimientoMovil) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 22 || element.id == 46 ) && this.canPlazaComida) {
+               if ((element.id == 26 || element.id == 57 ) && this.canPlazaComida) {
                   this.clasifications_registers.push(element);
                }
             });
          } else {
             this.clasifications_registers = [];
             response.forEach(element => {
-               if ((element.id == 9 || element.id == 34 ) && this.canRestaurante) {
+               if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 2 || element.id == 27 ) && this.canCafeteria) {
+               if ((element.id == 2 || element.id == 33 ) && this.canCafeteria) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 3 || element.id == 30 ) && this.canBar) {
+               if ((element.id == 6 || element.id == 37 ) && this.canBar) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 16 || element.id == 40 ) && this.canDiscoteca) {
+               if ((element.id == 18 || element.id == 49 ) && this.canDiscoteca) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 24 || element.id == 48 ) && this.canCatering) {
+               if ((element.id == 29 || element.id == 60 ) && this.canCatering) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 20 || element.id == 44 ) && this.canEstablecimientoMovil) {
+               if ((element.id == 23 || element.id == 54 ) && this.canEstablecimientoMovil) {
                   this.clasifications_registers.push(element);
                }
-               if ((element.id == 22 || element.id == 46 ) && this.canPlazaComida) {
+               if ((element.id == 26 || element.id == 57 ) && this.canPlazaComida) {
                   this.clasifications_registers.push(element);
                }
             });
@@ -3325,32 +3325,32 @@ export class RegistroComponent implements OnInit {
       this.ruc_registro_selected.registers.forEach(register => {
          let clasificationAB = this.getRegisterABType(register);
          //Restaurante
-         if (clasificationAB.id == 9 || clasificationAB.id == 34) {
+         if (clasificationAB.id == 11 || clasificationAB.id == 42) {
             this.canEstablecimientoMovil = false;
             this.canPlazaComida = false;
          }
          //Cafeteria
-         if (clasificationAB.id == 2 || clasificationAB.id == 27) {
+         if (clasificationAB.id == 2 || clasificationAB.id == 33) {
             this.canEstablecimientoMovil = false;
             this.canPlazaComida = false;
          }
          //Bar
-         if (clasificationAB.id == 3 || clasificationAB.id == 30) {
+         if (clasificationAB.id == 6 || clasificationAB.id == 37) {
             this.canEstablecimientoMovil = false;
             this.canPlazaComida = false;
          }
          //Discoteca
-         if (clasificationAB.id == 16 || clasificationAB.id == 40) {
+         if (clasificationAB.id == 18 || clasificationAB.id == 49) {
             this.canEstablecimientoMovil = false;
             this.canPlazaComida = false;
          }
          //Catering
-         if (clasificationAB.id == 24 || clasificationAB.id == 48) {
+         if (clasificationAB.id == 29 || clasificationAB.id == 60) {
             this.canEstablecimientoMovil = false;
             this.canPlazaComida = false;
          }
          //EstablecimientoMovil
-         if (clasificationAB.id == 20 || clasificationAB.id == 44) {
+         if (clasificationAB.id == 23 || clasificationAB.id == 54) {
             this.canRestaurante = false;
             this.canCafeteria = false;
             this.canBar = false;
@@ -3358,7 +3358,7 @@ export class RegistroComponent implements OnInit {
             this.canCatering = false;
          }
          //PlazaComida
-         if (clasificationAB.id == 22 || clasificationAB.id == 46) {
+         if (clasificationAB.id == 26 || clasificationAB.id == 57) {
             this.canRestaurante = false;
             this.canCafeteria = false;
             this.canBar = false;
