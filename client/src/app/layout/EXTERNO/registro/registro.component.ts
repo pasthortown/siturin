@@ -3851,9 +3851,8 @@ export class RegistroComponent implements OnInit {
  }
 
   validateRegister(): Boolean {
-      let toReturn: Boolean = false;
+      let toReturn: Boolean = true;
       if (this.actividadSelected == '1') {
-         const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
          const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
          const c3 = (this.categorySelectedCode == '-');
          const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
@@ -3870,17 +3869,8 @@ export class RegistroComponent implements OnInit {
                c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
             }
          });
-         toReturn = c1 || c2 || c3 || c4 || c5 || c6 || c7;
-         console.log('c1:' + c1);
-         console.log('c2:' + c2);
-         console.log('c3:' + c3);
-         console.log('c4:' + c4);
-         console.log('c5:' + c5);
-         console.log('c6:' + c6);
-         console.log('c7:' + c7);
-         return !toReturn;
+         toReturn = !(c2 || c3 || c4 || c5 || c6 || c7);
       }
-      toReturn = true;
       return toReturn;
   }
 
