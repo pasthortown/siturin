@@ -1878,7 +1878,7 @@
                                                 <span class="onoffswitch-switch"></span>
                                           </label>
                                         </div>
-                                          <select class="form-control" *ngIf="register_requisite.HTMLtype == 'YES / NO'"
+                                          <select class="form-control" *ngIf="register_requisite.HTMLtype == 'YES / NO'" (change)="calcTotalPoints()"
                                           [(ngModel)]="register_requisite.value" [disabled]="!rucEstablishmentRegisterSelected.editable"
                                           >
                                             <option value="0" selected>Seleccione...</option>
