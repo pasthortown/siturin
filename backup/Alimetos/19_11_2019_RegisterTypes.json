@@ -34,7 +34,7 @@
             "description": "(1) Una tazas",
             "code": "1.1.1",
             "father_code": "1.1",
-            "min_points": 40
+            "min_points": 94
         },
         "attach": []
     },
@@ -47,7 +47,7 @@
             "description": "(2) Dos tazas",
             "code": "1.1.2",
             "father_code": "1.1",
-            "min_points": 71
+            "min_points": 125
         },
         "attach": []
     },
@@ -73,7 +73,7 @@
             "description": "(1) Una copas",
             "code": "1.2.1",
             "father_code": "1.2",
-            "min_points": 40
+            "min_points": 95
         },
         "attach": []
     },
@@ -86,7 +86,7 @@
             "description": "(2) Dos copas",
             "code": "1.2.2",
             "father_code": "1.2",
-            "min_points": 71
+            "min_points": 126
         },
         "attach": []
     },
@@ -99,7 +99,7 @@
             "description": "(3) Tres copas",
             "code": "1.2.3",
             "father_code": "1.2",
-            "min_points": 81
+            "min_points": 136
         },
         "attach": []
     },
@@ -125,7 +125,7 @@
             "description": "(1) Un tenedor",
             "code": "1.3.1",
             "father_code": "1.3",
-            "min_points": 40
+            "min_points": 96
         },
         "attach": []
     },
@@ -138,7 +138,7 @@
             "description": "(2) Dos tenedores",
             "code": "1.3.2",
             "father_code": "1.3",
-            "min_points": 61
+            "min_points": 117
         },
         "attach": []
     },
@@ -151,7 +151,7 @@
             "description": "(3) Tres tenedores",
             "code": "1.3.3",
             "father_code": "1.3",
-            "min_points": 71
+            "min_points": 127
         },
         "attach": []
     },
@@ -164,7 +164,7 @@
             "description": "(4) Cuatro tenedores",
             "code": "1.3.4",
             "father_code": "1.3",
-            "min_points": 81
+            "min_points": 137
         },
         "attach": []
     },
@@ -177,7 +177,7 @@
             "description": "(5) Cinco tenedores",
             "code": "1.3.5",
             "father_code": "1.3",
-            "min_points": 91
+            "min_points": 147
         },
         "attach": []
     },
@@ -203,7 +203,7 @@
             "description": "(1) Una copas",
             "code": "1.4.1",
             "father_code": "1.4",
-            "min_points": 41
+            "min_points": 97
         },
         "attach": []
     },
@@ -216,7 +216,7 @@
             "description": "(2) Dos copas",
             "code": "1.4.2",
             "father_code": "1.4",
-            "min_points": 71
+            "min_points": 127
         },
         "attach": []
     },
@@ -229,7 +229,7 @@
             "description": "(3) Tres copas",
             "code": "1.4.3",
             "father_code": "1.4",
-            "min_points": 81
+            "min_points": 137
         },
         "attach": []
     },
@@ -255,7 +255,7 @@
             "description": "Categoría única",
             "code": "1.5.1",
             "father_code": "1.5",
-            "min_points": 0
+            "min_points": 13
         },
         "attach": []
     },
@@ -281,7 +281,7 @@
             "description": "Categoría única",
             "code": "1.6.1",
             "father_code": "1.6",
-            "min_points": 0
+            "min_points": 13
         },
         "attach": []
     },
@@ -307,7 +307,7 @@
             "description": "Categoría única",
             "code": "1.7.1",
             "father_code": "1.7",
-            "min_points": 0
+            "min_points": 13
         },
         "attach": []
     },
@@ -346,7 +346,7 @@
             "description": "(1) Una tazas",
             "code": "2.1.1",
             "father_code": "2.1",
-            "min_points": 40
+            "min_points": 94
         },
         "attach": []
     },
@@ -359,7 +359,7 @@
             "description": "(2) Dos tazas",
             "code": "2.1.2",
             "father_code": "2.1",
-            "min_points": 71
+            "min_points": 125
         },
         "attach": []
     },
@@ -385,7 +385,7 @@
             "description": "(1) Una copas",
             "code": "2.2.1",
             "father_code": "2.2",
-            "min_points": 41
+            "min_points": 95
         },
         "attach": []
     },
@@ -398,7 +398,7 @@
             "description": "(2) Dos copas",
             "code": "2.2.2",
             "father_code": "2.2",
-            "min_points": 71
+            "min_points": 126
         },
         "attach": []
     },
@@ -411,7 +411,7 @@
             "description": "(3) Tres copas",
             "code": "2.2.3",
             "father_code": "2.2",
-            "min_points": 81
+            "min_points": 136
         },
         "attach": []
     },
@@ -437,7 +437,7 @@
             "description": "(1) Un tenedor",
             "code": "2.3.1",
             "father_code": "2.3",
-            "min_points": 40
+            "min_points": 96
         },
         "attach": []
     },
@@ -450,7 +450,7 @@
             "description": "(2) Dos tenedores",
             "code": "2.3.2",
             "father_code": "2.3",
-            "min_points": 61
+            "min_points": 117
         },
         "attach": []
     },
@@ -463,7 +463,7 @@
             "description": "(3) Tres tenedores",
             "code": "2.3.3",
             "father_code": "2.3",
-            "min_points": 71
+            "min_points": 127
         },
         "attach": []
     },
@@ -476,7 +476,7 @@
             "description": "(4) Cuatro tenedores",
             "code": "2.3.4",
             "father_code": "2.3",
-            "min_points": 81
+            "min_points": 137
         },
         "attach": []
     },
@@ -489,7 +489,7 @@
             "description": "(5) Cinco tenedores",
             "code": "2.3.5",
             "father_code": "2.3",
-            "min_points": 91
+            "min_points": 147
         },
         "attach": []
     },
@@ -515,7 +515,7 @@
             "description": "(1) Una copas",
             "code": "2.4.1",
             "father_code": "2.4",
-            "min_points": 41
+            "min_points": 97
         },
         "attach": []
     },
@@ -528,7 +528,7 @@
             "description": "(2) Dos copas",
             "code": "2.4.2",
             "father_code": "2.4",
-            "min_points": 71
+            "min_points": 127
         },
         "attach": []
     },
@@ -541,7 +541,7 @@
             "description": "(3) Tres copas",
             "code": "2.4.3",
             "father_code": "2.4",
-            "min_points": 81
+            "min_points": 137
         },
         "attach": []
     },
@@ -567,7 +567,7 @@
             "description": "Categoría única",
             "code": "2.5.1",
             "father_code": "2.5",
-            "min_points": 0
+            "min_points": 13
         },
         "attach": []
     },
@@ -593,7 +593,7 @@
             "description": "Categoría única",
             "code": "2.6.1",
             "father_code": "2.6",
-            "min_points": 0
+            "min_points": 13
         },
         "attach": []
     },
@@ -619,8 +619,194 @@
             "description": "Categoría única",
             "code": "2.7.1",
             "father_code": "2.7",
-            "min_points": 0
+            "min_points": 13
         },
         "attach": []
-    }
+    },
+
+ {	
+    "RegisterType": {	
+        "id": 50,	
+        "created_at": "2019-11-18 12:32:55"	,
+        "updated_at": "2019-11-18 14:09:41"	,
+        "name": "Pendiente"	,
+        "description": "Pendiente"	,
+        "code": "1.1.3",
+        "father_code": "1.1",
+        "min_points": 54
+    },	
+    "attach": []	
+},
+
+{
+    "RegisterType": {
+        "id": 51,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "1.2.4",
+        "father_code": "1.2",
+        "min_points": 55
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 52,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "1.3.6",
+        "father_code": "1.3",
+        "min_points": 56
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 53,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "1.4.4",
+        "father_code": "1.4",
+        "min_points": 56
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 54,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "1.5.2",
+        "father_code": "1.5",
+        "min_points": 13
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 55,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "1.6.2",
+        "father_code": "1.6",
+        "min_points": 13
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 56,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "1.7.2",
+        "father_code": "1.7",
+        "min_points": 13
+    },
+    "attach": []
+},
+
+{
+    "RegisterType": {
+        "id": 57,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.1.3",
+        "father_code": "2.1",
+        "min_points": 54
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 58,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.2.4",
+        "father_code": "2.2",
+        "min_points": 55
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 59,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.3.6",
+        "father_code": "2.3",
+        "min_points": 56
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 60,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.4.1",
+        "father_code": "2.4",
+        "min_points": 56
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 61,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.5.1",
+        "father_code": "2.5",
+        "min_points": 13
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 62,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.6.1",
+        "father_code": "2.6",
+        "min_points": 13
+    },
+    "attach": []
+},
+{
+    "RegisterType": {
+        "id": 63,
+        "created_at": "2019-11-18 12:32:55",
+        "updated_at": "2019-11-18 14:09:41",
+        "name": "Pendiente",
+        "description": "Pendiente",
+        "code": "2.7.1",
+        "father_code": "2.7",
+        "min_points": 13
+    },
+    "attach": []
+}
+
 ]
