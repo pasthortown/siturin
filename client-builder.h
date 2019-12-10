@@ -6,4 +6,4 @@ cp -R ./dist/client/ ./../ClientBuild/
 cd ..
 git add .
 git commit -m builded
-git push https://pasthortown:1509Charles*@github.com/pasthortown/siete --all
+git push https://pasthortown:1509Charles*@github.com/pasthortown/siturin --all
