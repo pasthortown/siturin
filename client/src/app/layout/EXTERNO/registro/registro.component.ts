@@ -188,6 +188,7 @@ export class RegistroComponent implements OnInit {
   identificationContactValidated = false;
   addressContactValidated = false;
   totalABPuntos = 0;
+  totalABPuntosShown = 0;
   categoryAB = 'Pendiente';
   emailContactValidated = false;
   mainPhoneContactValidated = false;
@@ -376,12 +377,18 @@ export class RegistroComponent implements OnInit {
 
   calcTotalPoints() {
    let totalScore = 0;
+   let totalScoreShown = 0;
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
       if (element.fullfill) {
+         totalScore += element.score * 1;
+         totalScoreShown += element.totalScoreShown * 1;
+      }
+      if (element.HTMLtype == 'YES / NO' && element.value == 'SI') {
          totalScore += element.score * 1;
       }
    });
    this.totalABPuntos = totalScore;
+   this.totalABPuntosShown = totalScoreShown;
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points <= this.totalABPuntos) {
@@ -2430,6 +2437,7 @@ export class RegistroComponent implements OnInit {
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType();
       this.totalABPuntos = 0;
+      this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];

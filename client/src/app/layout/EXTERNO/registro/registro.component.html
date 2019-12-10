@@ -1814,7 +1814,7 @@
                             <div class="row mt-3">
                                 <h4 class="col-12">
                                   <strong>Normativa</strong>&nbsp;
-                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntos}}</span>&nbsp;
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown}}</span>&nbsp;
                                   <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
                                 </h4>
                             </div>
@@ -1844,7 +1844,7 @@
                                             register_requisite.HTMLtype !== 'GRUPO 2' &&
                                             register_requisite.HTMLtype !== 'GRUPO 3' &&
                                             register_requisite.HTMLtype !== 'GRUPO 4' && 
-                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos: ({{register_requisite.score}})</strong></label>
+                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2' && register_requisite.HTMLtype !== 'YES / NO'">Puntos: ({{register_requisite.score}})</strong></label>
                                           <h5>
                                             <strong
                                             *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
@@ -2057,7 +2057,7 @@
                             <div class="col-12" *ngIf="actividadSelected == '2'">
                               <div class="row mt-3">
                                   <h4 class="col-12">
-                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntos}}</span>&nbsp;
+                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown}}</span>&nbsp;
                                     <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
                                   </h4>
                               </div>
