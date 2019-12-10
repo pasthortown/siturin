@@ -2430,9 +2430,11 @@ export class RegistroComponent implements OnInit {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         let encontrado = false;
          this.ruc_registro_selected.registers.forEach(element => {
             let clasificationAB = this.getRegisterABType(element);
             if (clasificationAB.code == this.categorySelectedCode) {
+               encontrado = true;
                this.registerABDataService.get_register_data(element.register.id).then( r => {
                   this.rucEstablishmentRegisterSelected = r.register as Register;
                   this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
@@ -2447,12 +2449,13 @@ export class RegistroComponent implements OnInit {
                   this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
                   this.getListaPrecios(r.register.id);
                }).catch( e => { console.log(e); });
-            } else {
-               this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
-               this.rucEstablishmentRegisterSelected.requisites = [];
-               this.getRequisitesABByRegisterType();
             }
          });
+         if (!encontrado) {
+            this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+            this.rucEstablishmentRegisterSelected.requisites = [];
+            this.getRequisitesABByRegisterType();
+         }
       }).catch( e => { console.log(e) });
    }
   }
