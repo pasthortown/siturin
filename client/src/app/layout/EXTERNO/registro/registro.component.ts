@@ -2137,7 +2137,6 @@ export class RegistroComponent implements OnInit {
    }).catch( e => { console.log(e); });
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
-      this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       this.guardarListaPrecios(r.id);
       const today = new Date();
