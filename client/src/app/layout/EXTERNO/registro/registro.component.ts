@@ -386,6 +386,9 @@ export class RegistroComponent implements OnInit {
       if (element.HTMLtype == 'YES / NO' && element.value == 'SI') {
          totalScore += element.score * 1;
       }
+      if (element.HTMLtype == 'YES / NO' && element.value == 'NO') {
+         totalScore += element.score * 1;
+      }
    });
    this.totalABPuntos = totalScore;
    this.totalABPuntosShown = totalScoreShown;
