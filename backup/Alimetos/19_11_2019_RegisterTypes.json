@@ -28,13 +28,13 @@
     {	
         "RegisterType": {	
             "id": 3,	
-            "created_at": "2019-11-18 12:32:55"	,
-            "updated_at": "2019-11-18 14:09:41"	,
-            "name": "Pendiente"	,
-            "description": "Pendiente"	,
+            "created_at": "2019-11-18 12:32:55",
+            "updated_at": "2019-11-18 14:09:41",
+            "name": "Pendiente",
+            "description": "Pendiente",
             "code": "1.1.3",
             "father_code": "1.1",
-            "min_points": 54
+            "min_points": 0
         },	
         "attach": []	
     },
@@ -86,7 +86,7 @@
             "description": "Pendiente",
             "code": "1.2.4",
             "father_code": "1.2",
-            "min_points": 55
+            "min_points": 0
         },
         "attach": []
     },
@@ -151,7 +151,7 @@
             "description": "Pendiente",
             "code": "1.3.6",
             "father_code": "1.3",
-            "min_points": 56
+            "min_points": 0
         },
         "attach": []
     },
@@ -242,7 +242,7 @@
             "description": "Pendiente",
             "code": "1.4.4",
             "father_code": "1.4",
-            "min_points": 56
+            "min_points": 0
         },
         "attach": []
     },
@@ -307,7 +307,7 @@
             "description": "Pendiente",
             "code": "1.5.2",
             "father_code": "1.5",
-            "min_points": 13
+            "min_points": 0
         },
         "attach": []
     },
@@ -346,7 +346,7 @@
             "description": "Pendiente",
             "code": "1.6.2",
             "father_code": "1.6",
-            "min_points": 13
+            "min_points": 0
         },
         "attach": []
     },
@@ -385,7 +385,7 @@
             "description": "Pendiente",
             "code": "1.7.2",
             "father_code": "1.7",
-            "min_points": 13
+            "min_points": 0
         },
         "attach": []
     },
@@ -438,7 +438,7 @@
             "description": "Pendiente",
             "code": "2.1.3",
             "father_code": "2.1",
-            "min_points": 54
+            "min_points": 0
         },
         "attach": []
     },
@@ -490,7 +490,7 @@
             "description": "Pendiente",
             "code": "2.2.4",
             "father_code": "2.2",
-            "min_points": 55
+            "min_points": 0
         },
         "attach": []
     },
@@ -555,7 +555,7 @@
             "description": "Pendiente",
             "code": "2.3.6",
             "father_code": "2.3",
-            "min_points": 56
+            "min_points": 0
         },
         "attach": []
     },
@@ -646,7 +646,7 @@
             "description": "Pendiente",
             "code": "2.4.1",
             "father_code": "2.4",
-            "min_points": 56
+            "min_points": 0
         },
         "attach": []
     },
@@ -711,7 +711,7 @@
             "description": "Pendiente",
             "code": "2.5.1",
             "father_code": "2.5",
-            "min_points": 13
+            "min_points": 0
         },
         "attach": []
     },
@@ -750,7 +750,7 @@
             "description": "Pendiente",
             "code": "2.6.1",
             "father_code": "2.6",
-            "min_points": 13
+            "min_points": 0
         },
         "attach": []
     },
@@ -789,7 +789,7 @@
             "description": "Pendiente",
             "code": "2.7.1",
             "father_code": "2.7",
-            "min_points": 13
+            "min_points": 0
         },
         "attach": []
     },
