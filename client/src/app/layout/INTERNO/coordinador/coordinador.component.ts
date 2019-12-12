@@ -2116,8 +2116,17 @@ export class CoordinadorComponent implements OnInit {
   onCellClick(event) {
    this.register_code = event.row.code;
    let estado = '';
+   this.idRegister = event.row.registerId;
+   this.activity = event.row.actividad;
+   this.rows.forEach(row => {
+      if (this.idRegister == row.registerId && this.activity == row.actividad) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+   });
    this.registers_mintur.forEach(element => {
-      if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
+      if (element.id == this.idRegister && element.activity == this.activity) {
          this.selectRegisterMintur(element);
          const registerState = this.getRegisterState(element.states.state_id);
          this.stateTramiteId = element.states.state_id;
@@ -2146,17 +2155,8 @@ export class CoordinadorComponent implements OnInit {
          }
       }
    });
-   this.idRegister = event.row.registerId;
-   this.activity = event.row.actividad;
    this.checkMotivoTramite(estado);
    this.getApprovalStates();
-   this.rows.forEach(row => {
-      if (this.idRegister == row.registerId && this.activity == row.actividad) {
-         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-      } else {
-         row.selected = '';
-      }
-   });
   }
 
   checkIfIsAssigned() {
