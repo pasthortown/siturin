@@ -2148,12 +2148,10 @@ export class CoordinadorComponent implements OnInit {
    });
    this.idRegister = event.row.registerId;
    this.activity = event.row.actividad;
-   //AQUI
-   console.log(this.activity);
    this.checkMotivoTramite(estado);
    this.getApprovalStates();
    this.rows.forEach(row => {
-      if (this.idRegister == row.registerId) {
+      if (this.idRegister == row.registerId && this.activity == row.actividad) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
       } else {
          row.selected = '';
