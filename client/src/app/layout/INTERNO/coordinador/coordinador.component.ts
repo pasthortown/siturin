@@ -167,6 +167,7 @@ export class CoordinadorComponent implements OnInit {
    desasignandoInspector: Boolean = false;
    total_male = 0;
    total_female = 0;
+   activity = '';
    inspectorSelectedId: number = 0;
    registerApprovals: ApprovalState[] = [];
    registerApprovalCoordinador: ApprovalState = new ApprovalState();
@@ -2118,7 +2119,6 @@ export class CoordinadorComponent implements OnInit {
    this.registers_mintur.forEach(element => {
       if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
          this.selectRegisterMintur(element);
-         console.log(element);
          const registerState = this.getRegisterState(element.states.state_id);
          this.stateTramiteId = element.states.state_id;
          estado = this.stateTramiteId.toString();
@@ -2147,6 +2147,8 @@ export class CoordinadorComponent implements OnInit {
       }
    });
    this.idRegister = event.row.registerId;
+   this.activity = event.row.activity;
+   console.log(this.activity);
    this.checkMotivoTramite(estado);
    this.getApprovalStates();
    this.rows.forEach(row => {
