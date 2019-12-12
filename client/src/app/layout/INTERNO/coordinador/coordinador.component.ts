@@ -622,7 +622,7 @@ export class CoordinadorComponent implements OnInit {
             ruc: this.ruc_registro_selected.ruc.number,
             nombreComercial: this.registerMinturSelected.establishment.commercially_known_name,
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico',
+            actividad: this.registerMinturSelected.activity.toUpperCase(),
             clasificacion: clasificacion,
             categoria: categoria,
             tipoSolicitud: 'Registro',
@@ -1115,7 +1115,7 @@ export class CoordinadorComponent implements OnInit {
       }
    });  
    const today = new Date();
-   const actividad = 'ALOJAMIENTO';
+   const actividad = this.registerMinturSelected.activity.toUpperCase();
    let provincia = new Ubication();
    let canton = new Ubication();
    let parroquia = new Ubication();
@@ -1145,7 +1145,7 @@ export class CoordinadorComponent implements OnInit {
    const estado = this.stateTramiteId.toString();
    this.refreshMotivoTramite(estado);
    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-   let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALOJAMIENTO-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+   let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + this.registerMinturSelected.activity.toUpperCase() + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
    const params = [{tipo_tramite: this.tipo_tramite.toUpperCase()},
       {fecha: today.toLocaleDateString().toUpperCase()},
       {representante_legal: this.user.name.toUpperCase()},
@@ -1169,7 +1169,7 @@ export class CoordinadorComponent implements OnInit {
          ruc: this.ruc_registro_selected.ruc.number,
          nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
          fechaSolicitud: today.toLocaleString(),
-         actividad: 'Alojamiento Turístico'.toUpperCase(),
+         actividad: this.registerMinturSelected.activity.toUpperCase(),
          clasificacion: clasificacion.toUpperCase(),
          categoria: categoria.toUpperCase(),
          tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1250,7 +1250,7 @@ export class CoordinadorComponent implements OnInit {
       ruc: this.ruc_registro_selected.ruc.number,
       nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
       fechaSolicitud: today.toLocaleString(),
-      actividad: 'Alojamiento Turístico'.toUpperCase(),
+      actividad: this.registerMinturSelected.activity.toUpperCase(),
       clasificacion: clasificacion.toUpperCase(),
       categoria: categoria.toUpperCase(),
       tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1312,7 +1312,7 @@ export class CoordinadorComponent implements OnInit {
          clasificacion = element.name;
       }
    });
-   const actividad = 'ALOJAMIENTO';
+   const actividad = this.registerMinturSelected.activity.toUpperCase();
    let provincia = new Ubication();
    let canton = new Ubication();
    let parroquia = new Ubication();
@@ -1372,7 +1372,7 @@ export class CoordinadorComponent implements OnInit {
             ruc: this.ruc_registro_selected.ruc.number,
             nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico'.toUpperCase(),
+            actividad: this.registerMinturSelected.activity.toUpperCase(),
             clasificacion: clasificacion.toUpperCase(),
             categoria: categoria.toUpperCase(),
             tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1445,7 +1445,7 @@ export class CoordinadorComponent implements OnInit {
       ruc: this.ruc_registro_selected.ruc.number,
       nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
       fechaSolicitud: today.toLocaleString(),
-      actividad: 'Alojamiento Turístico'.toUpperCase(),
+      actividad: this.registerMinturSelected.activity.toUpperCase(),
       clasificacion: clasificacion.toUpperCase(),
       categoria: categoria.toUpperCase(),
       tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -2559,7 +2559,7 @@ export class CoordinadorComponent implements OnInit {
                   ruc: this.ruc_registro_selected.ruc.number,
                   nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
                   fechaSolicitud: today.toLocaleString(),
-                  actividad: 'Alojamiento Turístico'.toUpperCase(),
+                  actividad: this.registerMinturSelected.activity.toUpperCase(),
                   clasificacion: clasificacion.toUpperCase(),
                   categoria: categoria.toUpperCase(),
                   tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -2674,7 +2674,7 @@ export class CoordinadorComponent implements OnInit {
                max_beds += capacity.max_beds;
             }
          });
-         newRegistroCatastro.activity = 'ALOJAMIENTO';
+         newRegistroCatastro.activity = this.registerMinturSelected.activity.toUpperCase();
          newRegistroCatastro.address = this.registerMinturSelected.establishment.address_main_street + ' ' + this.registerMinturSelected.establishment.address_number + ' ' + this.registerMinturSelected.establishment.address_secondary_street;
          newRegistroCatastro.comercial_name = this.registerMinturSelected.establishment.commercially_known_name.toUpperCase();
          newRegistroCatastro.web = this.registerMinturSelected.establishment.url_web;
@@ -2719,7 +2719,7 @@ export class CoordinadorComponent implements OnInit {
                canton: cantonName.toUpperCase(),
                fechaRegistro: today.toLocaleDateString(),
                parroquia: parroquiaName.toUpperCase(),
-               actividad: 'ALOJAMIENTO',
+               actividad: this.registerMinturSelected.activity.toUpperCase(),
                callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
                clasificacion: clasificacion.toUpperCase(),
                calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street.toUpperCase(),
@@ -2794,8 +2794,8 @@ export class CoordinadorComponent implements OnInit {
          const zonalName = zonal.name.split(' ');
          iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
          const today = new Date();
-         let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-ALOJAMIENTO-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-         const actividad = 'ALOJAMIENTO';
+         let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+         const actividad = this.registerMinturSelected.activity.toUpperCase();
          let clasificacion = '';
          this.register_types.forEach(element => {
             if (element.id == registerDataIncomming.register.register_type_id) {
@@ -2945,8 +2945,8 @@ export class CoordinadorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-TARIFARIO-RACK-ALOJAMIENTO-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-            const actividad = 'ALOJAMIENTO';
+            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-TARIFARIO-RACK-' + this.registerMinturSelected.activity.toUpperCase() + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            const actividad = this.registerMinturSelected.activity.toUpperCase();
             let clasificacion = '';
             this.register_types.forEach(element => {
                if (element.id == r0.register.register_type_id) {
@@ -3871,7 +3871,7 @@ guardarDeclaracion() {
       this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       const today = new Date();
-      const actividad = 'ALOJAMIENTO';
+      const actividad = this.registerMinturSelected.activity.toUpperCase();
       let provincia = new Ubication();
       let canton = new Ubication();
       let parroquia = new Ubication();
@@ -3911,7 +3911,7 @@ guardarDeclaracion() {
       });
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALOJAMIENTO-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + this.registerMinturSelected.activity.toUpperCase() + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
       const params = [{tipo_tramite: this.tipo_tramite.toUpperCase()},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {representante_legal: this.user.name.toUpperCase()},
@@ -3943,7 +3943,7 @@ guardarDeclaracion() {
             ruc: this.user.ruc,
             nombreComercial: this.establishment_selected.commercially_known_name,
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico',
+            actividad: this.registerMinturSelected.activity.toUpperCase(),
             clasificacion: clasificacion,
             categoria: categoria,
             tipoSolicitud: 'Registro',
