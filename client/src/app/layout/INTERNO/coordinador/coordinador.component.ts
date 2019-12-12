@@ -2147,7 +2147,8 @@ export class CoordinadorComponent implements OnInit {
       }
    });
    this.idRegister = event.row.registerId;
-   this.activity = event.row.activity;
+   this.activity = event.row.actividad;
+   //AQUI
    console.log(this.activity);
    this.checkMotivoTramite(estado);
    this.getApprovalStates();
