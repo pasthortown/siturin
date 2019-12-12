@@ -12,5 +12,6 @@ export class FoodDrinkAttachment {
       this.food_drink_attachment_file_type  = '';
       this.date = new Date();
       this.type = '';
+      this.id = 0;
    }
 }

@@ -4,6 +4,7 @@ import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIER
 import { FloorAuthorizationCertificateService } from './../../../services/CRUD/BASE/floorauthorizationcertificate.service';
 import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
 
+import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
@@ -83,6 +84,7 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
     RegistroCatastroService,
     ReceptionRoomService,
     PropertyTitleAttachmentService,
+    ApprovalStateABService,
     AuthorizationAttachmentService,
     MailerService,
     DeclarationAttachmentService,

@@ -1979,6 +1979,7 @@ export class RegistroComponent implements OnInit {
    this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
 
    }).catch( e => { console.log(e); });
+   this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
    this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
       if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
@@ -2135,9 +2136,9 @@ export class RegistroComponent implements OnInit {
    this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
 
    }).catch( e => { console.log(e); });
+   this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
-      this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       this.guardarListaPrecios(r.id);
       const today = new Date();

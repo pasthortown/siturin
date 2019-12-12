@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ApprovalStateAttachment } from './../../../models/ALOJAMIENTO/ApprovalStateAttachment';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { Approval } from 'src/app/models/ALOJAMIENTO/Approval';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
@@ -167,6 +168,7 @@ export class CoordinadorComponent implements OnInit {
    desasignandoInspector: Boolean = false;
    total_male = 0;
    total_female = 0;
+   activity = '';
    inspectorSelectedId: number = 0;
    registerApprovals: ApprovalState[] = [];
    registerApprovalCoordinador: ApprovalState = new ApprovalState();
@@ -354,7 +356,8 @@ export class CoordinadorComponent implements OnInit {
               private declarationAttachmentDataService: DeclarationAttachmentService,
               private mailerDataService: MailerService,
               private router: Router, 
-              private approvalStateDataService: ApprovalStateService,
+              private approvalStateDataService: ApprovalStateService, 
+              private approvalStateABDataService: ApprovalStateABService,
               private consultorDataService: ConsultorService,
               private userDataService: UserService,
               private registerStateDataService: RegisterStateService,
@@ -622,7 +625,7 @@ export class CoordinadorComponent implements OnInit {
             ruc: this.ruc_registro_selected.ruc.number,
             nombreComercial: this.registerMinturSelected.establishment.commercially_known_name,
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico',
+            actividad: this.registerMinturSelected.activity.toUpperCase(),
             clasificacion: clasificacion,
             categoria: categoria,
             tipoSolicitud: 'Registro',
@@ -1115,7 +1118,7 @@ export class CoordinadorComponent implements OnInit {
       }
    });  
    const today = new Date();
-   const actividad = 'ALOJAMIENTO';
+   const actividad = this.registerMinturSelected.activity.toUpperCase();
    let provincia = new Ubication();
    let canton = new Ubication();
    let parroquia = new Ubication();
@@ -1145,7 +1148,7 @@ export class CoordinadorComponent implements OnInit {
    const estado = this.stateTramiteId.toString();
    this.refreshMotivoTramite(estado);
    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-   let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALOJAMIENTO-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+   let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + this.registerMinturSelected.activity.toUpperCase() + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
    const params = [{tipo_tramite: this.tipo_tramite.toUpperCase()},
       {fecha: today.toLocaleDateString().toUpperCase()},
       {representante_legal: this.user.name.toUpperCase()},
@@ -1169,7 +1172,7 @@ export class CoordinadorComponent implements OnInit {
          ruc: this.ruc_registro_selected.ruc.number,
          nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
          fechaSolicitud: today.toLocaleString(),
-         actividad: 'Alojamiento Turístico'.toUpperCase(),
+         actividad: this.registerMinturSelected.activity.toUpperCase(),
          clasificacion: clasificacion.toUpperCase(),
          categoria: categoria.toUpperCase(),
          tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1250,7 +1253,7 @@ export class CoordinadorComponent implements OnInit {
       ruc: this.ruc_registro_selected.ruc.number,
       nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
       fechaSolicitud: today.toLocaleString(),
-      actividad: 'Alojamiento Turístico'.toUpperCase(),
+      actividad: this.registerMinturSelected.activity.toUpperCase(),
       clasificacion: clasificacion.toUpperCase(),
       categoria: categoria.toUpperCase(),
       tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1312,7 +1315,7 @@ export class CoordinadorComponent implements OnInit {
          clasificacion = element.name;
       }
    });
-   const actividad = 'ALOJAMIENTO';
+   const actividad = this.registerMinturSelected.activity.toUpperCase();
    let provincia = new Ubication();
    let canton = new Ubication();
    let parroquia = new Ubication();
@@ -1372,7 +1375,7 @@ export class CoordinadorComponent implements OnInit {
             ruc: this.ruc_registro_selected.ruc.number,
             nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico'.toUpperCase(),
+            actividad: this.registerMinturSelected.activity.toUpperCase(),
             clasificacion: clasificacion.toUpperCase(),
             categoria: categoria.toUpperCase(),
             tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1445,7 +1448,7 @@ export class CoordinadorComponent implements OnInit {
       ruc: this.ruc_registro_selected.ruc.number,
       nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
       fechaSolicitud: today.toLocaleString(),
-      actividad: 'Alojamiento Turístico'.toUpperCase(),
+      actividad: this.registerMinturSelected.activity.toUpperCase(),
       clasificacion: clasificacion.toUpperCase(),
       categoria: categoria.toUpperCase(),
       tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -1987,7 +1990,7 @@ export class CoordinadorComponent implements OnInit {
             date_assigment_alert: date_assigment_alert,
             number: item.ruc.number,
             registerId: item.register.id,
-            actividad: 'ALOJAMIENTO',
+            actividad: item.activity,
             provincia: provincia.name,
             canton: canton.name,
             parroquia: parroquia.name,
@@ -2115,8 +2118,17 @@ export class CoordinadorComponent implements OnInit {
   onCellClick(event) {
    this.register_code = event.row.code;
    let estado = '';
+   this.idRegister = event.row.registerId;
+   this.activity = event.row.actividad;
+   this.rows.forEach(row => {
+      if (this.idRegister == row.registerId && this.activity == row.actividad) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+   });
    this.registers_mintur.forEach(element => {
-      if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
+      if (element.register.id == this.idRegister && element.activity == this.activity) {
          this.selectRegisterMintur(element);
          const registerState = this.getRegisterState(element.states.state_id);
          this.stateTramiteId = element.states.state_id;
@@ -2145,16 +2157,8 @@ export class CoordinadorComponent implements OnInit {
          }
       }
    });
-   this.idRegister = event.row.registerId;
    this.checkMotivoTramite(estado);
    this.getApprovalStates();
-   this.rows.forEach(row => {
-      if (this.idRegister == row.registerId) {
-         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-      } else {
-         row.selected = '';
-      }
-   });
   }
 
   checkIfIsAssigned() {
@@ -2223,39 +2227,77 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalInspector = new ApprovalState();
    this.registerApprovalFinanciero = new ApprovalState();
    this.registerApprovalCoordinador = new ApprovalState();
-   this.approvalStateDataService.get_by_register_id(this.idRegister).then( r => {
-      this.registerApprovals = r;
-      this.registerApprovals.forEach(element => {
-         if(element.approval_id == 1){
-            this.registerApprovalInspector = element;
-            if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
-               this.registerApprovalInspector.notes = '';
+   if (this.activity == 'ALOJAMIENTO') {
+      this.approvalStateDataService.get_by_register_id(this.idRegister).then( r => {
+         this.registerApprovals = r;
+         this.registerApprovals.forEach(element => {
+            if(element.approval_id == 1){
+               this.registerApprovalInspector = element;
+               if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
+                  this.registerApprovalInspector.notes = '';
+               }
+               this.inspectorSelectedId = this.registerApprovalInspector.id_user;
+               this.checkIfIsAssigned();
+               this.checkAttachments();
             }
-            this.inspectorSelectedId = this.registerApprovalInspector.id_user;
-            this.checkIfIsAssigned();
-            this.checkAttachments();
-         }
-         if(element.approval_id == 2){
-            this.registerApprovalFinanciero = element;
-            if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
-               this.registerApprovalFinanciero.notes = '';
+            if(element.approval_id == 2){
+               this.registerApprovalFinanciero = element;
+               if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalFinanciero.notes = '';
+               }
+               this.financialSelectedId = this.registerApprovalFinanciero.id_user;
+               if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
+                  this.registerApprovalFinanciero.id_user = 0;
+                  this.financialSelectedId = 0;
+               }
+               this.checkIfIsAssignedFinanciero();
+               this.checkAttachmentsFinanciero();
             }
-            this.financialSelectedId = this.registerApprovalFinanciero.id_user;
-            if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
-               this.registerApprovalFinanciero.id_user = 0;
-               this.financialSelectedId = 0;
+            if(element.approval_id == 3){
+               this.registerApprovalCoordinador = element;
+               if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalCoordinador.notes = '';
+               }
             }
-            this.checkIfIsAssignedFinanciero();
-            this.checkAttachmentsFinanciero();
-         }
-         if(element.approval_id == 3){
-            this.registerApprovalCoordinador = element;
-            if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
-               this.registerApprovalCoordinador.notes = '';
+         });
+      }).catch( e => { console.log(e); });
+   }
+   if (this.activity == "ALIMENTOS Y BEBIDAS") {
+      this.approvalStateABDataService.get_by_register_id(this.idRegister).then( r => {
+         this.registerApprovals = r;
+         this.registerApprovals.forEach(element => {
+            if(element.approval_id == 1){
+               this.registerApprovalInspector = element;
+               if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
+                  this.registerApprovalInspector.notes = '';
+               }
+               this.inspectorSelectedId = this.registerApprovalInspector.id_user;
+               //AQUI
+               this.checkIfIsAssigned();
+               this.checkAttachments();
             }
-         }
-      });
-   }).catch( e => { console.log(e); });
+            if(element.approval_id == 2){
+               this.registerApprovalFinanciero = element;
+               if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalFinanciero.notes = '';
+               }
+               this.financialSelectedId = this.registerApprovalFinanciero.id_user;
+               if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
+                  this.registerApprovalFinanciero.id_user = 0;
+                  this.financialSelectedId = 0;
+               }
+               this.checkIfIsAssignedFinanciero();
+               this.checkAttachmentsFinanciero();
+            }
+            if(element.approval_id == 3){
+               this.registerApprovalCoordinador = element;
+               if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalCoordinador.notes = '';
+               }
+            }
+         });
+      }).catch( e => { console.log(e); });
+   }
   }
   
   entregarDocumentos() {
@@ -2559,7 +2601,7 @@ export class CoordinadorComponent implements OnInit {
                   ruc: this.ruc_registro_selected.ruc.number,
                   nombreComercial: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase(),
                   fechaSolicitud: today.toLocaleString(),
-                  actividad: 'Alojamiento Turístico'.toUpperCase(),
+                  actividad: this.registerMinturSelected.activity.toUpperCase(),
                   clasificacion: clasificacion.toUpperCase(),
                   categoria: categoria.toUpperCase(),
                   tipoSolicitud: this.tipo_tramite.toUpperCase(),
@@ -2674,7 +2716,7 @@ export class CoordinadorComponent implements OnInit {
                max_beds += capacity.max_beds;
             }
          });
-         newRegistroCatastro.activity = 'ALOJAMIENTO';
+         newRegistroCatastro.activity = this.registerMinturSelected.activity.toUpperCase();
          newRegistroCatastro.address = this.registerMinturSelected.establishment.address_main_street + ' ' + this.registerMinturSelected.establishment.address_number + ' ' + this.registerMinturSelected.establishment.address_secondary_street;
          newRegistroCatastro.comercial_name = this.registerMinturSelected.establishment.commercially_known_name.toUpperCase();
          newRegistroCatastro.web = this.registerMinturSelected.establishment.url_web;
@@ -2719,7 +2761,7 @@ export class CoordinadorComponent implements OnInit {
                canton: cantonName.toUpperCase(),
                fechaRegistro: today.toLocaleDateString(),
                parroquia: parroquiaName.toUpperCase(),
-               actividad: 'ALOJAMIENTO',
+               actividad: this.registerMinturSelected.activity.toUpperCase(),
                callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
                clasificacion: clasificacion.toUpperCase(),
                calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street.toUpperCase(),
@@ -2794,8 +2836,8 @@ export class CoordinadorComponent implements OnInit {
          const zonalName = zonal.name.split(' ');
          iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
          const today = new Date();
-         let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-ALOJAMIENTO-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-         const actividad = 'ALOJAMIENTO';
+         let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+         const actividad = this.registerMinturSelected.activity.toUpperCase();
          let clasificacion = '';
          this.register_types.forEach(element => {
             if (element.id == registerDataIncomming.register.register_type_id) {
@@ -2945,8 +2987,8 @@ export class CoordinadorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-TARIFARIO-RACK-ALOJAMIENTO-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-            const actividad = 'ALOJAMIENTO';
+            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-TARIFARIO-RACK-' + this.registerMinturSelected.activity.toUpperCase() + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            const actividad = this.registerMinturSelected.activity.toUpperCase();
             let clasificacion = '';
             this.register_types.forEach(element => {
                if (element.id == r0.register.register_type_id) {
@@ -3871,7 +3913,7 @@ guardarDeclaracion() {
       this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       const today = new Date();
-      const actividad = 'ALOJAMIENTO';
+      const actividad = this.registerMinturSelected.activity.toUpperCase();
       let provincia = new Ubication();
       let canton = new Ubication();
       let parroquia = new Ubication();
@@ -3911,7 +3953,7 @@ guardarDeclaracion() {
       });
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALOJAMIENTO-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + this.registerMinturSelected.activity.toUpperCase() + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
       const params = [{tipo_tramite: this.tipo_tramite.toUpperCase()},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {representante_legal: this.user.name.toUpperCase()},
@@ -3943,7 +3985,7 @@ guardarDeclaracion() {
             ruc: this.user.ruc,
             nombreComercial: this.establishment_selected.commercially_known_name,
             fechaSolicitud: today.toLocaleString(),
-            actividad: 'Alojamiento Turístico',
+            actividad: this.registerMinturSelected.activity.toUpperCase(),
             clasificacion: clasificacion,
             categoria: categoria,
             tipoSolicitud: 'Registro',
