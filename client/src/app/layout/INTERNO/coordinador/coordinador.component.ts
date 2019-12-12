@@ -357,7 +357,7 @@ export class CoordinadorComponent implements OnInit {
               private mailerDataService: MailerService,
               private router: Router, 
               private approvalStateDataService: ApprovalStateService, 
-              private approvalStateABDataService: ApprovalStateABService,>
+              private approvalStateABDataService: ApprovalStateABService,
               private consultorDataService: ConsultorService,
               private userDataService: UserService,
               private registerStateDataService: RegisterStateService,
