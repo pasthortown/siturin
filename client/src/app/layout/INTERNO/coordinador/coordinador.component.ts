@@ -2265,6 +2265,7 @@ export class CoordinadorComponent implements OnInit {
    if (this.activity == "ALIMENTOS Y BEBIDAS") {
       this.approvalStateABDataService.get_by_register_id(this.idRegister).then( r => {
          this.registerApprovals = r;
+         //AQUI
          this.registerApprovals.forEach(element => {
             if(element.approval_id == 1){
                this.registerApprovalInspector = element;
