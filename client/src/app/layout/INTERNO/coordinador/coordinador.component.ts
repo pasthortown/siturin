@@ -2128,6 +2128,7 @@ export class CoordinadorComponent implements OnInit {
    this.registers_mintur.forEach(element => {
       if (element.id == this.idRegister && element.activity == this.activity) {
          this.selectRegisterMintur(element);
+         console.log(element);
          const registerState = this.getRegisterState(element.states.state_id);
          this.stateTramiteId = element.states.state_id;
          estado = this.stateTramiteId.toString();
