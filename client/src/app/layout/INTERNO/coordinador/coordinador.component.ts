@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ApprovalStateAttachment } from './../../../models/ALOJAMIENTO/ApprovalStateAttachment';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { Approval } from 'src/app/models/ALOJAMIENTO/Approval';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
@@ -355,7 +356,8 @@ export class CoordinadorComponent implements OnInit {
               private declarationAttachmentDataService: DeclarationAttachmentService,
               private mailerDataService: MailerService,
               private router: Router, 
-              private approvalStateDataService: ApprovalStateService,
+              private approvalStateDataService: ApprovalStateService, 
+              private approvalStateABDataService: ApprovalStateABService,>
               private consultorDataService: ConsultorService,
               private userDataService: UserService,
               private registerStateDataService: RegisterStateService,
@@ -2128,7 +2130,6 @@ export class CoordinadorComponent implements OnInit {
    this.registers_mintur.forEach(element => {
       if (element.register.id == this.idRegister && element.activity == this.activity) {
          this.selectRegisterMintur(element);
-         //AQUI
          const registerState = this.getRegisterState(element.states.state_id);
          this.stateTramiteId = element.states.state_id;
          estado = this.stateTramiteId.toString();
@@ -2226,39 +2227,76 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalInspector = new ApprovalState();
    this.registerApprovalFinanciero = new ApprovalState();
    this.registerApprovalCoordinador = new ApprovalState();
-   this.approvalStateDataService.get_by_register_id(this.idRegister).then( r => {
-      this.registerApprovals = r;
-      this.registerApprovals.forEach(element => {
-         if(element.approval_id == 1){
-            this.registerApprovalInspector = element;
-            if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
-               this.registerApprovalInspector.notes = '';
+   if (this.activity == 'ALOJAMIENTO') {
+      this.approvalStateDataService.get_by_register_id(this.idRegister).then( r => {
+         this.registerApprovals = r;
+         this.registerApprovals.forEach(element => {
+            if(element.approval_id == 1){
+               this.registerApprovalInspector = element;
+               if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
+                  this.registerApprovalInspector.notes = '';
+               }
+               this.inspectorSelectedId = this.registerApprovalInspector.id_user;
+               this.checkIfIsAssigned();
+               this.checkAttachments();
             }
-            this.inspectorSelectedId = this.registerApprovalInspector.id_user;
-            this.checkIfIsAssigned();
-            this.checkAttachments();
-         }
-         if(element.approval_id == 2){
-            this.registerApprovalFinanciero = element;
-            if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
-               this.registerApprovalFinanciero.notes = '';
+            if(element.approval_id == 2){
+               this.registerApprovalFinanciero = element;
+               if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalFinanciero.notes = '';
+               }
+               this.financialSelectedId = this.registerApprovalFinanciero.id_user;
+               if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
+                  this.registerApprovalFinanciero.id_user = 0;
+                  this.financialSelectedId = 0;
+               }
+               this.checkIfIsAssignedFinanciero();
+               this.checkAttachmentsFinanciero();
             }
-            this.financialSelectedId = this.registerApprovalFinanciero.id_user;
-            if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
-               this.registerApprovalFinanciero.id_user = 0;
-               this.financialSelectedId = 0;
+            if(element.approval_id == 3){
+               this.registerApprovalCoordinador = element;
+               if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalCoordinador.notes = '';
+               }
             }
-            this.checkIfIsAssignedFinanciero();
-            this.checkAttachmentsFinanciero();
-         }
-         if(element.approval_id == 3){
-            this.registerApprovalCoordinador = element;
-            if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
-               this.registerApprovalCoordinador.notes = '';
+         });
+      }).catch( e => { console.log(e); });
+   }
+   if (this.activity == "ALIMENTOS Y BEBIDAS") {
+      this.approvalStateABDataService.get_by_register_id(this.idRegister).then( r => {
+         this.registerApprovals = r;
+         this.registerApprovals.forEach(element => {
+            if(element.approval_id == 1){
+               this.registerApprovalInspector = element;
+               if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
+                  this.registerApprovalInspector.notes = '';
+               }
+               this.inspectorSelectedId = this.registerApprovalInspector.id_user;
+               this.checkIfIsAssigned();
+               this.checkAttachments();
             }
-         }
-      });
-   }).catch( e => { console.log(e); });
+            if(element.approval_id == 2){
+               this.registerApprovalFinanciero = element;
+               if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalFinanciero.notes = '';
+               }
+               this.financialSelectedId = this.registerApprovalFinanciero.id_user;
+               if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
+                  this.registerApprovalFinanciero.id_user = 0;
+                  this.financialSelectedId = 0;
+               }
+               this.checkIfIsAssignedFinanciero();
+               this.checkAttachmentsFinanciero();
+            }
+            if(element.approval_id == 3){
+               this.registerApprovalCoordinador = element;
+               if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+                  this.registerApprovalCoordinador.notes = '';
+               }
+            }
+         });
+      }).catch( e => { console.log(e); });
+   }
   }
   
   entregarDocumentos() {
