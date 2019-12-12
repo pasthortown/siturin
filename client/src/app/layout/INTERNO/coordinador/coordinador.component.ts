@@ -1987,7 +1987,7 @@ export class CoordinadorComponent implements OnInit {
             date_assigment_alert: date_assigment_alert,
             number: item.ruc.number,
             registerId: item.register.id,
-            actividad: 'ALOJAMIENTO',
+            actividad: item.activity,
             provincia: provincia.name,
             canton: canton.name,
             parroquia: parroquia.name,
