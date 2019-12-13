@@ -2137,6 +2137,7 @@ export class RegistroComponent implements OnInit {
 
    }).catch( e => { console.log(e); });
    this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
+   this.rucEstablishmentRegisterSelected.id = 0;
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
       this.guardarCertificadoUsoSuelos();
@@ -3864,6 +3865,7 @@ export class RegistroComponent implements OnInit {
   validateRegister(): Boolean {
       let toReturn: Boolean = true;
       if (this.actividadSelected == '1') {
+         const c1 = !this.rucEstablishmentRegisterSelected.editable;
          const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
          const c3 = (this.categorySelectedCode == '-');
          const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
