@@ -61,6 +61,7 @@ import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -76,6 +77,7 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
   providers: [NgbModal,
     UserService,
     DinardapService,
+    RegisterTypeABService,
     DeclarationItemService,
     ConsultorService,
     DeclarationItemCategoryService,
