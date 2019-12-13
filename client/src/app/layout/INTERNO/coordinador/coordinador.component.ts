@@ -2798,6 +2798,7 @@ export class CoordinadorComponent implements OnInit {
   getRegisterTypesAB() {
    this.register_typeABDataService.get().then( r => {
       this.register_types_AB = r as RegisterTypeAB[];
+      console.log(this.register_types_AB);
       this.getRegistersMintur();
    }).catch( e => { console.log(e); });
   }
