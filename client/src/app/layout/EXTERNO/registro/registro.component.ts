@@ -392,6 +392,8 @@ export class RegistroComponent implements OnInit {
    });
    this.totalABPuntos = totalScore;
    this.totalABPuntosShown = totalScoreShown;
+   console.log('totalABPuntosShown: ' + this.totalABPuntosShown);
+   console.log('totalABPuntos: ' + this.totalABPuntos);
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points <= this.totalABPuntos) {
