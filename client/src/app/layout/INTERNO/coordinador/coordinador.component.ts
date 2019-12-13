@@ -2004,7 +2004,7 @@ export class CoordinadorComponent implements OnInit {
             address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
             created_at: creacion.toLocaleDateString(),
             code: item.register.code,
-            category: this.getRegisterCategory(item.register.register_type_id),
+            category: this.getRegisterCategory(item.register.register_type_id, item.activity),
             status: registerState,
             status_id: item.states.state_id,
          });
@@ -2798,7 +2798,6 @@ export class CoordinadorComponent implements OnInit {
   getRegisterTypesAB() {
    this.register_typeABDataService.get().then( r => {
       this.register_types_AB = r as RegisterTypeAB[];
-      console.log(this.register_types_AB);
       this.getRegistersMintur();
    }).catch( e => { console.log(e); });
   }
@@ -3631,10 +3630,10 @@ export class CoordinadorComponent implements OnInit {
    }).catch( e => { console.log(e); });
   }
 
-  getRegisterCategory(id: number): String {
+  getRegisterCategory(id: number, activity: string): String {
    let toReturn: String = '';
    let fatherCode: String = '';
-   if (this.activity == 'ALOJAMIENTO') {
+   if (activity == 'ALOJAMIENTO') {
       this.register_types.forEach(register_type => {
          if (register_type.id == id) {
           toReturn = register_type.name;
@@ -3647,7 +3646,7 @@ export class CoordinadorComponent implements OnInit {
          }
       });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (activity == 'ALIMENTOS Y BEBIDAS') {
       this.register_types_AB.forEach(register_type => {
          if (register_type.id == id) {
           toReturn = register_type.name;
