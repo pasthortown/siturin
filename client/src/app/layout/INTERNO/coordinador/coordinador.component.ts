@@ -1091,30 +1091,59 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalInspector.id_user = this.inspectorSelectedId;
    this.registerApprovalInspector.date_assigment = new Date();
    this.registerApprovalInspector.notes = '';
-   this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
-      const newRegisterState = new RegisterState();
-      newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
-      newRegisterState.register_id = this.idRegister;
-      newRegisterState.state_id = this.stateTramiteId + 3;
-      this.asignandoInspector = false;
-      this.registerStateDataService.post(newRegisterState).then( r1 => {
+   if (this.activity == 'ALOJAMIENTO') {
+      this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
+         const newRegisterState = new RegisterState();
+         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+         newRegisterState.register_id = this.idRegister;
+         newRegisterState.state_id = this.stateTramiteId + 3;
+         this.asignandoInspector = false;
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
-   }).catch( e => { console.log(e); });
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
+         const newRegisterState = new RegisterState();
+         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+         newRegisterState.register_id = this.idRegister;
+         newRegisterState.state_id = this.stateTramiteId + 3;
+         this.asignandoInspector = false;
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+   }
    let clasificacion: String = '';
    let categoria: String = '';
-   let category: RegisterType = new RegisterType();
-   this.register_types.forEach(element => {
-      if (this.registerMinturSelected.register.register_type_id == element.id) {
-         category = element;
-         categoria = element.name;
-      }
-   });
-   this.register_types.forEach(element => {
-      if (category.father_code == element.code) {
-         clasificacion = element.name;
-      }
-   });
-   
+   let category: any = null;
+   if (this.activity == 'ALOJAMIENTO') {
+      category = new RegisterType();
+      this.register_types.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });   
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      category = new RegisterTypeAB();
+      this.register_types_AB.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types_AB.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });   
+   }
    let inspector = new User();
    this.inspectores.forEach(element => {
       if (element.id == this.inspectorSelectedId) {
