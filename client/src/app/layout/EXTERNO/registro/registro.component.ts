@@ -3882,7 +3882,7 @@ export class RegistroComponent implements OnInit {
                c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
             }
          });
-         toReturn = !(c2 || c3 || c4 || c5 || c6 || c7);
+         toReturn = !(c1 || c2 || c3 || c4 || c5 || c6 || c7);
       }
       return toReturn;
   }
