@@ -62,6 +62,8 @@ import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { RegisterStateService as RegisterStateABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -84,6 +86,7 @@ import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CR
     DeclarationService,
     DocumentService,
     RegistroCatastroService,
+    RegisterABService,
     ReceptionRoomService,
     PropertyTitleAttachmentService,
     ApprovalStateABService,
@@ -91,6 +94,7 @@ import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CR
     MailerService,
     DeclarationAttachmentService,
     FloorAuthorizationCertificateService,
+    RegisterStateABService,
     PayService,
     ExporterService,
     TaxPayerTypeService,

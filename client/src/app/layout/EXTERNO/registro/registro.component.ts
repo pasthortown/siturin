@@ -392,8 +392,6 @@ export class RegistroComponent implements OnInit {
    });
    this.totalABPuntos = totalScore;
    this.totalABPuntosShown = totalScoreShown;
-   console.log('totalABPuntosShown: ' + this.totalABPuntosShown);
-   console.log('totalABPuntos: ' + this.totalABPuntos);
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points <= this.totalABPuntos) {
@@ -2138,6 +2136,7 @@ export class RegistroComponent implements OnInit {
    this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
 
    }).catch( e => { console.log(e); });
+   //AQUI
    this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
    this.rucEstablishmentRegisterSelected.id = 0;
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {

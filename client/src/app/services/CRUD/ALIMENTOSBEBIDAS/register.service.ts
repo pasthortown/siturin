@@ -24,6 +24,21 @@ export class RegisterService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   get_requisites_set_by_user(register_id: number): Promise<any> {
+      return this.http.get(this.url + 'get_requisites_set_by_user?register_id=' + register_id.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }
+
+   set_register_code(code: String, register_id: number): Promise<any> {
+      const data = {code: code, id: register_id};
+      return this.http.put(this.url + 'set_register_code', JSON.stringify(data), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }
+
    get_register_data(id: number): Promise<any>{
       return this.http.get(this.url + 'get_register_data?id=' + id.toString(), this.options).toPromise()
       .then( r => {
