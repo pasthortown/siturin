@@ -5435,16 +5435,18 @@ guardarDeclaracion() {
   calcBeds(capacity: Capacity) {
    capacity.total_spaces = 0;
    let beds_declared = 0;
-   capacity.beds_on_capacity.forEach(bed => {
-      let places = 0;
-      beds_declared += bed.quantity;
-      this.alowed_bed_types.forEach(bedType => {
-         if(bedType.id == bed.bed_type_id) {
-            places = bed.quantity;
-         }
-      });
-      capacity.total_spaces += places;
-   });
+   if (typeof capacity.beds_on_capacity != 'undefined') {
+      capacity.beds_on_capacity.forEach(bed => {
+         let places = 0;
+         beds_declared += bed.quantity;
+         this.alowed_bed_types.forEach(bedType => {
+            if(bedType.id == bed.bed_type_id) {
+               places = bed.quantity;
+            }
+         });
+         capacity.total_spaces += places;
+      });   
+   }
    if(beds_declared == capacity.max_beds){
       capacity.max_bed_ok = true;
    }else {
