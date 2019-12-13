@@ -1928,7 +1928,7 @@ export class CoordinadorComponent implements OnInit {
   buildDataTable() {
      this.columns = [
         {title: '', name: 'selected'},
-        {title: 'Tiempo de Atención', name: 'date_assigment_alert'},
+        //{title: 'Tiempo de Atención', name: 'date_assigment_alert'},
         {title: 'Número de RUC', name: 'number'},
         {title: 'Número de Establecimiento', name: 'ruc_code_id'},
         {title: 'Nombre Comercial', name: 'establishment'},
