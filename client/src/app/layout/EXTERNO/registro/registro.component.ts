@@ -392,6 +392,8 @@ export class RegistroComponent implements OnInit {
    });
    this.totalABPuntos = totalScore;
    this.totalABPuntosShown = totalScoreShown;
+   console.log('totalABPuntosShown: ' + this.totalABPuntosShown);
+   console.log('totalABPuntos: ' + this.totalABPuntos);
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points <= this.totalABPuntos) {
@@ -2137,6 +2139,7 @@ export class RegistroComponent implements OnInit {
 
    }).catch( e => { console.log(e); });
    this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
+   this.rucEstablishmentRegisterSelected.id = 0;
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
       this.guardarCertificadoUsoSuelos();
@@ -3881,6 +3884,9 @@ export class RegistroComponent implements OnInit {
             }
          });
          toReturn = !(c2 || c3 || c4 || c5 || c6 || c7);
+      }
+      if (!this.rucEstablishmentRegisterSelected.editable) {
+         toReturn = false;
       }
       return toReturn;
   }

@@ -73,11 +73,13 @@ import { Register } from 'src/app/models/ALOJAMIENTO/Register';
 import { ComplementaryServiceType } from 'src/app/models/ALOJAMIENTO/ComplementaryServiceType';
 import { ComplementaryServiceTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicetype.service';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
+import { RegisterType as RegisterTypeAB} from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { SystemName } from 'src/app/models/BASE/SystemName';
 import { WorkerGroup } from 'src/app/models/BASE/WorkerGroup';
 import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
 import { GenderService } from 'src/app/services/CRUD/BASE/gender.service';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { RequisiteService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
 import { TariffType } from 'src/app/models/ALOJAMIENTO/TariffType';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
@@ -306,6 +308,7 @@ export class CoordinadorComponent implements OnInit {
   clasifications_registers: RegisterType[] = [];
   categories_registers: RegisterType[] = [];
   register_types: RegisterType[] = [];
+  register_types_AB: RegisterTypeAB[] = [];
   complementary_service_types: ComplementaryServiceType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
   requisitesByRegisterType: Requisite[] = [];
@@ -385,6 +388,7 @@ export class CoordinadorComponent implements OnInit {
               private establishment_property_typeDataService: EstablishmentPropertyTypeService,
               private establishmentDataService: EstablishmentService,
               private register_typeDataService: RegisterTypeService,
+              private register_typeABDataService: RegisterTypeABService,
               private registerCatastroDataService: RegistroCatastroService,
               private requisiteDataService: RequisiteService,
               private registerProcedureDataService: RegisterProcedureService,
@@ -1087,30 +1091,59 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalInspector.id_user = this.inspectorSelectedId;
    this.registerApprovalInspector.date_assigment = new Date();
    this.registerApprovalInspector.notes = '';
-   this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
-      const newRegisterState = new RegisterState();
-      newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
-      newRegisterState.register_id = this.idRegister;
-      newRegisterState.state_id = this.stateTramiteId + 3;
-      this.asignandoInspector = false;
-      this.registerStateDataService.post(newRegisterState).then( r1 => {
+   if (this.activity == 'ALOJAMIENTO') {
+      this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
+         const newRegisterState = new RegisterState();
+         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+         newRegisterState.register_id = this.idRegister;
+         newRegisterState.state_id = this.stateTramiteId + 3;
+         this.asignandoInspector = false;
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
-   }).catch( e => { console.log(e); });
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
+         const newRegisterState = new RegisterState();
+         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+         newRegisterState.register_id = this.idRegister;
+         newRegisterState.state_id = this.stateTramiteId + 3;
+         this.asignandoInspector = false;
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+   }
    let clasificacion: String = '';
    let categoria: String = '';
-   let category: RegisterType = new RegisterType();
-   this.register_types.forEach(element => {
-      if (this.registerMinturSelected.register.register_type_id == element.id) {
-         category = element;
-         categoria = element.name;
-      }
-   });
-   this.register_types.forEach(element => {
-      if (category.father_code == element.code) {
-         clasificacion = element.name;
-      }
-   });
-   
+   let category: any = null;
+   if (this.activity == 'ALOJAMIENTO') {
+      category = new RegisterType();
+      this.register_types.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });   
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      category = new RegisterTypeAB();
+      this.register_types_AB.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types_AB.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });   
+   }
    let inspector = new User();
    this.inspectores.forEach(element => {
       if (element.id == this.inspectorSelectedId) {
@@ -1924,6 +1957,7 @@ export class CoordinadorComponent implements OnInit {
   buildDataTable() {
      this.columns = [
         {title: '', name: 'selected'},
+        //{title: 'Tiempo de Atención', name: 'date_assigment_alert'},
         {title: 'Número de RUC', name: 'number'},
         {title: 'Número de Establecimiento', name: 'ruc_code_id'},
         {title: 'Nombre Comercial', name: 'establishment'},
@@ -1999,7 +2033,7 @@ export class CoordinadorComponent implements OnInit {
             address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
             created_at: creacion.toLocaleDateString(),
             code: item.register.code,
-            category: this.getRegisterCategory(item.register.register_type_id),
+            category: this.getRegisterCategory(item.register.register_type_id, item.activity),
             status: registerState,
             status_id: item.states.state_id,
          });
@@ -2272,7 +2306,6 @@ export class CoordinadorComponent implements OnInit {
                   this.registerApprovalInspector.notes = '';
                }
                this.inspectorSelectedId = this.registerApprovalInspector.id_user;
-               //AQUI
                this.checkIfIsAssigned();
                this.checkAttachments();
             }
@@ -2787,6 +2820,13 @@ export class CoordinadorComponent implements OnInit {
   getRegisterTypes() {
    this.register_typeDataService.get().then( r => {
       this.register_types = r as RegisterType[];
+      this.getRegisterTypesAB();
+   }).catch( e => { console.log(e); });
+  }
+
+  getRegisterTypesAB() {
+   this.register_typeABDataService.get().then( r => {
+      this.register_types_AB = r as RegisterTypeAB[];
       this.getRegistersMintur();
    }).catch( e => { console.log(e); });
   }
@@ -3619,20 +3659,35 @@ export class CoordinadorComponent implements OnInit {
    }).catch( e => { console.log(e); });
   }
 
-  getRegisterCategory(id: number): String {
+  getRegisterCategory(id: number, activity: string): String {
    let toReturn: String = '';
    let fatherCode: String = '';
-   this.register_types.forEach(register_type => {
-      if (register_type.id == id) {
-       toReturn = register_type.name;
-       fatherCode = register_type.father_code;
-      }
-   });
-   this.register_types.forEach(register_type => {
-      if (register_type.code == fatherCode) {
-         toReturn = register_type.name + ' - ' + toReturn;
-      }
-   });
+   if (activity == 'ALOJAMIENTO') {
+      this.register_types.forEach(register_type => {
+         if (register_type.id == id) {
+          toReturn = register_type.name;
+          fatherCode = register_type.father_code;
+         }
+      });
+      this.register_types.forEach(register_type => {
+         if (register_type.code == fatherCode) {
+            toReturn = register_type.name + ' - ' + toReturn;
+         }
+      });
+   }
+   if (activity == 'ALIMENTOS Y BEBIDAS') {
+      this.register_types_AB.forEach(register_type => {
+         if (register_type.id == id) {
+          toReturn = register_type.name;
+          fatherCode = register_type.father_code;
+         }
+      });
+      this.register_types_AB.forEach(register_type => {
+         if (register_type.code == fatherCode) {
+            toReturn = register_type.name + ' - ' + toReturn;
+         }
+      });
+   }
    return toReturn;
 }
 
@@ -5435,16 +5490,18 @@ guardarDeclaracion() {
   calcBeds(capacity: Capacity) {
    capacity.total_spaces = 0;
    let beds_declared = 0;
-   capacity.beds_on_capacity.forEach(bed => {
-      let places = 0;
-      beds_declared += bed.quantity;
-      this.alowed_bed_types.forEach(bedType => {
-         if(bedType.id == bed.bed_type_id) {
-            places = bed.quantity;
-         }
-      });
-      capacity.total_spaces += places;
-   });
+   if (typeof capacity.beds_on_capacity != 'undefined') {
+      capacity.beds_on_capacity.forEach(bed => {
+         let places = 0;
+         beds_declared += bed.quantity;
+         this.alowed_bed_types.forEach(bedType => {
+            if(bedType.id == bed.bed_type_id) {
+               places = bed.quantity;
+            }
+         });
+         capacity.total_spaces += places;
+      });   
+   }
    if(beds_declared == capacity.max_beds){
       capacity.max_bed_ok = true;
    }else {
