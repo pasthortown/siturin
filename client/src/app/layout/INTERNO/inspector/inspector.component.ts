@@ -114,6 +114,7 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
 import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { RegisterType as RegisterTypeAB} from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
+import { ApprovalStateReportService as ApprovalStateReportABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
 
 @Component({
   selector: 'app-registro',
@@ -272,6 +273,7 @@ export class InspectorComponent implements OnInit {
   preview_register_codes_establishmentSelected = new PreviewRegisterCode();
   establishmentComercialNameValidated = false;
   addressEstablishmentValidated = false;
+  register_types_AB: RegisterTypeAB[] = [];
   mainPhoneEstablishmentValidated = false;
   secondaryPhoneEstablishmentValidated = true;
   urlwebEstablishmentValidated = true;
@@ -391,6 +393,7 @@ export class InspectorComponent implements OnInit {
               private tariffTypeDataService: TariffTypeService,
               private stateDataService: StateService,
               private tax_payer_typeDataService: TaxPayerTypeService,
+              private approvalStateReportABDataService: ApprovalStateReportABService,
               private registerDataService: RegisterService) {}
 
   ngOnInit() {
@@ -2363,12 +2366,12 @@ export class InspectorComponent implements OnInit {
          this.newRegisterState.register_id = this.registerApprovalInspector.register_id;
          this.registerApprovalInspector.notes = '';
          this.report.approval_state_id = this.registerApprovalInspector.id;
-         if (this.report.id == 0) {
-            this.approvalStateReportDataService.post(this.report).then().catch( e => { console.log(e); });
-         } else {
-            this.approvalStateReportDataService.put(this.report).then().catch( e => { console.log(e); });
-         }
          if (this.activity == 'ALOJAMIENTO') {
+            if (this.report.id == 0) {
+               this.approvalStateReportDataService.post(this.report).then().catch( e => { console.log(e); });
+            } else {
+               this.approvalStateReportDataService.put(this.report).then().catch( e => { console.log(e); });
+            }
             this.registerStateDataService.post(this.newRegisterState).then( r1 => {
             }).catch( e => { console.log(e); });
             this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
@@ -2420,7 +2423,12 @@ export class InspectorComponent implements OnInit {
             }).catch( e => { console.log(e); });
          }
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-            this.registerStateABDataService.post(this.newRegisterState).then( r1 => {
+               if (this.report.id == 0) {
+                  this.approvalStateReportABDataService.post(this.report).then().catch( e => { console.log(e); });
+               } else {
+                  this.approvalStateReportABDataService.put(this.report).then().catch( e => { console.log(e); });
+               }
+            this.registerStateABDataService.post(this.newRegisterState).then( r1 => {
             }).catch( e => { console.log(e); });
             this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
                this.requisitosApprovalStateAttachment.approval_state_attachment_file_name = 'Formulario_Requisitos_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
@@ -2715,7 +2723,7 @@ export class InspectorComponent implements OnInit {
                      }
                   });
                   this.registerApprovalInspector = element;
-                  this.approvalStateReportDataService.get_by_approval_state_id(element.id).then( r => {
+                  this.approvalStateReportABDataService.get_by_approval_state_id(element.id).then( r => {
                      const reporte = r as ApprovalStateReport;
                      if (typeof reporte.id != 'undefined' || reporte.id != null) {
                         this.report = reporte;
@@ -2739,6 +2747,13 @@ export class InspectorComponent implements OnInit {
   getRegisterTypes() {
    this.register_typeDataService.get().then( r => {
       this.register_types = r as RegisterType[];
+      this.getRegisterTypesAB();
+   }).catch( e => { console.log(e); });
+  }
+
+  getRegisterTypesAB() {
+   this.register_typeABDataService.get().then( r => {
+      this.register_types_AB = r as RegisterTypeAB[];
       this.getRegistersMintur();
    }).catch( e => { console.log(e); });
   }
@@ -2791,7 +2806,7 @@ export class InspectorComponent implements OnInit {
                newRegisterState.justification = 'El Técnico Zonal no se encuentra disponible por Vacaciones / Fuera de Oficina';
                newRegisterState.register_id =  this.idRegister;
                newRegisterState.state_id = this.stateTramiteId - 3;
-               this.registerStateDataService.post(newRegisterState).then( r1 => {
+               this.registerStateABDataService.post(newRegisterState).then( r1 => {
                   this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
                   this.refresh();
                }).catch( e => { console.log(e); });

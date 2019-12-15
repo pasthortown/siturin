@@ -126,6 +126,7 @@ export class TecnicoFinancieroComponent implements OnInit {
   totalPayTaxes = 0;
   totalPayToPay = 0;
   registerApprovals: ApprovalState[] = [];
+  register_types_AB: RegisterTypeAB[] = [];
   registerApprovalCoordinador: ApprovalState = new ApprovalState();
   registerApprovalInspector: ApprovalState = new ApprovalState();
   registerApprovalFinanciero: ApprovalState = new ApprovalState();
@@ -1475,11 +1476,18 @@ calcularUnoxMil() {
  }
 
  getRegisterTypes() {
-  this.register_typeDataService.get().then( r => {
-     this.register_types = r as RegisterType[];
-     this.getRegistersMintur();
-  }).catch( e => { console.log(e); });
- }
+   this.register_typeDataService.get().then( r => {
+      this.register_types = r as RegisterType[];
+      this.getRegisterTypesAB();
+   }).catch( e => { console.log(e); });
+  }
+
+  getRegisterTypesAB() {
+   this.register_typeABDataService.get().then( r => {
+      this.register_types_AB = r as RegisterTypeAB[];
+      this.getRegistersMintur();
+   }).catch( e => { console.log(e); });
+  }
 
  selectRegisterMintur(item: any) {
   this.registerMinturSelected = item;
