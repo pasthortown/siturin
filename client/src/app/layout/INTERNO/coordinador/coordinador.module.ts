@@ -4,7 +4,6 @@ import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIER
 import { FloorAuthorizationCertificateService } from './../../../services/CRUD/BASE/floorauthorizationcertificate.service';
 import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
 
-import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
@@ -64,6 +63,8 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
 import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { RegisterStateService as RegisterStateABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -96,6 +97,7 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
     FloorAuthorizationCertificateService,
     RegisterStateABService,
     PayService,
+    ApprovalStateAttachmentABService,
     ExporterService,
     TaxPayerTypeService,
     RegisterProcedureService,

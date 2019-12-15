@@ -111,6 +111,7 @@ import { PropertyTitleAttachment } from 'src/app/models/ALOJAMIENTO/PropertyTitl
 import { AuthorizationAttachment } from 'src/app/models/ALOJAMIENTO/AuthorizationAttachment';
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 
 @Component({
   selector: 'app-registro',
@@ -362,11 +363,9 @@ export class CoordinadorComponent implements OnInit {
               private mailerDataService: MailerService,
               private router: Router, 
               private approvalStateDataService: ApprovalStateService, 
-              private approvalStateABDataService: ApprovalStateABService,
               private consultorDataService: ConsultorService,
               private userDataService: UserService,
               private registerStateDataService: RegisterStateService,
-              private registerStateABDataService: RegisterStateABService,
               private exporterDataService: ExporterService,
               private dinardapDataService: DinardapService,
               private rucDataService: RucService,
@@ -391,11 +390,11 @@ export class CoordinadorComponent implements OnInit {
               private establishment_property_typeDataService: EstablishmentPropertyTypeService,
               private establishmentDataService: EstablishmentService,
               private register_typeDataService: RegisterTypeService,
-              private register_typeABDataService: RegisterTypeABService,
               private registerCatastroDataService: RegistroCatastroService,
               private requisiteDataService: RequisiteService,
               private registerProcedureDataService: RegisterProcedureService,
               private bedTypeDataService: BedTypeService,
+              private approvalStateAttachmentABDataService: ApprovalStateAttachmentABService,
               private declarationDataService: DeclarationService,
               private declarationItemCategoryDataService: DeclarationItemCategoryService,
               private declarationItemDataService: DeclarationItemService,
@@ -403,6 +402,9 @@ export class CoordinadorComponent implements OnInit {
               private stateDataService: StateService,
               private tax_payer_typeDataService: TaxPayerTypeService,
               private registerDataService: RegisterService,
+              private approvalStateABDataService: ApprovalStateABService,
+              private registerStateABDataService: RegisterStateABService,
+              private register_typeABDataService: RegisterTypeABService,
               private registerABDataService: RegisterABService) {}
 
   ngOnInit() {
@@ -2358,28 +2360,54 @@ export class CoordinadorComponent implements OnInit {
       this.hasRequisites = false;
       return;
    }
-   this.approvalStateAttachmentDataService.get_by_register_id(this.idRegister).then( r => {
-      r.forEach(approvalStateAttachment => {
-         if (approvalStateAttachment.approval_state_attachment_file_name.search('Informe') == 0) {
-            this.informeApprovalStateAttachment = approvalStateAttachment;
-            this.hasInform = true;
-         }
-         if (approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) {
-            this.requisitosApprovalStateAttachment = approvalStateAttachment;
-            this.hasRequisites = true;
-         }
-         if (approvalStateAttachment.approval_state_attachment_file_name.search('Acta') == 0) {
-            this.actaNotificacionApprovalStateAttachment = approvalStateAttachment;
-            this.hasActaNotificacion = true;
-         }
-         if (approvalStateAttachment.approval_state_attachment_file_name.search('Registro') == 0) {
-            this.registroApprovalStateAttachment = approvalStateAttachment;
-         }
-         if (approvalStateAttachment.approval_state_attachment_file_name.search('Tarifario') == 0) {
-            this.tarifarioRackApprovalStateAttachment = approvalStateAttachment;
-         }
-      });
-   }).catch( e => { console.log(e); });
+   if (this.activity == 'ALOJAMIENTO') {
+      this.approvalStateAttachmentDataService.get_by_register_id(this.idRegister).then( r => {
+         r.forEach(approvalStateAttachment => {
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Informe') == 0) {
+               this.informeApprovalStateAttachment = approvalStateAttachment;
+               this.hasInform = true;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) {
+               this.requisitosApprovalStateAttachment = approvalStateAttachment;
+               this.hasRequisites = true;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Acta') == 0) {
+               this.actaNotificacionApprovalStateAttachment = approvalStateAttachment;
+               this.hasActaNotificacion = true;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Registro') == 0) {
+               this.registroApprovalStateAttachment = approvalStateAttachment;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Tarifario') == 0) {
+               this.tarifarioRackApprovalStateAttachment = approvalStateAttachment;
+            }
+         });
+      }).catch( e => { console.log(e); });
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.approvalStateAttachmentABDataService.get_by_register_id(this.idRegister).then( r => {
+         r.forEach(approvalStateAttachment => {
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Informe') == 0) {
+               this.informeApprovalStateAttachment = approvalStateAttachment;
+               this.hasInform = true;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) {
+               this.requisitosApprovalStateAttachment = approvalStateAttachment;
+               this.hasRequisites = true;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Acta') == 0) {
+               this.actaNotificacionApprovalStateAttachment = approvalStateAttachment;
+               this.hasActaNotificacion = true;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Registro') == 0) {
+               this.registroApprovalStateAttachment = approvalStateAttachment;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Tarifario') == 0) {
+               this.tarifarioRackApprovalStateAttachment = approvalStateAttachment;
+            }
+         });
+      }).catch( e => { console.log(e); });
+   }
   }
 
   checkIfIsAssignedFinanciero() {
@@ -2543,18 +2571,23 @@ export class CoordinadorComponent implements OnInit {
      const today = new Date();
      this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
      this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
-      this.approvalStateAttachmentDataService.post(this.registroApprovalStateAttachment).then( r3 => {
-         this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
-      }).catch( e => { console.log(e); });
-     }).catch( e => { console.log(e); });
       if (this.activity == 'ALOJAMIENTO') {
          this.registerStateDataService.post(newRegisterState).then( r1 => {
          }).catch( e => { console.log(e); });
+         this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
+            this.approvalStateAttachmentDataService.post(this.registroApprovalStateAttachment).then( r3 => {
+               this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
+            }).catch( e => { console.log(e); });
+           }).catch( e => { console.log(e); });      
       }
       if (this.activity == 'ALIMENTOS Y BEBIDAS') {
          this.registerStateABDataService.post(newRegisterState).then( r1 => {
          }).catch( e => { console.log(e); });
+         this.approvalStateAttachmentABDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
+            this.approvalStateAttachmentABDataService.post(this.registroApprovalStateAttachment).then( r3 => {
+               this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
+            }).catch( e => { console.log(e); });
+         }).catch( e => { console.log(e); });    
       }
   }
 

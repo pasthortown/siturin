@@ -58,6 +58,12 @@ import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
+import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { RegisterStateService as RegisterStateABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+
 @NgModule({
   imports: [CommonModule,
     CKEditorModule,
@@ -75,7 +81,12 @@ import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattach
     DeclarationItemService,
     ConsultorService,
     PayService,
+    RegisterTypeABService,
+    RegisterStateABService,
+    RegisterABService,
+    ApprovalStateABService,
     ApprovalStateAttachmentService,
+    ApprovalStateAttachmentABService,
     DeclarationItemCategoryService,
     DeclarationService,
     MailerService,

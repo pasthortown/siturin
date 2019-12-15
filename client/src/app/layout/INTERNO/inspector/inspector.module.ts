@@ -61,6 +61,11 @@ import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
+import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { RegisterStateService as RegisterStateABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -76,6 +81,10 @@ import { RegisterService as RegistroCatastroService } from 'src/app/services/CRU
   providers: [NgbModal,
     UserService,
     DinardapService,
+    RegisterTypeABService,
+    RegisterStateABService,
+    RegisterABService,
+    ApprovalStateABService,
     PropertyTitleAttachmentService,
     AuthorizationAttachmentService,
     DeclarationItemService,
@@ -86,6 +95,7 @@ import { RegisterService as RegistroCatastroService } from 'src/app/services/CRU
     RegisterStateService,
     TaxPayerTypeService,
     RegistroCatastroService,
+    ApprovalStateAttachmentABService,
     PersonRepresentativeAttachmentService,
     EstablishmentCertificationService,
     ComplementaryServiceFoodTypeService,
