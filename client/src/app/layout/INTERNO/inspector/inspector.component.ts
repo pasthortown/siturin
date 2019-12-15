@@ -528,6 +528,13 @@ export class InspectorComponent implements OnInit {
        toReturn = false;
       }
    });
+   this.register_types_AB.forEach(register_type => {
+      const nombre = register_type.name.toUpperCase();
+      if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
+       errorEnNombreDetectado = true;
+       toReturn = false;
+      }
+   });
    const palabrasNoPermitidas = ['hotel',
    'hostal',
    'residencia',
@@ -587,6 +594,13 @@ export class InspectorComponent implements OnInit {
    } 
    let errorEnNombreDetectado = false;
    this.register_types.forEach(register_type => {
+      const nombre = register_type.name.toUpperCase();
+      if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
+       errorEnNombreDetectado = true;
+       toReturn = false;
+      }
+   });
+   this.register_types_AB.forEach(register_type => {
       const nombre = register_type.name.toUpperCase();
       if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
        errorEnNombreDetectado = true;
@@ -1486,7 +1500,7 @@ export class InspectorComponent implements OnInit {
                created_at: creacion.toLocaleDateString(),
                date_assigment: new Date(item.register.date_assigment.toString()).toLocaleDateString(),
                ruc_code_id: item.establishment.ruc_code_id,
-               category: this.getRegisterCategory(item.register.register_type_id),
+               category: this.getRegisterCategory(item.register.register_type_id, this.activity),
                status: registerState,
                status_id: item.states.state_id,
                actividad: this.registerMinturSelected.activity.toUpperCase(),
@@ -1830,7 +1844,7 @@ export class InspectorComponent implements OnInit {
             }
          });
          let clasificacion = '';
-         this.register_types.forEach(element => {
+         this.register_types_AB.forEach(element => {
             if (element.id == r0.register.register_type_id) {
                clasificacion = element.name.toString();
             }
@@ -2495,13 +2509,13 @@ export class InspectorComponent implements OnInit {
    let clasificacion: String = '';
    let categoria: String = '';
    let category: RegisterType = new RegisterType();
-   this.register_types.forEach(element => {
+   this.register_types_AB.forEach(element => {
       if (this.registerMinturSelected.register.register_type_id == element.id) {
          category = element;
          categoria = element.name;
       }
    });
-   this.register_types.forEach(element => {
+   this.register_types_AB.forEach(element => {
       if (category.father_code == element.code) {
          clasificacion = element.name;
       }
@@ -3267,22 +3281,37 @@ export class InspectorComponent implements OnInit {
    }).catch( e => { console.log(e); });
   }
 
-  getRegisterCategory(id: number): String {
+  getRegisterCategory(id: number, activity: string): String {
    let toReturn: String = '';
    let fatherCode: String = '';
-   this.register_types.forEach(register_type => {
-      if (register_type.id == id) {
-       toReturn = register_type.name;
-       fatherCode = register_type.father_code;
-      }
-   });
-   this.register_types.forEach(register_type => {
-      if (register_type.code == fatherCode) {
-         toReturn = register_type.name + ' - ' + toReturn;
-      }
-   });
+   if (activity == 'ALOJAMIENTO') {
+      this.register_types.forEach(register_type => {
+         if (register_type.id == id) {
+          toReturn = register_type.name;
+          fatherCode = register_type.father_code;
+         }
+      });
+      this.register_types.forEach(register_type => {
+         if (register_type.code == fatherCode) {
+            toReturn = register_type.name + ' - ' + toReturn;
+         }
+      });
+   }
+   if (activity == 'ALIMENTOS Y BEBIDAS') {
+      this.register_types_AB.forEach(register_type => {
+         if (register_type.id == id) {
+          toReturn = register_type.name;
+          fatherCode = register_type.father_code;
+         }
+      });
+      this.register_types_AB.forEach(register_type => {
+         if (register_type.code == fatherCode) {
+            toReturn = register_type.name + ' - ' + toReturn;
+         }
+      });
+   }
    return toReturn;
-}
+  }
 
   getRegisterState(id: number): String {
      let toReturn: String = '';

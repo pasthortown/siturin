@@ -1045,17 +1045,32 @@ calcularUnoxMil() {
    let clasificacion: String = '';
    let categoria: String = '';
    let category: RegisterType = new RegisterType();
-   this.register_types.forEach(element => {
-      if (this.registerMinturSelected.register.register_type_id == element.id) {
-         category = element;
-         categoria = element.name;
-      }
-   });
-   this.register_types.forEach(element => {
-      if (category.father_code == element.code) {
-         clasificacion = element.name;
-      }
-   });
+   if (this.activity == 'ALOJAMIENTO') {
+      this.register_types.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });   
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.register_types_AB.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types_AB.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });
+   }
    let parroquiaName: String = '';
    let parroquia: Ubication = new Ubication();
    this.ubications.forEach(element => {
@@ -1905,22 +1920,37 @@ getDeclarationItems() {
    }).catch( e => { console.log(e); });
  }
 
- getRegisterCategory(id: number): String {
-  let toReturn: String = '';
-  let fatherCode: String = '';
-  this.register_types.forEach(register_type => {
-     if (register_type.id == id) {
-      toReturn = register_type.name;
-      fatherCode = register_type.father_code;
-     }
-  });
-  this.register_types.forEach(register_type => {
-     if (register_type.code == fatherCode) {
-        toReturn = register_type.name + ' - ' + toReturn;
-     }
-  });
-  return toReturn;
-}
+ getRegisterCategory(id: number, activity: string): String {
+   let toReturn: String = '';
+   let fatherCode: String = '';
+   if (activity == 'ALOJAMIENTO') {
+      this.register_types.forEach(register_type => {
+         if (register_type.id == id) {
+          toReturn = register_type.name;
+          fatherCode = register_type.father_code;
+         }
+      });
+      this.register_types.forEach(register_type => {
+         if (register_type.code == fatherCode) {
+            toReturn = register_type.name + ' - ' + toReturn;
+         }
+      });
+   }
+   if (activity == 'ALIMENTOS Y BEBIDAS') {
+      this.register_types_AB.forEach(register_type => {
+         if (register_type.id == id) {
+          toReturn = register_type.name;
+          fatherCode = register_type.father_code;
+         }
+      });
+      this.register_types_AB.forEach(register_type => {
+         if (register_type.code == fatherCode) {
+            toReturn = register_type.name + ' - ' + toReturn;
+         }
+      });
+   }
+   return toReturn;
+  }
 
  getRegisterState(id: number): String {
    let toReturn: String = '';

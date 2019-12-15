@@ -612,13 +612,13 @@ export class CoordinadorComponent implements OnInit {
          let clasificacion: String = '';
          let categoria: String = '';
          let category: RegisterType = new RegisterType();
-         this.register_types.forEach(element => {
+         this.register_types_AB.forEach(element => {
             if (this.registerMinturSelected.register.register_type_id == element.id) {
                category = element;
                categoria = element.name;
             }
          });
-         this.register_types.forEach(element => {
+         this.register_types_AB.forEach(element => {
             if (category.father_code == element.code) {
                clasificacion = element.name;
             }
@@ -1731,6 +1731,13 @@ export class CoordinadorComponent implements OnInit {
          toReturn = false;
         }
      });
+     this.register_types_AB.forEach(register_type => {
+      const nombre = register_type.name.toUpperCase();
+      if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
+       errorEnNombreDetectado = true;
+       toReturn = false;
+      }
+     });
      const palabrasNoPermitidas = ['hotel',
      'hostal',
      'residencia',
@@ -1768,6 +1775,13 @@ export class CoordinadorComponent implements OnInit {
    } 
    let errorEnNombreDetectado = false;
    this.register_types.forEach(register_type => {
+      const nombre = register_type.name.toUpperCase();
+      if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
+       errorEnNombreDetectado = true;
+       toReturn = false;
+      }
+   });
+   this.register_types_AB.forEach(register_type => {
       const nombre = register_type.name.toUpperCase();
       if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
        errorEnNombreDetectado = true;
@@ -2694,13 +2708,13 @@ export class CoordinadorComponent implements OnInit {
       let clasificacion: String = '';
       let categoria: String = '';
       let category: RegisterType = new RegisterType();
-      this.register_types.forEach(element => {
+      this.register_types_AB.forEach(element => {
          if (this.registerMinturSelected.register.register_type_id == element.id) {
             category = element;
             categoria = element.name;
          }
       });
-      this.register_types.forEach(element => {
+      this.register_types_AB.forEach(element => {
          if (category.father_code == element.code) {
             clasificacion = element.name;
          }
@@ -2957,17 +2971,6 @@ export class CoordinadorComponent implements OnInit {
    let clasificacion: String = '';
    let categoria: String = '';
    let category: RegisterType = new RegisterType();
-   this.register_types.forEach(element => {
-      if (this.registerMinturSelected.register.register_type_id == element.id) {
-         category = element;
-         categoria = element.name;
-      }
-   });
-   this.register_types.forEach(element => {
-      if (category.father_code == element.code) {
-         clasificacion = element.name;
-      }
-   });
    let parroquiaName: String = '';
    let parroquia: Ubication = new Ubication();
    this.ubications.forEach(element => {
@@ -3004,6 +3007,32 @@ export class CoordinadorComponent implements OnInit {
          datosZonal = element;
       }
    });
+   if (this.activity == 'ALOJAMIENTO') {
+      this.register_types.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      });   
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.register_types_AB.forEach(element => {
+         if (this.registerMinturSelected.register.register_type_id == element.id) {
+            category = element;
+            categoria = element.name;
+         }
+      });
+      this.register_types_AB.forEach(element => {
+         if (category.father_code == element.code) {
+            clasificacion = element.name;
+         }
+      }); 
+   }
    const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
    const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
    const estado = this.stateTramiteId.toString();
@@ -3391,7 +3420,7 @@ export class CoordinadorComponent implements OnInit {
             let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             let clasificacion = '';
-            this.register_types.forEach(element => {
+            this.register_types_AB.forEach(element => {
                if (element.id == registerDataIncomming.register.register_type_id) {
                   clasificacion = element.name.toString();
                }
