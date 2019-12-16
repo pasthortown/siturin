@@ -956,7 +956,7 @@ calcularUnoxMil() {
             address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
             created_at: creacion.toLocaleDateString(),
             date_assigment: new Date(item.register.date_assigment).toLocaleDateString(),
-            category: this.getRegisterCategory(item.register.register_type_id),
+            category: this.getRegisterCategory(item.register.register_type_id, this.activity),
             status: registerState,
             status_id: item.states.state_id,
             establishment_id: item.establishment.id,
