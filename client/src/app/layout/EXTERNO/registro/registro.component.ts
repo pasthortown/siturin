@@ -1909,6 +1909,7 @@ export class RegistroComponent implements OnInit {
   }
 
   guardarRegistro() {
+   this.rucEstablishmentRegisterSelected.status = 11;
    if (this.actividadSelected == '1') {
       this.saveAlojamiento();
    }  
@@ -2136,7 +2137,6 @@ export class RegistroComponent implements OnInit {
    this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
 
    }).catch( e => { console.log(e); });
-   //AQUI
    this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
    this.rucEstablishmentRegisterSelected.id = 0;
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
