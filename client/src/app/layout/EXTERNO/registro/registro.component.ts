@@ -1981,8 +1981,6 @@ export class RegistroComponent implements OnInit {
 
    }).catch( e => { console.log(e); });
    this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
-   console.log(this.rucEstablishmentRegisterSelected);
-   return;
    this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
       if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
@@ -2141,8 +2139,6 @@ export class RegistroComponent implements OnInit {
    }).catch( e => { console.log(e); });
    this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
    this.rucEstablishmentRegisterSelected.id = 0;
-   console.log(this.rucEstablishmentRegisterSelected);
-   return;
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
       this.guardarCertificadoUsoSuelos();
