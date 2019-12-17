@@ -1495,6 +1495,7 @@ export class InspectorComponent implements OnInit {
                selected: '',
                date_assigment_alert: date_assigment_alert,
                number: item.ruc.number,
+               date_assigment: new Date(item.register.date_assigment.toString()).toLocaleDateString(),
                registerId: item.register.id,
                actividad: item.activity,
                provincia: provincia.name,
