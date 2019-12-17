@@ -2580,11 +2580,19 @@ export class InspectorComponent implements OnInit {
   }
 
   onCellClick(event) {
+   this.register_code = event.row.code;
+   this.idRegister = event.row.registerId;
+   this.activity = event.row.actividad;
+   this.rows.forEach(row => {
+      if (this.idRegister == row.registerId && this.activity == row.actividad) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+   });
    this.registers_mintur.forEach(element => {
       if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
          this.selectRegisterMintur(element);
-         this.idRegister = event.row.registerId;
-         this.register_code = event.row.code;
          this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
             if (typeof r2.activity != 'undefined') {
                this.as_turistic_date = new Date(r2.as_turistic_date.toString());
@@ -2594,13 +2602,6 @@ export class InspectorComponent implements OnInit {
          this.estado = this.stateTramiteId.toString();
          this.checkMotivoTramite(this.estado);
          this.getApprovalStates();
-         this.rows.forEach(row => {
-            if (this.idRegister == row.registerId) {
-               row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-            } else {
-               row.selected = '';
-            }
-         });
       }
    });
   }

@@ -1346,23 +1346,25 @@ calcularUnoxMil() {
  }
 
  onCellClick(event) {
-  this.registers_mintur.forEach(element => {
+   this.register_code = event.row.code;
+   this.idRegister = event.row.registerId;
+   this.activity = event.row.actividad;
+   this.rows.forEach(row => {
+      if (this.idRegister == row.registerId && this.activity == row.actividad) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+   });  
+   this.registers_mintur.forEach(element => {
    if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
         this.selectRegisterMintur(element);
         this.stateTramiteId = element.states.state_id;
-        this.idRegister = event.row.registerId;
         const estado = this.stateTramiteId.toString();
         this.digito = estado.substring(estado.length-1, estado.length);
         this.getApprovalStates();
         this.establishment_id = event.row.establishment_id;
         this.getDeclarationsByEstablishment(event.row.establishment_id);
-        this.rows.forEach(row => {
-           if (this.idRegister == row.registerId) {
-              row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-           } else {
-              row.selected = '';
-           }
-        });
      }
   });
  }
