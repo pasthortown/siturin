@@ -908,17 +908,20 @@ calcularUnoxMil() {
  }
 
  buildDataTable() {
-    this.columns = [
-       {title: '', name: 'selected'},
-       {title: 'Número de RUC', name: 'number'},
-       {title: 'Número de Establecimiento', name: 'ruc_code_id'},
-       {title: 'Nombre Comercial', name: 'establishment'},
-       {title: 'Estado', name: 'estado'},
-       {title: 'Dirección', name: 'address'},
-       {title: 'Categoría', name: 'category'},
-       {title: 'Fecha de Solicitud', name: 'created_at'},
-       {title: 'Fecha de Asignación', name: 'date_assigment'},
-    ];
+   this.columns = [
+      {title: '', name: 'selected'},
+      //{title: 'Tiempo de Atención', name: 'date_assigment_alert'},
+      {title: 'Número de RUC', name: 'number'},
+      {title: 'Número de Establecimiento', name: 'ruc_code_id'},
+      {title: 'Nombre Comercial', name: 'establishment'},
+      {title: 'Bandeja', name: 'status'},
+      {title: 'Estado', name: 'estado'},
+      {title: 'Actividad', name: 'actividad'},
+      {title: 'Dirección', name: 'address'},
+      {title: 'Clasificación - Categoría', name: 'category'},
+      {title: 'Fecha de Solicitud', name: 'created_at'},
+      {title: 'Fecha de Asignación', name: 'date_assigment'},
+     ];
     const data = [];
     this.registers_mintur.forEach(item => {
          let date_assigment_alert = '';
@@ -950,16 +953,18 @@ calcularUnoxMil() {
             selected: '',
             date_assigment_alert: date_assigment_alert,
             number: item.ruc.number,
+            date_assigment: new Date(item.register.date_assigment.toString()).toLocaleDateString(),
             registerId: item.register.id,
+            actividad: item.activity,
             ruc_code_id: item.establishment.ruc_code_id,
             establishment: item.establishment.commercially_known_name,
             address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
             created_at: creacion.toLocaleDateString(),
-            date_assigment: new Date(item.register.date_assigment).toLocaleDateString(),
-            category: this.getRegisterCategory(item.register.register_type_id, this.activity),
+            code: item.register.code,
+            category: this.getRegisterCategory(item.register.register_type_id, item.activity),
             status: registerState,
-            status_id: item.states.state_id,
             establishment_id: item.establishment.id,
+            status_id: item.states.state_id,
             estado: this.getRegisterState(item.states.state_id),
          });
         }
