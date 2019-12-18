@@ -9,6 +9,7 @@ import { DeclarationAttachment } from './../../../models/FINANCIERO/DeclarationA
 import { FloorAuthorizationCertificate } from './../../../models/BASE/FloorAuthorizationCertificate';
 import { Router } from '@angular/router';
 import { ReceptionRoom } from 'src/app/models/ALOJAMIENTO/ReceptionRoom';
+import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 
 import { environment } from 'src/environments/environment';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
@@ -115,6 +116,7 @@ import { ApprovalStateService as ApprovalStateABService } from './../../../servi
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { RegisterType as RegisterTypeAB} from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { ApprovalStateReportService as ApprovalStateReportABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
+import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 
 @Component({
   selector: 'app-registro',
@@ -348,6 +350,7 @@ export class InspectorComponent implements OnInit {
               private payDataService: PayService,
               private approvalStateABDataService: ApprovalStateABService,
               private registerStateABDataService: RegisterStateABService,
+              private requisiteABDataService: RequisiteABService,
               private register_typeABDataService: RegisterTypeABService,
               private registerABDataService: RegisterABService,
               private approvalStateAttachmentABDataService: ApprovalStateAttachmentABService,
@@ -2189,60 +2192,7 @@ export class InspectorComponent implements OnInit {
      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
          this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-               console.log(r0);
-               return;
-               this.tarifarioResponse = r3 as Tariff[];
-               const capacities = [];
-               const capacities_on_register = r0.capacities_on_register;
-               capacities_on_register.forEach(capacity => {
-                  const newCapacity = {type: '', spaces: 0, habitaciones: 0, beds: 0};
-                  newCapacity.habitaciones = capacity.quantity;
-                  newCapacity.spaces = capacity.max_spaces;
-                  newCapacity.beds = capacity.max_beds;
-                  this.capacity_types.forEach(element => {
-                        if (element.id == capacity.capacity_type_id) {
-                           newCapacity.type = element.name.toString();
-                        }
-                  });
-                  capacities.push(newCapacity);
-               });
-               const tariffs = [];
-               this.tarifarioResponse.forEach(tariff => {
-                  const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0};
-                  let existe = false;
-                  tariffs.forEach(element => {
-                     if (element.capacity_type_id == tariff.capacity_type_id) {
-                        existe = true;
-                     }
-                  });
-                  if (!existe) {
-                     this.capacity_types.forEach(element => {
-                        if (element.id == tariff.capacity_type_id) {
-                           newTariff.type = element.name.toString();
-                           newTariff.capacity_type_id = tariff.capacity_type_id;
-                        }
-                     });
-                     tariffs.push(newTariff);
-                  }
-               });
-               tariffs.forEach(element => {
-                  this.tarifarioResponse.forEach(tariff => {
-                     if (tariff.capacity_type_id == element.capacity_type_id) {
-                        if (tariff.tariff_type_id == 3) {
-                           element.habitacion_baja = tariff.price;
-                        }
-                        if (tariff.tariff_type_id == 5) {
-                           element.habitacion_alta = tariff.price;
-                        }
-                        if (tariff.tariff_type_id == 4) {
-                           element.persona_baja = tariff.price;
-                        }
-                        if (tariff.tariff_type_id == 6) {
-                           element.persona_alta = tariff.price;
-                        }
-                     }
-                  });
-               });
+               const capacities = r0.capacities_on_register;
                const workers_on_establishment: Worker[] = [];
                this.genders.forEach(gender => {
                   this.worker_groups.forEach(worker_group => {
@@ -2268,9 +2218,10 @@ export class InspectorComponent implements OnInit {
                   personal.push(newworkergroup);
                });
                const requisites = [];
-               this.requisiteDataService.get_filtered(r0.register.register_type_id).then( r => {
-                  this.requisitesByRegisterType = r as Requisite[];
+               this.requisiteABDataService.get_filtered(r0.register.register_type_id).then( r => {
+                  this.requisitesByRegisterType = r as any[];
                   this.requisitesByRegisterType.forEach(element => {
+                  //AQUI
                      const newRegisterRequisite = new RegisterRequisite();
                      newRegisterRequisite.requisite_name = element.name;
                      newRegisterRequisite.requisite_id = element.id;

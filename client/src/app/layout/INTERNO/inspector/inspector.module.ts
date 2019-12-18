@@ -67,6 +67,7 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
 import { ApprovalStateService as ApprovalStateABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateReportService as ApprovalStateReportABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
+import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -84,6 +85,7 @@ import { ApprovalStateReportService as ApprovalStateReportABService } from './..
     DinardapService,
     RegisterTypeABService,
     RegisterStateABService,
+    RequisiteABService,
     RegisterABService,
     ApprovalStateABService,
     PropertyTitleAttachmentService,
