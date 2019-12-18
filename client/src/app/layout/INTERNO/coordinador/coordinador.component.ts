@@ -3383,7 +3383,6 @@ export class CoordinadorComponent implements OnInit {
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( registerDataIncomming => {
          this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-            const capacities = [];
             const capacities_on_register = registerDataIncomming.capacities_on_register;
             let provincia = new Ubication();
             let canton = new Ubication();
@@ -3425,39 +3424,11 @@ export class CoordinadorComponent implements OnInit {
                   clasificacion = element.name.toString();
                }
             });
-            capacities_on_register.forEach(capacity => {
-               this.capacity_types.forEach(capacityType => {
-                  if (capacityType.id == capacity.capacity_type_id) {
-                     if (capacityType.editable_spaces) {
-                     
-                     } else {
-                        capacity.max_spaces = capacityType.spaces * capacity.quantity;
-                     }
-                     if (capacity.max_beds > capacityType.bed_quantity){
-                        capacity.max_beds = capacityType.bed_quantity;
-                     }
-                     if (capacity.max_beds == 0){
-                        capacity.max_beds = 1;
-                     }
-                  }
-               });   
-            });
-            let habitaciones = 0;
+            let mesas = 0;
             let plazas = 0;
             capacities_on_register.forEach(capacity => {
-               const newCapacity = {type: '', spaces: 0, habitaciones: 0};
-               newCapacity.habitaciones = capacity.quantity;
-               newCapacity.spaces = capacity.max_spaces;
-               this.capacity_types.forEach(element => {
-                     if (element.id == capacity.capacity_type_id) {
-                        newCapacity.type = element.name.toString();
-                     }
-               });
-               capacities.push(newCapacity);
-            });
-            capacities.forEach(capacity => {
-               habitaciones += capacity.habitaciones;
-               plazas += capacity.spaces;
+               mesas += capacity.quantity_tables;   
+               plazas += capacity.quantity_spaces;
             });
             const params = [{canton: canton.name.toUpperCase()},
                {fecha: today.toLocaleDateString().toUpperCase()},
@@ -3473,7 +3444,7 @@ export class CoordinadorComponent implements OnInit {
                {provincia: provincia.name.toUpperCase()},
                {parroquia: parroquia.name.toUpperCase()},
                {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
-               {habitaciones: habitaciones},
+               {mesas: mesas},
                {plazas: plazas},
                {nombre_coordinador_Zonal: this.user.name.toUpperCase()}];
    
@@ -3489,7 +3460,7 @@ export class CoordinadorComponent implements OnInit {
             document.user = iniciales_cordinador_zonal;
             document.params = JSON.stringify(paramsToBuild);
             this.documentDataService.post(document).then().catch( e => { console.log(e); });
-            this.exporterDataService.template(4, true, qr_value, params).then( r => {
+            this.exporterDataService.template(15, true, qr_value, params).then( r => {
                const byteCharacters = atob(r);
                const byteNumbers = new Array(byteCharacters.length);
                for (let i = 0; i < byteCharacters.length; i++) {
