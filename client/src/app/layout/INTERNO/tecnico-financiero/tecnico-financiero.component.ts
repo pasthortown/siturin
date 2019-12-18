@@ -561,7 +561,7 @@ export class TecnicoFinancieroComponent implements OnInit {
             }).catch( e => { console.log(e); });
         }).catch( e => { console.log(e); });
       }
-      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
          this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
             const newRegisterState = new RegisterState();
             newRegisterState.justification = 'El Técnico Financiero no se encuentra disponible por Vacaciones / Fuera de Oficina';
@@ -1334,7 +1334,7 @@ calcularUnoxMil() {
          this.refresh();
       }).catch( e => { console.log(e); });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerStateABDataService.post(this.newRegisterState).then( r1 => {
       }).catch( e => { console.log(e); });
       this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
@@ -1446,7 +1446,7 @@ calcularUnoxMil() {
       }).catch( e => { console.log(e); });
    }).catch( e => { console.log(e); });
   }
-  if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+  if (this.activity == 'ALIMENTOS Y BEBIDAS') {
    this.approvalStateABDataService.get_by_register_id(this.idRegister).then( r => {
       this.registerApprovals = r;
       this.approvalStateAttachmentABDataService.get_by_register_id(this.idRegister).then( r => {
@@ -3337,7 +3337,7 @@ removeLanguage() {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       // select ab
    }
  }
