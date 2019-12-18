@@ -2149,7 +2149,7 @@ export class InspectorComponent implements OnInit {
                   this.user.name.split(' ').forEach(element => {
                      iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
                   });
-                 let qr_value = 'MT-CZ-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                 let qr_value = 'MT-CZ-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
                  let document = new Documento();
                  document.activity = this.registerMinturSelected.activity.toUpperCase();
                  document.code = qr_value;
@@ -2347,7 +2347,7 @@ export class InspectorComponent implements OnInit {
                   this.user.name.split(' ').forEach(element => {
                      iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
                   });
-                 let qr_value = 'MT-CZ-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                 let qr_value = 'MT-CZ-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
                  let document = new Documento();
                  document.activity = this.registerMinturSelected.activity.toUpperCase();
                  document.code = qr_value;
