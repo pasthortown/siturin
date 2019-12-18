@@ -2173,7 +2173,7 @@ export class InspectorComponent implements OnInit {
                     const newComplementaryService = {type: complementary_service_food_type, tables: element.quantity_tables, spaces: element.quantity_chairs};
                     complementary_services.push(newComplementaryService);
                  });
-                 this.exporterDataService.getPDFNormativa(requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
+                 this.exporterDataService.getPDFNormativa(this.activity, requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
                   const byteCharacters = atob(r);
                   const byteNumbers = new Array(byteCharacters.length);
                   for (let i = 0; i < byteCharacters.length; i++) {
@@ -2362,7 +2362,7 @@ export class InspectorComponent implements OnInit {
                  this.documentDataService.post(document).then().catch( e => { console.log(e); });
                  tariffs = [];
                  complementary_services = [];
-                 this.exporterDataService.getPDFNormativa(requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
+                 this.exporterDataService.getPDFNormativa(this.activity.toUpperCase(),requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
                   console.log(r);
                   return;
                   const byteCharacters = atob(r);

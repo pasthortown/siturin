@@ -81,19 +81,19 @@ export class ExporterService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   getPDFNormativa(requisites: any[], capacities: any[], tariffs: any[], complementary_services: any[], personal: any[], latitud: number, longitud: number, qr?: Boolean, qr_content?: string, params?: any[]): Promise<any> {
+   getPDFNormativa(activity: string, requisites: any[], capacities: any[], tariffs: any[], complementary_services: any[], personal: any[], latitud: number, longitud: number, qr?: Boolean, qr_content?: string, params?: any[]): Promise<any> {
       let data = null;
       if(typeof qr != 'undefined') {
          if(typeof params != 'undefined') {
-            data = {requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud, params: params, qr: qr, qr_content: qr_content};
+            data = {activity: activity, requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud, params: params, qr: qr, qr_content: qr_content};
          } else {
-            data = {requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud, qr: qr, qr_content: qr_content};
+            data = {activity: activity, requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud, qr: qr, qr_content: qr_content};
          }
       } else {
          if(typeof params != 'undefined') {
-            data = {requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud,  params: params};
+            data = {activity: activity, requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud,  params: params};
          } else {
-            data = {requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud};   
+            data = {activity: activity, requisites: requisites, capacities: capacities, tariffs: tariffs, complementary_services: complementary_services, personal: personal, latitud: latitud, longitud: longitud};   
          }
       }
       return this.http.post(this.url + 'download/pdf_checklist', JSON.stringify(data), this.options).toPromise()
