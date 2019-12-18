@@ -3381,8 +3381,6 @@ export class CoordinadorComponent implements OnInit {
       }).catch( e => { console.log(e); });   
    }
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      console.log("jajaja");
-      return;
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( registerDataIncomming => {
          this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
             const capacities = [];
