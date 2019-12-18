@@ -2187,7 +2187,7 @@ export class InspectorComponent implements OnInit {
         }).catch( e => { console.log(e); });
      }
      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      //REQUISITOS AB   
+      alert("hola");
      }
   }
 

@@ -97,7 +97,7 @@
           <button type="button" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()"><i class="fas fa-file-powerpoint"></i></button>
           <button type="button" [disabled]="!validateRequisitesFile()" class="btn btn-secondary" title="Descargar Formulario de Requisitos (Check List) Cargado" (click)="descargarRequisitos()"><i class="fas fa-download"></i></button>
           <button type="button" [disabled]="!validateRequisitesFile()" class="btn btn-danger" title="Borrar Formulario de Requisitos (Check List) Cargado" (click)="borrarRequisitos()"><i class="fas fa-trash"></i></button>
-          <a href="assets/documents/docgeninsp.pdf" download="Formato - No Aplica Inspección.pdf" class="btn btn-info mr-2" title="Descargar Formato - No Aplica Inspección">
+          <a *ngIf="false" href="assets/documents/docgeninsp.pdf" download="Formato - No Aplica Inspección.pdf" class="btn btn-info mr-2" title="Descargar Formato - No Aplica Inspección">
             <i class="fas fa-file-alt"></i>
           </a>
         </div>
@@ -130,6 +130,7 @@
         <option value="2" selected>Solicitud Rechazada</option>
         <option value="3" selected>Aplazada para Inspección (15 Días)</option>
         <option value="4" selected>Aplazada para Inspección (6 Meses)</option>
+        <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="5" selected>No Cumple Inspección (No Turístico)</option>
       </select>
   </div>
 </div>
