@@ -1798,7 +1798,7 @@ export class InspectorComponent implements OnInit {
                   let paramsToBuild = {
                      template: 11, qr: true, qr_value: qr_value, params: params
                   }
-                  document.procedure_id = 'REGISTRO';
+                  document.procedure_id = this.tipo_tramite.toUpperCase();
                   document.zonal = zonal.name;
                   document.user = iniciales_tecnico_zonal;
                   document.params = JSON.stringify(paramsToBuild);
@@ -1916,7 +1916,7 @@ export class InspectorComponent implements OnInit {
                let paramsToBuild = {
                   template: 11, qr: true, qr_value: qr_value, params: params
                }
-               document.procedure_id = 'REGISTRO';
+               document.procedure_id = this.tipo_tramite.toUpperCase();
                document.zonal = zonal.name;
                document.user = iniciales_tecnico_zonal;
                document.params = JSON.stringify(paramsToBuild);
@@ -2157,7 +2157,7 @@ export class InspectorComponent implements OnInit {
                  let paramsToBuild = {
                   requisites: requisites, capacities: capacities, tariffs: tariffs, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
                  }
-                 document.procedure_id = 'REGISTRO';
+                 document.procedure_id = this.tipo_tramite.toUpperCase();
                  document.zonal = zonal.name;
                  document.user = iniciales_tecnico_zonal;
                  document.params = JSON.stringify(paramsToBuild);
@@ -2221,13 +2221,15 @@ export class InspectorComponent implements OnInit {
                this.requisiteABDataService.get_filtered(r0.register.register_type_id).then( r => {
                   this.requisitesByRegisterType = r as any[];
                   this.requisitesByRegisterType.forEach(element => {
-                  //AQUI
-                     const newRegisterRequisite = new RegisterRequisite();
+                     const newRegisterRequisite = new RegisterABRequisite();
+                     newRegisterRequisite.to_approve = element.to_approve;
+                     newRegisterRequisite.score = element.score;
                      newRegisterRequisite.requisite_name = element.name;
                      newRegisterRequisite.requisite_id = element.id;
                      newRegisterRequisite.fullfill = true;
                      newRegisterRequisite.requisite_code = element.code;
                      newRegisterRequisite.mandatory = element.mandatory;
+                     newRegisterRequisite.id = element.id;
                      newRegisterRequisite.requisite_father_code = element.father_code;
                      newRegisterRequisite.level = element.code.split('.').length;
                      newRegisterRequisite.HTMLtype = element.type;
@@ -2351,25 +2353,18 @@ export class InspectorComponent implements OnInit {
                  document.code = qr_value;
                  document.document_type = 'CHECKLIST';
                  let paramsToBuild = {
-                  requisites: requisites, capacities: capacities, tariffs: tariffs, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
+                  requisites: requisites, capacities: capacities, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
                  }
-                 document.procedure_id = 'REGISTRO';
+                 document.procedure_id = this.tipo_tramite.toUpperCase();
                  document.zonal = zonal.name;
                  document.user = iniciales_tecnico_zonal;
                  document.params = JSON.stringify(paramsToBuild);
                  this.documentDataService.post(document).then().catch( e => { console.log(e); });
-                 const complementary_services = [];
-                 r0.complementary_service_foods_on_register.forEach(element => {
-                    let complementary_service_food_type = '';
-                    this.complementaryServiceFoodTypes.forEach(ct => {
-                       if (ct.id == element.complementary_service_food_type_id) {
-                        complementary_service_food_type = ct.name.toString();
-                       }
-                    });
-                    const newComplementaryService = {type: complementary_service_food_type, tables: element.quantity_tables, spaces: element.quantity_chairs};
-                    complementary_services.push(newComplementaryService);
-                 });
+                 tariffs = [];
+                 complementary_services = [];
                  this.exporterDataService.getPDFNormativa(requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
+                  console.log(r);
+                  return;
                   const byteCharacters = atob(r);
                   const byteNumbers = new Array(byteCharacters.length);
                   for (let i = 0; i < byteCharacters.length; i++) {
@@ -2381,8 +2376,6 @@ export class InspectorComponent implements OnInit {
                   this.please_wait_requisites = false;
                  }).catch( e => { console.log(e); });
                }).catch( e => console.log(e) );
-            
-
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
      }
