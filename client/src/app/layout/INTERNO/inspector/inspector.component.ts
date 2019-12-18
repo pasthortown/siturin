@@ -1616,7 +1616,7 @@ export class InspectorComponent implements OnInit {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
          this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
             let provincia = new Ubication();
@@ -1820,8 +1820,7 @@ export class InspectorComponent implements OnInit {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   console.log(this.activity);
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
       this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
          let provincia = new Ubication();
@@ -2631,7 +2630,7 @@ export class InspectorComponent implements OnInit {
                }
             }).catch( e => { console.log(e); });
          }
-         if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+         if (this.activity == 'ALIMENTOS Y BEBIDAS') {
                if (this.report.id == 0) {
                   this.approvalStateReportABDataService.post(this.report).then().catch( e => { console.log(e); });
                } else {
@@ -2890,7 +2889,7 @@ export class InspectorComponent implements OnInit {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.approvalStateABDataService.get_by_register_id(this.idRegister).then( r => {
          this.registerApprovals = r;
          this.approvalStateAttachmentABDataService.get_by_register_id(this.idRegister).then( r => {
@@ -3010,7 +3009,7 @@ export class InspectorComponent implements OnInit {
                }).catch( e => { console.log(e); });
          }).catch( e => { console.log(e); });
         }
-        if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+        if (this.activity == 'ALIMENTOS Y BEBIDAS') {
             this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
                const newRegisterState = new RegisterState();
                newRegisterState.justification = 'El Técnico Zonal no se encuentra disponible por Vacaciones / Fuera de Oficina';
@@ -4889,7 +4888,7 @@ guardarDeclaracion() {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       //SELECT AB
    }
  }
