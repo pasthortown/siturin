@@ -203,7 +203,7 @@
       <button type="button" class="btn btn-danger ml-2" *ngIf="digito != '9'" title="Cancelar Cambios" (click)="refresh()"><i class="fas fa-times"></i> Cancelar</button>
   </div>
 </div>
-<div class="row" *ngIf="(stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9'">
+<div class="row" *ngIf="(activity == 'ALOJAMIENTO') && ((stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9')">
   <div class="col-12 mt-3 mb-2">
     <label>Tarifario Rack o Mostrador</label>
     <div class="input-group mb-3">
