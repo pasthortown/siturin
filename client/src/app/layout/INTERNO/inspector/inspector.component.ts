@@ -1938,6 +1938,8 @@ export class InspectorComponent implements OnInit {
   }
 
   imprimirRequisitos() {
+     console.log(this.activity);
+     return;
      this.please_wait_requisites = true;
      if (this.activity == 'ALOJAMIENTO') {
          this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
