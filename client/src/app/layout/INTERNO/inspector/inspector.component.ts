@@ -2363,8 +2363,6 @@ export class InspectorComponent implements OnInit {
                  const tariffs = [];
                  const complementary_services = [];
                  this.exporterDataService.getPDFNormativa(this.activity.toUpperCase(),requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
-                  console.log(r);
-                  return;
                   const byteCharacters = atob(r);
                   const byteNumbers = new Array(byteCharacters.length);
                   for (let i = 0; i < byteCharacters.length; i++) {
