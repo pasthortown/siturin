@@ -2569,6 +2569,7 @@ export class InspectorComponent implements OnInit {
             }
          }
          if (this.inspectionState == 5) {
+            this.registerApprovalInspector.value = true;
             this.registerABDataService.isNotTuristic(this.idRegister).then( r => { } ).catch( e => { console.log(e); });
             if (digito == '4') {
                this.newRegisterState.state_id = this.stateTramiteId + 6;
