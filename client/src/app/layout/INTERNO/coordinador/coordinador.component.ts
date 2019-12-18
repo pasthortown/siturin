@@ -3429,6 +3429,7 @@ export class CoordinadorComponent implements OnInit {
                   }
                }
             });
+            //AQUI --- GUARDADO, VALIDAR NUMERO DE REGISTRO, MOSTRAR INFORMACIÓN EN COORDINADOR Y TECNICO ZONAL
             let mesas = 0;
             let plazas = 0;
             capacities_on_register.forEach(capacity => {
