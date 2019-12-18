@@ -1947,6 +1947,10 @@ getDeclarationItems() {
       this.register_types_AB.forEach(register_type => {
          if (register_type.id == id) {
           toReturn = register_type.name;
+          toReturn = register_type.name;
+          if (register_type.name == 'Pendiente') {
+             toReturn = "No Cumple Inspección (No Turístico)";
+          }
           fatherCode = register_type.father_code;
          }
       });
