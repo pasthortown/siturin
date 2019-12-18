@@ -3419,11 +3419,13 @@ export class CoordinadorComponent implements OnInit {
             let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             let clasificacion = '';
+            let template_id = 15;
             this.register_types_AB.forEach(element => {
                if (element.id == registerDataIncomming.register.register_type_id) {
                   clasificacion = element.name.toString();
                   if (element.name == 'Pendiente') {
                      clasificacion = 'NO TURÍSTICO';
+                     template_id = 16;
                   }
                }
             });
@@ -3463,7 +3465,7 @@ export class CoordinadorComponent implements OnInit {
             document.user = iniciales_cordinador_zonal;
             document.params = JSON.stringify(paramsToBuild);
             this.documentDataService.post(document).then().catch( e => { console.log(e); });
-            this.exporterDataService.template(15, true, qr_value, params).then( r => {
+            this.exporterDataService.template(template_id, true, qr_value, params).then( r => {
                const byteCharacters = atob(r);
                const byteNumbers = new Array(byteCharacters.length);
                for (let i = 0; i < byteCharacters.length; i++) {
