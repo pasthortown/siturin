@@ -3422,6 +3422,9 @@ export class CoordinadorComponent implements OnInit {
             this.register_types_AB.forEach(element => {
                if (element.id == registerDataIncomming.register.register_type_id) {
                   clasificacion = element.name.toString();
+                  if (element.name == 'Pendiente') {
+                     clasificacion = 'NO TURÍSTICO';
+                  }
                }
             });
             let mesas = 0;
