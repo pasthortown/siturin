@@ -2570,8 +2570,6 @@ export class InspectorComponent implements OnInit {
          }
          if (this.inspectionState == 5) {
             this.registerABDataService.isNotTuristic(this.idRegister).then( r => { } ).catch( e => { console.log(e); });
-            //AQUI
-            return;
          }
          this.newRegisterState.justification = 'Resultados de la Inspección cargados en la fecha ' + new Date(this.registerApprovalInspector.date_fullfill).toDateString();
          this.newRegisterState.register_id = this.registerApprovalInspector.register_id;
