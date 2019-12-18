@@ -125,11 +125,16 @@
   <div class="col-6">
       <label>Estado de la Inspección</label>
       <select class="form-control" id="stateInspection" name="stateInspection" [(ngModel)]="inspectionState">
-        <option value="0" selected>Solicitud en Trámite</option>
-        <option value="1" selected>Solicitud Aprobada</option>
-        <option value="2" selected>Solicitud Rechazada</option>
-        <option value="3" selected>Aplazada para Inspección (15 Días)</option>
-        <option value="4" selected>Aplazada para Inspección (6 Meses)</option>
+        <option *ngIf="activity=='ALOJAMIENTO'" value="0" selected>Solicitud en Trámite</option>
+        <option *ngIf="activity=='ALOJAMIENTO'" value="1" selected>Solicitud Aprobada</option>
+        <option *ngIf="activity=='ALOJAMIENTO'" value="2" selected>Solicitud Rechazada</option>
+        <option *ngIf="activity=='ALOJAMIENTO'" value="3" selected>Aplazada para Inspección (15 Días)</option>
+        <option *ngIf="activity=='ALOJAMIENTO'" value="4" selected>Aplazada para Inspección (6 Meses)</option>
+        <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="0" selected>Solicitud en Trámite</option>
+        <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="1" selected>Solicitud Aprobada</option>
+        <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="2" selected>Solicitud Rechazada</option>
+        <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="3" selected>Aplazada para Inspección (30 Días)</option>
+        <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="4" selected>Aplazada para Inspección (60 Días)</option>
         <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="5" selected>No Cumple Inspección (No Turístico)</option>
       </select>
   </div>
