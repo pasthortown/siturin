@@ -1879,6 +1879,9 @@ export class InspectorComponent implements OnInit {
          if (this.registerApprovalInspector.date_fullfill == null || typeof(this.registerApprovalInspector.date_fullfill.toString()) == 'undefined') {
             this.registerApprovalInspector.date_fullfill = new Date();
          }
+         if (this.inspectionState == 5) {
+            clasificacion = 'No Cumple Inspección (No Turístico)';
+         }
          const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
          this.documentDataService.get_doc_id(qr_value).then( respuesta => {
             const codigo_informe = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
