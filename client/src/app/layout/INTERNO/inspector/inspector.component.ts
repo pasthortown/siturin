@@ -2360,8 +2360,8 @@ export class InspectorComponent implements OnInit {
                  document.user = iniciales_tecnico_zonal;
                  document.params = JSON.stringify(paramsToBuild);
                  this.documentDataService.post(document).then().catch( e => { console.log(e); });
-                 tariffs = [];
-                 complementary_services = [];
+                 const tariffs = [];
+                 const complementary_services = [];
                  this.exporterDataService.getPDFNormativa(this.activity.toUpperCase(),requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
                   console.log(r);
                   return;
