@@ -1820,6 +1820,7 @@ export class InspectorComponent implements OnInit {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
+   console.log(this.activity);
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
       this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
