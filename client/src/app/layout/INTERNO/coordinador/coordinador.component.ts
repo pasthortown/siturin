@@ -3054,6 +3054,8 @@ export class CoordinadorComponent implements OnInit {
    const estado = this.stateTramiteId.toString();
    this.refreshMotivoTramite(estado);
    const newRegistroCatastro = new RegistroCatastro();
+   let w_male = 0;
+   let w_female = 0;
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
       const workers_on_establishment = r2.workers_on_establishment as Worker[];
       workers_on_establishment.forEach(worker => {
@@ -3073,17 +3075,16 @@ export class CoordinadorComponent implements OnInit {
       workers_on_establishment.forEach(element => {
          if (element.is_max) {
             if (element.gender_id == 1) {
-               this.total_male = element.count;
+               w_male = element.count;
             }
             if (element.gender_id == 2) {
-               this.total_female = element.count;
+               w_female = element.count;
             }
-            this.total_workers += element.count;
          }
       });
    }).catch( e => { console.log(e); });
-   console.log(this.total_female);
-   console.log(this.total_male);
+   console.log(w_male);
+   console.log(w_female);
    //AQUI
    return;
    this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
