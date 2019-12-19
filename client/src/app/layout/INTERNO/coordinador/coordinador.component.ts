@@ -3047,6 +3047,9 @@ export class CoordinadorComponent implements OnInit {
          }
       }); 
    }
+   console.log(clasificacion);
+   console.log(categoria);
+   return;
    const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
    const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
    const estado = this.stateTramiteId.toString();
