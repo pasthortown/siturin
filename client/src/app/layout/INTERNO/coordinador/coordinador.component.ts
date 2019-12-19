@@ -2578,6 +2578,31 @@ export class CoordinadorComponent implements OnInit {
          newRegisterState.state_id = this.stateTramiteId;
       }
      }
+     this.establishment_selected.workers_on_establishment.forEach(worker => {
+      this.genders.forEach(gender => {
+         if(gender.id == worker.gender_id) {
+            worker.gender_name = gender.name;
+         }
+      });
+      this.worker_groups.forEach(worker_group => {
+         if(worker_group.id == worker.worker_group_id) {
+            worker.worker_group_name = worker_group.name;
+            worker.is_max = worker_group.is_max;
+         }
+      });
+   });
+   this.establishment_selected.workers_on_establishment.forEach(element => {
+      if (element.is_max) {
+         if (element.gender_id == 1) {
+            this.total_male = element.count;
+         }
+         if (element.gender_id == 2) {
+            this.total_female = element.count;
+         }
+         this.total_workers += element.count;
+      }
+   });
+   
      newRegisterState.justification = this.registerApprovalCoordinador.notes;
      newRegisterState.register_id = this.idRegister;
      this.registroApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
@@ -3030,6 +3055,7 @@ export class CoordinadorComponent implements OnInit {
          }
       });   
    }
+   console.log(this.activity);
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.register_types_AB.forEach(element => {
          if (this.registerMinturSelected.register.register_type_id == element.id) {
