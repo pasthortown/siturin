@@ -2970,8 +2970,6 @@ export class CoordinadorComponent implements OnInit {
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
       const workers_on_establishment = r2.workers_on_establishment as Worker[];
-      let w_male = 0;
-      let w_female = 0;
       workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
@@ -2988,10 +2986,10 @@ export class CoordinadorComponent implements OnInit {
       workers_on_establishment.forEach(element => {
          if (element.is_max) {
             if (element.gender_id == 1) {
-               w_male = element.count;
+               this.total_male = element.count;
             }
             if (element.gender_id == 2) {
-               w_female = element.count;
+               this.total_female = element.count;
             }
          }
       });
@@ -3179,6 +3177,7 @@ export class CoordinadorComponent implements OnInit {
                }).catch( e => { console.log(e); });
             }).catch( e => { console.log(e); });
          }
+
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
             this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
                const capacities_on_register = r2.capacities_on_register;
