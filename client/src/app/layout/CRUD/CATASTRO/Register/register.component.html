@@ -68,7 +68,7 @@
                </tr>
             </thead>
             <tbody>
-RUC RUC="let register of registers" (click)="selectRegister(register)">
+               <tr *ngFor="let register of registers" (click)="selectRegister(register)">
                   <td class="text-right"><span *ngIf="registerSelected === register" class="far fa-hand-point-right"></span></td>
                   <td>{{register.ruc}}</td>
                   <td>{{register.establishment_ruc_code}}</td>

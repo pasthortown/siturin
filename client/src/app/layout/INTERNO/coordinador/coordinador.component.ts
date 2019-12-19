@@ -2176,8 +2176,6 @@ export class CoordinadorComponent implements OnInit {
             }
          });
          const creacion = new Date(item.register.created_at.toString());
-         const estado = item.states.state_id.toString();
-         const digito = estado.substring(estado.length-1, estado.length);
          data.push({
             selected: '',
             date_assigment_alert: date_assigment_alert,
