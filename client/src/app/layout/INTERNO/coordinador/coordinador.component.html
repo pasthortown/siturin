@@ -1400,10 +1400,11 @@
                                 <div class="form-group">
                                   <label>Actividad Turística</label><span *ngIf="actividadSelected == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
-                                  <select class="form-control" id="actividad" name="actividad" [(ngModel)]="actividadSelected" [disabled]="true">
-                                    <option value="-" selected>Seleccione...</option>
-                                    <option value="1" selected>Alojamiento Turístico</option>
-                                  </select>
+                                    <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="true">
+                                      <option value="-" selected>Seleccione...</option>
+                                      <option value="1">Alojamiento Turístico</option>
+                                      <option value="2">Alimentos y Bebidas</option>
+                                    </select>
                                 </div>
                               </div>
                               <div class="col-3">
@@ -1443,13 +1444,18 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                          <h4 class="col-12">
+                            <strong>Capacidades del Establecimiento</strong>
+                          </h4>
+                        </div>
+                        <div class="row mt-3" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
                         <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
-                          <div class="col-12">
+                          <div class="col-12" *ngIf="actividadSelected !== '2'">>
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
                               <p class="col-12 text-justify">Habitación doble (matrimonial): Permite la pernoctación y alojamiento de dos personas, ocupando una cama doble o dos camas individuales.</p>
@@ -1459,7 +1465,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && actividadSelected !== '2'">
                           <div class="col-12">
                             <label class="col-form-label mb-2"><strong>Habitaciones del Establecimiento</strong><span
                                 class="ml-2 mr-2 badge badge-info">Total de Habitaciones:
@@ -1533,12 +1539,93 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                          <div class="col-12">
+                            <table class="table table-hover mt-2">
+                              <thead>
+                                <th>Mesas</th>
+                                <th>Plazas</th>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let capacity of rucEstablishmentRegisterSelected.capacities_on_register">
+                                  <td>
+                                      <input type="number" class="form-control" min="0" max="9999" id="count_space_AB" name="count_space_AB"
+                                      placeholder="Cantidad de Mesas" [(ngModel)]="capacity.quantity_tables" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
+                                  </td>
+                                  <td>
+                                    <div class="col-12">
+                                        <input type="number" class="form-control" min="0" max="9999" id="count_plazas_AB" name="count_plazas_AB"
+                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.quantity_spaces" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected !== '2' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
                           <h4 class="col-12">
                             <strong>Tarifario RACK</strong>
                           </h4>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                          <h4 class="col-12">
+                            <strong>Lista de Precios</strong>
+                          </h4>
+                        </div>
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                          <div class="col-12">
+                            <div class="alert alert-info mt-2 mb-2" role="alert">
+                              <label class="col-12 text-justify"><strong>Atención</strong></label><br />
+                              <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
+                              <p class="col-12 text-justify">- Agregar un documento (PDF) donde se detalle el Nombre Comercial, Calle Principal, Calle Intersección, Impuestos cobrados en concordancia con la clasificación del establecimiento y el año de vigencia de la lista de precios; misma que, deberá contar con el precio final (incluido impuestos), de cada uno de los alimentos y/o bebidas que ofrece el establecimiento.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                          <div class="col-12">
+                            <table class="table table-hover mt-2">
+                              <tr>
+                                <td>
+                                  <label>Lista de Precios*</label><span
+                                    *ngIf="listaPrecios.food_drink_attachment_file === ''"
+                                    class="ml-2 badge badge-danger">Incorrecto</span>
+                                </td>
+                                <td>
+                                  <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <button
+                                        [disabled]="listaPrecios.food_drink_attachment_file === ''"
+                                        type="button" title="Descargar Lista de Precios" class="btn btn-primary" (click)="
+                                              downloadListaPrecios()
+                                            ">
+                                        <i class="fas fa-download"></i>
+                                      </button>
+                                      <button
+                                        [disabled]="listaPrecios.food_drink_attachment_file === '' || !rucEstablishmentRegisterSelected.editable"
+                                        type="button" title="Eliminar" class="btn btn-danger"
+                                        (click)="borrarListaPrecios()">
+                                        <i class="fas fa-trash"></i>
+                                      </button>
+                                    </div>
+                                    <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
+                                          CodificarArchivoListaPrecios(
+                                            $event
+                                          )
+                                        " accept="application/pdf" />                                            
+                                  </div>
+                                  <small class="col-12">
+                                    <div class="alert alert-info mt-2 mb-2" role="alert">
+                                      <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                      <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                                    </div>
+                                  </small>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <div class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -1548,7 +1635,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <div class="col-12">
                               <table class="table table-hover mt-2">
                                 <thead>
@@ -1619,7 +1706,7 @@
                               [(ngModel)]="salaRecepciones.quantity" [disabled]="true"/>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
                           <div class="col-12">
                             <div class="form-group">
                                 <label><strong>Servicios Complementarios</strong></label>
@@ -1627,7 +1714,7 @@
                           </div>
                         </div>
                         <div class="form-group"
-                          *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                          *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
                           <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
@@ -1709,13 +1796,129 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2'">
+                          <h4 class="col-12">
+                            <strong>Tipo de Servicio</strong>
+                          </h4>
+                        </div>
+                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2'">
+                          <div class="col-12">
+                            <div class="form-group row" *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
+                              <div class="col-12">
+                                <div class="input-group" *ngIf="rucEstablishmentRegisterSelected.editable">
+                                  <div class="input-group-prepend">
+                                    <button type="button" title="Eliminar" class="btn btn-danger"
+                                      (click)="removeServiceType()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button type="button" title="Agregar" class="btn btn-success"
+                                      (click)="addServiceType()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-save"></i>
+                                    </button>
+                                  </div>
+                                  <select class="form-control" id="service_type_registerSelectedId"
+                                    name="service_type"
+                                    [(ngModel)]="service_type_registerSelectedId"
+                                    [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                    <option value="0" selected>Seleccione...</option>
+                                    <option *ngFor="
+                                        let service_type of service_types
+                                      " value="{{ service_type.id }}">
+                                      {{ service_type.description }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-4"></div>
+                              <div class="col-8">
+                                <table class="table table-hover mt-2">
+                                  <tbody>
+                                    <tr *ngFor="
+                                        let service_type of rucEstablishmentRegisterSelected.service_types_on_register
+                                      " (click)="
+                                        selectServiceType(
+                                          service_type
+                                        )
+                                      ">
+                                      <td class="text-right">
+                                        <span *ngIf="
+                                            service_type_registerSelectedId ===
+                                            service_type.id
+                                          " class="far fa-hand-point-right"></span>
+                                      </td>
+                                      <td>{{ service_type.description }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' ||categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
+                          <h4 class="col-12">
+                            <strong>Tipo de Cocina</strong>
+                          </h4>
+                        </div>
+                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' ||categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
+                          <div class="col-12">
+                            <div class="form-group row" *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
+                              <div class="col-12">
+                                <div class="input-group" *ngIf="rucEstablishmentRegisterSelected.editable">
+                                  <div class="input-group-prepend">
+                                    <button type="button" title="Eliminar" class="btn btn-danger"
+                                      (click)="removeKitchenType()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button type="button" title="Agregar" class="btn btn-success"
+                                      (click)="addKitchenType()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-save"></i>
+                                    </button>
+                                  </div>
+                                  <select class="form-control" id="kitchen_type_registerSelectedId"
+                                    name="kitchen_type"
+                                    [(ngModel)]="kitchen_type_registerSelectedId"
+                                    [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                    <option value="0" selected>Seleccione...</option>
+                                    <option *ngFor="
+                                        let kitchen_type of kitchen_types
+                                      " value="{{ kitchen_type.id }}">
+                                      {{ kitchen_type.description }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-4"></div>
+                              <div class="col-8">
+                                <table class="table table-hover mt-2">
+                                  <tbody>
+                                    <tr *ngFor="
+                                        let kitchen_type of rucEstablishmentRegisterSelected.kitchen_types_on_register
+                                      " (click)="
+                                        selectKitchenType(
+                                          kitchen_type
+                                        )
+                                      ">
+                                      <td class="text-right">
+                                        <span *ngIf="
+                                            kitchen_type_registerSelectedId ===
+                                            kitchen_type.id
+                                          " class="far fa-hand-point-right"></span>
+                                      </td>
+                                      <td>{{ kitchen_type.description }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
                           <h4 class="col-12">
                             <strong>Modalidades de Turismo de Aventura</strong>
                           </h4>
                         </div>
                         <div class="form-group"
-                          *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                          *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
                           <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
@@ -1792,12 +1995,14 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0)">
                           <div class="col-12">
                             <div class="row mt-3">
-                                <h4 class="col-12">
-                                  <strong>Normativa</strong>
-                                </h4>
+                              <h4 class="col-12">
+                                <strong>Normativa</strong>&nbsp;
+                                <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown}}</span>&nbsp;
+                                <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
+                              </h4>
                               </div>
                           </div>
                           <div class="col-12">
@@ -1825,7 +2030,7 @@
                                             register_requisite.HTMLtype !== 'GRUPO 2' &&
                                             register_requisite.HTMLtype !== 'GRUPO 3' &&
                                             register_requisite.HTMLtype !== 'GRUPO 4' && 
-                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong></label>
+                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2' && register_requisite.HTMLtype !== 'YES / NO'">Puntos: ({{register_requisite.score}})</strong></label>
                                           <h5>
                                             <strong
                                             *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
@@ -2035,7 +2240,14 @@
                                 </div>
                               </div>
                             </div>
-
+                            <div class="col-12" *ngIf="actividadSelected == '2'">
+                              <div class="row mt-3">
+                                  <h4 class="col-12">
+                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown}}</span>&nbsp;
+                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
+                                  </h4>
+                              </div>
+                            </div>
                         </div>
                       </div>
                     </div>
