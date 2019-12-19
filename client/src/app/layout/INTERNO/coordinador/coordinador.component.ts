@@ -3055,12 +3055,15 @@ export class CoordinadorComponent implements OnInit {
          }
       });   
    }
-   console.log(this.activity);
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.register_types_AB.forEach(element => {
          if (this.registerMinturSelected.register.register_type_id == element.id) {
             category = element;
             categoria = element.name;
+            if (element.name == 'Pendiente') {
+               clasificacion = 'NO TURÍSTICO';
+               categoria = 'NO TURÍSTICO';
+            }
          }
       });
       this.register_types_AB.forEach(element => {
