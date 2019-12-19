@@ -1067,29 +1067,37 @@ export class CoordinadorComponent implements OnInit {
 
   setCategory(type_id: number){
    let categoryCode = '';
-   this.actividadSelected = '1';
-   this.register_typeDataService.get().then(r => {
-      let types: RegisterType[] = r as RegisterType[];
-      types.forEach(registerType => {
+   if (this.activity == 'ALOJAMIENTO') {
+      this.actividadSelected = '1';
+      this.categories_registers = this.register_types;
+      this.clasifications_registers = this.register_types;
+      this.register_types.forEach(registerType => {
          if (registerType.id == type_id) {
             categoryCode = registerType.father_code.toString();
          }
       });
-      types.forEach(registerType => {
+      this.register_types.forEach(registerType => {
          if (categoryCode == registerType.code) {
             this.regionSelectedCode = registerType.father_code.toString();
          }
       });
-      this.clasifications_registers = [];
-      this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
-         this.clasifications_registers = r as RegisterType[];
-         this.categorySelectedCode = categoryCode;
-         this.categories_registers = [];
-         this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
-            this.categories_registers = r as RegisterType[];
-         }).catch( e => { console.log(e) });
-      }).catch( e => { console.log(e) });
-   }).catch( e=> { console.log(e); });
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.actividadSelected = '2';
+      this.categories_registers = this.register_types_AB;
+      this.clasifications_registers = this.register_types_AB;
+      this.register_types_AB.forEach(registerType => {
+         if (registerType.id == type_id) {
+            categoryCode = registerType.father_code.toString();
+            this.categorySelectedCode = categoryCode;
+         }
+      });
+      this.register_types_AB.forEach(registerType => {
+         if (categoryCode == registerType.code) {
+            this.regionSelectedCode = registerType.father_code.toString();
+         }
+      });
+   }
   }
 
   changeTramiteRequerido() {
