@@ -3069,6 +3069,7 @@ export class CoordinadorComponent implements OnInit {
             }
          });
       });
+      console.log(workers_on_establishment);
       workers_on_establishment.forEach(element => {
          if (element.is_max) {
             if (element.gender_id == 1) {
