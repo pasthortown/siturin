@@ -3066,19 +3066,14 @@ export class CoordinadorComponent implements OnInit {
             }
          }
       });
-      this.register_types_AB.forEach(element => {
-         if (category.father_code == element.code) {
-            clasificacion = element.name;
-            if (element.name == 'Pendiente') {
-               clasificacion = 'NO TURÍSTICO';
-               categoria = 'NO TURÍSTICO';
+      if (categoria !== 'NO TURÍSTICO'){
+         this.register_types_AB.forEach(element => {
+            if (category.father_code == element.code) {
+               clasificacion = element.name;
             }
-         }
-      }); 
+         });
+      }
    }
-   console.log(clasificacion);
-   console.log(categoria);
-   return;
    const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
    const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
    const estado = this.stateTramiteId.toString();
