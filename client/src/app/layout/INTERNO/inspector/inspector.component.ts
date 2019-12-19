@@ -57,6 +57,7 @@ import { EstablishmentPicture } from 'src/app/models/BASE/EstablishmentPicture';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
+import { RegisterRequisite as RegisterABRequisite } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterRequisite';
 
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
