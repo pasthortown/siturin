@@ -300,7 +300,7 @@ export class InspectorComponent implements OnInit {
   register_types: RegisterType[] = [];
   complementary_service_types: ComplementaryServiceType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
-  requisitesByRegisterType: Requisite[] = [];
+  requisitesByRegisterType: any[] = [];
   categorySelectedCode = '-';
   complementary_service_types_registerSelectedId = 0;
   capacitySelected: Capacity = new Capacity();
