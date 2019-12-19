@@ -3054,7 +3054,33 @@ export class CoordinadorComponent implements OnInit {
    const estado = this.stateTramiteId.toString();
    this.refreshMotivoTramite(estado);
    const newRegistroCatastro = new RegistroCatastro();
-   console.log(this.registerMinturSelected.establishment);
+   this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+      console.log(r2);
+      this.establishment_selected.workers_on_establishment.forEach(worker => {
+         this.genders.forEach(gender => {
+            if(gender.id == worker.gender_id) {
+               worker.gender_name = gender.name;
+            }
+         });
+         this.worker_groups.forEach(worker_group => {
+            if(worker_group.id == worker.worker_group_id) {
+               worker.worker_group_name = worker_group.name;
+               worker.is_max = worker_group.is_max;
+            }
+         });
+      });
+      this.establishment_selected.workers_on_establishment.forEach(element => {
+         if (element.is_max) {
+            if (element.gender_id == 1) {
+               this.total_male = element.count;
+            }
+            if (element.gender_id == 2) {
+               this.total_female = element.count;
+            }
+            this.total_workers += element.count;
+         }
+      });
+   }).catch( e => { console.log(e); });
    return;
    this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
       if (this.activity == 'ALOJAMIENTO') {
