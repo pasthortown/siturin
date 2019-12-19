@@ -2584,8 +2584,8 @@ export class CoordinadorComponent implements OnInit {
      this.tarifarioRackApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
      const today = new Date();
      this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-      if (this.activity == 'ALOJAMIENTO') {
+     if (this.activity == 'ALOJAMIENTO') {
+         this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
          this.registerStateDataService.post(newRegisterState).then( r1 => {
          }).catch( e => { console.log(e); });
          this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
@@ -2599,7 +2599,7 @@ export class CoordinadorComponent implements OnInit {
          }).catch( e => { console.log(e); });
          this.approvalStateAttachmentABDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
             this.approvalStateAttachmentABDataService.post(this.registroApprovalStateAttachment).then( r3 => {
-               this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
+               this.catastrarRegistro(null, this.registroApprovalStateAttachment.approval_state_attachment_file);
             }).catch( e => { console.log(e); });
          }).catch( e => { console.log(e); });    
       }
@@ -2970,8 +2970,14 @@ export class CoordinadorComponent implements OnInit {
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
    const today = new Date();
    const number_by_ruc = '000'.substr(0, 3 - this.registerMinturSelected.establishment.ruc_code_id.toString().length) + this.registerMinturSelected.establishment.ruc_code_id.toString();
-   const numeric_register = '000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
-   const code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;  
+   let numeric_register = '';
+   if (this.activity == 'ALOJAMIENTO') {
+      numeric_register = '2000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      numeric_register = '3000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
+   }
+   const code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;
    let clasificacion: String = '';
    let categoria: String = '';
    let category: RegisterType = new RegisterType();
@@ -3034,6 +3040,10 @@ export class CoordinadorComponent implements OnInit {
       this.register_types_AB.forEach(element => {
          if (category.father_code == element.code) {
             clasificacion = element.name;
+            if (element.name == 'Pendiente') {
+               clasificacion = 'NO TURÍSTICO';
+               categoria = 'NO TURÍSTICO';
+            }
          }
       }); 
    }
@@ -3111,6 +3121,7 @@ export class CoordinadorComponent implements OnInit {
                const information = {para: r.name.toUpperCase(),
                   pdfBase64_certificado: pdfRegistro,
                   pdfBase64_tarifario: pdfTarifarioRack,
+                  activity: this.activity,
                   tramite: this.tipo_tramite.toUpperCase(),
                   ruc: newRegistroCatastro.ruc,
                   provincia: provinciaName.toUpperCase(),
@@ -3141,33 +3152,12 @@ export class CoordinadorComponent implements OnInit {
       }
       if (this.activity == 'ALIMENTOS Y BEBIDAS') {
          this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
-            let max_spaces = 0;
-            let max_beds = 0;
-            let max_areas = 0;
             const capacities_on_register = r2.capacities_on_register;
+            let mesas = 0;
+            let plazas = 0;
             capacities_on_register.forEach(capacity => {
-               this.capacity_types.forEach(capacityType => {
-                  if (capacityType.id == capacity.capacity_type_id) {
-                     if (capacityType.editable_spaces) {
-                        capacity.max_spaces = 0;
-                     } else {
-                        capacity.max_spaces = capacityType.spaces * capacity.quantity;
-                     }
-                     if (capacity.max_beds > capacityType.bed_quantity) {
-                        capacity.max_beds = capacityType.bed_quantity;
-                     }
-                     if (capacity.max_beds == 0) {
-                        capacity.max_beds = 1;
-                     }
-                  }
-               });
-            });
-            capacities_on_register.forEach(capacity => {
-               max_areas += capacity.quantity;
-               max_spaces += capacity.max_spaces;
-               if (capacity.max_beds != null || typeof capacity.max_beds != 'undefined') {
-                  max_beds += capacity.max_beds;
-               }
+               mesas += capacity.quantity_tables;   
+               plazas += capacity.quantity_spaces;
             });
             newRegistroCatastro.activity = this.registerMinturSelected.activity.toUpperCase();
             newRegistroCatastro.address = this.registerMinturSelected.establishment.address_main_street + ' ' + this.registerMinturSelected.establishment.address_number + ' ' + this.registerMinturSelected.establishment.address_secondary_street;
@@ -3185,9 +3175,9 @@ export class CoordinadorComponent implements OnInit {
             newRegistroCatastro.georeference_latitude = this.registerMinturSelected.establishment.address_map_latitude;
             newRegistroCatastro.georeference_longitude = this.registerMinturSelected.establishment.address_map_longitude;
             newRegistroCatastro.main_phone_number = r.main_phone_number;
-            newRegistroCatastro.max_areas = max_areas;
-            newRegistroCatastro.max_beds = max_beds;
-            newRegistroCatastro.max_capacity = max_spaces;
+            newRegistroCatastro.max_areas = 0;
+            newRegistroCatastro.max_beds = mesas;
+            newRegistroCatastro.max_capacity = plazas;
             newRegistroCatastro.organization_type = this.organization_type;
             newRegistroCatastro.register_code = code;
             newRegistroCatastro.ruc = this.ruc_registro_selected.ruc.number;
@@ -3206,7 +3196,7 @@ export class CoordinadorComponent implements OnInit {
             this.registerCatastroDataService.post(newRegistroCatastro).then( r5 => {
                const information = {para: r.name.toUpperCase(),
                   pdfBase64_certificado: pdfRegistro,
-                  pdfBase64_tarifario: pdfTarifarioRack,
+                  activity: this.activity,
                   tramite: this.tipo_tramite.toUpperCase(),
                   ruc: newRegistroCatastro.ruc,
                   provincia: provinciaName.toUpperCase(),

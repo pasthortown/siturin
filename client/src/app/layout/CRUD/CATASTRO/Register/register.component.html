@@ -43,69 +43,55 @@
             <thead>
                <tr>
                   <th>Seleccionado</th>
-                  <th>ruc</th>
-                  <th>comercial_name</th>
-                  <th>register_code</th>
-                  <th>as_turistic_date</th>
-                  <th>activity</th>
-                  <th>category</th>
-                  <th>classification</th>
-                  <th>legal_representant_name</th>
-                  <th>legal_representant_identification</th>
-                  <th>establishment_property_type</th>
-                  <th>organization_type</th>
-                  <th>ubication_main</th>
-                  <th>ubication_sencond</th>
-                  <th>ubication_third</th>
-                  <th>address</th>
-                  <th>main_phone_number</th>
-                  <th>secondary_phone_number</th>
-                  <th>email</th>
-                  <th>web</th>
-                  <th>system_source</th>
-                  <th>georeference</th>
-                  <th>establishment_ruc_code</th>
-                  <th>max_capacity</th>
-                  <th>max_areas</th>
-                  <th>total_male</th>
-                  <th>total_female</th>
-                  <th>ruc_state</th>
-                  <th>max_beds</th>
-                  <th>establishment_state</th>
+                  <th>Número de Registro</th>
+                  <th>RUC</th>
+                  <th>Número de Establecimiento</th>
+                  <th>Nombre Comercial</th>
+                  <th>Fecha de Registro</th>
+                  <th>Actividad</th>
+                  <th>Clasificación</th>
+                  <th>Categoría</th>
+                  <th>Identificación Representante Legal</th>
+                  <th>Representante Legal</th>
+                  <th>Dirección</th>
+                  <th>Georeferenciación</th>
+                  <th>Teléfono Principal</th>
+                  <th>Teléfono Secundario</th>
+                  <th>Correo Electrónico</th>
+                  <th>URL WEB</th>
+                  <th>Fuente</th>
+                  <th>Áreas</th>
+                  <th>Camas / Mesas</th>
+                  <th>Plazas</th>
+                  <th>Trabajadores Varones</th>
+                  <th>Trabajadores Mujeres</th>
                </tr>
             </thead>
             <tbody>
-               <tr *ngFor="let register of registers" (click)="selectRegister(register)">
+RUC RUC="let register of registers" (click)="selectRegister(register)">
                   <td class="text-right"><span *ngIf="registerSelected === register" class="far fa-hand-point-right"></span></td>
                   <td>{{register.ruc}}</td>
+                  <td>{{register.establishment_ruc_code}}</td>
                   <td>{{register.comercial_name}}</td>
                   <td>{{register.register_code}}</td>
                   <td>{{register.as_turistic_date}}</td>
                   <td>{{register.activity}}</td>
-                  <td>{{register.category}}</td>
                   <td>{{register.classification}}</td>
-                  <td>{{register.legal_representant_name}}</td>
+                  <td>{{register.category}}</td>
                   <td>{{register.legal_representant_identification}}</td>
-                  <td>{{register.establishment_property_type}}</td>
-                  <td>{{register.organization_type}}</td>
-                  <td>{{register.ubication_main}}</td>
-                  <td>{{register.ubication_sencond}}</td>
-                  <td>{{register.ubication_third}}</td>
+                  <td>{{register.legal_representant_name}}</td>
+                  <td>Lat: {{register.georeference_latitude}} Lng: {{register.georeference_longitude}}</td>
                   <td>{{register.address}}</td>
                   <td>{{register.main_phone_number}}</td>
                   <td>{{register.secondary_phone_number}}</td>
                   <td>{{register.email}}</td>
                   <td>{{register.web}}</td>
                   <td>{{register.system_source}}</td>
-                  <td>Lat: {{register.georeference_latitude}} Lng: {{register.georeference_longitude}}</td>
-                  <td>{{register.establishment_ruc_code}}</td>
-                  <td>{{register.max_capacity}}</td>
                   <td>{{register.max_areas}}</td>
+                  <td>{{register.max_beds}}</td>
+                  <td>{{register.max_capacity}}</td>
                   <td>{{register.total_male}}</td>
                   <td>{{register.total_female}}</td>
-                  <td>{{register.ruc_state}}</td>
-                  <td>{{register.max_beds}}</td>
-                  <td>{{register.establishment_state}}</td>
                </tr>
             </tbody>
          </table>
