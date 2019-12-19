@@ -1067,7 +1067,9 @@ export class CoordinadorComponent implements OnInit {
 
   setCategory(type_id: number){
    let categoryCode = '';
+   console.log("iniciemos");
    if (this.activity == 'ALOJAMIENTO') {
+      console.log("hola");
       this.actividadSelected = '1';
       this.categories_registers = this.register_types;
       this.clasifications_registers = this.register_types;
@@ -1083,6 +1085,7 @@ export class CoordinadorComponent implements OnInit {
       });
    }
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      console.log("chao");
       this.actividadSelected = '2';
       this.categories_registers = this.register_types_AB;
       this.clasifications_registers = this.register_types_AB;
