@@ -3055,8 +3055,7 @@ export class CoordinadorComponent implements OnInit {
    this.refreshMotivoTramite(estado);
    const newRegistroCatastro = new RegistroCatastro();
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-      console.log(r2);
-      this.establishment_selected.workers_on_establishment.forEach(worker => {
+      r2.workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
                worker.gender_name = gender.name;
@@ -3069,7 +3068,7 @@ export class CoordinadorComponent implements OnInit {
             }
          });
       });
-      this.establishment_selected.workers_on_establishment.forEach(element => {
+      r2.workers_on_establishment.forEach(element => {
          if (element.is_max) {
             if (element.gender_id == 1) {
                this.total_male = element.count;
@@ -3081,6 +3080,8 @@ export class CoordinadorComponent implements OnInit {
          }
       });
    }).catch( e => { console.log(e); });
+   console.log(this.total_female);
+   console.log(this.total_male);
    return;
    this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
       if (this.activity == 'ALOJAMIENTO') {
