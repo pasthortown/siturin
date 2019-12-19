@@ -3055,28 +3055,12 @@ export class CoordinadorComponent implements OnInit {
    this.refreshMotivoTramite(estado);
    const newRegistroCatastro = new RegistroCatastro();
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-      r2.workers_on_establishment.forEach(worker => {
-         this.genders.forEach(gender => {
-            if(gender.id == worker.gender_id) {
-               worker.gender_name = gender.name;
-            }
-         });
-         this.worker_groups.forEach(worker_group => {
-            if(worker_group.id == worker.worker_group_id) {
-               worker.worker_group_name = worker_group.name;
-               worker.is_max = worker_group.is_max;
-            }
-         });
-      });
       r2.workers_on_establishment.forEach(element => {
-         if (element.is_max) {
-            if (element.gender_id == 1) {
-               this.total_male = element.count;
-            }
-            if (element.gender_id == 2) {
-               this.total_female = element.count;
-            }
-            this.total_workers += element.count;
+         if (element.gender_id == 1) {
+            this.total_male = element.count;
+         }
+         if (element.gender_id == 2) {
+            this.total_female = element.count;
          }
       });
    }).catch( e => { console.log(e); });
