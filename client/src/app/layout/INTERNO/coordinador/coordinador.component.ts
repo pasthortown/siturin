@@ -2178,26 +2178,24 @@ export class CoordinadorComponent implements OnInit {
          const creacion = new Date(item.register.created_at.toString());
          const estado = item.states.state_id.toString();
          const digito = estado.substring(estado.length-1, estado.length);
-         if (digito !== 9) {
-            data.push({
-               selected: '',
-               date_assigment_alert: date_assigment_alert,
-               number: item.ruc.number,
-               registerId: item.register.id,
-               actividad: item.activity,
-               provincia: provincia.name,
-               canton: canton.name,
-               parroquia: parroquia.name,
-               ruc_code_id: item.establishment.ruc_code_id,
-               establishment: item.establishment.commercially_known_name,
-               address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
-               created_at: creacion.toLocaleDateString(),
-               code: item.register.code,
-               category: this.getRegisterCategory(item.register.register_type_id, item.activity),
-               status: registerState,
-               status_id: item.states.state_id,
-            });
-         }
+         data.push({
+            selected: '',
+            date_assigment_alert: date_assigment_alert,
+            number: item.ruc.number,
+            registerId: item.register.id,
+            actividad: item.activity,
+            provincia: provincia.name,
+            canton: canton.name,
+            parroquia: parroquia.name,
+            ruc_code_id: item.establishment.ruc_code_id,
+            establishment: item.establishment.commercially_known_name,
+            address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
+            created_at: creacion.toLocaleDateString(),
+            code: item.register.code,
+            category: this.getRegisterCategory(item.register.register_type_id, item.activity),
+            status: registerState,
+            status_id: item.states.state_id,
+         });
      });
      this.data = data;
      this.onChangeTable(this.config);
