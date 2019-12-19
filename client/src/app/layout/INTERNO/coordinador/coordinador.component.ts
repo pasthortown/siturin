@@ -2762,10 +2762,14 @@ export class CoordinadorComponent implements OnInit {
          this.refresh();
          return;
       }
-     //let numerico = '10000000'.substr(0, 8 - this.idRegister.toString().length) + this.idRegister.toString();
-     //const code = provincia.acronym.toString() + canton.acronym.toString() + 'AJ-' + numerico;
-     const number_by_ruc = '000'.substr(0, 3 - this.registerMinturSelected.establishment.ruc_code_id.toString().length) + this.registerMinturSelected.establishment.ruc_code_id.toString();
-     const numeric_register = '000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
+      const number_by_ruc = '000'.substr(0, 3 - this.registerMinturSelected.establishment.ruc_code_id.toString().length) + this.registerMinturSelected.establishment.ruc_code_id.toString();
+      let numeric_register = '';
+      if (this.activity == 'ALOJAMIENTO') {
+        numeric_register = '2000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
+      }
+      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+        numeric_register = '3000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
+      }
      const code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;
      if (this.activity == 'ALOJAMIENTO') {
       this.approvalStateDataService.put(this.registerApprovalCoordinador).then( r => {
@@ -2775,14 +2779,14 @@ export class CoordinadorComponent implements OnInit {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); }); 
      }
-     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      this.approvalStateABDataService.put(this.registerApprovalCoordinador).then( r => {
-         this.registerABDataService.set_register_code(code, this.idRegister).then( r => {
-         }).catch( e => { console.log(e); });
-         this.establishmentDataService.set_register_date(establishmentId).then( r => {
-         }).catch( e => { console.log(e); });
-      }).catch( e => { console.log(e); });
-     }
+      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.approvalStateABDataService.put(this.registerApprovalCoordinador).then( r => {
+          this.registerABDataService.set_register_code(code, this.idRegister).then( r => {
+          }).catch( e => { console.log(e); });
+          this.establishmentDataService.set_register_date(establishmentId).then( r => {
+          }).catch( e => { console.log(e); });
+       }).catch( e => { console.log(e); });
+      }
       this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
          if (this.activity == 'ALOJAMIENTO') {
             this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
@@ -3429,7 +3433,6 @@ export class CoordinadorComponent implements OnInit {
                   }
                }
             });
-            //AQUI --- GUARDADO, VALIDAR NUMERO DE REGISTRO, MOSTRAR INFORMACIÓN EN COORDINADOR Y TECNICO ZONAL
             let mesas = 0;
             let plazas = 0;
             capacities_on_register.forEach(capacity => {
