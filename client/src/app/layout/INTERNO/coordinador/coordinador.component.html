@@ -255,7 +255,7 @@
 </div>
 <div class="row" *ngIf="stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur && SRIOK">
   <div class="col-12 text-center mb-3">
-    <button type="button" class="btn btn-success" [disabled]="!(validateRegistroFile() && (activity == 'ALIMENTOS Y BEBIDAS' || validateTarifarioRackFile))" title="Guardar Información" (click)="entregarDocumentos()"><i class="fas fa-save"></i> Guardar y Entregar Documentos</button>
+    <button type="button" class="btn btn-success" [disabled]="!((activity == 'ALIMENTOS Y BEBIDAS' && validateRegistroFile()) || (validateRegistroFile() && validateTarifarioRackFile()))" title="Guardar Información" (click)="entregarDocumentos()"><i class="fas fa-save"></i> Guardar y Entregar Documentos</button>
     <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()"><i class="fas fa-times"></i> Cancelar</button>
   </div>
 </div>
