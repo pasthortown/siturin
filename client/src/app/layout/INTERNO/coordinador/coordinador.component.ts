@@ -5817,7 +5817,8 @@ guardarDeclaracion() {
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(register.id).then( r => {
          this.rucEstablishmentRegisterSelected = r.register as Register;
-         console.log(this.rucEstablishmentRegisterSelected);
+         this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
+         this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
          this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
          this.rucEstablishmentRegisterSelected.editable = false;
          this.rucEstablishmentRegisterSelected.status = r.status.state_id;
@@ -5827,7 +5828,6 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.getListaPrecios(register.id);
          this.mostrarDataRegister = true;
-         //AQUI
          this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id, r.requisites);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
