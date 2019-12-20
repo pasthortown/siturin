@@ -4925,15 +4925,41 @@ guardarDeclaracion() {
          this.getServiceType();
          this.getKitchenType();
          //AQUI
-         this.setCategory(this.rucEstablishmentRegisterSelected.register_type_id);
+         this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
          //this.calcSpaces();
          //this.getAllowedInfo(r.requisites);
       }).catch( e => { console.log(e); });
    }
-   
  }
+
+ setCategoryAB(type_id: number){
+   let categoryCode = '';
+   this.actividadSelected = '2';
+   this.register_typeABDataService.get().then(r => {
+      let types = r as any[];
+      types.forEach(registerType => {
+         if (registerType.id == type_id) {
+            categoryCode = registerType.father_code.toString();
+         }
+      });
+      types.forEach(registerType => {
+         if (categoryCode == registerType.code) {
+            this.regionSelectedCode = registerType.father_code.toString();
+         }
+      });
+      this.clasifications_registers = [];
+      this.register_typeABDataService.get_filtered(this.regionSelectedCode).then( r => {
+         this.clasifications_registers = r as any[];
+         this.categorySelectedCode = categoryCode;
+         this.categories_registers = [];
+         this.register_typeABDataService.get_filtered(this.categorySelectedCode).then( r => {
+            this.categories_registers = r as any[];
+         }).catch( e => { console.log(e) });
+      }).catch( e => { console.log(e) });
+   }).catch( e=> { console.log(e); });
+  }
 
  getServiceType() {
    this.service_types = [];
