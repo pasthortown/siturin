@@ -171,6 +171,8 @@ export class CoordinadorComponent implements OnInit {
    guardandoTramite = false;
    totalABPuntos = 0;
    totalABPuntosShown = 0;
+   kitchen_type_registerSelectedId = 0;
+   service_type_registerSelectedId = 0;
    categoryAB = 'Pendiente';
    
    //ASIGNACIONES
@@ -2680,6 +2682,14 @@ export class CoordinadorComponent implements OnInit {
       }
   }
 
+  selectServiceType(serviceType: ServiceType) {
+   this.service_type_registerSelectedId = serviceType.id;
+}
+
+selectKitchenType(kitchenType: KitchenType) {
+   this.kitchen_type_registerSelectedId = kitchenType.id;
+}
+
   guardarTramite() {
      this.guardandoTramite = true;
      const estado: String = this.stateTramiteId.toString();
@@ -3893,6 +3903,96 @@ export class CoordinadorComponent implements OnInit {
    this.calcularUnoxMil();
   }
  
+  removeKitchenType() {
+   if (this.kitchen_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   const newKitchenTypes: any[] = [];
+   let eliminado = false;
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register.forEach(kitchenType => {
+     if (kitchenType.id !== this.kitchen_type_registerSelectedId) {
+         newKitchenTypes.push(kitchenType);
+     } else {
+        eliminado = true;
+     }
+   });
+   if (!eliminado) {
+     this.toastr.errorToastr('Registro no encontrado.', 'Error');
+     return;
+   }
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register = newKitchenTypes;
+   this.kitchen_type_registerSelectedId = 0;
+  }
+
+  removeServiceType() {
+   if (this.service_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   const newServiceTypes: ComplementaryServiceType[] = [];
+   let eliminado = false;
+   this.rucEstablishmentRegisterSelected.service_types_on_register.forEach(service_type => {
+     if (service_type.id !== this.service_type_registerSelectedId) {
+      newServiceTypes.push(service_type);
+     } else {
+        eliminado = true;
+     }
+   });
+   if (!eliminado) {
+     this.toastr.errorToastr('Registro no encontrado.', 'Error');
+     return;
+   }
+   this.rucEstablishmentRegisterSelected.service_types_on_register = newServiceTypes;
+   this.service_type_registerSelectedId = 0;
+  }
+
+  addServiceType() {
+   if (this.service_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   this.service_types.forEach(service_type => {
+     if (service_type.id == this.service_type_registerSelectedId) {
+        let existe = false;
+        this.rucEstablishmentRegisterSelected.service_types_on_register.forEach(element => {
+           if (element.id == service_type.id) {
+              existe = true;
+           }
+        });
+        if (!existe) {
+           this.rucEstablishmentRegisterSelected.service_types_on_register.push(service_type);
+           this.service_type_registerSelectedId = 0;
+        } else {
+           this.toastr.errorToastr('El registro ya existe.', 'Error');
+        }
+     }
+   });
+ }
+
+ addKitchenType() {
+   if (this.kitchen_type_registerSelectedId === 0) {
+     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     return;
+   }
+   this.kitchen_types.forEach(kitchenType => {
+     if (kitchenType.id == this.kitchen_type_registerSelectedId) {
+        let existe = false;
+        this.rucEstablishmentRegisterSelected.kitchen_types_on_register.forEach(element => {
+           if (element.id == kitchenType.id) {
+              existe = true;
+           }
+        });
+        if (!existe) {
+           this.rucEstablishmentRegisterSelected.kitchen_types_on_register.push(kitchenType);
+           this.kitchen_type_registerSelectedId = 0;
+        } else {
+           this.toastr.errorToastr('El registro ya existe.', 'Error');
+        }
+     }
+   });
+ }
+
   addComplementaryFoodService() {
    const complementaryFoodService = new ComplementaryServiceFood();
    let agregable = true;
