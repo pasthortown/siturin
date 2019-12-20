@@ -755,14 +755,15 @@ export class RegistroComponent implements OnInit {
          let yaMostrado = false;
          let yaRegistrado = false;
          establecimientosRegistrados.forEach(element => {
-            data.forEach(elementData => {
-               if (elementData.code == item.ruc_code_id) {
-                  yaMostrado = true;
-               }
-            });
-            if (element == Number(item.ruc_code_id)) {
-               yaRegistrado = true;
-            }
+            console.log(element);
+            // data.forEach(elementData => {
+            //    if (elementData.code == item.ruc_code_id) {
+            //       yaMostrado = true;
+            //    }
+            // });
+            // if (element == Number(item.ruc_code_id)) {
+            //    yaRegistrado = true;
+            // }
          });
          if (!yaMostrado) {
             data.push({

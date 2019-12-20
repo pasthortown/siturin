@@ -117,7 +117,7 @@ export class LayoutComponent implements OnInit {
               }
               const establecimientos_id = [];
               registros.forEach(registro => {
-                  establecimientos_id.push(registro.establishment_ruc_code);
+                  establecimientos_id.push({ruc_code_id: registro.establishment_ruc_code, activity: registro.activity});
               });
               sessionStorage.setItem('canMoreThanRegister',JSON.stringify(toReturn));
               sessionStorage.setItem('cuentaInterna',JSON.stringify(cuentaInterna));
