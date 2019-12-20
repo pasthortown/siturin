@@ -5897,7 +5897,7 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
       if (element.fullfill) {
          totalScore += element.score * 1;
-         if (element.mandatory) {
+         if (!element.mandatory) {
             totalScoreShown += element.score * 1;
          }
       }
