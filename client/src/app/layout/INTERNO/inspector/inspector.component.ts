@@ -4925,6 +4925,7 @@ guardarDeclaracion() {
          this.getServiceType();
          this.getKitchenType();
          //AQUI
+         this.mostrarDataRegisterMintur = true;
          this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
