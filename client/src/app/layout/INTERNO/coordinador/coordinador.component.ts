@@ -112,6 +112,10 @@ import { AuthorizationAttachment } from 'src/app/models/ALOJAMIENTO/Authorizatio
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ServiceType } from 'src/app/models/ALIMENTOSBEBIDAS/ServiceType';
+import { KitchenType } from 'src/app/models/ALIMENTOSBEBIDAS/KitchenType';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 
 @Component({
   selector: 'app-registro',
@@ -364,6 +368,8 @@ export class CoordinadorComponent implements OnInit {
               private declarationAttachmentDataService: DeclarationAttachmentService,
               private mailerDataService: MailerService,
               private router: Router, 
+              private serviceTypeDataService: ServiceTypeService,
+              private kitchenTypeDataService: KitchenTypeService,
               private approvalStateDataService: ApprovalStateService, 
               private consultorDataService: ConsultorService,
               private userDataService: UserService,
@@ -5679,7 +5685,6 @@ guardarDeclaracion() {
       this.kitchen_types = r as KitchenType[];
    }).catch( e => console.log(e) );
   }
-
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
     this.complementary_service_types_registerSelectedId = complementary_service_type.id;

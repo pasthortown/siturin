@@ -118,6 +118,10 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } fr
 import { RegisterType as RegisterTypeAB} from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { ApprovalStateReportService as ApprovalStateReportABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { ServiceType } from 'src/app/models/ALIMENTOSBEBIDAS/ServiceType';
+import { KitchenType } from 'src/app/models/ALIMENTOSBEBIDAS/KitchenType';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 
 @Component({
   selector: 'app-registro',
@@ -277,6 +281,8 @@ export class InspectorComponent implements OnInit {
   establishmentComercialNameValidated = false;
   addressEstablishmentValidated = false;
   register_types_AB: RegisterTypeAB[] = [];
+  service_types: ServiceType[] = [];
+  kitchen_types: KitchenType[] = [];
   mainPhoneEstablishmentValidated = false;
   secondaryPhoneEstablishmentValidated = true;
   urlwebEstablishmentValidated = true;
@@ -352,6 +358,8 @@ export class InspectorComponent implements OnInit {
               private approvalStateABDataService: ApprovalStateABService,
               private registerStateABDataService: RegisterStateABService,
               private requisiteABDataService: RequisiteABService,
+              private serviceTypeDataService: ServiceTypeService,
+              private kitchenTypeDataService: KitchenTypeService,
               private register_typeABDataService: RegisterTypeABService,
               private registerABDataService: RegisterABService,
               private approvalStateAttachmentABDataService: ApprovalStateAttachmentABService,
@@ -4874,15 +4882,15 @@ guardarDeclaracion() {
    this.mostrarDataRegister = false;
    this.rucEstablishmentRegisterSelected = new Register();
    this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
-   if (this.activity == 'ALOJAMIENTO') {
-      this.registerDataService.get_register_data(register.id).then( r => {
+   if (this.activity == 'ALOJAMIENTO') {
+      this.registerDataService.get_register_data(register.id).then( r => {
          this.rucEstablishmentRegisterSelected = r.register as Register;
          this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
          this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
          this.getAutorizacionCondominos(this.rucEstablishmentRegisterSelected.id);
          this.getReceptionRoom(this.rucEstablishmentRegisterSelected.id);
          this.setCategory(this.rucEstablishmentRegisterSelected.register_type_id);
-         this.rucEstablishmentRegisterSelected.editable = editable;
+         this.rucEstablishmentRegisterSelected.editable = false;
          this.rucEstablishmentRegisterSelected.status = r.status.state_id;
          this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
@@ -4907,10 +4915,51 @@ guardarDeclaracion() {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      //SELECT AB
-   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.registerABDataService.get_register_data(register.id).then( r => {
+         this.rucEstablishmentRegisterSelected = r.register as Register;
+         this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+         this.rucEstablishmentRegisterSelected.editable = false;
+         this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+         this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+         this.getServiceType();
+         this.getKitchenType();
+         //AQUI
+         this.setCategory(this.rucEstablishmentRegisterSelected.register_type_id);
+         this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+         this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
+         //this.calcSpaces();
+         //this.getAllowedInfo(r.requisites);
+      }).catch( e => { console.log(e); });
+   }
+   
  }
+
+ getServiceType() {
+   this.service_types = [];
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.serviceTypeDataService.getFiltered(categorySelectedID).then( r => {
+      this.service_types = r as ServiceType[];
+   }).catch( e => console.log(e) );
+  }
+  
+  getKitchenType() {
+   this.kitchen_types = [];
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.kitchenTypeDataService.getFiltered(categorySelectedID).then( r => {
+      this.kitchen_types = r as KitchenType[];
+   }).catch( e => console.log(e) );
+  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
     this.complementary_service_types_registerSelectedId = complementary_service_type.id;
