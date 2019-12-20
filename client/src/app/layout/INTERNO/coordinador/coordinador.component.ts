@@ -5667,11 +5667,8 @@ guardarDeclaracion() {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   console.log(this.activity);
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      console.log("hola");
       this.registerABDataService.get_register_data(register.id).then( r => {
-         console.log("saludos");
          this.rucEstablishmentRegisterSelected = r.register as Register;
          this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
          this.rucEstablishmentRegisterSelected.editable = false;
@@ -5679,12 +5676,14 @@ guardarDeclaracion() {
          this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
          this.getServiceType();
          this.getKitchenType();
+         this.mostrarDataRegisterMintur = true;
          //AQUI
          console.log("saludos1");
-         this.mostrarDataRegisterMintur = true;
          this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
+         console.log("saludos2");
+         console.log(this.mostrarDataRegisterMintur);
          //this.calcSpaces();
          //this.getAllowedInfo(r.requisites);
       }).catch( e => { console.log(e); });
