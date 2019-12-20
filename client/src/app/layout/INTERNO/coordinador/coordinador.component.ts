@@ -1142,7 +1142,7 @@ export class CoordinadorComponent implements OnInit {
    }).catch( e=> { console.log(e); });
   }
 
-  setCategoryAB(type_id: number){
+  setCategoryAB(type_id: number, requisites){
    let categoryCode = '';
    this.actividadSelected = '2';
    this.register_typeABDataService.get().then(r => {
@@ -1161,6 +1161,7 @@ export class CoordinadorComponent implements OnInit {
       this.register_typeABDataService.get_filtered(this.regionSelectedCode).then( r => {
          this.clasifications_registers = r as any[];
          this.categorySelectedCode = categoryCode;
+         this.getRequisitesABByRegisterType(requisites);
          this.categories_registers = [];
          this.register_typeABDataService.get_filtered(this.categorySelectedCode).then( r => {
             this.categories_registers = r as any[];
@@ -5823,11 +5824,10 @@ guardarDeclaracion() {
          this.getServiceType();
          this.getKitchenType();
          this.rucEstablishmentRegisterSelected.requisites = [];
-         this.getRequisitesABByRegisterType(r.requisites);
          this.getListaPrecios(register.id);
          this.mostrarDataRegister = true;
          //AQUI
-         this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id);
+         this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id, r.requisites);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
       }).catch( e => { console.log(e); });
