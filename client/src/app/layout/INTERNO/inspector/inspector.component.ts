@@ -5032,6 +5032,7 @@ selectKitchenType(kitchenType: KitchenType) {
          this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
          this.getServiceType();
          this.getKitchenType();
+         this.rucEstablishmentRegisterSelected.requisites = [];
          this.getRequisitesABByRegisterType(r.requisites);
          this.getListaPrecios(register.id);
          this.mostrarDataRegister = true;
