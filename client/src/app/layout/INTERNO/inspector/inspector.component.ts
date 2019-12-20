@@ -172,7 +172,10 @@ export class InspectorComponent implements OnInit {
    imprimiendo_informe = false;
    imprimiendo_acta = false;
    listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
-  
+   totalABPuntos = 0;
+   totalABPuntosShown = 0;
+   categoryAB = 'Pendiente';
+   
    //ASIGNACIONES
    inspectores: User[] = [];
    financieros: User[] = [];
@@ -4929,17 +4932,98 @@ guardarDeclaracion() {
          this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
          this.getServiceType();
          this.getKitchenType();
+         this.getRequisitesABByRegisterType(r.requisites);
          this.getListaPrecios(register.id);
-         //AQUI
          this.mostrarDataRegister = true;
+         //AQUI
          this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
-         //this.calcSpaces();
-         //this.getAllowedInfo(r.requisites);
       }).catch( e => { console.log(e); });
    }
  }
+
+ getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.requisiteABDataService.get_filtered(categorySelectedID).then( r => {
+      this.requisitesByRegisterType = r as any[];
+      this.requisitesByRegisterType.forEach(element => {
+         const newRegisterRequisite = new RegisterABRequisite();
+         newRegisterRequisite.to_approve = element.to_approve;
+         newRegisterRequisite.score = element.score;
+         newRegisterRequisite.requisite_name = element.name;
+         newRegisterRequisite.requisite_id = element.id;
+         newRegisterRequisite.fullfill = true;
+         newRegisterRequisite.requisite_code = element.code;
+         newRegisterRequisite.mandatory = element.mandatory;
+         newRegisterRequisite.id = element.id;
+         newRegisterRequisite.requisite_father_code = element.father_code;
+         newRegisterRequisite.level = element.code.split('.').length;
+         newRegisterRequisite.HTMLtype = element.type;
+         newRegisterRequisite.fullfill = false;
+         if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+            newRegisterRequisite.value = 'false';
+         }
+         this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
+      });
+      this.showRequisites  = true;
+      if (typeof requisites !== 'undefined') {
+         this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
+            requisites.forEach(requisite_incomming => {
+               if (requisite.requisite_id == requisite_incomming.requisite_id) {
+                  requisite.value = requisite_incomming.value;
+                  requisite.fullfill = requisite_incomming.fullfill;
+                  requisite.id = requisite_incomming.id;
+                  requisite.register_id = requisite_incomming.register_id;
+               }
+            });
+         });
+      }
+      this.calcTotalPoints();
+      this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
+         const a_id = a.requisite_id;
+         const b_id = b.requisite_id;
+         return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+     });
+   }).catch( e => { console.log(e) });
+  }
+
+  calcTotalPoints() {
+   let totalScore = 0;
+   let totalScoreShown = 0;
+   this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+      if (element.fullfill) {
+         totalScore += element.score * 1;
+         totalScoreShown += element.score * 1;
+      }
+      if (element.HTMLtype == 'YES / NO' && element.value == 'SI') {
+         totalScore += element.score * 1;
+      }
+      if (element.HTMLtype == 'YES / NO' && element.value == 'NO') {
+         totalScore += element.score * 1;
+      }
+   });
+   this.totalABPuntos = totalScore;
+   this.totalABPuntosShown = totalScoreShown;
+   this.categoryAB = 'Pendiente';
+   this.categories_registers.forEach(category => {
+      if (category.min_points <= this.totalABPuntos) {
+         this.categoryAB = category.name;
+         this.rucEstablishmentRegisterSelected.register_type_id = category.id;
+      }
+   });
+  }
 
  getListaPrecios(register_id: number) {
    this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
