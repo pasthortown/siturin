@@ -68,6 +68,8 @@ import { ApprovalStateService as ApprovalStateABService } from './../../../servi
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateReportService as ApprovalStateReportABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -83,6 +85,8 @@ import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALI
   providers: [NgbModal,
     UserService,
     DinardapService,
+    ServiceTypeService,
+    KitchenTypeService,
     RegisterTypeABService,
     RegisterStateABService,
     RequisiteABService,
