@@ -4430,27 +4430,53 @@ selectKitchenType(kitchenType: KitchenType) {
   getClasifications() {
    this.clasifications_registers = [];
    this.showRequisites = false;
-   this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
-      let esRegitro = false;
-      this.specific_states.forEach(element => {
-         if (element.id == this.rucEstablishmentRegisterSelected.status) {
-            if (element.name == 'Registro') {
-               esRegitro = true;
-            }
-         }
-      });
-      if ( this.regionSelectedCode != '1' && esRegitro) {
-         const clasificaciones = [];
-         r.forEach(element => {
-            if (element.id !== 30 && element.id !== 44) {
-               clasificaciones.push(element);
+     if (this.activity == 'ALOJAMIENTO') {
+      this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
+         let esRegitro = false;
+         this.specific_states.forEach(element => {
+            if (element.id == this.rucEstablishmentRegisterSelected.status) {
+               if (element.name == 'Registro') {
+                  esRegitro = true;
+               }
             }
          });
-         this.clasifications_registers = clasificaciones;
-      } else {
-         this.clasifications_registers = r as RegisterType[];
-      }
-   }).catch( e => { console.log(e) });
+         if ( this.regionSelectedCode != '1' && esRegitro) {
+            const clasificaciones = [];
+            r.forEach(element => {
+               if (element.id !== 30 && element.id !== 44) {
+                  clasificaciones.push(element);
+               }
+            });
+            this.clasifications_registers = clasificaciones;
+         } else {
+            this.clasifications_registers = r as any[];
+         }
+      }).catch( e => { console.log(e) });
+     }
+     if (this.activity=='ALIMENTOS Y BEBIDAS') {
+      this.register_typeABDataService.get_filtered(this.regionSelectedCode).then( r => {
+         let esRegitro = false;
+         this.specific_states.forEach(element => {
+            if (element.id == this.rucEstablishmentRegisterSelected.status) {
+               if (element.name == 'Registro') {
+                  esRegitro = true;
+               }
+            }
+         });
+         if ( this.regionSelectedCode != '1' && esRegitro) {
+            const clasificaciones = [];
+            r.forEach(element => {
+               if (element.id !== 30 && element.id !== 44) {
+                  clasificaciones.push(element);
+               }
+            });
+            this.clasifications_registers = clasificaciones;
+         } else {
+            this.clasifications_registers = r as any[];
+         }
+      }).catch( e => { console.log(e) });
+     }
+   
   }
 
   getRucNameTypes() {
