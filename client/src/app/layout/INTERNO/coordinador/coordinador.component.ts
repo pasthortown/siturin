@@ -325,12 +325,12 @@ export class CoordinadorComponent implements OnInit {
   complementaryServiceFoodSelected: ComplementaryServiceFood = new ComplementaryServiceFood();
   rucEstablishmentRegisterSelected: Register = new Register();
   clasifications_registers: RegisterType[] = [];
-  categories_registers: RegisterType[] = [];
+  categories_registers: any[] = [];
   register_types: RegisterType[] = [];
   register_types_AB: RegisterTypeAB[] = [];
   complementary_service_types: ComplementaryServiceType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
-  requisitesByRegisterType: Requisite[] = [];
+  requisitesByRegisterType: any[] = [];
   categorySelectedCode = '-';
   complementary_service_types_registerSelectedId = 0;
   capacitySelected: Capacity = new Capacity();

@@ -309,7 +309,7 @@ export class InspectorComponent implements OnInit {
   complementaryServiceFoodSelected: ComplementaryServiceFood = new ComplementaryServiceFood();
   rucEstablishmentRegisterSelected: Register = new Register();
   clasifications_registers: RegisterType[] = [];
-  categories_registers: RegisterType[] = [];
+  categories_registers: any[] = [];
   register_types: RegisterType[] = [];
   complementary_service_types: ComplementaryServiceType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
