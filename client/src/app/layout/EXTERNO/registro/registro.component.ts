@@ -760,7 +760,7 @@ export class RegistroComponent implements OnInit {
                    yaMostrado = true;
                 }
             });
-            if (element.ruc_code_id == Number(item.ruc_code_id) && elment.activity == 'ALOJAMIENTO') {
+            if (element.ruc_code_id == Number(item.ruc_code_id) && element.activity == 'ALOJAMIENTO') {
                yaRegistrado = true;
             }
          });
