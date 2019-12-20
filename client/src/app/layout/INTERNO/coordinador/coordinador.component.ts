@@ -116,6 +116,8 @@ import { ServiceType } from 'src/app/models/ALIMENTOSBEBIDAS/ServiceType';
 import { KitchenType } from 'src/app/models/ALIMENTOSBEBIDAS/KitchenType';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { FoodDrinkAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/FoodDrinkAttachment';
 
 @Component({
   selector: 'app-registro',
@@ -141,6 +143,7 @@ export class CoordinadorComponent implements OnInit {
    digito = '';
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
+   listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
    currentPagePays = 1;
    balance: DeclarationAttachment = new DeclarationAttachment();
    lastPagePays = 1;
@@ -362,6 +365,7 @@ export class CoordinadorComponent implements OnInit {
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
               private payDataService: PayService,
+              private foodDrinkAttachmentDataService: FoodDrinkAttachmentService,
               private floorAuthorizationCertificateDataService: FloorAuthorizationCertificateService,
               private propertyTitleAttachmentDataService: PropertyTitleAttachmentService,
               private authorizationAttachmentDataService: AuthorizationAttachmentService,
@@ -898,6 +902,36 @@ export class CoordinadorComponent implements OnInit {
 
     }).catch( e => { console.log(e); });
    }
+  }
+  
+  getListaPrecios(register_id: number) {
+   this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
+      this.listaPrecios = r as FoodDrinkAttachment;
+   }).catch( e => { console.log(e); });
+  }
+
+  guardarListaPrecios(register_id: number) {
+   this.listaPrecios.register_id = register_id;
+   if(this.listaPrecios.id == 0) {
+    this.foodDrinkAttachmentDataService.post(this.listaPrecios).then( r => { 
+
+    }).catch( e => { console.log(e); });
+   } else {
+    this.foodDrinkAttachmentDataService.put(this.listaPrecios).then( r => { 
+
+    }).catch( e => { console.log(e); });
+   }
+  }
+
+  borrarListaPrecios() {
+   this.listaPrecios = new FoodDrinkAttachment();
+  }
+
+  downloadListaPrecios() {
+   this.downloadFile(
+      this.listaPrecios.food_drink_attachment_file,
+      this.listaPrecios.food_drink_attachment_file_type,
+      this.listaPrecios.food_drink_attachment_file_name);
   }
 
   downloadFloorCertification() {

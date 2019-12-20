@@ -70,6 +70,7 @@ import { ApprovalStateReportService as ApprovalStateReportABService } from './..
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -85,6 +86,7 @@ import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitch
   providers: [NgbModal,
     UserService,
     DinardapService,
+    FoodDrinkAttachmentService,
     ServiceTypeService,
     KitchenTypeService,
     RegisterTypeABService,
