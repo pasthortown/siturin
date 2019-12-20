@@ -4709,6 +4709,9 @@ guardarDeclaracion() {
   }
 
   getAllowedInfo(requisites?: RegisterRequisite[]) {
+     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+        return;
+     }
    this.getRequisitesByRegisterType(requisites);
    this.getBedTypes();
    this.getCapacityTypes();
@@ -4779,6 +4782,9 @@ guardarDeclaracion() {
   }
 
   getCategories() {
+     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+        return;
+     }
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.requisites = [];
    this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
