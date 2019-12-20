@@ -751,19 +751,18 @@ export class RegistroComponent implements OnInit {
      ];
      const data = [];
      this.ruc_registro_selected.ruc.establishments.forEach(item => {
-         let establecimientosRegistrados = JSON.parse(sessionStorage.getItem('establecimientos')) as [];
+         let establecimientosRegistrados = JSON.parse(sessionStorage.getItem('establecimientos')) as any[];
          let yaMostrado = false;
          let yaRegistrado = false;
          establecimientosRegistrados.forEach(element => {
-            console.log(element);
-            // data.forEach(elementData => {
-            //    if (elementData.code == item.ruc_code_id) {
-            //       yaMostrado = true;
-            //    }
-            // });
-            // if (element == Number(item.ruc_code_id)) {
-            //    yaRegistrado = true;
-            // }
+            data.forEach(elementData => {
+                if (elementData.code == item.ruc_code_id) {
+                   yaMostrado = true;
+                }
+            });
+            if (element.ruc_code_id == Number(item.ruc_code_id) && elment.activity == 'ALOJAMIENTO') {
+               yaRegistrado = true;
+            }
          });
          if (!yaMostrado) {
             data.push({
