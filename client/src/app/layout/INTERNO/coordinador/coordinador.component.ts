@@ -5709,6 +5709,9 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.status = r.status.state_id;
          this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
          this.getServiceType();
+         console.log(r);
+         //this.getRequisitesABByRegisterType(r.requisites);
+         this.getListaPrecios(register.id);
          this.getKitchenType();
          this.mostrarDataRegister = true;
          //AQUI

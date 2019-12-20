@@ -4929,6 +4929,7 @@ guardarDeclaracion() {
          this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
          this.getServiceType();
          this.getKitchenType();
+         this.getListaPrecios(register.id);
          //AQUI
          this.mostrarDataRegister = true;
          this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id);
