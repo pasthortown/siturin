@@ -5897,13 +5897,9 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
       if (element.fullfill) {
          totalScore += element.score * 1;
-         totalScoreShown += element.score * 1;
-      }
-      if (element.HTMLtype == 'YES / NO' && element.value == 'SI') {
-         totalScore += element.score * 1;
-      }
-      if (element.HTMLtype == 'YES / NO' && element.value == 'NO') {
-         totalScore += element.score * 1;
+         if (element.mandatory) {
+            totalScoreShown += element.score * 1;
+         }
       }
    });
    this.totalABPuntos = totalScore;
