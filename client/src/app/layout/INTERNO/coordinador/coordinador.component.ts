@@ -5817,6 +5817,7 @@ guardarDeclaracion() {
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.registerABDataService.get_register_data(register.id).then( r => {
          this.rucEstablishmentRegisterSelected = r.register as Register;
+         console.log(this.rucEstablishmentRegisterSelected);
          this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
          this.rucEstablishmentRegisterSelected.editable = false;
          this.rucEstablishmentRegisterSelected.status = r.status.state_id;
