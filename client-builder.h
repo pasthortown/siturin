@@ -1,6 +1,6 @@
 #!/bin/bash
 cd client
-ng build --base-href "http://siturin.turismo.gob.ec/" --prod
+ng build --base-href "http://siturin-pruebas.turismo.gob.ec/" --prod
 rm -R ./../ClientBuild/
 cp -R ./dist/client/ ./../ClientBuild/
 cd ..
