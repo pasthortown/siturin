@@ -3531,7 +3531,7 @@ export class RegistroComponent implements OnInit {
 
  removeLanguage() {
     if (this.languages_establishmentSelectedId === 0) {
-       this.toastr.errorToastr('Seleccione un registro.', 'Error');
+       this.toastr.errorToastr('Seleccione un Lenguaje.', 'Error');
        return;
     }
     const newLanguages: Language[] = [];
@@ -3888,7 +3888,7 @@ export class RegistroComponent implements OnInit {
 
   removeKitchenType() {
    if (this.kitchen_type_registerSelectedId === 0) {
-     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     this.toastr.errorToastr('Seleccione un Tipo de Cocina.', 'Error');
      return;
    }
    const newKitchenTypes: any[] = [];
@@ -3910,7 +3910,7 @@ export class RegistroComponent implements OnInit {
 
   removeServiceType() {
    if (this.service_type_registerSelectedId === 0) {
-     this.toastr.errorToastr('Seleccione un registro.', 'Error');
+     this.toastr.errorToastr('Seleccione un Tipo de Servicio.', 'Error');
      return;
    }
    const newServiceTypes: ComplementaryServiceType[] = [];
@@ -3932,7 +3932,7 @@ export class RegistroComponent implements OnInit {
 
   removeComplementaryServiceType() {
     if (this.complementary_service_types_registerSelectedId === 0) {
-      this.toastr.errorToastr('Seleccione un registro.', 'Error');
+      this.toastr.errorToastr('Seleccione un Tipo de Servicio Complementario.', 'Error');
       return;
     }
     const newComplementaryCapacities: ComplementaryServiceType[] = [];
