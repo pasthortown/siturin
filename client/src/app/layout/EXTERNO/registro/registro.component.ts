@@ -3153,6 +3153,9 @@ export class RegistroComponent implements OnInit {
   checkEmailContactEstablishment(): Boolean {
    const isOk = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.establishment_selected.contact_user.email.toString());
    this.emailContactEstablishmentValidated = isOk;
+   if (this.establishment_selected.contact_user.email.toString().split('@')[1] == 'turismo.gob.ec') {
+      this.emailContactEstablishmentValidated =  false;
+   }
    return this.emailContactEstablishmentValidated;
   }
 
