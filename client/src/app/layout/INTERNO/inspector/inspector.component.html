@@ -541,7 +541,7 @@
                                       <div class="form-group">
                                         <label>Tipo de Establecimiento</label><span
                                           *ngIf="establishment_selected.ruc_name_type_id == 0"
-                                          class="ml-2 badge badge-danger">Incorrecto</span><span class="badge badge-info ml-2" *ngIf="selectedNameType.id > 1" placement="right" ngbPopover="{{selectedNameType.description}}" popoverTitle="{{selectedNameType.name}}"><i class="fas fa-question-circle"></i></span>
+                                          class="ml-2 badge badge-danger">Incorrecto</span><span class="badge badge-info ml-2" style="cursor: pointer;" *ngIf="selectedNameType.id > 1" placement="right" ngbPopover="{{selectedNameType.description}}" popoverTitle="{{selectedNameType.name}}"><i class="fas fa-question-circle"></i></span>
                                         <select class="form-control" id="comercial_name_type_id" name="comercial_name_type_id"
                                           [(ngModel)]="establishment_selected.ruc_name_type_id" (change)="getNameTypeInfo()" [disabled]="true">
                                           <option value="0" selected>Seleccione...</option>
