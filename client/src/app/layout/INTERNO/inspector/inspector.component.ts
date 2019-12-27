@@ -2386,7 +2386,7 @@ export class InspectorComponent implements OnInit {
                   local = 'ARRENDADO';
                  }
                  let clasificacion = '';
-                 this.register_types.forEach(element => {
+                 this.register_types_AB.forEach(element => {
                   if (element.id == r0.register.register_type_id) {
                      clasificacion = element.name.toString();
                   }
