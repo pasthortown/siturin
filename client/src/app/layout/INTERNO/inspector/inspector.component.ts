@@ -1376,7 +1376,7 @@ export class InspectorComponent implements OnInit {
    this.columns.forEach((column: any) => {
      if (column.filtering) {
        filteredData = filteredData.filter((item: any) => {
-         return item[column.name].match(column.filtering.filterString);
+         return item[column.name].toUpperCase().match(column.filtering.filterString.toUpperCase());
        });
      }
    });
