@@ -3826,7 +3826,7 @@ selectKitchenType(kitchenType: KitchenType) {
 
   getZonales() {
    this.consultorDataService.get_zonales().then( r => {
-      this.zonales = r;ç
+      this.zonales = r;
       console.log(this.zonales);
    }).catch( e => { console.log(e); });
   }
