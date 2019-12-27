@@ -65,7 +65,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -75,7 +75,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Autoservicio",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -85,7 +85,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Buffet",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -95,7 +95,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú fijo",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -105,7 +105,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio a domicilio",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -115,7 +115,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio al auto",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -125,7 +125,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -135,7 +135,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Autoservicio",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -145,7 +145,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Buffet",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -155,7 +155,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú fijo",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -165,7 +165,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio a domicilio",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -175,7 +175,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio al auto",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -185,7 +185,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -195,7 +195,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Autoservicio",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -205,7 +205,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Buffet",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -215,7 +215,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú fijo",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -225,7 +225,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio a domicilio",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -235,7 +235,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio al auto",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -245,7 +245,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -255,7 +255,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Autoservicio",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -265,7 +265,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Buffet",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -275,7 +275,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú fijo",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -285,7 +285,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio a domicilio",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -295,7 +295,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio al auto",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -305,7 +305,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -315,7 +315,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Autoservicio",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -325,7 +325,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Buffet",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -335,7 +335,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Menú fijo",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -345,7 +345,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio a domicilio",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -355,7 +355,7 @@
             "created_at": "2019-11-19 11:17:46",
             "updated_at": "2019-11-19 11:17:46",
             "description": "Servicio al auto",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     }
