@@ -2330,7 +2330,19 @@ export class InspectorComponent implements OnInit {
                   personal.push(newworkergroup);
                });
                const requisites = [];
-               this.requisiteABDataService.get_filtered(r0.register.register_type_id).then( r => {
+               let register_type_father_code = '';
+               this.register_types_AB.forEach(element => {
+                  if (element.id == r0.register.register_type_id) {
+                     register_type_father_code = element.father_code.toString();
+                  }
+               });
+               let register_type_father_id = 0;
+               this.register_types_AB.forEach(element => {
+                  if (element.code == register_type_father_code) {
+                     register_type_father_id = element.id;
+                  }
+               });
+               this.requisiteABDataService.get_filtered(register_type_father_id).then( r => {
                   this.requisitesByRegisterType = r as any[];
                   this.requisitesByRegisterType.forEach(element => {
                      const newRegisterRequisite = new RegisterABRequisite();
@@ -2370,7 +2382,6 @@ export class InspectorComponent implements OnInit {
                        }
                     });
                  });
-                 console.log(requisites);
                  let fecha_registro = '';
                  if (r2.establishment.as_turistic_register_date == null || typeof r2.establishment.as_turistic_register_date == 'undefined') {
                   fecha_registro = 'PENDIENTE';
