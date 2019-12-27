@@ -2370,6 +2370,7 @@ export class InspectorComponent implements OnInit {
                        }
                     });
                  });
+                 console.log(requisites);
                  let fecha_registro = '';
                  if (r2.establishment.as_turistic_register_date == null || typeof r2.establishment.as_turistic_register_date == 'undefined') {
                   fecha_registro = 'PENDIENTE';
