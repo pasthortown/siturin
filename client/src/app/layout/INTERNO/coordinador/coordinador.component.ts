@@ -2843,6 +2843,7 @@ selectKitchenType(kitchenType: KitchenType) {
             datosZonal = element;
          }
       });
+      //AQUI
       const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
       const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
       const observaciones = this.registerApprovalCoordinador.notes;
@@ -3825,7 +3826,8 @@ selectKitchenType(kitchenType: KitchenType) {
 
   getZonales() {
    this.consultorDataService.get_zonales().then( r => {
-      this.zonales = r;
+      this.zonales = r;ç
+      console.log(this.zonales);
    }).catch( e => { console.log(e); });
   }
 
