@@ -2774,22 +2774,24 @@ selectKitchenType(kitchenType: KitchenType) {
      }
      newRegisterState.justification = this.registerApprovalCoordinador.notes;
      newRegisterState.register_id = this.idRegister;
-     if (this.activity == 'ALOJAMIENTO') {
-      this.registerStateDataService.post(newRegisterState).then( r1 => {
-         if (!enviarMail) {
-            this.guardandoTramite = false;
-            this.refresh();
-         }
-        }).catch( e => { console.log(e); });
-     }
-      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-            if (!enviarMail) {
-               this.guardandoTramite = false;
-               this.refresh();
-            }
-           }).catch( e => { console.log(e); });
-     }
+   //   if (this.activity == 'ALOJAMIENTO') {
+   //    this.registerStateDataService.post(newRegisterState).then( r1 => {
+   //       if (!enviarMail) {
+   //          this.guardandoTramite = false;
+   //          this.refresh();
+   //          return;
+   //       }
+   //      }).catch( e => { console.log(e); });
+   //   }
+   //    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+   //       this.registerStateABDataService.post(newRegisterState).then( r1 => {
+   //          if (!enviarMail) {
+   //             this.guardandoTramite = false;
+   //             this.refresh();
+   //             return;
+   //          }
+   //         }).catch( e => { console.log(e); });
+   //   }
      const today = new Date();
       let clasificacion: String = '';
       let categoria: String = '';
@@ -2849,6 +2851,7 @@ selectKitchenType(kitchenType: KitchenType) {
          return;
       }
       const number_by_ruc = '000'.substr(0, 3 - this.registerMinturSelected.establishment.ruc_code_id.toString().length) + this.registerMinturSelected.establishment.ruc_code_id.toString();
+      console.log(this.activity);
       let numeric_register = '';
       if (this.activity == 'ALOJAMIENTO') {
         numeric_register = '2000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
@@ -2857,6 +2860,7 @@ selectKitchenType(kitchenType: KitchenType) {
         numeric_register = '3000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
       }
      const code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;
+     console.log(code);
      if (this.activity == 'ALOJAMIENTO') {
       this.approvalStateDataService.put(this.registerApprovalCoordinador).then( r => {
          this.registerDataService.set_register_code(code, this.idRegister).then( r => {

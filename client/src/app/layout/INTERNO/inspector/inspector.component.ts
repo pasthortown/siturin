@@ -1588,14 +1588,14 @@ export class InspectorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             let aclaracion_registro = '';
             if (this.tipo_tramite == 'REGISTRO') {
                aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
             }
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             this.documentDataService.get_doc_id(qr_value).then( respuesta => {
-               const codigo = 'MT-CZ-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+               const codigo = 'MT-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                const params = [{canton: canton.name.toUpperCase()},
                   {fecha: today.toLocaleDateString().toUpperCase()},
                   {codigo: codigo},
@@ -1670,14 +1670,14 @@ export class InspectorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             let aclaracion_registro = '';
             if (this.tipo_tramite == 'REGISTRO') {
                aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
             }
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             this.documentDataService.get_doc_id(qr_value).then( respuesta => {
-               const codigo = 'MT-CZ-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+               const codigo = 'MT-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                const params = [{canton: canton.name.toUpperCase()},
                   {fecha: today.toLocaleDateString().toUpperCase()},
                   {codigo: codigo},
@@ -1852,7 +1852,7 @@ export class InspectorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             let resultado_aprobacion = '';
             if (this.inspectionState == 1) {
@@ -1872,7 +1872,7 @@ export class InspectorComponent implements OnInit {
             }
             const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
             this.documentDataService.get_doc_id(qr_value).then( respuesta => {
-               const codigo_informe = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+               const codigo_informe = 'MT-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                const params = [{codigo_informe: codigo_informe},
                   {canton: canton.name.toUpperCase()},
                   {fecha: today.toLocaleDateString().toUpperCase()},
@@ -1970,7 +1970,7 @@ export class InspectorComponent implements OnInit {
          const zonalName = zonal.name.split(' ');
          iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
          const today = new Date();
-         let qr_value = 'MT-CZ-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+         let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
          const actividad = this.registerMinturSelected.activity.toUpperCase();
          let resultado_aprobacion = '';
          if (this.inspectionState == 1) {
@@ -1993,7 +1993,7 @@ export class InspectorComponent implements OnInit {
          }
          const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
          this.documentDataService.get_doc_id(qr_value).then( respuesta => {
-            const codigo_informe = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+            const codigo_informe = 'MT-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
             const params = [{codigo_informe: codigo_informe},
                {canton: canton.name.toUpperCase()},
                {fecha: today.toLocaleDateString().toUpperCase()},
@@ -2261,7 +2261,7 @@ export class InspectorComponent implements OnInit {
                   this.user.name.split(' ').forEach(element => {
                      iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
                   });
-                 let qr_value = 'MT-CZ-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                 let qr_value = 'MT-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
                  let document = new Documento();
                  document.activity = this.registerMinturSelected.activity.toUpperCase();
                  document.code = qr_value;
@@ -2471,7 +2471,7 @@ export class InspectorComponent implements OnInit {
                   this.user.name.split(' ').forEach(element => {
                      iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
                   });
-                 let qr_value = 'MT-CZ-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                 let qr_value = 'MT-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
                  let document = new Documento();
                  document.activity = this.registerMinturSelected.activity.toUpperCase();
                  document.code = qr_value;
