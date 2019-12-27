@@ -5014,7 +5014,7 @@ guardarDeclaracion() {
   }
 
   guardarEstablecimiento() {
-   if (this.cantonEstablishmentSelectedCode == '2.17.1') {
+   if (this.cantonEstablishmentSelectedCode == '021701') {
       this.toastr.errorToastr('Estimado Usuario, para solicitar el Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Nuevo');
       return;
    }
