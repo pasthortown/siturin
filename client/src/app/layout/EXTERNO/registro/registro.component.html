@@ -387,7 +387,7 @@
                                       <div class="form-group">
                                         <label>Tipo de Establecimiento</label><span
                                           *ngIf="establishment_selected.ruc_name_type_id == 0"
-                                          class="ml-2 badge badge-danger">Incorrecto</span><span class="badge badge-info ml-2" *ngIf="selectedNameType.id > 1" placement="right" ngbPopover="{{selectedNameType.description}}" popoverTitle="{{selectedNameType.name}}"><i class="fas fa-question-circle"></i></span>
+                                          class="ml-2 badge badge-danger">Incorrecto</span><span class="badge badge-info ml-2" style="cursor: pointer;" *ngIf="selectedNameType.id > 1" placement="right" ngbPopover="{{selectedNameType.description}}" popoverTitle="{{selectedNameType.name}}"><i class="fas fa-question-circle"></i></span>
                                         <select class="form-control" id="comercial_name_type_id" name="comercial_name_type_id"
                                           [(ngModel)]="establishment_selected.ruc_name_type_id" (change)="getNameTypeInfo()" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                           <option value="0" selected>Seleccione...</option>
@@ -1393,7 +1393,7 @@
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
                               <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
-                              <p class="col-12 text-justify">- Agregar un documento (PDF) donde se detalle el Nombre Comercial, Calle Principal, Calle Intersección, Impuestos cobrados en concordancia con la clasificación del establecimiento y el año de vigencia de la lista de precios; misma que, deberá contar con el precio final (incluido impuestos), de cada uno de los alimentos y/o bebidas que ofrece el establecimiento.</p>
+                              <p class="col-12 text-justify">- Agregar un documento (PDF) donde se detalle el Nombre Comercial, Calle Principal, Calle Intersección, Impuestos cobrados en concordancia con la clasificación del establecimiento y el año de vigencia de la lista de precios; misma que, deberá contar con el precio final (incluido impuestos), de cada uno de los alimentos y/o bebidas que ofrece el establecimiento. Y su firma de responsabilidad.</p>
                             </div>
                           </div>
                         </div>
