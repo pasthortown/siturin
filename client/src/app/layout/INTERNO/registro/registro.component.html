@@ -1890,6 +1890,14 @@
                       </div>
                     </div>
                     <div class="row mt-3">
+                      <div class="col-12" *ngIf="!(actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))">
+                        <small class="col-12">
+                          <div class="alert alert-info mt-2 mb-2" role="alert">
+                            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                            <p>Su establecimiento no cumple con los requisitos necesarios para continuar con su solicitud. Por favor revise la información ingresada.</p>
+                          </div>
+                        </small>  
+                      </div>
                       <div class="col-12 text-center">
                         <button [disabled]="guardando" *ngIf="validateRegister()" type="button" class="btn btn-success" title="Enviar Solicitud"
                           (click)="guardarRegistro()">
