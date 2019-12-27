@@ -21,7 +21,7 @@
             "description": "Cafetería",
             "code": "1.1",
             "father_code": "1",
-            "min_points": 98
+            "min_points": 0
         },
         "attach": []
     },
@@ -47,7 +47,7 @@
             "description": "(1) Una taza",
             "code": "1.1.1",
             "father_code": "1.1",
-            "min_points": 81
+            "min_points": 40
         },
         "attach": []
     },
@@ -60,7 +60,7 @@
             "description": "(2) Dos tazas",
             "code": "1.1.2",
             "father_code": "1.1",
-            "min_points": 112
+            "min_points": 71
         },
         "attach": []
     },
@@ -73,7 +73,7 @@
             "description": "Bar",
             "code": "1.2",
             "father_code": "1",
-            "min_points": 84
+            "min_points": 0
         },
         "attach": []
     },
@@ -99,7 +99,7 @@
             "description": "(1) Una copas",
             "code": "1.2.1",
             "father_code": "1.2",
-            "min_points": 82
+            "min_points": 40
         },
         "attach": []
     },
@@ -112,7 +112,7 @@
             "description": "(2) Dos copas",
             "code": "1.2.2",
             "father_code": "1.2",
-            "min_points": 113
+            "min_points": 71
         },
         "attach": []
     },
@@ -125,7 +125,7 @@
             "description": "(3) Tres copas",
             "code": "1.2.3",
             "father_code": "1.2",
-            "min_points": 123
+            "min_points": 81
         },
         "attach": []
     },
@@ -138,7 +138,7 @@
             "description": "Restaurante",
             "code": "1.3",
             "father_code": "1",
-            "min_points": 182
+            "min_points": 0
         },
         "attach": []
     },
@@ -164,7 +164,7 @@
             "description": "(1) Un tenedor",
             "code": "1.3.1",
             "father_code": "1.3",
-            "min_points": 83
+            "min_points": 40
         },
         "attach": []
     },
@@ -177,7 +177,7 @@
             "description": "(2) Dos tenedores",
             "code": "1.3.2",
             "father_code": "1.3",
-            "min_points": 104
+            "min_points": 61
         },
         "attach": []
     },
@@ -190,7 +190,7 @@
             "description": "(3) Tres tenedores",
             "code": "1.3.3",
             "father_code": "1.3",
-            "min_points": 114
+            "min_points": 71
         },
         "attach": []
     },
@@ -203,7 +203,7 @@
             "description": "(4) Cuatro tenedores",
             "code": "1.3.4",
             "father_code": "1.3",
-            "min_points": 124
+            "min_points": 81
         },
         "attach": []
     },
@@ -216,7 +216,7 @@
             "description": "(5) Cinco tenedores",
             "code": "1.3.5",
             "father_code": "1.3",
-            "min_points": 134
+            "min_points": 91
         },
         "attach": []
     },
@@ -229,7 +229,7 @@
             "description": "Discoteca",
             "code": "1.4",
             "father_code": "1",
-            "min_points": 54
+            "min_points": 0
         },
         "attach": []
     },
@@ -255,7 +255,7 @@
             "description": "(1) Una copas",
             "code": "1.4.1",
             "father_code": "1.4",
-            "min_points": 83
+            "min_points": 40
         },
         "attach": []
     },
@@ -268,7 +268,7 @@
             "description": "(2) Dos copas",
             "code": "1.4.2",
             "father_code": "1.4",
-            "min_points": 114
+            "min_points": 71
         },
         "attach": []
     },
@@ -281,7 +281,7 @@
             "description": "(3) Tres copas",
             "code": "1.4.3",
             "father_code": "1.4",
-            "min_points": 124
+            "min_points": 81
         },
         "attach": []
     },
@@ -424,7 +424,7 @@
             "description": "Cafetería",
             "code": "2.1",
             "father_code": "2",
-            "min_points": 98
+            "min_points": 0
         },
         "attach": []
     },
@@ -450,7 +450,7 @@
             "description": "(1) Una taza",
             "code": "2.1.1",
             "father_code": "2.1",
-            "min_points": 81
+            "min_points": 40
         },
         "attach": []
     },
@@ -463,7 +463,7 @@
             "description": "(2) Dos tazas",
             "code": "2.1.2",
             "father_code": "2.1",
-            "min_points": 112
+            "min_points": 71
         },
         "attach": []
     },
@@ -476,7 +476,7 @@
             "description": "Bar",
             "code": "2.2",
             "father_code": "2",
-            "min_points": 84
+            "min_points": 0
         },
         "attach": []
     },
@@ -502,7 +502,7 @@
             "description": "(1) Una copas",
             "code": "2.2.1",
             "father_code": "2.2",
-            "min_points": 82
+            "min_points": 40
         },
         "attach": []
     },
@@ -515,7 +515,7 @@
             "description": "(2) Dos copas",
             "code": "2.2.2",
             "father_code": "2.2",
-            "min_points": 113
+            "min_points": 71
         },
         "attach": []
     },
@@ -528,7 +528,7 @@
             "description": "(3) Tres copas",
             "code": "2.2.3",
             "father_code": "2.2",
-            "min_points": 123
+            "min_points": 81
         },
         "attach": []
     },
@@ -541,7 +541,7 @@
             "description": "Restaurante",
             "code": "2.3",
             "father_code": "2",
-            "min_points": 182
+            "min_points": 0
         },
         "attach": []
     },
@@ -567,7 +567,7 @@
             "description": "(1) Un tenedor",
             "code": "2.3.1",
             "father_code": "2.3",
-            "min_points": 83
+            "min_points": 40
         },
         "attach": []
     },
@@ -580,7 +580,7 @@
             "description": "(2) Dos tenedores",
             "code": "2.3.2",
             "father_code": "2.3",
-            "min_points": 104
+            "min_points": 61
         },
         "attach": []
     },
@@ -593,7 +593,7 @@
             "description": "(3) Tres tenedores",
             "code": "2.3.3",
             "father_code": "2.3",
-            "min_points": 114
+            "min_points": 71
         },
         "attach": []
     },
@@ -606,7 +606,7 @@
             "description": "(4) Cuatro tenedores",
             "code": "2.3.4",
             "father_code": "2.3",
-            "min_points": 124
+            "min_points": 81
         },
         "attach": []
     },
@@ -619,7 +619,7 @@
             "description": "(5) Cinco tenedores",
             "code": "2.3.5",
             "father_code": "2.3",
-            "min_points": 134
+            "min_points": 91
         },
         "attach": []
     },
@@ -658,7 +658,7 @@
             "description": "(1) Una copas",
             "code": "2.4.1",
             "father_code": "2.4",
-            "min_points": 83
+            "min_points": 40
         },
         "attach": []
     },
@@ -671,7 +671,7 @@
             "description": "(2) Dos copas",
             "code": "2.4.2",
             "father_code": "2.4",
-            "min_points": 114
+            "min_points": 71
         },
         "attach": []
     },
@@ -684,7 +684,7 @@
             "description": "(3) Tres copas",
             "code": "2.4.3",
             "father_code": "2.4",
-            "min_points": 124
+            "min_points": 81
         },
         "attach": []
     },

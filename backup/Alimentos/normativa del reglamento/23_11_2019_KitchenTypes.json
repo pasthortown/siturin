@@ -475,7 +475,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -485,7 +485,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -495,7 +495,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -505,7 +505,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -515,7 +515,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -525,7 +525,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -535,7 +535,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -545,7 +545,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -555,7 +555,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -565,7 +565,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -575,7 +575,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -585,7 +585,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -595,7 +595,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cubana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -605,7 +605,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Dominicana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -615,7 +615,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Ecuatoriana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -625,7 +625,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Escandinava",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -635,7 +635,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Española",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -645,7 +645,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Filipina",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -655,7 +655,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Griega",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -665,7 +665,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Guatemalteca",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -675,7 +675,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Hawaiana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -685,7 +685,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "India",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -695,7 +695,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Indonesia",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -705,7 +705,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Italiana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -715,7 +715,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Japonesa",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -725,7 +725,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Kosher",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -735,7 +735,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mexicana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -745,7 +745,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pakistaní",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -755,7 +755,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Peruana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -765,7 +765,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Polinésica",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -775,7 +775,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Portuguesa",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -785,7 +785,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Puertorriqueña",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -795,7 +795,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Rusa",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -805,7 +805,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Thai",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -815,7 +815,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Venezolana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -825,7 +825,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vietnamita",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -835,7 +835,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina andina",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -845,7 +845,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina patrimonial",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -855,7 +855,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Comida rápida",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -865,7 +865,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Frutas y vegetales",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -875,7 +875,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mariscos",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -885,7 +885,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mediterránea",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -895,7 +895,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Novoandina",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -905,7 +905,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -915,7 +915,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Parrilladas",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -925,7 +925,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pizza",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -935,7 +935,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vegetariana",
-            "register_type_id": 3
+            "register_type_id": 6
         },
         "attach": []
     },
@@ -945,7 +945,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -955,7 +955,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -965,7 +965,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -975,7 +975,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -985,7 +985,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -995,7 +995,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1005,7 +1005,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1015,7 +1015,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1025,7 +1025,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1035,7 +1035,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1045,7 +1045,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1055,7 +1055,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1065,7 +1065,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cubana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1075,7 +1075,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Dominicana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1085,7 +1085,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Ecuatoriana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1095,7 +1095,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Escandinava",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1105,7 +1105,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Española",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1115,7 +1115,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Filipina",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1125,7 +1125,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Griega",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1135,7 +1135,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Guatemalteca",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1145,7 +1145,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Hawaiana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1155,7 +1155,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "India",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1165,7 +1165,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Indonesia",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1175,7 +1175,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Italiana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1185,7 +1185,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Japonesa",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1195,7 +1195,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Kosher",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1205,7 +1205,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mexicana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1215,7 +1215,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pakistaní",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1225,7 +1225,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Peruana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1235,7 +1235,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Polinésica",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1245,7 +1245,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Portuguesa",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1255,7 +1255,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Puertorriqueña",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1265,7 +1265,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Rusa",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1275,7 +1275,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Thai",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1285,7 +1285,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Venezolana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1295,7 +1295,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vietnamita",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1305,7 +1305,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina andina",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1315,7 +1315,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina patrimonial",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1325,7 +1325,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Comida rápida",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1335,7 +1335,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Frutas y vegetales",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1345,7 +1345,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mariscos",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1355,7 +1355,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mediterránea",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1365,7 +1365,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Novoandina",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1375,7 +1375,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1385,7 +1385,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Parrilladas",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1395,7 +1395,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pizza",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1405,7 +1405,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vegetariana",
-            "register_type_id": 9
+            "register_type_id": 11
         },
         "attach": []
     },
@@ -1415,7 +1415,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1425,7 +1425,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1435,7 +1435,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1445,7 +1445,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1455,7 +1455,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1465,7 +1465,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1475,7 +1475,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1485,7 +1485,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1495,7 +1495,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1505,7 +1505,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1515,7 +1515,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1525,7 +1525,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1535,7 +1535,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cubana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1545,7 +1545,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Dominicana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1555,7 +1555,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Ecuatoriana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1565,7 +1565,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Escandinava",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1575,7 +1575,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Española",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1585,7 +1585,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Filipina",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1595,7 +1595,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Griega",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1605,7 +1605,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Guatemalteca",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1615,7 +1615,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Hawaiana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1625,7 +1625,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "India",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1635,7 +1635,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Indonesia",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1645,7 +1645,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Italiana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1655,7 +1655,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Japonesa",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1665,7 +1665,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Kosher",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1675,7 +1675,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mexicana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1685,7 +1685,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pakistaní",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1695,7 +1695,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Peruana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1705,7 +1705,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Polinésica",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1715,7 +1715,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Portuguesa",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1725,7 +1725,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Puertorriqueña",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1735,7 +1735,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Rusa",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1745,7 +1745,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Thai",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1755,7 +1755,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Venezolana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1765,7 +1765,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vietnamita",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1775,7 +1775,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina andina",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1785,7 +1785,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina patrimonial",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1795,7 +1795,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Comida rápida",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1805,7 +1805,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Frutas y vegetales",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1815,7 +1815,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mariscos",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1825,7 +1825,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mediterránea",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1835,7 +1835,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Novoandina",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1845,7 +1845,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1855,7 +1855,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Parrilladas",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1865,7 +1865,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pizza",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1875,7 +1875,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vegetariana",
-            "register_type_id": 20
+            "register_type_id": 23
         },
         "attach": []
     },
@@ -1885,7 +1885,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Africana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1895,7 +1895,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Alemana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1905,7 +1905,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Americana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1915,7 +1915,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Argentina",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1925,7 +1925,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Asiática",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1935,7 +1935,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Australiana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1945,7 +1945,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Brasilera",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1955,7 +1955,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Chilena",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1965,7 +1965,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "China",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1975,7 +1975,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Colombiana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1985,7 +1985,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Coreana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -1995,7 +1995,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Costa Rica",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2005,7 +2005,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cubana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2015,7 +2015,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Dominicana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2025,7 +2025,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Ecuatoriana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2035,7 +2035,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Escandinava",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2045,7 +2045,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Española",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2055,7 +2055,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Filipina",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2065,7 +2065,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Griega",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2075,7 +2075,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Guatemalteca",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2085,7 +2085,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Hawaiana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2095,7 +2095,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "India",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2105,7 +2105,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Indonesia",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2115,7 +2115,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Italiana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2125,7 +2125,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Japonesa",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2135,7 +2135,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Kosher",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2145,7 +2145,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mexicana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2155,7 +2155,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pakistaní",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2165,7 +2165,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Peruana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2175,7 +2175,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Polinésica",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2185,7 +2185,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Portuguesa",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2195,7 +2195,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Puertorriqueña",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2205,7 +2205,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Rusa",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2215,7 +2215,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Thai",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2225,7 +2225,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Venezolana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2235,7 +2235,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vietnamita",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2245,7 +2245,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina andina",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2255,7 +2255,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina patrimonial",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2265,7 +2265,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Comida rápida",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2275,7 +2275,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Frutas y vegetales",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2285,7 +2285,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mariscos",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2295,7 +2295,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mediterránea",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2305,7 +2305,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Novoandina",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2315,7 +2315,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2325,7 +2325,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Parrilladas",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2335,7 +2335,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pizza",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2345,7 +2345,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vegetariana",
-            "register_type_id": 24
+            "register_type_id": 29
         },
         "attach": []
     },
@@ -2355,7 +2355,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2365,7 +2365,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2375,7 +2375,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2385,7 +2385,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2395,7 +2395,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2405,7 +2405,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2415,7 +2415,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2425,7 +2425,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2435,7 +2435,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2445,7 +2445,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2455,7 +2455,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2465,7 +2465,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2475,7 +2475,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cubana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2485,7 +2485,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Dominicana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2495,7 +2495,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Ecuatoriana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2505,7 +2505,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Escandinava",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2515,7 +2515,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Española",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2525,7 +2525,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Filipina",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2535,7 +2535,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Griega",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2545,7 +2545,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Guatemalteca",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2555,7 +2555,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Hawaiana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2565,7 +2565,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "India",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2575,7 +2575,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Indonesia",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2585,7 +2585,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Italiana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2595,7 +2595,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Japonesa",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2605,7 +2605,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Kosher",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2615,7 +2615,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mexicana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2625,7 +2625,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pakistaní",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2635,7 +2635,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Peruana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2645,7 +2645,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Polinésica",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2655,7 +2655,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Portuguesa",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2665,7 +2665,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Puertorriqueña",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2675,7 +2675,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Rusa",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2685,7 +2685,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Thai",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2695,7 +2695,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Venezolana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2705,7 +2705,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vietnamita",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2715,7 +2715,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina andina",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2725,7 +2725,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina patrimonial",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2735,7 +2735,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Comida rápida",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2745,7 +2745,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Frutas y vegetales",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2755,7 +2755,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mariscos",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2765,7 +2765,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mediterránea",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2775,7 +2775,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Novoandina",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2785,7 +2785,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2795,7 +2795,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Parrilladas",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2805,7 +2805,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pizza",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2815,7 +2815,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vegetariana",
-            "register_type_id": 27
+            "register_type_id": 33
         },
         "attach": []
     },
@@ -2825,7 +2825,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2835,7 +2835,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2845,7 +2845,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2855,7 +2855,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2865,7 +2865,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2875,7 +2875,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2885,7 +2885,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2895,7 +2895,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2905,7 +2905,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2915,7 +2915,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2925,7 +2925,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2935,7 +2935,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2945,7 +2945,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cubana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2955,7 +2955,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Dominicana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2965,7 +2965,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Ecuatoriana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2975,7 +2975,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Escandinava",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2985,7 +2985,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Española",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -2995,7 +2995,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Filipina",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3005,7 +3005,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Griega",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3015,7 +3015,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Guatemalteca",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3025,7 +3025,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Hawaiana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3035,7 +3035,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "India",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3045,7 +3045,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Indonesia",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3055,7 +3055,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Italiana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3065,7 +3065,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Japonesa",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3075,7 +3075,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Kosher",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3085,7 +3085,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mexicana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3095,7 +3095,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pakistaní",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3105,7 +3105,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Peruana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3115,7 +3115,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Polinésica",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3125,7 +3125,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Portuguesa",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3135,7 +3135,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Puertorriqueña",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3145,7 +3145,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Rusa",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3155,7 +3155,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Thai",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3165,7 +3165,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Venezolana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3175,7 +3175,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vietnamita",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3185,7 +3185,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina andina",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3195,7 +3195,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina patrimonial",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3205,7 +3205,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Comida rápida",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3215,7 +3215,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Frutas y vegetales",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3225,7 +3225,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mariscos",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3235,7 +3235,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mediterránea",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3245,7 +3245,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Novoandina",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3255,7 +3255,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3265,7 +3265,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Parrilladas",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3275,7 +3275,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pizza",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3285,7 +3285,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vegetariana",
-            "register_type_id": 30
+            "register_type_id": 37
         },
         "attach": []
     },
@@ -3295,7 +3295,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3305,7 +3305,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3315,7 +3315,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3325,7 +3325,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3335,7 +3335,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3345,7 +3345,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3355,7 +3355,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3365,7 +3365,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3375,7 +3375,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3385,7 +3385,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3395,7 +3395,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3405,7 +3405,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3415,7 +3415,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cubana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3425,7 +3425,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Dominicana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3435,7 +3435,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Ecuatoriana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3445,7 +3445,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Escandinava",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3455,7 +3455,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Española",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3465,7 +3465,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Filipina",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3475,7 +3475,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Griega",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3485,7 +3485,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Guatemalteca",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3495,7 +3495,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Hawaiana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3505,7 +3505,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "India",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3515,7 +3515,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Indonesia",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3525,7 +3525,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Italiana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3535,7 +3535,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Japonesa",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3545,7 +3545,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Kosher",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3555,7 +3555,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mexicana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3565,7 +3565,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pakistaní",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3575,7 +3575,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Peruana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3585,7 +3585,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Polinésica",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3595,7 +3595,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Portuguesa",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3605,7 +3605,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Puertorriqueña",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3615,7 +3615,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Rusa",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3625,7 +3625,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Thai",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3635,7 +3635,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Venezolana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3645,7 +3645,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vietnamita",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3655,7 +3655,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina andina",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3665,7 +3665,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Cocina patrimonial",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3675,7 +3675,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Comida rápida",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3685,7 +3685,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Frutas y vegetales",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3695,7 +3695,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mariscos",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3705,7 +3705,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Mediterránea",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3715,7 +3715,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Novoandina",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3725,7 +3725,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3735,7 +3735,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Parrilladas",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3745,7 +3745,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Pizza",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3755,7 +3755,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Vegetariana",
-            "register_type_id": 34
+            "register_type_id": 43
         },
         "attach": []
     },
@@ -3765,7 +3765,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Africana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3775,7 +3775,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Alemana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3785,7 +3785,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Americana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3795,7 +3795,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Argentina",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3805,7 +3805,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Asiática",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3815,7 +3815,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Australiana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3825,7 +3825,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Brasilera",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3835,7 +3835,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Chilena",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3845,7 +3845,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "China",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3855,7 +3855,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Colombiana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3865,7 +3865,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Coreana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3875,7 +3875,7 @@
             "created_at": "2019-11-19 11:17:54",
             "updated_at": "2019-11-19 11:17:54",
             "description": "Costa Rica",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3885,7 +3885,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cubana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3895,7 +3895,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Dominicana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3905,7 +3905,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Ecuatoriana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3915,7 +3915,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Escandinava",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3925,7 +3925,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Española",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3935,7 +3935,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Filipina",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3945,7 +3945,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Griega",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3955,7 +3955,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Guatemalteca",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3965,7 +3965,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Hawaiana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3975,7 +3975,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "India",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3985,7 +3985,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Indonesia",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -3995,7 +3995,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Italiana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4005,7 +4005,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Japonesa",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4015,7 +4015,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Kosher",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4025,7 +4025,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mexicana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4035,7 +4035,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pakistaní",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4045,7 +4045,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Peruana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4055,7 +4055,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Polinésica",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4065,7 +4065,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Portuguesa",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4075,7 +4075,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Puertorriqueña",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4085,7 +4085,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Rusa",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4095,7 +4095,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Thai",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4105,7 +4105,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Venezolana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4115,7 +4115,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vietnamita",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4125,7 +4125,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina andina",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4135,7 +4135,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina patrimonial",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4145,7 +4145,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Comida rápida",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4155,7 +4155,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Frutas y vegetales",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4165,7 +4165,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mariscos",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4175,7 +4175,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mediterránea",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4185,7 +4185,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Novoandina",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4195,7 +4195,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4205,7 +4205,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Parrilladas",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4215,7 +4215,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pizza",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4225,7 +4225,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vegetariana",
-            "register_type_id": 44
+            "register_type_id": 54
         },
         "attach": []
     },
@@ -4235,7 +4235,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Africana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4245,7 +4245,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Alemana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4255,7 +4255,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Americana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4265,7 +4265,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Argentina",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4275,7 +4275,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Asiática",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4285,7 +4285,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Australiana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4295,7 +4295,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Brasilera",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4305,7 +4305,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Chilena",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4315,7 +4315,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "China",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4325,7 +4325,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Colombiana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4335,7 +4335,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Coreana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4345,7 +4345,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Costa Rica",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4355,7 +4355,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cubana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4365,7 +4365,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Dominicana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4375,7 +4375,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Ecuatoriana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4385,7 +4385,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Escandinava",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4395,7 +4395,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Española",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4405,7 +4405,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Filipina",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4415,7 +4415,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Griega",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4425,7 +4425,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Guatemalteca",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4435,7 +4435,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Hawaiana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4445,7 +4445,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "India",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4455,7 +4455,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Indonesia",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4465,7 +4465,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Italiana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4475,7 +4475,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Japonesa",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4485,7 +4485,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Kosher",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4495,7 +4495,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mexicana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4505,7 +4505,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pakistaní",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4515,7 +4515,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Peruana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4525,7 +4525,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Polinésica",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4535,7 +4535,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Portuguesa",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4545,7 +4545,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Puertorriqueña",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4555,7 +4555,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Rusa",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4565,7 +4565,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Thai",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4575,7 +4575,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Venezolana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4585,7 +4585,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vietnamita",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4595,7 +4595,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina andina",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4605,7 +4605,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Cocina patrimonial",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4615,7 +4615,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Comida rápida",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4625,7 +4625,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Frutas y vegetales",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4635,7 +4635,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mariscos",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4645,7 +4645,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Mediterránea",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4655,7 +4655,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Novoandina",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4665,7 +4665,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Panadería, pastelería y repostería",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4675,7 +4675,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Parrilladas",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4685,7 +4685,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Pizza",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     },
@@ -4695,7 +4695,7 @@
             "created_at": "2019-11-19 11:17:55",
             "updated_at": "2019-11-19 11:17:55",
             "description": "Vegetariana",
-            "register_type_id": 48
+            "register_type_id": 60
         },
         "attach": []
     }
