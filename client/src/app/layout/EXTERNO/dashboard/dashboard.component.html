@@ -735,6 +735,14 @@
                                       <h4><strong>Certificaciones:</strong></h4>
                                     </div>
                                   </div>
+                                  <div class="col-12" *ngIf="establishmentComercialNameValidated">
+                                    <small class="col-12">
+                                      <div class="alert alert-info mt-2 mb-2" role="alert">
+                                        <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                        <p>Si usted dispone de algún tipo de certificado que no se encuentra listado a continuación, puede comunicarse con el Ministerio de Turismo para proceder a solicitar su inclusión.</p>
+                                      </div>
+                                    </small>  
+                                  </div>
                                   <div class="form-group row" *ngIf="establishmentComercialNameValidated">
                                     <div class="col-12">
                                       <table class="table table-hover mt-2">
