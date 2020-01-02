@@ -2448,7 +2448,6 @@ export class RegistroComponent implements OnInit {
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.capacities_on_register = []
    this.rucEstablishmentRegisterSelected.requisites = [];
-   this.rucEstablishmentRegisterSelected.register_type_id = 0;
    this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = [];
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
@@ -3349,6 +3348,7 @@ export class RegistroComponent implements OnInit {
          this.rucEstablishmentRegisterSelected = new Register();
          this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
          this.rucEstablishmentRegisterSelected.status = 11;
+         this.rucEstablishmentRegisterSelected.register_type_id = 0;
          this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
          this.mostrarDataRegister = true;
        } else {
@@ -3731,7 +3731,6 @@ export class RegistroComponent implements OnInit {
   }
 
   setCategory(type_id: number){
-     console.log(type_id);
    let categoryCode = '';
    this.actividadSelected = '1';
    this.register_typeDataService.get().then(r => {
