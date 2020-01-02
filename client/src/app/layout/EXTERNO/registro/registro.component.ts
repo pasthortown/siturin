@@ -2101,6 +2101,30 @@ export class RegistroComponent implements OnInit {
          return;
       }   
    }
+   if ((this.categorySelectedCode == '1.1' || 
+   this.categorySelectedCode == '1.2' || 
+   this.categorySelectedCode == '1.3' || 
+   this.categorySelectedCode == '1.5' || 
+   this.categorySelectedCode == '1.7' || 
+   this.categorySelectedCode == '2.1' || 
+   this.categorySelectedCode == '2.2' || 
+   this.categorySelectedCode == '2.3' || 
+   this.categorySelectedCode == '2.5' || 
+   this.categorySelectedCode == '2.7') && 
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register === []) {
+      this.toastr.errorToastr('Existe inconsistencia en los Tipo de Cocina registrados.', 'Nuevo');
+      return;
+   }
+   if ((this.categorySelectedCode == '1.1' || 
+   this.categorySelectedCode == '1.2' || 
+   this.categorySelectedCode == '1.3' || 
+   this.categorySelectedCode == '2.1' || 
+   this.categorySelectedCode == '2.2' || 
+   this.categorySelectedCode == '2.3') && 
+   this.rucEstablishmentRegisterSelected.service_types_on_register === []) {
+      this.toastr.errorToastr('Existe inconsistencia en los Tipo de Servicio registrados.', 'Nuevo');
+      return;
+   }
    if (this.listaPrecios.food_drink_attachment_file === ''){
       this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
       return;

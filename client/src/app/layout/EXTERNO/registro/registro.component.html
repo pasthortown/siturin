@@ -1630,7 +1630,9 @@
                         </div>
                         <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2'">
                           <h4 class="col-12">
-                            <strong>Tipo de Servicio</strong>
+                            <strong>Tipo de Servicio</strong><span
+                            *ngIf="rucEstablishmentRegisterSelected.service_types_on_register === []"
+                            class="ml-2 badge badge-danger">Incorrecto</span>
                           </h4>
                           <small class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
@@ -1692,9 +1694,11 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' ||categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' || categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
                           <h4 class="col-12">
-                            <strong>Tipo de Cocina</strong>
+                            <strong>Tipo de Cocina</strong><span
+                            *ngIf="rucEstablishmentRegisterSelected.kitchen_types_on_register === []"
+                            class="ml-2 badge badge-danger">Incorrecto</span>
                           </h4>
                           <small class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
