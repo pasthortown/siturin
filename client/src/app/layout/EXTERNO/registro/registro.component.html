@@ -1275,7 +1275,9 @@
                         </div>
                         <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
                           <h4 class="col-12">
-                            <strong>Capacidades del Establecimiento</strong>
+                            <strong>Capacidades del Establecimiento</strong><span *ngIf="
+                            categorySelectedCode !== '1.7' && (capacity.quantity_tables == 0 || capacity.quantity_spaces == 0)
+                          " class="ml-2 badge badge-danger">Incorrecto</span>
                           </h4>
                         </div>
                         <div class="row mt-3" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">

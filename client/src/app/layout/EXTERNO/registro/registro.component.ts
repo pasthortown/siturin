@@ -2095,9 +2095,11 @@ export class RegistroComponent implements OnInit {
   }
 
   saveAlimentosBebidas() {
-   if (!this.validateCapacidades()) {
-      this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
-      return;
+   if (this.categorySelectedCode !== '1.7') {
+      if (!this.validateCapacidades()) {
+         this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
+         return;
+      }   
    }
    if (this.listaPrecios.food_drink_attachment_file === ''){
       this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
