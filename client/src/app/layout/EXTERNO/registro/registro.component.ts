@@ -2444,6 +2444,7 @@ export class RegistroComponent implements OnInit {
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
          this.ruc_registro_selected.registers.forEach(element => {
+            console.log(element);
             let clasificationAB = this.getRegisterABType(element);
             if (clasificationAB.code == this.categorySelectedCode) {
                this.registerABDataService.get_register_data(element.register.id).then( r => {
@@ -3336,7 +3337,6 @@ export class RegistroComponent implements OnInit {
       this.canEstablecimientoMovil = true;
       this.canPlazaComida = true;
       this.ruc_registro_selected.registers.forEach(register => {
-         console.log(register);
          if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
             let clasificationAB = this.getRegisterABType(register);
             //Restaurante
