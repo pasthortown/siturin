@@ -2475,6 +2475,10 @@ export class RegistroComponent implements OnInit {
      }).catch( e => { console.log(e); });
   }
 
+  showCode(code) {
+     console.log(code);
+  }
+  
   getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
    let categorySelectedID = 0;
    this.clasifications_registers.forEach(classification => {
