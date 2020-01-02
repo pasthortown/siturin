@@ -3336,8 +3336,8 @@ export class RegistroComponent implements OnInit {
       this.canEstablecimientoMovil = true;
       this.canPlazaComida = true;
       this.ruc_registro_selected.registers.forEach(register => {
+         console.log(register);
          if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
-            console.log(register);
             let clasificationAB = this.getRegisterABType(register);
             //Restaurante
             if (clasificationAB.id == 11 || clasificationAB.id == 42) {
