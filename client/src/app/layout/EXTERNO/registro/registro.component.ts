@@ -2475,10 +2475,6 @@ export class RegistroComponent implements OnInit {
      }).catch( e => { console.log(e); });
   }
 
-  showCode(code) {
-     console.log(code);
-  }
-  
   getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
    let categorySelectedID = 0;
    this.clasifications_registers.forEach(classification => {
@@ -3376,6 +3372,7 @@ export class RegistroComponent implements OnInit {
                this.canBar = false;
                this.canDiscoteca = false;
                this.canCatering = false;
+               this.canPlazaComida = false;
             }
             //PlazaComida
             if (clasificationAB.id == 26 || clasificationAB.id == 57) {
@@ -3384,6 +3381,7 @@ export class RegistroComponent implements OnInit {
                this.canBar = false;
                this.canDiscoteca = false;
                this.canCatering = false;
+               this.canEstablecimientoMovil = false;
             }
          }
       });
