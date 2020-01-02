@@ -2444,23 +2444,24 @@ export class RegistroComponent implements OnInit {
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
          this.ruc_registro_selected.registers.forEach(element => {
-            console.log(element);
-            let clasificationAB = this.getRegisterABType(element);
-            if (clasificationAB.code == this.categorySelectedCode) {
-               this.registerABDataService.get_register_data(element.register.id).then( r => {
-                  this.rucEstablishmentRegisterSelected = r.register as Register;
-                  this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
-                  this.rucEstablishmentRegisterSelected.editable = false;
-                  this.rucEstablishmentRegisterSelected.status = r.status.state_id;
-                  this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
-                  this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
-                  this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
-                  this.rucEstablishmentRegisterSelected.requisites = [];
-                  this.getRequisitesABByRegisterType(r.requisites);
-                  this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
-                  this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
-                  this.getListaPrecios(r.register.id);
-               }).catch( e => { console.log(e); });
+            if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
+               let clasificationAB = this.getRegisterABType(element);
+               if (clasificationAB.code == this.categorySelectedCode) {
+                  this.registerABDataService.get_register_data(element.register.id).then( r => {
+                     this.rucEstablishmentRegisterSelected = r.register as Register;
+                     this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+                     this.rucEstablishmentRegisterSelected.editable = false;
+                     this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+                     this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+                     this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+                     this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                     this.rucEstablishmentRegisterSelected.requisites = [];
+                     this.getRequisitesABByRegisterType(r.requisites);
+                     this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
+                     this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
+                     this.getListaPrecios(r.register.id);
+                  }).catch( e => { console.log(e); });
+               }
             }
          });
       }).catch( e => { console.log(e) });
