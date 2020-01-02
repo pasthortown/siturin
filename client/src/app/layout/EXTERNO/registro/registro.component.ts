@@ -3336,48 +3336,49 @@ export class RegistroComponent implements OnInit {
       this.canEstablecimientoMovil = true;
       this.canPlazaComida = true;
       this.ruc_registro_selected.registers.forEach(register => {
-         console.log(register.establishment);
-         let clasificationAB = this.getRegisterABType(register);
-         //Restaurante
-         if (clasificationAB.id == 11 || clasificationAB.id == 42) {
-            this.canEstablecimientoMovil = false;
-            this.canPlazaComida = false;
-         }
-         //Cafeteria
-         if (clasificationAB.id == 2 || clasificationAB.id == 33) {
-            this.canEstablecimientoMovil = false;
-            this.canPlazaComida = false;
-         }
-         //Bar
-         if (clasificationAB.id == 6 || clasificationAB.id == 37) {
-            this.canEstablecimientoMovil = false;
-            this.canPlazaComida = false;
-         }
-         //Discoteca
-         if (clasificationAB.id == 18 || clasificationAB.id == 49) {
-            this.canEstablecimientoMovil = false;
-            this.canPlazaComida = false;
-         }
-         //Catering
-         if (clasificationAB.id == 29 || clasificationAB.id == 60) {
-            this.canEstablecimientoMovil = false;
-            this.canPlazaComida = false;
-         }
-         //EstablecimientoMovil
-         if (clasificationAB.id == 23 || clasificationAB.id == 54) {
-            this.canRestaurante = false;
-            this.canCafeteria = false;
-            this.canBar = false;
-            this.canDiscoteca = false;
-            this.canCatering = false;
-         }
-         //PlazaComida
-         if (clasificationAB.id == 26 || clasificationAB.id == 57) {
-            this.canRestaurante = false;
-            this.canCafeteria = false;
-            this.canBar = false;
-            this.canDiscoteca = false;
-            this.canCatering = false;
+         if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
+            let clasificationAB = this.getRegisterABType(register);
+            //Restaurante
+            if (clasificationAB.id == 11 || clasificationAB.id == 42) {
+               this.canEstablecimientoMovil = false;
+               this.canPlazaComida = false;
+            }
+            //Cafeteria
+            if (clasificationAB.id == 2 || clasificationAB.id == 33) {
+               this.canEstablecimientoMovil = false;
+               this.canPlazaComida = false;
+            }
+            //Bar
+            if (clasificationAB.id == 6 || clasificationAB.id == 37) {
+               this.canEstablecimientoMovil = false;
+               this.canPlazaComida = false;
+            }
+            //Discoteca
+            if (clasificationAB.id == 18 || clasificationAB.id == 49) {
+               this.canEstablecimientoMovil = false;
+               this.canPlazaComida = false;
+            }
+            //Catering
+            if (clasificationAB.id == 29 || clasificationAB.id == 60) {
+               this.canEstablecimientoMovil = false;
+               this.canPlazaComida = false;
+            }
+            //EstablecimientoMovil
+            if (clasificationAB.id == 23 || clasificationAB.id == 54) {
+               this.canRestaurante = false;
+               this.canCafeteria = false;
+               this.canBar = false;
+               this.canDiscoteca = false;
+               this.canCatering = false;
+            }
+            //PlazaComida
+            if (clasificationAB.id == 26 || clasificationAB.id == 57) {
+               this.canRestaurante = false;
+               this.canCafeteria = false;
+               this.canBar = false;
+               this.canDiscoteca = false;
+               this.canCatering = false;
+            }
          }
       });
     }
