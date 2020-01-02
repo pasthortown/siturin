@@ -2816,6 +2816,7 @@ export class RegistroComponent implements OnInit {
   }
 
   checkRuc() {
+     console.log(this.rowsEstablishment);
     if (this.consumoRuc && this.SRIOK && this.rowsEstablishment.length > 0) {
       return;
     }
