@@ -2816,8 +2816,7 @@ export class RegistroComponent implements OnInit {
   }
 
   checkRuc() {
-     console.log(this.rowsEstablishment);
-    if (this.consumoRuc && this.SRIOK) {
+    if (this.consumoRuc && this.SRIOK && this.rowsEstablishment.length > 0) {
       return;
     }
     this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
