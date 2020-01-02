@@ -2816,6 +2816,7 @@ export class RegistroComponent implements OnInit {
   }
 
   checkRuc() {
+   this.SRIOK = false;
     this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
     this.ruc_registro_selected.ruc.number = this.ruc_registro_selected.ruc.number.replace(/[^\d]/, '');
     if (this.ruc_registro_selected.ruc.number.length !== 13) {
