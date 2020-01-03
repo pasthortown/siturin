@@ -1,3 +1,4 @@
+import { ZoneService } from './../services/CRUD/BASE/zone.service';
 import { HttpModule } from '@angular/http';
 import { AuthService } from './../services/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +14,6 @@ import { ConsultorService } from './../services/negocio/consultor.service';
 @NgModule({
     imports: [CommonModule, LoginRoutingModule, FormsModule, HttpModule],
     declarations: [LoginComponent],
-    providers: [AuthService, ConsultorService, NgbModal, ProfilePictureService]
+    providers: [AuthService, ZoneService, ConsultorService, NgbModal, ProfilePictureService]
 })
 export class LoginModule {}

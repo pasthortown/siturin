@@ -99,7 +99,7 @@
   </div>
   <div>
     <div class="col-12 text-center mt-5">
-      <img src="assets/images/ecuador-love-life.png"/>
+      
     </div>
     <div class="col-12 text-center text-light">
       <small>Ministerio de Turismo del Ecuador</small>
@@ -121,14 +121,20 @@
                   <th>Nombre</th>
                   <th>Teléfono</th>
                   <th>Dirección</th>
+                  <th>Correo Electrónico</th>
               </thead>
               <tbody>
                 <tr *ngFor="let zonal of zonales">
-                  <td [innerHTML]="zonal.name">
+                  <td> {{zonal.name}}
                   </td>
-                  <td [innerHTML]="zonal.telefono">
+                  <td>
+                    <a href=”tel:{{zonal.phone_number}}″>{{zonal.phone_number}}</a>
                   </td>
-                  <td [innerHTML]="zonal.direccion">
+                  <td>
+                    <a href="https://www.google.com/maps/@{{zonal.location_latitude}},{{zonal.location_longitude}},15z" target="blank">{{zonal.address}}</a>
+                  </td>
+                  <td>
+                    <a href="mailto:{{zonal.email}}">{{zonal.email}}</a>
                   </td>
                 </tr>
               </tbody>

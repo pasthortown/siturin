@@ -46,6 +46,10 @@ const routes: Routes = [
             loadChildren: './CRUD/BASE/PersonRepresentative/personrepresentative.module#PersonRepresentativeModule'
          },
          {
+            path: 'zone',
+            loadChildren: './CRUD/BASE/Zone/zone.module#ZoneModule'
+         },
+         {
             path: 'preview_register_code',
             loadChildren: './CRUD/BASE/PreviewRegisterCode/previewregistercode.module#PreviewRegisterCodeModule'
          },

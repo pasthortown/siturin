@@ -1,6 +1,6 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
    <div class="list-group">
-      <a [routerLink]="['/main']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <a [routerLink]="['/main']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!isConsultorCatastro">
          <i class="fas fa-tachometer-alt"></i>&nbsp; <span>Inicio</span>
       </a>
       
@@ -212,6 +212,9 @@
                </li>
                <li>
                   <a [routerLink]="['/worker_group']" [routerLinkActive]="['router-link-active']" class="list-group-item">Clasificación Trabajadores</a>
+               </li>
+               <li>
+                  <a [routerLink]="['/zone']" [routerLinkActive]="['router-link-active']" class="list-group-item">Zone </a>
                </li>
                <li>
                   <a [routerLink]="['/establishment_property_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">Tipo de Propiedad</a>
@@ -468,6 +471,9 @@
             </ul>
          </li>
       </div>
+      <a [routerLink]="['/catastro']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isConsultorCatastro">
+         <i class="fa fa-user-secret"></i>&nbsp; <span>CATASTRO TURÍSTICO</span>
+      </a>
       <div class="nested-menu" *ngIf="isAdmin">
          <a class="list-group-item" (click)="addExpandClass('bdd catastro')">
             <span class="fas fa-database"></span>&nbsp;CATASTRO
