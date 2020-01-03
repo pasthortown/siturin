@@ -32,10 +32,9 @@
             <tr>
                <th>Seleccionado</th>
                <th>Nombre</th>
-               <th>Dirección</th>
                <th>Siglas</th>
                <th>Número de Teléfono</th>
-               <th>GeoReferenciación</th>
+               <th>Dirección</th>
                <th>Correo Electrónico</th>
                <th>Coordinador</th>
             </tr>
@@ -44,11 +43,10 @@
             <tr *ngFor="let zone of zones" (click)="selectZone(zone)">
                <td class="text-right"><span *ngIf="zoneSelected === zone" class="far fa-hand-point-right"></span></td>
                <td>{{zone.name}}</td>
-               <td [innerHtml]="zone.address"></td>
                <td>{{zone.acronym}}</td>
                <td><a href=”tel:{{zone.phone_number}}″>{{zone.phone_number}}</a></td>
                <td>
-                  <a href="https://www.google.com/maps/@{{zone.location_latitude}},{{zone.location_longitude}},15z" target="blank">Ver en GMAPS</a>
+                  <a href="https://www.google.com/maps/@{{zone.location_latitude}},{{zone.location_longitude}},15z" target="blank">{{zone.address}}</a>
                </td>
                <td><a href="mailto:{{zone.email}}">{{zone.email}}</a></td>
                <td>
