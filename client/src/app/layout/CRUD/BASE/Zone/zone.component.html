@@ -31,25 +31,34 @@
          <thead>
             <tr>
                <th>Seleccionado</th>
-               <th>name</th>
-               <th>address</th>
-               <th>acronym</th>
-               <th>phone_number</th>
-               <th>location</th>
-               <th>email</th>
-               <th>id_coordinator</th>
+               <th>Nombre</th>
+               <th>Dirección</th>
+               <th>Siglas</th>
+               <th>Número de Teléfono</th>
+               <th>GeoReferenciación</th>
+               <th>Correo Electrónico</th>
+               <th>Coordinador</th>
             </tr>
          </thead>
          <tbody>
             <tr *ngFor="let zone of zones" (click)="selectZone(zone)">
                <td class="text-right"><span *ngIf="zoneSelected === zone" class="far fa-hand-point-right"></span></td>
                <td>{{zone.name}}</td>
-               <td>{{zone.address}}</td>
+               <td [innerHtml]="zone.address"></td>
                <td>{{zone.acronym}}</td>
-               <td>{{zone.phone_number}}</td>
-               <td>Lat: {{zone.location_latitude}} Lng: {{zone.location_longitude}}</td>
-               <td>{{zone.email}}</td>
-               <td>{{zone.id_coordinator}}</td>
+               <td><a href=”tel:{{zone.phone_number}}″>{{zone.phone_number}}</a></td>
+               <td>
+                  <a href="https://www.google.com/maps/@{{zone.location_latitude}},{{zone.location_longitude}},15z" target="blank">Ver en GMAPS</a>
+               </td>
+               <td><a href="mailto:{{zone.email}}">{{zone.email}}</a></td>
+               <td>
+                  <select class="form-control" id="id_coordinator" name="id_coordinator" [(ngModel)]="zone.id_coordinator" disabled>
+                     <option value="0" selected>Seleccione...</option>
+                     <option *ngFor="let user of users" value={{user.id}}>
+                        {{user.name}}
+                     </option>
+                  </select>
+               </td>
             </tr>
          </tbody>
       </table>
