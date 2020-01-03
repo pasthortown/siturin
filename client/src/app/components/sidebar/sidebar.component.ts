@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
   isAdmin = false;
   isAdminRuc = false;
   isCoAdminRuc = false;
+  isConsultorCatastro = false;
   isAdminEst = false;
   isInsp = false;
   isAdminF = false;
@@ -111,6 +112,7 @@ export class SidebarComponent implements OnInit {
     this.isInsp = false;
     this.isAdminF = false;
     this.isTecnF = false;
+    this.isConsultorCatastro = false;
     this.isAdminRegC = false;
     this.isGestorPag = false;
     this.isExternal = false;
@@ -145,6 +147,9 @@ export class SidebarComponent implements OnInit {
       }
       if(element.name === 'Coordinador Zonal') {
         this.isCoordinadorZonal = true;
+      }
+      if(element.name === 'Consultor-Catastro') {
+        this.isConsultorCatastro = true;
       }
       if (!this.isAdmin &&
           !this.isAdminRuc &&

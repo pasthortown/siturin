@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   getZonales() {
     this.zoneDataService.get().then( r => {
       this.zonales = r as Zone[];
-      console.log(r);
     }).catch( e => { console.log(e); });
   }
 

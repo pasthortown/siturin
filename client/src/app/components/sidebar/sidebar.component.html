@@ -1,6 +1,6 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
    <div class="list-group">
-      <a [routerLink]="['/main']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <a [routerLink]="['/main']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!isConsultorCatastro">
          <i class="fas fa-tachometer-alt"></i>&nbsp; <span>Inicio</span>
       </a>
       
@@ -471,6 +471,9 @@
             </ul>
          </li>
       </div>
+      <a [routerLink]="['/catastro']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isConsultorCatastro">
+         <i class="fa fa-user-secret"></i>&nbsp; <span>CATASTRO TURÍSTICO</span>
+      </a>
       <div class="nested-menu" *ngIf="isAdmin">
          <a class="list-group-item" (click)="addExpandClass('bdd catastro')">
             <span class="fas fa-database"></span>&nbsp;CATASTRO
