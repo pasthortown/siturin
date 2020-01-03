@@ -7,6 +7,7 @@ import { ZoneComponent } from './zone.component';
 import { ZoneService } from './../../../../services/CRUD/BASE/zone.service';
 import { environment } from 'src/environments/environment';
 import { AgmCoreModule } from '@agm/core';
+import { UbicationService } from './../../../../services/CRUD/BASE/ubication.service';
 import { CKEditorModule } from 'ngx-ckeditor';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CKEditorModule } from 'ngx-ckeditor';
    declarations: [ZoneComponent],
    providers: [
                NgbModal,
+               UbicationService,
                ZoneService
                ]
 })

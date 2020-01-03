@@ -4,6 +4,9 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
 import { ZoneService } from './../../../../services/CRUD/BASE/zone.service';
 import { Zone } from './../../../../models/BASE/Zone';
+import { UbicationService } from './../../../../services/CRUD/BASE/ubication.service';
+import { Ubication } from './../../../../models/BASE/Ubication';
+
 
 @Component({
    selector: 'app-zone',
@@ -18,17 +21,27 @@ export class ZoneComponent implements OnInit {
    lastPage = 1;
    showDialog = false;
    recordsByPage = 5;
+   ubications: Ubication[] = [];
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
+               private ubicationDataService: UbicationService,
                private zoneDataService: ZoneService) {}
 
    ngOnInit() {
       this.goToPage(1);
+      this.getUbication();
    }
 
    selectZone(zone: Zone) {
       this.zoneSelected = zone;
+   }
+
+   getUbication() {
+      this.ubications = [];
+      this.ubicationDataService.get().then( r => {
+         this.ubications = r as Ubication[];
+      }).catch( e => console.log(e) );
    }
 
    goToPage(page: number) {
@@ -48,6 +61,7 @@ export class ZoneComponent implements OnInit {
    getZones() {
       this.zones = [];
       this.zoneSelected = new Zone();
+      this.zoneSelected.ubication_id = 0;
       this.zoneDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
          this.zones = r.data as Zone[];
          this.lastPage = r.last_page;
@@ -56,6 +70,7 @@ export class ZoneComponent implements OnInit {
 
    newZone(content) {
       this.zoneSelected = new Zone();
+      this.zoneSelected.ubication_id = 0;
       this.openDialog(content);
    }
 
@@ -90,9 +105,9 @@ export class ZoneComponent implements OnInit {
    toCSV() {
       this.zoneDataService.get().then( r => {
          const backupData = r as Zone[];
-         let output = 'id;name;address;acronym;phone_number;location_latitude;location_longitude;email;id_coordinator\n';
+         let output = 'id;name;address;acronym;phone_number;location_latitude;location_longitude;email;id_coordinator;ubication_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.name + ';' + element.address + ';' + element.acronym + ';' + element.phone_number + ';' + element.location_latitude + ';' + element.location_longitude + ';' + element.email + ';' + element.id_coordinator + '\n';
+            output += element.id; + element.name + ';' + element.address + ';' + element.acronym + ';' + element.phone_number + ';' + element.location_latitude + ';' + element.location_longitude + ';' + element.email + ';' + element.id_coordinator + ';' + element.ubication_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
