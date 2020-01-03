@@ -87,31 +87,31 @@
       <div class="row">
          <div class="col-12">
             <div class="form-group row">
-               <label for="name" class="col-4 col-form-label">name</label>
+               <label for="name" class="col-4 col-form-label">Nombre</label>
                <div class="col-8">
-                  <input type="text" class="form-control" id="name" name="name" placeholder="name" [(ngModel)]="zoneSelected.name">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" [(ngModel)]="zoneSelected.name">
                </div>
             </div>
             <div class="form-group row">
-               <label for="address" class="col-4 col-form-label">address</label>
+               <label for="address" class="col-4 col-form-label">Dirección</label>
                <div class="col-8">
                   <ck-editor id="address" name="address" skin="moono-lisa" [(ngModel)]="zoneSelected.address"></ck-editor>
                </div>
             </div>
             <div class="form-group row">
-               <label for="acronym" class="col-4 col-form-label">acronym</label>
+               <label for="acronym" class="col-4 col-form-label">Síglas</label>
                <div class="col-8">
-                  <input type="text" class="form-control" id="acronym" name="acronym" placeholder="acronym" [(ngModel)]="zoneSelected.acronym">
+                  <input type="text" class="form-control" id="acronym" name="acronym" placeholder="Síglas" [(ngModel)]="zoneSelected.acronym">
                </div>
             </div>
             <div class="form-group row">
-               <label for="phone_number" class="col-4 col-form-label">phone_number</label>
+               <label for="phone_number" class="col-4 col-form-label">Número de Teléfono</label>
                <div class="col-8">
-                  <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="phoneNumber" [(ngModel)]="zoneSelected.phone_number">
+                  <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Número de Teléfono" [(ngModel)]="zoneSelected.phone_number">
                </div>
             </div>
             <div class="form-group row">
-               <label for="location" class="col-4 col-form-label">location</label>
+               <label for="location" class="col-4 col-form-label">Geo-Referenciación</label>
                <div class="col-8">
                   <agm-map class="col-12" style="height: 200px;"[latitude]="zoneSelected.location_latitude * 1" [longitude]="zoneSelected.location_longitude * 1" [zoom]="15" (mapClick)="locationEvent($event)">
                      <agm-marker [latitude]="zoneSelected.location_latitude * 1" [longitude]="zoneSelected.location_longitude * 1" [markerDraggable]="true" (dragEnd)="locationEvent($event)" [animation]="'DROP'"></agm-marker>
@@ -119,24 +119,29 @@
                </div>
             </div>
             <div class="form-group row">
-               <label for="email" class="col-4 col-form-label">email</label>
+               <label for="email" class="col-4 col-form-label">Correo Electrónico</label>
                <div class="col-8">
-                  <input type="text" class="form-control" id="email" name="email" placeholder="email" [(ngModel)]="zoneSelected.email">
+                  <input type="text" class="form-control" id="email" name="email" placeholder="Correo Electrónico" [(ngModel)]="zoneSelected.email">
                </div>
             </div>
             <div class="form-group row">
-               <label for="id_coordinator" class="col-4 col-form-label">id_coordinator</label>
+               <label for="id_coordinator" class="col-4 col-form-label">Coordinador</label>
                <div class="col-8">
-                  <input type="number" class="form-control" id="id_coordinator" name="id_coordinator" placeholder="idCoordinator" [(ngModel)]="zoneSelected.id_coordinator">
+                  <select class="form-control" id="id_coordinator" name="id_coordinator" [(ngModel)]="zoneSelected.id_coordinator">
+                     <option value="0" selected>Seleccione...</option>
+                     <option *ngFor="let user of users" value={{user.id}}>
+                        {{user.name}}
+                     </option>
+                  </select>
                </div>
             </div>
             <div class="form-group row">
-               <label for="ubication_id" class="col-4 col-form-label">Ubication</label>
+               <label for="ubication_id" class="col-4 col-form-label">Provincia</label>
                <div class="col-8">
                   <select class="form-control" id="ubication_id" name="ubication_id" [(ngModel)]="zoneSelected.ubication_id">
                      <option value="0" selected>Seleccione...</option>
                      <option *ngFor="let ubication of ubications" value={{ubication.id}}>
-                        {{ubication.id}}
+                        {{ubication.name}}
                      </option>
                   </select>
                </div>

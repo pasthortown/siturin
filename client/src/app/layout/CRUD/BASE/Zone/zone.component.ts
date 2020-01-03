@@ -1,3 +1,5 @@
+import { User } from './../../../../models/profile/User';
+import { UserService } from './../../../../services/profile/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -22,25 +24,51 @@ export class ZoneComponent implements OnInit {
    showDialog = false;
    recordsByPage = 5;
    ubications: Ubication[] = [];
+   users: User[] = [];
+
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
+               private userDataService: UserService,
                private ubicationDataService: UbicationService,
                private zoneDataService: ZoneService) {}
 
    ngOnInit() {
       this.goToPage(1);
       this.getUbication();
+      this.getUsers();
    }
 
    selectZone(zone: Zone) {
       this.zoneSelected = zone;
    }
 
+   getUsers() {
+      this.users = [];
+      this.userDataService.get().then( r => {
+         this.users = r as User[];
+      }).catch( e => {
+         console.log(e);
+      });
+   }
+
    getUbication() {
       this.ubications = [];
+      let zonales = [];
       this.ubicationDataService.get().then( r => {
-         this.ubications = r as Ubication[];
+         const allUbications = r as Ubication[];
+         allUbications.forEach(element => {
+            if (element.father_code == '-') {
+               zonales.push(element);
+            }
+         });
+         zonales.forEach(zonal => {
+            allUbications.forEach(element => {
+               if (element.father_code == zonal.code) {
+                  this.ubications.push(element);
+               }
+            });
+         });
       }).catch( e => console.log(e) );
    }
 
