@@ -1,3 +1,5 @@
+import { ZoneService } from './../services/CRUD/BASE/zone.service';
+import { Zone } from './../models/BASE/Zone';
 import { ConsultorService } from './../services/negocio/consultor.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
@@ -18,9 +20,14 @@ export class LoginComponent implements OnInit {
   email: String = '';
   busy: Promise<any>;
   esperando: boolean;
-  zonales = [];
+  zonales: Zone[] = [];
 
-  constructor(private consultorDataService: ConsultorService, private router: Router, private modalService: NgbModal, private authDataServise: AuthService, private profilePictureDataService: ProfilePictureService) {}
+  constructor(private consultorDataService: ConsultorService,
+    private zoneDataService: ZoneService,
+    private router: Router, 
+    private modalService: NgbModal, 
+    private authDataServise: AuthService, 
+    private profilePictureDataService: ProfilePictureService) {}
   
   ngOnInit() {
     this.email = '';
@@ -30,8 +37,9 @@ export class LoginComponent implements OnInit {
   }
 
   getZonales() {
-    this.consultorDataService.get_zonales().then( r => {
-      this.zonales = r;
+    this.zoneDataService.get().then( r => {
+      this.zonales = r as Zone[];
+      console.log(r);
     }).catch( e => { console.log(e); });
   }
 
