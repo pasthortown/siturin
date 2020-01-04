@@ -2066,10 +2066,6 @@ export class InspectorComponent implements OnInit {
   }
 
   imprimirRequisitos() {
-     console.log(this.stringHasLetter('123'));
-     console.log(this.stringHasLetter('123L'));
-     console.log(this.stringHasLetter('123l'));
-     return;
      const today = new Date();
      Swal.fire({
       title: 'Ingreso de Información',
@@ -2085,7 +2081,15 @@ export class InspectorComponent implements OnInit {
             if (dateParts.length != 3) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
-            
+            dateParts.forEach(element => {
+               if (this.stringHasLetter(element)){
+                  return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+               }
+            });
+            const dateByUser = new Date(value);
+            if (dateByUser < today) {
+               return 'PENDEJO, NO PUEDE PROGRAMAR AL PASADO!!!!.';
+            } 
          }
       },
       showCancelButton: true,
