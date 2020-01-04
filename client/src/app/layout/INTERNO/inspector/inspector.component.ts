@@ -2081,14 +2081,18 @@ export class InspectorComponent implements OnInit {
             if (dateParts.length != 3) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
+            let noAdmitido = false;
             dateParts.forEach(element => {
                if (this.stringHasLetter(element)){
-                  return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+                  noAdmitido = true;
                }
             });
+            if (noAdmitido) {
+               return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+            }
             const dateByUser = new Date(value);
             if (dateByUser < today) {
-               return 'PENDEJO, NO PUEDE PROGRAMAR AL PASADO!!!!.';
+               return 'No se admiten fechas pasadas.';
             } 
          }
       },
