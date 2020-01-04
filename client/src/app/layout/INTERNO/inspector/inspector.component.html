@@ -82,7 +82,7 @@
 </div>
 <div class="row" *ngIf="mostrarDataRegisterMintur">
   <div class="col-12">
-    <h4>Inspección</h4>
+    <h3>Inspección</h3>
   </div>
   <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes != '' && !rechazarTramite">
     <strong>Motivo de devolución</strong>
@@ -90,7 +90,7 @@
       </div>
   </div>
   <div class="col-12">
-    <h3>Descarga de documentos para inspección/verificación</h3>
+    <h4>Descarga de documentos para inspección/verificación</h4>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <button type="button" [disabled]="!SRIOK || please_wait_requisites" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()"><i class="fas fa-print"></i></button>
@@ -103,6 +103,9 @@
       </div>
       <label>&nbsp;Acta de Notificación</label>
     </div>
+  </div>
+  <div class="col-12">
+    <h4>Resultado de la inspección/verificación</h4>
   </div>
   <div class="col-12">
       <label>Formulario de Requisitos (Check List)</label>
