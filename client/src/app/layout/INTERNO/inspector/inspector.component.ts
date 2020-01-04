@@ -2085,7 +2085,7 @@ export class InspectorComponent implements OnInit {
             if (dateParts.length != 3) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
-            if (dateParts[0])
+            
          }
       },
       showCancelButton: true,
