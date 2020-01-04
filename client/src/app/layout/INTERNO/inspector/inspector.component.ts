@@ -2056,7 +2056,26 @@ export class InspectorComponent implements OnInit {
   }
 
   imprimirRequisitos() {
-     alert('AQUIIII ESTOY Y MIRA LO BONITO QUE SOY');
+     Swal.fire({
+      title: 'Ingreso de Información',
+      text: '¿Si no es mucha impertinencia, podría quizás solamente por esta ocasión indicar el día en que usted se dignará en ir a la inspección?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+      }
+    });
+
      return;
      this.please_wait_requisites = true;
      if (this.activity == 'ALOJAMIENTO') {
