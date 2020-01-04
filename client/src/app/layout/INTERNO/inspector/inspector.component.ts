@@ -2058,12 +2058,12 @@ export class InspectorComponent implements OnInit {
   imprimirRequisitos() {
      Swal.fire({
       title: 'Ingreso de Información',
-      text: '¿Si no es mucha impertinencia, podría quizás solamente por esta ocasión indicar el día en que usted se dignará en ir a la inspección?',
+      text: '¿En que fecha usted ejecutará la inspección?',
       type: 'warning',
-      input: 'text',
+      input: 'date',
       inputValidator: (value) => {
          if (!value) {
-           return 'Apure, no sea así, ingrese fecha CARAJO!!!'
+           return 'Por favor, ingrese la fecha.'
          }
       },
       showCancelButton: true,
