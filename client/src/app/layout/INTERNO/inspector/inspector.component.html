@@ -423,7 +423,14 @@
             <ng-template ngbTabContent>
               <div class="row mt-3">
                 <h4 class="col-12">
-                  <strong>Listado de Establecimientos Inscritos en el RUC*</strong>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="getEstablishmentsOnRuc(1)">
+                        <i class="fas fa-sync"></i>
+                      </button>
+                    </div>
+                    <strong>&nbsp;Listado de Establecimientos Inscritos en el RUC*</strong>
+                  </div>
                 </h4>
                 <div class="col-12">
                   <div class="alert alert-info mt-2 mb-2" role="alert">
