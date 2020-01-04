@@ -1357,16 +1357,18 @@ export class CoordinadorComponent implements OnInit {
           'El trámite se encuentra listo para ser asignado a un Técnico Financiero',
           'success'
          );
+         const today = new Date();
          this.registerApprovalInspector.id_user = 9999999;
-         this.registerApprovalInspector.date_assigment = new Date();
+         this.registerApprovalInspector.date_assigment = today;
          this.registerApprovalInspector.notes = 'NO REQUIERE INSPECCIÓN';
+         this.registerApprovalInspector.value = true;
+         this.registerApprovalInspector.date_fullfill = today;
          const newRegisterState = new RegisterState();
          newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
          newRegisterState.register_id = this.idRegister;
          newRegisterState.state_id = this.stateTramiteId + 6;
          this.registerApprovalCoordinador.id_user = this.user.id;
          this.registerApprovalCoordinador.notes = 'NO REQUIERE INSPECCIÓN';
-         const today = new Date();
          this.registerApprovalCoordinador.date_assigment = today;
          this.registerApprovalCoordinador.date_fullfill = today;
          this.registerApprovalCoordinador.value = true;
