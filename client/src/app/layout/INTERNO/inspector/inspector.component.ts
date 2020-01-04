@@ -2105,16 +2105,16 @@ export class InspectorComponent implements OnInit {
                   noAdmitido = true;
                }
             });
-            if (dateParts[0]>31) {
+            if (parseInt(dateParts[0])>31) {
                noAdmitido = true;
             }
-            if (dateParts[1]>12) {
+            if (parseInt(dateParts[1])>12) {
                noAdmitido = true;
             }
             if (dateParts[2].length > 4){
                noAdmitido = true;
             }
-            if (dateParts[2]>9999) {
+            if (parseInt(dateParts[2])>9999) {
                noAdmitido = true;
             }
             if (noAdmitido) {
