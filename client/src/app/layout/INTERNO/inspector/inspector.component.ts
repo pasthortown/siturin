@@ -2062,14 +2062,16 @@ export class InspectorComponent implements OnInit {
       text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
       type: 'warning',
       inputValue: today.toLocaleDateString(),
-      input: 'text',
+      input: 'number',
       inputValidator: (value) => {
          if (!value) {
            return 'Por favor, ingrese la fecha.'
          } else {
-            if (value.split('/').length != 3) {
+            const dateParts = value.split('/'); 
+            if (dateParts.length != 3) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
+            
          }
       },
       showCancelButton: true,
