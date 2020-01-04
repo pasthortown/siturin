@@ -2056,17 +2056,19 @@ export class InspectorComponent implements OnInit {
   }
 
   imprimirRequisitos() {
+     const today = new Date();
      Swal.fire({
       title: 'Ingreso de Información',
       text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
       type: 'warning',
+      inputValue: today.toLocaleDateString(),
       input: 'text',
       inputValidator: (value) => {
          if (!value) {
            return 'Por favor, ingrese la fecha.'
          } else {
             if (value.split('/').length != 3) {
-               return 'Que? muy vivo. Ponga bien la fecha. No sea malito.';
+               return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
          }
       },
