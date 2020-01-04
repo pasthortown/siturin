@@ -2056,6 +2056,8 @@ export class InspectorComponent implements OnInit {
   }
 
   imprimirRequisitos() {
+     alert('AQUIIII ESTOY Y MIRA LO BONITO QUE SOY');
+     return;
      this.please_wait_requisites = true;
      if (this.activity == 'ALOJAMIENTO') {
          this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
