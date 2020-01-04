@@ -2055,14 +2055,28 @@ export class InspectorComponent implements OnInit {
    }
   }
 
+  stringHasLetter(stringToCheck: String) {
+     let toReturn = false;
+     for (let i = 0; i<stringToCheck.length; i++) {
+      if (stringToCheck[i].match(/[a-z]/i)) {
+         toReturn = true;
+      }
+     }
+     return toReturn;
+  }
+
   imprimirRequisitos() {
+     console.log(this.stringHasLetter('123'));
+     console.log(this.stringHasLetter('123L'));
+     console.log(this.stringHasLetter('123l'));
+     return;
      const today = new Date();
      Swal.fire({
       title: 'Ingreso de Información',
       text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
       type: 'warning',
       inputValue: today.toLocaleDateString(),
-      input: 'number',
+      input: 'text',
       inputValidator: (value) => {
          if (!value) {
            return 'Por favor, ingrese la fecha.'
@@ -2071,7 +2085,7 @@ export class InspectorComponent implements OnInit {
             if (dateParts.length != 3) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
-            
+            if (dateParts[0])
          }
       },
       showCancelButton: true,
