@@ -1852,6 +1852,7 @@ export class InspectorComponent implements OnInit {
                iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
             });
             let iniciales_cordinacion_zonal = '';
+            //AQUI
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
@@ -1969,6 +1970,13 @@ export class InspectorComponent implements OnInit {
          this.user.name.split(' ').forEach(element => {
             iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
          });
+         //AQUI
+         this.zonales.forEach(element => {
+            if (element.ubication_id == provincia.id) {
+               console.log(element);
+            }
+         });
+         return;
          let iniciales_cordinacion_zonal = '';
          const zonalName = zonal.name.split(' ');
          iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
