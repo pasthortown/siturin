@@ -9,6 +9,7 @@ export class Zone {
    email: String;
    id_coordinator: number;
    ubication_id: number;
+   coordinator: String;
    constructor() {
       this.location_latitude = 0;
       this.location_longitude = 0;
