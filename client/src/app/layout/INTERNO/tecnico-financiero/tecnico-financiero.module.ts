@@ -1,3 +1,4 @@
+import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
 import { RegisterProcedureService } from './../../../services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
@@ -119,6 +120,7 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } fr
     RegisterTypeService,
     WorkerGroupService,
     DeclarationAttachmentService,
+    ZoneService,
     TariffTypeService,
     PreviewRegisterCodeService,
     EstablishmentCertificationTypeService,

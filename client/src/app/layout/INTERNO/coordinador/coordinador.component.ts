@@ -1366,7 +1366,7 @@ export class CoordinadorComponent implements OnInit {
          const newRegisterState = new RegisterState();
          newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
          newRegisterState.register_id = this.idRegister;
-         newRegisterState.state_id = this.stateTramiteId + 6;
+         newRegisterState.state_id = this.stateTramiteId + 9;
          this.registerApprovalCoordinador.id_user = this.user.id;
          this.registerApprovalCoordinador.notes = 'NO REQUIERE INSPECCIÓN';
          this.registerApprovalCoordinador.date_assigment = today;

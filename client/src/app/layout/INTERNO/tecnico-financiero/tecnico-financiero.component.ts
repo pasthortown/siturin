@@ -1,3 +1,5 @@
+import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
+import { Zone } from './../../../models/BASE/Zone';
 import { MailerService } from './../../../services/negocio/mailer.service';
 import { StateDeclarationService } from './../../../services/CRUD/FINANCIERO/statedeclaration.service';
 import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
@@ -120,7 +122,7 @@ export class TecnicoFinancieroComponent implements OnInit {
   inspectores: User[] = [];
   financieros: User[] = [];
   financialSelectedId: number = 0;
-  zonales: any[] = [];
+  zonales: Zone[] = [];
   totalPayBase = 0;
   totalPayFines = 0;
   totalPayTaxes = 0;
@@ -338,6 +340,7 @@ export class TecnicoFinancieroComponent implements OnInit {
              private stateDeclaratonDataService: StateDeclarationService,
              private registerCatastroDataService: RegistroCatastroService,
              private languageDataService: LanguageService,
+             private zoneDataService: ZoneService,
              private complementaryServiceFoodTypeDataService: ComplementaryServiceFoodTypeService,
              private establishmentPictureDataService: EstablishmentPictureService,
              private ubicationDataService: UbicationService,
@@ -1106,14 +1109,14 @@ calcularUnoxMil() {
          zonal = element;
       }
    });
-   let datosZonal: any;
+   let datosZonal: Zone;
    this.zonales.forEach(element => {
       if (element.name == zonal.name) {
          datosZonal = element;
       }
    });
-   const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
-   const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
+   const czDireccion = datosZonal.address;
+   const czTelefono = datosZonal.phone_number;
    this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
       const information = {
          para: r.name.toUpperCase(),
@@ -1597,7 +1600,7 @@ calcularUnoxMil() {
  }
 
  getZonales() {
-   this.consultorDataService.get_zonales().then( r => {
+   this.zoneDataService.get().then( r => {
       this.zonales = r;
    }).catch( e => { console.log(e); });
  }

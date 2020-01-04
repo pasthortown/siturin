@@ -93,7 +93,7 @@
       <label>Formulario de Requisitos (Check List)</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <button type="button" [disabled]="!SRIOK || please_wait_requisites" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()"><i class="fas fa-print"></i></button>
+          <button type="button" [disabled]="false" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()"><i class="fas fa-print"></i></button>
           <button type="button" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()"><i class="fas fa-file-powerpoint"></i></button>
           <button type="button" [disabled]="!validateRequisitesFile()" class="btn btn-secondary" title="Descargar Formulario de Requisitos (Check List) Cargado" (click)="descargarRequisitos()"><i class="fas fa-download"></i></button>
           <button type="button" [disabled]="!validateRequisitesFile()" class="btn btn-danger" title="Borrar Formulario de Requisitos (Check List) Cargado" (click)="borrarRequisitos()"><i class="fas fa-trash"></i></button>

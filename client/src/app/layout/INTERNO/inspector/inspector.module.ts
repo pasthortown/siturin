@@ -1,3 +1,4 @@
+import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
 import { ApprovalStateReportService } from './../../../services/CRUD/ALOJAMIENTO/approvalstatereport.service';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
@@ -91,6 +92,7 @@ import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBID
     KitchenTypeService,
     RegisterTypeABService,
     RegisterStateABService,
+    ZoneService,
     RequisiteABService,
     RegisterABService,
     ApprovalStateABService,
