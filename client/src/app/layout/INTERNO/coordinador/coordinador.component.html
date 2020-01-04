@@ -101,7 +101,7 @@
       <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes">
       </div>
   </div>
-  <div class="col-12" *ngIf="isAssigned && registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN')">
+  <div class="col-12" *ngIf="isAssigned && (registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN')">
     <div class="col-12" *ngIf="hasRequisites">
       <span class="badge badge-info" style="cursor:pointer;" (click)="descargarRequisitos()"><span class="fas fa-file-pdf" (click)="descargarRequisitos()"></span>&nbsp; Revisión de Requisitos</span> 
     </div>
