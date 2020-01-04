@@ -2286,13 +2286,14 @@ export class InspectorComponent implements OnInit {
                         }
                      });
                      const today = new Date();
+                     const userDate = new Date(result.value);
                      let iniciales_cordinacion_zonal = '';
                      const zonalName = zonal.name.split(' ');
                      iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
                      const params = [{nombre_tecnico_zonal: this.user.name},
-                        {dia: today.getDate()},
-                        {mes: today.getMonth() + 1},
-                        {year: today.getFullYear()},
+                        {dia: userDate.getDate()},
+                        {mes: userDate.getMonth() + 1},
+                        {year: userDate.getFullYear()},
                         {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
                         {razon_social: this.razon_social.toUpperCase()},
                         {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
@@ -2496,13 +2497,14 @@ export class InspectorComponent implements OnInit {
                         }
                      });
                      const today = new Date();
+                     const userDate = new Date(result.value);
                      let iniciales_cordinacion_zonal = '';
                      const zonalName = zonal.name.split(' ');
                      iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
                      const params = [{nombre_tecnico_zonal: this.user.name},
-                        {dia: today.getDate()},
-                        {mes: today.getMonth() + 1},
-                        {year: today.getFullYear()},
+                        {dia: userDate.getDate()},
+                        {mes: userDate.getMonth() + 1},
+                        {year: userDate.getFullYear()},
                         {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
                         {razon_social: this.razon_social.toUpperCase()},
                         {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
