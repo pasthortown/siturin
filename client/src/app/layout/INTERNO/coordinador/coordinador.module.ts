@@ -1,3 +1,4 @@
+import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
 import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
@@ -101,6 +102,7 @@ import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALI
     ApprovalStateABService,
     AuthorizationAttachmentService,
     MailerService,
+    ZoneService,
     DeclarationAttachmentService,
     FloorAuthorizationCertificateService,
     RegisterStateABService,

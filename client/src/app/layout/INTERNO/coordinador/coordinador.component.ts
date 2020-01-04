@@ -1,3 +1,5 @@
+import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
+import { Zone } from './../../../models/BASE/Zone';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
 import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
@@ -131,7 +133,7 @@ export class CoordinadorComponent implements OnInit {
    @ViewChild('EstablishmentCertificationAttachedFile') EstablishmentCertificationAttachedFile;
    @ViewChild('pasos') pasosTabSet;
    @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
-   zonales: any[] = [];
+   zonales: Zone[] = [];
    idTramiteEstadoFilter = 0;
    tramite = '-';
    tabActive = 'paso1';
@@ -409,6 +411,7 @@ export class CoordinadorComponent implements OnInit {
               private establishment_certification_typeDataService: EstablishmentCertificationTypeService,
               private establishment_property_typeDataService: EstablishmentPropertyTypeService,
               private establishmentDataService: EstablishmentService,
+              private zoneDataService: ZoneService,
               private register_typeDataService: RegisterTypeService,
               private registerCatastroDataService: RegistroCatastroService,
               private requisiteDataService: RequisiteService,
@@ -1353,6 +1356,10 @@ export class CoordinadorComponent implements OnInit {
 
   changeTabActiveSuperior(event) {
    this.tabActiveSuperior = event.nextId;
+  }
+
+  noRequiereInspeccion() {
+
   }
 
   desasignarInspector() {
@@ -2837,14 +2844,14 @@ selectKitchenType(kitchenType: KitchenType) {
             zonal = element;
          }
       });
-      let datosZonal: any;
+      let datosZonal: Zone;
       this.zonales.forEach(element => {
          if (element.name == zonal.name) {
             datosZonal = element;
          }
       });
-      const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
-      const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
+      const czDireccion = datosZonal.address;
+      const czTelefono = datosZonal.phone_number;
       const observaciones = this.registerApprovalCoordinador.notes;
       if (!enviarMail) {
          this.refresh();
@@ -3124,7 +3131,7 @@ selectKitchenType(kitchenType: KitchenType) {
             zonal = element;
          }
       });
-      let datosZonal: any;
+      let datosZonal: Zone;
       this.zonales.forEach(element => {
          if (element.name == zonal.name) {
             datosZonal = element;
@@ -3162,8 +3169,8 @@ selectKitchenType(kitchenType: KitchenType) {
             });
          }
       }
-      const czDireccion = datosZonal.direccion.split('>')[1].split('<')[0];
-      const czTelefono = datosZonal.telefono.split('>')[1].split('<')[0];
+      const czDireccion = datosZonal.address;
+      const czTelefono = datosZonal.phone_number;
       const estado = this.stateTramiteId.toString();
       this.refreshMotivoTramite(estado);
       const newRegistroCatastro = new RegistroCatastro();
@@ -3822,7 +3829,7 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   getZonales() {
-   this.consultorDataService.get_zonales().then( r => {
+   this.zoneDataService.get().then( r => {
       this.zonales = r;
    }).catch( e => { console.log(e); });
   }
