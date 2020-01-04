@@ -1364,16 +1364,26 @@ export class CoordinadorComponent implements OnInit {
          newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
          newRegisterState.register_id = this.idRegister;
          newRegisterState.state_id = this.stateTramiteId + 6;
+         this.registerApprovalCoordinador.id_user = this.user.id;
+         this.registerApprovalCoordinador.notes = 'NO REQUIERE INSPECCIÓN';
+         const today = new Date();
+         this.registerApprovalCoordinador.date_assigment = today;
+         this.registerApprovalCoordinador.date_fullfill = today;
+         this.registerApprovalCoordinador.value = true;
          if (this.activity == 'ALOJAMIENTO') {
             this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
                this.registerStateDataService.post(newRegisterState).then( r1 => {
                }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+            this.approvalStateDataService.put(this.registerApprovalCoordinador).then( r => {
             }).catch( e => { console.log(e); });
          }
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
             this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
                this.registerStateABDataService.post(newRegisterState).then( r1 => {
                }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+            this.approvalStateABDataService.put(this.registerApprovalCoordinador).then( r => {
             }).catch( e => { console.log(e); });
          }
       } else if (
@@ -1385,7 +1395,7 @@ export class CoordinadorComponent implements OnInit {
           'error'
         );
       }
-    });      
+    });
   }
 
   desasignarInspector() {
