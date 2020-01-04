@@ -144,7 +144,6 @@
     <label>Acta de Notificación</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <button type="button" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()"><i class="fas fa-print"></i></button>
         <button type="button" [disabled]="!validateActaNotificacionFile()" class="btn btn-secondary ml-2" title="Descargar Acta de Notificación Cargada" (click)="descargarActaNotificacion()"><i class="fas fa-download"></i></button>
         <button type="button" [disabled]="!validateActaNotificacionFile()" class="btn btn-danger" title="Borrar Acta de Notificación Cargada" (click)="borrarActaNotificacion()"><i class="fas fa-trash"></i></button>
       </div>
