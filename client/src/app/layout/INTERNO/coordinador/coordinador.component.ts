@@ -1342,27 +1342,50 @@ export class CoordinadorComponent implements OnInit {
   }
 
   noRequiereInspeccion() {
-     alert(this.stateTramiteId);
-     return;
-   this.registerApprovalInspector.id_user = 9999999999;
-   this.registerApprovalInspector.date_assigment = new Date();
-   this.registerApprovalInspector.notes = 'NO REQUIERE INSPECCIÓN';
-   const newRegisterState = new RegisterState();
-   newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
-   newRegisterState.register_id = this.idRegister;
-   newRegisterState.state_id = this.stateTramiteId + 3;
-   if (this.activity == 'ALOJAMIENTO') {
-      this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
-         this.registerStateDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-      }).catch( e => { console.log(e); });
-   }
-   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
-         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-      }).catch( e => { console.log(e); });
-   }      
+   Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro que el trámite no requiere revisión por parte del Técnico Zonal?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         Swal.fire(
+          'Aprobado!',
+          'El trámite se encuentra listo para ser asignado a un Técnico Financiero',
+          'success'
+         );
+         this.registerApprovalInspector.id_user = 9999999999;
+         this.registerApprovalInspector.date_assigment = new Date();
+         this.registerApprovalInspector.notes = 'NO REQUIERE INSPECCIÓN';
+         const newRegisterState = new RegisterState();
+         newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
+         newRegisterState.register_id = this.idRegister;
+         newRegisterState.state_id = this.stateTramiteId + 6;
+         if (this.activity == 'ALOJAMIENTO') {
+            this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
+               this.registerStateDataService.post(newRegisterState).then( r1 => {
+               }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+         }
+         if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+            this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
+               this.registerStateABDataService.post(newRegisterState).then( r1 => {
+               }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+         }
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+      }
+    });      
   }
 
   desasignarInspector() {
