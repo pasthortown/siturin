@@ -2060,13 +2060,19 @@ export class InspectorComponent implements OnInit {
       title: 'Ingreso de Información',
       text: '¿Si no es mucha impertinencia, podría quizás solamente por esta ocasión indicar el día en que usted se dignará en ir a la inspección?',
       type: 'warning',
+      input: 'text',
+      inputValidator: (value) => {
+         if (!value) {
+           return 'Apure, no sea así, ingrese fecha CARAJO!!!'
+         }
+      },
       showCancelButton: true,
       confirmButtonText: 'Si, continuar',
       cancelButtonText: 'No, cancelar',
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-         
+      alert (result.value);   
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelado',
