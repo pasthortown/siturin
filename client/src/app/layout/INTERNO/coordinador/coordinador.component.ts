@@ -1359,7 +1359,7 @@ export class CoordinadorComponent implements OnInit {
   }
 
   noRequiereInspeccion() {
-
+      alert('hola');
   }
 
   desasignarInspector() {
