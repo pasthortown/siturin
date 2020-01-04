@@ -2087,13 +2087,470 @@ export class InspectorComponent implements OnInit {
                   noAdmitido = true;
                }
             });
+            if (dateParts[0]>31) {
+               noAdmitido = true;
+            }
+            if (dateParts[1]>12) {
+               noAdmitido = true;
+            }
+            if (dateParts[2020]>9999) {
+               noAdmitido = true;
+            }
             if (noAdmitido) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
             const dateByUser = new Date(value);
             if (dateByUser < today) {
                return 'No se admiten fechas pasadas.';
-            } 
+            }
+            this.please_wait_requisites = true;
+            if (this.activity == 'ALOJAMIENTO') {
+                  this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
+                  this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+                     this.registerDataService.get_tarifario(this.registerMinturSelected.register.id).then( r3 => {
+                        this.tarifarioResponse = r3 as Tariff[];
+                        const capacities = [];
+                        const capacities_on_register = r0.capacities_on_register;
+                        capacities_on_register.forEach(capacity => {
+                           const newCapacity = {type: '', spaces: 0, habitaciones: 0, beds: 0};
+                           newCapacity.habitaciones = capacity.quantity;
+                           newCapacity.spaces = capacity.max_spaces;
+                           newCapacity.beds = capacity.max_beds;
+                           this.capacity_types.forEach(element => {
+                                 if (element.id == capacity.capacity_type_id) {
+                                    newCapacity.type = element.name.toString();
+                                 }
+                           });
+                           capacities.push(newCapacity);
+                        });
+                        const tariffs = [];
+                        this.tarifarioResponse.forEach(tariff => {
+                           const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0};
+                           let existe = false;
+                           tariffs.forEach(element => {
+                              if (element.capacity_type_id == tariff.capacity_type_id) {
+                                 existe = true;
+                              }
+                           });
+                           if (!existe) {
+                              this.capacity_types.forEach(element => {
+                                 if (element.id == tariff.capacity_type_id) {
+                                    newTariff.type = element.name.toString();
+                                    newTariff.capacity_type_id = tariff.capacity_type_id;
+                                 }
+                              });
+                              tariffs.push(newTariff);
+                           }
+                        });
+                        tariffs.forEach(element => {
+                           this.tarifarioResponse.forEach(tariff => {
+                              if (tariff.capacity_type_id == element.capacity_type_id) {
+                                 if (tariff.tariff_type_id == 3) {
+                                    element.habitacion_baja = tariff.price;
+                                 }
+                                 if (tariff.tariff_type_id == 5) {
+                                    element.habitacion_alta = tariff.price;
+                                 }
+                                 if (tariff.tariff_type_id == 4) {
+                                    element.persona_baja = tariff.price;
+                                 }
+                                 if (tariff.tariff_type_id == 6) {
+                                    element.persona_alta = tariff.price;
+                                 }
+                              }
+                           });
+                        });
+                        const workers_on_establishment: Worker[] = [];
+                        this.genders.forEach(gender => {
+                           this.worker_groups.forEach(worker_group => {
+                              const newEstablishmentWorker = new Worker();
+                              newEstablishmentWorker.gender_id = gender.id;
+                              newEstablishmentWorker.gender_name = gender.name;
+                              newEstablishmentWorker.worker_group_id = worker_group.id;
+                              newEstablishmentWorker.worker_group_name = worker_group.name;
+                              newEstablishmentWorker.is_max = worker_group.is_max;
+                              workers_on_establishment.push(newEstablishmentWorker);
+                           });
+                        });
+                        const personal = [];
+                        workers_on_establishment.forEach(worker_group_template => {
+                           let newworkergroup = {worker_group_name: '', gender_name: '', count: ''};
+                           r2.workers_on_establishment.forEach(worker_group_in => {
+                              if (worker_group_in.worker_group_id == worker_group_template.worker_group_id && worker_group_in.gender_id == worker_group_template.gender_id) {
+                                 newworkergroup.worker_group_name = worker_group_template.worker_group_name.toString();
+                                 newworkergroup.gender_name = worker_group_template.gender_name.toString();
+                                 newworkergroup.count = worker_group_in.count;
+                              }
+                           });
+                           personal.push(newworkergroup);
+                        });
+                        const requisites = [];
+                        this.requisiteDataService.get_filtered(r0.register.register_type_id).then( r => {
+                           this.requisitesByRegisterType = r as Requisite[];
+                           this.requisitesByRegisterType.forEach(element => {
+                              const newRegisterRequisite = new RegisterRequisite();
+                              newRegisterRequisite.requisite_name = element.name;
+                              newRegisterRequisite.requisite_id = element.id;
+                              newRegisterRequisite.fullfill = true;
+                              newRegisterRequisite.requisite_code = element.code;
+                              newRegisterRequisite.mandatory = element.mandatory;
+                              newRegisterRequisite.requisite_father_code = element.father_code;
+                              newRegisterRequisite.level = element.code.split('.').length;
+                              newRegisterRequisite.HTMLtype = element.type;
+                              newRegisterRequisite.fullfill = false;
+                              if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+                                 newRegisterRequisite.value = '0';
+                              }
+                              if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+                                 newRegisterRequisite.value = '0';
+                              }
+                              if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+                                 newRegisterRequisite.value = 'false';
+                              }
+                              requisites.push(newRegisterRequisite);
+                           });
+                           requisites.sort(function(a, b) {
+                              const a_id = a.requisite_id;
+                              const b_id = b.requisite_id;
+                              return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+                        });
+                        requisites.forEach(requisite_template => {
+                           r0.requisites.forEach(requisite_in => {
+                              if (requisite_template.requisite_id == requisite_in.requisite_id) {
+                                 requisite_template.fullfill = requisite_in.fullfill;
+                                 requisite_template.value = requisite_in.value;
+                              }
+                           });
+                        });
+                        let fecha_registro = '';
+                        if (r2.establishment.as_turistic_register_date == null || typeof r2.establishment.as_turistic_register_date == 'undefined') {
+                           fecha_registro = 'PENDIENTE';
+                        } else {
+                           fecha_registro = (new Date(r2.establishment.as_turistic_register_date)).toLocaleDateString();
+                        }
+                        if (this.as_turistic_date !== null) {
+                           fecha_registro = this.as_turistic_date.toLocaleDateString();
+                        }
+                        let local = '';
+                        if (r2.establishment.establishment_property_type_id == 1) {
+                           local = 'PROPIO';
+                        } else {
+                           local = 'ARRENDADO';
+                        }
+                        let clasificacion = '';
+                        this.register_types.forEach(element => {
+                           if (element.id == r0.register.register_type_id) {
+                              clasificacion = element.name.toString();
+                           }
+                        });
+                        let actividad = this.registerMinturSelected.activity.toUpperCase();
+                        let tipo_establecimiento = '';
+                        this.ruc_name_types.forEach(element => {
+                           if (element.id == r2.establishment.ruc_name_type_id) {
+                              tipo_establecimiento = element.name.toString();
+                           }
+                        });
+                        let provincia = new Ubication();
+                        let canton = new Ubication();
+                        let parroquia = new Ubication();
+                        let zonal = new Ubication();
+                        this.ubications.forEach(element => {
+                           if (element.id == r2.establishment.ubication_id) {
+                              parroquia = element;
+                           }
+                        });
+                        this.ubications.forEach(element => {
+                           if (element.code == parroquia.father_code) {
+                              canton = element;
+                           }
+                        });
+                        this.ubications.forEach(element => {
+                           if (element.code == canton.father_code) {
+                              provincia = element;
+                           }
+                        });
+                        this.ubications.forEach(element => {
+                           if (element.code == provincia.father_code) {
+                              zonal = element;
+                           }
+                        });
+                        const today = new Date();
+                        let iniciales_cordinacion_zonal = '';
+                        const zonalName = zonal.name.split(' ');
+                        iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+                        const params = [{nombre_tecnico_zonal: this.user.name},
+                           {dia: today.getDate()},
+                           {mes: today.getMonth() + 1},
+                           {year: today.getFullYear()},
+                           {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+                           {razon_social: this.razon_social.toUpperCase()},
+                           {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
+                           {actividad: actividad.toUpperCase()},
+                           {categoria: clasificacion.toUpperCase()},
+                           {tipo_establecimiento:tipo_establecimiento.toUpperCase()},
+                           {representante_legal: this.representante_legal.toUpperCase()},
+                           {telefono_principal: r2.contact_user.main_phone_number.toUpperCase()},
+                           {local: local.toUpperCase()},
+                           {pagina_web: r2.establishment.url_web.toUpperCase()},
+                           {numero_registro: r0.register.code.toUpperCase()},
+                           {fecha_registro: fecha_registro.toUpperCase()},
+                           {tipo_tramite: this.tipo_tramite.toUpperCase()},
+                           {clasificacion: r0.register_category.name.toUpperCase()},
+                           {franquicia_cadena: r2.establishment.franchise_chain_name.toUpperCase()},
+                           {contacto_establecimiento: r2.contact_user.name.toUpperCase()},
+                           {telefono_secundario: r2.contact_user.secondary_phone_number.toUpperCase()},
+                           {correo_electronico:r2.contact_user.email.toUpperCase()},
+                           {provincia:provincia.name.toUpperCase()},
+                           {canton:canton.name.toUpperCase()},
+                           {parroquia:parroquia.name.toUpperCase()},
+                           {referencia_ubicacion: r2.establishment.address_reference},
+                           {calle_principal: r2.establishment.address_main_street.toUpperCase()},
+                           {numeracion: r2.establishment.address_number.toUpperCase()},
+                           {calle_secundaria: r2.establishment.address_secondary_street.toUpperCase()}];
+                           let iniciales_tecnico_zonal = '';
+                           this.user.name.split(' ').forEach(element => {
+                              iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
+                           });
+                        let qr_value = 'MT-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                        let document = new Documento();
+                        document.activity = this.registerMinturSelected.activity.toUpperCase();
+                        document.code = qr_value;
+                        document.document_type = 'CHECKLIST';
+                        let paramsToBuild = {
+                           requisites: requisites, capacities: capacities, tariffs: tariffs, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
+                        }
+                        document.procedure_id = this.tipo_tramite.toUpperCase();
+                        document.zonal = zonal.name;
+                        document.user = iniciales_tecnico_zonal;
+                        document.params = JSON.stringify(paramsToBuild);
+                        this.documentDataService.post(document).then().catch( e => { console.log(e); });
+                        const complementary_services = [];
+                        r0.complementary_service_foods_on_register.forEach(element => {
+                           let complementary_service_food_type = '';
+                           this.complementaryServiceFoodTypes.forEach(ct => {
+                              if (ct.id == element.complementary_service_food_type_id) {
+                                 complementary_service_food_type = ct.name.toString();
+                              }
+                           });
+                           const newComplementaryService = {type: complementary_service_food_type, tables: element.quantity_tables, spaces: element.quantity_chairs};
+                           complementary_services.push(newComplementaryService);
+                        });
+                        this.exporterDataService.getPDFNormativa(this.activity, requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
+                           const byteCharacters = atob(r);
+                           const byteNumbers = new Array(byteCharacters.length);
+                           for (let i = 0; i < byteCharacters.length; i++) {
+                              byteNumbers[i] = byteCharacters.charCodeAt(i);
+                           }
+                           const byteArray = new Uint8Array(byteNumbers);
+                           const blob = new Blob([byteArray], { type: 'application/pdf'});
+                           saveAs(blob, qr_value + '.pdf');
+                           this.please_wait_requisites = false;
+                        }).catch( e => { console.log(e); });
+                        }).catch( e => console.log(e) );
+                     }).catch( e => { console.log(e); });
+                  }).catch( e => { console.log(e); });
+               }).catch( e => { console.log(e); });
+            }
+              if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+               this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
+                  this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+                        const capacities = r0.capacities_on_register;
+                        const workers_on_establishment: Worker[] = [];
+                        this.genders.forEach(gender => {
+                           this.worker_groups.forEach(worker_group => {
+                              const newEstablishmentWorker = new Worker();
+                              newEstablishmentWorker.gender_id = gender.id;
+                              newEstablishmentWorker.gender_name = gender.name;
+                              newEstablishmentWorker.worker_group_id = worker_group.id;
+                              newEstablishmentWorker.worker_group_name = worker_group.name;
+                              newEstablishmentWorker.is_max = worker_group.is_max;
+                              workers_on_establishment.push(newEstablishmentWorker);
+                           });
+                        });
+                        const personal = [];
+                        workers_on_establishment.forEach(worker_group_template => {
+                           let newworkergroup = {worker_group_name: '', gender_name: '', count: ''};
+                           r2.workers_on_establishment.forEach(worker_group_in => {
+                              if (worker_group_in.worker_group_id == worker_group_template.worker_group_id && worker_group_in.gender_id == worker_group_template.gender_id) {
+                                 newworkergroup.worker_group_name = worker_group_template.worker_group_name.toString();
+                                 newworkergroup.gender_name = worker_group_template.gender_name.toString();
+                                 newworkergroup.count = worker_group_in.count;
+                              }
+                           });
+                           personal.push(newworkergroup);
+                        });
+                        const requisites = [];
+                        let register_type_father_code = '';
+                        this.register_types_AB.forEach(element => {
+                           if (element.id == r0.register.register_type_id) {
+                              register_type_father_code = element.father_code.toString();
+                           }
+                        });
+                        let register_type_father_id = 0;
+                        this.register_types_AB.forEach(element => {
+                           if (element.code == register_type_father_code) {
+                              register_type_father_id = element.id;
+                           }
+                        });
+                        this.requisiteABDataService.get_filtered(register_type_father_id).then( r => {
+                           this.requisitesByRegisterType = r as any[];
+                           this.requisitesByRegisterType.forEach(element => {
+                              const newRegisterRequisite = new RegisterABRequisite();
+                              newRegisterRequisite.to_approve = element.to_approve;
+                              newRegisterRequisite.score = element.score;
+                              newRegisterRequisite.requisite_name = element.name;
+                              newRegisterRequisite.requisite_id = element.id;
+                              newRegisterRequisite.fullfill = true;
+                              newRegisterRequisite.requisite_code = element.code;
+                              newRegisterRequisite.mandatory = element.mandatory;
+                              newRegisterRequisite.id = element.id;
+                              newRegisterRequisite.requisite_father_code = element.father_code;
+                              newRegisterRequisite.level = element.code.split('.').length;
+                              newRegisterRequisite.HTMLtype = element.type;
+                              newRegisterRequisite.fullfill = false;
+                              if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+                                 newRegisterRequisite.value = '0';
+                              }
+                              if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+                                 newRegisterRequisite.value = '0';
+                              }
+                              if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+                                 newRegisterRequisite.value = 'false';
+                              }
+                              requisites.push(newRegisterRequisite);
+                           });
+                           requisites.sort(function(a, b) {
+                              const a_id = a.requisite_id;
+                              const b_id = b.requisite_id;
+                              return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+                        });
+                        requisites.forEach(requisite_template => {
+                           r0.requisites.forEach(requisite_in => {
+                              if (requisite_template.requisite_id == requisite_in.requisite_id) {
+                                 requisite_template.fullfill = requisite_in.fullfill;
+                                 requisite_template.value = requisite_in.value;
+                              }
+                           });
+                        });
+                        let fecha_registro = '';
+                        if (r2.establishment.as_turistic_register_date == null || typeof r2.establishment.as_turistic_register_date == 'undefined') {
+                           fecha_registro = 'PENDIENTE';
+                        } else {
+                           fecha_registro = (new Date(r2.establishment.as_turistic_register_date)).toLocaleDateString();
+                        }
+                        if (this.as_turistic_date !== null) {
+                           fecha_registro = this.as_turistic_date.toLocaleDateString();
+                        }
+                        let local = '';
+                        if (r2.establishment.establishment_property_type_id == 1) {
+                           local = 'PROPIO';
+                        } else {
+                           local = 'ARRENDADO';
+                        }
+                        let clasificacion = '';
+                        this.register_types_AB.forEach(element => {
+                           if (element.id == r0.register.register_type_id) {
+                              clasificacion = element.name.toString();
+                           }
+                        });
+                        let actividad = this.registerMinturSelected.activity.toUpperCase();
+                        let tipo_establecimiento = '';
+                        this.ruc_name_types.forEach(element => {
+                           if (element.id == r2.establishment.ruc_name_type_id) {
+                              tipo_establecimiento = element.name.toString();
+                           }
+                        });
+                        let provincia = new Ubication();
+                        let canton = new Ubication();
+                        let parroquia = new Ubication();
+                        let zonal = new Ubication();
+                        this.ubications.forEach(element => {
+                           if (element.id == r2.establishment.ubication_id) {
+                              parroquia = element;
+                           }
+                        });
+                        this.ubications.forEach(element => {
+                           if (element.code == parroquia.father_code) {
+                              canton = element;
+                           }
+                        });
+                        this.ubications.forEach(element => {
+                           if (element.code == canton.father_code) {
+                              provincia = element;
+                           }
+                        });
+                        this.ubications.forEach(element => {
+                           if (element.code == provincia.father_code) {
+                              zonal = element;
+                           }
+                        });
+                        const today = new Date();
+                        let iniciales_cordinacion_zonal = '';
+                        const zonalName = zonal.name.split(' ');
+                        iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+                        const params = [{nombre_tecnico_zonal: this.user.name},
+                           {dia: today.getDate()},
+                           {mes: today.getMonth() + 1},
+                           {year: today.getFullYear()},
+                           {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+                           {razon_social: this.razon_social.toUpperCase()},
+                           {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
+                           {actividad: actividad.toUpperCase()},
+                           {categoria: clasificacion.toUpperCase()},
+                           {tipo_establecimiento:tipo_establecimiento.toUpperCase()},
+                           {representante_legal: this.representante_legal.toUpperCase()},
+                           {telefono_principal: r2.contact_user.main_phone_number.toUpperCase()},
+                           {local: local.toUpperCase()},
+                           {pagina_web: r2.establishment.url_web.toUpperCase()},
+                           {numero_registro: r0.register.code.toUpperCase()},
+                           {fecha_registro: fecha_registro.toUpperCase()},
+                           {tipo_tramite: this.tipo_tramite.toUpperCase()},
+                           {clasificacion: r0.register_category.name.toUpperCase()},
+                           {franquicia_cadena: r2.establishment.franchise_chain_name.toUpperCase()},
+                           {contacto_establecimiento: r2.contact_user.name.toUpperCase()},
+                           {telefono_secundario: r2.contact_user.secondary_phone_number.toUpperCase()},
+                           {correo_electronico:r2.contact_user.email.toUpperCase()},
+                           {provincia:provincia.name.toUpperCase()},
+                           {canton:canton.name.toUpperCase()},
+                           {parroquia:parroquia.name.toUpperCase()},
+                           {referencia_ubicacion: r2.establishment.address_reference},
+                           {calle_principal: r2.establishment.address_main_street.toUpperCase()},
+                           {numeracion: r2.establishment.address_number.toUpperCase()},
+                           {calle_secundaria: r2.establishment.address_secondary_street.toUpperCase()}];
+                           let iniciales_tecnico_zonal = '';
+                           this.user.name.split(' ').forEach(element => {
+                              iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
+                           });
+                        let qr_value = 'MT-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                        let document = new Documento();
+                        document.activity = this.registerMinturSelected.activity.toUpperCase();
+                        document.code = qr_value;
+                        document.document_type = 'CHECKLIST';
+                        let paramsToBuild = {
+                           requisites: requisites, capacities: capacities, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
+                        }
+                        document.procedure_id = this.tipo_tramite.toUpperCase();
+                        document.zonal = zonal.name;
+                        document.user = iniciales_tecnico_zonal;
+                        document.params = JSON.stringify(paramsToBuild);
+                        this.documentDataService.post(document).then().catch( e => { console.log(e); });
+                        const tariffs = [];
+                        const complementary_services = [];
+                        this.exporterDataService.getPDFNormativa(this.activity.toUpperCase(),requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
+                           const byteCharacters = atob(r);
+                           const byteNumbers = new Array(byteCharacters.length);
+                           for (let i = 0; i < byteCharacters.length; i++) {
+                              byteNumbers[i] = byteCharacters.charCodeAt(i);
+                           }
+                           const byteArray = new Uint8Array(byteNumbers);
+                           const blob = new Blob([byteArray], { type: 'application/pdf'});
+                           saveAs(blob, qr_value + '.pdf');
+                           this.please_wait_requisites = false;
+                        }).catch( e => { console.log(e); });
+                        }).catch( e => console.log(e) );
+                  }).catch( e => { console.log(e); });
+               }).catch( e => { console.log(e); });
+              }
          }
       },
       showCancelButton: true,
@@ -2111,456 +2568,6 @@ export class InspectorComponent implements OnInit {
         );
       }
     });
-
-     return;
-     this.please_wait_requisites = true;
-     if (this.activity == 'ALOJAMIENTO') {
-         this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
-         this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-            this.registerDataService.get_tarifario(this.registerMinturSelected.register.id).then( r3 => {
-               this.tarifarioResponse = r3 as Tariff[];
-               const capacities = [];
-               const capacities_on_register = r0.capacities_on_register;
-               capacities_on_register.forEach(capacity => {
-                  const newCapacity = {type: '', spaces: 0, habitaciones: 0, beds: 0};
-                  newCapacity.habitaciones = capacity.quantity;
-                  newCapacity.spaces = capacity.max_spaces;
-                  newCapacity.beds = capacity.max_beds;
-                  this.capacity_types.forEach(element => {
-                        if (element.id == capacity.capacity_type_id) {
-                           newCapacity.type = element.name.toString();
-                        }
-                  });
-                  capacities.push(newCapacity);
-               });
-               const tariffs = [];
-               this.tarifarioResponse.forEach(tariff => {
-                  const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0};
-                  let existe = false;
-                  tariffs.forEach(element => {
-                     if (element.capacity_type_id == tariff.capacity_type_id) {
-                        existe = true;
-                     }
-                  });
-                  if (!existe) {
-                     this.capacity_types.forEach(element => {
-                        if (element.id == tariff.capacity_type_id) {
-                           newTariff.type = element.name.toString();
-                           newTariff.capacity_type_id = tariff.capacity_type_id;
-                        }
-                     });
-                     tariffs.push(newTariff);
-                  }
-               });
-               tariffs.forEach(element => {
-                  this.tarifarioResponse.forEach(tariff => {
-                     if (tariff.capacity_type_id == element.capacity_type_id) {
-                        if (tariff.tariff_type_id == 3) {
-                           element.habitacion_baja = tariff.price;
-                        }
-                        if (tariff.tariff_type_id == 5) {
-                           element.habitacion_alta = tariff.price;
-                        }
-                        if (tariff.tariff_type_id == 4) {
-                           element.persona_baja = tariff.price;
-                        }
-                        if (tariff.tariff_type_id == 6) {
-                           element.persona_alta = tariff.price;
-                        }
-                     }
-                  });
-               });
-               const workers_on_establishment: Worker[] = [];
-               this.genders.forEach(gender => {
-                  this.worker_groups.forEach(worker_group => {
-                     const newEstablishmentWorker = new Worker();
-                     newEstablishmentWorker.gender_id = gender.id;
-                     newEstablishmentWorker.gender_name = gender.name;
-                     newEstablishmentWorker.worker_group_id = worker_group.id;
-                     newEstablishmentWorker.worker_group_name = worker_group.name;
-                     newEstablishmentWorker.is_max = worker_group.is_max;
-                     workers_on_establishment.push(newEstablishmentWorker);
-                  });
-               });
-               const personal = [];
-               workers_on_establishment.forEach(worker_group_template => {
-                  let newworkergroup = {worker_group_name: '', gender_name: '', count: ''};
-                  r2.workers_on_establishment.forEach(worker_group_in => {
-                     if (worker_group_in.worker_group_id == worker_group_template.worker_group_id && worker_group_in.gender_id == worker_group_template.gender_id) {
-                        newworkergroup.worker_group_name = worker_group_template.worker_group_name.toString();
-                        newworkergroup.gender_name = worker_group_template.gender_name.toString();
-                        newworkergroup.count = worker_group_in.count;
-                     }
-                  });
-                  personal.push(newworkergroup);
-               });
-               const requisites = [];
-               this.requisiteDataService.get_filtered(r0.register.register_type_id).then( r => {
-                  this.requisitesByRegisterType = r as Requisite[];
-                  this.requisitesByRegisterType.forEach(element => {
-                     const newRegisterRequisite = new RegisterRequisite();
-                     newRegisterRequisite.requisite_name = element.name;
-                     newRegisterRequisite.requisite_id = element.id;
-                     newRegisterRequisite.fullfill = true;
-                     newRegisterRequisite.requisite_code = element.code;
-                     newRegisterRequisite.mandatory = element.mandatory;
-                     newRegisterRequisite.requisite_father_code = element.father_code;
-                     newRegisterRequisite.level = element.code.split('.').length;
-                     newRegisterRequisite.HTMLtype = element.type;
-                     newRegisterRequisite.fullfill = false;
-                     if (newRegisterRequisite.HTMLtype == 'YES / NO') {
-                        newRegisterRequisite.value = '0';
-                     }
-                     if (newRegisterRequisite.HTMLtype == 'NUMBER') {
-                        newRegisterRequisite.value = '0';
-                     }
-                     if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
-                        newRegisterRequisite.value = 'false';
-                     }
-                     requisites.push(newRegisterRequisite);
-                  });
-                  requisites.sort(function(a, b) {
-                     const a_id = a.requisite_id;
-                     const b_id = b.requisite_id;
-                     return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
-                 });
-                 requisites.forEach(requisite_template => {
-                    r0.requisites.forEach(requisite_in => {
-                       if (requisite_template.requisite_id == requisite_in.requisite_id) {
-                        requisite_template.fullfill = requisite_in.fullfill;
-                        requisite_template.value = requisite_in.value;
-                       }
-                    });
-                 });
-                 let fecha_registro = '';
-                 if (r2.establishment.as_turistic_register_date == null || typeof r2.establishment.as_turistic_register_date == 'undefined') {
-                  fecha_registro = 'PENDIENTE';
-                 } else {
-                  fecha_registro = (new Date(r2.establishment.as_turistic_register_date)).toLocaleDateString();
-                 }
-                 if (this.as_turistic_date !== null) {
-                  fecha_registro = this.as_turistic_date.toLocaleDateString();
-                 }
-                 let local = '';
-                 if (r2.establishment.establishment_property_type_id == 1) {
-                  local = 'PROPIO';
-                 } else {
-                  local = 'ARRENDADO';
-                 }
-                 let clasificacion = '';
-                 this.register_types.forEach(element => {
-                  if (element.id == r0.register.register_type_id) {
-                     clasificacion = element.name.toString();
-                  }
-                 });
-                 let actividad = this.registerMinturSelected.activity.toUpperCase();
-                 let tipo_establecimiento = '';
-                 this.ruc_name_types.forEach(element => {
-                    if (element.id == r2.establishment.ruc_name_type_id) {
-                       tipo_establecimiento = element.name.toString();
-                    }
-                 });
-                 let provincia = new Ubication();
-                 let canton = new Ubication();
-                 let parroquia = new Ubication();
-                 let zonal = new Ubication();
-                 this.ubications.forEach(element => {
-                   if (element.id == r2.establishment.ubication_id) {
-                     parroquia = element;
-                   }
-                 });
-                 this.ubications.forEach(element => {
-                   if (element.code == parroquia.father_code) {
-                     canton = element;
-                   }
-                 });
-                 this.ubications.forEach(element => {
-                   if (element.code == canton.father_code) {
-                     provincia = element;
-                   }
-                 });
-                 this.ubications.forEach(element => {
-                   if (element.code == provincia.father_code) {
-                     zonal = element;
-                   }
-                 });
-                 const today = new Date();
-                 let iniciales_cordinacion_zonal = '';
-                 const zonalName = zonal.name.split(' ');
-                 iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-                 const params = [{nombre_tecnico_zonal: this.user.name},
-                  {dia: today.getDate()},
-                  {mes: today.getMonth() + 1},
-                  {year: today.getFullYear()},
-                  {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
-                  {razon_social: this.razon_social.toUpperCase()},
-                  {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
-                  {actividad: actividad.toUpperCase()},
-                  {categoria: clasificacion.toUpperCase()},
-                  {tipo_establecimiento:tipo_establecimiento.toUpperCase()},
-                  {representante_legal: this.representante_legal.toUpperCase()},
-                  {telefono_principal: r2.contact_user.main_phone_number.toUpperCase()},
-                  {local: local.toUpperCase()},
-                  {pagina_web: r2.establishment.url_web.toUpperCase()},
-                  {numero_registro: r0.register.code.toUpperCase()},
-                  {fecha_registro: fecha_registro.toUpperCase()},
-                  {tipo_tramite: this.tipo_tramite.toUpperCase()},
-                  {clasificacion: r0.register_category.name.toUpperCase()},
-                  {franquicia_cadena: r2.establishment.franchise_chain_name.toUpperCase()},
-                  {contacto_establecimiento: r2.contact_user.name.toUpperCase()},
-                  {telefono_secundario: r2.contact_user.secondary_phone_number.toUpperCase()},
-                  {correo_electronico:r2.contact_user.email.toUpperCase()},
-                  {provincia:provincia.name.toUpperCase()},
-                  {canton:canton.name.toUpperCase()},
-                  {parroquia:parroquia.name.toUpperCase()},
-                  {referencia_ubicacion: r2.establishment.address_reference},
-                  {calle_principal: r2.establishment.address_main_street.toUpperCase()},
-                  {numeracion: r2.establishment.address_number.toUpperCase()},
-                  {calle_secundaria: r2.establishment.address_secondary_street.toUpperCase()}];
-                  let iniciales_tecnico_zonal = '';
-                  this.user.name.split(' ').forEach(element => {
-                     iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
-                  });
-                 let qr_value = 'MT-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-                 let document = new Documento();
-                 document.activity = this.registerMinturSelected.activity.toUpperCase();
-                 document.code = qr_value;
-                 document.document_type = 'CHECKLIST';
-                 let paramsToBuild = {
-                  requisites: requisites, capacities: capacities, tariffs: tariffs, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
-                 }
-                 document.procedure_id = this.tipo_tramite.toUpperCase();
-                 document.zonal = zonal.name;
-                 document.user = iniciales_tecnico_zonal;
-                 document.params = JSON.stringify(paramsToBuild);
-                 this.documentDataService.post(document).then().catch( e => { console.log(e); });
-                 const complementary_services = [];
-                 r0.complementary_service_foods_on_register.forEach(element => {
-                    let complementary_service_food_type = '';
-                    this.complementaryServiceFoodTypes.forEach(ct => {
-                       if (ct.id == element.complementary_service_food_type_id) {
-                        complementary_service_food_type = ct.name.toString();
-                       }
-                    });
-                    const newComplementaryService = {type: complementary_service_food_type, tables: element.quantity_tables, spaces: element.quantity_chairs};
-                    complementary_services.push(newComplementaryService);
-                 });
-                 this.exporterDataService.getPDFNormativa(this.activity, requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
-                  const byteCharacters = atob(r);
-                  const byteNumbers = new Array(byteCharacters.length);
-                  for (let i = 0; i < byteCharacters.length; i++) {
-                     byteNumbers[i] = byteCharacters.charCodeAt(i);
-                  }
-                  const byteArray = new Uint8Array(byteNumbers);
-                  const blob = new Blob([byteArray], { type: 'application/pdf'});
-                  saveAs(blob, qr_value + '.pdf');
-                  this.please_wait_requisites = false;
-                 }).catch( e => { console.log(e); });
-               }).catch( e => console.log(e) );
-            }).catch( e => { console.log(e); });
-         }).catch( e => { console.log(e); });
-        }).catch( e => { console.log(e); });
-     }
-     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-      this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
-         this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-               const capacities = r0.capacities_on_register;
-               const workers_on_establishment: Worker[] = [];
-               this.genders.forEach(gender => {
-                  this.worker_groups.forEach(worker_group => {
-                     const newEstablishmentWorker = new Worker();
-                     newEstablishmentWorker.gender_id = gender.id;
-                     newEstablishmentWorker.gender_name = gender.name;
-                     newEstablishmentWorker.worker_group_id = worker_group.id;
-                     newEstablishmentWorker.worker_group_name = worker_group.name;
-                     newEstablishmentWorker.is_max = worker_group.is_max;
-                     workers_on_establishment.push(newEstablishmentWorker);
-                  });
-               });
-               const personal = [];
-               workers_on_establishment.forEach(worker_group_template => {
-                  let newworkergroup = {worker_group_name: '', gender_name: '', count: ''};
-                  r2.workers_on_establishment.forEach(worker_group_in => {
-                     if (worker_group_in.worker_group_id == worker_group_template.worker_group_id && worker_group_in.gender_id == worker_group_template.gender_id) {
-                        newworkergroup.worker_group_name = worker_group_template.worker_group_name.toString();
-                        newworkergroup.gender_name = worker_group_template.gender_name.toString();
-                        newworkergroup.count = worker_group_in.count;
-                     }
-                  });
-                  personal.push(newworkergroup);
-               });
-               const requisites = [];
-               let register_type_father_code = '';
-               this.register_types_AB.forEach(element => {
-                  if (element.id == r0.register.register_type_id) {
-                     register_type_father_code = element.father_code.toString();
-                  }
-               });
-               let register_type_father_id = 0;
-               this.register_types_AB.forEach(element => {
-                  if (element.code == register_type_father_code) {
-                     register_type_father_id = element.id;
-                  }
-               });
-               this.requisiteABDataService.get_filtered(register_type_father_id).then( r => {
-                  this.requisitesByRegisterType = r as any[];
-                  this.requisitesByRegisterType.forEach(element => {
-                     const newRegisterRequisite = new RegisterABRequisite();
-                     newRegisterRequisite.to_approve = element.to_approve;
-                     newRegisterRequisite.score = element.score;
-                     newRegisterRequisite.requisite_name = element.name;
-                     newRegisterRequisite.requisite_id = element.id;
-                     newRegisterRequisite.fullfill = true;
-                     newRegisterRequisite.requisite_code = element.code;
-                     newRegisterRequisite.mandatory = element.mandatory;
-                     newRegisterRequisite.id = element.id;
-                     newRegisterRequisite.requisite_father_code = element.father_code;
-                     newRegisterRequisite.level = element.code.split('.').length;
-                     newRegisterRequisite.HTMLtype = element.type;
-                     newRegisterRequisite.fullfill = false;
-                     if (newRegisterRequisite.HTMLtype == 'YES / NO') {
-                        newRegisterRequisite.value = '0';
-                     }
-                     if (newRegisterRequisite.HTMLtype == 'NUMBER') {
-                        newRegisterRequisite.value = '0';
-                     }
-                     if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
-                        newRegisterRequisite.value = 'false';
-                     }
-                     requisites.push(newRegisterRequisite);
-                  });
-                  requisites.sort(function(a, b) {
-                     const a_id = a.requisite_id;
-                     const b_id = b.requisite_id;
-                     return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
-                 });
-                 requisites.forEach(requisite_template => {
-                    r0.requisites.forEach(requisite_in => {
-                       if (requisite_template.requisite_id == requisite_in.requisite_id) {
-                        requisite_template.fullfill = requisite_in.fullfill;
-                        requisite_template.value = requisite_in.value;
-                       }
-                    });
-                 });
-                 let fecha_registro = '';
-                 if (r2.establishment.as_turistic_register_date == null || typeof r2.establishment.as_turistic_register_date == 'undefined') {
-                  fecha_registro = 'PENDIENTE';
-                 } else {
-                  fecha_registro = (new Date(r2.establishment.as_turistic_register_date)).toLocaleDateString();
-                 }
-                 if (this.as_turistic_date !== null) {
-                  fecha_registro = this.as_turistic_date.toLocaleDateString();
-                 }
-                 let local = '';
-                 if (r2.establishment.establishment_property_type_id == 1) {
-                  local = 'PROPIO';
-                 } else {
-                  local = 'ARRENDADO';
-                 }
-                 let clasificacion = '';
-                 this.register_types_AB.forEach(element => {
-                  if (element.id == r0.register.register_type_id) {
-                     clasificacion = element.name.toString();
-                  }
-                 });
-                 let actividad = this.registerMinturSelected.activity.toUpperCase();
-                 let tipo_establecimiento = '';
-                 this.ruc_name_types.forEach(element => {
-                    if (element.id == r2.establishment.ruc_name_type_id) {
-                       tipo_establecimiento = element.name.toString();
-                    }
-                 });
-                 let provincia = new Ubication();
-                 let canton = new Ubication();
-                 let parroquia = new Ubication();
-                 let zonal = new Ubication();
-                 this.ubications.forEach(element => {
-                   if (element.id == r2.establishment.ubication_id) {
-                     parroquia = element;
-                   }
-                 });
-                 this.ubications.forEach(element => {
-                   if (element.code == parroquia.father_code) {
-                     canton = element;
-                   }
-                 });
-                 this.ubications.forEach(element => {
-                   if (element.code == canton.father_code) {
-                     provincia = element;
-                   }
-                 });
-                 this.ubications.forEach(element => {
-                   if (element.code == provincia.father_code) {
-                     zonal = element;
-                   }
-                 });
-                 const today = new Date();
-                 let iniciales_cordinacion_zonal = '';
-                 const zonalName = zonal.name.split(' ');
-                 iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-                 const params = [{nombre_tecnico_zonal: this.user.name},
-                  {dia: today.getDate()},
-                  {mes: today.getMonth() + 1},
-                  {year: today.getFullYear()},
-                  {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
-                  {razon_social: this.razon_social.toUpperCase()},
-                  {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
-                  {actividad: actividad.toUpperCase()},
-                  {categoria: clasificacion.toUpperCase()},
-                  {tipo_establecimiento:tipo_establecimiento.toUpperCase()},
-                  {representante_legal: this.representante_legal.toUpperCase()},
-                  {telefono_principal: r2.contact_user.main_phone_number.toUpperCase()},
-                  {local: local.toUpperCase()},
-                  {pagina_web: r2.establishment.url_web.toUpperCase()},
-                  {numero_registro: r0.register.code.toUpperCase()},
-                  {fecha_registro: fecha_registro.toUpperCase()},
-                  {tipo_tramite: this.tipo_tramite.toUpperCase()},
-                  {clasificacion: r0.register_category.name.toUpperCase()},
-                  {franquicia_cadena: r2.establishment.franchise_chain_name.toUpperCase()},
-                  {contacto_establecimiento: r2.contact_user.name.toUpperCase()},
-                  {telefono_secundario: r2.contact_user.secondary_phone_number.toUpperCase()},
-                  {correo_electronico:r2.contact_user.email.toUpperCase()},
-                  {provincia:provincia.name.toUpperCase()},
-                  {canton:canton.name.toUpperCase()},
-                  {parroquia:parroquia.name.toUpperCase()},
-                  {referencia_ubicacion: r2.establishment.address_reference},
-                  {calle_principal: r2.establishment.address_main_street.toUpperCase()},
-                  {numeracion: r2.establishment.address_number.toUpperCase()},
-                  {calle_secundaria: r2.establishment.address_secondary_street.toUpperCase()}];
-                  let iniciales_tecnico_zonal = '';
-                  this.user.name.split(' ').forEach(element => {
-                     iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
-                  });
-                 let qr_value = 'MT-CHL-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-CHECKLIST-' + this.activity.toUpperCase() + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-                 let document = new Documento();
-                 document.activity = this.registerMinturSelected.activity.toUpperCase();
-                 document.code = qr_value;
-                 document.document_type = 'CHECKLIST';
-                 let paramsToBuild = {
-                  requisites: requisites, capacities: capacities, personal: personal, latitud: r2.establishment.address_map_latitude, longitud: r2.establishment.address_map_longitude, qr: true, qr_value: qr_value, params: params
-                 }
-                 document.procedure_id = this.tipo_tramite.toUpperCase();
-                 document.zonal = zonal.name;
-                 document.user = iniciales_tecnico_zonal;
-                 document.params = JSON.stringify(paramsToBuild);
-                 this.documentDataService.post(document).then().catch( e => { console.log(e); });
-                 const tariffs = [];
-                 const complementary_services = [];
-                 this.exporterDataService.getPDFNormativa(this.activity.toUpperCase(),requisites, capacities, tariffs, complementary_services, personal, r2.establishment.address_map_latitude, r2.establishment.address_map_longitude, true, qr_value, params).then( r => {
-                  const byteCharacters = atob(r);
-                  const byteNumbers = new Array(byteCharacters.length);
-                  for (let i = 0; i < byteCharacters.length; i++) {
-                     byteNumbers[i] = byteCharacters.charCodeAt(i);
-                  }
-                  const byteArray = new Uint8Array(byteNumbers);
-                  const blob = new Blob([byteArray], { type: 'application/pdf'});
-                  saveAs(blob, qr_value + '.pdf');
-                  this.please_wait_requisites = false;
-                 }).catch( e => { console.log(e); });
-               }).catch( e => console.log(e) );
-         }).catch( e => { console.log(e); });
-      }).catch( e => { console.log(e); });
-     }
   }
 
   validateNotesInspection(): Boolean {
