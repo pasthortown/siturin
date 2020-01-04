@@ -82,7 +82,7 @@
   </div>
 </div>
 <div class="row" *ngIf="mostrarDataRegisterMintur">
-  <div class="col-12">
+  <div class="col-12" *ngIf="registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN'">
     <label class="col-form-label"><strong>Técnico Zonal Asignado</strong></label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -96,7 +96,7 @@
       </select>
     </div>
   </div>
-  <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes != '' && !rechazarTramite && digito != '4'">
+  <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN' && (registerApprovalInspector.notes != '' && !rechazarTramite && digito != '4')">
     <strong>Motivo de devolución de trámite</strong>
       <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes">
       </div>
