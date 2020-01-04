@@ -1204,38 +1204,21 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalInspector.id_user = this.inspectorSelectedId;
    this.registerApprovalInspector.date_assigment = new Date();
    this.registerApprovalInspector.notes = '';
+   const newRegisterState = new RegisterState();
+   newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+   newRegisterState.register_id = this.idRegister;
+   newRegisterState.state_id = this.stateTramiteId + 3;
+   this.asignandoInspector = false;
    if (this.activity == 'ALOJAMIENTO') {
       this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
-         const newRegisterState = new RegisterState();
-         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
-         newRegisterState.register_id = this.idRegister;
-         newRegisterState.state_id = this.stateTramiteId + 3;
-         this.asignandoInspector = false;
-         if (this.activity == 'ALOJAMIENTO') {
-            this.registerStateDataService.post(newRegisterState).then( r1 => {
-            }).catch( e => { console.log(e); });
-         }
-         if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-            this.registerStateABDataService.post(newRegisterState).then( r1 => {
-            }).catch( e => { console.log(e); });
-         }
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
       this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
-         const newRegisterState = new RegisterState();
-         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
-         newRegisterState.register_id = this.idRegister;
-         newRegisterState.state_id = this.stateTramiteId + 3;
-         this.asignandoInspector = false;
-         if (this.activity == 'ALOJAMIENTO') {
-            this.registerStateDataService.post(newRegisterState).then( r1 => {
-            }).catch( e => { console.log(e); });
-         }
-         if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-            this.registerStateABDataService.post(newRegisterState).then( r1 => {
-            }).catch( e => { console.log(e); });
-         }
+         this.registerStateABDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
    let clasificacion: String = '';
@@ -1359,7 +1342,27 @@ export class CoordinadorComponent implements OnInit {
   }
 
   noRequiereInspeccion() {
-      alert('hola');
+     alert(this.stateTramiteId);
+     return;
+   this.registerApprovalInspector.id_user = 9999999999;
+   this.registerApprovalInspector.date_assigment = new Date();
+   this.registerApprovalInspector.notes = 'NO REQUIERE INSPECCIÓN';
+   const newRegisterState = new RegisterState();
+   newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
+   newRegisterState.register_id = this.idRegister;
+   newRegisterState.state_id = this.stateTramiteId + 3;
+   if (this.activity == 'ALOJAMIENTO') {
+      this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+   }
+   if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
+         this.registerStateABDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+   }      
   }
 
   desasignarInspector() {
