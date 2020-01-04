@@ -1878,6 +1878,10 @@ export class InspectorComponent implements OnInit {
                this.registerApprovalInspector.date_fullfill = new Date();
             }
             const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+            this.userDataService.get(zone.id_coordinator).then( resp => {
+               console.log(resp);
+            }).catch( e => { console.log(e); });
+            return;
             this.documentDataService.get_doc_id(qr_value).then( respuesta => {
                const codigo_informe = 'MT-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                const params = [{codigo_informe: codigo_informe},
@@ -1979,6 +1983,10 @@ export class InspectorComponent implements OnInit {
                zone = element;
             }
          });
+         this.userDataService.get(zone.id_coordinator).then( resp => {
+            console.log(resp);
+         }).catch( e => { console.log(e); });
+         return;
          const iniciales_cordinacion_zonal = zone.acronym;
          const today = new Date();
          let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
