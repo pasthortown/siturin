@@ -1,3 +1,5 @@
+import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
+import { Zone } from './../../../models/BASE/Zone';
 import { ApprovalStateReportService } from './../../../services/CRUD/ALOJAMIENTO/approvalstatereport.service';
 import { ApprovalStateReport } from './../../../models/ALOJAMIENTO/ApprovalStateReport';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
@@ -136,7 +138,7 @@ export class InspectorComponent implements OnInit {
    @ViewChild('pasos') pasosTabSet;
    @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
    tabActive = 'paso1';
-   zonales: any[] = [];
+   zonales: Zone[] = [];
    please_wait_requisites = false;
    tabActiveSuperior = 'tab1';
    tramite = '-';
@@ -408,6 +410,7 @@ export class InspectorComponent implements OnInit {
               private establishmentDataService: EstablishmentService,
               private register_typeDataService: RegisterTypeService,
               private requisiteDataService: RequisiteService,
+              private zoneDataService: ZoneService,
               private bedTypeDataService: BedTypeService,
               private declarationDataService: DeclarationService,
               private declarationItemCategoryDataService: DeclarationItemCategoryService,
@@ -3253,7 +3256,7 @@ export class InspectorComponent implements OnInit {
   }
 
   getZonales() {
-   this.consultorDataService.get_zonales().then( r => {
+   this.zoneDataService.get().then( r => {
       this.zonales = r;
    }).catch( e => { console.log(e); });
   }
