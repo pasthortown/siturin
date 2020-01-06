@@ -100,9 +100,9 @@ export class CapacityComponent implements OnInit {
    toCSV() {
       this.capacityDataService.get().then( r => {
          const backupData = r as Capacity[];
-         let output = 'id;quantity_tables;quantity_spaces;capacity_type_id\n';
+         let output = 'id;quantity_tables;quantity_spaces;year;capacity_type_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.quantity_tables + ';' + element.quantity_spaces + ';' + element.capacity_type_id + '\n';
+            output += element.id; + element.quantity_tables + ';' + element.quantity_spaces + ';' + element.year + ';' + element.capacity_type_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

@@ -33,6 +33,7 @@
                <th>Seleccionado</th>
                <th>quantity_tables</th>
                <th>quantity_spaces</th>
+               <th>year</th>
             </tr>
          </thead>
          <tbody>
@@ -40,6 +41,7 @@
                <td class="text-right"><span *ngIf="capacitySelected === capacity" class="far fa-hand-point-right"></span></td>
                <td>{{capacity.quantity_tables}}</td>
                <td>{{capacity.quantity_spaces}}</td>
+               <td>{{capacity.year}}</td>
             </tr>
          </tbody>
       </table>
@@ -86,6 +88,12 @@
                <label for="quantity_spaces" class="col-4 col-form-label">quantity_spaces</label>
                <div class="col-8">
                   <input type="number" class="form-control" id="quantity_spaces" name="quantity_spaces" placeholder="quantitySpaces" [(ngModel)]="capacitySelected.quantity_spaces">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="year" class="col-4 col-form-label">year</label>
+               <div class="col-8">
+                  <input type="number" class="form-control" id="year" name="year" placeholder="year" [(ngModel)]="capacitySelected.year">
                </div>
             </div>
             <div class="form-group row">

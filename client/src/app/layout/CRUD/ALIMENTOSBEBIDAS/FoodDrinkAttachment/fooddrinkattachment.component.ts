@@ -113,9 +113,9 @@ export class FoodDrinkAttachmentComponent implements OnInit {
    toCSV() {
       this.food_drink_attachmentDataService.get().then( r => {
          const backupData = r as FoodDrinkAttachment[];
-         let output = 'id;type;food_drink_attachment_file_type;food_drink_attachment_file_name;food_drink_attachment_file;date;register_id\n';
+         let output = 'id;type;food_drink_attachment_file_type;food_drink_attachment_file_name;food_drink_attachment_file;date;year;register_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.type + ';' + element.food_drink_attachment_file_type + ';' + element.food_drink_attachment_file_name + ';' + element.food_drink_attachment_file + ';' + element.date + ';' + element.register_id + '\n';
+            output += element.id; + element.type + ';' + element.food_drink_attachment_file_type + ';' + element.food_drink_attachment_file_name + ';' + element.food_drink_attachment_file + ';' + element.date + ';' + element.year + ';' + element.register_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

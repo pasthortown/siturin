@@ -36,6 +36,7 @@
                <th>food_drink_attachment_file_name</th>
                <th>food_drink_attachment_file</th>
                <th>date</th>
+               <th>year</th>
                <th>Opciones</th>
             </tr>
          </thead>
@@ -47,6 +48,7 @@
                <td>{{food_drink_attachment.food_drink_attachment_file_name}}</td>
                <td>{{food_drink_attachment.food_drink_attachment_file}}</td>
                <td>{{food_drink_attachment.date}}</td>
+               <td>{{food_drink_attachment.year}}</td>
                <th><button type="button" title="Descargar" class="btn btn-success" (click)="downloadFile(food_drink_attachment.food_drink_attachment_file, food_drink_attachment.food_drink_attachment_file_type, food_drink_attachment.food_drink_attachment_file_name)"><i class="fas fa-download"></i></button></th>
             </tr>
          </tbody>
@@ -112,6 +114,12 @@
                <label for="date" class="col-4 col-form-label">date</label>
                <div class="col-8">
                   <input type="date" class="form-control" id="date" name="date" placeholder="date" [ngModel]="food_drink_attachmentSelected.date | date:'y-MM-dd'" (ngModelChange)="food_drink_attachmentSelected.date = $event">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="year" class="col-4 col-form-label">year</label>
+               <div class="col-8">
+                  <input type="number" class="form-control" id="year" name="year" placeholder="year" [(ngModel)]="food_drink_attachmentSelected.year">
                </div>
             </div>
             <div class="form-group row">
