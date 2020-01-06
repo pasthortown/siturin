@@ -193,6 +193,21 @@
          </li>
       </div>
       <div *ngIf="isAdmin" class="nested-menu">
+         <a class="list-group-item" (click)="addExpandClass('bdd gad')">
+            <span class="fas fa-database"></span>&nbsp;BDD GAD
+         </a>
+         <li class="nested" [class.expand]="showMenu === 'bdd gad'">
+            <ul class="submenu">
+               <li>
+                  <a [routerLink]="['/report']" [routerLinkActive]="['router-link-active']" class="list-group-item">Report </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/report_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">ReportAttachment </a>
+               </li>
+            </ul>
+         </li>
+      </div>
+      <div *ngIf="isAdmin" class="nested-menu">
          <a class="list-group-item" (click)="addExpandClass('bdd base')">
             <span class="fas fa-database"></span>&nbsp;BDD Base
          </a>
