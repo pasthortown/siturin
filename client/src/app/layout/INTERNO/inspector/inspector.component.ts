@@ -2120,7 +2120,7 @@ export class InspectorComponent implements OnInit {
             if (noAdmitido) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
-            const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + '23:59:59');
+            const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
             if (dateByUser < today) {
                return 'No se admiten fechas pasadas.';
             }
@@ -2134,7 +2134,7 @@ export class InspectorComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
          const dateParts = result.value.split('/'); 
-         const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + '23:59:59');
+         const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
          console.log(dateByUser);
          if (this.activity == 'ALOJAMIENTO') {
                this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
