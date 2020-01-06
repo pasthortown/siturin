@@ -484,6 +484,18 @@ const routes: Routes = [
             loadChildren: './CRUD/CATASTRO/Register/register.module#RegisterModule'
          },
 
+         //GAD
+
+         {
+            path: 'report',
+            loadChildren: './CRUD/GAD/Report/report.module#ReportModule'
+         },
+         {
+            path: 'report_attachment',
+            loadChildren: './CRUD/GAD/ReportAttachment/reportattachment.module#ReportAttachmentModule'
+         },
+
+
          //ADMINISTRATORS
 
          {
