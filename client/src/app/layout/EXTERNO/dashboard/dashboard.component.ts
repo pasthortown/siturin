@@ -2214,7 +2214,6 @@ export class DashboardComponent implements OnInit {
    this.REGCIVILREPRESENTANTELEGALOK = false;
    this.guardando = false;
    this.ruc_registro_selected = new RegistroDataCarrier();
-   this.getRuc(this.user.ruc);
    this.getTaxPayerType();
    this.getAllCapacityTypes();
    this.getGroupType();
@@ -2378,8 +2377,6 @@ export class DashboardComponent implements OnInit {
          this.checkRuc();
       } else {
          this.ruc_registro_selected.ruc = r.Ruc as Ruc;
-         this.getPays();
-         this.getRegistersOnRuc();
          this.ruc_registro_selected.ruc.establishments = [];
          this.ruc_registro_selected.ruc.contact_user = r.contact_user as User;
          if (r.group_given == '0') {
@@ -2401,14 +2398,6 @@ export class DashboardComponent implements OnInit {
          if(this.ruc_registro_selected.ruc.tax_payer_type_id > 1) {
             this.getPersonRepresentativeAttachment(this.ruc_registro_selected.ruc.number);
          }
-         this.consumoCedula = false;
-         this.consumoCedulaEstablishmentContact = false;
-         this.consumoRuc = false;
-         this.consumoCedulaRepresentanteLegal = false;
-         this.SRIOK = false;
-         this.REGCIVILOK = false;
-         this.REGCIVILOKEstablishment = false;
-         this.REGCIVILREPRESENTANTELEGALOK = false;
          this.getMyRegister(this.ruc_registro_selected.ruc.number);
          this.checkRuc();
          this.checkIdentificationRepresentant();
@@ -2868,8 +2857,8 @@ guardarDeclaracion() {
       return;
    }
    this.ruc_registro_selected.ruc.person_representative_attachment.ruc = this.ruc_registro_selected.ruc.number;
-   this.ruc_registro_selected.ruc.contact_user_id = this.user.id;
    this.guardando = true;
+   this.ruc_registro_selected.ruc.contact_user_id = this.user.id;
    if (typeof this.ruc_registro_selected.ruc.id === 'undefined') {
       this.rucDataService.register_ruc(this.ruc_registro_selected.ruc).then( r => {
          this.guardando = false;
@@ -2878,7 +2867,7 @@ guardarDeclaracion() {
             return;
          }
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
-         this.getRuc(this.user.ruc);
+         this.refresh();
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -2892,7 +2881,7 @@ guardarDeclaracion() {
             return;
          }
          this.toastr.successToastr('Datos actualizados satisfactoriamente.', 'Actualizar');
-         this.getRuc(this.user.ruc);
+         this.refresh();
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -3151,6 +3140,7 @@ guardarDeclaracion() {
   }
 
   getRegistersOnRuc() {
+     console.log('ENTREEE');
    this.rucEstablishmentRegisterSelected = new Register();
    this.mostrarDataRegister = false;
    this.ruc_registro_selected.registers = [];
