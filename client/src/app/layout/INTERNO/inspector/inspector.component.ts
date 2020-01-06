@@ -2122,6 +2122,7 @@ export class InspectorComponent implements OnInit {
             }
             const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]);
             if (dateByUser < today) {
+               console.log(dateByUser);
                return 'No se admiten fechas pasadas.';
             }
             this.please_wait_requisites = true;
