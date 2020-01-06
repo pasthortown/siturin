@@ -2120,7 +2120,7 @@ export class InspectorComponent implements OnInit {
             if (noAdmitido) {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
-            const dateByUser = new Date(value);
+            const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]);
             if (dateByUser < today) {
                return 'No se admiten fechas pasadas.';
             }
