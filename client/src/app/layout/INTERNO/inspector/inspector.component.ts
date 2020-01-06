@@ -2122,7 +2122,6 @@ export class InspectorComponent implements OnInit {
             }
             const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + '23:59:59');
             if (dateByUser < today) {
-               console.log(dateByUser);
                return 'No se admiten fechas pasadas.';
             }
             this.please_wait_requisites = true;
@@ -2134,6 +2133,8 @@ export class InspectorComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
+         const dateParts = result.value.split('/'); 
+         const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + '23:59:59');
          if (this.activity == 'ALOJAMIENTO') {
                this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
                this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
@@ -2305,14 +2306,13 @@ export class InspectorComponent implements OnInit {
                         }
                      });
                      const today = new Date();
-                     const userDate = new Date(result.value);
                      let iniciales_cordinacion_zonal = '';
                      const zonalName = zonal.name.split(' ');
                      iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
                      const params = [{nombre_tecnico_zonal: this.user.name},
-                        {dia: userDate.getDate()},
-                        {mes: userDate.getMonth() + 1},
-                        {year: userDate.getFullYear()},
+                        {dia: dateByUser.getDate()},
+                        {mes: dateByUser.getMonth() + 1},
+                        {year: dateByUser.getFullYear()},
                         {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
                         {razon_social: this.razon_social.toUpperCase()},
                         {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
@@ -2516,14 +2516,13 @@ export class InspectorComponent implements OnInit {
                         }
                      });
                      const today = new Date();
-                     const userDate = new Date(result.value);
                      let iniciales_cordinacion_zonal = '';
                      const zonalName = zonal.name.split(' ');
                      iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
                      const params = [{nombre_tecnico_zonal: this.user.name},
-                        {dia: userDate.getDate()},
-                        {mes: userDate.getMonth() + 1},
-                        {year: userDate.getFullYear()},
+                        {dia: dateByUser.getDate()},
+                        {mes: dateByUser.getMonth() + 1},
+                        {year: dateByUser.getFullYear()},
                         {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
                         {razon_social: this.razon_social.toUpperCase()},
                         {ruc: this.ruc_registro_selected.ruc.number.toUpperCase()},
