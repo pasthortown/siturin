@@ -342,7 +342,14 @@
             <ng-template ngbTabContent>
               <div class="row mt-3">
                 <h4 class="col-12">
-                  <strong>Listado de Establecimientos Inscritos en el RUC*</strong>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="getEstablishmentsOnRuc(1)">
+                        <i class="fas fa-sync"></i>
+                      </button>
+                    </div>
+                    <strong>&nbsp;Listado de Establecimientos Inscritos en el RUC*</strong>
+                  </div>
                 </h4>
                 <div class="col-12">
                   <div class="alert alert-info mt-2 mb-2" role="alert">
@@ -441,7 +448,7 @@
                                               <div class="alert alert-info mt-2 mb-2" role="alert">
                                                 <label class="col-12 text-justify"><strong>Información</strong></label><br />
                                                 <p>Estimado usuario, el sistema ha detectado que su nombre comercial contiene alguno de 
-                                                  los siguientes términos/frases listadas en el documento PDF adjunto <a href="assets/documents/docgeninsp.pdf" download="Palabras no Admitidas.pdf" title="Descargar Listado - Palabras no Admitidas"></a>; por lo que de acuerdo al 
+                                                  los siguientes términos/frases listadas en el documento PDF adjunto <a href="assets/documents/nombrecomercial.pdf" download="Palabras no Admitidas en Nombre Comercial.pdf" title="Descargar Listado - Palabras no Admitidas"></a>; por lo que de acuerdo al 
                                                   artículo 63 del Reglamento General a la Ley de Turismo, “Uso de denominación.-
                                                   Ningún establecimiento podrá usar denominación, razón social o nombre comercial y 
                                                   clasificación o categoría distintas a las que constan en el registro. El incumplimiento de 
@@ -713,7 +720,6 @@
                                         " [markerDraggable]="true" (dragEnd)="address_mapEventEstablishment($event)"
                                         [animation]="'DROP'"></agm-marker>
                                     </agm-map>
-
                                     <agm-map class="col-12" *ngIf="!rucEstablishmentRegisterSelected.editable" style="height: 400px;" [latitude]="
                                         establishment_selected.address_map_latitude * 1
                                       " [longitude]="
@@ -1288,10 +1294,10 @@
                                 <div class="form-group">
                                   <label>Actividad Turística</label><span *ngIf="actividadSelected == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
-                                  <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                  <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="(!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2'">
                                     <option value="-" selected>Seleccione...</option>
-                                    <option value="1" selected>Alojamiento Turístico</option>
-                                    <option value="2" *ngIf="regionSelectedCode == '1'" selected>Alimentos y Bebidas</option>
+                                    <option value="1" *ngIf="canAlojamiento">Alojamiento Turístico</option>
+                                    <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas">Alimentos y Bebidas</option>
                                   </select>
                                 </div>
                               </div>
@@ -1300,7 +1306,7 @@
                                   <label>Clasificación</label><span *ngIf="categorySelectedCode == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="register_type_id" name="register_type_id"
-                                    (change)="getCategories()" [(ngModel)]="categorySelectedCode" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                    (change)="getCategories()" [(ngModel)]="categorySelectedCode" [disabled]="(!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2'">
                                     <option value="-" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of clasifications_registers
@@ -1337,13 +1343,13 @@
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row mt-3" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
                         <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
-                          <div class="col-12">
+                          <div class="col-12" *ngIf="actividadSelected !== '2'">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
                               <p class="col-12 text-justify">Habitación doble (matrimonial): Permite la pernoctación y alojamiento de dos personas, ocupando una cama doble o dos camas individuales.</p>
@@ -1353,7 +1359,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && actividadSelected !== '2'">
                           <div class="col-12">
                             <label class="col-form-label mb-2"><strong>Habitaciones del Establecimiento</strong><span
                                 class="ml-2 mr-2 badge badge-info">Total de Habitaciones:
@@ -1427,31 +1433,37 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && categorySelectedCode !== '-' && actividadSelected == '2'">
                           <div class="col-12">
                             <table class="table table-hover mt-2">
                               <thead>
                                 <th>Mesas</th>
                                 <th>Plazas</th>
+                                <th></th>
                               </thead>
                               <tbody>
                                 <tr *ngFor="let capacity of rucEstablishmentRegisterSelected.capacities_on_register">
                                   <td>
                                       <input type="number" class="form-control" min="0" max="9999" id="count_space_AB" name="count_space_AB"
-                                      placeholder="Cantidad de Mesas" [(ngModel)]="capacity.quantity_tables" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
+                                      placeholder="Cantidad de Mesas" [(ngModel)]="capacity.quantity_tables" [disabled]="!rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
                                   </td>
                                   <td>
                                     <div class="col-12">
                                         <input type="number" class="form-control" min="0" max="9999" id="count_plazas_AB" name="count_plazas_AB"
-                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.quantity_spaces" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
+                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.quantity_spaces" [disabled]="!rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
                                     </div>
+                                  </td>
+                                  <td>
+                                    <span *ngIf="
+                            categorySelectedCode !== '1.7' && (capacity.quantity_tables == 0 || capacity.quantity_spaces == 0)
+                          " class="ml-2 badge badge-danger">Incorrecto</span>
                                   </td>
                                 </tr>
                               </tbody>
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected !== '2' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
                           <h4 class="col-12">
                             <strong>Tarifario RACK</strong>
                           </h4>
@@ -1466,7 +1478,7 @@
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
                               <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
-                              <p class="col-12 text-justify">- Agregar un documento (PDF) donde se detalle el Nombre Comercial, Calle Principal, Calle Intersección, Impuestos cobrados en concordancia con la clasificación del establecimiento y el año de vigencia de la lista de precios; misma que, deberá contar con el precio final (incluido impuestos), de cada uno de los alimentos y/o bebidas que ofrece el establecimiento.</p>
+                              <p class="col-12 text-justify">- Agregar un documento (PDF) donde se detalle el Nombre Comercial, Calle Principal, Calle Intersección, Impuestos cobrados en concordancia con la clasificación del establecimiento y el año de vigencia de la lista de precios; misma que, deberá contar con el precio final (incluido impuestos), de cada uno de los alimentos y/o bebidas que ofrece el establecimiento. Y su firma de responsabilidad.</p>
                             </div>
                           </div>
                         </div>
@@ -1513,7 +1525,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected !== '2' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <div class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -1523,7 +1535,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <div class="col-12">
                               <table class="table table-hover mt-2">
                                 <thead>
@@ -1593,7 +1605,7 @@
                               [(ngModel)]="salaRecepciones.quantity" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
                           <div class="col-12">
                             <div class="form-group">
                                 <label><strong>Servicios Complementarios</strong></label>
@@ -1601,18 +1613,18 @@
                           </div>
                         </div>
                         <div class="form-group"
-                          *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                          *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
                           <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
-                     <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities"
-                                name="autorized_complementary_adventure_capacities" [(ngModel)]="
-                                  rucEstablishmentRegisterSelected.autorized_complementary_food_capacities
-                                " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_services_capacities">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
+                              <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities"
+                                          name="autorized_complementary_adventure_capacities" [(ngModel)]="
+                                            rucEstablishmentRegisterSelected.autorized_complementary_food_capacities
+                                          " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_services_capacities">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                              </label>
+                            </div>
                           </div>
                         </div>
                         <div class="row" *ngIf="rucEstablishmentRegisterSelected.autorized_complementary_food_capacities">
@@ -1649,7 +1661,6 @@
                                         {{ complementary_food_service_type.name }}
                                       </option>
                                     </select>
-
                                     <select *ngIf="!rucEstablishmentRegisterSelected.editable" class="form-control" id="complementary_service_food_id"
                                       name="complementary_service_food_id" [(ngModel)]="
                                       complementaryServiceFood.complementary_service_food_type_id
@@ -1685,7 +1696,9 @@
                         </div>
                         <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2'">
                           <h4 class="col-12">
-                            <strong>Tipo de Servicio</strong>
+                            <strong>Tipo de Servicio</strong><span
+                            *ngIf="rucEstablishmentRegisterSelected.service_types_on_register === []"
+                            class="ml-2 badge badge-danger">Incorrecto</span>
                           </h4>
                           <small class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
@@ -1747,9 +1760,11 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' ||categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' || categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
                           <h4 class="col-12">
-                            <strong>Tipo de Cocina</strong>
+                            <strong>Tipo de Cocina</strong><span
+                            *ngIf="rucEstablishmentRegisterSelected.kitchen_types_on_register === []"
+                            class="ml-2 badge badge-danger">Incorrecto</span>
                           </h4>
                           <small class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
@@ -1823,23 +1838,28 @@
                           </small>
                         </div>
                         <div class="form-group"
-                          *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                          *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
                           <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
-                     <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
-                                name="autorized_complementary_adventure_capacities" [(ngModel)]="
-                                  rucEstablishmentRegisterSelected.autorized_complementary_capacities
-                                " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_adventure_capacities">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
+                              <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
+                                          name="autorized_complementary_adventure_capacities" [(ngModel)]="
+                                            rucEstablishmentRegisterSelected.autorized_complementary_capacities
+                                          " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_adventure_capacities">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                              </label>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group row" *ngIf="
                             rucEstablishmentRegisterSelected.autorized_complementary_capacities
                           ">
+                          <div class="alert alert-warning mb-3 mt-3" role="alert">
+                            <label class="col-12 text-justify"><strong>Atención</strong><br />
+                              Si su respuesta es afirmativa, por favor registre las modalidades de turismo de aventura que ofrece el establecimiento.
+                            </label>
+                          </div>
                           <label class="col-12 col-form-label mb-2"><strong>Clases de Modalidades de Turismo de Aventura</strong></label>
                           <div class="col-12">
                             <div class="input-group" *ngIf="rucEstablishmentRegisterSelected.editable">
@@ -1900,13 +1920,15 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="!(actualizando || inactivando) && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0)">
+                        <div class="row" *ngIf="categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0)">
                           <div class="col-12">
                             <div class="row mt-3">
                                 <h4 class="col-12">
-                                  <strong>Normativa</strong>
+                                  <strong>Normativa</strong>&nbsp;
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown}}</span>&nbsp;
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
                                 </h4>
-                              </div>
+                            </div>
                           </div>
                           <div class="col-12">
                             <div class="alert alert-warning" role="alert">
@@ -1919,274 +1941,282 @@
                             </div>
                           </div>
                           <div class="col-12">
-                              <div class="form-group row">
-                                <div class="col-12">
-                                  <table class="table table-hover mt-2">
-                                    <tbody>
-                                      <tr *ngFor="
-                                              let register_requisite of rucEstablishmentRegisterSelected.requisites
-                                            ">
-                                        <td>
-                                          <label
-                                            *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' &&
-                                            register_requisite.HTMLtype !== 'GRUPO 1' &&
-                                            register_requisite.HTMLtype !== 'GRUPO 2' &&
-                                            register_requisite.HTMLtype !== 'GRUPO 3' &&
-                                            register_requisite.HTMLtype !== 'GRUPO 4' && 
-                                            register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong></label>
-                                          <h5>
-                                            <strong
-                                            *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
-                                          </h5>
-                                          <h6>
-                                            <strong
-                                              *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>  
-                                          </h6>
+                            <div class="form-group row">
+                              <div class="col-12">
+                                <table class="table table-hover mt-2">
+                                  <tbody>
+                                    <tr *ngFor="
+                                            let register_requisite of rucEstablishmentRegisterSelected.requisites
+                                          ">
+                                      <td>
+                                        <label
+                                          *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' &&
+                                          register_requisite.HTMLtype !== 'GRUPO 1' &&
+                                          register_requisite.HTMLtype !== 'GRUPO 2' &&
+                                          register_requisite.HTMLtype !== 'GRUPO 3' &&
+                                          register_requisite.HTMLtype !== 'GRUPO 4' && 
+                                          register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2' && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
+                                        <h5>
                                           <strong
-                                              *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
-                                          <i>
-                                            <strong
-                                              *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
-                                          </i>
-                                          <i>
-                                            <strong
-                                              *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
-                                          </i>
-                                          <i>
-                                            <strong
-                                              *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
-                                          </i>
-                                        </td>
-                                        <td>
-                                          <div class="onoffswitch"
-                                            *ngIf="register_requisite.HTMLtype == 'TRUE / FALSE'"><input
-                                              type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="{{register_requisite.id}}" name="cumple" [(ngModel)]="
-                                              register_requisite.fullfill
-                                                  " (change)="changeFullfill(register_requisite)" /><label class="onoffswitch-label" for="{{register_requisite.id}}">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
-                                          <select class="form-control" *ngIf="register_requisite.HTMLtype == 'YES / NO'"
-                                          [(ngModel)]="register_requisite.value" [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                          >
-                                            <option value="0" selected>Seleccione...</option>
-                                            <option value="SI" selected>SI</option>
-                                            <option value="NO" selected>NO</option>
-                                          </select>
-                                          <input type="number" *ngIf="register_requisite.HTMLtype == 'NUMBER'" [disabled]="!rucEstablishmentRegisterSelected.editable" [(ngModel)]="register_requisite.value" class="form-control" min="0" 
-                                          />
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                  <table class="table table-hover mt-2">
-                                    <tbody>
-                                      <tr>
-                                        <td>
-                                            <label>Idiomas de Atención en el
-                                                Establecimiento</label>
-                                        </td>
-                                        <td>
-                                          <div class="form-group row">
-                                            <div class="col-12">
-                                              <div class="input-group" *ngIf="rucEstablishmentRegisterSelected.editable">
-                                                <div class="input-group-prepend">
-                                                  <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeLanguage()">
-                                                    <i class="fas fa-trash"></i>
-                                                  </button>
-                                                  <button type="button" title="Agregar" class="btn btn-success" (click)="addLanguage()">
-                                                    <i class="fas fa-save"></i>
-                                                  </button>
-                                                </div>
-                                                <select class="form-control" id="language_id" name="language_id"
-                                                  [(ngModel)]="languages_establishmentSelectedId">
-                                                  <option value="0" selected>Seleccione...</option>
-                                                  <option *ngFor="let language of languages" value="{{ language.id }}">
-                                                    {{ language.name }}
-                                                  </option>
-                                                </select>
+                                          *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                        </h5>
+                                        <h6>
+                                          <strong
+                                            *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>  
+                                        </h6>
+                                        <strong
+                                            *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                        <i>
+                                          <strong
+                                            *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                        </i>
+                                        <i>
+                                          <strong
+                                            *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                        </i>
+                                        <i>
+                                          <strong
+                                            *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                        </i>
+                                      </td>
+                                      <td>
+                                        <div class="onoffswitch"
+                                          *ngIf="register_requisite.HTMLtype == 'TRUE / FALSE'"><input
+                                            type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="{{register_requisite.id}}" name="cumple" [(ngModel)]="
+                                            register_requisite.fullfill
+                                                " (change)="changeFullfill(register_requisite)" /><label class="onoffswitch-label" for="{{register_requisite.id}}">
+                                              <span class="onoffswitch-inner"></span>
+                                              <span class="onoffswitch-switch"></span>
+                                        </label>
+                                      </div>
+                                        <select class="form-control" *ngIf="register_requisite.HTMLtype == 'YES / NO'" (change)="calcTotalPoints()"
+                                        [(ngModel)]="register_requisite.value" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                        >
+                                          <option value="0" selected>Seleccione...</option>
+                                          <option value="SI" selected>SI</option>
+                                          <option value="NO" selected>NO</option>
+                                        </select>
+                                        <input type="number" *ngIf="register_requisite.HTMLtype == 'NUMBER'" [disabled]="!rucEstablishmentRegisterSelected.editable" [(ngModel)]="register_requisite.value" class="form-control" min="0" 
+                                        />
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <table class="table table-hover mt-2">
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                          <label>Idiomas de Atención en el
+                                              Establecimiento</label>
+                                      </td>
+                                      <td>
+                                        <div class="form-group row">
+                                          <div class="col-12">
+                                            <div class="input-group" *ngIf="rucEstablishmentRegisterSelected.editable">
+                                              <div class="input-group-prepend">
+                                                <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeLanguage()">
+                                                  <i class="fas fa-trash"></i>
+                                                </button>
+                                                <button type="button" title="Agregar" class="btn btn-success" (click)="addLanguage()">
+                                                  <i class="fas fa-save"></i>
+                                                </button>
                                               </div>
+                                              <select class="form-control" id="language_id" name="language_id"
+                                                [(ngModel)]="languages_establishmentSelectedId">
+                                                <option value="0" selected>Seleccione...</option>
+                                                <option *ngFor="let language of languages" value="{{ language.id }}">
+                                                  {{ language.name }}
+                                                </option>
+                                              </select>
                                             </div>
-                                            <small class="col-12">
-                                              <div class="alert alert-info mt-2 mb-2" role="alert">
-                                                <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                                                <p>Si requiere la adición de un tipo adicional en el listado, comuníquese con el Ministerio de Turismo.</p>
-                                              </div>
-                                            </small>
-                                            <div class="col-4"></div>
-                                            <div class="col-8">
-                                              <table class="table table-hover mt-2">
-                                                <tbody>
-                                                  <tr *ngFor="
-                                                      let language of establishment_selected.languages_on_establishment
-                                                    " (click)="selectLanguage(language)">
-                                                    <td class="text-right">
-                                                      <span *ngIf="
-                                                          languages_establishmentSelectedId ===
-                                                          language.id
-                                                        " class="far fa-hand-point-right"></span>
-                                                    </td>
-                                                    <td>{{ language.name }}</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>
-                                          <label>Certificado de Uso de Suelos*</label><span
-                                            *ngIf="certificadoUsoSuelo.floor_authorization_certificate_file === ''"
-                                            class="ml-2 badge badge-danger">Incorrecto</span>
-                                        </td>
-                                        <td>
-                                          <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <button
-                                                [disabled]="certificadoUsoSuelo.floor_authorization_certificate_file === ''"
-                                                type="button" title="Descargar Certificado" class="btn btn-primary" (click)="
-                                                      downloadFloorCertification()
-                                                    ">
-                                                <i class="fas fa-download"></i>
-                                              </button>
-                                              <button
-                                                [disabled]="certificadoUsoSuelo.floor_authorization_certificate_file === '' || !rucEstablishmentRegisterSelected.editable"
-                                                type="button" title="Eliminar" class="btn btn-danger"
-                                                (click)="borrarFloorCertificado()">
-                                                <i class="fas fa-trash"></i>
-                                              </button>
-                                            </div>
-                                            <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
-                                                  CodificarArchivoFloorCertification(
-                                                    $event
-                                                  )
-                                                " accept="application/pdf" />                                            
                                           </div>
                                           <small class="col-12">
                                             <div class="alert alert-info mt-2 mb-2" role="alert">
                                               <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                                              <p>Verifique que el certificado de uso de suelos sea acorde con la actividad turística solicitada.</p>
-                                              <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                                              <p>Si requiere la adición de un tipo adicional en el listado, comuníquese con el Ministerio de Turismo.</p>
                                             </div>
                                           </small>
-                                        </td>
-                                      </tr>
-                                      <tr *ngIf="rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46">
-                                        <td>
-                                          <label>Título de Propiedad del Inmueble o Poder Notarizado*</label><span
-                                            *ngIf="tituloPropiedad.property_title_attachment_file === ''"
-                                            class="ml-2 badge badge-danger">Incorrecto</span>
-                                        </td>
-                                        <td>
-                                          <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <button
-                                                [disabled]="tituloPropiedad.property_title_attachment_file === ''"
-                                                type="button" title="Descargar Título de Propiedad" class="btn btn-primary" (click)="
-                                                      downloadPropertyTitle()
-                                                    ">
-                                                <i class="fas fa-download"></i>
-                                              </button>
-                                              <button
-                                                [disabled]="tituloPropiedad.property_title_attachment_file === '' || !rucEstablishmentRegisterSelected.editable"
-                                                type="button" title="Eliminar" class="btn btn-danger"
-                                                (click)="borrarPropertyTitle()">
-                                                <i class="fas fa-trash"></i>
-                                              </button>
-                                            </div>
-                                            <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
-                                                  CodificarArchivoPropertyTitle(
-                                                    $event
-                                                  )
-                                                " accept="application/pdf" />                                            
+                                          <div class="col-4"></div>
+                                          <div class="col-8">
+                                            <table class="table table-hover mt-2">
+                                              <tbody>
+                                                <tr *ngFor="
+                                                    let language of establishment_selected.languages_on_establishment
+                                                  " (click)="selectLanguage(language)">
+                                                  <td class="text-right">
+                                                    <span *ngIf="
+                                                        languages_establishmentSelectedId ===
+                                                        language.id
+                                                      " class="far fa-hand-point-right"></span>
+                                                  </td>
+                                                  <td>{{ language.name }}</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
                                           </div>
-                                          <small class="col-12">
-                                            <div class="alert alert-info mt-2 mb-2" role="alert">
-                                              <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                                              <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
-                                            </div>
-                                          </small>
-                                        </td>
-                                      </tr>
-                                      <tr *ngIf="rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46">
-                                        <td>
-                                          <label>Autorización por Asamblea de Condóminos</label>
-                                        </td>
-                                        <td>
-                                          <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <button
-                                                [disabled]="autorizacionCondomino.authorization_attachment_file_name === ''"
-                                                type="button" title="Descargar Autorización por Asamblea de Condóminos" class="btn btn-primary" (click)="
-                                                      downloadAutorizacionCondominio()
-                                                    ">
-                                                <i class="fas fa-download"></i>
-                                              </button>
-                                              <button
-                                                [disabled]="autorizacionCondomino.authorization_attachment_file_name === '' || !rucEstablishmentRegisterSelected.editable"
-                                                type="button" title="Eliminar" class="btn btn-danger"
-                                                (click)="borrarAutorizacionCondominio()">
-                                                <i class="fas fa-trash"></i>
-                                              </button>
-                                            </div>
-                                            <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
-                                                  CodificarArchivoAutorizacionCondominio(
-                                                    $event
-                                                  )
-                                                " accept="application/pdf" />                                            
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <label>Certificado de Uso de Suelos*</label><span
+                                          *ngIf="certificadoUsoSuelo.floor_authorization_certificate_file === ''"
+                                          class="ml-2 badge badge-danger">Incorrecto</span>
+                                      </td>
+                                      <td>
+                                        <div class="input-group">
+                                          <div class="input-group-prepend">
+                                            <button
+                                              [disabled]="certificadoUsoSuelo.floor_authorization_certificate_file === ''"
+                                              type="button" title="Descargar Certificado" class="btn btn-primary" (click)="
+                                                    downloadFloorCertification()
+                                                  ">
+                                              <i class="fas fa-download"></i>
+                                            </button>
+                                            <button
+                                              [disabled]="certificadoUsoSuelo.floor_authorization_certificate_file === '' || !rucEstablishmentRegisterSelected.editable"
+                                              type="button" title="Eliminar" class="btn btn-danger"
+                                              (click)="borrarFloorCertificado()">
+                                              <i class="fas fa-trash"></i>
+                                            </button>
                                           </div>
-                                          <small class="col-12">
-                                            <div class="alert alert-info mt-2 mb-2" role="alert">
-                                              <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                                              <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
-                                            </div>
-                                          </small>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
+                                          <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
+                                                CodificarArchivoFloorCertification(
+                                                  $event
+                                                )
+                                              " accept="application/pdf" />                                            
+                                        </div>
+                                        <small class="col-12">
+                                          <div class="alert alert-info mt-2 mb-2" role="alert">
+                                            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                            <p>Verifique que el certificado de uso de suelos sea acorde con la actividad turística solicitada.</p>
+                                            <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                                          </div>
+                                        </small>
+                                      </td>
+                                    </tr>
+                                    <tr *ngIf="rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46">
+                                      <td>
+                                        <label>Título de Propiedad del Inmueble o Poder Notarizado*</label><span
+                                          *ngIf="tituloPropiedad.property_title_attachment_file === ''"
+                                          class="ml-2 badge badge-danger">Incorrecto</span>
+                                      </td>
+                                      <td>
+                                        <div class="input-group">
+                                          <div class="input-group-prepend">
+                                            <button
+                                              [disabled]="tituloPropiedad.property_title_attachment_file === ''"
+                                              type="button" title="Descargar Título de Propiedad" class="btn btn-primary" (click)="
+                                                    downloadPropertyTitle()
+                                                  ">
+                                              <i class="fas fa-download"></i>
+                                            </button>
+                                            <button
+                                              [disabled]="tituloPropiedad.property_title_attachment_file === '' || !rucEstablishmentRegisterSelected.editable"
+                                              type="button" title="Eliminar" class="btn btn-danger"
+                                              (click)="borrarPropertyTitle()">
+                                              <i class="fas fa-trash"></i>
+                                            </button>
+                                          </div>
+                                          <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
+                                                CodificarArchivoPropertyTitle(
+                                                  $event
+                                                )
+                                              " accept="application/pdf" />                                            
+                                        </div>
+                                        <small class="col-12">
+                                          <div class="alert alert-info mt-2 mb-2" role="alert">
+                                            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                            <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                                          </div>
+                                        </small>
+                                      </td>
+                                    </tr>
+                                    <tr *ngIf="rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46">
+                                      <td>
+                                        <label>Autorización por Asamblea de Condóminos</label>
+                                      </td>
+                                      <td>
+                                        <div class="input-group">
+                                          <div class="input-group-prepend">
+                                            <button
+                                              [disabled]="autorizacionCondomino.authorization_attachment_file_name === ''"
+                                              type="button" title="Descargar Autorización por Asamblea de Condóminos" class="btn btn-primary" (click)="
+                                                    downloadAutorizacionCondominio()
+                                                  ">
+                                              <i class="fas fa-download"></i>
+                                            </button>
+                                            <button
+                                              [disabled]="autorizacionCondomino.authorization_attachment_file_name === '' || !rucEstablishmentRegisterSelected.editable"
+                                              type="button" title="Eliminar" class="btn btn-danger"
+                                              (click)="borrarAutorizacionCondominio()">
+                                              <i class="fas fa-trash"></i>
+                                            </button>
+                                          </div>
+                                          <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
+                                                CodificarArchivoAutorizacionCondominio(
+                                                  $event
+                                                )
+                                              " accept="application/pdf" />                                            
+                                        </div>
+                                        <small class="col-12">
+                                          <div class="alert alert-info mt-2 mb-2" role="alert">
+                                            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                            <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                                          </div>
+                                        </small>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </div>
                             </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-12" *ngIf="!(actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))">
-                        <small class="col-12">
-                          <div class="alert alert-info mt-2 mb-2" role="alert">
-                            <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                            <p>Su establecimiento no cumple con los requisitos necesarios para continuar con su solicitud. Por favor revise la información ingresada.</p>
                           </div>
-                        </small>  
-                      </div>
-                      <div class="col-12 text-center">
-                        <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
-                          (click)="pasos.select('paso2')">
-                          <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-                        </button>
-                        <button [disabled]="false" *ngIf="validateRegister() || true" type="button" class="btn btn-success" title="Enviar Solicitud"
-                          (click)="guardarRegistro()">
-                          <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
-                        </button>
-                        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
-                            refresh()
-                          ">
-                          <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
-                        </button>
-                      </div>
+                          <div class="col-12" *ngIf="actividadSelected == '2'">
+                            <div class="row mt-3">
+                                <h4 class="col-12">
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown}}</span>&nbsp;
+                                  <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
+                                </h4>
+                            </div>
+                          </div>
+                        </div>
                     </div>
-                  </ng-template>
-                </ngb-tab>
-                </ngb-tabset>
-            </ng-template>
-          </ngb-tab>
-        </ngb-tabset>
-      </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-12" *ngIf="!(actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))">
+                      <small class="col-12">
+                        <div class="alert alert-info mt-2 mb-2" role="alert">
+                          <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                          <p>Su establecimiento no cumple con los requisitos necesarios para continuar con su solicitud. Por favor revise la información ingresada.</p>
+                        </div>
+                      </small>  
+                    </div>
+                    <div class="col-12 text-center">
+                      <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
+                        (click)="pasos.select('paso2')">
+                        <i class="fas fa-arrow-left"></i>&nbsp;Anterior
+                      </button>
+                      <button [disabled]="guardando" *ngIf="actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE'))" type="button" class="btn btn-success" title="Enviar Solicitud"
+                        (click)="guardarRegistro()">
+                        <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
+                      </button>
+                      <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
+                          refresh()
+                        ">
+                        <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
+                      </button>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              </ngb-tabset>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
     </div>
   </div>
+</div>
 </div>
 
 <ng-template #content let-modal>

@@ -1552,14 +1552,14 @@
                           <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
-                     <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities"
-                                name="autorized_complementary_adventure_capacities" [(ngModel)]="
-                                  rucEstablishmentRegisterSelected.autorized_complementary_food_capacities
-                                " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_services_capacities">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
+                              <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities"
+                                          name="autorized_complementary_adventure_capacities" [(ngModel)]="
+                                            rucEstablishmentRegisterSelected.autorized_complementary_food_capacities
+                                          " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_services_capacities">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                              </label>
+                            </div>
                           </div>
                         </div>
                         <div class="row" *ngIf="rucEstablishmentRegisterSelected.autorized_complementary_food_capacities">
@@ -1596,7 +1596,6 @@
                                         {{ complementary_food_service_type.name }}
                                       </option>
                                     </select>
-
                                     <select *ngIf="!rucEstablishmentRegisterSelected.editable" class="form-control" id="complementary_service_food_id"
                                       name="complementary_service_food_id" [(ngModel)]="
                                       complementaryServiceFood.complementary_service_food_type_id
@@ -1778,14 +1777,14 @@
                           <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
-                     <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
-                                name="autorized_complementary_adventure_capacities" [(ngModel)]="
-                                  rucEstablishmentRegisterSelected.autorized_complementary_capacities
-                                " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_adventure_capacities">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
+                              <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
+                                          name="autorized_complementary_adventure_capacities" [(ngModel)]="
+                                            rucEstablishmentRegisterSelected.autorized_complementary_capacities
+                                          " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_adventure_capacities">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                              </label>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group row" *ngIf="
