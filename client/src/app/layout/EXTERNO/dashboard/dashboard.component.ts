@@ -342,6 +342,7 @@ export class DashboardComponent implements OnInit {
   rack_prices_registerSelectedId = 0;
   establishment_service_offers_registerSelectedId = 0;
   tarifas: any[] = [];
+  registerTypesAB: any[] = [];
   states: State[] = [];
   complementaryServiceFoodTypes: ComplementaryServiceFoodType[] = [];
   
@@ -1072,6 +1073,29 @@ export class DashboardComponent implements OnInit {
       this.tituloPropiedad.property_title_attachment_file_name = file.name;
     };
    }
+  }
+
+  getRegisterTypesAB() {
+   this.registerTypesAB = [];
+   this.register_AlimentosBebidas_typeDataService.get().then( r => {
+      this.registerTypesAB = r;
+   }).catch( e => { console.log(e); });
+  }
+
+  getRegisterABType(register: any): any {
+   let clasificationABCode = '';
+   let clasificationAB = null;
+   this.registerTypesAB.forEach(registerType => {
+      if (register.register.register_type_id == registerType.id) {
+         clasificationABCode = registerType.father_code;
+      }
+   });
+   this.registerTypesAB.forEach(registerType => {
+      if (clasificationABCode == registerType.code) {
+         clasificationAB = registerType;
+      }
+   });
+   return clasificationAB;
   }
 
   CodificarArchivoAutorizacionCondominio(event) {
@@ -2176,6 +2200,7 @@ export class DashboardComponent implements OnInit {
 
   refresh() {
    this.fechasNombramiento();
+   this.getRegisterTypesAB();
    this.pays = [];
    this.consumoCedula = false;
    this.consumoCedulaEstablishmentContact = false;
