@@ -53,6 +53,7 @@ import { EstablishmentPicture } from 'src/app/models/BASE/EstablishmentPicture';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
@@ -376,6 +377,7 @@ export class DashboardComponent implements OnInit {
               private receptionRoomDataService: ReceptionRoomService,
               private catastroRegisterDataService: CatastroRegisterService,
               private payDataService: PayService,
+              private registerABDataService: RegisterABService,
               private registerProcedureDataService: RegisterProcedureService,
               private floorAuthorizationCertificateDataService: FloorAuthorizationCertificateService,
               private propertyTitleAttachmentDataService: PropertyTitleAttachmentService,
@@ -3151,8 +3153,18 @@ guardarDeclaracion() {
   getRegistersOnRuc() {
    this.rucEstablishmentRegisterSelected = new Register();
    this.mostrarDataRegister = false;
-   this.registerDataService.get_registers_by_ruc(this.ruc_registro_selected.ruc.number).then( r => {
-      this.ruc_registro_selected.registers = r as any[];
+   this.ruc_registro_selected.registers = [];
+   this.registerABDataService.get_registers_by_ruc(this.user.ruc).then( r => {
+      const registers = r as any[];
+      registers.forEach(element => {
+         this.ruc_registro_selected.registers.push(element);
+      });
+   }).catch( e => { console.log(e); });
+   this.registerDataService.get_registers_by_ruc(this.user.ruc).then( r => {
+      const registers = r as any[];
+      registers.forEach(element => {
+         this.ruc_registro_selected.registers.push(element);
+      });
    }).catch( e => { console.log(e); });
   }
 
