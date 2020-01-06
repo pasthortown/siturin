@@ -193,6 +193,24 @@
          </li>
       </div>
       <div *ngIf="isAdmin" class="nested-menu">
+         <a class="list-group-item" (click)="addExpandClass('bdd inactivacion')">
+            <span class="fas fa-database"></span>&nbsp;BDD INACTIVACION
+         </a>
+         <li class="nested" [class.expand]="showMenu === 'bdd inactivacion'">
+            <ul class="submenu">
+               <li>
+                  <a [routerLink]="['/inactivation_request']" [routerLinkActive]="['router-link-active']" class="list-group-item">InactivationRequest </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/inactivation_request_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">InactivationRequestAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/inactivation_state']" [routerLinkActive]="['router-link-active']" class="list-group-item">State </a>
+               </li>
+            </ul>
+         </li>
+      </div>
+      <div *ngIf="isAdmin" class="nested-menu">
          <a class="list-group-item" (click)="addExpandClass('bdd gad')">
             <span class="fas fa-database"></span>&nbsp;BDD GAD
          </a>
