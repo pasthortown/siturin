@@ -4104,6 +4104,8 @@ guardarDeclaracion() {
        }
      }
   });
+  console.log(this.canAlimentosBebidas);
+  console.log(this.canAlojamiento);
   if (isAlojamiento) {
     if (this.registersByEstablishment[0].register.id == 0) {
        this.rucEstablishmentRegisterSelected = new Register();
