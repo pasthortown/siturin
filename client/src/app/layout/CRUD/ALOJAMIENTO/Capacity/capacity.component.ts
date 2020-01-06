@@ -128,11 +128,11 @@ export class CapacityComponent implements OnInit {
    toCSV() {
       this.capacityDataService.get().then( r => {
          const backupData = r as Capacity[];
-         let output = 'id;quantity;max_beds;max_spaces;capacity_type_id\n';
+         let output = 'id;quantity;max_beds;max_spaces;year;capacity_type_id\n';
          backupData.forEach(element => {
-            output += element.id + ';' + element.quantity + ';' + element.max_beds + ';' + element.max_spaces + ';' + element.capacity_type_id + '\n';
+            output += element.id; + element.quantity + ';' + element.max_beds + ';' + element.max_spaces + ';' + element.year + ';' + element.capacity_type_id + '\n';
          });
-         const blob = new Blob(["\ufeff", output], { type: 'text/plain' });
+         const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
          saveAs(blob, fecha.toLocaleDateString() + '_Capacities.csv');
       }).catch( e => console.log(e) );

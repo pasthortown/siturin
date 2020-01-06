@@ -17,6 +17,7 @@ export class Tariff {
       this.state_id = 0;
       this.register_id = 0;
       this.capacity_type_id = 0;
-      this.year = 0;
+      const today = new Date();
+      this.year = today.getFullYear();
    }
 }

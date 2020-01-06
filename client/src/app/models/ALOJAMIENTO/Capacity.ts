@@ -9,6 +9,7 @@ export class Capacity {
    capacity_type_id: number;
    total_spaces: number;
    max_bed: number;
+   year: number;
    max_bed_ok: boolean;
    max_beds: number;
    max_spaces: number;
@@ -24,5 +25,7 @@ export class Capacity {
       this.max_beds = 0;
       this.editable_beds = true;
       this.editable_spaces = true;
+      const today = new Date();
+      this.year = today.getFullYear();
    }
 }
