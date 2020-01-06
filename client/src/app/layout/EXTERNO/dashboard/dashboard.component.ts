@@ -138,6 +138,13 @@ export class DashboardComponent implements OnInit {
    mensajePorTipoTramite = '';
    activando = false;
    inactivando = false;
+   canRestaurante = true;
+   canCafeteria = true;
+   canBar = true;
+   canDiscoteca = true;
+   canCatering = true;
+   canEstablecimientoMovil = true;
+   canPlazaComida = true;
    idCausal = 0;
    reclasificando = false;
    recategorizando = false;
@@ -282,6 +289,9 @@ export class DashboardComponent implements OnInit {
   cantonesEstablishment: Ubication[];
   parroquiasEstablishment: Ubication[];
   totalunoxmil = 0;
+  registersByEstablishment: any[] = [];
+  canAlojamiento = true;
+  canAlimentosBebidas = true;
   preview_register_codes: PreviewRegisterCode[] = [];
   establishment_selected: Establishment = new Establishment();
   establishment_property_types: EstablishmentPropertyType[] = [];
@@ -1402,7 +1412,7 @@ export class DashboardComponent implements OnInit {
       if (element.ruc_code_id == event.row.code) {
          this.selectRegisterEstablishment(element);
       }
-   });
+   }); 
    this.rowsEstablishment.forEach(row => {
       if (row.code == event.row.code) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
@@ -4024,10 +4034,10 @@ guardarDeclaracion() {
 
   selectRegisterEstablishment(establishment: Establishment) {
    if(establishment.id == 0) {
-      if (establishment.sri_state == 'CERRADO') {
-         this.toastr.errorToastr('El sistema ha detectado que el establecimeinto seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
-         return;
-      }
+    if (establishment.sri_state == 'CERRADO') {
+       this.toastr.errorToastr('El sistema ha detectado que el establecimeinto seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
+       return;
+    }
     this.newRegisterEstablishment();
     this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
     this.establishment_selected.commercially_known_name = establishment.commercially_known_name;
@@ -4041,27 +4051,93 @@ guardarDeclaracion() {
     return;
    }
   this.selectRegisterEstablishmentDeclaration(establishment);
-  let registerSelected = new Register();
+  this.registersByEstablishment = [];
+  let isAlojamiento = false;
+  this.canAlimentosBebidas = true;
+  this.canAlojamiento = true;
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
-       registerSelected = register.register;
+       this.registersByEstablishment.push(register);
+       if (register.activity == "ALOJAMIENTO") {
+          isAlojamiento = true;
+          this.canAlimentosBebidas = false;
+       }
+       if (register.activity == "ALIMENTOS Y BEBIDAS") {
+          this.canAlojamiento = false;
+       }
      }
   });
-  if (registerSelected.id == 0) {
-    this.rucEstablishmentRegisterSelected = new Register();
-    this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
-    this.rucEstablishmentRegisterSelected.status = 11;
-    this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
-    this.mostrarDataRegister = true;
+  if (isAlojamiento) {
+    if (this.registersByEstablishment[0].register.id == 0) {
+       this.rucEstablishmentRegisterSelected = new Register();
+       this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+       this.rucEstablishmentRegisterSelected.status = 11;
+       this.rucEstablishmentRegisterSelected.register_type_id = 0;
+       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
+       this.mostrarDataRegister = true;
+     } else {
+       this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+     }
   } else {
-    this.selectEstablishmentRegister(registerSelected, false);
+    this.mostrarDataRegister = true;
+    this.canRestaurante = true;
+    this.canCafeteria = true;
+    this.canBar = true;
+    this.canDiscoteca = true;
+    this.canCatering = true;
+    this.canEstablecimientoMovil = true;
+    this.canPlazaComida = true;
+    this.ruc_registro_selected.registers.forEach(register => {
+       if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
+          let clasificationAB = this.getRegisterABType(register);
+          //Restaurante
+          if (clasificationAB.id == 11 || clasificationAB.id == 42) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Cafeteria
+          if (clasificationAB.id == 2 || clasificationAB.id == 33) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Bar
+          if (clasificationAB.id == 6 || clasificationAB.id == 37) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Discoteca
+          if (clasificationAB.id == 18 || clasificationAB.id == 49) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Catering
+          if (clasificationAB.id == 29 || clasificationAB.id == 60) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //EstablecimientoMovil
+          if (clasificationAB.id == 23 || clasificationAB.id == 54) {
+             this.canRestaurante = false;
+             this.canCafeteria = false;
+             this.canBar = false;
+             this.canDiscoteca = false;
+             this.canCatering = false;
+             this.canPlazaComida = false;
+          }
+          //PlazaComida
+          if (clasificationAB.id == 26 || clasificationAB.id == 57) {
+             this.canRestaurante = false;
+             this.canCafeteria = false;
+             this.canBar = false;
+             this.canDiscoteca = false;
+             this.canCatering = false;
+             this.canEstablecimientoMovil = false;
+          }
+       }
+    });
   }
   this.establishmentDataService.get_filtered(establishment.id).then( r => {
     this.establishment_selected = r.establishment as Establishment;
-    if (this.register_code !== '') {
-      this.rucEstablishmentRegisterSelected.code = this.register_code;
-      this.establishment_selected.as_turistic_register_date = this.register_as_turistic_Date;
-    }
     this.recoverUbication();
     this.checkEstablishmentAddress();
     this.checkURLWeb();
