@@ -1144,7 +1144,7 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
-   console.log(register_type_id);
+   this.actividadSelected = 2;
   }
 
   setCategory(type_id: number){
