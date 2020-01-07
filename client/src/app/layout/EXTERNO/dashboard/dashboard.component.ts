@@ -1142,6 +1142,19 @@ export class DashboardComponent implements OnInit {
     };
    }
   }
+  
+  setABCategory(register_type_id: number) {
+   this.actividadSelected = '2';
+   let registerTypesAB = [];
+   this.register_AlimentosBebidas_typeDataService.get().then( r => {
+      registerTypesAB = r as any[];
+      registerTypesAB.foreach( element => {
+         if (element.id == register_type_id ) {
+            this.categorySelectedCode = element.father_code;
+         }
+      });
+   }).catch( e => { console.log(e); });
+  }
 
   setCategory(type_id: number){
    let categoryCode = '';
@@ -2791,13 +2804,6 @@ export class DashboardComponent implements OnInit {
                   this.clasifications_registers.push(element);
                }
             });
-            if (typeof this.registerMinturSelected.register.register_type_id != 'undefined' 
-            ) {
-               if (this.registerMinturSelected.register.register_type_id != 0) {
-                  //AQUI2
-                  this.actividadSelected = '2';
-               }
-            }
          }
       }).catch( e => { console.log(e) });
    }
@@ -4355,6 +4361,7 @@ guardarDeclaracion() {
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
     let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
+    this.setABCategory(this.registerMinturSelected.register.register_type_id);
     //Restaurante
     if (clasificationAB.id == 11 || clasificationAB.id == 42) {
        this.canEstablecimientoMovil = false;
