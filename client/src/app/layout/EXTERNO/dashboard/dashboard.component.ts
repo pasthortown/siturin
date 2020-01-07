@@ -2175,8 +2175,8 @@ export class DashboardComponent implements OnInit {
 
   selectRegisterMintur(item: any) {
    this.registerMinturSelected = item;
-   console.log(this.registerMinturSelected);
-   //AQUI
+   this.ruc_registro_selected.registers = [];
+   this.ruc_registro_selected.registers.push(this.registerMinturSelected);
    this.getRuc(this.registerMinturSelected.ruc.number);
    this.groupTypeSelected = new GroupType();
   }
@@ -4086,31 +4086,15 @@ guardarDeclaracion() {
   }
 
   selectRegisterEstablishment(establishment: Establishment) {
-   if(establishment.id == 0) {
-    if (establishment.sri_state == 'CERRADO') {
-       this.toastr.errorToastr('El sistema ha detectado que el establecimeinto seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
-       return;
-    }
-    this.newRegisterEstablishment();
-    this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
-    this.establishment_selected.commercially_known_name = establishment.commercially_known_name;
-    this.establishment_selected.address_main_street = establishment.address_main_street;
-    this.establishment_selected.address_number = establishment.address_number;
-    this.establishment_selected.address_secondary_street = establishment.address_secondary_street;
-    this.establishment_selected.sri_state = establishment.sri_state;
-    this.checkEstablishmentAddress();
-    this.validateNombreComercial();
-    this.selectedNameType = new RucNameType();
-    return;
-   }
-  this.selectRegisterEstablishmentDeclaration(establishment);
-  this.registersByEstablishment = [];
-  let isAlojamiento = false;
-  this.canAlimentosBebidas = true;
-  this.canAlojamiento = true;
-
-  //1
-  this.ruc_registro_selected.registers.forEach(register => {
+   this.selectRegisterEstablishmentDeclaration(establishment);
+   this.registersByEstablishment = [];
+   let isAlojamiento = false;
+   this.canAlimentosBebidas = true;
+   this.canAlojamiento = true;
+   //AQUI 2
+   console.log(this.registerMinturSelected);
+   //registerMinturSelected
+   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
        if (register.activity == "ALOJAMIENTO") {
