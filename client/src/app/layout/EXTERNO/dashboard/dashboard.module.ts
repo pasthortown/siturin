@@ -1,11 +1,11 @@
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
 import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
 import { FloorAuthorizationCertificateService } from './../../../services/CRUD/BASE/floorauthorizationcertificate.service';
 import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
-
-import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
@@ -28,7 +28,6 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { WorkerService } from 'src/app/services/CRUD/BASE/worker.service';
 import { TaxPayerTypeService } from 'src/app/services/CRUD/BASE/taxpayertype.service';
@@ -58,12 +57,17 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
-import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
+import { ApprovalStateService } from './../../../services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
+import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO/procedurejustification.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -74,60 +78,65 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
     NgxQRCodeModule,
     NgbModule,
     Ng2TableModule,
-    FormsModule],
+    ScrollToModule.forRoot(),
+    FormsModule],   
   declarations: [DashboardComponent],
   providers: [NgbModal,
     UserService,
     DinardapService,
     DeclarationItemService,
-    ConsultorService,
-    KitchenTypeService,
-    ServiceTypeService,
-    DeclarationItemCategoryService,
-    DeclarationService,
+    ApprovalStateService,
     ProcedureJustificationService,
-    ReceptionRoomService,
-    MailerService,
-    RegisterProcedureService,
     CatastroRegisterService,
-    DeclarationAttachmentService,
+    RegisterProcedureService,
+    RegisterABService,
+    ApprovalStateAttachmentService,
+    ConsultorService,
+    RegisterTypeAlimentosBebidasService,
+    ReceptionRoomService,
+    ServiceTypeService,
+    KitchenTypeService,
     PropertyTitleAttachmentService,
     AuthorizationAttachmentService,
-    FloorAuthorizationCertificateService,
-    PayService,
+    CapacityTypeABService,
+    DeclarationItemCategoryService,
+    DeclarationService,
     TaxPayerTypeService,
+    RegisterStateService,
     PersonRepresentativeAttachmentService,
     EstablishmentCertificationService,
     ComplementaryServiceFoodTypeService,
     EstablishmentPropertyTypeService,
     RequisiteService,
-    ApprovalStateAttachmentService,
-    ApprovalStateService,
+    FoodDrinkAttachmentService,
     AgreementService,
+    MailerService,
     UbicationService,
     RegisterService,
-    RegisterStateService,
+    ExporterService,
+    DocumentService,
     CapacityTypeService,
+    RequisiteABService,
     EstablishmentCertificationAttachmentService,
     EstablishmentPictureService,
     StateService,
     RucNameTypeService,
     ComplementaryServiceTypeService,
     GenderService,
-    ExporterService,
-    DocumentService,
-    RegisterTypeAlimentosBebidasService,
     GroupTypeService,
     RegisterTypeService,
     WorkerGroupService,
+    PayService,
     TariffTypeService,
     PreviewRegisterCodeService,
     EstablishmentCertificationTypeService,
+    DeclarationAttachmentService,
     LanguageService,
     EstablishmentService,
     WorkerService,
-    RucService,
+    FloorAuthorizationCertificateService,
     BedTypeService,
-    SystemNameService]
+    SystemNameService,
+    RucService]
 })
 export class DashboardModule {}
