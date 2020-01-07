@@ -320,6 +320,7 @@ export class DashboardComponent implements OnInit {
   //DATOS REGISTRO
   rowsRegister = [];
   columnsRegister = [];
+  
   dataRegister = [];
 
   estados_tramites: State[];
@@ -1957,6 +1958,7 @@ export class DashboardComponent implements OnInit {
             }).catch( e => { console.log(e); });
          } else {
             this.registerMinturSelected = {register: new Register(), establishment: new Establishment(), ruc: new Ruc(), states: new RegisterState()};
+            console.log(this.registerMinturSelected);
             this.registerMinturSelected.ruc.number = this.user.ruc;
             this.fechasNombramiento();
             this.pays = [];
