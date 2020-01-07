@@ -3347,32 +3347,34 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         this.ruc_registro_selected.registers.forEach(element => {
-            if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
-               let clasificationAB = this.getRegisterABType(element);
-               console.log(this.categorySelectedCode);
-               if (clasificationAB.code == this.categorySelectedCode) {
-                  this.registerABDataService.get_register_data(element.register.id).then( r => {
-                     this.rucEstablishmentRegisterSelected = r.register as Register;
-                     this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
-                     this.rucEstablishmentRegisterSelected.editable = false;
-                     this.rucEstablishmentRegisterSelected.status = r.status.state_id;
-                     this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
-                     this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
-                     this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
-                     this.rucEstablishmentRegisterSelected.requisites = [];
-                     this.getRequisitesABByRegisterType(r.requisites);
-                     this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
-                     this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
-                     this.getListaPrecios(r.register.id);
-                  }).catch( e => { console.log(e); });
-               }
-            }
-         });
+         //AQUI
+         let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
+         if (clasificationAB.code == this.categorySelectedCode) {
+            this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
+               this.rucEstablishmentRegisterSelected = r.register as Register;
+               this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+               this.rucEstablishmentRegisterSelected.editable = false;
+               this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+               this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+               this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+               this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+               this.rucEstablishmentRegisterSelected.requisites = [];
+               this.getRequisitesABByRegisterType(r.requisites);
+               this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
+               this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
+               this.getListaPrecios(r.register.id);
+            }).catch( e => { console.log(e); });
+         }
       }).catch( e => { console.log(e) });
    }
   }
 
+  getListaPrecios(register_id: number) {
+   this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
+      this.listaPrecios = r as FoodDrinkAttachment;
+   }).catch( e => { console.log(e); });
+  }
+  
   getCapacityTypesAB() {
    this.capacityTypesAB = [];
    this.capacityTypeABDataService.get().then( r => {
