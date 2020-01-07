@@ -1144,7 +1144,12 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
-   this.actividadSelected = 2;
+   this.actividadSelected = '2';
+   this.clasifications_registers.forEach(element => {
+      if (element.id == register_type_id) {
+         this.categorySelectedCode = element.father_code;
+      }
+   });
   }
 
   setCategory(type_id: number){
