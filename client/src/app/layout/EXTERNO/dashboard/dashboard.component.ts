@@ -1144,7 +1144,7 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
-   this.actividadSelected = '2';
+   this.actividadSelected = '2';//AQUI
    let registerTypesAB = [];
    this.register_AlimentosBebidas_typeDataService.get().then( r => {
       registerTypesAB = r as any[];
@@ -1153,7 +1153,12 @@ export class DashboardComponent implements OnInit {
             this.categorySelectedCode = element.father_code;
          }
       });
-      //this.getCategories();
+      registerTypesAB.forEach( element => {
+         if (element.code == this.categorySelectedCode ) {
+            this.regionSelectedCode = element.father_code;
+         }
+      });
+      this.getCategories();
    }).catch( e => { console.log(e); });
   }
 
@@ -3385,7 +3390,7 @@ guardarDeclaracion() {
    }).catch( e => console.log(e) );
   }
 
-  getCategories() {
+  getCategories(register_type_id?) {
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.capacities_on_register = []
    this.rucEstablishmentRegisterSelected.requisites = [];
@@ -3409,7 +3414,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         console.log(this.categories_registers);
+         //AQUI
          let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
          if (clasificationAB.code == this.categorySelectedCode) {
             this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
