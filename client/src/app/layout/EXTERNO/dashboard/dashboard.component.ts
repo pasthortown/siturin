@@ -3140,7 +3140,6 @@ guardarDeclaracion() {
   }
 
   getRegistersOnRuc() {
-     console.log('ENTREEE');
    this.rucEstablishmentRegisterSelected = new Register();
    this.mostrarDataRegister = false;
    this.ruc_registro_selected.registers = [];

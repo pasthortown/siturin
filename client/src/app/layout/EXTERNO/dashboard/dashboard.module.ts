@@ -1,3 +1,4 @@
+import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
 import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
@@ -31,7 +32,6 @@ import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { WorkerService } from 'src/app/services/CRUD/BASE/worker.service';
 import { TaxPayerTypeService } from 'src/app/services/CRUD/BASE/taxpayertype.service';
-import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 import { EstablishmentCertificationService } from 'src/app/services/CRUD/BASE/establishmentcertification.service';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
@@ -126,8 +126,8 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
     LanguageService,
     EstablishmentService,
     WorkerService,
+    RucService,
     BedTypeService,
-    SystemNameService,
-    RucService]
+    SystemNameService]
 })
 export class DashboardModule {}
