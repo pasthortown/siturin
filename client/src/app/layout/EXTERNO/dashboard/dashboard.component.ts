@@ -4091,32 +4091,63 @@ guardarDeclaracion() {
    let isAlojamiento = false;
    this.canAlimentosBebidas = true;
    this.canAlojamiento = true;
-   //AQUI 2
-   console.log(this.registerMinturSelected);
-   //registerMinturSelected
-   this.ruc_registro_selected.registers.forEach(register => {
-     if (register.establishment.id == establishment.id) {
-       this.registersByEstablishment.push(register);
-       if (register.activity == "ALOJAMIENTO") {
-          isAlojamiento = true;
-          this.canAlimentosBebidas = false;
-       }
-       if (register.activity == "ALIMENTOS Y BEBIDAS") {
-          this.canAlojamiento = false;
-       }
-     }
-  });
+   this.establishmentDataService.get_filtered(establishment.id).then( r => {
+      this.establishment_selected = r.establishment as Establishment;
+      this.recoverUbication();
+      this.checkEstablishmentAddress();
+      this.checkURLWeb();
+      this.getNameTypeInfo();
+      this.validateNombreComercial();
+      this.establishment_selected.contact_user = r.contact_user as User;
+      this.checkCedulaEstablishment();
+      this.checkTelefonoPrincipalContactoEstablecimiento();
+      this.checkTelefonoSecundarioContactoEstablecimiento();
+      this.validateNombreFranquiciaCadena();
+      this.checkEmailContactEstablishment();
+      this.buildWorkerGroups();
+      this.establishment_selected.workers_on_establishment = r.workers_on_establishment as Worker[];
+      this.establishment_selected.workers_on_establishment.forEach(worker => {
+         this.genders.forEach(gender => {
+            if(gender.id == worker.gender_id) {
+               worker.gender_name = gender.name;
+            }
+         });
+         this.worker_groups.forEach(worker_group => {
+            if(worker_group.id == worker.worker_group_id) {
+               worker.worker_group_name = worker_group.name;
+               worker.is_max = worker_group.is_max;
+            }
+         });
+      });
+      this.refreshTotalWorkers();
+      this.establishment_selected.languages_on_establishment = r.languages_on_establishment as Language[];
+      this.establishment_selected.establishment_certifications_on_establishment = r.establishment_certifications_on_establishment as EstablishmentCertification[];
+      this.establishment_selected.establishment_certifications_on_establishment.forEach(establishment_certification_on_establishment => {
+         establishment_certification_on_establishment.establishment_certification_attachment = new EstablishmentCertificationAttachment();
+         this.establishment_certification_types.forEach(establishment_certification_type => {
+            if (establishment_certification_on_establishment.establishment_certification_type_id == establishment_certification_type.id) {
+               establishment_certification_on_establishment.establishment_certification_type_fatherCode = establishment_certification_type.father_code;
+               this.getEstablishmentCertificationTypesSpecific(establishment_certification_on_establishment);
+            }
+         });
+         this.establishmentCertificationAttachmentDataService.get(establishment_certification_on_establishment.establishment_certification_attachment_id).then( r_attachment => {
+            establishment_certification_on_establishment.establishment_certification_attachment = r_attachment.EstablishmentCertificationAttachment as EstablishmentCertificationAttachment;
+         }).catch( e => { console.log(e); });
+      });
+      this.mostrarDataEstablishment = true;
+    }).catch( e => { console.log(e); });
+    this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
+       this.establishment_selected_picture = r as EstablishmentPicture;
+    }).catch( e => { console.log(e); });
+   if (this.registerMinturSelected.activity == "ALOJAMIENTO") {
+      isAlojamiento = true;
+      this.canAlimentosBebidas = false;
+   }
+   if (this.registerMinturSelected.activity == "ALIMENTOS Y BEBIDAS") {
+      this.canAlojamiento = false;
+   }
   if (isAlojamiento) {
-    if (this.registersByEstablishment[0].register.id == 0) {
-       this.rucEstablishmentRegisterSelected = new Register();
-       this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
-       this.rucEstablishmentRegisterSelected.status = 11;
-       this.rucEstablishmentRegisterSelected.register_type_id = 0;
-       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
-       this.mostrarDataRegister = true;
-     } else {
-       this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
-     }
+    this.selectEstablishmentRegister(this.registerMinturSelected.register, false);
   } else {
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
@@ -4126,6 +4157,7 @@ guardarDeclaracion() {
     this.canCatering = true;
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
+    //AQUI
     this.ruc_registro_selected.registers.forEach(register => {
        if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
           let clasificationAB = this.getRegisterABType(register);
@@ -4175,54 +4207,6 @@ guardarDeclaracion() {
        }
     });
   }
-  this.establishmentDataService.get_filtered(establishment.id).then( r => {
-    this.establishment_selected = r.establishment as Establishment;
-    this.recoverUbication();
-    this.checkEstablishmentAddress();
-    this.checkURLWeb();
-    this.getNameTypeInfo();
-    this.validateNombreComercial();
-    this.establishment_selected.contact_user = r.contact_user as User;
-    this.checkCedulaEstablishment();
-    this.checkTelefonoPrincipalContactoEstablecimiento();
-    this.checkTelefonoSecundarioContactoEstablecimiento();
-    this.validateNombreFranquiciaCadena();
-    this.checkEmailContactEstablishment();
-    this.buildWorkerGroups();
-    this.establishment_selected.workers_on_establishment = r.workers_on_establishment as Worker[];
-    this.establishment_selected.workers_on_establishment.forEach(worker => {
-       this.genders.forEach(gender => {
-          if(gender.id == worker.gender_id) {
-             worker.gender_name = gender.name;
-          }
-       });
-       this.worker_groups.forEach(worker_group => {
-          if(worker_group.id == worker.worker_group_id) {
-             worker.worker_group_name = worker_group.name;
-             worker.is_max = worker_group.is_max;
-          }
-       });
-    });
-    this.refreshTotalWorkers();
-    this.establishment_selected.languages_on_establishment = r.languages_on_establishment as Language[];
-    this.establishment_selected.establishment_certifications_on_establishment = r.establishment_certifications_on_establishment as EstablishmentCertification[];
-    this.establishment_selected.establishment_certifications_on_establishment.forEach(establishment_certification_on_establishment => {
-       establishment_certification_on_establishment.establishment_certification_attachment = new EstablishmentCertificationAttachment();
-       this.establishment_certification_types.forEach(establishment_certification_type => {
-          if (establishment_certification_on_establishment.establishment_certification_type_id == establishment_certification_type.id) {
-             establishment_certification_on_establishment.establishment_certification_type_fatherCode = establishment_certification_type.father_code;
-             this.getEstablishmentCertificationTypesSpecific(establishment_certification_on_establishment);
-          }
-       });
-       this.establishmentCertificationAttachmentDataService.get(establishment_certification_on_establishment.establishment_certification_attachment_id).then( r_attachment => {
-          establishment_certification_on_establishment.establishment_certification_attachment = r_attachment.EstablishmentCertificationAttachment as EstablishmentCertificationAttachment;
-       }).catch( e => { console.log(e); });
-    });
-    this.mostrarDataEstablishment = true;
-  }).catch( e => { console.log(e); });
-  this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
-     this.establishment_selected_picture = r as EstablishmentPicture;
-  }).catch( e => { console.log(e); });
 }
 
   selectRegisterEstablishmentDeclaration(establishment: Establishment) {
