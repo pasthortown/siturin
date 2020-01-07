@@ -1144,7 +1144,7 @@ export class DashboardComponent implements OnInit {
   }
   
   checkData(event) {
-   console.log(event);
+   console.log(1);
    if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
       this.setABCategory(this.registerMinturSelected.register.register_type_id);
    }
