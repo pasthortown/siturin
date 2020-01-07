@@ -31,6 +31,7 @@ import { Agreement } from 'src/app/models/BASE/Agreement';
 import { UserService } from 'src/app/services/profile/user.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
+import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { CapacityType } from 'src/app/models/ALOJAMIENTO/CapacityType';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
 import { TariffTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/tarifftype.service';
@@ -75,6 +76,7 @@ import { Register } from 'src/app/models/ALOJAMIENTO/Register';
 import { ComplementaryServiceType } from 'src/app/models/ALOJAMIENTO/ComplementaryServiceType';
 import { ComplementaryServiceTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicetype.service';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
+import { RegisterRequisite as RegisterABRequisite } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterRequisite';
 import { SystemName } from 'src/app/models/BASE/SystemName';
 import { WorkerGroup } from 'src/app/models/BASE/WorkerGroup';
 import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
@@ -83,6 +85,7 @@ import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registert
 import { RequisiteService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
 import { TariffType } from 'src/app/models/ALOJAMIENTO/TariffType';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
+import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { StateService } from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
@@ -215,6 +218,8 @@ export class DashboardComponent implements OnInit {
    registerMinturSelected: any = null;
    currentPageMinturRegisters = 1;
    lastPageMinturRegisters = 1;
+   totalABPuntos = 0;
+   totalABPuntosShown = 0;
    recordsByPageRegisterMintur = 5;
    modificadoCapacidades = false;
    mostrarDataRegisterMintur = false;
@@ -356,6 +361,7 @@ export class DashboardComponent implements OnInit {
   consumoRuc = false;
   consumoCedulaRepresentanteLegal = false;
   SRIOK = false;
+  categoryAB = 'Pendiente';
   REGCIVILOK = false;
   REGCIVILOKEstablishment = false;
   REGCIVILREPRESENTANTELEGALOK = false;
@@ -365,6 +371,7 @@ export class DashboardComponent implements OnInit {
   currentPageDeclaration = 1;
   lastPageDeclaration = 1;
   recordsByPageDeclaration = 5;
+  capacityTypesAB: any[] = [];
   establishment_declarations_selected = new Establishment();
   declaration_selected: Declaration = new Declaration();
   mostrarDataDeclaration = false;
@@ -396,6 +403,8 @@ export class DashboardComponent implements OnInit {
               private registerStateDataService: RegisterStateService,
               private dinardapDataService: DinardapService,
               private rucDataService: RucService,
+              private capacityTypeABDataService: CapacityTypeABService,
+              private requisiteABDataService: RequisiteABService,
               private approvalStateAttachmentDataService: ApprovalStateAttachmentService,
               private modalService: NgbModal,
               private agreementDataService: AgreementService,
@@ -3318,7 +3327,6 @@ guardarDeclaracion() {
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.capacities_on_register = []
    this.rucEstablishmentRegisterSelected.requisites = [];
-   this.rucEstablishmentRegisterSelected.register_type_id = 0;
    this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = [];
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
@@ -3330,11 +3338,123 @@ guardarDeclaracion() {
    if (this.actividadSelected == '2') {
       this.getServiceType();
       this.getKitchenType();
+      this.getCapacityTypesAB();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+      this.rucEstablishmentRegisterSelected.requisites = [];
+      this.getRequisitesABByRegisterType();
+      this.totalABPuntos = 0;
+      this.totalABPuntosShown = 0;
+      this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         this.ruc_registro_selected.registers.forEach(element => {
+            if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
+               let clasificationAB = this.getRegisterABType(element);
+               if (clasificationAB.code == this.categorySelectedCode) {
+                  this.registerABDataService.get_register_data(element.register.id).then( r => {
+                     this.rucEstablishmentRegisterSelected = r.register as Register;
+                     this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+                     this.rucEstablishmentRegisterSelected.editable = false;
+                     this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+                     this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+                     this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+                     this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                     this.rucEstablishmentRegisterSelected.requisites = [];
+                     this.getRequisitesABByRegisterType(r.requisites);
+                     this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
+                     this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
+                     this.getListaPrecios(r.register.id);
+                  }).catch( e => { console.log(e); });
+               }
+            }
+         });
       }).catch( e => { console.log(e) });
    }
+  }
+
+  getCapacityTypesAB() {
+   this.capacityTypesAB = [];
+   this.capacityTypeABDataService.get().then( r => {
+      this.capacityTypesAB = r as any[];
+   }).catch( e => { console.log(e); });
+  }
+
+  getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
+   let categorySelectedID = 0;
+   this.clasifications_registers.forEach(classification => {
+      if (classification.code == this.categorySelectedCode) {
+         categorySelectedID = classification.id;
+      }
+   });
+   this.requisiteABDataService.get_filtered(categorySelectedID).then( r => {
+      this.requisitesByRegisterType = r as any[];
+      this.requisitesByRegisterType.forEach(element => {
+         const newRegisterRequisite = new RegisterABRequisite();
+         newRegisterRequisite.to_approve = element.to_approve;
+         newRegisterRequisite.score = element.score;
+         newRegisterRequisite.requisite_name = element.name;
+         newRegisterRequisite.requisite_id = element.id;
+         newRegisterRequisite.fullfill = true;
+         newRegisterRequisite.requisite_code = element.code;
+         newRegisterRequisite.mandatory = element.mandatory;
+         newRegisterRequisite.id = element.id;
+         newRegisterRequisite.requisite_father_code = element.father_code;
+         newRegisterRequisite.level = element.code.split('.').length;
+         newRegisterRequisite.HTMLtype = element.type;
+         newRegisterRequisite.fullfill = false;
+         if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+            newRegisterRequisite.value = 'false';
+         }
+         this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
+      });
+      this.showRequisites  = true;
+      if (typeof requisites !== 'undefined') {
+         this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
+            requisites.forEach(requisite_incomming => {
+               if (requisite.requisite_id == requisite_incomming.requisite_id) {
+                  requisite.value = requisite_incomming.value;
+                  requisite.fullfill = requisite_incomming.fullfill;
+                  requisite.id = requisite_incomming.id;
+                  requisite.register_id = requisite_incomming.register_id;
+               }
+            });
+         });
+      }
+      this.calcTotalPoints();
+      this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
+         const a_id = a.requisite_id;
+         const b_id = b.requisite_id;
+         return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+     });
+   }).catch( e => { console.log(e) });
+  }
+
+  calcTotalPoints() {
+   let totalScore = 0;
+   let totalScoreShown = 0;
+   this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+      if (element.fullfill) {
+         totalScore += element.score * 1;
+         if (!element.mandatory) {
+            totalScoreShown += element.score * 1;
+         }
+      }
+   });
+   this.totalABPuntos = totalScore;
+   this.totalABPuntosShown = totalScoreShown;
+   this.categoryAB = 'Pendiente';
+   this.categories_registers.forEach(category => {
+      if (category.min_points <= this.totalABPuntos) {
+         this.categoryAB = category.name;
+         this.rucEstablishmentRegisterSelected.register_type_id = category.id;
+      }
+   });
   }
 
   getEstablishmentCertificationTypesCategories() {
@@ -4157,9 +4277,7 @@ guardarDeclaracion() {
     this.canCatering = true;
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
-    //AQUI
     let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
-    console.log(clasificationAB);
     //Restaurante
     if (clasificationAB.id == 11 || clasificationAB.id == 42) {
        this.canEstablecimientoMovil = false;
