@@ -1148,6 +1148,7 @@ export class DashboardComponent implements OnInit {
    this.clasifications_registers.forEach(element => {
       if (element.id == register_type_id) {
          this.categorySelectedCode = element.father_code;
+         console.log(this.categorySelectedCode);
       }
    });
   }
