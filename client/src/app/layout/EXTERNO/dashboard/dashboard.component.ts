@@ -1144,7 +1144,8 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
-   this.actividadSelected = '2';
+   this.actividadSelected = '2';//AQUI
+   console.log(this.regionSelectedCode);
    this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
       const response = r as any[];
       console.log(response);
