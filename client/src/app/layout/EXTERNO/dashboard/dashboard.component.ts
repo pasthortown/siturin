@@ -1812,7 +1812,12 @@ export class DashboardComponent implements OnInit {
    this.actualizandoCapacidadesPrecios = true;
    this.recategorizando = false;
    this.idCausal = 6;
-   this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifas, tiene la opción de guardar la información en cualquier momento.';
+   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y lista de precios, tiene la opción de guardar la información en cualquier momento.';
+   }
+   if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
+      this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifario rack, tiene la opción de guardar la información en cualquier momento.';
+   } 
   }
 
   darBaja() {
