@@ -4106,6 +4106,7 @@ guardarDeclaracion() {
   let isAlojamiento = false;
   this.canAlimentosBebidas = true;
   this.canAlojamiento = true;
+  console.log(this.ruc_registro_selected);
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
@@ -4118,8 +4119,6 @@ guardarDeclaracion() {
        }
      }
   });
-  console.log(this.canAlimentosBebidas);
-  console.log(this.canAlojamiento);
   if (isAlojamiento) {
     if (this.registersByEstablishment[0].register.id == 0) {
        this.rucEstablishmentRegisterSelected = new Register();
