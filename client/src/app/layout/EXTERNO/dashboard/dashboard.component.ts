@@ -4158,7 +4158,7 @@ guardarDeclaracion() {
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
     //AQUI
-    let clasificationAB = this.getRegisterABType(this.registerMinturSelected.register);
+    let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
     console.log(clasificationAB);
     //Restaurante
     if (clasificationAB.id == 11 || clasificationAB.id == 42) {
