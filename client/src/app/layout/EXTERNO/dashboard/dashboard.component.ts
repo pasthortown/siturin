@@ -1810,10 +1810,14 @@ export class DashboardComponent implements OnInit {
    this.inactivando = false;
    this.reclasificando = false;
    this.actualizandoCapacidadesPrecios = true;
-   console.log(this.registerMinturSelected);
    this.recategorizando = false;
    this.idCausal = 6;
-   this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifas, tiene la opción de guardar la información en cualquier momento.';
+   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y lista de precios, tiene la opción de guardar la información en cualquier momento.';
+   }
+   if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
+      this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifario rack, tiene la opción de guardar la información en cualquier momento.';
+   } 
   }
 
   darBaja() {
@@ -2171,6 +2175,8 @@ export class DashboardComponent implements OnInit {
 
   selectRegisterMintur(item: any) {
    this.registerMinturSelected = item;
+   console.log(this.registerMinturSelected);
+   //AQUI
    this.getRuc(this.registerMinturSelected.ruc.number);
    this.groupTypeSelected = new GroupType();
   }
@@ -4102,6 +4108,8 @@ guardarDeclaracion() {
   let isAlojamiento = false;
   this.canAlimentosBebidas = true;
   this.canAlojamiento = true;
+
+  //1
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
@@ -4114,8 +4122,6 @@ guardarDeclaracion() {
        }
      }
   });
-  console.log(this.canAlimentosBebidas);
-  console.log(this.canAlojamiento);
   if (isAlojamiento) {
     if (this.registersByEstablishment[0].register.id == 0) {
        this.rucEstablishmentRegisterSelected = new Register();
