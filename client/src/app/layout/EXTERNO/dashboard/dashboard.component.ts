@@ -1153,7 +1153,7 @@ export class DashboardComponent implements OnInit {
             this.categorySelectedCode = element.father_code;
          }
       });
-      this.getCategories();
+      //this.getCategories();
    }).catch( e => { console.log(e); });
   }
 
