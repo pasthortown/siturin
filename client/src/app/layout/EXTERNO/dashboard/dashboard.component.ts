@@ -1810,7 +1810,6 @@ export class DashboardComponent implements OnInit {
    this.inactivando = false;
    this.reclasificando = false;
    this.actualizandoCapacidadesPrecios = true;
-   console.log(this.registerMinturSelected);
    this.recategorizando = false;
    this.idCausal = 6;
    this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifas, tiene la opción de guardar la información en cualquier momento.';
