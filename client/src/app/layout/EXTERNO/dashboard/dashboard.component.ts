@@ -1143,13 +1143,6 @@ export class DashboardComponent implements OnInit {
    }
   }
   
-  checkData(event) {
-   console.log(1);
-   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
-      this.setABCategory(this.registerMinturSelected.register.register_type_id);
-   }
-  }
-
   setABCategory(register_type_id: number) {
    this.actividadSelected = '2';
    let registerTypesAB = [];
@@ -1235,6 +1228,10 @@ export class DashboardComponent implements OnInit {
 
   changeTabActive(event) {
    this.tabActive = event.nextId;
+   console.log(event);
+   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.setABCategory(this.registerMinturSelected.register.register_type_id);
+   }
   }
 
   changeTabActiveSuperior(event) {
