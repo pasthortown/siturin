@@ -1142,6 +1142,10 @@ export class DashboardComponent implements OnInit {
     };
    }
   }
+  
+  setABCategory(register) {
+   console.log(register);
+  }
 
   setCategory(type_id: number){
    let categoryCode = '';
@@ -3351,7 +3355,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         //AQUI
+         this.setABCategory(this.registerMinturSelected.register.register_type_id);
          let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
          if (clasificationAB.code == this.categorySelectedCode) {
             this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
@@ -3402,7 +3406,7 @@ guardarDeclaracion() {
     }).catch( e => { console.log(e); });
    }
   }
-  
+
   getCapacityTypesAB() {
    this.capacityTypesAB = [];
    this.capacityTypeABDataService.get().then( r => {
@@ -4303,6 +4307,7 @@ guardarDeclaracion() {
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
     this.canCafeteria = true;
+    //AQUI
     this.canBar = true;
     this.canDiscoteca = true;
     this.canCatering = true;
