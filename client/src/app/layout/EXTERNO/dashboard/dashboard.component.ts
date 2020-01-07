@@ -1228,9 +1228,10 @@ export class DashboardComponent implements OnInit {
 
   changeTabActive(event) {
    this.tabActive = event.nextId;
-   console.log(event);
-   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
-      this.setABCategory(this.registerMinturSelected.register.register_type_id);
+   if (event.nextId == 'paso3') {
+      if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
+         this.setABCategory(this.registerMinturSelected.register.register_type_id);
+      }
    }
   }
 
