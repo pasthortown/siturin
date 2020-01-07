@@ -1147,13 +1147,12 @@ export class DashboardComponent implements OnInit {
    this.actividadSelected = '2';
    let registerTypesAB = [];
    this.register_AlimentosBebidas_typeDataService.get().then( r => {
-      registerTypesAB = r as any[];//AQUI
-      console.log(r);
-      // registerTypesAB.foreach( element => {
-      //    if (element.id == register_type_id ) {
-      //       this.categorySelectedCode = element.father_code;
-      //    }
-      // });
+      registerTypesAB = r as any[]; //AQUI
+      registerTypesAB.forEach( element => {
+         if (element.id == register_type_id ) {
+            this.categorySelectedCode = element.father_code;
+         }
+      });
    }).catch( e => { console.log(e); });
   }
 
