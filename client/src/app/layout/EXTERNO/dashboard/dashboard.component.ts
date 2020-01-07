@@ -1143,8 +1143,8 @@ export class DashboardComponent implements OnInit {
    }
   }
   
-  setABCategory(register) {
-   console.log(register);
+  setABCategory(register_type_id: number) {
+   console.log(register_type_id);
   }
 
   setCategory(type_id: number){
@@ -3355,7 +3355,6 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         this.setABCategory(this.registerMinturSelected.register.register_type_id);
          let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
          if (clasificationAB.code == this.categorySelectedCode) {
             this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
@@ -4307,13 +4306,13 @@ guardarDeclaracion() {
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
     this.canCafeteria = true;
-    //AQUI
     this.canBar = true;
     this.canDiscoteca = true;
     this.canCatering = true;
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
     let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
+    this.setABCategory(this.registerMinturSelected.register.register_type_id);
     //Restaurante
     if (clasificationAB.id == 11 || clasificationAB.id == 42) {
        this.canEstablecimientoMovil = false;
