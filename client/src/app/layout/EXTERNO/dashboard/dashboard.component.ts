@@ -3409,6 +3409,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         console.log(this.categories_registers);
          let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
          if (clasificationAB.code == this.categorySelectedCode) {
             this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
@@ -4343,73 +4344,73 @@ guardarDeclaracion() {
          }).catch( e => { console.log(e); });
       });
       this.mostrarDataEstablishment = true;
-      if (this.registerMinturSelected.activity == "ALOJAMIENTO") {
-         isAlojamiento = true;
-         this.canAlimentosBebidas = false;
-      }
-      if (this.registerMinturSelected.activity == "ALIMENTOS Y BEBIDAS") {
-         this.canAlojamiento = false;
-      }
-     if (isAlojamiento) {
-       this.selectEstablishmentRegister(this.registerMinturSelected.register, false);
-     } else {
-       this.mostrarDataRegister = true;
-       this.canRestaurante = true;
-       this.canCafeteria = true;
-       this.canBar = true;
-       this.canDiscoteca = true;
-       this.canCatering = true;
-       this.canEstablecimientoMovil = true;
-       this.canPlazaComida = true;
-       let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
-       //Restaurante
-       if (clasificationAB.id == 11 || clasificationAB.id == 42) {
-          this.canEstablecimientoMovil = false;
-          this.canPlazaComida = false;
-       }
-       //Cafeteria
-       if (clasificationAB.id == 2 || clasificationAB.id == 33) {
-          this.canEstablecimientoMovil = false;
-          this.canPlazaComida = false;
-       }
-       //Bar
-       if (clasificationAB.id == 6 || clasificationAB.id == 37) {
-          this.canEstablecimientoMovil = false;
-          this.canPlazaComida = false;
-       }
-       //Discoteca
-       if (clasificationAB.id == 18 || clasificationAB.id == 49) {
-          this.canEstablecimientoMovil = false;
-          this.canPlazaComida = false;
-       }
-       //Catering
-       if (clasificationAB.id == 29 || clasificationAB.id == 60) {
-          this.canEstablecimientoMovil = false;
-          this.canPlazaComida = false;
-       }
-       //EstablecimientoMovil
-       if (clasificationAB.id == 23 || clasificationAB.id == 54) {
-          this.canRestaurante = false;
-          this.canCafeteria = false;
-          this.canBar = false;
-          this.canDiscoteca = false;
-          this.canCatering = false;
-          this.canPlazaComida = false;
-       }
-       //PlazaComida
-       if (clasificationAB.id == 26 || clasificationAB.id == 57) {
-          this.canRestaurante = false;
-          this.canCafeteria = false;
-          this.canBar = false;
-          this.canDiscoteca = false;
-          this.canCatering = false;
-          this.canEstablecimientoMovil = false;
-       }
-     }
     }).catch( e => { console.log(e); });
     this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
        this.establishment_selected_picture = r as EstablishmentPicture;
     }).catch( e => { console.log(e); });
+   if (this.registerMinturSelected.activity == "ALOJAMIENTO") {
+      isAlojamiento = true;
+      this.canAlimentosBebidas = false;
+   }
+   if (this.registerMinturSelected.activity == "ALIMENTOS Y BEBIDAS") {
+      this.canAlojamiento = false;
+   }
+  if (isAlojamiento) {
+    this.selectEstablishmentRegister(this.registerMinturSelected.register, false);
+  } else {
+    this.mostrarDataRegister = true;
+    this.canRestaurante = true;
+    this.canCafeteria = true;
+    this.canBar = true;
+    this.canDiscoteca = true;
+    this.canCatering = true;
+    this.canEstablecimientoMovil = true;
+    this.canPlazaComida = true;
+    let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
+    //Restaurante
+    if (clasificationAB.id == 11 || clasificationAB.id == 42) {
+       this.canEstablecimientoMovil = false;
+       this.canPlazaComida = false;
+    }
+    //Cafeteria
+    if (clasificationAB.id == 2 || clasificationAB.id == 33) {
+       this.canEstablecimientoMovil = false;
+       this.canPlazaComida = false;
+    }
+    //Bar
+    if (clasificationAB.id == 6 || clasificationAB.id == 37) {
+       this.canEstablecimientoMovil = false;
+       this.canPlazaComida = false;
+    }
+    //Discoteca
+    if (clasificationAB.id == 18 || clasificationAB.id == 49) {
+       this.canEstablecimientoMovil = false;
+       this.canPlazaComida = false;
+    }
+    //Catering
+    if (clasificationAB.id == 29 || clasificationAB.id == 60) {
+       this.canEstablecimientoMovil = false;
+       this.canPlazaComida = false;
+    }
+    //EstablecimientoMovil
+    if (clasificationAB.id == 23 || clasificationAB.id == 54) {
+       this.canRestaurante = false;
+       this.canCafeteria = false;
+       this.canBar = false;
+       this.canDiscoteca = false;
+       this.canCatering = false;
+       this.canPlazaComida = false;
+    }
+    //PlazaComida
+    if (clasificationAB.id == 26 || clasificationAB.id == 57) {
+       this.canRestaurante = false;
+       this.canCafeteria = false;
+       this.canBar = false;
+       this.canDiscoteca = false;
+       this.canCatering = false;
+       this.canEstablecimientoMovil = false;
+    }
+  }
 }
 
   selectRegisterEstablishmentDeclaration(establishment: Establishment) {
