@@ -1143,6 +1143,13 @@ export class DashboardComponent implements OnInit {
    }
   }
   
+  checkData(event) {
+   console.log(event);
+   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.setABCategory(this.registerMinturSelected.register.register_type_id);
+   }
+  }
+
   setABCategory(register_type_id: number) {
    this.actividadSelected = '2';
    let registerTypesAB = [];
