@@ -1145,12 +1145,74 @@ export class DashboardComponent implements OnInit {
   
   setABCategory(register_type_id: number) {
    this.actividadSelected = '2';
-   this.clasifications_registers.forEach(element => {
-      if (element.id == register_type_id) {
-         this.categorySelectedCode = element.father_code;
-         console.log(this.categorySelectedCode);
+   this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
+      let esRegitro = false;
+      this.specific_states.forEach(element => {
+         if (element.id == this.rucEstablishmentRegisterSelected.status) {
+            if (element.name == 'Registro') {
+               esRegitro = true;
+            }
+         }
+      });
+      const response = r as any[];
+      if ( this.regionSelectedCode != '1' && esRegitro) {
+         this.clasifications_registers = [];
+         response.forEach(element => {
+            if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 2 || element.id == 33 ) && this.canCafeteria) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 6 || element.id == 37 ) && this.canBar) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 18 || element.id == 49 ) && this.canDiscoteca) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 29 || element.id == 60 ) && this.canCatering) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 23 || element.id == 54 ) && this.canEstablecimientoMovil) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 26 || element.id == 57 ) && this.canPlazaComida) {
+               this.clasifications_registers.push(element);
+            }
+         });
+      } else {
+         this.clasifications_registers = [];
+         response.forEach(element => {
+            if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 2 || element.id == 33 ) && this.canCafeteria) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 6 || element.id == 37 ) && this.canBar) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 18 || element.id == 49 ) && this.canDiscoteca) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 29 || element.id == 60 ) && this.canCatering) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 23 || element.id == 54 ) && this.canEstablecimientoMovil) {
+               this.clasifications_registers.push(element);
+            }
+            if ((element.id == 26 || element.id == 57 ) && this.canPlazaComida) {
+               this.clasifications_registers.push(element);
+            }
+         });
       }
-   });
+      this.clasifications_registers.forEach(element => {
+         if (element.id == register_type_id) {
+            this.categorySelectedCode = element.father_code;
+            console.log(this.categorySelectedCode);
+         }
+      });
+   }).catch( e => { console.log(e) });
   }
 
   setCategory(type_id: number){
