@@ -4368,7 +4368,6 @@ guardarDeclaracion() {
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
     let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
-    this.setABCategory(this.registerMinturSelected.register.register_type_id);
     //Restaurante
     if (clasificationAB.id == 11 || clasificationAB.id == 42) {
        this.canEstablecimientoMovil = false;
