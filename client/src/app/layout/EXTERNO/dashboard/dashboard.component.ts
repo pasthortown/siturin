@@ -2753,12 +2753,52 @@ export class DashboardComponent implements OnInit {
          if ( this.regionSelectedCode != '1' && esRegitro) {
             this.clasifications_registers = [];
             response.forEach(element => {
-               this.clasifications_registers.push(element);
+               if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 2 || element.id == 33 ) && this.canCafeteria) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 6 || element.id == 37 ) && this.canBar) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 18 || element.id == 49 ) && this.canDiscoteca) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 29 || element.id == 60 ) && this.canCatering) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 23 || element.id == 54 ) && this.canEstablecimientoMovil) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 26 || element.id == 57 ) && this.canPlazaComida) {
+                  this.clasifications_registers.push(element);
+               }
             });
          } else {
             this.clasifications_registers = [];
             response.forEach(element => {
-               this.clasifications_registers.push(element);
+               if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 2 || element.id == 33 ) && this.canCafeteria) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 6 || element.id == 37 ) && this.canBar) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 18 || element.id == 49 ) && this.canDiscoteca) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 29 || element.id == 60 ) && this.canCatering) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 23 || element.id == 54 ) && this.canEstablecimientoMovil) {
+                  this.clasifications_registers.push(element);
+               }
+               if ((element.id == 26 || element.id == 57 ) && this.canPlazaComida) {
+                  this.clasifications_registers.push(element);
+               }
             });
          }
       }).catch( e => { console.log(e) });
