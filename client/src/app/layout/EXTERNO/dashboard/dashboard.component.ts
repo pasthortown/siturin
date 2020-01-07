@@ -1146,16 +1146,9 @@ export class DashboardComponent implements OnInit {
   setABCategory(register_type_id: number) {
    this.actividadSelected = '2';
    this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
-      let esRegitro = false;
-      this.specific_states.forEach(element => {
-         if (element.id == this.rucEstablishmentRegisterSelected.status) {
-            if (element.name == 'Registro') {
-               esRegitro = true;
-            }
-         }
-      });
       const response = r as any[];
-      if ( this.regionSelectedCode != '1' && esRegitro) {
+      console.log(response);
+      if ( this.regionSelectedCode != '1') {
          this.clasifications_registers = [];
          response.forEach(element => {
             if ((element.id == 11 || element.id == 42 ) && this.canRestaurante) {
