@@ -6,6 +6,8 @@ import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
 import { DeclarationAttachment } from './../../../models/FINANCIERO/DeclarationAttachment';
 import { FloorAuthorizationCertificate } from './../../../models/BASE/FloorAuthorizationCertificate';
 import { Router } from '@angular/router'; 
+import { FoodDrinkAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/FoodDrinkAttachment';
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 
 import { ApprovalStateAttachment } from './../../../models/ALOJAMIENTO/ApprovalStateAttachment';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
@@ -153,6 +155,7 @@ export class DashboardComponent implements OnInit {
    canPlazaComida = true;
    idCausal = 0;
    reclasificando = false;
+   listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
    recategorizando = false;
    my_category_current = '';
    my_classification_current = '';
@@ -437,6 +440,7 @@ export class DashboardComponent implements OnInit {
               private tariffTypeDataService: TariffTypeService,
               private stateDataService: StateService,
               private tax_payer_typeDataService: TaxPayerTypeService,
+              private foodDrinkAttachmentDataService: FoodDrinkAttachmentService,
               private registerDataService: RegisterService) {}
 
   ngOnInit() {
@@ -3374,7 +3378,7 @@ guardarDeclaracion() {
       this.listaPrecios = r as FoodDrinkAttachment;
    }).catch( e => { console.log(e); });
   }
-  
+
   getCapacityTypesAB() {
    this.capacityTypesAB = [];
    this.capacityTypeABDataService.get().then( r => {
