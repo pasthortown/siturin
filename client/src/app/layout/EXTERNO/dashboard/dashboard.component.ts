@@ -132,6 +132,8 @@ export class DashboardComponent implements OnInit {
    tabActive = 'paso1';
    mostrarActualizar = true;
    mostrarActivar = true;
+   mostrarActualizarCapacidadesPrecios = true;
+   actualizandoCapacidadesPrecios = false;
    mostrarDarBaja = true;
    mostrarReclasificar = true;
    mostrarRecategorizar = true;
@@ -435,6 +437,7 @@ export class DashboardComponent implements OnInit {
    this.getMaxDeclarationDate();
    this.getTramiteStates();
   }
+
 
   refreshMaxBed(capacity: Capacity) {
    this.allowed_capacity_types.forEach(capacityType => {
@@ -1794,8 +1797,21 @@ export class DashboardComponent implements OnInit {
    this.inactivando = false;
    this.reclasificando = false;
    this.recategorizando = false;
+   this.actualizandoCapacidadesPrecios = false;
    this.idCausal = 6;
    this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
+  }
+
+  actualizarCapacidadesPrecios() {
+   this.mostrarCausales = false;
+   this.actualizando = false;
+   this.activando = false;
+   this.inactivando = false;
+   this.reclasificando = false;
+   this.actualizandoCapacidadesPrecios = true;
+   this.recategorizando = false;
+   this.idCausal = 6;
+   this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifas, tiene la opción de guardar la información en cualquier momento.';
   }
 
   darBaja() {
@@ -1804,6 +1820,7 @@ export class DashboardComponent implements OnInit {
    this.inactivando = true;
    this.reclasificando = false;
    this.recategorizando = false;
+   this.actualizandoCapacidadesPrecios = false;
    this.getProcedureJustifications();
    this.idCausal = 0;
    this.mostrarCausales = true;
@@ -1826,6 +1843,7 @@ export class DashboardComponent implements OnInit {
    this.actualizando = false;
    this.activando = false;
    this.inactivando = false;
+   this.actualizandoCapacidadesPrecios = false;
    this.reclasificando = true;
    this.recategorizando = false;
    this.idCausal = 4;
@@ -1838,6 +1856,7 @@ export class DashboardComponent implements OnInit {
    this.activando = false;
    this.inactivando = false;
    this.reclasificando = false;
+   this.actualizandoCapacidadesPrecios = false;
    this.recategorizando = true;
    this.idCausal = 5;
    this.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';

@@ -86,6 +86,8 @@
       <div class="btn-group" role="group">
         <button class="btn btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
         <button class="btn btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
+        <button class="btn btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="!actualizandoCapacidadesPrecios" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Tarifarios</button>
+        <button class="btn btn-secondary" (click)="actualizarCapacidadesPrecios()" *ngIf="actualizandoCapacidadesPrecios" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Tarifarios</button>
         <button class="btn btn-light" (click)="recategorizacion()" *ngIf="!recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         <button class="btn btn-secondary" (click)="recategorizacion()" *ngIf="recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         <button class="btn btn-light"  (click)="reclasificacion()" *ngIf="!reclasificando" [disabled]="!mostrarReclasificar">Reclasificación</button>
