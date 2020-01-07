@@ -3350,6 +3350,7 @@ guardarDeclaracion() {
          this.ruc_registro_selected.registers.forEach(element => {
             if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
                let clasificationAB = this.getRegisterABType(element);
+               console.log(this.categorySelectedCode);
                if (clasificationAB.code == this.categorySelectedCode) {
                   this.registerABDataService.get_register_data(element.register.id).then( r => {
                      this.rucEstablishmentRegisterSelected = r.register as Register;
