@@ -3379,6 +3379,30 @@ guardarDeclaracion() {
    }).catch( e => { console.log(e); });
   }
 
+  downloadListaPrecios() {
+   this.downloadFile(
+      this.listaPrecios.food_drink_attachment_file,
+      this.listaPrecios.food_drink_attachment_file_type,
+      this.listaPrecios.food_drink_attachment_file_name);
+  }
+
+  borrarListaPrecios() {
+   this.listaPrecios = new FoodDrinkAttachment();
+  }
+
+  guardarListaPrecios(register_id: number) {
+   this.listaPrecios.register_id = register_id;
+   if(this.listaPrecios.id == 0) {
+    this.foodDrinkAttachmentDataService.post(this.listaPrecios).then( r => { 
+
+    }).catch( e => { console.log(e); });
+   } else {
+    this.foodDrinkAttachmentDataService.put(this.listaPrecios).then( r => { 
+
+    }).catch( e => { console.log(e); });
+   }
+  }
+  
   getCapacityTypesAB() {
    this.capacityTypesAB = [];
    this.capacityTypeABDataService.get().then( r => {
