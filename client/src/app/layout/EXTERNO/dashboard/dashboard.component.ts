@@ -2175,6 +2175,8 @@ export class DashboardComponent implements OnInit {
 
   selectRegisterMintur(item: any) {
    this.registerMinturSelected = item;
+   console.log(this.registerMinturSelected);
+   //AQUI
    this.getRuc(this.registerMinturSelected.ruc.number);
    this.groupTypeSelected = new GroupType();
   }
@@ -4106,7 +4108,8 @@ guardarDeclaracion() {
   let isAlojamiento = false;
   this.canAlimentosBebidas = true;
   this.canAlojamiento = true;
-  console.log(this.ruc_registro_selected);
+
+  //1
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
