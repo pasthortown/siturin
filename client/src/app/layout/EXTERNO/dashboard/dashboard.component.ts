@@ -1144,7 +1144,6 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
-   this.actividadSelected = '2';//AQUI
    let registerTypesAB = [];
    this.register_AlimentosBebidas_typeDataService.get().then( r => {
       registerTypesAB = r as any[];
@@ -1928,6 +1927,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onCellClick(event) {
+     console.log(event);
    this.register_code = event.row.register_code;
    this.my_category_current = event.row.category;
    this.my_classification_current = event.row.classification;
@@ -2728,7 +2728,6 @@ export class DashboardComponent implements OnInit {
    this.clasifications_registers = [];
    this.categories_registers = [];
    this.showRequisites = false;
-   console.log(this.actividadSelected);
    if (this.actividadSelected == '1') {
       this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
@@ -2765,7 +2764,6 @@ export class DashboardComponent implements OnInit {
             }
          });
          const response = r as any[];
-         console.log(response);
          if ( this.regionSelectedCode != '1' && esRegitro) {
             this.clasifications_registers = [];
             response.forEach(element => {
