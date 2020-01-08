@@ -4976,6 +4976,7 @@ guardarDeclaracion() {
                   tariff.capacity_type_id = capacity.capacity_type_id;
                   tariff.isNewTariff = capacity.isNewCapacity;
                   tariff.year = this.selected_year_id;
+                  tariff.price = 0;
                   lastValuesTariffs.valores.forEach(valor => {
                      valor.tariffs.forEach(lasttariff => {
                         if (lasttariff.tariff.tariff_type_id == tariff.tariff_type_id) {
