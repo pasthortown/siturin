@@ -1927,7 +1927,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onCellClick(event) {
-     console.log(event);
+   if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
+      this.actividadSelected = '2';
+   }
+   if (event.row.activity == 'ALOJAMIENTO') {
+      this.actividadSelected = '1';
+   }
    this.register_code = event.row.register_code;
    this.my_category_current = event.row.category;
    this.my_classification_current = event.row.classification;
