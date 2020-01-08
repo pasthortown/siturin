@@ -4651,6 +4651,10 @@ guardarDeclaracion() {
      });
   }
 
+  showINfo() {
+     console.log(this.rucEstablishmentRegisterSelected);
+  }
+
   getSpecificStates() {
    this.specific_states = [];
    this.states.forEach(element => {
