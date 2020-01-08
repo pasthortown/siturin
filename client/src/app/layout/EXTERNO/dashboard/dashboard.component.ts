@@ -4914,6 +4914,7 @@ guardarDeclaracion() {
   }
 
   calcSpaces(capacity?) {
+     //AQUI HACER TODO DE NUEVO
    if(typeof capacity !== 'undefined') {
       this.allowed_capacity_types.forEach(capacityType => {
          if (capacityType.id == capacity.capacity_type_id) {
