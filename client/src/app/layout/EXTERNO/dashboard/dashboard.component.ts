@@ -4681,7 +4681,7 @@ guardarDeclaracion() {
  }
 
  getYears() {
-   this.years = [{value: 2019}];
+   this.years = [];
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
       let existe = false;
       this.years.forEach(year => {
