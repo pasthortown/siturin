@@ -4618,7 +4618,9 @@ guardarDeclaracion() {
       this.checkTramitEmitted(this.register_code);
       this.rucEstablishmentRegisterSelected.status = r.status.state_id;
       this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+      console.log(r);
       this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+      console.log(this.rucEstablishmentRegisterSelected.complementary_service_types_on_register);
       this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = r.complementary_service_foods_on_register as ComplementaryServiceFood[];
       this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
       this.calcSpaces();
