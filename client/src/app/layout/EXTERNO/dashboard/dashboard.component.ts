@@ -136,6 +136,7 @@ export class DashboardComponent implements OnInit {
    tramite = '-';
    tabActive = 'paso1';
    mostrarActualizar = true;
+   mostrarDeclarandoUnoMil = true;
    mostrarActivar = true;
    mostrarActualizarCapacidadesPrecios = true;
    actualizandoCapacidadesPrecios = false;
@@ -143,6 +144,7 @@ export class DashboardComponent implements OnInit {
    mostrarReclasificar = true;
    mostrarRecategorizar = true;
    actualizando = false;
+   declarandoUnoMil = false;
    mensajePorTipoTramite = '';
    activando = false;
    inactivando = false;
@@ -1830,6 +1832,7 @@ export class DashboardComponent implements OnInit {
    this.reclasificando = false;
    this.recategorizando = false;
    this.actualizandoCapacidadesPrecios = false;
+   this.declarandoUnoMil = false;
    this.idCausal = 6;
    this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
   }
@@ -1840,6 +1843,7 @@ export class DashboardComponent implements OnInit {
    this.activando = false;
    this.inactivando = false;
    this.reclasificando = false;
+   this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = true;
    this.recategorizando = false;
    this.idCausal = 6;
@@ -1857,6 +1861,7 @@ export class DashboardComponent implements OnInit {
    this.inactivando = true;
    this.reclasificando = false;
    this.recategorizando = false;
+   this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = false;
    this.getProcedureJustifications();
    this.idCausal = 0;
@@ -1870,6 +1875,7 @@ export class DashboardComponent implements OnInit {
    this.activando = true;
    this.inactivando = false;
    this.reclasificando = false;
+   this.declarandoUnoMil = false;
    this.recategorizando = false;
    this.idCausal = 7;
    this.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
@@ -1880,6 +1886,7 @@ export class DashboardComponent implements OnInit {
    this.actualizando = false;
    this.activando = false;
    this.inactivando = false;
+   this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = false;
    this.reclasificando = true;
    this.recategorizando = false;
@@ -1893,10 +1900,24 @@ export class DashboardComponent implements OnInit {
    this.activando = false;
    this.inactivando = false;
    this.reclasificando = false;
+   this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = false;
    this.recategorizando = true;
    this.idCausal = 5;
    this.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
+  }
+
+  declararUnoMil() {
+   this.mostrarCausales = false;
+   this.actualizando = false;
+   this.activando = false;
+   this.inactivando = false;
+   this.reclasificando = false;
+   this.declarandoUnoMil = true;
+   this.actualizandoCapacidadesPrecios = false;
+   this.recategorizando = false;
+   this.idCausal = 6;
+   this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar su contribución Uno por Mil, tiene la opción de guardar la información en cualquier momento.';
   }
 
   checkTramitEmitted(register_code: String) {
@@ -1950,6 +1971,8 @@ export class DashboardComponent implements OnInit {
            this.mostrarDarBaja = true;
            this.mostrarReclasificar = true;
            this.mostrarRecategorizar = true; 
+           this.mostrarDeclarandoUnoMil = true;
+           this.mostrarActualizarCapacidadesPrecios = true;
            cambioEstado = true;
          }
          if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS") {
@@ -1958,6 +1981,8 @@ export class DashboardComponent implements OnInit {
             this.mostrarDarBaja = false;
             this.mostrarReclasificar = false;
             this.mostrarRecategorizar = false; 
+            this.mostrarDeclarandoUnoMil = false;
+            this.mostrarActualizarCapacidadesPrecios = false;
             cambioEstado = true;
          }
          if (!cambioEstado) {
@@ -1966,6 +1991,8 @@ export class DashboardComponent implements OnInit {
             this.mostrarDarBaja = false;
             this.mostrarReclasificar = false;
             this.mostrarRecategorizar = false;
+            this.mostrarDeclarandoUnoMil = false;
+            this.mostrarActualizarCapacidadesPrecios = false;
             return;
          }
          this.mostrarDataRegisterMintur = true;
