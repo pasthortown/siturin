@@ -4671,16 +4671,16 @@ guardarDeclaracion() {
       this.getCategories();
       this.getAllowedInfo(r.requisites);
       this.allowed_capacity_types = [];
-      this.capacityTypeDataService.get_filtered_by_register_type(this.rucEstablishmentRegisterSelected.register_type_id).then( r2 => {
-        this.allowed_capacity_types = r2 as CapacityType[];
-        this.mostrarDataRegister = true;
-        this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
-            this.getMaxBed(capacity);
-            this.calcBeds(capacity);
-        });
-        this.getYears();
-        this.calcSpaces();
-      }).catch( e => { console.log(e); });
+      // this.capacityTypeDataService.get_filtered_by_register_type(this.rucEstablishmentRegisterSelected.register_type_id).then( r2 => {
+      //   this.allowed_capacity_types = r2 as CapacityType[];
+      //   this.mostrarDataRegister = true;
+      //   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+      //       this.getMaxBed(capacity);
+      //       this.calcBeds(capacity);
+      //   });
+      //   this.getYears();
+      //   this.calcSpaces();
+      // }).catch( e => { console.log(e); });
    }).catch( e => { console.log(e); });
  }
 
