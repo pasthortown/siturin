@@ -1144,7 +1144,6 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
-     //AQUI
    let registerTypesAB = [];
    this.register_AlimentosBebidas_typeDataService.get().then( r => {
       registerTypesAB = r as any[];
@@ -3419,7 +3418,6 @@ guardarDeclaracion() {
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
-      //AQUI
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
          this.showRegisterABInfo();
@@ -4423,6 +4421,7 @@ guardarDeclaracion() {
        this.canCatering = false;
        this.canEstablecimientoMovil = false;
     }
+    this.setABCategory(this.registerMinturSelected.register.register_type_id);
   }
 }
 
