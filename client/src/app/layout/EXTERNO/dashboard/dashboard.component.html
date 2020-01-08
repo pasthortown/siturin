@@ -1284,7 +1284,7 @@
                                 <div class="form-group">
                                   <label>Región</label>
                                   <select class="form-control" disabled id="register_type_id" name="register_type_id"
-                                    (change)="getClasifications()" [(ngModel)]="regionSelectedCode" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                    [(ngModel)]="regionSelectedCode" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                     <option value="-" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of regiones
