@@ -1236,11 +1236,11 @@
                       <div class="col-12">
                         <div class="row">
                           <div class="col-12">
-                            <div class="row">
+                            <div class="row" *ngIf="rucEstablishmentRegisterSelected.code != '' && rucEstablishmentRegisterSelected.code != 'PENDIENTE' ">
                               <div class="col-4">
                                 <div class="form-group">
                                   <label>Código de Seguridad QR</label>
-                                  <ngx-qrcode *ngIf="rucEstablishmentRegisterSelected.code != ''" [qrc-element-type]="'url'"
+                                  <ngx-qrcode [qrc-element-type]="'url'"
                                     [qrc-value]="rucEstablishmentRegisterSelected.code" qrc-class="aclass"
                                     qrc-errorCorrectionLevel="L">
                                   </ngx-qrcode>
@@ -1249,7 +1249,7 @@
                               <div class="col-8">
                                 <div class="form-group">
                                   <label>Código de Barras</label>
-                                  <ngx-barcode *ngIf="rucEstablishmentRegisterSelected.code != ''"
+                                  <ngx-barcode
                                     [bc-value]="rucEstablishmentRegisterSelected.code" [bc-display-value]="true">
                                   </ngx-barcode>
                                 </div>
