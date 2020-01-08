@@ -4683,6 +4683,9 @@ guardarDeclaracion() {
 
  getYears() {
    this.years = [];
+   const today = new Date();
+   const nextYear = today.getFullYear() + 1;
+   this.years.push({value: nextYear});
    this.minYear = 2019;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
       let existe = false;
@@ -4701,6 +4704,7 @@ guardarDeclaracion() {
          }
       }
    });
+   this.years.sort(function(a, b){return a - b});
  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
