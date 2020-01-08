@@ -1158,7 +1158,6 @@ export class DashboardComponent implements OnInit {
             this.regionSelectedCode = element.father_code;
          }
       });
-      this.getCategories();
    }).catch( e => { console.log(e); });
   }
 
@@ -3392,7 +3391,7 @@ guardarDeclaracion() {
 
   getCategories(register_type_id?) {
    this.categories_registers = [];
-   this.rucEstablishmentRegisterSelected.capacities_on_register = []
+   this.rucEstablishmentRegisterSelected.capacities_on_register = [];
    this.rucEstablishmentRegisterSelected.requisites = [];
    this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = [];
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
