@@ -1157,6 +1157,7 @@ export class DashboardComponent implements OnInit {
             this.regionSelectedCode = element.father_code;
          }
       });
+      console.log(register_type_id);
       this.showRegisterABInfo();
    }).catch( e => { console.log(e); });
   }
@@ -4415,7 +4416,6 @@ guardarDeclaracion() {
        this.canCatering = false;
        this.canEstablecimientoMovil = false;
     }
-    console.log(this.registerMinturSelected);
     this.setABCategory(this.registerMinturSelected.register.register_type_id);
   }
 }
