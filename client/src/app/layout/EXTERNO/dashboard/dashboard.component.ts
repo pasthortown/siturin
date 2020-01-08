@@ -255,6 +255,7 @@ export class DashboardComponent implements OnInit {
   selected_year_id = 2019;
   years: any[] = [];
   canEditCapacities = false;
+  minYear = 2019;
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
   rucs_registrados: RegistroDataCarrier[] = [];
@@ -4682,6 +4683,7 @@ guardarDeclaracion() {
 
  getYears() {
    this.years = [];
+   this.minYear = 2019;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
       let existe = false;
       this.years.forEach(year => {
@@ -4689,7 +4691,9 @@ guardarDeclaracion() {
             existe = true;
          }
       });
-      console.log(capacity);
+      if (capacity.year < this.minYear) {
+         this.minYear = capacity.year;
+      }
       if (!existe) {
          let newYear = capacity.year;
          if (newYear != null) {
