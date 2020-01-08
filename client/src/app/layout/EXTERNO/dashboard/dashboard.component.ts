@@ -3271,7 +3271,7 @@ guardarDeclaracion() {
   }
 
   continuarTramiteF() {
-   if (this.terminosCondiciones) {
+   if (this.continuarTramite) {
       this.getCategories();
    }
   }
