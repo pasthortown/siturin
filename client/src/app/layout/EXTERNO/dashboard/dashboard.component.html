@@ -1290,11 +1290,11 @@
                             <div class="row">
                               <div class="col-12">
                                 <div class="col-12">
-                                  <div class="form-group mt-3 text-center">
+                                  <div class="form-group mt-3">
                                     <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi registro.</strong></label>
                                     <div class="onoffswitch">
-                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="checkAgreement()"
-                                        name="baised_accounting" [(ngModel)]="terminosCondiciones"><label class="onoffswitch-label" for="baised_accounting">
+                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="continuarTramiteF()"
+                                        name="baised_accounting" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="baised_accounting">
                                                        <span class="onoffswitch-inner"></span>
                                                        <span class="onoffswitch-switch"></span>
                                                  </label>
@@ -1303,7 +1303,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="continuarTramite">
                               <div class="col-3">
                                 <div class="form-group">
                                   <label>Región</label>
@@ -1366,17 +1366,17 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2' && continuarTramite">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0)">
                           <div class="col-12" *ngIf="actividadSelected !== '2'">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -1387,7 +1387,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && actividadSelected !== '2'">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && actividadSelected !== '2')">
                           <div class="col-12">
                             <label class="col-form-label mb-2"><strong>Habitaciones del Establecimiento</strong><span
                                 class="ml-2 mr-2 badge badge-info">Total de Habitaciones:
@@ -1461,7 +1461,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && categorySelectedCode !== '-' && actividadSelected == '2'">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && categorySelectedCode !== '-' && actividadSelected == '2')">
                           <div class="col-12">
                             <table class="table table-hover mt-2">
                               <thead>
@@ -1491,17 +1491,17 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected !== '2' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0">
+                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && actividadSelected !== '2' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <h4 class="col-12">
                             <strong>Tarifario RACK</strong>
                           </h4>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && actividadSelected == '2')">
                           <h4 class="col-12">
                             <strong>Lista de Precios</strong>
                           </h4>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && actividadSelected == '2')">
                           <div class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -1510,7 +1510,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && actividadSelected == '2')">
                           <div class="col-12">
                             <table class="table table-hover mt-2">
                               <tr>
@@ -1553,7 +1553,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
+                        <div class="row" *ngIf="continuarTramite && (actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
                           <div class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -1563,7 +1563,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
+                        <div class="row" *ngIf="continuarTramite && (actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
                           <div class="col-12">
                               <table class="table table-hover mt-2">
                                 <thead>
@@ -1602,7 +1602,7 @@
                               </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && false">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && false)">
                           <div class="col-12">
                             <div class="form-group">
                                 <label><strong>Salas de Recepciones</strong></label>
@@ -1610,7 +1610,7 @@
                           </div>
                         </div>
                         <div class="form-group"
-                          *ngIf="categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && rucEstablishmentRegisterSelected.register_type_id !== 47 && false">
+                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && rucEstablishmentRegisterSelected.register_type_id !== 47 && false)">
                           <label>¿Su establecimiento cuenta con alquiler de Salas de Recepciones?</label>
                           <div class="col-12">
                               <div class="onoffswitch">

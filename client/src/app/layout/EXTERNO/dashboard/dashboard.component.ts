@@ -223,6 +223,7 @@ export class DashboardComponent implements OnInit {
    registerMinturSelected: any = null;
    currentPageMinturRegisters = 1;
    lastPageMinturRegisters = 1;
+   continuarTramite = false;
    totalABPuntos = 0;
    totalABPuntosShown = 0;
    recordsByPageRegisterMintur = 5;
@@ -3264,6 +3265,12 @@ guardarDeclaracion() {
   }
 
   checkAgreement() {
+   if (this.terminosCondiciones) {
+      this.getCategories();
+   }
+  }
+
+  continuarTramiteF() {
    if (this.terminosCondiciones) {
       this.getCategories();
    }
