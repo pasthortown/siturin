@@ -1633,7 +1633,7 @@
                               [(ngModel)]="salaRecepciones.quantity" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
                           </div>
                         </div>
-                        <div class="row" *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
+                        <div class="row" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
                           <div class="col-12">
                             <div class="form-group">
                                 <label><strong>Servicios Complementarios</strong></label>
@@ -1641,7 +1641,7 @@
                           </div>
                         </div>
                         <div class="form-group"
-                          *ngIf="(categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'">
+                          *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
                           <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
@@ -1655,7 +1655,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="rucEstablishmentRegisterSelected.autorized_complementary_food_capacities">
+                        <div class="row" *ngIf="continuarTramite && (rucEstablishmentRegisterSelected.autorized_complementary_food_capacities)">
                           <div class="col-12">
                             <table class="table table-hover mt-2">
                               <thead>
@@ -1722,7 +1722,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2')">
                           <h4 class="col-12">
                             <strong>Tipo de Servicio</strong><span
                             *ngIf="rucEstablishmentRegisterSelected.service_types_on_register === []"
@@ -1735,7 +1735,7 @@
                             </div>
                           </small>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3') && actividadSelected == '2')">
                           <div class="col-12">
                             <div class="form-group row" *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
                               <div class="col-12">
@@ -1788,7 +1788,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' || categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' || categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2')">
                           <h4 class="col-12">
                             <strong>Tipo de Cocina</strong><span
                             *ngIf="rucEstablishmentRegisterSelected.kitchen_types_on_register === []"
@@ -1801,7 +1801,7 @@
                             </div>
                           </small>
                         </div>
-                        <div class="row mt-3" *ngIf="(categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' ||categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2'">
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode == '1.1' || categorySelectedCode == '1.2' || categorySelectedCode == '1.3' || categorySelectedCode == '1.5' || categorySelectedCode == '1.7' || categorySelectedCode == '2.1' || categorySelectedCode == '2.2' || categorySelectedCode == '2.3' ||categorySelectedCode == '2.5' || categorySelectedCode == '2.7') && actividadSelected == '2')">
                           <div class="col-12">
                             <div class="form-group row" *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
                               <div class="col-12">
@@ -1854,7 +1854,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2')">
+                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
                           <h4 class="col-12">
                             <strong>Modalidades de Turismo de Aventura</strong>
                           </h4>
