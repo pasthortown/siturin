@@ -1157,8 +1157,7 @@ export class DashboardComponent implements OnInit {
             this.regionSelectedCode = element.father_code;
          }
       });
-      console.log(register_type_id);
-      this.showRegisterABInfo();
+      this.getCategories();
    }).catch( e => { console.log(e); });
   }
 
@@ -3415,6 +3414,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         //AQUI
          this.showRegisterABInfo();
       }).catch( e => { console.log(e) });
    }
