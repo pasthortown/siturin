@@ -1491,12 +1491,12 @@
                                 <tr *ngFor="let capacity of rucEstablishmentRegisterSelected.capacities_on_register">
                                   <td>
                                       <input type="number" class="form-control" min="0" max="9999" id="count_space_AB" name="count_space_AB"
-                                      placeholder="Cantidad de Mesas" [(ngModel)]="capacity.quantity_tables" [disabled]="!rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
+                                      placeholder="Cantidad de Mesas" [(ngModel)]="capacity.quantity_tables" [disabled]="selected_year_id < currentYear || !rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
                                   </td>
                                   <td>
                                     <div class="col-12">
                                         <input type="number" class="form-control" min="0" max="9999" id="count_plazas_AB" name="count_plazas_AB"
-                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.quantity_spaces" [disabled]="!rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
+                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.quantity_spaces" [disabled]="selected_year_id < currentYear || !rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
                                     </div>
                                   </td>
                                   <td>
