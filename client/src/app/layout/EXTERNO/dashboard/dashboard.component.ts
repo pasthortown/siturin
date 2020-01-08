@@ -4660,12 +4660,10 @@ guardarDeclaracion() {
       this.capacityTypeDataService.get_filtered_by_register_type(this.rucEstablishmentRegisterSelected.register_type_id).then( r2 => {
         this.allowed_capacity_types = r2 as CapacityType[];
         this.mostrarDataRegister = true;
-        if (typeof this.rucEstablishmentRegisterSelected.capacities_on_register != 'undefined') {
-         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+        this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
             this.getMaxBed(capacity);
             this.calcBeds(capacity);
-         });
-        }
+        });
         this.calcSpaces();
       }).catch( e => { console.log(e); });
    }).catch( e => { console.log(e); });
