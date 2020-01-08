@@ -1443,7 +1443,7 @@
                                   </td>
                                   <td>
                                     <select class="form-control" id="capacity_type_id" name="capacity_type_id"
-                                      [(ngModel)]="capacity.capacity_type_id" (change)="refreshMaxBed(capacity)" [disabled]="!(canEditCapacity && !isNewCapacity) || !rucEstablishmentRegisterSelected.editable">
+                                      [(ngModel)]="capacity.capacity_type_id" (change)="refreshMaxBed(capacity)" [disabled]="!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable)">
                                       <option value="0" selected>Seleccione...</option>
                                       <option *ngFor="
                                           let capacity_type of allowed_capacity_types
