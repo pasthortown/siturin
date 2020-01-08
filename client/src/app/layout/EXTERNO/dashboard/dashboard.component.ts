@@ -1942,6 +1942,12 @@ export class DashboardComponent implements OnInit {
    }).catch( e => { console.log(e); });
   }
 
+  checkAgreement() {
+   if (this.terminosCondiciones) {
+      this.getCategories();
+   }
+  }
+
   onCellClick(event) {
    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
       this.actividadSelected = '2';
