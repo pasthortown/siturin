@@ -4415,6 +4415,7 @@ guardarDeclaracion() {
        this.canCatering = false;
        this.canEstablecimientoMovil = false;
     }
+    console.log(this.registerMinturSelected);
     this.setABCategory(this.registerMinturSelected.register.register_type_id);
   }
 }
