@@ -252,6 +252,8 @@ export class DashboardComponent implements OnInit {
   service_types: ServiceType[] = [];
   kitchen_types: KitchenType[] = [];
   kitchen_type_registerSelectedId = 0;
+  selected_year_id = 2019;
+  years: any[] = [];
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
   rucs_registrados: RegistroDataCarrier[] = [];
@@ -2293,6 +2295,7 @@ export class DashboardComponent implements OnInit {
   }
 
   refresh() {
+     this.years = [{value: 2019},{value: 2020}];
    this.fechasNombramiento();
    this.getRegisterTypesAB();
    this.pays = [];
@@ -2399,6 +2402,10 @@ export class DashboardComponent implements OnInit {
    this.calcularUnoxMil();
   }
  
+  yearCapacity() {
+   console.log(selected_year_id);
+  }
+
   addComplementaryFoodService() {
    const complementaryFoodService = new ComplementaryServiceFood();
    let agregable = true;
