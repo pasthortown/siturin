@@ -254,8 +254,9 @@ export class DashboardComponent implements OnInit {
   kitchen_type_registerSelectedId = 0;
   selected_year_id = 2019;
   years: any[] = [];
-  canEditCapacities = false;
+  currentYear = 2019;
   minYear = 2019;
+  canEditCapacity = false;
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
   rucs_registrados: RegistroDataCarrier[] = [];
@@ -2297,6 +2298,8 @@ export class DashboardComponent implements OnInit {
   }
 
   refresh() {
+   const today = new Date();
+   this.currentYear = today.getFullYear();
    this.fechasNombramiento();
    this.getRegisterTypesAB();
    this.pays = [];
@@ -2404,13 +2407,18 @@ export class DashboardComponent implements OnInit {
   }
  
   yearCapacity() {
-     const today = new Date();
-     const minYear = today.getFullYear();
-     if (this.selected_year_id <= minYear) {
-      this.canEditCapacities = false;
-     } else {
-      this.canEditCapacities = true;
-     }
+   // selected_year_id = 2019;
+   // years: any[] = [];
+   // currentYear = 2019;
+   // minYear = 2019;
+   // capacity.isNewCapacity = false;
+   // canEditCapacity = false;
+   if (this.selected_year_id > this.currentYear) {
+      this.canEditCapacity = true;
+   } else {
+      this.canEditCapacity = false;
+   }
+   //AQUI
   }
 
   addComplementaryFoodService() {
@@ -3474,6 +3482,9 @@ guardarDeclaracion() {
       this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
       this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
       this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
+         capacity.isNewCapacity = false;
+      });
       this.getYears();
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType(r.requisites);
@@ -4667,6 +4678,9 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
       this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = r.complementary_service_foods_on_register as ComplementaryServiceFood[];
       this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
+         capacity.isNewCapacity = false;
+      });
       this.calcSpaces();
       this.getTarifarioRack(register.id);
       this.getCategories();
