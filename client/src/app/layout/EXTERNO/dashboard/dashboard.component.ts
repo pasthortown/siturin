@@ -4882,6 +4882,7 @@ guardarDeclaracion() {
    newCapacity.editable = true;
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
+   newCapacity.isNewCapacity = true;
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
   }
 
