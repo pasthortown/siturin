@@ -4691,8 +4691,8 @@ guardarDeclaracion() {
       });
       if (!existe) {
          let newYear = capacity.year;
-         if (newYear.value != null) {
-            this.years.push(newYear);
+         if (newYear != null) {
+            this.years.push({value: newYear});
          }
       }
    });
