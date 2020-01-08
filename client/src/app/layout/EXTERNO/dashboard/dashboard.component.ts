@@ -2728,6 +2728,7 @@ export class DashboardComponent implements OnInit {
    this.clasifications_registers = [];
    this.categories_registers = [];
    this.showRequisites = false;
+   console.log(this.actividadSelected);
    if (this.actividadSelected == '1') {
       this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
