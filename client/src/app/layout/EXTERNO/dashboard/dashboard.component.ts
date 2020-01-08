@@ -4948,8 +4948,8 @@ guardarDeclaracion() {
       this.tarifarioRack.valores = [];
       this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacityA => {
          const childs = [];
-         let idTipoCapacidad = capacity.capacity_type_id;
-         let editable = capacity.editable;
+         let idTipoCapacidad = capacityA.capacity_type_id;
+         let editable = capacityA.editable;
          if (this.modificadoCapacidades) {
             editable = true;
          }
