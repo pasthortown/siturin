@@ -4690,7 +4690,10 @@ guardarDeclaracion() {
          }
       });
       if (!existe) {
-         this.years.push({value: capacity.year});
+         let newYear = {value: capacity.year};
+         if (newYear.value != '') {
+            this.years.push(newYear);
+         }
       }
    });
  }
