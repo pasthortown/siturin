@@ -3419,6 +3419,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         this.showRegisterABInfo();
       }).catch( e => { console.log(e) });
    }
   }

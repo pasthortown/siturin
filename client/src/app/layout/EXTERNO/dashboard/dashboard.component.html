@@ -1329,7 +1329,7 @@
                                   <select class="form-control" id="register_type_id" name="register_type_id"
                                     (change)="getAllowedInfo()" [(ngModel)]="
                                       rucEstablishmentRegisterSelected.register_type_id
-                                    " [disabled]="!rucEstablishmentRegisterSelected.editable || actividadSelected == '2'">
+                                    " [disabled]="false">
                                     <option value="0" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of categories_registers
