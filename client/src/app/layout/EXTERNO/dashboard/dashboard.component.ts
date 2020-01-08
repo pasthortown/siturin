@@ -4690,10 +4690,12 @@ guardarDeclaracion() {
          }
       });
       if (!existe) {
-         this.years.push({value: capacity.year});
+         let newYear = capacity.year;
+         if (newYear.value != null) {
+            this.years.push(newYear);
+         }
       }
    });
-   console.log(this.years);
  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
