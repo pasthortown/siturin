@@ -4914,7 +4914,9 @@ guardarDeclaracion() {
   }
 
   calcSpaces(capacity?) {
+   let isNewCapacity = true;
    if(typeof capacity !== 'undefined') {
+      isNewCapacity = capacity.isNewCapacity;
       this.allowed_capacity_types.forEach(capacityType => {
          if (capacityType.id == capacity.capacity_type_id) {
             if (!capacityType.editable_spaces) {
@@ -4963,22 +4965,21 @@ guardarDeclaracion() {
                });
                let nombreDivision = '';
                nombreDivision = tariffTypeChild.name;
-               if (capacity.isNewCapacity) {
+               if (isNewCapacity) {
                   const tariff = new Tariff();
                   tariff.tariff_type_id = tariffTypeChild.id;
                   tariff.price = 0;
                   tariff.capacity_type_id = capacity.capacity_type_id;
                   tariff.isNewTariff = capacity.isNewCapacity;
-                  tariff.year = this.selected_year_id;
+                  tariff.year = this.selected_year_id;   
                } else {
                   const tariff = new Tariff();
                   tariff.tariff_type_id = tariffTypeChild.id;
                   tariff.capacity_type_id = capacity.capacity_type_id;
                   tariff.isNewTariff = capacity.isNewCapacity;
-                  tariff.year = this.selected_year_id;
-                  tariff.price = 0;
-                  lastValuesTariffs.valores.forEach(valor => {
-                     valor.tariffs.forEach(lasttariff => {
+                  tariff.year = this.selected_year_id;  
+                  lastValuesTariffs.valores.forEach(lastvalue => {
+                     lastvalue.tariffs.forEach(lasttariff => {
                         if (lasttariff.tariff.tariff_type_id == tariff.tariff_type_id) {
                            tariff.price = lasttariff.tariff.price;
                         }
