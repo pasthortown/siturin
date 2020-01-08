@@ -4929,6 +4929,8 @@ guardarDeclaracion() {
          }
       });
    }
+   const lastValuesTariffs = this.tarifarioRack;
+   console.log(lastValuesTariffs);
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.total_habitations = 0;
    this.rucEstablishmentRegisterSelected.total_beds = 0;
