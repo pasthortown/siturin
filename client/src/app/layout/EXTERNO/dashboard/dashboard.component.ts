@@ -1922,14 +1922,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onCellClick(event) {
-     console.log(event);
    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
       this.actividadSelected = '2';
-      this.registerTypesAB.forEach(element => {
-         // if (element.id == register_type_id ) {
-         //    this.categorySelectedCode = element.father_code;
-         // }
-      });
    }
    if (event.row.activity == 'ALOJAMIENTO') {
       this.actividadSelected = '1';
