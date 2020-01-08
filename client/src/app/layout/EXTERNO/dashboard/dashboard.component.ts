@@ -3392,7 +3392,6 @@ guardarDeclaracion() {
 
   getCategories() {
    this.categories_registers = [];
-   this.rucEstablishmentRegisterSelected.capacities_on_register = [];
    this.rucEstablishmentRegisterSelected.requisites = [];
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
