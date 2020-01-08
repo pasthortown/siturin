@@ -2754,6 +2754,7 @@ export class DashboardComponent implements OnInit {
       }).catch( e => { console.log(e) });
    }
    if (this.actividadSelected == '2') {
+      alert(this.regionSelectedCode);
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
          this.specific_states.forEach(element => {
