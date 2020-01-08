@@ -1144,6 +1144,7 @@ export class DashboardComponent implements OnInit {
   }
   
   setABCategory(register_type_id: number) {
+     //AQUI
    let registerTypesAB = [];
    this.register_AlimentosBebidas_typeDataService.get().then( r => {
       registerTypesAB = r as any[];
@@ -1232,11 +1233,6 @@ export class DashboardComponent implements OnInit {
 
   changeTabActive(event) {
    this.tabActive = event.nextId;
-   if (event.nextId == 'paso3') {
-      if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.setABCategory(this.registerMinturSelected.register.register_type_id);         
-      }
-   }
   }
 
   changeTabActiveSuperior(event) {
@@ -1927,8 +1923,14 @@ export class DashboardComponent implements OnInit {
   }
 
   onCellClick(event) {
+     console.log(event);
    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
       this.actividadSelected = '2';
+      this.registerTypesAB.forEach(element => {
+         // if (element.id == register_type_id ) {
+         //    this.categorySelectedCode = element.father_code;
+         // }
+      });
    }
    if (event.row.activity == 'ALOJAMIENTO') {
       this.actividadSelected = '1';
@@ -3417,6 +3419,7 @@ guardarDeclaracion() {
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
+      //AQUI
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
          this.showRegisterABInfo();
