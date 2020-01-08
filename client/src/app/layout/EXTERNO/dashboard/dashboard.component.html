@@ -1288,6 +1288,22 @@
                               </div>
                             </div>
                             <div class="row">
+                              <div class="col-12">
+                                <div class="col-12">
+                                  <div class="form-group mt-3 text-center">
+                                    <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi registro.</strong></label>
+                                    <div class="onoffswitch">
+                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="checkAgreement()"
+                                        name="baised_accounting" [(ngModel)]="terminosCondiciones"><label class="onoffswitch-label" for="baised_accounting">
+                                                       <span class="onoffswitch-inner"></span>
+                                                       <span class="onoffswitch-switch"></span>
+                                                 </label>
+                                              </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
                               <div class="col-3">
                                 <div class="form-group">
                                   <label>Región</label>
@@ -1329,7 +1345,7 @@
                                 </div>
                               </div>
                               <div class="col-3">
-                                <div class="form-group" *ngIf="!actualizando">
+                                <div class="form-group">
                                   <label>Categoría</label><span *ngIf="
                                       rucEstablishmentRegisterSelected.register_type_id ==
                                       0
@@ -1346,22 +1362,6 @@
                                     </option>
                                   </select>
                                 </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="col-12">
-                              <div class="form-group mt-3">
-                                <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi registro.</strong></label>
-                                <div class="onoffswitch">
-                                             <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="checkAgreement()"
-                                    name="baised_accounting" [(ngModel)]="terminosCondiciones"><label class="onoffswitch-label" for="baised_accounting">
-                                                   <span class="onoffswitch-inner"></span>
-                                                   <span class="onoffswitch-switch"></span>
-                                             </label>
-                                          </div>
                               </div>
                             </div>
                           </div>
