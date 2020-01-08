@@ -2296,7 +2296,6 @@ export class DashboardComponent implements OnInit {
   }
 
   refresh() {
-     this.years = [{value: 2017},{value: 2018},{value: 2019},{value: 2020}];
    this.fechasNombramiento();
    this.getRegisterTypesAB();
    this.pays = [];
@@ -3474,6 +3473,7 @@ guardarDeclaracion() {
       this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
       this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
       this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+      this.getYears();
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType(r.requisites);
       this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
@@ -4678,9 +4678,17 @@ guardarDeclaracion() {
             this.getMaxBed(capacity);
             this.calcBeds(capacity);
         });
+        this.getYears();
         this.calcSpaces();
       }).catch( e => { console.log(e); });
    }).catch( e => { console.log(e); });
+ }
+
+ getYears() {
+   this.years = [{value: 2019}];
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
+      console.log(capacity);
+   });
  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
