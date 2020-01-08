@@ -4704,7 +4704,11 @@ guardarDeclaracion() {
          }
       }
    });
-   this.years.sort(function(a, b){return a - b});
+   this.years.sort(function(a, b) {
+      const a_value = a.value;
+      const b_value = b.value;
+      return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
+  });
  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
