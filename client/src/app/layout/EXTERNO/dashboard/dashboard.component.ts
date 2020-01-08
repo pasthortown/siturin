@@ -4689,6 +4689,7 @@ guardarDeclaracion() {
             existe = true;
          }
       });
+      console.log(capacity);
       if (!existe) {
          let newYear = capacity.year;
          if (newYear != null) {
