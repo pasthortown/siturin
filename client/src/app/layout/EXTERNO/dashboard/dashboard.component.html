@@ -1371,6 +1371,11 @@
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
+                          <h4 class="col-12">
+                            <strong>Capacidades del Establecimiento</strong>
+                          </h4>
+                        </div>
                         <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && continuarTramite">
                           <div class="col-12">
                             <div class="input-group mb-3">
@@ -1388,11 +1393,6 @@
                               </select>
                             </div>
                           </div>
-                        </div>
-                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
-                          <h4 class="col-12">
-                            <strong>Capacidades del Establecimiento</strong>
-                          </h4>
                         </div>
                         <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0)">
                           <div class="col-12" *ngIf="actividadSelected !== '2'">

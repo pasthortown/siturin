@@ -254,6 +254,7 @@ export class DashboardComponent implements OnInit {
   kitchen_type_registerSelectedId = 0;
   selected_year_id = 2019;
   years: any[] = [];
+  canEditCapacities = false;
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
   rucs_registrados: RegistroDataCarrier[] = [];
@@ -2295,7 +2296,7 @@ export class DashboardComponent implements OnInit {
   }
 
   refresh() {
-     this.years = [{value: 2019},{value: 2020}];
+     this.years = [{value: 2017},{value: 2018},{value: 2019},{value: 2020}];
    this.fechasNombramiento();
    this.getRegisterTypesAB();
    this.pays = [];
@@ -2403,7 +2404,13 @@ export class DashboardComponent implements OnInit {
   }
  
   yearCapacity() {
-   console.log(selected_year_id);
+     const today = new Date();
+     const minYear = today.getFullYear();
+     if (this.selected_year_id <= minYear) {
+      this.canEditCapacities = false;
+     } else {
+      this.canEditCapacities = true;
+     }
   }
 
   addComplementaryFoodService() {
