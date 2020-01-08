@@ -1425,7 +1425,7 @@
                             <table class="table table-hover mt-2">
                               <thead>
                                 <th>
-                                  <button type="button" title="Agregar" class="btn btn-success ml-2" (click)="addCapacity()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                  <button type="button" title="Agregar" *ngIf="selected_year_id >= currentYear" class="btn btn-success ml-2" (click)="addCapacity()" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                     <i class="fas fa-plus-circle"></i>
                                   </button>
                                 </th>
@@ -1548,13 +1548,13 @@
                                         <i class="fas fa-download"></i>
                                       </button>
                                       <button
-                                        [disabled]="listaPrecios.food_drink_attachment_file === '' || !rucEstablishmentRegisterSelected.editable"
+                                        [disabled]="selected_year_id < currentYear || listaPrecios.food_drink_attachment_file === '' || !rucEstablishmentRegisterSelected.editable"
                                         type="button" title="Eliminar" class="btn btn-danger"
                                         (click)="borrarListaPrecios()">
                                         <i class="fas fa-trash"></i>
                                       </button>
                                     </div>
-                                    <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
+                                    <input type="file" class="form-control" *ngIf="selected_year_id >= currentYear" [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
                                           CodificarArchivoListaPrecios(
                                             $event
                                           )
