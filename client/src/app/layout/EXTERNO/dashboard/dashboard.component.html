@@ -1350,6 +1350,33 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+                              <ngb-panel id="terminosCondiciones">
+                                <ng-template ngbPanelTitle>
+                                  <span>{{terminosCondicionesAgreement.title}}</span>
+                                </ng-template>
+                                <ng-template ngbPanelContent>
+                                  <div class="col-12" [innerHTML]="terminosCondicionesAgreement.content">
+                                  </div>
+                                </ng-template>
+                              </ngb-panel>
+                            </ngb-accordion>
+                            <div class="col-12">
+                              <div class="form-group mt-3 text-center">
+                                <label class="col-12"><strong>He leído, entendido y por lo tanto acepto los términos y condiciones</strong></label>
+                                <div class="onoffswitch">
+                                             <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="checkAgreement()"
+                                    name="baised_accounting" [(ngModel)]="terminosCondiciones"><label class="onoffswitch-label" for="baised_accounting">
+                                                   <span class="onoffswitch-inner"></span>
+                                                   <span class="onoffswitch-switch"></span>
+                                             </label>
+                                          </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2'">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
