@@ -96,11 +96,11 @@
         <button class="btn btn-light" (click)="declararUnoMil()" *ngIf="!declarandoUnoMil && (registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS' || registerMinturSelected.activity == 'ALOJAMIENTO')" [disabled]="!mostrarDeclarandoUnoMil">Declarar Contribución Uno Por Mil</button>
         <button class="btn btn-secondary" (click)="declararUnoMil()" *ngIf="declarandoUnoMil && (registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS' || registerMinturSelected.activity == 'ALOJAMIENTO')" [disabled]="!mostrarDeclarandoUnoMil">Declarar Contribución Uno Por Mil</button>
         
-        <button class="btn btn-light" (click)="recategorizacion()" *ngIf="!recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
-        <button class="btn btn-secondary" (click)="recategorizacion()" *ngIf="recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
-        
         <button class="btn btn-light"  (click)="reclasificacion()" *ngIf="!reclasificando" [disabled]="!mostrarReclasificar">Reclasificación</button>
         <button class="btn btn-secondary"  (click)="reclasificacion()" *ngIf="reclasificando" [disabled]="!mostrarReclasificar">Reclasificación</button>
+        
+        <button class="btn btn-light" (click)="recategorizacion()" *ngIf="!recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
+        <button class="btn btn-secondary" (click)="recategorizacion()" *ngIf="recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         
         <button class="btn btn-light" (click)="Reingreso()" *ngIf="!activando" [disabled]="!mostrarActivar">Reingreso</button>
         <button class="btn btn-secondary" (click)="Reingreso()" *ngIf="activando" [disabled]="!mostrarActivar">Reingreso</button>
