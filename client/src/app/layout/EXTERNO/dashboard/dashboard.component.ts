@@ -1935,7 +1935,7 @@ export class DashboardComponent implements OnInit {
                miDigito == '7' ||
                miDigito == '0'
                ) {
-                  this.rucEstablishmentRegisterSelected.editable = false;
+                  this.rucEstablishmentRegisterSelected.editable = true;
             }
          }).catch( e => { console.log(e) ;});
       }
@@ -3448,7 +3448,7 @@ guardarDeclaracion() {
    this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
       this.rucEstablishmentRegisterSelected = r.register as Register;
       this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
-      this.rucEstablishmentRegisterSelected.editable = false;
+      this.rucEstablishmentRegisterSelected.editable = true;
       this.rucEstablishmentRegisterSelected.status = r.status.state_id;
       this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
       this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
