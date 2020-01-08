@@ -1612,7 +1612,7 @@
                                             <input type="number" class="form-control" min="0" step="0.01" id="low_capacity_room_price"
                                             name="low_capacity_room_price" [(ngModel)]="tariff.tariff.price"
                                             placeholder="Precio" (input)="checkValuesTariffs()"
-                                            [disabled]="!tariffRack.editable || (!tariff.isReference && tariff.plazasHabitacion !== 999)"/>
+                                            [disabled]="tariff.isNewTariff && (!tariffRack.editable || (!tariff.isReference && tariff.plazasHabitacion !== 999))"/>
                                         </div>
                                     </td>
                                   </tr>

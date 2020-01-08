@@ -4960,6 +4960,7 @@ guardarDeclaracion() {
                tariff.tariff_type_id = tariffTypeChild.id;
                tariff.price = 0;
                tariff.capacity_type_id = capacity.capacity_type_id;
+               tariff.isNewTariff = capacity.isNewCapacity;
                const today = new Date();
                tariff.year = today.getFullYear();
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};

@@ -8,6 +8,7 @@ export class Tariff {
    register_id: number;
    capacity_type_id: number;
    state_id: number;
+   isNewTariff: Boolean;
    constructor() {
       this.id = 0;
       this.price = 0;
@@ -18,6 +19,7 @@ export class Tariff {
       this.register_id = 0;
       this.capacity_type_id = 0;
       const today = new Date();
+      this.isNewTariff = false;
       this.year = today.getFullYear();
    }
 }
