@@ -4936,8 +4936,6 @@ guardarDeclaracion() {
    this.tarifarioRack.valores.forEach(v=> {
       lastValuesTariffs.valores.push(v);
    });
-   console.log(lastValuesTariffs);
-   //AQUI
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.total_habitations = 0;
    this.rucEstablishmentRegisterSelected.total_beds = 0;
@@ -4965,13 +4963,27 @@ guardarDeclaracion() {
                });
                let nombreDivision = '';
                nombreDivision = tariffTypeChild.name;
-               const tariff = new Tariff();
-               tariff.tariff_type_id = tariffTypeChild.id;
-               tariff.price = 0;
-               tariff.capacity_type_id = capacity.capacity_type_id;
-               tariff.isNewTariff = capacity.isNewCapacity;
-               const today = new Date();
-               tariff.year = today.getFullYear();
+               if (capacity.isNewCapacity) {
+                  const tariff = new Tariff();
+                  tariff.tariff_type_id = tariffTypeChild.id;
+                  tariff.price = 0;
+                  tariff.capacity_type_id = capacity.capacity_type_id;
+                  tariff.isNewTariff = capacity.isNewCapacity;
+                  tariff.year = this.selected_year_id;
+               } else {
+                  const tariff = new Tariff();
+                  tariff.tariff_type_id = tariffTypeChild.id;
+                  tariff.capacity_type_id = capacity.capacity_type_id;
+                  tariff.isNewTariff = capacity.isNewCapacity;
+                  tariff.year = this.selected_year_id;
+                  lastValuesTariffs.valores.forEach(valor => {
+                     valor.tariffs.forEach(lasttariff => {
+                        if (lasttariff.tariff.tariff_type_id == tariff.tariff_type_id) {
+                           tariff.price = lasttariff.tariff.price;
+                        }
+                     });
+                  });
+               }
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
                childs.push(newChild);
             });
