@@ -1329,7 +1329,7 @@
                                 </div>
                               </div>
                               <div class="col-3">
-                                <div class="form-group">
+                                <div class="form-group" *ngIf="!actualizando">
                                   <label>Categoría</label><span *ngIf="
                                       rucEstablishmentRegisterSelected.register_type_id ==
                                       0
@@ -1932,7 +1932,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" [hidden]="actualizando" *ngIf="(categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                        <div class="row" *ngIf="!actualizando && (categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0))">
                           <div class="col-12">
                             <div class="row mt-3">
                                 <h4 class="col-12">
