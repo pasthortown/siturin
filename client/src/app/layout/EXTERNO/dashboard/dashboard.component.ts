@@ -1055,7 +1055,6 @@ export class DashboardComponent implements OnInit {
   getTarifarioRack(register_id: number) {
    this.registerDataService.get_tarifario(register_id).then( r => {
       this.tarifarioResponse = r as Tariff[];
-      console.log(this.tarifarioResponse);
       let max_year = 0;
       this.tarifarioResponse.forEach(element => {
          if(element.year > max_year){
@@ -1068,6 +1067,7 @@ export class DashboardComponent implements OnInit {
             this.tarifarioResponse.forEach(tariffResponse => {
                if(tariffResponse.tariff_type_id == tariff.tariff_type_id && tariffResponse.year == max_year && tariffResponse.capacity_type_id == tariff.capacity_type_id) {
                   tariffRack.tariff.price = tariffResponse.price;
+                  tariffRack.tariff.year = tariffResponse.year;
                }
             });
          });
@@ -5000,7 +5000,7 @@ guardarDeclaracion() {
                tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = c1.isNewCapacity;
                //tariff.year = tariffTypeChild.year;AQUI
-               console.log(this.tarifas);
+               console.log(tariffTypeChild);
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
                childs.push(newChild);
             });
