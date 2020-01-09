@@ -256,6 +256,8 @@ export class DashboardComponent implements OnInit {
   years: any[] = [];
   currentYear = 2019;
   minYear = 2019;
+  capacitiesToShow: any[] = [];
+  tariffsToShow: any[] = [];
   canEditCapacity = false;
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
@@ -2407,17 +2409,20 @@ export class DashboardComponent implements OnInit {
   }
  
   yearCapacity() {
-   // selected_year_id = 2019;
-   // years: any[] = [];
-   // currentYear = 2019;
-   // minYear = 2019;
-   // capacity.isNewCapacity = false;
-   // canEditCapacity = false;
    if (this.selected_year_id > this.currentYear) {
       this.canEditCapacity = true;
    } else {
       this.canEditCapacity = false;
    }
+   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
+   const lastValuesTariffs = {cabecera: [], valores: []};
+   this.tarifarioRack.cabecera.forEach(c=> {
+      lastValuesTariffs.cabecera.push(c);
+   });
+   this.tarifarioRack.valores.forEach(v=> {
+      lastValuesTariffs.valores.push(v);
+   });
+   //console.log(lastValuesTariffs);
    //AQUI
   }
 
@@ -4696,11 +4701,12 @@ guardarDeclaracion() {
  }
 
  getYears() {
-   this.years = [{value: 2019}];
+   this.years = [];
    const today = new Date();
    const nextYear = today.getFullYear() + 1;
    this.years.push({value: nextYear});
    this.minYear = 2019;
+   let lastYearDeclared = 2019;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
       let existe = false;
       this.years.forEach(year => {
@@ -4710,6 +4716,9 @@ guardarDeclaracion() {
       });
       if (capacity.year < this.minYear) {
          this.minYear = capacity.year;
+      }
+      if (capacity.year > lastYearDeclared){
+         lastYearDeclared = capacity.year;
       }
       if (!existe) {
          let newYear = capacity.year;
@@ -4723,6 +4732,7 @@ guardarDeclaracion() {
       const b_value = b.value;
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
   });
+  this.selected_year_id = lastYearDeclared;
  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
