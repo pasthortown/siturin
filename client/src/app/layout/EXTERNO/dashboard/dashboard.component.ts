@@ -227,7 +227,6 @@ export class DashboardComponent implements OnInit {
    totalABPuntos = 0;
    totalABPuntosShown = 0;
    recordsByPageRegisterMintur = 5;
-   modificadoCapacidades = false;
    mostrarDataRegisterMintur = false;
    config: any = {
       paging: true,
@@ -258,6 +257,7 @@ export class DashboardComponent implements OnInit {
   minYear = 2019;
   capacitiesToShow: any[] = [];
   tariffsToShow = {cabecera: [], valores: []};
+  modificadoCapacidades = false;
   canEditCapacity = false;
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
