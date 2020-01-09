@@ -5947,7 +5947,6 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = r.complementary_service_foods_on_register as ComplementaryServiceFood[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
-         this.getYears();
          this.calcSpaces();
          this.getTarifarioRack(register.id);
          this.getCategories();
@@ -6274,6 +6273,7 @@ guardarDeclaracion() {
   }
 
   calcSpaces(capacity?) {
+     this.getYears();
    if(typeof capacity !== 'undefined') {
       this.allowed_capacity_types.forEach(capacityType => {
          if (capacityType.id == capacity.capacity_type_id) {
