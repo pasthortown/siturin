@@ -2435,8 +2435,6 @@ export class DashboardComponent implements OnInit {
          });
       });
    }
-   console.log(this.capacitiesToShow);
-   console.log(this.tariffsToShow);
   }
 
   addComplementaryFoodService() {

@@ -1436,7 +1436,7 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let capacity of rucEstablishmentRegisterSelected.capacities_on_register" (click)="selectCapacity(capacity)">
+                                <tr *ngFor="let capacity of capacitiesToShow" (click)="selectCapacity(capacity)">
                                   <td class="text-right">
                                       <span *ngIf="capacity.capacity_type_id == 0 || capacity.quantity == 0"
                                       class="ml-2 badge badge-danger">Incorrecto</span>
@@ -1488,7 +1488,7 @@
                                 <th></th>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let capacity of rucEstablishmentRegisterSelected.capacities_on_register">
+                                <tr *ngFor="let capacity of capacitiesToShow">
                                   <td>
                                       <input type="number" class="form-control" min="0" max="9999" id="count_space_AB" name="count_space_AB"
                                       placeholder="Cantidad de Mesas" [(ngModel)]="capacity.quantity_tables" [disabled]="selected_year_id < currentYear || !rucEstablishmentRegisterSelected.editable || categorySelectedCode == '1.7'"/>
@@ -1585,14 +1585,14 @@
                           <div class="col-12">
                               <table class="table table-hover mt-2">
                                 <thead>
-                                  <th *ngFor="let tariff of tarifarioRack.cabecera">
+                                  <th *ngFor="let tariff of tariffsToShow.cabecera">
                                     <div class="row">
                                       <div class="col-12 text-center">{{tariff.valor}}</div>
                                     </div>
                                   </th>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let tariffRack of tarifarioRack.valores">
+                                  <tr *ngFor="let tariffRack of tariffsToShow.valores">
                                     <td>
                                       <select class="form-control" id="capacity_type_id" name="capacity_type_id"
                                         [(ngModel)]="tariffRack.idTipoCapacidad" [disabled]="true">
