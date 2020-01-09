@@ -4984,6 +4984,7 @@ guardarDeclaracion() {
          });
          const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
          this.tarifarioRack.valores.push(topush);
+         console.log(this.tarifarioRack);
       });
    }
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {
