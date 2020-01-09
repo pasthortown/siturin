@@ -2416,7 +2416,9 @@ export class DashboardComponent implements OnInit {
    }
    this.capacitiesToShow = [];
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
-      this.capacitiesToShow.push(c1);
+      if (c1.year == this.selected_year_id) {
+         this.capacitiesToShow.push(c1);
+      }
    });
    this.tariffsToShow.cabecera = [];
    this.tariffsToShow.valores = [];
@@ -2424,6 +2426,9 @@ export class DashboardComponent implements OnInit {
       this.tariffsToShow.cabecera.push(c);
    });
    this.tarifarioRack.valores.forEach(v=> {
+      v.tariffs.forEach(v1 => {
+         console.log(v1);
+      });
       this.tariffsToShow.valores.push(v);
    });
    console.log(this.capacitiesToShow);
