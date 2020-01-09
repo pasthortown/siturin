@@ -4968,7 +4968,9 @@ guardarDeclaracion() {
                tariff.price = 0;
                lastValuesTariffs.valores.forEach(tariffValue => {
                   tariffValue.tariffs.forEach(t1 => {
-                     console.log(t1.tariff.price);
+                     if (t1.tariff.tariff_type_id == tariff.tariff_type_id) {
+                        tariff.price = t1.tariff.price;
+                     }
                   });
                });
                tariff.capacity_type_id = c1.capacity_type_id;
