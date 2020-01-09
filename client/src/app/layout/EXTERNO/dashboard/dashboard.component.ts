@@ -2434,6 +2434,7 @@ export class DashboardComponent implements OnInit {
    });
    console.log(this.capacitiesToShow);
    console.log(this.tariffsToShow);
+   //AQUI
   }
 
   addComplementaryFoodService() {
@@ -4997,7 +4998,8 @@ guardarDeclaracion() {
                });
                tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = c1.isNewCapacity;
-               tariff.year = this.selected_year_id;
+               tariff.year = tariffTypeChild.year;
+               console.log(tariffTypeChild);
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
                childs.push(newChild);
             });
