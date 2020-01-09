@@ -4914,7 +4914,6 @@ guardarDeclaracion() {
   }
 
   calcSpaces(capacity?) {
-     //AQUI HACER TODO DE NUEVO
    if(typeof capacity !== 'undefined') {
       this.allowed_capacity_types.forEach(capacityType => {
          if (capacityType.id == capacity.capacity_type_id) {
@@ -4924,7 +4923,7 @@ guardarDeclaracion() {
             if (capacity.max_beds > capacityType.bed_quantity){
                capacity.max_beds = capacityType.bed_quantity;
             }
-            if (capacity.max_beds == 0){
+            if (capacity.max_beds == 0) {
                capacity.max_beds = 1;
             }
          }
@@ -4946,10 +4945,10 @@ guardarDeclaracion() {
       }
    } else {
       this.tarifarioRack.valores = [];
-      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
          const childs = [];
-         let idTipoCapacidad = capacity.capacity_type_id;
-         let editable = capacity.editable;
+         let idTipoCapacidad = c1.capacity_type_id;
+         let editable = c1.editable;
          if (this.modificadoCapacidades) {
             editable = true;
          }
@@ -4967,9 +4966,9 @@ guardarDeclaracion() {
                const tariff = new Tariff();
                tariff.tariff_type_id = tariffTypeChild.id;
                tariff.price = 0;
-               tariff.capacity_type_id = capacity.capacity_type_id;
+               tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = capacity.isNewCapacity;
-               tariff.year = selected_year_id;
+               tariff.year = this.selected_year_id;
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
                childs.push(newChild);
             });
@@ -4977,7 +4976,7 @@ guardarDeclaracion() {
          const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
          this.tarifarioRack.valores.push(topush);
       });
-   }
+   }//AQUI
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
       this.allowed_capacity_types.forEach(capacityType => {
          if (capacityType.id == capacity.capacity_type_id) {
