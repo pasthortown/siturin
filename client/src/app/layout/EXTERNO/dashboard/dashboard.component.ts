@@ -2421,9 +2421,9 @@ export class DashboardComponent implements OnInit {
          this.capacitiesToShow.push(c1);
       }
    });
+   this.tariffsToShow.cabecera = [];
+   this.tariffsToShow.valores = [];
    if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
-      this.tariffsToShow.cabecera = [];
-      this.tariffsToShow.valores = [];
       this.tarifarioRack.cabecera.forEach(c=> {
          this.tariffsToShow.cabecera.push(c);
       });
@@ -2435,6 +2435,8 @@ export class DashboardComponent implements OnInit {
          });
       });
    }
+   console.log(this.capacitiesToShow);
+   console.log(this.tariffsToShow);
   }
 
   addComplementaryFoodService() {
