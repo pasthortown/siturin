@@ -4696,7 +4696,7 @@ guardarDeclaracion() {
  }
 
  getYears() {
-   this.years = [];
+   this.years = [{value: 2019}];
    const today = new Date();
    const nextYear = today.getFullYear() + 1;
    this.years.push({value: nextYear});
