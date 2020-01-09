@@ -3539,6 +3539,7 @@ guardarDeclaracion() {
 
   guardarListaPrecios(register_id: number) {
    this.listaPrecios.register_id = register_id;
+   this.listaPrecios.year = this.selected_year_id;
    if(this.listaPrecios.id == 0) {
     this.foodDrinkAttachmentDataService.post(this.listaPrecios).then( r => { 
 
