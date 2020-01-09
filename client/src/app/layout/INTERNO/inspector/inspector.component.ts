@@ -11,7 +11,6 @@ import { DeclarationAttachment } from './../../../models/FINANCIERO/DeclarationA
 import { FloorAuthorizationCertificate } from './../../../models/BASE/FloorAuthorizationCertificate';
 import { Router } from '@angular/router';
 import { ReceptionRoom } from 'src/app/models/ALOJAMIENTO/ReceptionRoom';
-import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 
 import { environment } from 'src/environments/environment';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
