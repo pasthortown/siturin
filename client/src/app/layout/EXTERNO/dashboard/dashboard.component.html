@@ -113,18 +113,20 @@
   </div>
 </div>
 <div style="width: 100%;" *ngIf="actualizandoCapacidadesPrecios">
-  <div class="row mt-3" *ngIf="mostrarCausales">
+  <div class="row">
     <div class="col-12">
-        <label>Causales</label>
-        <select class="form-control" id="causales" name="causales"
-          [(ngModel)]="idCausal">
-          <option value="0" selected>Seleccione...</option>
-          <option *ngFor="let procedure of procedureJustificationsToShow" value="{{procedure.id}}">{{procedure.justification}}</option>
-        </select>
-        <div class="alert alert-info mt-2 mb-2" role="alert">
-          <label class="col-12 text-justify"><strong>Atención</strong></label><br />
-          Deseo notificar al Ministerio de Turismo la Baja del establecimiento.
+      <div class="col-12">
+        <div class="form-group mt-3">
+          <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi registro.</strong></label>
+          <div class="onoffswitch">
+                       <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="continuarTramiteF()"
+              name="baised_accounting" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="baised_accounting">
+                             <span class="onoffswitch-inner"></span>
+                             <span class="onoffswitch-switch"></span>
+                       </label>
+                    </div>
         </div>
+      </div>
     </div>
   </div>
   <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && actividadSelected == '2' && continuarTramite">
@@ -132,6 +134,8 @@
       <strong>Capacidades del Establecimiento</strong>
     </h4>
   </div>
+  
+  //AQUI
 </div>
 <div class="col-12" *ngIf="declarandoUnoMil">
   declarandoUnoMil
