@@ -1498,6 +1498,12 @@
                         </button>
                       </div>
                     </div>
+                    <div class="col-12 text-center">
+                      <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
+                        (click)="pasos.select('paso1')">
+                        <i class="fas fa-arrow-left"></i>&nbsp;Anterior
+                      </button>
+                    </div>
                   </ng-template>
                 </ngb-tab>
               </ngb-tabset>
