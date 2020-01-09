@@ -4967,12 +4967,13 @@ guardarDeclaracion() {
                tariff.tariff_type_id = tariffTypeChild.id;
                tariff.price = 0;
                lastValuesTariffs.valores.forEach(tariffValue => {
-                  console.log(tariffValue);
-                  tariffValue.tariffs.forEach(t1 => {
-                     if (t1.tariff.tariff_type_id == tariff.tariff_type_id) {
-                        tariff.price = t1.tariff.price;
-                     }
-                  });
+                  if (tariffValue.idTipoCapacidad == idTipoCapacidad) {
+                     tariffValue.tariffs.forEach(t1 => {
+                        if (t1.tariff.tariff_type_id == tariff.tariff_type_id) {
+                           tariff.price = t1.tariff.price;
+                        }
+                     });
+                  }
                });
                tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = c1.isNewCapacity;
