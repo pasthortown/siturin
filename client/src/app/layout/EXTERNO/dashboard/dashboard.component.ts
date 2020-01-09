@@ -4976,17 +4976,17 @@ guardarDeclaracion() {
          const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
          this.tarifarioRack.valores.push(topush);
       });
-   }//AQUI
-   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+   }
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {
       this.allowed_capacity_types.forEach(capacityType => {
-         if (capacityType.id == capacity.capacity_type_id) {
-            capacity.editable_beds = capacityType.editable_beds;
-            capacity.editable_spaces = capacityType.editable_spaces;
+         if (capacityType.id == c2.capacity_type_id) {
+            c2.editable_beds = capacityType.editable_beds;
+            c2.editable_spaces = capacityType.editable_spaces;
          }
       });
-      this.rucEstablishmentRegisterSelected.total_spaces += capacity.max_spaces;
-      this.rucEstablishmentRegisterSelected.total_habitations += capacity.quantity;
-      this.rucEstablishmentRegisterSelected.total_beds += (capacity.max_beds * capacity.quantity);
+      this.rucEstablishmentRegisterSelected.total_spaces += c2.max_spaces;
+      this.rucEstablishmentRegisterSelected.total_habitations += c2.quantity;
+      this.rucEstablishmentRegisterSelected.total_beds += (c2.max_beds * c2.quantity);
    });
   }
 
