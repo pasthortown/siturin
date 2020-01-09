@@ -2421,21 +2421,20 @@ export class DashboardComponent implements OnInit {
          this.capacitiesToShow.push(c1);
       }
    });
-   this.tariffsToShow.cabecera = [];
-   this.tariffsToShow.valores = [];
-   this.tarifarioRack.cabecera.forEach(c=> {
-      this.tariffsToShow.cabecera.push(c);
-   });
-   this.tarifarioRack.valores.forEach(v=> {
-      v.tariffs.forEach(v1 => {
-         if (v1.tariff.year == this.selected_year_id) {
-            this.tariffsToShow.valores.push(v);
-         }
+   if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
+      this.tariffsToShow.cabecera = [];
+      this.tariffsToShow.valores = [];
+      this.tarifarioRack.cabecera.forEach(c=> {
+         this.tariffsToShow.cabecera.push(c);
       });
-   });
-   console.log(this.capacitiesToShow);
-   console.log(this.tariffsToShow);
-   //AQUI
+      this.tarifarioRack.valores.forEach(v=> {
+         v.tariffs.forEach(v1 => {
+            if (v1.tariff.year == this.selected_year_id) {
+               this.tariffsToShow.valores.push(v);
+            }
+         });
+      });
+   }
   }
 
   addComplementaryFoodService() {
@@ -4745,6 +4744,7 @@ guardarDeclaracion() {
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
   });
   this.selected_year_id = lastYearDeclared;
+  this.yearCapacity();
  }
 
   selectComplementaryServiceType(complementary_service_type: ComplementaryServiceType) {
