@@ -1756,8 +1756,6 @@ export class InspectorComponent implements OnInit {
   getYears() {
    this.years = [];
    const today = new Date();
-   const nextYear = today.getFullYear() + 1;
-   this.years.push({value: nextYear});
    this.minYear = 2019;
    let lastYearDeclared = 2019;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
