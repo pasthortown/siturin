@@ -3316,9 +3316,12 @@ guardarDeclaracion() {
   }
 
   continuarTramiteF() {
-   if (this.continuarTramite) {
-      this.getCategories();
-   }
+     if (actualizandoCapacidadesPrecios) {
+
+     }
+     if (this.continuarTramite) {
+        this.getCategories();
+     }
   }
 
   getRegistersOnRuc() {
