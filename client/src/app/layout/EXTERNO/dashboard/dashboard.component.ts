@@ -2427,9 +2427,10 @@ export class DashboardComponent implements OnInit {
    });
    this.tarifarioRack.valores.forEach(v=> {
       v.tariffs.forEach(v1 => {
-         console.log(v1);
+         if (v1.tariff.year == this.selected_year_id) {
+            this.tariffsToShow.valores.push(v);
+         }
       });
-      this.tariffsToShow.valores.push(v);
    });
    console.log(this.capacitiesToShow);
    console.log(this.tariffsToShow);
