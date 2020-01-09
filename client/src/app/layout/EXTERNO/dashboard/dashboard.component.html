@@ -1609,6 +1609,7 @@
                                             <div class="input-group-prepend">
                                               <span class="input-group-text" id="basic-addon1">USD</span>
                                             </div>
+                                            <button [disabled]="!tariff.tariff.isNewTariff">soy nuevo</butto>
                                             <input type="number" class="form-control" min="0" step="0.01" id="low_capacity_room_price"
                                             name="low_capacity_room_price" [(ngModel)]="tariff.tariff.price"
                                             placeholder="Precio" (input)="checkValuesTariffs()"
