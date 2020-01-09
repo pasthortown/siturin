@@ -1055,6 +1055,7 @@ export class DashboardComponent implements OnInit {
   getTarifarioRack(register_id: number) {
    this.registerDataService.get_tarifario(register_id).then( r => {
       this.tarifarioResponse = r as Tariff[];
+      console.log(this.tarifarioResponse);
       let max_year = 0;
       this.tarifarioResponse.forEach(element => {
          if(element.year > max_year){
@@ -3352,8 +3353,6 @@ guardarDeclaracion() {
    this.tarifarioRack = {cabecera: [{valor:'Tipo de Habitación', padre: '', hijo: ''}], valores: []};
    this.tariffTypeDataService.get().then( r => {
       const result = r as TariffType[];
-      console.log(r);
-      //AQUI
       result.forEach(father => {
          if(father.father_code == '-'){
             const tariff_father: TariffType = father;
