@@ -968,6 +968,7 @@ export class InspectorComponent implements OnInit {
   getTarifarioRack(register_id: number) {
    this.registerDataService.get_tarifario(register_id).then( r => {
       this.tarifarioResponse = r as Tariff[];
+      console.log(r);
       let max_year = 0;
       this.tarifarioResponse.forEach(element => {
          if(element.year > max_year){
