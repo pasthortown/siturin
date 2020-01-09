@@ -4998,8 +4998,8 @@ guardarDeclaracion() {
                });
                tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = c1.isNewCapacity;
-               tariff.year = tariffTypeChild.year;
-               console.log(tariffTypeChild);
+               //tariff.year = tariffTypeChild.year;
+               console.log(this.tarifas);
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
                childs.push(newChild);
             });
