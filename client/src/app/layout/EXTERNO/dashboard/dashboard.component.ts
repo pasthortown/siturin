@@ -2421,6 +2421,13 @@ export class DashboardComponent implements OnInit {
          this.capacitiesToShow.push(c1);
       }
    });
+   if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
+      if (this.capacitiesToShow.length == 0) {
+         const newCapacity = new CapacityAB();
+         newCapacity.year = this.selected_year_id;
+         this.capacitiesToShow.push(newCapacity);
+      }
+   }
    this.tariffsToShow.cabecera = [];
    this.tariffsToShow.valores = [];
    if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
@@ -2435,6 +2442,7 @@ export class DashboardComponent implements OnInit {
          });
       });
    }
+   console.log(this.capacitiesToShow);
   }
 
   addComplementaryFoodService() {
