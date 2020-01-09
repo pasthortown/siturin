@@ -968,7 +968,6 @@ export class InspectorComponent implements OnInit {
   getTarifarioRack(register_id: number) {
    this.registerDataService.get_tarifario(register_id).then( r => {
       this.tarifarioResponse = r as Tariff[];
-      console.log(r);
       let max_year = 0;
       this.tarifarioResponse.forEach(element => {
          if(element.year > max_year){
@@ -5215,6 +5214,7 @@ selectKitchenType(kitchenType: KitchenType) {
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = r.complementary_service_foods_on_register as ComplementaryServiceFood[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+         this.getYears();
          this.calcSpaces();
          this.getTarifarioRack(register.id);
          this.getCategories();
@@ -5230,7 +5230,6 @@ selectKitchenType(kitchenType: KitchenType) {
               this.getMaxBed(capacity);
               this.calcBeds(capacity);
            });
-           this.getYears();
            this.calcSpaces();
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
