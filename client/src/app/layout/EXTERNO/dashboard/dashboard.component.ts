@@ -4967,7 +4967,9 @@ guardarDeclaracion() {
                tariff.tariff_type_id = tariffTypeChild.id;
                tariff.price = 0;
                lastValuesTariffs.valores.forEach(tariffValue => {
-                  console.log(tariffValue);
+                  tariffValue.tariffs.forEach(t1 => {
+                     console.log(t1);
+                  });
                });
                tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = c1.isNewCapacity;
