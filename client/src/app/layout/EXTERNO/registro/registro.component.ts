@@ -4103,10 +4103,10 @@ export class RegistroComponent implements OnInit {
       }
    } else {
       this.tarifarioRack.valores = [];
-      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
          const childs = [];
-         let idTipoCapacidad = capacity.capacity_type_id;
-         let editable = capacity.editable;
+         let idTipoCapacidad = c1.capacity_type_id;
+         let editable = c1.editable;
          this.tarifas.forEach(tariffType => {
             tariffType.childs.forEach(tariffTypeChild => {
                const es_referencia = tariffType.father.is_reference;
@@ -4121,7 +4121,7 @@ export class RegistroComponent implements OnInit {
                const tariff = new Tariff();
                tariff.tariff_type_id = tariffTypeChild.id;
                tariff.price = 0;
-               tariff.capacity_type_id = capacity.capacity_type_id;
+               tariff.capacity_type_id = c1.capacity_type_id;
                const today = new Date();
                tariff.year = today.getFullYear();
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
@@ -4132,16 +4132,16 @@ export class RegistroComponent implements OnInit {
          this.tarifarioRack.valores.push(topush);
       });
    }
-   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {
       this.allowed_capacity_types.forEach(capacityType => {
-         if (capacityType.id == capacity.capacity_type_id) {
-            capacity.editable_beds = capacityType.editable_beds;
-            capacity.editable_spaces = capacityType.editable_spaces;
+         if (capacityType.id == c2.capacity_type_id) {
+            c2.editable_beds = capacityType.editable_beds;
+            c2.editable_spaces = capacityType.editable_spaces;
          }
       });
-      this.rucEstablishmentRegisterSelected.total_spaces += capacity.max_spaces;
-      this.rucEstablishmentRegisterSelected.total_habitations += capacity.quantity;
-      this.rucEstablishmentRegisterSelected.total_beds += (capacity.max_beds * capacity.quantity);
+      this.rucEstablishmentRegisterSelected.total_spaces += c2.max_spaces;
+      this.rucEstablishmentRegisterSelected.total_habitations += c2.quantity;
+      this.rucEstablishmentRegisterSelected.total_beds += (c2.max_beds * c2.quantity);
    });
   }
 
