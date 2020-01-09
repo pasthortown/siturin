@@ -3352,6 +3352,8 @@ guardarDeclaracion() {
    this.tarifarioRack = {cabecera: [{valor:'Tipo de Habitación', padre: '', hijo: ''}], valores: []};
    this.tariffTypeDataService.get().then( r => {
       const result = r as TariffType[];
+      console.log(r);
+      //AQUI
       result.forEach(father => {
          if(father.father_code == '-'){
             const tariff_father: TariffType = father;
@@ -4998,7 +5000,7 @@ guardarDeclaracion() {
                });
                tariff.capacity_type_id = c1.capacity_type_id;
                tariff.isNewTariff = c1.isNewCapacity;
-               //tariff.year = tariffTypeChild.year;
+               //tariff.year = tariffTypeChild.year;AQUI
                console.log(this.tarifas);
                let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
                childs.push(newChild);
