@@ -257,7 +257,7 @@ export class DashboardComponent implements OnInit {
   currentYear = 2019;
   minYear = 2019;
   capacitiesToShow: any[] = [];
-  tariffsToShow: any[] = [];
+  tariffsToShow = {cabecera: [], valores: []};
   canEditCapacity = false;
   service_type_registerSelectedId = 0;
   group_types: GroupType[] = [];
@@ -2414,16 +2414,20 @@ export class DashboardComponent implements OnInit {
    } else {
       this.canEditCapacity = false;
    }
-   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
-   const lastValuesTariffs = {cabecera: [], valores: []};
+   this.capacitiesToShow = [];
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
+      this.capacitiesToShow.push(c1);
+   });
+   this.tariffsToShow.cabecera = [];
+   this.tariffsToShow.valores = [];
    this.tarifarioRack.cabecera.forEach(c=> {
-      lastValuesTariffs.cabecera.push(c);
+      this.tariffsToShow.cabecera.push(c);
    });
    this.tarifarioRack.valores.forEach(v=> {
-      lastValuesTariffs.valores.push(v);
+      this.tariffsToShow.valores.push(v);
    });
-   //console.log(lastValuesTariffs);
-   //AQUI
+   console.log(this.capacitiesToShow);
+   console.log(this.tariffsToShow);
   }
 
   addComplementaryFoodService() {
