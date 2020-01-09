@@ -91,6 +91,7 @@ import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { StateService } from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
+import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 import { User } from 'src/app/models/profile/User';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { GroupGiven } from 'src/app/models/BASE/GroupGiven';

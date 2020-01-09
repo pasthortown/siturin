@@ -106,6 +106,7 @@ import { ReceptionRoom } from 'src/app/models/ALOJAMIENTO/ReceptionRoom';
 import Swal from 'sweetalert2';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
+import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 import { Document as Documento } from 'src/app/models/EXPORTER/Document';
 import { Register as RegistroCatastro } from 'src/app/models/CATASTRO/Register';
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
