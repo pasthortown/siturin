@@ -2464,7 +2464,7 @@ export class RegistroComponent implements OnInit {
       this.getCapacityTypesAB();
       const today = new Date();
       const newCapacity = new CapacityAB();
-      newCapacity = today.getFullYear();
+      newCapacity.year = today.getFullYear();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType();
