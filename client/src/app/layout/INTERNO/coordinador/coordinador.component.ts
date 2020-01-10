@@ -2344,70 +2344,78 @@ export class CoordinadorComponent implements OnInit {
      ];
      const data = [];
      this.registers_mintur.forEach(item => {
-         let date_assigment_alert = '';
-         let date1 = new Date();
-         const registerState = this.getRegisterState(item.states.state_id);
-         if (registerState.search('Aprobado') == 0) {
-            date1 = new Date(item.states.updated_at);
-         }
-         if (registerState.search('Negado') == 0) {
-            date1 = new Date(item.states.updated_at);
-         }
-         const date2 = new Date(item.register.created_at);
-         const diffTime = Math.abs(date2.getTime() - date1.getTime());
-         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-         if (diffDays < 7) {
-            date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-success">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
-         }
-         if (diffDays >= 7 && diffDays <= 10) {
-            date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-warning">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
-         }
-         if (diffDays > 10) {
-            date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-danger">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
-         }
-         let provincia = new Ubication();
-         let canton = new Ubication();
-         let parroquia = new Ubication();
-         let zonal = new Ubication();
-         this.ubications.forEach(element => {
-            if (element.id == item.establishment.ubication_id) {
-            parroquia = element;
+        let addRegister = false;
+         this.myAbleUbications.forEach( ub => {
+            if (ub.id == item.establishment.ubication_id) {
+               addRegister = true;
             }
          });
-         this.ubications.forEach(element => {
-            if (element.code == parroquia.father_code) {
-            canton = element;
+         if (addRegister) {
+            let date_assigment_alert = '';
+            let date1 = new Date();
+            const registerState = this.getRegisterState(item.states.state_id);
+            if (registerState.search('Aprobado') == 0) {
+               date1 = new Date(item.states.updated_at);
             }
-         });
-         this.ubications.forEach(element => {
-            if (element.code == canton.father_code) {
-            provincia = element;
+            if (registerState.search('Negado') == 0) {
+               date1 = new Date(item.states.updated_at);
             }
-         });
-         this.ubications.forEach(element => {
-            if (element.code == provincia.father_code) {
-            zonal = element;
+            const date2 = new Date(item.register.created_at);
+            const diffTime = Math.abs(date2.getTime() - date1.getTime());
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays < 7) {
+               date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-success">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
             }
-         });
-         const creacion = new Date(item.register.created_at.toString());
-         data.push({
-            selected: '',
-            date_assigment_alert: date_assigment_alert,
-            number: item.ruc.number,
-            registerId: item.register.id,
-            actividad: item.activity,
-            provincia: provincia.name,
-            canton: canton.name,
-            parroquia: parroquia.name,
-            ruc_code_id: item.establishment.ruc_code_id,
-            establishment: item.establishment.commercially_known_name,
-            address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
-            created_at: creacion.toLocaleDateString(),
-            code: item.register.code,
-            category: this.getRegisterCategory(item.register.register_type_id, item.activity),
-            status: registerState,
-            status_id: item.states.state_id,
-         });
+            if (diffDays >= 7 && diffDays <= 10) {
+               date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-warning">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
+            }
+            if (diffDays > 10) {
+               date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-danger">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
+            }
+            let provincia = new Ubication();
+            let canton = new Ubication();
+            let parroquia = new Ubication();
+            let zonal = new Ubication();
+            this.ubications.forEach(element => {
+               if (element.id == item.establishment.ubication_id) {
+               parroquia = element;
+               }
+            });
+            this.ubications.forEach(element => {
+               if (element.code == parroquia.father_code) {
+               canton = element;
+               }
+            });
+            this.ubications.forEach(element => {
+               if (element.code == canton.father_code) {
+               provincia = element;
+               }
+            });
+            this.ubications.forEach(element => {
+               if (element.code == provincia.father_code) {
+               zonal = element;
+               }
+            });
+            const creacion = new Date(item.register.created_at.toString());
+            data.push({
+               selected: '',
+               date_assigment_alert: date_assigment_alert,
+               number: item.ruc.number,
+               registerId: item.register.id,
+               actividad: item.activity,
+               provincia: provincia.name,
+               canton: canton.name,
+               parroquia: parroquia.name,
+               ruc_code_id: item.establishment.ruc_code_id,
+               establishment: item.establishment.commercially_known_name,
+               address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
+               created_at: creacion.toLocaleDateString(),
+               code: item.register.code,
+               category: this.getRegisterCategory(item.register.register_type_id, item.activity),
+               status: registerState,
+               status_id: item.states.state_id,
+            });
+         }
      });
      this.data = data;
      this.onChangeTable(this.config);
