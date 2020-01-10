@@ -2443,6 +2443,9 @@ export class DashboardComponent implements OnInit {
          });
       });
    }
+   this.listaPrecios = new FoodDrinkAttachment();
+   const today = new Date();
+   this.listaPrecios.year = today.getFullYear();
    this.listasPrecios.forEach(element => {
       if (element.year == this.selected_year_id) {
          this.listaPrecios = element;
