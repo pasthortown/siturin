@@ -3326,7 +3326,7 @@ guardarDeclaracion() {
 
   continuarTramiteF() {
      if (this.actualizandoCapacidadesPrecios) {
-
+      console.log(this.registerMinturSelected);
      }
      if (this.continuarTramite) {
         this.getCategories();
@@ -3552,7 +3552,6 @@ guardarDeclaracion() {
   }
 
   guardarListaPrecios(register_id: number) {
-     //AQUI - Guardar Listas de Precios y Cargar la correspondiente al año dado. Traer información del ruc y estblecimiento en actualizacion de capacidades.
    this.listaPrecios.register_id = register_id;
    this.listaPrecios.year = this.selected_year_id;
    if(this.listaPrecios.id == 0) {
