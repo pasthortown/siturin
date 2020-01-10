@@ -228,6 +228,7 @@ export class CoordinadorComponent implements OnInit {
    currentPageMinturRegisters = 1;
    razon_social = '';
    lastPageMinturRegisters = 1;
+   myAbleUbications: Ubication[] = [];
    recordsByPageRegisterMintur = 5;
    mostrarDataRegisterMintur = false;
    config: any = {
@@ -3970,6 +3971,27 @@ selectKitchenType(kitchenType: KitchenType) {
 
   getMyTeam() {
    console.log(this.user);  
+   this.myAbleUbications = [];
+   this.ubications.forEach( u => {
+      if (u.id == this.user.id_ubication) {
+         this.myAbleUbications.push(u);
+      }
+   });
+   this.myAbleUbications.forEach( uAble => {
+      this.ubications.forEach( u => {
+         if (uAble.code == u.father_code) {
+            this.myAbleUbications.push(u);
+         }
+      });
+   });
+   this.myAbleUbications.forEach( uAble => {
+      this.ubications.forEach( u => {
+         if (uAble.code == u.father_code) {
+            this.myAbleUbications.push(u);
+         }
+      });
+   });
+   console.log(this.myAbleUbications);
    this.getInspectores();
    this.getFinancieros();
   }
