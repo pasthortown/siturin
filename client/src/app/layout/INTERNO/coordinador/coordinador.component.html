@@ -92,7 +92,7 @@
       </div>
       <select [disabled]="isAssigned" class="form-control" id="idInspector" name="idInspector" [(ngModel)]="inspectorSelectedId">
         <option value="0" selected>Seleccione...</option>
-        <option *ngFor="let inspector of inspectores" value="{{inspector.id}}">{{inspector.name}} - {{inspector.email}}</option>
+        <option *ngFor="let inspector of inspectores" value="{{inspector.id}}">{{inspector.name}} - {{inspector.province}} - {{inspector.email}}</option>
       </select>
     </div>
   </div>
@@ -157,7 +157,7 @@
         </div>
         <select [disabled]="isAssignedFinancial" class="form-control" id="idFinancial" name="idFinancial" [(ngModel)]="financialSelectedId">
           <option value="0" selected>Seleccione...</option>
-          <option *ngFor="let financiero of financieros" value="{{financiero.id}}">{{financiero.name}} - {{financiero.email}}</option>
+          <option *ngFor="let financiero of financieros" value="{{financiero.id}}">{{financiero.name}} - {{financiero.province}} - {{financiero.email}}</option>
         </select>
       </div>
   </div>
