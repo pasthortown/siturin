@@ -157,7 +157,7 @@
         </div>
         <select [disabled]="isAssignedFinancial" class="form-control" id="idFinancial" name="idFinancial" [(ngModel)]="financialSelectedId">
           <option value="0" selected>Seleccione...</option>
-          <option *ngFor="let financiero of financieros" value="{{financiero.id}}">{{financiero.name}} - {{financiero.province}} - {{financiero.email}}</option>
+          <option *ngFor="let financiero of financieros" value="{{financiero.id}}">{{financiero.name}} - {{financiero.email}}</option>
         </select>
       </div>
   </div>

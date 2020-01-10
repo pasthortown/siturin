@@ -3949,7 +3949,6 @@ selectKitchenType(kitchenType: KitchenType) {
    this.getRegiones();
    this.getEstablishmentCertificationTypesCategories();
    this.getComplementaryServiceTypeCategories();
-   this.getUbications();
    this.getZonales();
    this.groupTypeSelected = new GroupType();
   }
@@ -3965,9 +3964,14 @@ selectKitchenType(kitchenType: KitchenType) {
    this.ubicationDataService.get().then( r => {
       this.ubications = r as Ubication[];
       this.getStates();
-      this.getInspectores();
-      this.getFinancieros();
+      this.getMyTeam();
    }).catch( e => { console.log(e); });
+  }
+
+  getMyTeam() {
+   console.log(this.user);  
+   this.getInspectores();
+   this.getFinancieros();
   }
 
   getInspectores() {
@@ -4374,6 +4378,7 @@ selectKitchenType(kitchenType: KitchenType) {
    this.roles = JSON.parse(sessionStorage.getItem('roles')) as AccountRol[];
    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
      this.user = r as User;
+     this.getUbications();
      this.getTerminosCondicionesAgreement();
    }).catch( e => console.log(e));
   }
