@@ -3325,9 +3325,6 @@ guardarDeclaracion() {
   }
 
   continuarTramiteF() {
-     if (this.actualizandoCapacidadesPrecios) {
-      console.log(this.registerMinturSelected);
-     }
      if (this.continuarTramite) {
         this.getCategories();
      }
