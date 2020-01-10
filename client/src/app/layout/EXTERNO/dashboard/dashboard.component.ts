@@ -3322,7 +3322,7 @@ guardarDeclaracion() {
   }
 
   continuarTramiteF() {
-     if (actualizandoCapacidadesPrecios) {
+     if (this.actualizandoCapacidadesPrecios) {
 
      }
      if (this.continuarTramite) {
