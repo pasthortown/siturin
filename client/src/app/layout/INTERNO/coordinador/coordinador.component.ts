@@ -2348,6 +2348,7 @@ export class CoordinadorComponent implements OnInit {
          this.myAbleUbications.forEach( ub => {
             if (ub.id == item.establishment.ubication_id) {
                addRegister = true;
+               console.log(ub.id);
             }
          });
          if (addRegister) {
