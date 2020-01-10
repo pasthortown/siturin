@@ -2462,7 +2462,10 @@ export class RegistroComponent implements OnInit {
       this.getServiceType();
       this.getKitchenType();
       this.getCapacityTypesAB();
-      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+      const today = new Date();
+      const newCapacity = new CapacityAB();
+      newCapacity = today.getFullYear();
+      this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType();
       this.totalABPuntos = 0;
@@ -4055,6 +4058,8 @@ export class RegistroComponent implements OnInit {
   addCapacity() {
    const newCapacity = new Capacity();
    newCapacity.editable = true;
+   const today = new Date();
+   newCapacity.year = today.getFullYear();
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
   }

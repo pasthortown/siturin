@@ -3492,7 +3492,10 @@ guardarDeclaracion() {
       this.getServiceType();
       this.getKitchenType();
       this.getCapacityTypesAB();
-      this.rucEstablishmentRegisterSelected.capacities_on_register.push(new CapacityAB());
+      const newCapacity = new CapacityAB();
+      const today = new Date();
+      newCapacity.year = today.getFullYear();
+      this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType();
       this.totalABPuntos = 0;
@@ -4927,6 +4930,8 @@ guardarDeclaracion() {
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    newCapacity.isNewCapacity = true;
+   const today = new Date();
+   newCapacity.year = today.getFullYear();
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
   }
 
