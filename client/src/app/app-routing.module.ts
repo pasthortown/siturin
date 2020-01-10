@@ -12,6 +12,10 @@ const routes: Routes = [
       loadChildren: './register/register.module#RegisterModule'
   },
   {
+      path: 'inactivacion',
+      loadChildren: './inactivacion/inactivacion.module#InactivacionModule'
+  },
+  {
       path: '',
       loadChildren: './layout/layout.module#LayoutModule',
       canActivate: [AuthGuard]
