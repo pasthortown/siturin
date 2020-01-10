@@ -3972,24 +3972,43 @@ selectKitchenType(kitchenType: KitchenType) {
   getMyTeam() {
    console.log(this.user);  
    this.myAbleUbications = [];
+   let cz = new Ubication();
    this.ubications.forEach( u => {
       if (u.id == this.user.id_ubication) {
-         this.myAbleUbications.push(u);
+         cz = u;
       }
    });
-   this.myAbleUbications.forEach( uAble => {
+   let provincias: Ubication[] = [];
+   this.ubications.forEach( u => {
+      if (cz.code == u.father_code) {
+         provincias.push(u);
+      }
+   });
+   let cantones: Ubication[] = [];
+   provincias.forEach( p => {
       this.ubications.forEach( u => {
-         if (uAble.code == u.father_code) {
-            this.myAbleUbications.push(u);
+         if (p.code == u.father_code) {
+            cantones.push(u);
          }
       });
    });
-   this.myAbleUbications.forEach( uAble => {
+   let parroquia: Ubication[] = [];
+   cantones.forEach( cant => {
       this.ubications.forEach( u => {
-         if (uAble.code == u.father_code) {
-            this.myAbleUbications.push(u);
+         if (cant.code == u.father_code) {
+            parroquia.push(u);
          }
       });
+   });
+   this.myAbleUbications.push(cz);
+   provincias.forEach( u => {
+      this.myAbleUbications.push(u);
+   });
+   cantones.forEach( u => {
+      this.myAbleUbications.push(u);
+   });
+   parroquia.forEach( u => {
+      this.myAbleUbications.push(u);
    });
    console.log(this.myAbleUbications);
    this.getInspectores();
