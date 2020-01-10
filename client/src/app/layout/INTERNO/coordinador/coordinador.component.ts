@@ -188,6 +188,7 @@ export class CoordinadorComponent implements OnInit {
    
    //ASIGNACIONES
    registerIdSelected = 0;
+   listasPrecios: FoodDrinkAttachment[] = [];
    stateTramite: number = 0;
    stateTramiteId: number = 0;
    inspectores: User[] = [];
@@ -926,7 +927,12 @@ export class CoordinadorComponent implements OnInit {
   
   getListaPrecios(register_id: number) {
    this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
-      this.listaPrecios = r as FoodDrinkAttachment;
+      this.listasPrecios = r as FoodDrinkAttachment[];
+      if (this.listasPrecios.length > 0) {
+         this.listaPrecios = r[0];
+      } else {
+         this.listaPrecios = new FoodDrinkAttachment();
+      }
    }).catch( e => { console.log(e); });
   }
 
@@ -1593,6 +1599,11 @@ export class CoordinadorComponent implements OnInit {
          });
       });
    }
+   this.listasPrecios.forEach(element => {
+      if (element.year == this.selected_year_id) {
+         this.listaPrecios = element;
+      }
+   });
   }
 
   asignarFinanciero() {

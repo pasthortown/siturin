@@ -172,6 +172,7 @@ export class DashboardComponent implements OnInit {
    rechazarTramite = false;
    mostrarCausales = false;
    digito = '';
+   listasPrecios: FoodDrinkAttachment[] = [];
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
    currentPagePays = 1;
@@ -2442,6 +2443,11 @@ export class DashboardComponent implements OnInit {
          });
       });
    }
+   this.listasPrecios.forEach(element => {
+      if (element.year == this.selected_year_id) {
+         this.listaPrecios = element;
+      }
+   });
   }
 
   addComplementaryFoodService() {
@@ -3522,7 +3528,12 @@ guardarDeclaracion() {
 
   getListaPrecios(register_id: number) {
    this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
-      this.listaPrecios = r as FoodDrinkAttachment;
+      this.listasPrecios = r as FoodDrinkAttachment[];
+      if (this.listasPrecios.length > 0) {
+         this.listaPrecios = r[0];
+      } else {
+         this.listaPrecios = new FoodDrinkAttachment();
+      }
    }).catch( e => { console.log(e); });
   }
 

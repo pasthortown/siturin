@@ -146,6 +146,7 @@ export class InspectorComponent implements OnInit {
    total_workers = 0;
    salaRecepciones: ReceptionRoom = new ReceptionRoom();
    tarifarioResponse: Tariff[] = [];
+   listasPrecios: FoodDrinkAttachment[] = [];
    tarifarioRack = {cabecera: [], valores: []};
    currentPagePays = 1;
    balance: DeclarationAttachment = new DeclarationAttachment();
@@ -1820,6 +1821,11 @@ export class InspectorComponent implements OnInit {
          });
       });
    }
+   this.listasPrecios.forEach(element => {
+      if (element.year == this.selected_year_id) {
+         this.listaPrecios = element;
+      }
+   });
   }
 
   addServiceType() {
@@ -5335,7 +5341,12 @@ selectKitchenType(kitchenType: KitchenType) {
 
  getListaPrecios(register_id: number) {
    this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
-      this.listaPrecios = r as FoodDrinkAttachment;
+      this.listasPrecios = r as FoodDrinkAttachment[];
+      if (this.listasPrecios.length > 0) {
+         this.listaPrecios = r[0];
+      } else {
+         this.listaPrecios = new FoodDrinkAttachment();
+      }
    }).catch( e => { console.log(e); });
   }
 

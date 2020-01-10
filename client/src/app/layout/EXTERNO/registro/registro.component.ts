@@ -1457,6 +1457,8 @@ export class RegistroComponent implements OnInit {
 
   guardarListaPrecios(register_id: number) {
    this.listaPrecios.register_id = register_id;
+   const today = new Date();
+   this.listaPrecios.year = today.getFullYear();
    if(this.listaPrecios.id == 0) {
     this.foodDrinkAttachmentDataService.post(this.listaPrecios).then( r => { 
 
@@ -3264,7 +3266,12 @@ export class RegistroComponent implements OnInit {
 
   getListaPrecios(register_id: number) {
    this.foodDrinkAttachmentDataService.get_by_register_id(register_id).then( r => {
-      this.listaPrecios = r as FoodDrinkAttachment;
+      const listasPrecios = r as FoodDrinkAttachment[];
+      if (listasPrecios.length > 0) {
+         this.listaPrecios = r[0];
+      } else {
+         this.listaPrecios = new FoodDrinkAttachment();
+      }
    }).catch( e => { console.log(e); });
   }
 
