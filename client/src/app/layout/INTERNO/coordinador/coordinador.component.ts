@@ -4010,7 +4010,6 @@ selectKitchenType(kitchenType: KitchenType) {
    parroquia.forEach( u => {
       this.myAbleUbications.push(u);
    });
-   console.log(this.myAbleUbications);
    this.getInspectores();
    this.getFinancieros();
   }
@@ -4020,10 +4019,9 @@ selectKitchenType(kitchenType: KitchenType) {
    this.userDataService.get_by_rol('5').then( r => {
       const allInspector = r as User[];
       allInspector.forEach( inspector => {
-         //if (inspector.id_ubication == )
-         this.ubications.forEach( ubication => {
-            if (ubication.id == inspector.id_ubication) {
-               inspector.province = ubication.name;
+         this.myAbleUbications.forEach( u => {
+            if (inspector.id_ubication == u.id) {
+               inspector.province = u.name;
                this.inspectores.push(inspector);
             }
          });
@@ -4036,10 +4034,9 @@ selectKitchenType(kitchenType: KitchenType) {
    this.userDataService.get_by_rol('6').then( r => {
       const allFinancieros = r as User[];
       allFinancieros.forEach( financiero => {
-         //if (inspector.id_ubication == )
-         this.ubications.forEach( ubication => {
-            if (ubication.id == financiero.id_ubication) {
-               financiero.province = ubication.name;
+         this.myAbleUbications.forEach( u => {
+            if (financiero.id_ubication == u.id) {
+               financiero.province = u.name;
                this.financieros.push(financiero);
             }
          });
