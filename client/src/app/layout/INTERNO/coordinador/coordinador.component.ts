@@ -3970,7 +3970,6 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   getMyTeam() {
-   console.log(this.user);  
    this.myAbleUbications = [];
    let cz = new Ubication();
    this.ubications.forEach( u => {
