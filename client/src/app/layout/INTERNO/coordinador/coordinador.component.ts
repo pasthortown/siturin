@@ -3949,8 +3949,6 @@ selectKitchenType(kitchenType: KitchenType) {
    this.getRegiones();
    this.getEstablishmentCertificationTypesCategories();
    this.getComplementaryServiceTypeCategories();
-   this.getInspectores();
-   this.getFinancieros();
    this.getUbications();
    this.getZonales();
    this.groupTypeSelected = new GroupType();
@@ -3967,20 +3965,40 @@ selectKitchenType(kitchenType: KitchenType) {
    this.ubicationDataService.get().then( r => {
       this.ubications = r as Ubication[];
       this.getStates();
+      this.getInspectores();
+      this.getFinancieros();
    }).catch( e => { console.log(e); });
   }
 
   getInspectores() {
    this.inspectores = [];
    this.userDataService.get_by_rol('5').then( r => {
-      this.inspectores = r as User[];
+      const allInspector = r as User[];
+      allInspector.forEach( inspector => {
+         //if (inspector.id_ubication == )
+         this.ubications.forEach( ubication => {
+            if (ubication.id == inspector.id_ubication) {
+               inspector.province = ubication.name;
+               this.inspectores.push(inspector);
+            }
+         });
+      });
    }).catch( e => {console.log(e); });
   }
    
   getFinancieros() {
    this.financieros = [];
    this.userDataService.get_by_rol('6').then( r => {
-      this.financieros = r as User[];
+      const allFinancieros = r as User[];
+      allFinancieros.forEach( financiero => {
+         //if (inspector.id_ubication == )
+         this.ubications.forEach( ubication => {
+            if (ubication.id == financiero.id_ubication) {
+               financiero.province = ubication.name;
+               this.financieros.push(financiero);
+            }
+         });
+      });
    }).catch( e => {console.log(e); });
   }
 
