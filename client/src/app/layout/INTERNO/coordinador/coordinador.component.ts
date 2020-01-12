@@ -1,3 +1,4 @@
+import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
 import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
 import { Zone } from './../../../models/BASE/Zone';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
@@ -123,6 +124,7 @@ import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitch
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { FoodDrinkAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/FoodDrinkAttachment';
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { AuthLocation } from 'src/app/models/AUTH/AuthLocation';
 
 @Component({
   selector: 'app-registro',
@@ -427,6 +429,7 @@ export class CoordinadorComponent implements OnInit {
               private registerCatastroDataService: RegistroCatastroService,
               private requisiteDataService: RequisiteService,
               private registerProcedureDataService: RegisterProcedureService,
+              private authLocationDataService: AuthLocationService,
               private bedTypeDataService: BedTypeService,
               private approvalStateAttachmentABDataService: ApprovalStateAttachmentABService,
               private declarationDataService: DeclarationService,
@@ -3978,47 +3981,57 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   getMyTeam() {
-   this.myAbleUbications = [];
-   let cz = new Ubication();
-   this.ubications.forEach( u => {
-      if (u.id == this.user.id_ubication) {
-         cz = u;
-      }
-   });
-   let provincias: Ubication[] = [];
-   this.ubications.forEach( u => {
-      if (cz.code == u.father_code) {
-         provincias.push(u);
-      }
-   });
-   let cantones: Ubication[] = [];
-   provincias.forEach( p => {
-      this.ubications.forEach( u => {
-         if (p.code == u.father_code) {
-            cantones.push(u);
-         }
+   this.authLocationDataService.get_by_user_id(this.user.id).then(r2 => {
+      const myAuthLocations = r2 as AuthLocation[];
+      this.myAbleUbications = [];
+      const cz: Ubication[] = [];
+      const provincias: Ubication[] = [];
+      myAuthLocations.forEach(element => {
+         this.ubications.forEach( u => {
+            if (u.id == element.id_ubication) {
+               cz.push(u);
+            }
+         });
       });
-   });
-   let parroquia: Ubication[] = [];
-   cantones.forEach( cant => {
-      this.ubications.forEach( u => {
-         if (cant.code == u.father_code) {
-            parroquia.push(u);
-         }
+      cz.forEach(coordinacion_zonal => {
+         this.ubications.forEach( u => {
+            if (coordinacion_zonal.code == u.father_code) {
+               provincias.push(u);
+            }
+         });
       });
-   });
-   this.myAbleUbications.push(cz);
-   provincias.forEach( u => {
-      this.myAbleUbications.push(u);
-   });
-   cantones.forEach( u => {
-      this.myAbleUbications.push(u);
-   });
-   parroquia.forEach( u => {
-      this.myAbleUbications.push(u);
-   });
-   this.getInspectores();
-   this.getFinancieros();
+      const cantones: Ubication[] = [];
+      provincias.forEach( p => {
+         this.ubications.forEach( u => {
+            if (p.code == u.father_code) {
+               cantones.push(u);
+            }
+         });
+      });
+      const parroquia: Ubication[] = [];
+      cantones.forEach( cant => {
+         this.ubications.forEach( u => {
+            if (cant.code == u.father_code) {
+               parroquia.push(u);
+            }
+         });
+      });
+      cz.forEach( u => {
+         this.myAbleUbications.push(u);
+      });
+      provincias.forEach( u => {
+         this.myAbleUbications.push(u);
+      });
+      cantones.forEach( u => {
+         this.myAbleUbications.push(u);
+      });
+      parroquia.forEach( u => {
+         this.myAbleUbications.push(u);
+      });
+      this.getInspectores();
+      this.getFinancieros();
+
+   }).catch( e => { console.log(e); });
   }
 
   getInspectores() {

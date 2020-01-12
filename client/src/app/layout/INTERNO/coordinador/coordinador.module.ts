@@ -1,3 +1,4 @@
+import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
 import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
@@ -103,6 +104,7 @@ import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALI
     AuthorizationAttachmentService,
     MailerService,
     ZoneService,
+    AuthLocationService,
     DeclarationAttachmentService,
     FloorAuthorizationCertificateService,
     RegisterStateABService,

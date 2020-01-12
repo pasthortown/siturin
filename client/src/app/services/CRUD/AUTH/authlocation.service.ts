@@ -30,6 +30,13 @@ export class AuthLocationService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   get_by_user_id(user_id: number) {
+      return this.http.get(this.url + 'get_by_user_id?user_id=' + user_id.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
    get_paginate(size: number, page: number): Promise<any> {
       return this.http.get(this.url + 'paginate?size=' + size.toString() + '&page=' + page.toString(), this.options).toPromise()
       .then( r => {
