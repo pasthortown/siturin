@@ -4042,7 +4042,27 @@ selectKitchenType(kitchenType: KitchenType) {
          this.myAbleUbications.forEach( u => {
             if (inspector.id_ubication == u.id) {
                inspector.province = u.name;
-               this.inspectores.push(inspector);
+            }
+         });
+      });
+      const inspectoresDuplicados: User[] = [];
+      allInspector.forEach(inspector => {
+         let existe = false;
+         this.inspectores.forEach(i => {
+            if (i.id == inspector.id) {
+               existe = true;
+            }
+         });
+         if (!existe) {
+            this.inspectores.push(inspector);
+         } else {
+            inspectoresDuplicados.push(inspector);
+         }
+      });
+      inspectoresDuplicados.forEach(inspector => {
+         this.inspectores.forEach(i => {
+            if (i.id == inspector.id) {
+               i.province = i.province + '/' + inspector.province;
             }
          });
       });
@@ -4057,7 +4077,27 @@ selectKitchenType(kitchenType: KitchenType) {
          this.myAbleUbications.forEach( u => {
             if (financiero.id_ubication == u.id) {
                financiero.province = u.name;
-               this.financieros.push(financiero);
+            }
+         });
+      });
+      const financierosDuplicados: User[] = [];
+      allFinancieros.forEach(financiero => {
+         let existe = false;
+         this.financieros.forEach(f => {
+            if (f.id == financiero.id) {
+               existe = true;
+            }
+         });
+         if (!existe) {
+            this.financieros.push(financiero);
+         } else {
+            financierosDuplicados.push(financiero);
+         }
+      });
+      financierosDuplicados.forEach(financiero => {
+         this.financieros.forEach(f => {
+            if (f.id == financiero.id) {
+               f.province = f.province + '/' + financiero.province;
             }
          });
       });
