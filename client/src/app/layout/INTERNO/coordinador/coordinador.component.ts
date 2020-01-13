@@ -3692,6 +3692,7 @@ selectKitchenType(kitchenType: KitchenType) {
                mesas += capacity.quantity_tables;   
                plazas += capacity.quantity_spaces;
             });
+            //AQUI
             const params = [{canton: canton.name.toUpperCase()},
                {fecha: today.toLocaleDateString().toUpperCase()},
                {numero_registro: registerDataIncomming.register.code.toUpperCase()},
@@ -3708,6 +3709,12 @@ selectKitchenType(kitchenType: KitchenType) {
                {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
                {mesas: mesas},
                {plazas: plazas},
+               {c1: c1},
+               {c2: c2},
+               {c3: c3},
+               {c4: c4},
+               {c5: c5},
+               {qrcode: qrcode},
                {nombre_coordinador_Zonal: this.user.name.toUpperCase()}];
    
             let document = new Documento();
