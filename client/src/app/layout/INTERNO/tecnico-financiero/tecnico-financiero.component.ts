@@ -927,6 +927,9 @@ calcularUnoxMil() {
      ];
     const data = [];
     this.registers_mintur.forEach(item => {
+       console.log(item.register.id);
+       console.log(data);
+       console.log(this.registers_mintur);
        let existe = false;
        data.forEach(element => {
           if (element.registerId == item.register.id) {
