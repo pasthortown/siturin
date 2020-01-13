@@ -927,6 +927,13 @@ calcularUnoxMil() {
      ];
     const data = [];
     this.registers_mintur.forEach(item => {
+       let existe = false;
+       data.forEach(element => {
+          if (element.registerId == item.register.id) {
+             existe = true;
+          }
+       });
+       if (!existe) {
          let date_assigment_alert = '';
          let date1 = new Date();
          const registerState = this.getRegisterState(item.states.state_id);
@@ -971,6 +978,7 @@ calcularUnoxMil() {
             estado: this.getRegisterState(item.states.state_id),
          });
         }
+       }
     });
     this.data = data;
     this.onChangeTable(this.config);
