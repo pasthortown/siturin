@@ -113,7 +113,7 @@ export class AuthLocationComponent implements OnInit {
    openDialog(content) {
       this.modalService.open(content, { centered: true }).result.then(( response => {
          if ( response === 'Guardar click' ) {
-            if (typeof this.auth_locationSelected.id === 'undefined') {
+            if (typeof this.auth_locationSelected.id === 'undefined' || this.auth_locationSelected.id == 0) {
                this.auth_locationDataService.post(this.auth_locationSelected).then( r => {
                   this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
                   this.getAuthLocations();
