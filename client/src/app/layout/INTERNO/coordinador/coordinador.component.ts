@@ -4038,15 +4038,29 @@ selectKitchenType(kitchenType: KitchenType) {
    this.inspectores = [];
    this.userDataService.get_by_rol('5').then( r => {
       const allInspector = r as User[];
+      const allInspectorData: User[] = [];
       allInspector.forEach( inspector => {
          this.myAbleUbications.forEach( u => {
             if (inspector.id_ubication == u.id) {
-               inspector.province = u.name;
+               const newUser = new User();
+               newUser.id = inspector.id;
+               newUser.name = inspector.name;
+               newUser.email = inspector.email;
+               newUser.id_ubication = inspector.id_ubication;
+               newUser.address = inspector.address;
+               newUser.address_map_latitude = inspector.address_map_latitude;
+               newUser.address_map_longitude = inspector.address_map_longitude;
+               newUser.main_phone_number = inspector.main_phone_number;
+               newUser.secondary_phone_number = inspector.secondary_phone_number;
+               newUser.identification = inspector.identification;
+               newUser.ruc = inspector.ruc;
+               newUser.province = u.name;
+               allInspectorData.push(newUser);
             }
          });
       });
       const inspectoresDuplicados: User[] = [];
-      allInspector.forEach(inspector => {
+      allInspectorData.forEach(inspector => {
          let existe = false;
          this.inspectores.forEach(i => {
             if (i.id == inspector.id) {
@@ -4073,15 +4087,29 @@ selectKitchenType(kitchenType: KitchenType) {
    this.financieros = [];
    this.userDataService.get_by_rol('6').then( r => {
       const allFinancieros = r as User[];
+      const allFinancieroData: User[] = [];
       allFinancieros.forEach( financiero => {
          this.myAbleUbications.forEach( u => {
             if (financiero.id_ubication == u.id) {
-               financiero.province = u.name;
+               const newUser = new User();
+               newUser.id = financiero.id;
+               newUser.name = financiero.name;
+               newUser.email = financiero.email;
+               newUser.id_ubication = financiero.id_ubication;
+               newUser.address = financiero.address;
+               newUser.address_map_latitude = financiero.address_map_latitude;
+               newUser.address_map_longitude = financiero.address_map_longitude;
+               newUser.main_phone_number = financiero.main_phone_number;
+               newUser.secondary_phone_number = financiero.secondary_phone_number;
+               newUser.identification = financiero.identification;
+               newUser.ruc = financiero.ruc;
+               newUser.province = u.name;
+               allFinancieroData.push(newUser);
             }
          });
       });
       const financierosDuplicados: User[] = [];
-      allFinancieros.forEach(financiero => {
+      allFinancieroData.forEach(financiero => {
          let existe = false;
          this.financieros.forEach(f => {
             if (f.id == financiero.id) {
