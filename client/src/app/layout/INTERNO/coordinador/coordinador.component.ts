@@ -1,3 +1,4 @@
+import { IdentificationRoutingModule } from './../../CRUD/DINARDAP/Identification/identification-routing.module';
 import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
 import { ZoneService } from './../../../services/CRUD/BASE/zone.service';
 import { Zone } from './../../../models/BASE/Zone';
@@ -426,6 +427,7 @@ export class CoordinadorComponent implements OnInit {
               private establishmentDataService: EstablishmentService,
               private zoneDataService: ZoneService,
               private register_typeDataService: RegisterTypeService,
+              private registerTypeImageDataService: RegisterTypeImageService,
               private registerCatastroDataService: RegistroCatastroService,
               private requisiteDataService: RequisiteService,
               private registerProcedureDataService: RegisterProcedureService,
@@ -3692,54 +3694,72 @@ selectKitchenType(kitchenType: KitchenType) {
                mesas += capacity.quantity_tables;   
                plazas += capacity.quantity_spaces;
             });
-            //AQUI
-            const params = [{canton: canton.name.toUpperCase()},
-               {fecha: today.toLocaleDateString().toUpperCase()},
-               {numero_registro: registerDataIncomming.register.code.toUpperCase()},
-               {razon_social: this.razon_social.toUpperCase()},
-               {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
-               {actividad: actividad},
-               {categoria: clasificacion.toUpperCase()},
-               {clasificacion: registerDataIncomming.register_category.name.toUpperCase()},
-               {representant_legal: this.representante_legal.toUpperCase()},
-               {ruc: this.ruc_registro_selected.ruc.number},
-               {zonal: iniciales_cordinacion_zonal.toUpperCase()},
-               {provincia: provincia.name.toUpperCase()},
-               {parroquia: parroquia.name.toUpperCase()},
-               {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
-               {mesas: mesas},
-               {plazas: plazas},
-               {c1: c1},
-               {c2: c2},
-               {c3: c3},
-               {c4: c4},
-               {c5: c5},
-               {qrcode: qrcode},
-               {nombre_coordinador_Zonal: this.user.name.toUpperCase()}];
-   
-            let document = new Documento();
-            document.activity =actividad;
-            document.code = qr_value;
-            document.document_type = 'REGISTRO TURÍSTICO';
-            let paramsToBuild = {
-               template: 1, qr: true, qr_value: qr_value, params: params
-            };
-            document.procedure_id = this.tipo_tramite.toUpperCase();
-            document.zonal = zonal.name;
-            document.user = iniciales_cordinador_zonal;
-            document.params = JSON.stringify(paramsToBuild);
-            this.documentDataService.post(document).then().catch( e => { console.log(e); });
-            this.exporterDataService.template(template_id, true, qr_value, params).then( r => {
-               const byteCharacters = atob(r);
-               const byteNumbers = new Array(byteCharacters.length);
-               for (let i = 0; i < byteCharacters.length; i++) {
-                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+            let myClassificationID = 0;
+            let muClassificationCode = '';
+            this.register_types_AB.forEach(element => {
+               if (element.id == registerDataIncomming.register.register_type_id) {
+                  muClassificationCode = element.father_code.toString();
                }
-               const byteArray = new Uint8Array(byteNumbers);
-               const blob = new Blob([byteArray], { type: 'application/pdf'});
-               saveAs(blob, qr_value + '.pdf');
-               this.imprimiendo_registro = false;
-            }).catch( e => { console.log(e); });
+            });
+            this.register_types_AB.forEach(element => {
+               if (element.code == muClassificationCode) {
+                  myClassificationID = element.id;
+               }
+            });
+            this.registerTypeImageDataService.get_by_register_type(myClassificationID).then( rti => {
+               let c1 = 'data:' + rti.register_type_image_file_type + ';base64,' + rti.register_type_image_file;
+               let c2 = 'data:' + rti.register_type_image_file_type + ';base64,' + rti.register_type_image_file;
+               let c3 = 'data:' + rti.register_type_image_file_type + ';base64,' + rti.register_type_image_file;
+               let c4 = 'data:' + rti.register_type_image_file_type + ';base64,' + rti.register_type_image_file;
+               let c5 = 'data:' + rti.register_type_image_file_type + ';base64,' + rti.register_type_image_file;
+               let qrcode = 'data:' + rti.register_type_image_file_type + ';base64,' + rti.register_type_image_file;
+               const params = [{canton: canton.name.toUpperCase()},
+                  {fecha: today.toLocaleDateString().toUpperCase()},
+                  {numero_registro: registerDataIncomming.register.code.toUpperCase()},
+                  {razon_social: this.razon_social.toUpperCase()},
+                  {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+                  {actividad: actividad},
+                  {categoria: clasificacion.toUpperCase()},
+                  {clasificacion: registerDataIncomming.register_category.name.toUpperCase()},
+                  {representant_legal: this.representante_legal.toUpperCase()},
+                  {ruc: this.ruc_registro_selected.ruc.number},
+                  {zonal: iniciales_cordinacion_zonal.toUpperCase()},
+                  {provincia: provincia.name.toUpperCase()},
+                  {parroquia: parroquia.name.toUpperCase()},
+                  {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
+                  {mesas: mesas},
+                  {plazas: plazas},
+                  {c1: c1},
+                  {c2: c2},
+                  {c3: c3},
+                  {c4: c4},
+                  {c5: c5},
+                  {qrcode: qrcode},
+                  {nombre_coordinador_Zonal: this.user.name.toUpperCase()}];
+               let document = new Documento();
+               document.activity =actividad;
+               document.code = qr_value;
+               document.document_type = 'REGISTRO TURÍSTICO';
+               let paramsToBuild = {
+                  template: 1, qr: true, qr_value: qr_value, params: params
+               };
+               document.procedure_id = this.tipo_tramite.toUpperCase();
+               document.zonal = zonal.name;
+               document.user = iniciales_cordinador_zonal;
+               document.params = JSON.stringify(paramsToBuild);
+               this.documentDataService.post(document).then().catch( e => { console.log(e); });
+               this.exporterDataService.template(template_id, true, qr_value, params).then( r => {
+                  const byteCharacters = atob(r);
+                  const byteNumbers = new Array(byteCharacters.length);
+                  for (let i = 0; i < byteCharacters.length; i++) {
+                     byteNumbers[i] = byteCharacters.charCodeAt(i);
+                  }
+                  const byteArray = new Uint8Array(byteNumbers);
+                  const blob = new Blob([byteArray], { type: 'application/pdf'});
+                  saveAs(blob, qr_value + '.pdf');
+                  this.imprimiendo_registro = false;
+               }).catch( e => { console.log(e); });
+            }).catch( e => {console.log(e);} );
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
