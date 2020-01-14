@@ -99,12 +99,12 @@
                </div>
             </div>
             <div class="form-group row">
-               <label for="capacity_type_id" class="col-4 col-form-label">CapacityType</label>
+               <label for="capacity_id" class="col-4 col-form-label">Capacity</label>
                <div class="col-8">
-                  <select class="form-control" id="capacity_type_id" name="capacity_type_id" [(ngModel)]="capacity_pictureSelected.capacity_type_id">
+                  <select class="form-control" id="capacity_id" name="capacity_id" [(ngModel)]="capacity_pictureSelected.capacity_id">
                      <option value="0" selected>Seleccione...</option>
-                     <option *ngFor="let capacity_type of capacity_types" value={{capacity_type.id}}>
-                        {{capacity_type.name}}
+                     <option *ngFor="let capacity of capacities" value={{capacity.id}}>
+                        {{capacity.id}}
                      </option>
                   </select>
                </div>
