@@ -102,8 +102,8 @@
         <button class="btn btn-light" (click)="recategorizacion()" *ngIf="!recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         <button class="btn btn-secondary" (click)="recategorizacion()" *ngIf="recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         
-        <button class="btn btn-light" *ngIf="!activando" [disabled]="!mostrarActivar">Reingreso</button>
-        <button class="btn btn-secondary" *ngIf="activando" [disabled]="!mostrarActivar">Reingreso</button>
+        <button class="btn btn-light" *ngIf="!inactivando" [disabled]="!mostrarInactivar">Inactivación</button>
+        <button class="btn btn-secondary" *ngIf="inactivando" [disabled]="!mostrarInactivar">Inactivación</button>
       </div>
     </div>
     <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="mensajePorTipoTramite != ''">

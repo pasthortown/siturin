@@ -138,6 +138,7 @@ export class DashboardComponent implements OnInit {
    mostrarActualizar = true;
    mostrarDeclarandoUnoMil = true;
    mostrarActivar = true;
+   mostrarInactivar = true;
    mostrarActualizarCapacidadesPrecios = true;
    actualizandoCapacidadesPrecios = false;
    mostrarDarBaja = true;
