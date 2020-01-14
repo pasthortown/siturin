@@ -4139,7 +4139,6 @@ selectKitchenType(kitchenType: KitchenType) {
             inspectoresDuplicados.push(inspector);
          }
       });
-      console.log(inspectoresDuplicados);
       inspectoresDuplicados.forEach(inspector => {
          this.inspectores.forEach(i => {
             if (i.id == inspector.id) {
