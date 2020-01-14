@@ -4,8 +4,8 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
 import { CapacityPictureService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacitypicture.service';
 import { CapacityPicture } from './../../../../models/ALIMENTOSBEBIDAS/CapacityPicture';
-import { CapacityTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
-import { CapacityType } from './../../../../models/ALIMENTOSBEBIDAS/CapacityType';
+import { CapacityService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacity.service';
+import { Capacity } from './../../../../models/ALIMENTOSBEBIDAS/Capacity';
 
 
 @Component({
@@ -21,16 +21,16 @@ export class CapacityPictureComponent implements OnInit {
    lastPage = 1;
    showDialog = false;
    recordsByPage = 5;
-   capacity_types: CapacityType[] = [];
+   capacities: Capacity[] = [];
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
-               private capacity_typeDataService: CapacityTypeService,
+               private capacityDataService: CapacityService,
                private capacity_pictureDataService: CapacityPictureService) {}
 
    ngOnInit() {
       this.goToPage(1);
-      this.getCapacityType();
+      this.getCapacity();
    }
 
    CodeFileCapacityPicture(event) {
@@ -50,10 +50,10 @@ export class CapacityPictureComponent implements OnInit {
       this.capacity_pictureSelected = capacity_picture;
    }
 
-   getCapacityType() {
-      this.capacity_types = [];
-      this.capacity_typeDataService.get().then( r => {
-         this.capacity_types = r as CapacityType[];
+   getCapacity() {
+      this.capacities = [];
+      this.capacityDataService.get().then( r => {
+         this.capacities = r as Capacity[];
       }).catch( e => console.log(e) );
    }
 
@@ -69,7 +69,7 @@ export class CapacityPictureComponent implements OnInit {
    getCapacityPictures() {
       this.capacity_pictures = [];
       this.capacity_pictureSelected = new CapacityPicture();
-      this.capacity_pictureSelected.capacity_type_id = 0;
+      this.capacity_pictureSelected.capacity_id = 0;
       this.capacity_pictureDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
          this.capacity_pictures = r.data as CapacityPicture[];
          this.lastPage = r.last_page;
@@ -78,7 +78,7 @@ export class CapacityPictureComponent implements OnInit {
 
    newCapacityPicture(content) {
       this.capacity_pictureSelected = new CapacityPicture();
-      this.capacity_pictureSelected.capacity_type_id = 0;
+      this.capacity_pictureSelected.capacity_id = 0;
       this.openDialog(content);
    }
 
@@ -113,9 +113,9 @@ export class CapacityPictureComponent implements OnInit {
    toCSV() {
       this.capacity_pictureDataService.get().then( r => {
          const backupData = r as CapacityPicture[];
-         let output = 'id;capacity_picture_file_type;capacity_picture_file_name;capacity_picture_file;capacity_type_id\n';
+         let output = 'id;capacity_picture_file_type;capacity_picture_file_name;capacity_picture_file;capacity_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.capacity_picture_file_type + ';' + element.capacity_picture_file_name + ';' + element.capacity_picture_file + ';' + element.capacity_type_id + '\n';
+            output += element.id; + element.capacity_picture_file_type + ';' + element.capacity_picture_file_name + ';' + element.capacity_picture_file + ';' + element.capacity_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

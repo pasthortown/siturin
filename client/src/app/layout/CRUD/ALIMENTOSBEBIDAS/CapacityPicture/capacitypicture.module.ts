@@ -6,7 +6,7 @@ import { CapacityPictureRoutingModule } from './capacitypicture-routing.module';
 import { CapacityPictureComponent } from './capacitypicture.component';
 import { CapacityPictureService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacitypicture.service';
 import { environment } from 'src/environments/environment';
-import { CapacityTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
+import { CapacityService } from './../../../../services/CRUD/ALIMENTOSBEBIDAS/capacity.service';
 
 @NgModule({
    imports: [CommonModule,
@@ -15,7 +15,7 @@ import { CapacityTypeService } from './../../../../services/CRUD/ALIMENTOSBEBIDA
    declarations: [CapacityPictureComponent],
    providers: [
                NgbModal,
-               CapacityTypeService,
+               CapacityService,
                CapacityPictureService
                ]
 })
