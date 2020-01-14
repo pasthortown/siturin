@@ -3,7 +3,15 @@
      Registros - MINTUR
   </h1>
 </div>
-<button (click)="pruebaCertificadoTurismo(2,6)">AQUI ESTOY Y MIRA QUE BONITO QUE SOY</button>
+<div class="row">
+  <input [(ngModel)]="numcuanto"/>
+</div>
+<div class="row">
+  <input [(ngModel)]="idTypo"/>
+</div>
+<div class="row">
+  <button (click)="pruebaCertificadoTurismo(numcuanto,idTypo)">AQUI ESTOY Y MIRA QUE BONITO QUE SOY</button>
+</div>
 <div class="row">
   <div class="col-12">
      <div class="btn-toolbar" role="toolbar">
