@@ -10,6 +10,7 @@ import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
 import { DeclarationAttachment } from './../../../models/FINANCIERO/DeclarationAttachment';
 import { FloorAuthorizationCertificate } from './../../../models/BASE/FloorAuthorizationCertificate';
 import { Router } from '@angular/router'; 
+import { RegisterTypeImageService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertypeimage.service';
 
 import { ApprovalStateAttachment } from './../../../models/ALOJAMIENTO/ApprovalStateAttachment';
 import { ApprovalStateAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
