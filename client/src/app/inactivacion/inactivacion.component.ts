@@ -37,6 +37,8 @@ export class InactivacionComponent implements OnInit {
   esperando = false;
   emailContactValidated = false;
   cuentaInterno = false;
+  mainPhoneValidated: Boolean = false;
+  secondaryPhoneValidated: Boolean = false;
   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
@@ -135,6 +137,32 @@ export class InactivacionComponent implements OnInit {
          this.consumoCedula = false;
        });
     }
+   }
+
+   checkTelefonoPrincipal(): Boolean {
+    if (this.user.main_phone_number == null) {
+      this.user.main_phone_number = '';
+    }
+     this.user.main_phone_number = this.user.main_phone_number.replace(/[^\d]/, '');
+    if (this.user.main_phone_number.length < 9) {
+       this.mainPhoneValidated = false;
+       return false;
+    }
+    this.mainPhoneValidated = true;
+    return true;
+   }
+ 
+   checkTelefonoSecundario(): Boolean {
+     if (this.user.secondary_phone_number == null) {
+       this.user.secondary_phone_number = '';
+     }
+    this.user.secondary_phone_number = this.user.secondary_phone_number.replace(/[^\d]/, '');
+    if (this.user.secondary_phone_number.length > 0 && this.user.secondary_phone_number.length < 9) {
+       this.secondaryPhoneValidated = false;
+       return false;
+    }
+    this.secondaryPhoneValidated = true;
+    return true;
    }
 
    confirmarIdentidad() {
