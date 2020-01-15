@@ -87,7 +87,7 @@ export class InactivacionComponent implements OnInit {
     if(typeof this.ruc.person_representative_attachment.assignment_date === 'undefined') {
        return;
     }
-    if (new Date(thisruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
+    if (new Date(this.ruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
        this.fechaNombramientoOK = false;
     }else {
        this.fechaNombramientoOK = true;
