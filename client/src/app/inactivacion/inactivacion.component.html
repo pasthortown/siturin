@@ -108,13 +108,15 @@
                 />
               </div>
         </div>
-        <div class="alert alert-danger mt-3" role="alert" *ngIf="!isRepresentantLegal && ruc.tax_payer_type_id == 2">
-            <label class="col-12 text-justify"><strong>Atención</strong><br />
-                El representante legal del RUC {{ruc.number}} es el único que puede iniciar el trámite de inactivación.
-            </label>
+        <div class="col-12">
+            <div class="alert alert-danger mt-3" role="alert" *ngIf="!isRepresentantLegal && ruc.tax_payer_type_id == 2">
+                <label class="col-12 text-justify"><strong>Atención</strong><br />
+                    El representante legal del RUC {{ruc.number}} es el único que puede iniciar el trámite de inactivación.
+                </label>
+            </div>
         </div>
         <div class="col-6">
-            <div class="form-group" *ngIf="ruc.group_given.group_type_id != 0">
+            <div class="form-group" *ngIf="ruc.tax_payer_type_id == 2">
               <label>Fecha de Nombramiento*</label><span
               *ngIf="!fechaNombramientoOK"
               class="ml-2 badge badge-danger">Incorrecto</span>
