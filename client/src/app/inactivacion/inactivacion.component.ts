@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from './../models/profile/User';
 import { DinardapService } from '../services/negocio/dinardap.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { Ruc } from '../models/BASE/Ruc';
 
 @Component({
     selector: 'inactivacion-login',
@@ -16,6 +17,7 @@ export class InactivacionComponent implements OnInit {
 
   busy: Promise<any>;
   user: User;
+  ruc: Ruc = new Ruc();
   identificationValidated = false;
   consumoCedula = false;
   fechaExpedicion = 'porValidar';
@@ -27,6 +29,12 @@ export class InactivacionComponent implements OnInit {
   CedulaData = '';
   aleatorio = 0;
   cedulaNombre = '';
+  rucValidated = false;
+  consumoRuc = false;
+  rucData = '';
+  rucInactive = true;
+  SRIOK = false;
+  esperando = false;
   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
@@ -135,5 +143,45 @@ export class InactivacionComponent implements OnInit {
     this.identidadConfirmada = false;
     this.cedulaNombre = '';
     return false;
+  }
+
+  checkRuc() {
+    this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
+    if (this.ruc.number.length !== 13) {
+      this.rucValidated = false;
+      this.consumoRuc = false;
+      return;
+    }
+    if (this.consumoRuc && this.SRIOK) {
+       return;
+    }
+    this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
+    if (!this.consumoRuc && this.identificationValidated) {
+      this.rucValidated = true;
+      this.consumoRuc = true;
+      this.rucInactive = true;
+      this.dinardapDataService.get_RUC(this.ruc.number).then( r => {
+         const sri_ruc_registros = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;
+         sri_ruc_registros.forEach(element => {
+            if (element.campo === 'estadoContribuyente') {
+               if (element.valor === 'ACTIVO') {
+                  this.rucData = '<strong>Estado del RUC: </strong> CONFIRMADO';
+                  this.rucInactive = false;
+                  this.SRIOK = true;
+               } else {
+                  this.toastr.errorToastr('El RUC ingresado no es Activo.', 'SRI');
+                  this.rucData = 'RUC INACTIVO';
+                  this.rucInactive = false;
+                  this.SRIOK = true;
+               }
+            }
+         });
+      }).catch( e => {
+         this.toastr.errorToastr('El RUC ingresado no es correcto.', 'SRI');
+         this.rucData = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
+         this.consumoRuc = false;
+         this.SRIOK = false;
+      });
+   }
   }
 }
