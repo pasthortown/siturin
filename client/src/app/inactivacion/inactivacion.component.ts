@@ -165,7 +165,7 @@ export class InactivacionComponent implements OnInit {
          sri_ruc_registros.forEach(element => {
             if (element.campo === 'estadoContribuyente') {
                if (element.valor === 'ACTIVO') {
-                  this.rucData = '<strong>Estado del RUC: </strong> CONFIRMADO';
+                  this.rucData = '<strong>Estado del RUC: </strong> ACTIVO';
                   this.rucInactive = false;
                   this.SRIOK = true;
                } else {

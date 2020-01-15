@@ -220,7 +220,7 @@ export class RegisterComponent implements OnInit {
          sri_ruc_registros.forEach(element => {
             if (element.campo === 'estadoContribuyente') {
                if (element.valor === 'ACTIVO') {
-                  this.rucData = '<strong>Estado del RUC: </strong> INACTIVO';
+                  this.rucData = '<strong>Estado del RUC: </strong> CONFIRMADO';
                   this.rucInactive = false;
                   this.SRIOK = true;
                } else {
