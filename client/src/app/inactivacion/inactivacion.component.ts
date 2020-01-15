@@ -239,15 +239,12 @@ export class InactivacionComponent implements OnInit {
         this.establishment_selected.ruc_code_id = '-';
         this.rucData = '';
         let datosGenerales = '';
-        let datosRL = '';
-        let datosAE = '';
-        let datosContactoSRI = '';
         itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
            if (entidad.nombre == 'Actividad Economica') {
               const AE = entidad.filas.fila.columnas.columna;
               AE.forEach(element => {
                  if (element.campo == 'actividadGeneral') {
-                    datosAE += '<strong>Actividad Económica: </strong> ' + element.valor + '<br/>';
+                  datosGenerales += '<strong>Actividad Económica: </strong> ' + element.valor + '<br/>';
                  }
               });
            }
@@ -260,12 +257,10 @@ export class InactivacionComponent implements OnInit {
                  }
                  if (element.campo == 'email') {
                     if (JSON.stringify(element.valor) !== '{}') {
-                       datosContactoSRI += '<strong>Correo Electrónico - Registrado en SRI: </strong> ' + element.valor + '<br/>';
                     }
                  }
                  if (element.campo == 'telefonoDomicilio') {
                     if (JSON.stringify(element.valor) !== '{}') {
-                       datosContactoSRI += '<strong>Teléfono Domicilio - Registrado en SRI: </strong> ' + element.valor + '<br/>';
                     }
                  }
               });
@@ -274,14 +269,13 @@ export class InactivacionComponent implements OnInit {
               const RL = entidad.filas.fila.columnas.columna;
               RL.forEach(element => {
                  if (element.campo == 'identificacion') {
-                    datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
                     if (JSON.stringify(element.valor) !== '{}') {
                        this.ruc.person_representative.identification = element.valor;
                        this.checkIdentificationRepresentant();
                     }
                  }
                  if (element.campo == 'nombre') {
-                    datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
+                    datosGenerales += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
                  }
               });
            }
@@ -291,18 +285,14 @@ export class InactivacionComponent implements OnInit {
               datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
            }
            if (element.campo == 'fechaInscripcionRuc') {
-              datosGenerales += '<strong>Fecha de Inscripción del RUC: </strong> ' + element.valor + '<br/>';
            }
            if (element.campo == 'fechaActualizacion') {
-              datosGenerales += '<strong>Fecha de Actualización: </strong> ' + element.valor + '<br/>';
            }
            if (element.campo == 'obligado') {
               if (element.valor == 'N') {
                  this.ruc.baised_accounting = false;
-                 datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> NO<br/>';
               } else {
                  this.ruc.baised_accounting = true;
-                 datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> SI<br/>';
               }
            }
            if (element.campo == 'personaSociedad') {
@@ -313,10 +303,7 @@ export class InactivacionComponent implements OnInit {
               }
               datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
            }
-           this.rucData = datosGenerales + datosAE + datosContactoSRI;
-           if (this.ruc.tax_payer_type_id != 1) {
-              this.rucData += datosRL;
-           }
+           this.rucData = datosGenerales;
         });
      }).catch( e => {
         console.log(e);
