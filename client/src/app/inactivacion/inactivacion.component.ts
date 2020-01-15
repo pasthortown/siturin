@@ -26,6 +26,7 @@ export class InactivacionComponent implements OnInit {
   identidadConfirmada = false;
   CedulaData = '';
   aleatorio = 0;
+  cedulaNombre = '';
   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
@@ -108,4 +109,31 @@ export class InactivacionComponent implements OnInit {
        });
     }
    }
+
+   confirmarIdentidad() {
+    if (this.fechaIngresada == '') {
+      return false;
+    }
+    if (this.aleatorio == 0) {
+       if( this.fechaIngresada == this.fechaNacimiento) {
+          this.identidadConfirmada = true;
+          return true;
+       }
+    }
+    if (this.aleatorio == 1) {
+       if( this.fechaIngresada == this.fechaExpiracion) {
+          this.identidadConfirmada = true;
+          return true;
+       }
+    }
+    if (this.aleatorio == 2) {
+       if( this.fechaIngresada == this.fechaExpedicion) {
+          this.identidadConfirmada = true;
+          return true;
+       }
+    }
+    this.identidadConfirmada = false;
+    this.cedulaNombre = '';
+    return false;
+  }
 }
