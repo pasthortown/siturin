@@ -240,12 +240,12 @@ export class InactivacionComponent implements OnInit {
         this.establishment_selected.ruc_code_id = '-';
         this.rucData = '';
         let datosGenerales = '';
+        let datosRL = '';
         itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
            if (entidad.nombre == 'Actividad Economica') {
               const AE = entidad.filas.fila.columnas.columna;
               AE.forEach(element => {
                  if (element.campo == 'actividadGeneral') {
-                  datosGenerales += '<strong>Actividad Económica: </strong> ' + element.valor + '<br/>';
                  }
               });
            }
@@ -276,7 +276,7 @@ export class InactivacionComponent implements OnInit {
                     }
                  }
                  if (element.campo == 'nombre') {
-                    datosGenerales += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
+                   datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
                  }
               });
            }
@@ -309,6 +309,9 @@ export class InactivacionComponent implements OnInit {
               }
            }
            this.rucData = datosGenerales;
+           if (this.ruc_registro_selected.ruc.tax_payer_type_id != 1) {
+            this.rucData += datosRL;
+         }
         });
      }).catch( e => {
         console.log(e);
