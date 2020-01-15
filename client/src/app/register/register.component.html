@@ -73,7 +73,19 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="col-12" *ngIf="rucValidated && SRIOK">
+        <div class="alert alert-danger mt-3" role="alert" *ngIf="!isRepresentantLegal && ruc.tax_payer_type_id == 2">
+            <label class="col-12 text-justify"><strong>Atención</strong><br />
+                El representante legal del RUC {{ruc.number}} es el único que puede iniciar el trámite de inactivación.
+            </label>
+        </div>
+        <div class="alert alert-danger mt-3" role="alert" *ngIf="!isRucOwner && ruc.tax_payer_type_id == 1">
+            <label class="col-12 text-justify"><strong>Atención</strong><br />
+                El dueño del RUC {{ruc.number}} es el único que puede iniciar el trámite de inactivación.
+            </label>
+        </div>
+      </div>
+      <div class="row" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
         <div class="col-12 text-center">
           <button type="submit" *ngIf="!cuentaInterno" [disabled]="!(identificationValidated && consumoCedula && REGCIVILOK && rucValidated && consumoRuc && SRIOK)" class="btn btn-primary mr-2" (click)="registrar()">
             Crear Cuenta
