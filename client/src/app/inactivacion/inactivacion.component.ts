@@ -307,7 +307,6 @@ export class InactivacionComponent implements OnInit {
               } else {
                  this.ruc.tax_payer_type_id = 2;
               }
-              datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
            }
            this.rucData = datosGenerales;
         });
