@@ -21,6 +21,7 @@ export class InactivacionComponent implements OnInit {
   user: User;
   ruc: Ruc = new Ruc();
   isRepresentantLegal = false;
+  isRucOwner = false;
   identificationValidated = false;
   consumoCedula = false;
   fechaExpedicion = 'porValidar';
@@ -282,7 +283,11 @@ export class InactivacionComponent implements OnInit {
         });
         itemsDetalles_SRI_RUC.forEach(element => {
            if (element.campo == 'estadoContribuyente') {
-              datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
+              if (element.valor === 'ACTIVO') {
+                 this.rucInactive = false;
+              } else {
+                 this.rucInactive = true;
+              }
            }
            if (element.campo == 'fechaInscripcionRuc') {
            }
@@ -298,6 +303,7 @@ export class InactivacionComponent implements OnInit {
            if (element.campo == 'personaSociedad') {
               if (element.valor == 'PNL') {
                  this.ruc.tax_payer_type_id = 1;
+                 this.checkRazonSocial();
               } else {
                  this.ruc.tax_payer_type_id = 2;
               }
@@ -355,6 +361,13 @@ export class InactivacionComponent implements OnInit {
           this.ruc.person_representative_attachment.person_representative_attachment_file_type = file.type;
           this.ruc.person_representative_attachment.person_representative_attachment_file = reader.result.toString().split(',')[1];
        };
+    }
+   }
+
+   checkRazonSocial() {
+    this.isRucOwner = false;
+    if (this.razon_social == this.user.name) {
+      this.isRucOwner = true;
     }
    }
 
