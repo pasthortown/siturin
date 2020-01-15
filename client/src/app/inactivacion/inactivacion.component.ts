@@ -135,6 +135,7 @@ export class InactivacionComponent implements OnInit {
          this.CedulaData = '<div class="alert alert-danger" role="alert">El Registro Civil, no respondió. Vuelva a intentarlo.</div>';
          this.REGCIVILOK = false;
          this.consumoCedula = false;
+         this.identificationValidated = false;
        });
     }
    }
