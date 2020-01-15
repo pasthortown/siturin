@@ -55,6 +55,19 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label><span
+                *ngIf="!emailContactValidated"
+                class="ml-2 badge badge-danger"
+                >Incorrecto</span>
+                <input type="email" class="form-control" id="email" placeholder="Correo Electrónico" (input)="checkEmail()" [(ngModel)]="user.email" />
+            </div> 
+            <div class="alert alert-warning" role="alert">
+                <label class="col-12 text-justify"><strong>Atención</strong><br />
+                    Éste sistema utiliza información oficial a partir de las fuentes gubernamentales. Si los datos bloqueados no son
+                    correctos, usted debe acercarse a la entidad gubernamental custodia del dato para actualizarlo.
+                </label>
+            </div>     
         </div>
     </div>
 </div>

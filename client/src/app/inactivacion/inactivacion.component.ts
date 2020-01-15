@@ -35,6 +35,8 @@ export class InactivacionComponent implements OnInit {
   rucInactive = true;
   SRIOK = false;
   esperando = false;
+  emailContactValidated = false;
+  cuentaInterno = false;
   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
@@ -52,6 +54,23 @@ export class InactivacionComponent implements OnInit {
     }), ( r => {}));
   }
 
+  checkEmail(): Boolean {
+    const isOk = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email.toString());
+    this.emailContactValidated = isOk;
+    if (!isOk) {
+       this.user.identification = '';
+       this.fechaIngresada = '';
+       this.user.name = '';
+    }
+    if (this.user.email.split('@')[1] == 'turismo.gob.ec') {
+       this.cuentaInterno = true;
+       this.emailContactValidated = false;
+    } else {
+      this.cuentaInterno = false;
+    }
+    return this.emailContactValidated;
+  }
+  
   checkCedula() {
     this.user.identification = this.user.identification.replace(/[^\d]/, '');
     if (this.user.identification.length !== 10) {
