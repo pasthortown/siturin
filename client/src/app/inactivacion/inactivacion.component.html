@@ -108,5 +108,50 @@
                 />
               </div>
         </div>
+        <div class="alert alert-danger mt-3" role="alert" *ngIf="!isRepresentantLegal && ruc.tax_payer_type_id == 2">
+            <label class="col-12 text-justify"><strong>Atención</strong><br />
+                El representante legal del RUC {{ruc.number}} es el único que puede iniciar el trámite de inactivación.
+            </label>
+        </div>
+        <div class="col-6">
+            <div class="form-group" *ngIf="ruc.group_given.group_type_id != 0">
+              <label>Fecha de Nombramiento*</label><span
+              *ngIf="!fechaNombramientoOK"
+              class="ml-2 badge badge-danger">Incorrecto</span>
+              <input type="date" class="form-control" id="assignment_date" name="assignment_date" (input)="fechasNombramiento()"
+                placeholder="assignmentDate" [ngModel]="
+                    ruc.person_representative_attachment.assignment_date | date: 'y-MM-dd'
+                  " (ngModelChange)="
+                    ruc.person_representative_attachment.assignment_date = $event
+                  " />
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group" *ngIf="ruc.tax_payer_type_id == 2">
+              <label>Nombramiento del Representante Legal*</label><span *ngIf="!validateNombramiento()"
+                class="ml-2 badge badge-danger">Incorrecto</span>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button [disabled]="!validateNombramiento()" type="button" title="Descargar"
+                    class="btn btn-success" (click)="descargarNombramiento()">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <button [disabled]="!validateNombramiento()" type="button" title="Eliminar"
+                    class="btn btn-danger" (click)="borrarNombramiento()">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+                <input type="file" class="form-control" id="person_representative_attachment_file"
+                  name="person_representative_attachment_file" placeholder="Nombramiento Representante del Legal"
+                  (change)="CodeFilePersonRepresentativeAttachment($event)">
+              </div>
+              <small class="col-12">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                  <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                  <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                </div>
+              </small>
+            </div>
+          </div>
     </div>
 </div>

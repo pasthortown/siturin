@@ -7,6 +7,8 @@ import { User } from './../models/profile/User';
 import { DinardapService } from '../services/negocio/dinardap.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Ruc } from '../models/BASE/Ruc';
+import { Establishment } from 'src/app/models/BASE/Establishment';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
     selector: 'inactivacion-login',
@@ -18,19 +20,25 @@ export class InactivacionComponent implements OnInit {
   busy: Promise<any>;
   user: User;
   ruc: Ruc = new Ruc();
+  isRepresentantLegal = false;
   identificationValidated = false;
   consumoCedula = false;
   fechaExpedicion = 'porValidar';
   fechaExpiracion = 'porValidar';
   fechaNacimiento = 'porValidar';
   fechaIngresada = '';
+  razon_social = '';
   REGCIVILOK = false;
+  fechaNombramientoOK = false;
+  representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   identidadConfirmada = false;
+  establishment_selected: Establishment = new Establishment();
   CedulaData = '';
   aleatorio = 0;
   cedulaNombre = '';
   rucValidated = false;
   consumoRuc = false;
+  identificationRepresentativePersonValidated = false;
   rucData = '';
   rucInactive = true;
   SRIOK = false;
@@ -72,6 +80,20 @@ export class InactivacionComponent implements OnInit {
     }
     return this.emailContactValidated;
   }
+
+  fechasNombramiento() {
+    const today = new Date();
+    const min = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+    if(typeof this.ruc.person_representative_attachment.assignment_date === 'undefined') {
+       return;
+    }
+    if (new Date(thisruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
+       this.fechaNombramientoOK = false;
+    }else {
+       this.fechaNombramientoOK = true;
+    }
+    return {max: today, min: min};
+   }
   
   checkCedula() {
     this.user.identification = this.user.identification.replace(/[^\d]/, '');
@@ -210,27 +232,150 @@ export class InactivacionComponent implements OnInit {
       this.consumoRuc = true;
       this.rucInactive = true;
       this.dinardapDataService.get_RUC(this.ruc.number).then( r => {
-         const sri_ruc_registros = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;
-         sri_ruc_registros.forEach(element => {
-            if (element.campo === 'estadoContribuyente') {
-               if (element.valor === 'ACTIVO') {
-                  this.rucData = '<strong>Estado del RUC: </strong> ACTIVO';
-                  this.rucInactive = false;
-                  this.SRIOK = true;
-               } else {
-                  this.toastr.errorToastr('El RUC ingresado no es Activo.', 'SRI');
-                  this.rucData = 'RUC INACTIVO';
-                  this.rucInactive = false;
-                  this.SRIOK = true;
-               }
-            }
-         });
-      }).catch( e => {
-         this.toastr.errorToastr('El RUC ingresado no es correcto.', 'SRI');
-         this.rucData = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
-         this.consumoRuc = false;
-         this.SRIOK = false;
-      });
+        this.SRIOK = true; 
+        this.rucValidated = true;
+        const itemsDetalles_SRI_RUC = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;
+        const itemsDetalles_SRI_RUC_COMPLETO = r.sri_ruc_completo.original.entidades.entidad;
+        this.establishment_selected.ruc_code_id = '-';
+        this.rucData = '';
+        let datosGenerales = '';
+        let datosRL = '';
+        let datosAE = '';
+        let datosContactoSRI = '';
+        itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
+           if (entidad.nombre == 'Actividad Economica') {
+              const AE = entidad.filas.fila.columnas.columna;
+              AE.forEach(element => {
+                 if (element.campo == 'actividadGeneral') {
+                    datosAE += '<strong>Actividad Económica: </strong> ' + element.valor + '<br/>';
+                 }
+              });
+           }
+           if (entidad.nombre == 'Contribuyente Datos Completo') {
+              const DC = entidad.filas.fila.columnas.columna;
+              DC.forEach(element => {
+                 if (element.campo == 'razonSocial') {
+                    this.razon_social = element.valor;
+                    datosGenerales += '<strong>Razón Social: </strong> ' + element.valor + '<br/>';
+                 }
+                 if (element.campo == 'email') {
+                    if (JSON.stringify(element.valor) !== '{}') {
+                       datosContactoSRI += '<strong>Correo Electrónico - Registrado en SRI: </strong> ' + element.valor + '<br/>';
+                    }
+                 }
+                 if (element.campo == 'telefonoDomicilio') {
+                    if (JSON.stringify(element.valor) !== '{}') {
+                       datosContactoSRI += '<strong>Teléfono Domicilio - Registrado en SRI: </strong> ' + element.valor + '<br/>';
+                    }
+                 }
+              });
+           }
+           if (entidad.nombre == 'Representante Legal') {
+              const RL = entidad.filas.fila.columnas.columna;
+              RL.forEach(element => {
+                 if (element.campo == 'identificacion') {
+                    datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
+                    if (JSON.stringify(element.valor) !== '{}') {
+                       this.ruc.person_representative.identification = element.valor;
+                       this.checkIdentificationRepresentant();
+                    }
+                 }
+                 if (element.campo == 'nombre') {
+                    datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
+                 }
+              });
+           }
+        });
+        itemsDetalles_SRI_RUC.forEach(element => {
+           if (element.campo == 'estadoContribuyente') {
+              datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
+           }
+           if (element.campo == 'fechaInscripcionRuc') {
+              datosGenerales += '<strong>Fecha de Inscripción del RUC: </strong> ' + element.valor + '<br/>';
+           }
+           if (element.campo == 'fechaActualizacion') {
+              datosGenerales += '<strong>Fecha de Actualización: </strong> ' + element.valor + '<br/>';
+           }
+           if (element.campo == 'obligado') {
+              if (element.valor == 'N') {
+                 this.ruc.baised_accounting = false;
+                 datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> NO<br/>';
+              } else {
+                 this.ruc.baised_accounting = true;
+                 datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> SI<br/>';
+              }
+           }
+           if (element.campo == 'personaSociedad') {
+              if (element.valor == 'PNL') {
+                 this.ruc.tax_payer_type_id = 1;
+              } else {
+                 this.ruc.tax_payer_type_id = 2;
+              }
+              datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
+           }
+           this.rucData = datosGenerales + datosAE + datosContactoSRI;
+           if (this.ruc.tax_payer_type_id != 1) {
+              this.rucData += datosRL;
+           }
+        });
+     }).catch( e => {
+        console.log(e);
+        this.rucData = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
+        this.consumoRuc = false;
+        this.SRIOK = false;
+     });
    }
   }
+
+  validateNombramiento(): Boolean {
+    if(this.ruc.tax_payer_type_id <= 1) {
+       return true;
+    }
+    return !(this.ruc.person_representative_attachment.person_representative_attachment_file_name == '');
+  }
+  
+  downloadFile(file: any, type: any, name: any) {
+    const byteCharacters = atob(file);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: type });
+    saveAs(blob, name);
+  }
+
+  descargarNombramiento() {
+    this.downloadFile(
+       this.ruc.person_representative_attachment.person_representative_attachment_file,
+       this.ruc.person_representative_attachment.person_representative_attachment_file_type,
+       this.ruc.person_representative_attachment.person_representative_attachment_file_name);
+  }
+
+  borrarNombramiento() {
+    this.ruc.person_representative_attachment.person_representative_attachment_file = '';
+    this.ruc.person_representative_attachment.person_representative_attachment_file_type = '';
+    this.ruc.person_representative_attachment.person_representative_attachment_file_name = '';
+   }
+
+   CodeFilePersonRepresentativeAttachment(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+       const file = event.target.files[0];
+       reader.readAsDataURL(file);
+       reader.onload = () => {
+          this.ruc.person_representative_attachment.person_representative_attachment_file_name = file.name;
+          this.ruc.person_representative_attachment.person_representative_attachment_file_type = file.type;
+          this.ruc.person_representative_attachment.person_representative_attachment_file = reader.result.toString().split(',')[1];
+       };
+    }
+   }
+
+  checkIdentificationRepresentant() { 
+    this.isRepresentantLegal = false; 
+    if (this.ruc.person_representative.identification == this.user.identification) {
+      this.isRepresentantLegal = true;
+    }
+   }
+ 
 }
