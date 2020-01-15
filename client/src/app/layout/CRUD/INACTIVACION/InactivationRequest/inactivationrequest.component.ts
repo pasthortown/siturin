@@ -85,9 +85,9 @@ export class InactivationRequestComponent implements OnInit {
    toCSV() {
       this.inactivation_requestDataService.get().then( r => {
          const backupData = r as InactivationRequest[];
-         let output = 'id;ruc;ruc__code__ids;comments;contact_phone_main_number;contact_phone_seconday_number;email\n';
+         let output = 'id;ruc;register_ids;comments;contact_phone_main_number;contact_phone_seconday_number;email;identification\n';
          backupData.forEach(element => {
-            output += element.id; + element.ruc + ';' + element.ruc__code__ids + ';' + element.comments + ';' + element.contact_phone_main_number + ';' + element.contact_phone_seconday_number + ';' + element.email + '\n';
+            output += element.id; + element.ruc + ';' + element.register_ids + ';' + element.comments + ';' + element.contact_phone_main_number + ';' + element.contact_phone_seconday_number + ';' + element.email + ';' + element.identification + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
