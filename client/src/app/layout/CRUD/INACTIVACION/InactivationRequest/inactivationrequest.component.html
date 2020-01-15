@@ -32,24 +32,26 @@
             <tr>
                <th>Seleccionado</th>
                <th>ruc</th>
-               <th>register_ids</th>
-               <th>comments</th>
+               <th>ubication_id</th>
                <th>contact_phone_main_number</th>
                <th>contact_phone_seconday_number</th>
                <th>email</th>
                <th>identification</th>
+               <th>address</th>
+               <th>comments</th>
             </tr>
          </thead>
          <tbody>
             <tr *ngFor="let inactivation_request of inactivation_requests" (click)="selectInactivationRequest(inactivation_request)">
                <td class="text-right"><span *ngIf="inactivation_requestSelected === inactivation_request" class="far fa-hand-point-right"></span></td>
                <td>{{inactivation_request.ruc}}</td>
-               <td>{{inactivation_request.register_ids}}</td>
-               <td>{{inactivation_request.comments}}</td>
+               <td>{{inactivation_request.ubication_id}}</td>
                <td>{{inactivation_request.contact_phone_main_number}}</td>
                <td>{{inactivation_request.contact_phone_seconday_number}}</td>
                <td>{{inactivation_request.email}}</td>
                <td>{{inactivation_request.identification}}</td>
+               <td>{{inactivation_request.address}}</td>
+               <td>{{inactivation_request.comments}}</td>
             </tr>
          </tbody>
       </table>
@@ -93,15 +95,9 @@
                </div>
             </div>
             <div class="form-group row">
-               <label for="register_ids" class="col-4 col-form-label">register_ids</label>
+               <label for="ubication_id" class="col-4 col-form-label">ubication_id</label>
                <div class="col-8">
-                  <ck-editor id="register_ids" name="register_ids" skin="moono-lisa" [(ngModel)]="inactivation_requestSelected.register_ids"></ck-editor>
-               </div>
-            </div>
-            <div class="form-group row">
-               <label for="comments" class="col-4 col-form-label">comments</label>
-               <div class="col-8">
-                  <ck-editor id="comments" name="comments" skin="moono-lisa" [(ngModel)]="inactivation_requestSelected.comments"></ck-editor>
+                  <input type="number" class="form-control" id="ubication_id" name="ubication_id" placeholder="ubicationId" [(ngModel)]="inactivation_requestSelected.ubication_id">
                </div>
             </div>
             <div class="form-group row">
@@ -126,6 +122,18 @@
                <label for="identification" class="col-4 col-form-label">identification</label>
                <div class="col-8">
                   <input type="text" class="form-control" id="identification" name="identification" placeholder="identification" [(ngModel)]="inactivation_requestSelected.identification">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="address" class="col-4 col-form-label">address</label>
+               <div class="col-8">
+                  <input type="text" class="form-control" id="address" name="address" placeholder="address" [(ngModel)]="inactivation_requestSelected.address">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="comments" class="col-4 col-form-label">comments</label>
+               <div class="col-8">
+                  <ck-editor id="comments" name="comments" skin="moono-lisa" [(ngModel)]="inactivation_requestSelected.comments"></ck-editor>
                </div>
             </div>
          </div>
