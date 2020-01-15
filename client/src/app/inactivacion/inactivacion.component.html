@@ -161,4 +161,65 @@
           </label>
       </div>
     </div>
+    <div class="row" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <div class="col-12">
+         <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+              <input *ngIf="config.filtering" placeholder="Buscar..."
+                 [ngTableFiltering]="config.filtering"
+                 class="form-control"
+                 (input)="onChangeTable(config)"/>
+           </div>
+           <div class="btn-group mr-2" role="group">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-search"></i>&nbsp;Estado
+                    </span>
+                  </div>
+                  <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [(ngModel)]="idTramiteEstadoFilter" (change)="filterByTramiteState()">
+                    <option value="0" selected>Todos</option>
+                    <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
+                  </select>
+                  <div class="input-group-append" *ngIf="idTramiteEstadoFilter>0">
+                      <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [(ngModel)]="tramite" (change)="filterByTramiteState(tramite)">
+                        <option value="-" selected>Todos</option>
+                        <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
+                      </select>
+                  </div>
+                </div>
+           </div>
+         </div>
+      </div>
+    </div>
+    <div style="width: 100%; overflow-x: auto;" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+        <div class="row">
+            <div class="col-12 mt-2">
+               <ng-table
+                  [config]="config"
+                  (cellClicked)="onCellClick($event)"
+                  (tableChanged)="onChangeTable(config)"
+                  [rows]="rows"
+                  [columns]="columns">
+                </ng-table>
+            </div>
+          </div>
+    </div>
+    <div class="row" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <div class="col-12">
+        <ngb-pagination
+          *ngIf="config.paging"
+          [(page)]="currentPageMinturRegisters"
+          [pageSize]="recordsByPageRegisterMintur"
+          [maxSize]="10"
+          [boundaryLinks]="true"
+          (pageChange)="onChangeTable(config, $event)"
+          [collectionSize]="registers_mintur.length">
+          <ng-template ngbPaginationFirst>Primera</ng-template>
+          <ng-template ngbPaginationPrevious>Anterior</ng-template>
+          <ng-template ngbPaginationNext>Siguiente</ng-template>
+          <ng-template ngbPaginationLast>Última</ng-template>
+        </ngb-pagination>
+      </div>
+    </div>
 </div>
