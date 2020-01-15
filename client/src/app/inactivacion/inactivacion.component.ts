@@ -34,6 +34,7 @@ export class InactivacionComponent implements OnInit {
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
+    this.user = new User();
   }
 
   openDialog(content) {
