@@ -149,7 +149,7 @@
             </div>
           </div>
     </div>
-    <div class="col-12">
+    <div class="col-12" *ngIf="rucValidated && SRIOK">
       <div class="alert alert-danger mt-3" role="alert" *ngIf="!isRepresentantLegal && ruc.tax_payer_type_id == 2">
           <label class="col-12 text-justify"><strong>Atención</strong><br />
               El representante legal del RUC {{ruc.number}} es el único que puede iniciar el trámite de inactivación.
