@@ -309,7 +309,7 @@ export class InactivacionComponent implements OnInit {
               }
            }
            this.rucData = datosGenerales;
-           if (this.ruc_registro_selected.ruc.tax_payer_type_id != 1) {
+           if (this.ruc.tax_payer_type_id != 1) {
             this.rucData += datosRL;
          }
         });
