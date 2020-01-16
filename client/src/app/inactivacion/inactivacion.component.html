@@ -331,14 +331,14 @@
       </div>
     </div>
     <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
-      <div class="form-group">
+      <div class="form-group col-12">
         <label>Referencia de Ubicación* - ¿Como llegar?</label><span
           *ngIf="establishment_selected.address_reference == ''"
           class="ml-2 badge badge-danger">Incorrecto</span>
         <ck-editor id="address_reference" name="address_reference" skin="moono-lisa"
           [(ngModel)]="establishment_selected.address_reference"></ck-editor>
       </div>
-      <div class="form-group">
+      <div class="form-group col-12">
         <label>Ubicar el establecimiento en el mapa*</label>
         <agm-map class="col-12" style="height: 400px;" [latitude]="
             establishment_selected.address_map_latitude * 1
