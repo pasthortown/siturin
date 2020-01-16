@@ -765,7 +765,7 @@ export class DashboardComponent implements OnInit {
 
   getProcedureJustifications() { 
    this.procedureJustificationsToShow = [];
-   this.procedureJustifications = []
+   this.procedureJustifications = [];
    this.procedureJustificationDataService.get().then( r => {
       this.procedureJustifications = r as ProcedureJustification[];
       this.procedureJustifications.forEach(element => {

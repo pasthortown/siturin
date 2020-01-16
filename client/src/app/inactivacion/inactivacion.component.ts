@@ -92,7 +92,8 @@ export class InactivacionComponent implements OnInit {
   addressEstablishmentValidated = false;
   procedureJustifications: ProcedureJustification[] = [];
   procedureJustificationsToShow: ProcedureJustification[] = [];
-  
+  register_catastro_selected_id = 0;
+
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
     private modalService: NgbModal,
@@ -113,7 +114,7 @@ export class InactivacionComponent implements OnInit {
 
   getProcedureJustifications() { 
    this.procedureJustificationsToShow = [];
-   this.procedureJustifications = []
+   this.procedureJustifications = [];
    this.procedureJustificationDataService.get().then( r => {
       this.procedureJustifications = r as ProcedureJustification[];
       this.procedureJustifications.forEach(element => {
@@ -720,7 +721,14 @@ export class InactivacionComponent implements OnInit {
   onCellClick(event) {
      this.mostrarUbicationEstablishment = true;
      this.mostrarCausales = true;
-     console.log(event);
+     this.register_catastro_selected_id = event.row.id;
+     this.rows.forEach(row => {
+      if (this.register_catastro_selected_id == row.id) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+     });
   }
 
   startToGetInformationRegisters() {
