@@ -131,6 +131,8 @@ export class InactivacionComponent implements OnInit {
     private declarationDataService: DeclarationService,
     private declarationAttachmentDataService: DeclarationAttachmentService,
     private procedureJustificationDataService: ProcedureJustificationService,
+    private declarationItemCategoryDataService: DeclarationItemCategoryService,
+    private declarationItemDataService: DeclarationItemService,
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
@@ -138,6 +140,20 @@ export class InactivacionComponent implements OnInit {
     this.getTramiteStates();
     this.getZonalesEstablishment();
     this.getProcedureJustifications();
+    this.getDeclarationCategories();
+    this.getDeclarationItems();
+  }
+
+  getDeclarationCategories() {
+   this.declarationItemCategoryDataService.get().then( r => {
+     this.declarationItemsCategories = r as DeclarationItemCategory[];
+   }).catch( e => { console.log(e); });
+  }
+
+  getDeclarationItems() {
+   this.declarationItemDataService.get().then( r => {
+     this.declarationItems = r as DeclarationItem[];
+   }).catch( e => { console.log(e); });
   }
 
   getProcedureJustifications() { 
