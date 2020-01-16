@@ -99,6 +99,7 @@ export class InactivacionComponent implements OnInit {
   ngOnInit() {
     this.user = new User();
     this.getTramiteStates();
+    this.getZonalesEstablishment();
   }
 
   getStates() {
@@ -170,6 +171,43 @@ export class InactivacionComponent implements OnInit {
    this.ubicationDataService.get_filtered(this.provinciaEstablishmentSelectedCode).then( r => {
       this.cantonesEstablishment = r as Ubication[];
    }).catch( e => { console.log(e) });
+  }
+
+  getParroquiasEstablishment() {
+   this.parroquiasEstablishment = [];
+   this.establishment_selected.ubication_id = 0;
+   this.cantonesEstablishment.forEach(canton => {
+      if(canton.code == this.cantonEstablishmentSelectedCode){
+         this.establishment_selected.address_map_latitude = canton.gmap_reference_latitude;
+         this.establishment_selected.address_map_longitude = canton.gmap_reference_longitude;
+      }
+   });
+   this.ubicationDataService.get_filtered(this.cantonEstablishmentSelectedCode).then( r => {
+      this.parroquiasEstablishment = r as Ubication[];
+   }).catch( e => { console.log(e) });
+  }
+
+  updateGmap() {
+   this.parroquiasEstablishment.forEach(parroquia => {
+      if (parroquia.id == this.establishment_selected.ubication_id) {
+         this.establishment_selected.address_map_latitude = parroquia.gmap_reference_latitude;
+        this.establishment_selected.address_map_longitude = parroquia.gmap_reference_longitude;
+      }
+   });
+  }
+
+  address_mapEventEstablishment(event) {
+   this.establishment_selected.address_map_latitude = event.coords.lat;
+   this.establishment_selected.address_map_longitude = event.coords.lng;
+  }
+
+  checkEstablishmentAddress(): Boolean {
+   if(this.establishment_selected.address_main_street === '' || this.establishment_selected.address_number === '' || this.establishment_selected.address_secondary_street === '') {
+      this.addressEstablishmentValidated = false;
+      return false;
+   }
+   this.addressEstablishmentValidated = true;
+   return true;
   }
 
   getRegisterTypes() {
