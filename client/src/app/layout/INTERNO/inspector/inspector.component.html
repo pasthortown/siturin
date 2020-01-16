@@ -107,6 +107,12 @@
         </button>
       </div>
     </div>
+    <small *ngIf="please_wait_requisites || imprimiendo_acta">
+      <div class="alert alert-info mt-2 mb-2" role="alert">
+        <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label><br />
+        El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.
+      </div>
+    </small>
   </div>
   <div class="col-12 mb-2 mt-2">
     <h4>Resultado de la inspección/verificación</h4>
@@ -129,13 +135,7 @@
         <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
         </div>
       </small>
-      <small *ngIf="please_wait_requisites || imprimiendo_acta">
-        <div class="alert alert-info mt-2 mb-2" role="alert">
-          <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label><br />
-          El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.
-        </div>
-      </small>
-  </div>
+       </div>
   <div class="col-6">
       <label>Fecha de la Inspección</label>
       <input type="date" class="form-control" id="date_fullfill" name="date_fullfill" placeholder="Fecha de Inspección"
