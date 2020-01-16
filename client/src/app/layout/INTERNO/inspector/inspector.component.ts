@@ -2063,12 +2063,12 @@ export class InspectorComponent implements OnInit {
             iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
          });
          let zone = new Zone();
+         console.log(provincia.id);
          this.zonales.forEach(element => {
             if (element.ubication_id == provincia.id) {
                zone = element;
             }
          });
-         console.log(zone);
          const iniciales_cordinacion_zonal = zone.acronym;
          const today = new Date();
          let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();

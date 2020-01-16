@@ -93,6 +93,7 @@ export class InactivacionComponent implements OnInit {
     private stateDataService: StateService,
     private catastroRegisterDataService: CatastroRegisterService,
     private register_typeDataService: RegisterTypeService,
+    private ubicationDataService: UbicationService,
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
@@ -116,6 +117,59 @@ export class InactivacionComponent implements OnInit {
          this.specific_states.push(element);
       }
    });
+  }
+
+  getZonalesEstablishment() {
+   this.zonalesEstablishment = [];
+   this.provinciasEstablishment = [];
+   this.cantonesEstablishment = [];
+   this.parroquiasEstablishment = [];
+   this.zonalEstablishmentSelectedCode = '-';
+   this.provinciaEstablishmentSelectedCode = '-';
+   this.cantonEstablishmentSelectedCode = '-';
+   this.establishment_selected.ubication_id = 0;
+   this.ubicationDataService.get_filtered('-').then( zonales => {
+      this.zonalesEstablishment = zonales as Ubication[];
+      zonales.forEach(zonal => {
+         this.ubicationDataService.get_filtered(zonal.code).then( r => {
+            const provincias = r as Ubication[];
+            provincias.forEach(provincia => {
+               this.provinciasEstablishment.push(provincia);
+            });
+            this.provinciasEstablishment.sort(function(a, b) {
+               const nameA = a.name.toLowerCase().trim();
+               const nameB = b.name.toLowerCase().trim();
+               if (nameA < nameB) {
+                  return -1;
+               }
+               if (nameA > nameB) {
+                  return 1;
+               }
+               return 0;
+            });
+         }).catch( e => { console.log(e) });
+      });
+   }).catch( e => { console.log(e) });
+  }
+
+  getCantonesEstablishment() {
+   if (this.provinciaEstablishmentSelectedCode == '-') {
+      return;
+   }
+   this.provinciasEstablishment.forEach(provincia => {
+      if(provincia.code == this.provinciaEstablishmentSelectedCode){
+         this.zonalEstablishmentSelectedCode = provincia.father_code.toString();
+         this.establishment_selected.address_map_latitude = provincia.gmap_reference_latitude;
+         this.establishment_selected.address_map_longitude = provincia.gmap_reference_longitude;
+      }
+   });
+   this.cantonesEstablishment = [];
+   this.parroquiasEstablishment = [];
+   this.cantonEstablishmentSelectedCode = '-';
+   this.establishment_selected.ubication_id = 0;
+   this.ubicationDataService.get_filtered(this.provinciaEstablishmentSelectedCode).then( r => {
+      this.cantonesEstablishment = r as Ubication[];
+   }).catch( e => { console.log(e) });
   }
 
   getRegisterTypes() {
