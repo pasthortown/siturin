@@ -325,6 +325,7 @@ export class InactivacionComponent implements OnInit {
     if (this.consumoCedula && this.REGCIVILOK) {
        return;
     }
+    this.SRIOK = false;
     this.CedulaData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al Registro Civil...</strong></div>';
     if (!this.consumoCedula) {
        this.identificationValidated = true;
