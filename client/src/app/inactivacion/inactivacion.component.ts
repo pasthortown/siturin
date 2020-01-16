@@ -19,6 +19,16 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO/procedurejustification.service';
 import { ProcedureJustification } from 'src/app/models/ALOJAMIENTO/ProcedureJustification';
+import { Pay } from 'src/app/models/FINANCIERO/Pay';
+import { Declaration } from 'src/app/models/FINANCIERO/Declaration';
+import { DeclarationItemValue } from 'src/app/models/FINANCIERO/DeclarationItemValue';
+import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
+import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
+import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
+import { DeclarationItem } from 'src/app/models/FINANCIERO/DeclarationItem';
+import { DeclarationItemCategory } from 'src/app/models/FINANCIERO/DeclarationItemCategory';
+import { DeclarationAttachment } from 'src/app/models/FINANCIERO/DeclarationAttachment';
+import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 
 @Component({
     selector: 'inactivacion-login',
@@ -33,11 +43,17 @@ export class InactivacionComponent implements OnInit {
   isRepresentantLegal = false;
   isRucOwner = false;
   identificationValidated = false;
+  maxYear: number = 2019;
   estados_tramites: State[];
+  declaration_selected: Declaration = new Declaration();
+  mostrarDataDeclaration = false;
   consumoCedula = false;
   fechaExpedicion = 'porValidar';
   fechaExpiracion = 'porValidar';
   fechaNacimiento = 'porValidar';
+  recordsByPagePays = 5;
+  rowsPays = [];
+  columnsPays = [];
   mostrarUbicationEstablishment = false;
   fechaIngresada = '';
   razon_social = '';
@@ -45,11 +61,15 @@ export class InactivacionComponent implements OnInit {
   idCausal = 0;
   mostrarCausales = false;
   fechaNombramientoOK = false;
+  declarationItemsCategories: DeclarationItemCategory[] = [];
+  declarationItems: DeclarationItem[] = [];
   representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   identidadConfirmada = false;
   establishment_selected: Establishment = new Establishment();
   CedulaData = '';
   aleatorio = 0;
+  totalunoxmil = 0;
+  guardando = false;
   cedulaNombre = '';
   rucValidated = false;
   consumoRuc = false;
@@ -60,6 +80,9 @@ export class InactivacionComponent implements OnInit {
   esperando = false;
   emailContactValidated = false;
   cuentaInterno = false;
+  currentPagePays = 1;
+  pays: Pay[] = [];
+  declarationItemsToShow: any[] = [];
   mainPhoneValidated: Boolean = false;
   secondaryPhoneValidated: Boolean = false;
   idTramiteEstadoFilter = 0;
@@ -76,6 +99,7 @@ export class InactivacionComponent implements OnInit {
   currentPageMinturRegisters = 1;
   lastPageMinturRegisters = 1;
   recordsByPageRegisterMintur = 5;
+  dataPays = [];
   registers_mintur = [];
   registerMinturSelected: any = null;
   register_types: any[] = [];
@@ -93,7 +117,9 @@ export class InactivacionComponent implements OnInit {
   procedureJustifications: ProcedureJustification[] = [];
   procedureJustificationsToShow: ProcedureJustification[] = [];
   register_catastro_selected_id = 0;
-
+  declarations: Declaration[] = [];
+  balance: DeclarationAttachment = new DeclarationAttachment();
+   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
     private modalService: NgbModal,
@@ -102,6 +128,8 @@ export class InactivacionComponent implements OnInit {
     private catastroRegisterDataService: CatastroRegisterService,
     private register_typeDataService: RegisterTypeService,
     private ubicationDataService: UbicationService,
+    private declarationDataService: DeclarationService,
+    private declarationAttachmentDataService: DeclarationAttachmentService,
     private procedureJustificationDataService: ProcedureJustificationService,
     private dinardapDataService: DinardapService) {}
   
@@ -277,6 +305,16 @@ export class InactivacionComponent implements OnInit {
     this.config.filtering = {filterString: filtroTexto};
    }
    this.onChangeTable(this.config);
+  }
+
+  borrarDeclaration(declaration) {
+   this.declarationDataService.delete(declaration.id).then( r => {
+      this.refreshDeclaracion();
+   }).catch( e => { console.log(e); });
+  }
+
+  refreshDeclaracion() {
+   //this.selectRegisterEstablishmentDeclaration(this.establishment_selected);
   }
 
   openDialog(content) {
@@ -546,6 +584,65 @@ export class InactivacionComponent implements OnInit {
    }
   }
 
+  downloadBalance() {
+   this.downloadFile(
+      this.balance.declaration_attachment_file,
+      this.balance.declaration_attachment_file_type,
+      this.balance.declaration_attachment_file_name);
+  }
+
+  borrarBalance() {
+   this.balance = new DeclarationAttachment();
+  }
+
+  CodificarArchivoBalance(event) {
+   const reader = new FileReader();
+   if (event.target.files && event.target.files.length > 0) {
+    const file = event.target.files[0];
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.balance.declaration_attachment_file = reader.result.toString().split(',')[1];
+      this.balance.declaration_attachment_file_type = file.type;
+      this.balance.declaration_attachment_file_name = file.name;
+    };
+   }
+  }
+
+  refreshDeclarationInfo() {
+   this.calcTotalPartials();
+   this.calcularUnoxMil();
+  }
+
+  newDeclaration() {
+   this.declaration_selected = new Declaration();
+   this.mostrarDataDeclaration = true;
+   this.guardando = false;
+   this.balance = new DeclarationAttachment();
+   this.buildDeclarationItemsToShow();
+  }
+
+  buildDeclarationItemsToShow() {
+   this.declarationItemsToShow = [];
+   this.declarationItemsCategories.forEach(category => {
+      category.total = 0;
+      if (category.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+         const items = [];
+         this.declarationItems.forEach(item => {
+           if(item.declaration_item_category_id == category.id) {
+              const newValueItem = new DeclarationItemValue();
+              newValueItem.declaration_item_id = item.id;
+              if (item.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+                items.push({declarationItem: item, valueItem: newValueItem});
+              }
+              category.total += newValueItem.value * item.factor;
+           }
+         });
+         this.declarationItemsToShow.push({Category: category, items: items});  
+      }
+   });
+   this.calcularUnoxMil();
+  }
+
   buildDataTable() {
    this.columns = [
       {title: '', name: 'selected'},
@@ -651,6 +748,55 @@ export class InactivacionComponent implements OnInit {
    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
   }
 
+  selectDeclaration(declaration: Declaration) {
+   this.declaration_selected = declaration;
+   this.getDeclarationAttachment(declaration.id);
+   this.mostrarDataDeclaration = true;
+   this.declarationItemsToShow = [];
+   this.guardando = false;
+   this.declarationItemsCategories.forEach(category => {
+      if (category.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+         const items = [];
+         declaration.declaration_item_values_on_declaration.forEach(newValueItem => {
+            this.declarationItems.forEach(item => {
+               if (item.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+                  if ((item.id == newValueItem.declaration_item_id) && (item.declaration_item_category_id == category.id)) {
+                     items.push({declarationItem: item, valueItem: newValueItem});
+                  }
+               }
+            });
+         });
+         this.declarationItemsToShow.push({Category: category, items: items});
+      }
+   });
+   this.calcularUnoxMil();
+   this.calcTotalPartials();
+  }
+
+  calcularUnoxMil() {
+   this.totalunoxmil = 0;
+   this.declarationItemsToShow.forEach(itemToShow => {
+      itemToShow.items.forEach(item => {
+         this.totalunoxmil += item.valueItem.value * (item.declarationItem.factor);
+      });
+   });
+  }
+
+  calcTotalPartials() {
+   this.declarationItemsToShow.forEach(group => {
+      group.Category.total = 0;
+      group.items.forEach(item => {
+         group.Category.total += item.valueItem.value * item.declarationItem.factor;
+      });
+   });
+  }
+
+  getDeclarationAttachment(declaration_id: number) {
+   this.declarationAttachmentDataService.get_by_declaration_id(declaration_id).then( r => {
+      this.balance = r as DeclarationAttachment;
+   }).catch( e => { console.log(e); });
+  }
+
   changeFilter(data: any, config: any): any {
    this.rows.forEach(row => {
       row.selected = '';
@@ -731,10 +877,142 @@ export class InactivacionComponent implements OnInit {
      });
   }
 
+  onChangeTablePays(config: any, event?): any {
+   const page: any = {page: this.currentPagePays, itemsPerPage: this.recordsByPagePays};
+   if (config.filtering) {
+     Object.assign(this.config.filtering, config.filtering);
+   }
+   if (config.sorting) {
+     Object.assign(this.config.sorting, config.sorting);
+   }
+   const filteredData = this.changeFilterPays(this.dataPays, this.config);
+   const sortedData = this.changeSortPays(filteredData, this.config);
+   this.rowsPays = page && config.paging ? this.changePagePays(page, sortedData) : sortedData;
+  }
+
+  changeFilterPays(data: any, config: any): any {
+   let filteredData: Array<any> = data;
+   this.columnsPays.forEach((column: any) => {
+     if (column.filtering) {
+       filteredData = filteredData.filter((item: any) => {
+         return item[column.name].match(column.filtering.filterString);
+       });
+     }
+   });
+   if (!config.filtering) {
+     return filteredData;
+   }
+   if (config.filtering.columnName) {
+     return filteredData.filter((item:any) =>
+       item[config.filtering.columnName].match(this.config.filtering.filterString));
+   }
+   const tempArray: Array<any> = [];
+   filteredData.forEach((item: any) => {
+     let flag = false;
+     this.columnsPays.forEach((column: any) => {
+       if (item[column.name].toString().match(this.config.filtering.filterString)) {
+         flag = true;
+       }
+     });
+     if (flag) {
+       tempArray.push(item);
+     }
+   });
+   filteredData = tempArray;
+   return filteredData;
+  }
+
   startToGetInformationRegisters() {
    this.getStates();
   }
    
+  changeSortPays(data: any, config: any): any {
+   if (!config.sorting) {
+     return data;
+   }
+   const columns = this.config.sorting.columns || [];
+   let columnName: string = void 0;
+   let sort: string = void 0;
+   for (let i = 0; i < columns.length; i++) {
+     if (columns[i].sort !== '' && columns[i].sort !== false) {
+       columnName = columns[i].name;
+       sort = columns[i].sort;
+     }
+   }
+   if (!columnName) {
+     return data;
+   }
+   return data.sort((previous:any, current:any) => {
+     if (previous[columnName] > current[columnName]) {
+       return sort === 'desc' ? -1 : 1;
+     } else if (previous[columnName] < current[columnName]) {
+       return sort === 'asc' ? -1 : 1;
+     }
+     return 0;
+   });
+  }
+
+  changePagePays(page: any, data: Array<any> = this.dataPays):Array<any> {
+   const start = (page.page - 1) * page.itemsPerPage;
+   const end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
+   return data.slice(start, end);
+  }
+
+  onCellClickPays(event) {
+  }
+
+  buildDataTablePays() {
+   this.columnsPays = [
+      {title: 'Código', name: 'code'},
+        {title: 'Estado', name: 'state'},
+        {title: 'Valor Pagado', name: 'amount_payed'},
+        {title: 'Valor a Pagar - Impuesto 1X1000', name: 'amount_to_pay_base'},
+        {title: 'Valor a Pagar - Multas', name: 'amount_to_pay_fines'},
+        {title: 'Valor a Pagar - Intereses', name: 'amount_to_pay_taxes'},
+        {title: 'Valor a Pagar - Total', name: 'amount_to_pay'},
+        {title: 'Fecha de Pago', name: 'pay_date'}
+   ];
+   const data = [];
+   this.pays.forEach(item => {
+       let state = '';
+       let amount_payed = '';
+       let amount_to_pay = '';
+       let amount_to_pay_base = '';
+       let amount_to_pay_fines = '';
+       let amount_to_pay_taxes = '';
+       if (item.payed) {
+          state = '<span class="badge badge-success">Pagado</span>';
+       } else {
+          state = '<span class="badge badge-danger">Pago Pendiente</span>';
+       }
+       if (item.amount_payed != -1) {
+          amount_payed = item.amount_payed.toString() + ' USD';
+       }
+       amount_to_pay_base = item.amount_to_pay_base.toString() + ' USD';
+       amount_to_pay_fines = item.amount_to_pay_fines.toString() + ' USD';
+       amount_to_pay_taxes = item.amount_to_pay_taxes.toString() + ' USD';
+       amount_to_pay = item.amount_to_pay.toString() + ' USD';
+       let payDate = '';
+       if (item.pay_date == null || typeof item.pay_date == 'undefined') {
+          payDate = '';
+       } else {
+          payDate = item.pay_date.toString();
+       }
+       data.push({
+          code: item.code,
+          state: state,
+          amount_payed: amount_payed,
+          amount_to_pay_base: amount_to_pay_base,
+          amount_to_pay_fines: amount_to_pay_fines,
+          amount_to_pay_taxes: amount_to_pay_taxes,
+          amount_to_pay: amount_to_pay,
+          pay_date: payDate,
+       });
+   });
+   this.dataPays = data;
+   this.onChangeTablePays(this.config);
+  }
+
   validateNombramiento(): Boolean {
     if(this.ruc.tax_payer_type_id <= 1) {
        return true;

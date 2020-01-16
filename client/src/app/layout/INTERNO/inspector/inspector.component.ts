@@ -526,7 +526,7 @@ export class InspectorComponent implements OnInit {
   }
 
   onChangeTablePays(config: any, event?): any {
-   const page: any = {page: this.currentPageEstablishment, itemsPerPage: this.recordsByPageEstablishment};
+   const page: any = {page: this.currentPagePays, itemsPerPage: this.recordsByPagePays};
    if (config.filtering) {
      Object.assign(this.config.filtering, config.filtering);
    }

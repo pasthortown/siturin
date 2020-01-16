@@ -18,6 +18,10 @@ import { AgmCoreModule } from '@agm/core';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { environment } from 'src/environments/environment';
 import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO/procedurejustification.service';
+import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
+import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
+import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
+import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -32,6 +36,10 @@ import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO
     providers: [ConsultorService, 
         NgbModal, 
         StateService, 
+        DeclarationService,
+        DeclarationItemService,
+        DeclarationAttachmentService,
+        DeclarationItemCategoryService,
         UbicationService,
         CatastroRegisterService,
         RegisterTypeService,

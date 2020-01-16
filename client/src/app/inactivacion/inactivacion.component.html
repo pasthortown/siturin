@@ -369,7 +369,7 @@
       </div>
     </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
   <div class="row mt-5">
       <div class="col-12">
         <Strong><h4>Órdenes de Pagos</h4></Strong>
@@ -420,7 +420,7 @@
         </ngb-pagination>
       </div>
     </div>
-<div class="row mt-5" *ngIf="establishment_declarations_selected.id !== 0">
+<div class="row mt-5">
   <div class="col-12">
     <div class="row mt-3">
       <h4 class="col-12">
@@ -493,8 +493,8 @@
     </div>
     <div class="col-6">
       <div class="form-group">
-          <label *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 2">Anexar balance individual del establecimiento, suscrito por el representante legal*</label>
-          <label *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 1">Anexar inventario valorado del establecimiento, suscrito por el propietario*</label>
+          <label *ngIf="ruc.tax_payer_type_id == 2">Anexar balance individual del establecimiento, suscrito por el representante legal*</label>
+          <label *ngIf="ruc.tax_payer_type_id == 1">Anexar inventario valorado del establecimiento, suscrito por el propietario*</label>
           <span
             *ngIf="balance.declaration_attachment_file === ''"
             class="ml-2 badge badge-danger">Incorrecto</span>
@@ -604,26 +604,5 @@
     <p class="col-12 text-justify">Estimado Usuario, en base a su declaración, en los próximos días le notificaremos a su correo electrónico el valor a cancelar por la Contribución Uno por Mil, una vez que el Técnico Financiero del Ministerio de Turismo valide la información 	ingresada a través del presente formulario.
       Nota importante: Los valores a declarar en esta sección debe contener el total de los activos fijos del establecimiento prestador de servicios turísticos.</p>
   </div>
-  <div class="col-12 text-center">
-    <button [disabled]="guardando || !declaration_selected.editable" type="button" class="btn btn-success"
-      title="Guardar Datos" (click)="guardarDeclaracion()">
-      <i class="fas fa-paper-plane"></i>&nbsp;Guardar Datos
-    </button>
-    <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
-        refresh()
-      ">
-      <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
-    </button>
-  </div>
-</div>
-<div class="col-12 text-center">
-  <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
-    (click)="pasos.select('paso1')">
-    <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-  </button>
-  <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
-  (click)="pasos.select('paso3')">
-    <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
-  </button>
 </div>
 </div>
