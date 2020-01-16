@@ -36,6 +36,7 @@ export class InactivacionComponent implements OnInit {
   fechaExpedicion = 'porValidar';
   fechaExpiracion = 'porValidar';
   fechaNacimiento = 'porValidar';
+  mostrarUbicationEstablishment = false;
   fechaIngresada = '';
   razon_social = '';
   REGCIVILOK = false;
@@ -148,7 +149,6 @@ export class InactivacionComponent implements OnInit {
                }
                return 0;
             });
-            console.log(this.provinciasEstablishment);
          }).catch( e => { console.log(e) });
       });
    }).catch( e => { console.log(e) });
@@ -696,7 +696,8 @@ export class InactivacionComponent implements OnInit {
   }
 
   onCellClick(event) {
-     //AQUI
+     this.mostrarUbicationEstablishment = true;
+     console.log(event);
   }
 
   startToGetInformationRegisters() {

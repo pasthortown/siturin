@@ -222,12 +222,12 @@
         </ngb-pagination>
       </div>
     </div>
-    <div class="row mt-5" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-5" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12 text-left">
         <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <label class="col-12"><strong>Ubicación</strong></label>
       <div class="col-3" [hidden]="true">
         <div class="form-group">
@@ -294,11 +294,11 @@
         </div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <label class="col-12"><strong>Dirección*</strong></label><span *ngIf="!addressEstablishmentValidated"
       class="ml-2 badge badge-danger">Incorrecto</span>
     </div>
-    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-4">
           <div class="form-group">
               <label>Calle Principal</label><span *ngIf="establishment_selected.address_main_street === ''"
@@ -330,7 +330,7 @@
           </div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="form-group col-12">
         <label>Referencia de Ubicación* - ¿Como llegar?</label><span
           *ngIf="establishment_selected.address_reference == ''"
