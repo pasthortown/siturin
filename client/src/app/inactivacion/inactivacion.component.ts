@@ -108,6 +108,7 @@ export class InactivacionComponent implements OnInit {
     this.user = new User();
     this.getTramiteStates();
     this.getZonalesEstablishment();
+    this.getProcedureJustifications();
   }
 
   getProcedureJustifications() { 

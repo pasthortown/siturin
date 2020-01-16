@@ -462,7 +462,6 @@ export class DashboardComponent implements OnInit {
    this.getDeclarationItems();
    this.getMaxDeclarationDate();
    this.getTramiteStates();
-   this.getProcedureJustifications();
   }
 
 
