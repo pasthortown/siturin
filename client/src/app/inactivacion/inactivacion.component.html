@@ -369,3 +369,261 @@
       </div>
     </div>
 </div>
+<div class="container">
+  <div class="row mt-5">
+      <div class="col-12">
+        <Strong><h4>Órdenes de Pagos</h4></Strong>
+      </div>
+  </div>
+    <div class="row">
+      <div class="col-12">
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+                <button type="button" class="btn btn-primary" title="Actualizar" (click)="onChangeTablePays(config)"><i class="fas fa-sync"></i></button>
+            </div>
+            <div class="btn-group mr-2" role="group">
+              <input *ngIf="config.filtering" placeholder="Buscar..."
+                  [ngTableFiltering]="config.filtering"
+                  class="form-control"
+                  (input)="onChangeTablePays(config)"/>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div style="width: 100%; overflow-x: auto;">
+        <div class="row">
+            <div class="col-12 mt-2">
+                <ng-table
+                  [config]="config"
+                  (cellClicked)="onCellClickPays($event)"
+                  (tableChanged)="onChangeTablePays(config)"
+                  [rows]="rowsPays"
+                  [columns]="columnsPays">
+                </ng-table>
+            </div>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <ngb-pagination
+          *ngIf="config.paging"
+          [(page)]="currentPagePays"
+          [pageSize]="recordsByPagePays"
+          [maxSize]="10"
+          [boundaryLinks]="true"
+          (pageChange)="onChangeTablePays(config, $event)"
+          [collectionSize]="pays.length">
+          <ng-template ngbPaginationFirst>Primera</ng-template>
+          <ng-template ngbPaginationPrevious>Anterior</ng-template>
+          <ng-template ngbPaginationNext>Siguiente</ng-template>
+          <ng-template ngbPaginationLast>Última</ng-template>
+        </ngb-pagination>
+      </div>
+    </div>
+<div class="row mt-5" *ngIf="establishment_declarations_selected.id !== 0">
+  <div class="col-12">
+    <div class="row mt-3">
+      <h4 class="col-12">
+        <strong>Declaraciones de Impuestos</strong>
+      </h4>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="btn-toolbar" role="toolbar">
+          <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" title="Actualizar" (click)="
+            refreshDeclaracion()
+              ">
+              <i class="fas fa-sync"></i>
+            </button>
+          </div>
+          <div class="btn-group mr-2" role="group">
+            <button type="button" title="Nuevo" class="btn btn-success" (click)="newDeclaration()">
+              <i class="fas fa-file"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+          <table class="table table-hover mt-2">
+              <thead>
+                <tr>
+                  <th style="text-align: right;"><i class="far fa-check-square"></i></th>
+                  <th>Año</th>
+                  <th>Fecha de Declaración</th>
+                  <th>Estado</th>
+                  <th>Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let declaration of declarations" (click)="selectDeclaration(declaration)">
+                  <td class="text-right">
+                    <span *ngIf="declaration_selected === declaration" class="far fa-hand-point-right"></span>
+                  </td>
+                  <td>{{declaration.year}}</td>
+                  <td>{{declaration.declaration_date}}</td>
+                  <td>{{declaration.status_name}}</td>
+                  <td>
+                    <button type="button" title="Borrar" class="btn btn-danger" (click)="borrarDeclaration(declaration)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="mostrarDataDeclaration">
+  <div class="row mt-5">
+    <div class="col-12 text-left">
+      <h3>Datos de la Declaración:</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label>Año de Obligación de Pago</label>
+        <input type="number" class="form-control" id="declarationYear" name="declarationYear"
+          placeholder="Año a Declarar" [(ngModel)]="declaration_selected.year" [max]="maxYear" [disabled]="!declaration_selected.editable">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 2">Anexar balance individual del establecimiento, suscrito por el representante legal*</label>
+          <label *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 1">Anexar inventario valorado del establecimiento, suscrito por el propietario*</label>
+          <span
+            *ngIf="balance.declaration_attachment_file === ''"
+            class="ml-2 badge badge-danger">Incorrecto</span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button
+                [disabled]="balance.declaration_attachment_file === ''"
+                type="button" title="Descargar Adjunto" class="btn btn-primary" (click)="
+                      downloadBalance()
+                    ">
+                <i class="fas fa-download"></i>
+              </button>
+              <button
+                [disabled]="balance.declaration_attachment_file === ''"
+                type="button" title="Eliminar" class="btn btn-danger"
+                (click)="borrarBalance()">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <input type="file" class="form-control" (change)="
+                  CodificarArchivoBalance(
+                    $event
+                  )
+                " accept="application/pdf" />
+          </div>
+          <small class="col-12">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+              <label class="col-12 text-justify"><strong>Información</strong></label><br />
+              <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+            </div>
+          </small>
+      </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-hover mt-2">
+        <tbody *ngFor="let declarationItemToShow of declarationItemsToShow">
+          <tr class="text-light bg-secondary">
+            <th colspan="2" class="text-center">
+              {{ declarationItemToShow.Category.name }}
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Nombre
+            </th>
+            <th>
+              Valor
+            </th>
+          </tr>
+          <tr *ngFor="let item of declarationItemToShow.items">
+            <td>
+              {{ item.declarationItem.name }}
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">USD</span>
+                </div>
+                <input type="number" class="form-control" min="0" step="0.01" id="declarationITemValue"
+                  name="declarationITemValue" [(ngModel)]="item.valueItem.value"
+                  placeholder="Valor" (input)="refreshDeclarationInfo()" [disabled]="!declaration_selected.editable"/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong> TOTAL {{ declarationItemToShow.Category.name }} </strong>
+            </td>
+            <td>
+              <strong>{{ declarationItemToShow.Category.total | number: '1.2' }} USD</strong>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="text-light bg-secondary text-right">
+              TOTAL PROPIEDAD, PLANTA Y EQUIPO
+            </th>
+            <td style="color:red;">
+              <strong>{{totalunoxmil | number: '1.2'}} USD</strong>
+            </td>
+          </tr>
+          <tr>
+            <th class="text-light bg-secondary text-right">
+              CONTRIBUCIÓN CAUSADA UNO POR MIL
+            </th>
+            <td style="color:red;">
+              <strong>{{totalunoxmil/1000 | number: '1.2'}} USD</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row mt-3" *ngIf="mostrarDataDeclaration">
+  <div class="col-12">
+    <div class="alert alert-warning mt-2 mb-2" role="alert">
+      <label class="col-12 text-justify"><strong>Declaración Juramentada</strong></label><br />
+      <p class="col-12 text-justify"></p>Declaro, bajo juramento, que los datos consignados en el presente formulario reflejan la realidad y autorizo al Ministerio de Turismo a verificar el contenido de esta declaración en cualquier momento, al tiempo que me sujeto, a las sanciones previstas en la ley en caso de falsedad o perjurio.
+    </div>
+  </div>
+  <div class="alert alert-info mt-2 mb-2" role="alert">
+    <label class="col-12 text-justify"><strong>Atención</strong></label><br />
+    <p class="col-12 text-justify">Estimado Usuario, en base a su declaración, en los próximos días le notificaremos a su correo electrónico el valor a cancelar por la Contribución Uno por Mil, una vez que el Técnico Financiero del Ministerio de Turismo valide la información 	ingresada a través del presente formulario.
+      Nota importante: Los valores a declarar en esta sección debe contener el total de los activos fijos del establecimiento prestador de servicios turísticos.</p>
+  </div>
+  <div class="col-12 text-center">
+    <button [disabled]="guardando || !declaration_selected.editable" type="button" class="btn btn-success"
+      title="Guardar Datos" (click)="guardarDeclaracion()">
+      <i class="fas fa-paper-plane"></i>&nbsp;Guardar Datos
+    </button>
+    <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
+        refresh()
+      ">
+      <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
+    </button>
+  </div>
+</div>
+<div class="col-12 text-center">
+  <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
+    (click)="pasos.select('paso1')">
+    <i class="fas fa-arrow-left"></i>&nbsp;Anterior
+  </button>
+  <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
+  (click)="pasos.select('paso3')">
+    <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
+  </button>
+</div>
+</div>
