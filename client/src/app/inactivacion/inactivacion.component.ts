@@ -15,6 +15,8 @@ import { Register } from 'src/app/models/ALOJAMIENTO/Register';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { Ubication } from 'src/app/models/BASE/Ubication';
 
 @Component({
     selector: 'inactivacion-login',
@@ -75,6 +77,14 @@ export class InactivacionComponent implements OnInit {
   states: State[] = [];
   specific_states: State[];
   estado_tramite_selected_code: String = '1';
+  zonalEstablishmentSelectedCode = '-';
+  provinciaEstablishmentSelectedCode = '-';
+  cantonEstablishmentSelectedCode = '-';
+  zonalesEstablishment: Ubication[] = []; 
+  provinciasEstablishment: Ubication[] = [];
+  cantonesEstablishment: Ubication[];
+  parroquiasEstablishment: Ubication[];
+  addressEstablishmentValidated = false;
   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 

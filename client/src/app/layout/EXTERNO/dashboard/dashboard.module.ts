@@ -22,8 +22,8 @@ import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servi
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 import { RegisterTypeService as RegisterTypeAlimentosBebidasService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
+import { AgmCoreModule } from '@agm/core';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxBarcodeModule } from 'ngx-barcode';
@@ -71,8 +71,8 @@ import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/C
 
 @NgModule({
   imports: [CommonModule,
-    CKEditorModule,
     NgxBarcodeModule,
+    CKEditorModule,
     AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
     DashboardRoutingModule,
     NgxQRCodeModule,

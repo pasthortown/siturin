@@ -13,6 +13,10 @@ import { ConsultorService } from './../services/negocio/consultor.service';
 import { DinardapService } from '../services/negocio/dinardap.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { AgmCoreModule } from '@agm/core';
+import { CKEditorModule } from 'ngx-ckeditor';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
     imports: [CommonModule, 
@@ -20,11 +24,14 @@ import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registert
         FormsModule, 
         NgbModule,
         Ng2TableModule,
+        CKEditorModule,
+        AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
         HttpModule],
     declarations: [InactivacionComponent],
     providers: [ConsultorService, 
         NgbModal, 
         StateService, 
+        UbicationService,
         CatastroRegisterService,
         RegisterTypeService,
         DinardapService]
