@@ -8,4 +8,11 @@ export class InactivationRequest {
    identification: String;
    address: String;
    comments: String;
+   address_reference: String;
+   address_map_latitude: number;
+   address_map_longitude: number;
+   constructor() {
+      this.address_map_latitude = 0;
+      this.address_map_longitude = 0;
+   }
 }

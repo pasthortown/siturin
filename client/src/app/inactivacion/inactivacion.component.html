@@ -222,4 +222,150 @@
         </ngb-pagination>
       </div>
     </div>
+    <div class="row mt-5" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <div class="col-12 text-left">
+        <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
+      </div>
+    </div>
+    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <label class="col-12"><strong>Ubicación</strong></label>
+      <div class="col-3" [hidden]="true">
+        <div class="form-group">
+          <label>Zonal</label>
+          <select class="form-control" disabled id="zonal_establishment_id"
+            name="zonal_establishment_id" [(ngModel)]="zonalEstablishmentSelectedCode">
+            <option value="-" selected>Seleccione...</option>
+            <option *ngFor="let zonal of zonalesEstablishment" value="{{ zonal.code }}">
+              {{ zonal.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <label>Provincia*</label>
+          <select class="form-control" id="provincia_establishment_id"
+            name="provincia_establishment_id" [(ngModel)]="provinciaEstablishmentSelectedCode"
+            (change)="getCantonesEstablishment()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            <option value="-" selected>Seleccione...</option>
+            <option *ngFor="
+                let provincia of provinciasEstablishment
+              " value="{{ provincia.code }}">
+              {{ provincia.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <label>Cantón*</label>
+          <select class="form-control" id="canton_establishment_id" name="canton_establishment_id"
+            [(ngModel)]="cantonEstablishmentSelectedCode" (change)="getParroquiasEstablishment()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            <option value="-" selected>Seleccione...</option>
+            <option *ngFor="let canton of cantonesEstablishment" value="{{ canton.code }}">
+              {{ canton.name }}
+            </option>
+          </select>
+          <small *ngIf="cantonEstablishmentSelectedCode == '021701'">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+              <label class="col-12 text-justify"><strong>Importante:</strong></label><br />
+              <p class="col-12 text-justify">Estimado Usuario, si su establecimiento se encuentra ubicado en el cantón Quito, por favor acérquese a las oficinas de "Quito Turismo" para solicitar su Certificado de Registro Turístico</p>
+              <p class="col-12 text-justify"><strong>Dirección: </strong>Parque Bicentenario, terminales del antiguo Aeropuerto de Quito<br/>
+              <strong>Horario de Atención: </strong>Lunes a Viernes de 08:30 a 17:00<br/>
+              <strong>Teléfono: </strong><a href="tel:022993300">(02) 2993 300</a> extensiones 1003 y 1035<br/>
+              <strong>Correo electrónico: </strong><a href="mailto:info@quito-turismo.gob.ec">info@quito-turismo.gob.ec</a></p>
+            </div>
+          </small>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <label>Parroquia*</label><span *ngIf="establishment_selected.ubication_id == 0"
+            class="ml-2 badge badge-danger">Incorrecto</span>
+          <select class="form-control" id="parroquia_establishment_id"
+            name="parroquia_establishment_id" (change)="updateGmap()" [(ngModel)]="establishment_selected.ubication_id" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            <option value="0" selected>Seleccione...</option>
+            <option *ngFor="
+                let parroquia of parroquiasEstablishment
+              " value="{{ parroquia.id }}">
+              {{ parroquia.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <label class="col-12"><strong>Dirección*</strong></label><span *ngIf="!addressEstablishmentValidated"
+      class="ml-2 badge badge-danger">Incorrecto</span>
+    </div>
+    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <div class="col-4">
+          <div class="form-group">
+              <label>Calle Principal</label><span *ngIf="establishment_selected.address_main_street === ''"
+              class="ml-2 badge badge-danger">Incorrecto</span>
+              <input type="text" class="form-control" id="addressMain" name="addressMain"
+                (keyup)="checkEstablishmentAddress()" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                placeholder="Calle Principal"
+                [(ngModel)]="establishment_selected.address_main_street" />
+          </div>
+      </div>
+      <div class="col-4">
+          <div class="form-group">
+              <label>Numeración</label><span *ngIf="establishment_selected.address_number === ''"
+              class="ml-2 badge badge-danger">Incorrecto</span>
+              <input type="text" class="form-control" id="addressNumber" name="addressNumber"
+                (keyup)="checkEstablishmentAddress()" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                placeholder="Numeración"
+                [(ngModel)]="establishment_selected.address_number" />
+          </div>
+      </div>
+      <div class="col-4">
+          <div class="form-group">
+              <label>Calle Intersección</label><span *ngIf="establishment_selected.address_secondary_street === ''"
+              class="ml-2 badge badge-danger">Incorrecto</span>
+              <input type="text" class="form-control" id="addressSecondary" name="addressSecondary"
+                (keyup)="checkEstablishmentAddress()" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                placeholder="Calle Intersección"
+                [(ngModel)]="establishment_selected.address_secondary_street" />
+          </div>
+      </div>
+    </div>
+    <div class="row mt-2" *ngIf="rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+      <div class="form-group">
+        <label>Referencia de Ubicación* - ¿Como llegar?</label><span
+          *ngIf="establishment_selected.address_reference == ''"
+          class="ml-2 badge badge-danger">Incorrecto</span>
+        <ck-editor id="address_reference" *ngIf="rucEstablishmentRegisterSelected.editable" name="address_reference" skin="moono-lisa"
+          [(ngModel)]="establishment_selected.address_reference"></ck-editor>
+        <ck-editor id="address_reference" [readonly]="true" *ngIf="!rucEstablishmentRegisterSelected.editable" name="address_reference" skin="moono-lisa"
+          [(ngModel)]="establishment_selected.address_reference"></ck-editor>
+      </div>
+      <div class="form-group">
+        <label>Ubicar el establecimiento en el mapa*</label>
+        <agm-map class="col-12" *ngIf="rucEstablishmentRegisterSelected.editable" style="height: 400px;" [latitude]="
+            establishment_selected.address_map_latitude * 1
+          " [longitude]="
+            establishment_selected.address_map_longitude * 1
+          " [zoom]="15" (mapClick)="address_mapEventEstablishment($event)">
+          <agm-marker [latitude]="
+              establishment_selected.address_map_latitude * 1
+            " [longitude]="
+              establishment_selected.address_map_longitude * 1
+            " [markerDraggable]="true" (dragEnd)="address_mapEventEstablishment($event)"
+            [animation]="'DROP'"></agm-marker>
+        </agm-map>
+        <agm-map class="col-12" *ngIf="!rucEstablishmentRegisterSelected.editable" style="height: 400px;" [latitude]="
+            establishment_selected.address_map_latitude * 1
+          " [longitude]="
+            establishment_selected.address_map_longitude * 1
+          " [zoom]="15">
+          <agm-marker [latitude]="
+              establishment_selected.address_map_latitude * 1
+            " [longitude]="
+              establishment_selected.address_map_longitude * 1
+            "
+            [animation]="'DROP'"></agm-marker>
+        </agm-map>
+      </div>
+    </div>
 </div>

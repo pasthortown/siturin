@@ -40,6 +40,11 @@ export class InactivationRequestComponent implements OnInit {
       this.getInactivationRequests();
    }
 
+   address_mapEvent(event) {
+      this.inactivation_requestSelected.address_map_latitude = event.coords.lat;
+      this.inactivation_requestSelected.address_map_longitude = event.coords.lng;
+   }
+
    getInactivationRequests() {
       this.inactivation_requests = [];
       this.inactivation_requestSelected = new InactivationRequest();
@@ -85,9 +90,9 @@ export class InactivationRequestComponent implements OnInit {
    toCSV() {
       this.inactivation_requestDataService.get().then( r => {
          const backupData = r as InactivationRequest[];
-         let output = 'id;ruc;ubication_id;contact_phone_main_number;contact_phone_seconday_number;email;identification;address;comments\n';
+         let output = 'id;ruc;ubication_id;contact_phone_main_number;contact_phone_seconday_number;email;identification;address;comments;address_reference;address_map_latitude;address_map_longitude\n';
          backupData.forEach(element => {
-            output += element.id; + element.ruc + ';' + element.ubication_id + ';' + element.contact_phone_main_number + ';' + element.contact_phone_seconday_number + ';' + element.email + ';' + element.identification + ';' + element.address + ';' + element.comments + '\n';
+            output += element.id; + element.ruc + ';' + element.ubication_id + ';' + element.contact_phone_main_number + ';' + element.contact_phone_seconday_number + ';' + element.email + ';' + element.identification + ';' + element.address + ';' + element.comments + ';' + element.address_reference + ';' + element.address_map_latitude + ';' + element.address_map_longitude + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

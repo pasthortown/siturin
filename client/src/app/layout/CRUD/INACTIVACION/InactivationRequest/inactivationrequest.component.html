@@ -39,6 +39,8 @@
                <th>identification</th>
                <th>address</th>
                <th>comments</th>
+               <th>address_reference</th>
+               <th>address_map</th>
             </tr>
          </thead>
          <tbody>
@@ -52,6 +54,8 @@
                <td>{{inactivation_request.identification}}</td>
                <td>{{inactivation_request.address}}</td>
                <td>{{inactivation_request.comments}}</td>
+               <td>{{inactivation_request.address_reference}}</td>
+               <td>Lat: {{inactivation_request.address_map_latitude}} Lng: {{inactivation_request.address_map_longitude}}</td>
             </tr>
          </tbody>
       </table>
@@ -134,6 +138,20 @@
                <label for="comments" class="col-4 col-form-label">comments</label>
                <div class="col-8">
                   <ck-editor id="comments" name="comments" skin="moono-lisa" [(ngModel)]="inactivation_requestSelected.comments"></ck-editor>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="address_reference" class="col-4 col-form-label">address_reference</label>
+               <div class="col-8">
+                  <ck-editor id="address_reference" name="address_reference" skin="moono-lisa" [(ngModel)]="inactivation_requestSelected.address_reference"></ck-editor>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="address_map" class="col-4 col-form-label">address_map</label>
+               <div class="col-8">
+                  <agm-map class="col-12" style="height: 200px;"[latitude]="inactivation_requestSelected.address_map_latitude * 1" [longitude]="inactivation_requestSelected.address_map_longitude * 1" [zoom]="15" (mapClick)="address_mapEvent($event)">
+                     <agm-marker [latitude]="inactivation_requestSelected.address_map_latitude * 1" [longitude]="inactivation_requestSelected.address_map_longitude * 1" [markerDraggable]="true" (dragEnd)="address_mapEvent($event)" [animation]="'DROP'"></agm-marker>
+                  </agm-map>
                </div>
             </div>
          </div>
