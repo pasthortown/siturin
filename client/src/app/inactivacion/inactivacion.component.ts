@@ -148,6 +148,7 @@ export class InactivacionComponent implements OnInit {
                }
                return 0;
             });
+            console.log(this.provinciasEstablishment);
          }).catch( e => { console.log(e) });
       });
    }).catch( e => { console.log(e) });
