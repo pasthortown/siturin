@@ -17,6 +17,7 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { AgmCoreModule } from '@agm/core';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { environment } from 'src/environments/environment';
+import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO/procedurejustification.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -34,6 +35,7 @@ import { environment } from 'src/environments/environment';
         UbicationService,
         CatastroRegisterService,
         RegisterTypeService,
+        ProcedureJustificationService,
         DinardapService]
 })
 export class InactivacionModule {}

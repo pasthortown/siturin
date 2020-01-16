@@ -17,6 +17,8 @@ import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
+import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO/procedurejustification.service';
+import { ProcedureJustification } from 'src/app/models/ALOJAMIENTO/ProcedureJustification';
 
 @Component({
     selector: 'inactivacion-login',
@@ -40,6 +42,7 @@ export class InactivacionComponent implements OnInit {
   fechaIngresada = '';
   razon_social = '';
   REGCIVILOK = false;
+  idCausal = 0;
   fechaNombramientoOK = false;
   representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   identidadConfirmada = false;
@@ -86,6 +89,8 @@ export class InactivacionComponent implements OnInit {
   cantonesEstablishment: Ubication[];
   parroquiasEstablishment: Ubication[];
   addressEstablishmentValidated = false;
+  procedureJustifications: ProcedureJustification[] = [];
+  procedureJustificationsToShow: ProcedureJustification[] = [];
   
   constructor(private consultorDataService: ConsultorService,
     private router: Router, 
@@ -95,12 +100,26 @@ export class InactivacionComponent implements OnInit {
     private catastroRegisterDataService: CatastroRegisterService,
     private register_typeDataService: RegisterTypeService,
     private ubicationDataService: UbicationService,
+    private procedureJustificationDataService: ProcedureJustificationService,
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
     this.user = new User();
     this.getTramiteStates();
     this.getZonalesEstablishment();
+  }
+
+  getProcedureJustifications() { 
+   this.procedureJustificationsToShow = [];
+   this.procedureJustifications = []
+   this.procedureJustificationDataService.get().then( r => {
+      this.procedureJustifications = r as ProcedureJustification[];
+      this.procedureJustifications.forEach(element => {
+         if (element.procedure_id == 5) {
+            this.procedureJustificationsToShow.push(element);
+         }
+      });
+   }).catch( e => { console.log(e); });
   }
 
   getStates() {
