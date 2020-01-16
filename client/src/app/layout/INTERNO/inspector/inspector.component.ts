@@ -2063,7 +2063,6 @@ export class InspectorComponent implements OnInit {
             iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
          });
          let zone = new Zone();
-         console.log(provincia.id);
          this.zonales.forEach(element => {
             if (element.ubication_id == provincia.id) {
                zone = element;
