@@ -21,7 +21,7 @@ import { ProcedureJustificationService } from 'src/app/services/CRUD/ALOJAMIENTO
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
-import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
+import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 
 @NgModule({
     imports: [CommonModule, 
