@@ -43,6 +43,7 @@ export class InactivacionComponent implements OnInit {
   razon_social = '';
   REGCIVILOK = false;
   idCausal = 0;
+  mostrarCausales = false;
   fechaNombramientoOK = false;
   representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   identidadConfirmada = false;
@@ -717,6 +718,7 @@ export class InactivacionComponent implements OnInit {
 
   onCellClick(event) {
      this.mostrarUbicationEstablishment = true;
+     this.mostrarCausales = true;
      console.log(event);
   }
 
