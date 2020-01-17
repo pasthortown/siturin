@@ -594,7 +594,12 @@ export class InactivacionComponent implements OnInit {
            }
            //AQUI
            this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
+            //const rucIncomming = ruc_response.Ruc as Ruc;
             console.log(ruc_response);
+            if (ruc_response !== 'ruc no encontrado') {
+               console.log('A');
+               // this.ruc = 
+            }
            }).catch( e => { console.log(e); } ); 
         });
      }).catch( e => {
