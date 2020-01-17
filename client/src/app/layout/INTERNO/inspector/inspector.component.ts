@@ -1601,7 +1601,7 @@ export class InspectorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION- ' + this.activity + ' -' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             let aclaracion_registro = '';
             if (this.tipo_tramite == 'REGISTRO') {
                aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
@@ -1683,7 +1683,7 @@ export class InspectorComponent implements OnInit {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-' + this.activity + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             let aclaracion_registro = '';
             if (this.tipo_tramite == 'REGISTRO') {
                aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
@@ -1943,7 +1943,7 @@ export class InspectorComponent implements OnInit {
             });
             const iniciales_cordinacion_zonal = zone.acronym;
             const today = new Date();
-            let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-' + this.activity + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             let resultado_aprobacion = '';
             if (this.inspectionState == 1) {
@@ -2070,7 +2070,7 @@ export class InspectorComponent implements OnInit {
          });
          const iniciales_cordinacion_zonal = zone.acronym;
          const today = new Date();
-         let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-ALOJAMIENTO-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+         let qr_value = 'MT-IN-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-INFORME-' + this.activity + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
          const actividad = this.registerMinturSelected.activity.toUpperCase();
          let resultado_aprobacion = '';
          if (this.inspectionState == 1) {
