@@ -1,3 +1,4 @@
+import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { ConsultorService } from './../services/negocio/consultor.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -133,6 +134,7 @@ export class InactivacionComponent implements OnInit {
     private procedureJustificationDataService: ProcedureJustificationService,
     private declarationItemCategoryDataService: DeclarationItemCategoryService,
     private declarationItemDataService: DeclarationItemService,
+    private rucDataService: RucService,
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
@@ -590,6 +592,10 @@ export class InactivacionComponent implements OnInit {
            if (this.SRIOK) {
             this.startToGetInformationRegisters();
            }
+           //AQUI
+           this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
+            console.log(ruc_response);
+           }).catch( e => { console.log(e); } ); 
         });
      }).catch( e => {
         console.log(e);
