@@ -35,6 +35,7 @@ import { DeclarationItemCategory } from 'src/app/models/FINANCIERO/DeclarationIt
 import { DeclarationAttachment } from 'src/app/models/FINANCIERO/DeclarationAttachment';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
+import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 
 @Component({
     selector: 'inactivacion-login',
@@ -49,6 +50,7 @@ export class InactivacionComponent implements OnInit {
   isRepresentantLegal = false;
   isRucOwner = false;
   identificationValidated = false;
+  mostrarDataEstablishment = false;
   maxYear: number = 2019;
   estados_tramites: State[];
   declaration_selected: Declaration = new Declaration();
@@ -108,6 +110,7 @@ export class InactivacionComponent implements OnInit {
   currentPageMinturRegisters = 1;
   lastPageMinturRegisters = 1;
   recordsByPageRegisterMintur = 5;
+  establecimientos_pendiente = false;
   dataPays = [];
   registers_mintur = [];
   registerMinturSelected: any = null;
@@ -115,6 +118,12 @@ export class InactivacionComponent implements OnInit {
   states: State[] = [];
   specific_states: State[];
   estado_tramite_selected_code: String = '1';
+  currentPageEstablishment = 1;
+  lastPageEstablishment = 1;
+  rowsEstablishment = [];
+  columnsEstablishment = [];
+  dataEstablishment = [];
+  recordsByPageEstablishment = 5;
   zonalEstablishmentSelectedCode = '-';
   provinciaEstablishmentSelectedCode = '-';
   cantonEstablishmentSelectedCode = '-';
@@ -138,6 +147,7 @@ export class InactivacionComponent implements OnInit {
     private register_typeDataService: RegisterTypeService,
     private ubicationDataService: UbicationService,
     private declarationDataService: DeclarationService,
+    private establishmentDataService: EstablishmentService,
     private inactivationRequestDataService: InactivationRequestService,
     private inactivationRequestDeclarationDataService: InactivationRequestDeclarationService,
     private declarationAttachmentDataService: DeclarationAttachmentService,
@@ -643,6 +653,195 @@ export class InactivacionComponent implements OnInit {
    }
   }
 
+  getEstablishmentsOnRuc(currentpage: number) {
+   this.establishment_selected = new Establishment();
+   this.mostrarDataEstablishment = false;
+   this.establecimientos_pendiente = true;
+   this.establishmentDataService.getByRuc(this.ruc.number, this.recordsByPageEstablishment, currentpage).then( r => {
+      const establecimientos = r.data as Establishment[];
+      this.dinardapDataService.get_RUC(this.ruc.number).then( dinardap => {
+        this.establecimientos_pendiente = false;
+        let itemsDetalles = [];
+        if (!Array.isArray(dinardap.sri_establecimientos.original.entidades.entidad.filas.fila)) {
+           itemsDetalles = [dinardap.sri_establecimientos.original.entidades.entidad.filas.fila];
+        } else {
+           itemsDetalles = dinardap.sri_establecimientos.original.entidades.entidad.filas.fila;
+        }
+        itemsDetalles.forEach(sri_establecimiento => {
+           let existe = false;
+           const newEstablishment = new Establishment();
+           sri_establecimiento.columnas.columna.forEach(sriData => {
+              if (sriData.campo === 'estadoEstablecimiento') {
+                 newEstablishment.sri_state = sriData.valor as string;
+              }
+              if (sriData.campo === 'calle') {
+                 if (JSON.stringify(sriData.valor) !== '{}') {
+                    newEstablishment.address_main_street = sriData.valor;   
+                 } else {
+                    newEstablishment.address_main_street = '';
+                 }
+              }
+              if (sriData.campo === 'numero') {
+                 if (JSON.stringify(sriData.valor) !== '{}') {
+                    newEstablishment.address_number = sriData.valor;
+                 } else {
+                    newEstablishment.address_number = '';
+                 }
+              }
+              if (sriData.campo === 'interseccion') {
+                 if (JSON.stringify(sriData.valor) !== '{}') {
+                    newEstablishment.address_secondary_street = sriData.valor;
+                 } else {
+                    newEstablishment.address_secondary_street = '';
+                 }
+              }
+              if (sriData.campo === 'numeroEstablecimiento') {
+                 newEstablishment.ruc_code_id = sriData.valor as string;
+              }
+              if (sriData.campo === 'nombreFantasiaComercial') {
+                 if (JSON.stringify(sriData.valor) !== '{}') {
+                    newEstablishment.commercially_known_name = sriData.valor as string;
+                 } else {
+                    newEstablishment.commercially_known_name = '';
+                 }
+              }
+           });
+           establecimientos.forEach(establecimiento => {
+              if (establecimiento.ruc_code_id === newEstablishment.ruc_code_id.trim()) {
+                 existe = true;
+                 establecimiento.sri_state = newEstablishment.sri_state;
+              }
+           });
+           if (!existe) {
+              establecimientos.push(newEstablishment);
+           }
+           this.ruc.establishments = establecimientos;
+        });
+        if(establecimientos.length == 0){
+           this.ruc.establishments = [];
+        }
+        this.buildDataTableEstablishment();
+      }).catch( e => { console.log(e); });
+   }).catch( e => { console.log(e); });
+  }
+
+  buildDataTableEstablishment() {
+   this.columnsEstablishment = [
+      {title: '', name: 'selected'},
+      {title: 'Número de Establecimiento', name: 'code'},
+      {title: 'Dirección', name: 'address'},
+      {title: 'Nombre Comercial', name: 'name'},
+      {title: 'Estado', name: 'sri_state'},
+   ];
+   const data = [];
+   this.ruc.establishments.forEach(item => {
+       let yaRegistrado = false;
+       data.push({
+         selected: '',
+         code: item.ruc_code_id,
+         yaRegistrado: yaRegistrado,
+         address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
+         name: item.commercially_known_name,
+         sri_state: item.sri_state,
+      });
+   });
+    data.sort((previous: any, current: any) => {
+       if (Number(previous.code) > Number(current.code)) {
+          return 1;
+       } else if (Number(previous.code) < Number(current.code)) {
+          return -1;
+       }
+       return 0;
+    });
+   this.dataEstablishment = data;
+   this.onChangeTableEstablishment(this.config);
+  }
+
+  onChangeTableEstablishment(config: any, event?): any {
+   const page: any = {page: this.currentPageEstablishment, itemsPerPage: this.recordsByPageEstablishment};
+   if (config.filtering) {
+     Object.assign(this.config.filtering, config.filtering);
+   }
+   if (config.sorting) {
+     Object.assign(this.config.sorting, config.sorting);
+   }
+   const filteredData = this.changeFilterEstablishment(this.dataEstablishment, this.config);
+   const sortedData = this.changeSortEstablishment(filteredData, this.config);
+   this.rowsEstablishment = page && config.paging ? this.changePageEstablishment(page, sortedData) : sortedData;
+  }
+
+  onCellClickEstablishment(event) {
+  //AQUI
+  }
+
+  changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
+   const start = (page.page - 1) * page.itemsPerPage;
+   const end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
+   return data.slice(start, end);
+  }
+
+  changeFilterEstablishment(data: any, config: any): any {
+   this.mostrarDataEstablishment = false;
+   this.rowsEstablishment.forEach(row => {
+      row.selected = '';
+   });
+   let filteredData: Array<any> = data;
+   this.columnsEstablishment.forEach((column: any) => {
+     if (column.filtering) {
+       filteredData = filteredData.filter((item: any) => {
+         return item[column.name].match(column.filtering.filterString);
+       });
+     }
+   });
+   if (!config.filtering) {
+     return filteredData;
+   }
+   if (config.filtering.columnName) {
+     return filteredData.filter((item:any) =>
+       item[config.filtering.columnName].match(this.config.filtering.filterString));
+   }
+   const tempArray: Array<any> = [];
+   filteredData.forEach((item: any) => {
+     let flag = false;
+     this.columnsEstablishment.forEach((column: any) => {
+       if (item[column.name].toString().match(this.config.filtering.filterString)) {
+         flag = true;
+       }
+     });
+     if (flag) {
+       tempArray.push(item);
+     }
+   });
+   filteredData = tempArray;
+   return filteredData;
+  }
+
+  changeSortEstablishment(data: any, config: any): any {
+   if (!config.sorting) {
+     return data;
+   }
+   const columns = this.config.sorting.columns || [];
+   let columnName: string = void 0;
+   let sort: string = void 0;
+   for (let i = 0; i < columns.length; i++) {
+     if (columns[i].sort !== '' && columns[i].sort !== false) {
+       columnName = columns[i].name;
+       sort = columns[i].sort;
+     }
+   }
+   if (!columnName) {
+     return data;
+   }
+   return data.sort((previous:any, current:any) => {
+     if (previous[columnName] > current[columnName]) {
+       return sort === 'desc' ? -1 : 1;
+     } else if (previous[columnName] < current[columnName]) {
+       return sort === 'asc' ? -1 : 1;
+     }
+     return 0;
+   });
+  }
+
   downloadBalance() {
    this.downloadFile(
       this.balance.declaration_attachment_file,
@@ -934,6 +1133,7 @@ export class InactivacionComponent implements OnInit {
          row.selected = '';
       }
      });
+     this.getEstablishmentsOnRuc(1);
   }
 
   onChangeTablePays(config: any, event?): any {

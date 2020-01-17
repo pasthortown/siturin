@@ -26,6 +26,7 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
 import { InactivationRequestDeclarationService } from './../services/CRUD/INACTIVACION/inactivationrequestdeclaration.service';
 import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
 import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
+import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -41,6 +42,7 @@ import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
         NgbModal, 
         StateService, 
         PayService,
+        EstablishmentService,
         InactivationRequestDeclarationService,
         InactivationRequestService,
         DeclarationService,
