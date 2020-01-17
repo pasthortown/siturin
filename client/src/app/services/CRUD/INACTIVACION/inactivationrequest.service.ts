@@ -37,6 +37,13 @@ export class InactivationRequestService {
       }).catch( error => { this.handledError(error.json());  });
    }
 
+   get_by_ruc(ruc_number: String): Promise<any> {
+      return this.http.get(this.url + 'get_by_ruc_id?ruc_number=' + ruc_number, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+   
    delete(id: number): Promise<any> {
       return this.http.delete(this.url + '?id=' + id.toString(), this.options).toPromise()
       .then( r => {

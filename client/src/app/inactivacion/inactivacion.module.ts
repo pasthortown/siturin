@@ -23,6 +23,9 @@ import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
+import { InactivationRequestDeclarationService } from './../services/CRUD/INACTIVACION/inactivationrequestdeclaration.service';
+import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
+import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -37,6 +40,9 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
     providers: [ConsultorService, 
         NgbModal, 
         StateService, 
+        PayService,
+        InactivationRequestDeclarationService,
+        InactivationRequestService,
         DeclarationService,
         RucService,
         DeclarationItemService,

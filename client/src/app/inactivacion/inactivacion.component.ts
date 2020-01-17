@@ -1,3 +1,7 @@
+import { InactivationRequestDeclarationService } from './../services/CRUD/INACTIVACION/inactivationrequestdeclaration.service';
+import { InactivationRequestDeclaration } from './../models/INACTIVACION/InactivationRequestDeclaration';
+import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
+import { InactivationRequest } from './../models/INACTIVACION/InactivationRequest';
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { ConsultorService } from './../services/negocio/consultor.service';
 import { Router } from '@angular/router';
@@ -30,6 +34,7 @@ import { DeclarationItem } from 'src/app/models/FINANCIERO/DeclarationItem';
 import { DeclarationItemCategory } from 'src/app/models/FINANCIERO/DeclarationItemCategory';
 import { DeclarationAttachment } from 'src/app/models/FINANCIERO/DeclarationAttachment';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
+import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 
 @Component({
     selector: 'inactivacion-login',
@@ -52,6 +57,8 @@ export class InactivacionComponent implements OnInit {
   fechaExpedicion = 'porValidar';
   fechaExpiracion = 'porValidar';
   fechaNacimiento = 'porValidar';
+  inactivationRequest: InactivationRequest = new InactivationRequest();
+  inactivationRequestDeclarations: InactivationRequestDeclaration[] = [];
   recordsByPagePays = 5;
   rowsPays = [];
   columnsPays = [];
@@ -131,11 +138,14 @@ export class InactivacionComponent implements OnInit {
     private register_typeDataService: RegisterTypeService,
     private ubicationDataService: UbicationService,
     private declarationDataService: DeclarationService,
+    private inactivationRequestDataService: InactivationRequestService,
+    private inactivationRequestDeclarationDataService: InactivationRequestDeclarationService,
     private declarationAttachmentDataService: DeclarationAttachmentService,
     private procedureJustificationDataService: ProcedureJustificationService,
     private declarationItemCategoryDataService: DeclarationItemCategoryService,
     private declarationItemDataService: DeclarationItemService,
     private rucDataService: RucService,
+    private payDataService: PayService,
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
@@ -241,6 +251,13 @@ export class InactivacionComponent implements OnInit {
    this.ubicationDataService.get_filtered(this.provinciaEstablishmentSelectedCode).then( r => {
       this.cantonesEstablishment = r as Ubication[];
    }).catch( e => { console.log(e) });
+  }
+
+  getPays() {
+   this.payDataService.get_by_ruc_number(this.ruc.number).then( r => {
+      this.pays = r as Pay[];
+      this.buildDataTablePays();
+   }).catch( e => { console.log(e); } );
   }
 
   getParroquiasEstablishment() {
@@ -605,6 +622,8 @@ export class InactivacionComponent implements OnInit {
               this.ruc.contact_user_id = rucIncomming.contact_user_id;
               this.ruc.owner_name = rucIncomming.owner_name;
               this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
+              this.getPays();
+              //AQUI
             } else {
                if (!this.guardandoRucNuevo) {
                   this.guardandoRucNuevo = true;
