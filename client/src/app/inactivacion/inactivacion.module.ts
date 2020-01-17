@@ -1,3 +1,4 @@
+import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -37,6 +38,7 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
         NgbModal, 
         StateService, 
         DeclarationService,
+        RucService,
         DeclarationItemService,
         DeclarationAttachmentService,
         DeclarationItemCategoryService,
