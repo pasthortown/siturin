@@ -87,6 +87,7 @@ export class InactivacionComponent implements OnInit {
   mainPhoneValidated: Boolean = false;
   secondaryPhoneValidated: Boolean = false;
   idTramiteEstadoFilter = 0;
+  buscandoSRI = false;
   tramite = '-'; 
   estados = [];
   config: any = {
@@ -495,6 +496,10 @@ export class InactivacionComponent implements OnInit {
   }
 
   checkRuc() {
+    if (this.buscandoSRI) {
+      return;
+    }
+    this.buscandoSRI = true;
     this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
@@ -518,6 +523,7 @@ export class InactivacionComponent implements OnInit {
         this.rucData = '';
         let datosGenerales = '';
         let datosRL = '';
+        let nombreRL = '';
         itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
            if (entidad.nombre == 'Actividad Economica') {
               const AE = entidad.filas.fila.columnas.columna;
@@ -554,6 +560,7 @@ export class InactivacionComponent implements OnInit {
                  }
                  if (element.campo == 'nombre') {
                    datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
+                   nombreRL = element.valor;
                  }
               });
            }
@@ -588,11 +595,11 @@ export class InactivacionComponent implements OnInit {
            this.rucData = datosGenerales;
            if (this.ruc.tax_payer_type_id != 1) {
             this.rucData += datosRL;
+            this.ruc.owner_name = nombreRL;
            }
            if (this.SRIOK) {
             this.startToGetInformationRegisters();
            }
-           //AQUI
            this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
             const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
             if (ruc_response !== 'ruc no encontrado') {
@@ -601,9 +608,13 @@ export class InactivacionComponent implements OnInit {
               this.ruc.contact_user_id = rucIncomming.contact_user_id;
               this.ruc.owner_name = rucIncomming.owner_name;
               this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
-              console.log(this.ruc);
+            } else {
+               this.ruc.contact_user_id = 99999;
+               this.rucDataService.post(this.ruc).then(r11 => {
+
+               }).catch( e => { console.log(e); });
             }
-           }).catch( e => { console.log(e); } ); 
+           }).catch( e => { console.log(e); } );
         });
      }).catch( e => {
         console.log(e);
