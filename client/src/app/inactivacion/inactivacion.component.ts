@@ -593,6 +593,7 @@ export class InactivacionComponent implements OnInit {
               }
            }
            this.rucData = datosGenerales;
+           this.ruc.owner_name = this.razon_social;
            if (this.ruc.tax_payer_type_id != 1) {
             this.rucData += datosRL;
             this.ruc.owner_name = nombreRL;
