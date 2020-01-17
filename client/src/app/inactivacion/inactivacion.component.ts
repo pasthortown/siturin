@@ -594,11 +594,14 @@ export class InactivacionComponent implements OnInit {
            }
            //AQUI
            this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
-            //const rucIncomming = ruc_response.Ruc as Ruc;
-            console.log(ruc_response);
+            const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
             if (ruc_response !== 'ruc no encontrado') {
-               console.log('A');
-               // this.ruc = 
+              this.ruc.id = rucIncomming.id;
+              this.ruc.baised_accounting = rucIncomming.baised_accounting;
+              this.ruc.contact_user_id = rucIncomming.contact_user_id;
+              this.ruc.owner_name = rucIncomming.owner_name;
+              this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
+              console.log(this.ruc);
             }
            }).catch( e => { console.log(e); } ); 
         });
