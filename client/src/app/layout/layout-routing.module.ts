@@ -509,6 +509,10 @@ const routes: Routes = [
             path: 'inactivation_state',
             loadChildren: './CRUD/INACTIVACION/State/state.module#StateModule'
          },
+         {
+            path: 'inactivation_request_declaration',
+            loadChildren: './CRUD/INACTIVACION/InactivationRequestDeclaration/inactivationrequestdeclaration.module#InactivationRequestDeclarationModule'
+         },
 
 
          //ADMINISTRATORS
