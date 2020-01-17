@@ -25,7 +25,7 @@ import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 import { InactivationRequestDeclarationService } from './../services/CRUD/INACTIVACION/inactivationrequestdeclaration.service';
 import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
-import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
+import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
 
 @NgModule({
     imports: [CommonModule, 
