@@ -88,6 +88,7 @@ export class InactivacionComponent implements OnInit {
   secondaryPhoneValidated: Boolean = false;
   idTramiteEstadoFilter = 0;
   tramite = '-'; 
+  guardandoRucNuevo = false;
   estados = [];
   config: any = {
    paging: true,
@@ -605,10 +606,12 @@ export class InactivacionComponent implements OnInit {
               this.ruc.owner_name = rucIncomming.owner_name;
               this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
             } else {
-               this.ruc.contact_user_id = 99999;
-               this.rucDataService.post(this.ruc).then(r11 => {
-
-               }).catch( e => { console.log(e); });
+               if (!this.guardandoRucNuevo) {
+                  this.guardandoRucNuevo = true;
+                  this.ruc.contact_user_id = 99999;
+                  this.rucDataService.post(this.ruc).then(r11 => {
+                  }).catch( e => { console.log(e); });
+               }
             }
            }).catch( e => { console.log(e); } );
         });
