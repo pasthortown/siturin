@@ -153,7 +153,7 @@
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <button [disabled]="financialSelectedId == 0 || isAssignedFinancial || asignandoFinanciero" type="button" title="Asignar" class="btn btn-success" (click)="asignarFinanciero()"><span class="fas fa-user-plus"></span></button>
-          <button [disabled]="(registerApprovalFinanciero.notes.search('Devuelto: ') == 0 && !registerApprovalFinanciero.value) || !isAssignedFinancial || registerApprovalFinanciero.notes.search('Devuelto: ') == 0 || desasignandoFinanciero || digito == '2' || digito == '3' || digito == '9'" type="button" type="button" title="Remover" class="btn btn-danger" (click)="desasignarFinanciero()"><span class="fas fa-user-minus"></span></button>
+          <button [disabled]="!isAssignedFinancial || registerApprovalFinanciero.notes.search('Devuelto: ') == 0 || desasignandoFinanciero || digito == '2' || digito == '3' || digito == '9'" type="button" type="button" title="Remover" class="btn btn-danger" (click)="desasignarFinanciero()"><span class="fas fa-user-minus"></span></button>
         </div>
         <select [disabled]="isAssignedFinancial" class="form-control" id="idFinancial" name="idFinancial" [(ngModel)]="financialSelectedId">
           <option value="0" selected>Seleccione...</option>
