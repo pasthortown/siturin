@@ -600,6 +600,7 @@ export class InactivacionComponent implements OnInit {
            if (this.SRIOK) {
             this.startToGetInformationRegisters();
            }
+           this.buscandoSRI = false;
            this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
             const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
             if (ruc_response !== 'ruc no encontrado') {
@@ -621,6 +622,7 @@ export class InactivacionComponent implements OnInit {
         this.rucData = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
         this.consumoRuc = false;
         this.SRIOK = false;
+        this.buscandoSRI = false;
      });
    }
   }
