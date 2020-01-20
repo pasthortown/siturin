@@ -6,8 +6,17 @@
       <form>
         <div class="row">
           <div class="col-12 text-right">
-            <button type="button" class="btn btn-primary btn-sm">Small button</button>
-            <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              title="Video Tutorial"
+              (click)="openDialog(contentvideo)"
+            >
+              <span class="fas fa-file-video"></span>&nbsp;Tutorial
+            </button>
+            <a href="assets/documents/manual.pdf" download="Manual de Usuario" class="btn btn-secondary btn-sm ml-2" title="Manual de Usuario">
+              <i class="fas fa-file-alt"></i>&nbsp;Manual
+            </a>
           </div>
         </div>
         <div class="row">
@@ -88,17 +97,6 @@
             >
               Recuperar Contraseña
             </button>
-            <button
-              type="button"
-              class="btn btn-info mr-2"
-              title="Video Tutorial"
-              (click)="openDialog(contentvideo)"
-            >
-              <span class="fas fa-file-video"></span>&nbsp;Tutorial
-            </button>
-            <a href="assets/documents/manual.pdf" download="Manual de Usuario" class="btn btn-info" title="Manual de Usuario">
-              <i class="fas fa-file-alt"></i>&nbsp;Manual
-            </a>
           </div>
         </div>
       </form>
