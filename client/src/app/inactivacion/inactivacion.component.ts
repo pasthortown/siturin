@@ -409,13 +409,9 @@ export class InactivacionComponent implements OnInit {
    }
 
    guardarRegistro() {
-
+      //AQUI
    }
 
-   login() {
-
-   }
-   
   checkCedula() {
     this.user.identification = this.user.identification.replace(/[^\d]/, '');
     if (this.user.identification.length !== 10) {
