@@ -83,6 +83,7 @@ export class InactivacionComponent implements OnInit {
   cedulaNombre = '';
   rucValidated = false;
   consumoRuc = false;
+  establishment_ruc_code = 'NULL';
   identificationRepresentativePersonValidated = false;
   rucData = '';
   rucInactive = true;
@@ -110,6 +111,7 @@ export class InactivacionComponent implements OnInit {
   currentPageMinturRegisters = 1;
   lastPageMinturRegisters = 1;
   recordsByPageRegisterMintur = 5;
+  mostrarListadoEstablecimientos = false;
   establecimientos_pendiente = false;
   dataPays = [];
   registers_mintur = [];
@@ -633,7 +635,6 @@ export class InactivacionComponent implements OnInit {
               this.ruc.owner_name = rucIncomming.owner_name;
               this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
               this.getPays();
-              //AQUI
             } else {
                if (!this.guardandoRucNuevo) {
                   this.guardandoRucNuevo = true;
@@ -654,9 +655,11 @@ export class InactivacionComponent implements OnInit {
   }
 
   getEstablishmentsOnRuc(currentpage: number) {
-   this.establishment_selected = new Establishment();
    this.mostrarDataEstablishment = false;
    this.establecimientos_pendiente = true;
+   this.establishment_selected = new Establishment();
+   this.establishment_selected.ruc_code_id = this.establishment_ruc_code;
+   this.establishment_selected.ruc_id = this.ruc.id;
    this.establishmentDataService.getByRuc(this.ruc.number, this.recordsByPageEstablishment, currentpage).then( r => {
       const establecimientos = r.data as Establishment[];
       this.dinardapDataService.get_RUC(this.ruc.number).then( dinardap => {
@@ -713,9 +716,30 @@ export class InactivacionComponent implements OnInit {
               }
            });
            if (!existe) {
+              newEstablishment.id = 0;
               establecimientos.push(newEstablishment);
            }
            this.ruc.establishments = establecimientos;
+           if (this.establishment_ruc_code == 'NULL') {
+              this.mostrarListadoEstablecimientos = true;
+           } else {
+              this.mostrarListadoEstablecimientos = false;
+              this.ruc.establishments.forEach(establecimiento => {
+                 if (this.establishment_ruc_code == establecimiento.ruc_code_id) {
+                  this.establishment_selected.ruc_id = this.ruc.id;
+                  this.establishment_selected.id = establecimiento.id;
+                  this.establishment_selected.ruc_code_id = establecimiento.ruc_code_id;
+                  this.establishment_selected.address_main_street = establecimiento.address_main_street;
+                  this.establishment_selected.address_secondary_street = establecimiento.address_secondary_street;
+                  this.establishment_selected.address_number = establecimiento.address_number;
+                  this.establishment_selected.address_map_latitude = establecimiento.address_map_latitude;
+                  this.establishment_selected.address_map_longitude = establecimiento.address_map_longitude;
+                  this.establishment_selected.address_reference = establecimiento.address_reference;
+                  this.establishment_selected.ubication_id = establecimiento.ubication_id;
+                  this.recoverUbication();
+                }
+              });
+           }
         });
         if(establecimientos.length == 0){
            this.ruc.establishments = [];
@@ -723,6 +747,30 @@ export class InactivacionComponent implements OnInit {
         this.buildDataTableEstablishment();
       }).catch( e => { console.log(e); });
    }).catch( e => { console.log(e); });
+  }
+
+  recoverUbication() {
+   this.ubicationDataService.getByIdLower(this.establishment_selected.ubication_id).then( r => {
+     this.zonalEstablishmentSelectedCode = r.zonal.code;
+     this.provinciaEstablishmentSelectedCode = r.provincia.code;
+     this.cantonEstablishmentSelectedCode = r.canton.code;
+     this.establishment_selected.ubication_id = r.parroquia.id;
+     this.mostrarUbicationEstablishment = true;
+     this.getCantonesEstablishmentRecovery();
+     this.getParroquiasEstablishmentRecovery();
+   }).catch( e => { console.log(e); });
+  }
+
+  getCantonesEstablishmentRecovery() {
+   this.ubicationDataService.get_filtered(this.provinciaEstablishmentSelectedCode).then( r => {
+      this.cantonesEstablishment = r as Ubication[];
+   }).catch( e => { console.log(e) });
+  }
+
+  getParroquiasEstablishmentRecovery() {
+   this.ubicationDataService.get_filtered(this.cantonEstablishmentSelectedCode).then( r => {
+      this.parroquiasEstablishment = r as Ubication[];
+   }).catch( e => { console.log(e) });
   }
 
   buildDataTableEstablishment() {
@@ -771,7 +819,7 @@ export class InactivacionComponent implements OnInit {
   }
 
   onCellClickEstablishment(event) {
-  //AQUI
+   this.mostrarUbicationEstablishment = true;
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
@@ -990,6 +1038,9 @@ export class InactivacionComponent implements OnInit {
          data.push(itemSIETE);
       }
    });
+   dataOTHERS.forEach(itemOTHER => {
+      data.push(itemOTHER);
+   });
    this.data = data;
    this.onChangeTable(this.config);
   }
@@ -1123,7 +1174,6 @@ export class InactivacionComponent implements OnInit {
   }
 
   onCellClick(event) {
-     this.mostrarUbicationEstablishment = true;
      this.mostrarCausales = true;
      this.register_catastro_selected_id = event.row.id;
      this.rows.forEach(row => {
@@ -1133,6 +1183,7 @@ export class InactivacionComponent implements OnInit {
          row.selected = '';
       }
      });
+     this.establishment_ruc_code = event.row.establishment_ruc_code;
      this.getEstablishmentsOnRuc(1);
   }
 
