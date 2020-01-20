@@ -97,13 +97,9 @@
             >
               Recuperar Contraseña
             </button>
-            <button
-              type="button"
-              class="btn btn-warning"
-              (click)="password_recovery()"
-            >
+            <a [routerLink]="['/inactivacion']" class="btn btn-danger ml-5">
               Inactivar Establecimiento
-            </button>
+            </a>
           </div>
         </div>
       </form>
