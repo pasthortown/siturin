@@ -406,6 +406,7 @@ export class InactivacionComponent implements OnInit {
    requestReady(): Boolean {
       let toReturn = false;
       return toReturn;
+      //AQUI
    }
 
    guardarRegistro() {
