@@ -70,6 +70,7 @@ export class InactivacionComponent implements OnInit {
   REGCIVILOK = false;
   idCausal = 0;
   mostrarCausales = false;
+  selected_register_data: any = null;
   fechaNombramientoOK = false;
   declarationItemsCategories: DeclarationItemCategory[] = [];
   declarationItems: DeclarationItem[] = [];
@@ -402,6 +403,19 @@ export class InactivacionComponent implements OnInit {
     return {max: today, min: min};
    }
   
+   requestReady(): Boolean {
+      let toReturn = false;
+      return toReturn;
+   }
+
+   guardarRegistro() {
+
+   }
+
+   login() {
+
+   }
+   
   checkCedula() {
     this.user.identification = this.user.identification.replace(/[^\d]/, '');
     if (this.user.identification.length !== 10) {
@@ -820,6 +834,8 @@ export class InactivacionComponent implements OnInit {
 
   onCellClickEstablishment(event) {
    this.mostrarUbicationEstablishment = true;
+   //AQUI
+   console.log(this.selected_register_data);
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
@@ -1183,6 +1199,7 @@ export class InactivacionComponent implements OnInit {
          row.selected = '';
       }
      });
+     this.selected_register_data = event.row;
      this.establishment_ruc_code = event.row.establishment_ruc_code;
      this.getEstablishmentsOnRuc(1);
   }

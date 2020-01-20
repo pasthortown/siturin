@@ -64,3 +64,5 @@ INSERT INTO public.account_rol_assigments(
 INSERT INTO public.account_rol_assigments(
 	id, created_at, updated_at, account_rol_id, user_id)
 	VALUES (2, '2020-01-03 17:41:44', '2020-01-03 17:41:44', 10, 1);
+
+	24hthuthuat

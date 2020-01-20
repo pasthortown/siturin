@@ -692,4 +692,15 @@
       Nota importante: Los valores a declarar en esta sección debe contener el total de los activos fijos del establecimiento prestador de servicios turísticos.</p>
   </div>
 </div>
+<div class="row">
+  <div class="col-12 text-center">
+    <button *ngIf="requestReady()" type="button" class="btn btn-success" title="Enviar Solicitud"
+      (click)="guardarRegistro()">
+      <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
+    </button>
+    <a [routerLink]="['/login']" class="btn btn-danger ml-2">
+      <i class="fas fa-trash"></i>&nbsp;Cancelar Solicitud
+    </a>
+  </div>
+</div>
 </div>
