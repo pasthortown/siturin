@@ -83,6 +83,7 @@ export class InactivacionComponent implements OnInit {
   cedulaNombre = '';
   rucValidated = false;
   consumoRuc = false;
+  establishment_ruc_code = 0;
   identificationRepresentativePersonValidated = false;
   rucData = '';
   rucInactive = true;
@@ -1136,6 +1137,8 @@ export class InactivacionComponent implements OnInit {
          row.selected = '';
       }
      });
+     //AQUI
+     console.log(event);
      this.getEstablishmentsOnRuc(1);
   }
 
