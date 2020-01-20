@@ -990,6 +990,9 @@ export class InactivacionComponent implements OnInit {
          data.push(itemSIETE);
       }
    });
+   dataOTHERS.forEach(itemOTHER => {
+      data.push(itemOTHER);
+   });
    this.data = data;
    this.onChangeTable(this.config);
   }
