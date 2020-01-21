@@ -1171,8 +1171,7 @@ export class InactivacionComponent implements OnInit {
       data = this.storeInData(data, itemOTHER);
    });
    this.data = data;
-   if (this.data.length == 0)
-   {
+   if (this.data.length == 0) {
       Swal.fire({
          title: 'No tiene Registros Mintur',
          text: 'Se ha validado que usted no tiene registros catastrados en el Ministerio de Turismo',
