@@ -983,7 +983,7 @@ export class InactivacionComponent implements OnInit {
    // this.establishment_selected.ubication_id = establecimiento.ubication_id;
    // this.recoverUbication();
    // this.getDeclarationsByEstablishment(establecimiento.id);
-   console.log(event);
+   console.log(event.row.code);
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
