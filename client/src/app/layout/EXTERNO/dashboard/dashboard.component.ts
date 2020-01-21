@@ -1757,7 +1757,7 @@ export class DashboardComponent implements OnInit {
         {title: 'Clasificación', name: 'classification'},
         {title: 'Estado', name: 'establishment_state'},
      ];
-     const data = [];
+     let data = [];
      const dataSITURIN = [];
      const dataSIETE = [];
      const dataOTHERS = [];
@@ -1818,7 +1818,7 @@ export class DashboardComponent implements OnInit {
          }
      });
      dataSITURIN.forEach(element => {
-        data.push(element);
+      data = this.storeInData(data,element); 
      });
      dataSIETE.forEach(itemSIETE => {
         let existeSITURIN = false;
@@ -1828,14 +1828,27 @@ export class DashboardComponent implements OnInit {
            }
         });
         if (!existeSITURIN) {
-           data.push(itemSIETE);
+         data = this.storeInData(data,itemSIETE);
         }
      });
      dataOTHERS.forEach(itemOTHER => {
-      data.push(itemOTHER);
+      data = this.storeInData(data,itemOTHER);
      });
      this.data = data;
      this.onChangeTable(this.config);
+  }
+
+  storeInData(data, element) {
+   let existe = false;
+   data.forEach(e1 => {
+      if (e1 == element) {
+         existe = true;
+      }
+   });
+   if (!existe) {
+      data.push(element);
+   }
+   return data;
   }
 
   actualizar() {
