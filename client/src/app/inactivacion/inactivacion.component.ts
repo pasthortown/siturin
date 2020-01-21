@@ -515,7 +515,7 @@ export class InactivacionComponent implements OnInit {
          return;
       }
       if (this.cantonEstablishmentSelectedCode == '021701') {
-         this.toastr.errorToastr('Estimado Usuario, para solicitar el Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Nuevo');
+         this.toastr.errorToastr('Estimado Usuario, para solicitar la inactivación de su Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Inactivación');
          return;
       }
       console.log(this.establishment_selected);
@@ -942,6 +942,9 @@ export class InactivacionComponent implements OnInit {
          selected: '',
          code: item.ruc_code_id,
          yaRegistrado: yaRegistrado,
+         main_street_address: item.address_main_street, 
+         secondary_street_address: item.address_main_street,
+         number_address: item.address_number,
          address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
          name: item.commercially_known_name,
          sri_state: item.sri_state,
@@ -978,7 +981,18 @@ export class InactivacionComponent implements OnInit {
    this.establishment_selected.id = 0;
    this.establishment_selected.ruc_code_id = event.row.code;
    this.declarations = [];
-   console.log(event.row);
+   this.establishment_selected.sri_state = event.row.sri_state;
+   this.establishment_selected.commercially_known_name = event.row.name;
+   this.establishment_selected.address_main_street = event.row.address_main_street;
+   this.establishment_selected.address_number = event.row.address_number;
+   this.establishment_selected.address_secondary_street = event.row.secondary_street_address;
+   this.rowsEstablishment.forEach(row => {
+      if (row.code == event.row.code) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+   });
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
