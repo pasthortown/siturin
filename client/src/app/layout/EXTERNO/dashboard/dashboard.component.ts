@@ -3096,6 +3096,265 @@ guardarDeclaracion() {
   }
 
   guardarRegistro() {
+   if (this.actividadSelected == '1') {
+      this.saveAlojamiento();
+   }  
+   if (this.actividadSelected == '2') {
+      this.saveAlimentosBebidas();
+   }
+  }
+
+  validateCapacidades(): Boolean {
+   return !(this.rucEstablishmentRegisterSelected.capacities_on_register[0].quantity_tables == 0 || this.rucEstablishmentRegisterSelected.capacities_on_register[0].quantity_spaces == 0);
+  }
+
+  saveAlimentosBebidas() {
+   if (this.categorySelectedCode !== '1.7') {
+      if (!this.validateCapacidades()) {
+         this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
+         return;
+      }   
+   }
+   if ((this.categorySelectedCode == '1.1' || 
+   this.categorySelectedCode == '1.2' || 
+   this.categorySelectedCode == '1.3' || 
+   this.categorySelectedCode == '1.5' || 
+   this.categorySelectedCode == '1.7' || 
+   this.categorySelectedCode == '2.1' || 
+   this.categorySelectedCode == '2.2' || 
+   this.categorySelectedCode == '2.3' || 
+   this.categorySelectedCode == '2.5' || 
+   this.categorySelectedCode == '2.7') && 
+   this.rucEstablishmentRegisterSelected.kitchen_types_on_register === []) {
+      this.toastr.errorToastr('Existe inconsistencia en los Tipo de Cocina registrados.', 'Nuevo');
+      return;
+   }
+   if ((this.categorySelectedCode == '1.1' || 
+   this.categorySelectedCode == '1.2' || 
+   this.categorySelectedCode == '1.3' || 
+   this.categorySelectedCode == '2.1' || 
+   this.categorySelectedCode == '2.2' || 
+   this.categorySelectedCode == '2.3') && 
+   this.rucEstablishmentRegisterSelected.service_types_on_register === []) {
+      this.toastr.errorToastr('Existe inconsistencia en los Tipo de Servicio registrados.', 'Nuevo');
+      return;
+   }
+   if (this.listaPrecios.food_drink_attachment_file === ''){
+      this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
+      return;
+   }
+   if (this.certificadoUsoSuelo.floor_authorization_certificate_file === ''){
+      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
+      return;
+   }
+   this.capacityTypesAB.forEach(element => {
+      if (element.register_type_id == this.rucEstablishmentRegisterSelected.register_type_id) {
+         this.rucEstablishmentRegisterSelected.capacities_on_register[0].capacity_type_id = element.id;
+      }
+   });
+   if (this.reclasificando) {
+      let newClassification = '';
+      this.clasifications_registers.forEach(element => {
+         if (element.code == this.categorySelectedCode) {
+            newClassification = element.name.toString();
+         }
+      });
+      if (this.my_classification_current.toUpperCase() == newClassification.toUpperCase()) {
+         this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
+         return;
+      }
+   }
+   if (this.recategorizando) {
+      let newCategory = '';
+      this.categories_registers.forEach(element => {
+         if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+            newCategory = element.name.toString();
+         }
+      });
+      if (this.my_category_current.toUpperCase() == newCategory.toUpperCase()) {
+         this.toastr.errorToastr('Debe seleccionar una Categoría diferente a la que ya posee.', 'RECATEGORIZACIÓN');
+         return;
+      }
+   }
+   if (!(this.actualizando || this.inactivando)) {
+      let mostradoError = false;
+      this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+         if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
+            element.value = 'true';
+         }
+         let esgrupo = false;
+         if (element.HTMLtype == "GRUPO 0" || element.HTMLtype == "GRUPO 1" || element.HTMLtype == "GRUPO 2" || element.HTMLtype == "GRUPO 3" || element.HTMLtype == "GRUPO 4" || element.HTMLtype == "GRUPO 5" || element.HTMLtype == "GRUPO 6") {
+            esgrupo = true;
+         }
+         if (!mostradoError && !esgrupo && element.mandatory && (element.value == 'false' || element.value == '0')) {
+            this.toastr.errorToastr('La repuesta seleccionada en los requisitos obligatorios no corresponde a la admitida para la categoría seleccionada.', 'Normativa');
+            mostradoError = true;
+         }
+      });
+      if (mostradoError) {
+         return;
+      }
+      this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
+
+      }).catch( e => { console.log(e); });
+   }
+   this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
+   this.rucEstablishmentRegisterSelected.id = 0;
+   this.guardando = true;
+   let tipo_tramite = 'Registro';
+   this.procedureJustification.justification = "Registro";
+   this.rucEstablishmentRegisterSelected.status = 11;
+   this.procedureJustification.procedure_id = 6;
+   if (this.actualizando){
+      tipo_tramite = 'Actualización';
+      this.procedureJustification.justification = "Actualización";
+      this.rucEstablishmentRegisterSelected.status = 41;
+      this.procedureJustification.procedure_id = 4;
+   }
+   if (this.activando){
+      tipo_tramite = 'Reingreso';
+      this.procedureJustification.justification = "Reingreso";
+      this.procedureJustification.procedure_id = 1;
+      this.rucEstablishmentRegisterSelected.status = 61;
+   }
+   if (this.inactivando){
+      tipo_tramite = 'Inactivación';
+      this.rucEstablishmentRegisterSelected.status = 51;
+      this.procedureJustification.procedure_id = 5;
+      this.procedureJustificationsToShow.forEach(element => {
+         if (element.id == this.idCausal) {
+            this.procedureJustification.justification = element.justification;
+         }
+      });
+   }
+   if (this.reclasificando){
+      tipo_tramite = 'Reclasificación';
+      this.rucEstablishmentRegisterSelected.status = 21;
+      this.procedureJustification.procedure_id = 2;
+      this.procedureJustification.justification = "Reclasificación";
+   }
+   if (this.recategorizando){
+      tipo_tramite = 'Recategorización';
+      this.rucEstablishmentRegisterSelected.status = 31;
+      this.procedureJustification.procedure_id = 3;
+      this.procedureJustification.justification = "Recategorización";
+   }
+   tipo_tramite = tipo_tramite.toUpperCase();
+   const today = new Date();
+   const actividad = 'ALIMENTOS Y BEBIDAS';
+   let provincia = new Ubication();
+   let canton = new Ubication();
+   let parroquia = new Ubication();
+   let zonal = new Ubication();
+   let iniciales_cordinacion_zonal = '';
+   this.ubications.forEach(element => {
+      if (element.id == this.establishment_selected.ubication_id) {
+      parroquia = element;
+      }
+   });
+   this.ubications.forEach(element => {
+      if (element.code == parroquia.father_code) {
+      canton = element;
+      }
+   });
+   this.ubications.forEach(element => {
+      if (element.code == canton.father_code) {
+      provincia = element;
+      }
+   });
+   this.ubications.forEach(element => {
+      if (element.code == provincia.father_code) {
+      zonal = element;
+      }
+   });
+   this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+         this.certificadoUsoSuelo.register_id = r.id;
+         this.guardarCertificadoUsoSuelos();
+         this.guardarListaPrecios(r.id);
+         let clasificacion = '';
+         this.clasifications_registers.forEach(element => {
+            if (element.code == this.categorySelectedCode) {
+               clasificacion = element.name.toString();
+            }
+         });
+         let categoria = '';
+         this.categories_registers.forEach(element => {
+            if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+               categoria = element.name.toString();
+            }
+         });
+         const zonalName = zonal.name.split(' ');
+         iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+         let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+         const params = [{tipo_tramite: tipo_tramite},
+            {fecha: today.toLocaleDateString().toUpperCase()},
+            {representante_legal: this.user.name.toUpperCase()},
+            {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+            {ruc: this.ruc_registro_selected.ruc.number},
+            {razon_social: this.razon_social},
+            {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+            {actividad: actividad},
+            {clasificacion: clasificacion.toUpperCase()},
+            {categoria: categoria.toUpperCase()},
+            {provincia: provincia.name.toUpperCase()},
+            {canton: canton.name.toUpperCase()},
+            {parroquia: parroquia.name.toUpperCase()},
+            {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+            {numeracion: this.establishment_selected.address_number.toUpperCase()},
+            {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+         this.exporterDataService.template(10, true, qr_value, params).then( r => {
+            let pdfBase64 = r;
+            const byteCharacters = atob(r);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+               byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'application/pdf'});
+            this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
+               let newRegisterProcedure = new RegisterProcedure();
+               newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
+               newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+               newRegisterProcedure.date = new Date();
+               this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+            }).catch( e => { console.log(e); });
+         }).catch( e => { console.log(e); });
+         saveAs(blob, qr_value + '.pdf');
+         const information = {
+            para: this.user.name,
+            tramite: tipo_tramite,
+            ruc: this.user.ruc,
+            nombreComercial: this.establishment_selected.commercially_known_name,
+            fechaSolicitud: today.toLocaleString(),
+            actividad: 'Alimentos y Bebidas',
+            clasificacion: clasificacion,
+            categoria: categoria,
+            razon_social: this.razon_social,
+            tipoSolicitud: tipo_tramite,
+            provincia: provincia.name.toUpperCase(),
+            canton: canton.name.toUpperCase(),
+            parroquia: parroquia.name.toUpperCase(),
+            callePrincipal: this.establishment_selected.address_main_street,
+            calleInterseccion: this.establishment_selected.address_secondary_street,
+            numeracion: this.establishment_selected.address_number,
+            thisYear: today.getFullYear(),
+            pdfBase64: pdfBase64,
+         };
+         this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+            this.guardando = false;
+            this.refresh();
+            this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
+            this.router.navigate(['/main']);
+         }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+   }).catch( e => {
+      this.guardando = false;
+      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+      return;
+   });
+  }
+
+  saveAlojamiento() {
    if (!this.validateHabitaciones()) {
       this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
       return;
@@ -3327,7 +3586,7 @@ guardarDeclaracion() {
          this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
             this.guardando = false;
             this.refresh();
-            this.toastr.successToastr('Solicitud de Registro Enviada, Satisfactoriamente.', 'Nuevo');
+            this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
             this.router.navigate(['/main']);
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
