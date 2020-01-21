@@ -756,6 +756,7 @@ export class InactivacionComponent implements OnInit {
               this.ruc.owner_name = rucIncomming.owner_name;
               this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
               this.getPays();
+              this.checkTelefonoSecundario();
             } else {
                if (!this.guardandoRucNuevo) {
                   this.guardandoRucNuevo = true;
@@ -777,6 +778,7 @@ export class InactivacionComponent implements OnInit {
    this.rucValidated = true;
    this.isRucOwner = true;
    this.ruc.tax_payer_type_id = 1;
+   this.checkTelefonoSecundario();
    this.startToGetInformationRegisters();
    this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
       const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
@@ -986,6 +988,7 @@ export class InactivacionComponent implements OnInit {
    this.establishment_selected.address_main_street = event.row.main_street_address;
    this.establishment_selected.address_number = event.row.number_address;
    this.establishment_selected.address_secondary_street = event.row.secondary_street_address;
+   this.checkEstablishmentAddress();
    this.rowsEstablishment.forEach(row => {
       if (row.code == event.row.code) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
