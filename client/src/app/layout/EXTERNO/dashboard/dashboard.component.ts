@@ -150,6 +150,7 @@ export class DashboardComponent implements OnInit {
    activando = false;
    inactivando = false;
    canRestaurante = true;
+   thisYear = 1000;
    canCafeteria = true;
    canBar = true;
    canDiscoteca = true;
@@ -456,6 +457,8 @@ export class DashboardComponent implements OnInit {
               private registerDataService: RegisterService) {}
 
   ngOnInit() {
+   const today = new Date();
+   this.thisYear = today.getFullYear();
    this.refresh();
    this.getUser();
    this.getDeclarationCategories();

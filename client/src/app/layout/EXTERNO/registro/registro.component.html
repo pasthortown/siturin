@@ -996,7 +996,7 @@
                                       <td>{{declaration.declaration_date}}</td>
                                       <td>{{declaration.status_name}}</td>
                                       <td>
-                                        <button type="button" title="Borrar" class="btn btn-danger" (click)="borrarDeclaration(declaration)">
+                                        <button type="button" [disabled]="declaration.year < thisyear" title="Borrar" class="btn btn-danger" (click)="borrarDeclaration(declaration)">
                                           <i class="fas fa-trash"></i>
                                         </button>
                                       </td>

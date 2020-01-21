@@ -133,6 +133,7 @@ export class RegistroComponent implements OnInit {
    canDiscoteca = true;
    canCatering = true;
    canEstablecimientoMovil = true;
+   thisYear = 1000;
    canPlazaComida = true;
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
@@ -360,6 +361,8 @@ export class RegistroComponent implements OnInit {
               private registerABDataService: RegisterABService) {}
 
   ngOnInit() {
+   const today = new Date();
+   this.thisYear = today.getFullYear();
    this.getTramiteStates();
    this.getUser();
    this.getDeclarationCategories();
