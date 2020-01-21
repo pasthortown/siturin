@@ -30,6 +30,13 @@ export class EstablishmentService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   register_min_establishment(establishment: Establishment): Promise<any> {
+      return this.http.post(this.url + 'register_min_establishment', JSON.stringify(establishment), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }
+
    set_register_date(id: number): Promise<any> {
       const data = {id: id};
       return this.http.post(this.url + 'set_register_date', JSON.stringify(data) , this.options).toPromise()

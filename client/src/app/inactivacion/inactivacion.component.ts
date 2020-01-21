@@ -473,40 +473,81 @@ export class InactivacionComponent implements OnInit {
          });
       });
       this.guardando = true;
-      this.declaration_selected.establishment_id = this.establishment_selected.id;
-      this.declarationDataService.register_data(this.declaration_selected).then( r => {
-         if ( r === '0' ) {
+      if (this.establishment_selected.id == 0) {
+         this.establishmentDataService.register_min_establishment(this.establishment_selected).then(r => {
+            const newEstablishmentRegistered = r as Establishment;
+            this.establishment_selected = newEstablishmentRegistered;
+            this.declaration_selected.establishment_id = this.establishment_selected.id;
+            this.declarationDataService.register_data(this.declaration_selected).then( r => {
+               if ( r === '0' ) {
+                  this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+                  return;
+               }
+               const declarationSaved = r as Declaration;
+               this.balance.declaration_id = declarationSaved.id;
+               if (this.balance.id == 0) {
+                  this.declarationAttachmentDataService.post(this.balance).then( r1 => {
+                     this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+                     this.refreshDeclaracion();
+                     this.mostrarDataDeclaration = false;
+                     this.guardando = false;
+                  }).catch( e => {
+                     console.log(e);
+                     this.guardando = false;
+                  });
+               } else {
+                  this.declarationAttachmentDataService.put(this.balance).then( r1 => {
+                     this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+                     this.refreshDeclaracion();
+                     this.mostrarDataDeclaration = false;
+                     this.guardando = false;
+                  }).catch( e => { 
+                     console.log(e);
+                     this.guardando = false;
+                  });
+               }
+            }).catch( e => {
+               this.guardando = false;
+               this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+               return;
+            });
+         }).catch( e => { console.log(e); });
+      } else {
+         this.declaration_selected.establishment_id = this.establishment_selected.id;
+         this.declarationDataService.register_data(this.declaration_selected).then( r => {
+            if ( r === '0' ) {
+               this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+               return;
+            }
+            const declarationSaved = r as Declaration;
+            this.balance.declaration_id = declarationSaved.id;
+            if (this.balance.id == 0) {
+               this.declarationAttachmentDataService.post(this.balance).then( r1 => {
+                  this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+                  this.refreshDeclaracion();
+                  this.mostrarDataDeclaration = false;
+                  this.guardando = false;
+               }).catch( e => {
+                  console.log(e);
+                  this.guardando = false;
+               });
+            } else {
+               this.declarationAttachmentDataService.put(this.balance).then( r1 => {
+                  this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+                  this.refreshDeclaracion();
+                  this.mostrarDataDeclaration = false;
+                  this.guardando = false;
+               }).catch( e => { 
+                  console.log(e);
+                  this.guardando = false;
+               });
+            }
+         }).catch( e => {
+            this.guardando = false;
             this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
             return;
-         }
-         const declarationSaved = r as Declaration;
-         this.balance.declaration_id = declarationSaved.id;
-         if (this.balance.id == 0) {
-            this.declarationAttachmentDataService.post(this.balance).then( r1 => {
-               this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
-               this.refreshDeclaracion();
-               this.mostrarDataDeclaration = false;
-               this.guardando = false;
-            }).catch( e => {
-               console.log(e);
-               this.guardando = false;
-            });
-         } else {
-            this.declarationAttachmentDataService.put(this.balance).then( r1 => {
-               this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
-               this.refreshDeclaracion();
-               this.mostrarDataDeclaration = false;
-               this.guardando = false;
-            }).catch( e => { 
-               console.log(e);
-               this.guardando = false;
-            });
-         }
-      }).catch( e => {
-         this.guardando = false;
-         this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
-         return;
-      });
+         });
+      }
    }
 
    guardarRegistro() {
@@ -518,11 +559,10 @@ export class InactivacionComponent implements OnInit {
          this.toastr.errorToastr('Estimado Usuario, para solicitar la inactivación de su Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Inactivación');
          return;
       }
+      //AQUI  FALTA GUARDAR PRIMERO EL ESTABLECIMEINTO SI NO ESTUVIESE UNA VEZ QUE PÒNE GUARDAR DECLARACIÓN SINO TODO VALIO LO MISMO QUE LA MONCAIBA DEL KFC.
       console.log(this.user);
       console.log(this.ruc);
       console.log(this.establishment_selected);
-      console.log(this.declaration_selected);
-      //AQUI
    }
 
   checkCedula() {
@@ -879,6 +919,7 @@ export class InactivacionComponent implements OnInit {
                  if (this.establishment_ruc_code == establecimiento.ruc_code_id) {
                   this.establishment_selected.ruc_id = this.ruc.id;
                   this.establishment_selected.id = establecimiento.id;
+                  this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
                   this.establishment_selected.ruc_code_id = establecimiento.ruc_code_id;
                   this.establishment_selected.address_main_street = establecimiento.address_main_street;
                   this.establishment_selected.address_secondary_street = establecimiento.address_secondary_street;
@@ -987,6 +1028,7 @@ export class InactivacionComponent implements OnInit {
    this.establishment_selected.ruc_code_id = event.row.code;
    this.declarations = [];
    this.establishment_selected.sri_state = event.row.sri_state;
+   this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
    this.establishment_selected.commercially_known_name = event.row.name;
    this.establishment_selected.address_main_street = event.row.main_street_address;
    this.establishment_selected.address_number = event.row.number_address;
