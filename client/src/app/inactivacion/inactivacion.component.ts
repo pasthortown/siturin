@@ -95,6 +95,7 @@ export class InactivacionComponent implements OnInit {
   esperando = false;
   emailContactValidated = false;
   cuentaInterno = false;
+  thisYear = 1000;
   currentPagePays = 1;
   pays: Pay[] = [];
   declarationItemsToShow: any[] = [];
@@ -166,6 +167,8 @@ export class InactivacionComponent implements OnInit {
     private dinardapDataService: DinardapService) {}
   
   ngOnInit() {
+    const today = new Date();
+    this.thisYear = today.getFullYear();
     this.user = new User();
     this.getTramiteStates();
     this.getZonalesEstablishment();
@@ -769,6 +772,7 @@ export class InactivacionComponent implements OnInit {
    this.SRIOK = true; 
    this.rucValidated = true;
    this.isRucOwner = true;
+   this.ruc.tax_payer_type_id = 1;
    this.startToGetInformationRegisters();
    this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
       const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
@@ -979,7 +983,7 @@ export class InactivacionComponent implements OnInit {
    // this.establishment_selected.ubication_id = establecimiento.ubication_id;
    // this.recoverUbication();
    // this.getDeclarationsByEstablishment(establecimiento.id);
-   console.log(this.event);
+   console.log(event);
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
