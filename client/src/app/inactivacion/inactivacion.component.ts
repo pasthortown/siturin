@@ -453,10 +453,6 @@ export class InactivacionComponent implements OnInit {
          }
          return;
       }
-      if (this.idCausal == 0) {
-         this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
-         return;
-      }
       let previamente_declarado = false;
       this.declarations.forEach(declaration => {
          if (declaration.year == this.declaration_selected.year) {
@@ -512,6 +508,11 @@ export class InactivacionComponent implements OnInit {
 
    guardarRegistro() {
       //AQUI
+      
+      if (this.idCausal == 0) {
+         this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
+         return;
+      }
    }
 
   checkCedula() {
