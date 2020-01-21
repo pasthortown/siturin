@@ -514,6 +514,10 @@ export class InactivacionComponent implements OnInit {
          this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
          return;
       }
+      if (this.cantonEstablishmentSelectedCode == '021701') {
+         this.toastr.errorToastr('Estimado Usuario, para solicitar el Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Nuevo');
+         return;
+      }
       console.log(this.establishment_selected);
       //AQUI
    }
@@ -974,6 +978,7 @@ export class InactivacionComponent implements OnInit {
    this.establishment_selected.id = 0;
    this.establishment_selected.ruc_code_id = event.row.code;
    this.declarations = [];
+   console.log(event.row);
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
