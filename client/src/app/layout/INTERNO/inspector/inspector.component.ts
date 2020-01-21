@@ -3562,7 +3562,6 @@ export class InspectorComponent implements OnInit {
          this.ruc_registro_selected.ruc.establishments = [];
          this.ruc_registro_selected.ruc.number = number;
          this.ruc_registro_selected.ruc.contact_user = new User();
-         this.ruc_registro_selected.ruc.establishments = [];
          this.ruc_registro_selected.ruc.group_given = new GroupGiven();
          this.ruc_registro_selected.ruc.person_representative = new PersonRepresentative();
          this.ruc_registro_selected.ruc.tax_payer_type_id = 0;

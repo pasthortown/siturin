@@ -2064,7 +2064,6 @@ export class CoordinadorComponent implements OnInit {
    }
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {
-         console.log(element);
          this.selectRegisterEstablishment(element);
       }
    });
@@ -4406,7 +4405,6 @@ selectKitchenType(kitchenType: KitchenType) {
          this.ruc_registro_selected.ruc.establishments = [];
          this.ruc_registro_selected.ruc.number = number;
          this.ruc_registro_selected.ruc.contact_user = new User();
-         this.ruc_registro_selected.ruc.establishments = [];
          this.ruc_registro_selected.ruc.group_given = new GroupGiven();
          this.ruc_registro_selected.ruc.person_representative = new PersonRepresentative();
          this.ruc_registro_selected.ruc.tax_payer_type_id = 0;
@@ -4473,6 +4471,7 @@ selectKitchenType(kitchenType: KitchenType) {
     this.establecimientos_pendiente = true;
     this.establishmentDataService.getByRuc(this.ruc_registro_selected.ruc.number, this.recordsByPageEstablishment, currentpage).then( r => {
        const establecimientos = r.data as Establishment[];
+       console.log(r.data);
        this.dinardapDataService.get_RUC(this.ruc_registro_selected.ruc.number).then( dinardap => {
          this.establecimientos_pendiente = false;
          let itemsDetalles = [];
