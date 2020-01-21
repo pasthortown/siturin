@@ -767,9 +767,10 @@ export class InactivacionComponent implements OnInit {
    this.SRIOK = true; 
    this.rucValidated = true;
    this.isRucOwner = true;
-   this.startToGetInformationRegisters();
+   console.log(this.ruc.number);
    this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
       const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
+      console.log(rucIncomming);
       if (ruc_response !== 'ruc no encontrado') {
         this.ruc.id = rucIncomming.id;
         this.ruc.baised_accounting = rucIncomming.baised_accounting;
@@ -785,6 +786,7 @@ export class InactivacionComponent implements OnInit {
             }).catch( e => { console.log(e); });
          }
       }
+      this.startToGetInformationRegisters();
      }).catch( e => { console.log(e); } );
   }
 
