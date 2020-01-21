@@ -514,8 +514,8 @@ export class InactivacionComponent implements OnInit {
          this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
          return;
       }
+      console.log(this.establishment_selected);
       //AQUI
-      
    }
 
   checkCedula() {
@@ -970,20 +970,10 @@ export class InactivacionComponent implements OnInit {
 
   onCellClickEstablishment(event) {
    this.mostrarUbicationEstablishment = true;
-   //AQUI
-   // this.establishment_selected.ruc_id = this.ruc.id;
-   // this.establishment_selected.id = establecimiento.id;
-   // this.establishment_selected.ruc_code_id = establecimiento.ruc_code_id;
-   // this.establishment_selected.address_main_street = establecimiento.address_main_street;
-   // this.establishment_selected.address_secondary_street = establecimiento.address_secondary_street;
-   // this.establishment_selected.address_number = establecimiento.address_number;
-   // this.establishment_selected.address_map_latitude = establecimiento.address_map_latitude;
-   // this.establishment_selected.address_map_longitude = establecimiento.address_map_longitude;
-   // this.establishment_selected.address_reference = establecimiento.address_reference;
-   // this.establishment_selected.ubication_id = establecimiento.ubication_id;
-   // this.recoverUbication();
-   // this.getDeclarationsByEstablishment(establecimiento.id);
-   console.log(event.row.code);
+   this.establishment_selected.ruc_id = this.ruc.id;
+   this.establishment_selected.id = 0;
+   this.establishment_selected.ruc_code_id = event.row.code;
+   this.declarations = [];
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
