@@ -2062,9 +2062,9 @@ export class CoordinadorComponent implements OnInit {
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
       return;
    }
-   console.log(this.ruc_registro_selected.ruc.establishments);
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {
+         console.log(element);
          this.selectRegisterEstablishment(element);
       }
    });
