@@ -432,6 +432,13 @@ export class InactivacionComponent implements OnInit {
     return toReturn;
    }
 
+   getDeclarationsByEstablishment(id: number) {
+      this.declarations = [];
+       this.declarationDataService.get_by_establishment(id).then( r => {
+          this.declarations = r as Declaration[];
+       }).catch( e => { console.log(e); });
+   }
+
    guardarDeclaracion() {
       if(!this.validateDeclaration) {
          this.toastr.errorToastr('La información ingresada es incorrecta.', 'Declaración');
@@ -864,6 +871,7 @@ export class InactivacionComponent implements OnInit {
                   this.establishment_selected.address_reference = establecimiento.address_reference;
                   this.establishment_selected.ubication_id = establecimiento.ubication_id;
                   this.recoverUbication();
+                  this.getDeclarationsByEstablishment(establecimiento.id);
                 }
               });
            }
@@ -948,6 +956,18 @@ export class InactivacionComponent implements OnInit {
   onCellClickEstablishment(event) {
    this.mostrarUbicationEstablishment = true;
    //AQUI
+   // this.establishment_selected.ruc_id = this.ruc.id;
+   // this.establishment_selected.id = establecimiento.id;
+   // this.establishment_selected.ruc_code_id = establecimiento.ruc_code_id;
+   // this.establishment_selected.address_main_street = establecimiento.address_main_street;
+   // this.establishment_selected.address_secondary_street = establecimiento.address_secondary_street;
+   // this.establishment_selected.address_number = establecimiento.address_number;
+   // this.establishment_selected.address_map_latitude = establecimiento.address_map_latitude;
+   // this.establishment_selected.address_map_longitude = establecimiento.address_map_longitude;
+   // this.establishment_selected.address_reference = establecimiento.address_reference;
+   // this.establishment_selected.ubication_id = establecimiento.ubication_id;
+   // this.recoverUbication();
+   //this.getDeclarationsByEstablishment(establecimiento.id);
    console.log(this.selected_register_data);
   }
 
