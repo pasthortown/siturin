@@ -444,6 +444,8 @@ export class InactivacionComponent implements OnInit {
    }
 
    guardarDeclaracion() {
+      console.log(this.selected_register_data);
+      return;
       if(!this.validateDeclaration) {
          this.toastr.errorToastr('La información ingresada es incorrecta.', 'Declaración');
          return;
@@ -476,6 +478,7 @@ export class InactivacionComponent implements OnInit {
       if (this.establishment_selected.id == 0) {
          this.establishmentDataService.register_min_establishment(this.establishment_selected).then(r => {
             const newEstablishmentRegistered = r as Establishment;
+            //this.catastroRegisterDataService.update_ruc_code_id()//AQUI
             this.establishment_selected = newEstablishmentRegistered;
             this.declaration_selected.establishment_id = this.establishment_selected.id;
             this.declarationDataService.register_data(this.declaration_selected).then( r => {
