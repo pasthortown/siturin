@@ -4471,7 +4471,6 @@ selectKitchenType(kitchenType: KitchenType) {
     this.establecimientos_pendiente = true;
     this.establishmentDataService.getByRuc(this.ruc_registro_selected.ruc.number, this.recordsByPageEstablishment, currentpage).then( r => {
        const establecimientos = r.data as Establishment[];
-       console.log(r.data);
        this.dinardapDataService.get_RUC(this.ruc_registro_selected.ruc.number).then( dinardap => {
          this.establecimientos_pendiente = false;
          let itemsDetalles = [];
