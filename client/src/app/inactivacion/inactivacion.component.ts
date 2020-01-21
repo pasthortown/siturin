@@ -507,12 +507,12 @@ export class InactivacionComponent implements OnInit {
    }
 
    guardarRegistro() {
-      //AQUI
-      
       if (this.idCausal == 0) {
          this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
          return;
       }
+      //AQUI
+      
    }
 
   checkCedula() {
@@ -978,8 +978,8 @@ export class InactivacionComponent implements OnInit {
    // this.establishment_selected.address_reference = establecimiento.address_reference;
    // this.establishment_selected.ubication_id = establecimiento.ubication_id;
    // this.recoverUbication();
-   //this.getDeclarationsByEstablishment(establecimiento.id);
-   console.log(this.selected_register_data);
+   // this.getDeclarationsByEstablishment(establecimiento.id);
+   console.log(this.event);
   }
 
   changePageEstablishment(page: any, data: Array<any> = this.dataEstablishment):Array<any> {
@@ -1092,7 +1092,7 @@ export class InactivacionComponent implements OnInit {
    this.mostrarDataDeclaration = false;
    this.balance = new DeclarationAttachment();
   }
-  
+
   buildDeclarationItemsToShow() {
    this.declarationItemsToShow = [];
    this.declarationItemsCategories.forEach(category => {
