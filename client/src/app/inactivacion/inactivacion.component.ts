@@ -629,7 +629,7 @@ export class InactivacionComponent implements OnInit {
   }
 
   checkRuc() {
-    this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
+    /* this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
@@ -742,7 +742,7 @@ export class InactivacionComponent implements OnInit {
             } else {
                if (!this.guardandoRucNuevo) {
                   this.guardandoRucNuevo = true;
-                  this.ruc.contact_user_id = 99999;
+                  this.ruc.contact_user_id = 1;
                   this.rucDataService.post(this.ruc).then(r11 => {
                   }).catch( e => { console.log(e); });
                }
@@ -755,7 +755,28 @@ export class InactivacionComponent implements OnInit {
         this.consumoRuc = false;
         this.SRIOK = false;
      });
-   }
+   }*/
+   this.SRIOK = true; 
+   this.rucValidated = true;
+   this.isRucOwner = true;
+   this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
+      const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
+      if (ruc_response !== 'ruc no encontrado') {
+        this.ruc.id = rucIncomming.id;
+        this.ruc.baised_accounting = rucIncomming.baised_accounting;
+        this.ruc.contact_user_id = rucIncomming.contact_user_id;
+        this.ruc.owner_name = rucIncomming.owner_name;
+        this.ruc.tax_payer_type_id = rucIncomming.tax_payer_type_id;
+        this.getPays();
+      } else {
+         if (!this.guardandoRucNuevo) {
+            this.guardandoRucNuevo = true;
+            this.ruc.contact_user_id = 1;
+            this.rucDataService.post(this.ruc).then(r11 => {
+            }).catch( e => { console.log(e); });
+         }
+      }
+     }).catch( e => { console.log(e); } );
   }
 
   getEstablishmentsOnRuc(currentpage: number) {
