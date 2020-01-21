@@ -563,11 +563,270 @@ export class InactivacionComponent implements OnInit {
          this.toastr.errorToastr('Estimado Usuario, para solicitar la inactivación de su Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Inactivación');
          return;
       }
-      //AQUI  FALTA GUARDAR PRIMERO EL ESTABLECIMEINTO SI NO ESTUVIESE UNA VEZ QUE PÒNE GUARDAR DECLARACIÓN SINO TODO VALIO LO MISMO QUE LA MONCAIBA DEL KFC.
-      console.log(this.user);
-      console.log(this.ruc);
-      console.log(this.establishment_selected);
+      // if (this.actividadSelected == '1') {
+      //    this.saveAlojamiento();
+      // }  
+      // if (this.actividadSelected == '2') {
+      //    this.saveAlimentosBebidas();
+      // }
    }
+
+
+   saveAlimentosBebidas() {
+      // this.guardando = true;
+      // let tipo_tramite = 'Inactivación';
+      // this.rucEstablishmentRegisterSelected.status = 51;
+      // this.procedureJustification.procedure_id = 5;
+      // this.procedureJustificationsToShow.forEach(element => {
+      //    if (element.id == this.idCausal) {
+      //       this.procedureJustification.justification = element.justification;
+      //    }
+      // });
+      // tipo_tramite = tipo_tramite.toUpperCase();
+      // const today = new Date();
+      // const actividad = 'ALIMENTOS Y BEBIDAS';
+
+      // let provincia = new Ubication();
+      // let canton = new Ubication();
+      // let parroquia = new Ubication();
+      // let zonal = new Ubication();
+      // let iniciales_cordinacion_zonal = '';
+      // this.ubications.forEach(element => {
+      //    if (element.id == this.establishment_selected.ubication_id) {
+      //    parroquia = element;
+      //    }
+      // });
+      // this.ubications.forEach(element => {
+      //    if (element.code == parroquia.father_code) {
+      //    canton = element;
+      //    }
+      // });
+      // this.ubications.forEach(element => {
+      //    if (element.code == canton.father_code) {
+      //    provincia = element;
+      //    }
+      // });
+      // this.ubications.forEach(element => {
+      //    if (element.code == provincia.father_code) {
+      //    zonal = element;
+      //    }
+      // });
+      // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+      //       this.certificadoUsoSuelo.register_id = r.id;
+      //       this.guardarCertificadoUsoSuelos();
+      //       this.guardarListaPrecios(r.id);
+      //       let clasificacion = '';
+      //       this.clasifications_registers.forEach(element => {
+      //          if (element.code == this.categorySelectedCode) {
+      //             clasificacion = element.name.toString();
+      //          }
+      //       });
+      //       let categoria = '';
+      //       this.categories_registers.forEach(element => {
+      //          if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+      //             categoria = element.name.toString();
+      //          }
+      //       });
+      //       const zonalName = zonal.name.split(' ');
+      //       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+      //       let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      //       const params = [{tipo_tramite: tipo_tramite},
+      //          {fecha: today.toLocaleDateString().toUpperCase()},
+      //          {representante_legal: this.user.name.toUpperCase()},
+      //          {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+      //          {ruc: this.ruc_registro_selected.ruc.number},
+      //          {razon_social: this.razon_social},
+      //          {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+      //          {actividad: actividad},
+      //          {clasificacion: clasificacion.toUpperCase()},
+      //          {categoria: categoria.toUpperCase()},
+      //          {provincia: provincia.name.toUpperCase()},
+      //          {canton: canton.name.toUpperCase()},
+      //          {parroquia: parroquia.name.toUpperCase()},
+      //          {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+      //          {numeracion: this.establishment_selected.address_number.toUpperCase()},
+      //          {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+      //       this.exporterDataService.template(10, true, qr_value, params).then( r => {
+      //          let pdfBase64 = r;
+      //          const byteCharacters = atob(r);
+      //          const byteNumbers = new Array(byteCharacters.length);
+      //          for (let i = 0; i < byteCharacters.length; i++) {
+      //             byteNumbers[i] = byteCharacters.charCodeAt(i);
+      //          }
+      //          const byteArray = new Uint8Array(byteNumbers);
+      //          const blob = new Blob([byteArray], { type: 'application/pdf'});
+      //          this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
+      //             let newRegisterProcedure = new RegisterProcedure();
+      //             newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
+      //             newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+      //             newRegisterProcedure.date = new Date();
+      //             this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+      //          }).catch( e => { console.log(e); });
+      //       }).catch( e => { console.log(e); });
+      //       saveAs(blob, qr_value + '.pdf');
+      //       const information = {
+      //          para: this.user.name,
+      //          tramite: tipo_tramite,
+      //          ruc: this.user.ruc,
+      //          nombreComercial: this.establishment_selected.commercially_known_name,
+      //          fechaSolicitud: today.toLocaleString(),
+      //          actividad: 'Alimentos y Bebidas',
+      //          clasificacion: clasificacion,
+      //          categoria: categoria,
+      //          razon_social: this.razon_social,
+      //          tipoSolicitud: tipo_tramite,
+      //          provincia: provincia.name.toUpperCase(),
+      //          canton: canton.name.toUpperCase(),
+      //          parroquia: parroquia.name.toUpperCase(),
+      //          callePrincipal: this.establishment_selected.address_main_street,
+      //          calleInterseccion: this.establishment_selected.address_secondary_street,
+      //          numeracion: this.establishment_selected.address_number,
+      //          thisYear: today.getFullYear(),
+      //          pdfBase64: pdfBase64,
+      //       };
+      //       this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+      //          this.guardando = false;
+      //          this.refresh();
+      //          this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
+      //          this.router.navigate(['/main']);
+      //       }).catch( e => { console.log(e); });
+      //    }).catch( e => { console.log(e); });
+      // }).catch( e => {
+      //    this.guardando = false;
+      //    this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+      //    return;
+      // });
+     }
+   
+     saveAlojamiento() {
+      // this.guardando = true;
+      // let tipo_tramite = 'Inactivación';
+      // this.rucEstablishmentRegisterSelected.status = 51;
+      // this.procedureJustification.procedure_id = 5;
+      // this.procedureJustificationsToShow.forEach(element => {
+      //    if (element.id == this.idCausal) {
+      //       this.procedureJustification.justification = element.justification;
+      //    }
+      // });
+      // tipo_tramite = tipo_tramite.toUpperCase();
+      // const today = new Date();
+      // const actividad = 'ALOJAMIENTO';
+
+      //    let provincia = new Ubication();
+      //    let canton = new Ubication();
+      //    let parroquia = new Ubication();
+      //    let zonal = new Ubication();
+      //    let iniciales_cordinacion_zonal = '';
+      //    this.ubications.forEach(element => {
+      //       if (element.id == this.establishment_selected.ubication_id) {
+      //       parroquia = element;
+      //       }
+      //    });
+      //    this.ubications.forEach(element => {
+      //       if (element.code == parroquia.father_code) {
+      //       canton = element;
+      //       }
+      //    });
+      //    this.ubications.forEach(element => {
+      //       if (element.code == canton.father_code) {
+      //       provincia = element;
+      //       }
+      //    });
+      //    this.ubications.forEach(element => {
+      //       if (element.code == provincia.father_code) {
+      //       zonal = element;
+      //       }
+      //    });
+      // this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+      //    this.certificadoUsoSuelo.register_id = r.id;
+      //    this.tituloPropiedad.register_id = r.id;
+      //    this.autorizacionCondomino.register_id = r.id;
+      //    this.guardarTituloPropiedad();
+      //    this.guardarAutorizacionCondominos();
+      //    this.guardarRecepcionRoom(r.id);
+      //    this.guardarCertificadoUsoSuelos();
+      //    let clasificacion = '';
+      //    this.clasifications_registers.forEach(element => {
+      //       if (element.code == this.categorySelectedCode) {
+      //          clasificacion = element.name.toString();
+      //       }
+      //    });
+      //    let categoria = '';
+      //    this.categories_registers.forEach(element => {
+      //       if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+      //          categoria = element.name.toString();
+      //       }
+      //    });
+      //    const zonalName = zonal.name.split(' ');
+      //    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+      //    let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALOJAMIENTO-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      //    const params = [{tipo_tramite: tipo_tramite},
+      //       {fecha: today.toLocaleDateString().toUpperCase()},
+      //       {representante_legal: this.user.name.toUpperCase()},
+      //       {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+      //       {ruc: this.ruc_registro_selected.ruc.number},
+      //       {razon_social: this.razon_social},
+      //       {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+      //       {actividad: actividad},
+      //       {clasificacion: clasificacion.toUpperCase()},
+      //       {categoria: categoria.toUpperCase()},
+      //       {provincia: provincia.name.toUpperCase()},
+      //       {canton: canton.name.toUpperCase()},
+      //       {parroquia: parroquia.name.toUpperCase()},
+      //       {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+      //       {numeracion: this.establishment_selected.address_number.toUpperCase()},
+      //       {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+      //    this.exporterDataService.template(10, true, qr_value, params).then( r => {
+      //       let pdfBase64 = r;
+      //       const byteCharacters = atob(r);
+      //       const byteNumbers = new Array(byteCharacters.length);
+      //       for (let i = 0; i < byteCharacters.length; i++) {
+      //          byteNumbers[i] = byteCharacters.charCodeAt(i);
+      //       }
+      //       const byteArray = new Uint8Array(byteNumbers);
+      //       const blob = new Blob([byteArray], { type: 'application/pdf'});
+      //       this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
+      //          let newRegisterProcedure = new RegisterProcedure();
+      //          newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
+      //          newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+      //          newRegisterProcedure.date = new Date();
+      //          this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+      //          }).catch( e => { console.log(e); });
+      //       }).catch( e => { console.log(e); });
+      //       saveAs(blob, qr_value + '.pdf');
+      //       const information = {
+      //          para: this.user.name,
+      //          tramite: tipo_tramite,
+      //          ruc: this.user.ruc,
+      //          nombreComercial: this.establishment_selected.commercially_known_name,
+      //          fechaSolicitud: today.toLocaleString(),
+      //          actividad: 'Alojamiento Turístico',
+      //          clasificacion: clasificacion,
+      //          categoria: categoria,
+      //          razon_social: this.razon_social,
+      //          tipoSolicitud: tipo_tramite,
+      //          provincia: provincia.name.toUpperCase(),
+      //          canton: canton.name.toUpperCase(),
+      //          parroquia: parroquia.name.toUpperCase(),
+      //          callePrincipal: this.establishment_selected.address_main_street,
+      //          calleInterseccion: this.establishment_selected.address_secondary_street,
+      //          numeracion: this.establishment_selected.address_number,
+      //          thisYear: today.getFullYear(),
+      //          pdfBase64: pdfBase64,
+      //       };
+      //       this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+      //          this.guardando = false;
+      //          this.refresh();
+      //          this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
+      //          this.router.navigate(['/main']);
+      //       }).catch( e => { console.log(e); });
+      //    }).catch( e => { console.log(e); });
+      // }).catch( e => {
+      //    this.guardando = false;
+      //    this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+      //    return;
+      // });
+     }
 
   checkCedula() {
     this.user.identification = this.user.identification.replace(/[^\d]/, '');
@@ -1413,6 +1672,7 @@ export class InactivacionComponent implements OnInit {
          row.selected = '';
       }
      });
+     console.log(event.row);
      this.selected_register_data = event.row;
      this.establishment_ruc_code = event.row.establishment_ruc_code;
      this.getEstablishmentsOnRuc(1);
