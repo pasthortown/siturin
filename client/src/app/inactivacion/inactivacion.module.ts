@@ -27,6 +27,7 @@ import { InactivationRequestDeclarationService } from './../services/CRUD/INACTI
 import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
 import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
 import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
+import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -41,6 +42,7 @@ import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.s
     providers: [ConsultorService, 
         NgbModal, 
         StateService, 
+        RegisterStateService,
         PayService,
         EstablishmentService,
         InactivationRequestDeclarationService,

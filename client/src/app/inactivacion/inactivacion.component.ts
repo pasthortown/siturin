@@ -36,6 +36,8 @@ import { DeclarationAttachment } from 'src/app/models/FINANCIERO/DeclarationAtta
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
+import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
+import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 
 @Component({
     selector: 'inactivacion-login',
@@ -98,7 +100,7 @@ export class InactivacionComponent implements OnInit {
   mainPhoneValidated: Boolean = false;
   secondaryPhoneValidated: Boolean = false;
   idTramiteEstadoFilter = 0;
-  tramite = '-'; 
+  tramite = '-';
   guardandoRucNuevo = false;
   estados = [];
   config: any = {
@@ -157,6 +159,7 @@ export class InactivacionComponent implements OnInit {
     private procedureJustificationDataService: ProcedureJustificationService,
     private declarationItemCategoryDataService: DeclarationItemCategoryService,
     private declarationItemDataService: DeclarationItemService,
+    private registerStateDataService: RegisterStateService,
     private rucDataService: RucService,
     private payDataService: PayService,
     private dinardapDataService: DinardapService) {}
@@ -405,8 +408,98 @@ export class InactivacionComponent implements OnInit {
   
    requestReady(): Boolean {
       let toReturn = false;
-      return toReturn;
-      //AQUI
+      let dataInformativa = this.identidadConfirmada 
+      && ((this.isRepresentantLegal && this.ruc.tax_payer_type_id == 2) || (this.isRucOwner && this.ruc.tax_payer_type_id == 1))
+      && this.secondaryPhoneValidated
+      && this.mainPhoneValidated
+      && this.emailContactValidated 
+      && (this.establishment_selected.ubication_id != 0)
+      && this.addressEstablishmentValidated
+      && (this.establishment_selected.address_main_street != '')
+      && (this.establishment_selected.address_number != '')
+      && (this.establishment_selected.address_secondary_street != '')
+      && (this.establishment_selected.address_reference != '');
+      return dataInformativa;
+   }
+
+   validateDeclaration(): Boolean {
+    let toReturn = true;
+    this.declaration_selected.declaration_item_values_on_declaration.forEach( element => {
+       if(element.value<0) {
+          toReturn = false;
+       }
+    });
+    return toReturn;
+   }
+
+   guardarDeclaracion() {
+      if(!this.validateDeclaration) {
+         this.toastr.errorToastr('La información ingresada es incorrecta.', 'Declaración');
+         return;
+      }
+      if (this.balance.declaration_attachment_file == ''){
+         if (this.ruc.tax_payer_type_id == 2) {
+            this.toastr.errorToastr('Adjunte el balance individual del establecimiento, suscrito por el representante legal.', 'Declaración');
+         } else {
+            this.toastr.errorToastr('Adjunte el inventario valorado del establecimiento, suscrito por el propietario.', 'Declaración');
+         }
+         return;
+      }
+      if (this.idCausal == 0) {
+         this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
+         return;
+      }
+      let previamente_declarado = false;
+      this.declarations.forEach(declaration => {
+         if (declaration.year == this.declaration_selected.year) {
+            previamente_declarado = true;
+         }
+      });
+      if (previamente_declarado) {
+         this.toastr.errorToastr('Usted ya ha declarado previamente el año seleccionado.', 'Declaración');
+         return;
+      }
+      this.declaration_selected.declaration_item_values_on_declaration = [];
+      this.declarationItemsToShow.forEach(element => {
+         element.items.forEach(item => {
+            this.declaration_selected.declaration_item_values_on_declaration.push(item.valueItem);
+         });
+      });
+      this.guardando = true;
+      this.declaration_selected.establishment_id = this.establishment_selected.id;
+      this.declarationDataService.register_data(this.declaration_selected).then( r => {
+         if ( r === '0' ) {
+            this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+            return;
+         }
+         const declarationSaved = r as Declaration;
+         this.balance.declaration_id = declarationSaved.id;
+         if (this.balance.id == 0) {
+            this.declarationAttachmentDataService.post(this.balance).then( r1 => {
+               this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+               this.refreshDeclaracion();
+               this.mostrarDataDeclaration = false;
+               this.guardando = false;
+            }).catch( e => {
+               console.log(e);
+               this.guardando = false;
+            });
+         } else {
+            this.declarationAttachmentDataService.put(this.balance).then( r1 => {
+               this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+               this.refreshDeclaracion();
+               this.mostrarDataDeclaration = false;
+               this.guardando = false;
+            }).catch( e => { 
+               console.log(e);
+               this.guardando = false;
+            });
+         }
+      }).catch( e => {
+         this.guardando = false;
+         this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+         return;
+      });
    }
 
    guardarRegistro() {

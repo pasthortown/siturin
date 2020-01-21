@@ -443,7 +443,8 @@
     </div>
     <div class="row mt-3" *ngIf="mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12">
-          <label>Causales</label>
+          <label>Causales</label><span *ngIf="idCausal == 0"
+          class="ml-2 badge badge-danger">Incorrecto</span>
           <select class="form-control" id="causales" name="causales"
             [(ngModel)]="idCausal">
             <option value="0" selected>Seleccione...</option>
@@ -691,6 +692,12 @@
     <p class="col-12 text-justify">Estimado Usuario, en base a su declaración, en los próximos días le notificaremos a su correo electrónico el valor a cancelar por la Contribución Uno por Mil, una vez que el Técnico Financiero del Ministerio de Turismo valide la información 	ingresada a través del presente formulario.
       Nota importante: Los valores a declarar en esta sección debe contener el total de los activos fijos del establecimiento prestador de servicios turísticos.</p>
   </div>
+</div>
+<div class="col-12 text-center">
+  <button [disabled]="guardando || !declaration_selected.editable" type="button" class="btn btn-success"
+    title="Guardar Datos" (click)="guardarDeclaracion()">
+    <i class="fas fa-paper-plane"></i>&nbsp;Guardar Datos
+  </button>
 </div>
 </div>
 <div class="container">
