@@ -629,12 +629,13 @@ export class InactivacionComponent implements OnInit {
   }
 
   checkRuc() {
-    /* this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
+    this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
       return;
     }
+    /* 
     if (this.consumoRuc && this.SRIOK) {
        return;
     }
