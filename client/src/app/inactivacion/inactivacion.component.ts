@@ -1087,6 +1087,12 @@ export class InactivacionComponent implements OnInit {
    this.buildDeclarationItemsToShow();
   }
 
+  cancelDeclaration() {
+   this.declaration_selected = new Declaration();
+   this.mostrarDataDeclaration = false;
+   this.balance = new DeclarationAttachment();
+  }
+  
   buildDeclarationItemsToShow() {
    this.declarationItemsToShow = [];
    this.declarationItemsCategories.forEach(category => {

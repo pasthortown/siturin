@@ -692,6 +692,11 @@
       Nota importante: Los valores a declarar en esta sección debe contener el total de los activos fijos del establecimiento prestador de servicios turísticos.</p>
   </div>
   <div class="col-12 text-center">
+    <button type="button" class="btn btn-danger mr-2" title="Cancelar" (click)="
+    cancelDeclaration()
+      ">
+      <i class="fas fa-trash"></i>Cancelar
+    </button>
     <button [disabled]="guardando || !declaration_selected.editable" type="button" class="btn btn-success"
       title="Guardar Datos" (click)="guardarDeclaracion()">
       <i class="fas fa-paper-plane"></i>&nbsp;Guardar Datos
