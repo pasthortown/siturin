@@ -370,7 +370,7 @@ export class InactivacionComponent implements OnInit {
   }
 
   refreshDeclaracion() {
-   //this.selectRegisterEstablishmentDeclaration(this.establishment_selected);
+
   }
 
   openDialog(content) {
@@ -484,6 +484,7 @@ export class InactivacionComponent implements OnInit {
                      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
                      return;
                   }
+                  this.getDeclarationsByEstablishment(this.establishment_selected.id);
                   const declarationSaved = r as Declaration;
                   this.balance.declaration_id = declarationSaved.id;
                   if (this.balance.id == 0) {
@@ -521,6 +522,7 @@ export class InactivacionComponent implements OnInit {
                this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
                return;
             }
+            this.getDeclarationsByEstablishment(this.establishment_selected.id);
             const declarationSaved = r as Declaration;
             this.balance.declaration_id = declarationSaved.id;
             if (this.balance.id == 0) {
