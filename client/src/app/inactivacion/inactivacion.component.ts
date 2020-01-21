@@ -518,7 +518,10 @@ export class InactivacionComponent implements OnInit {
          this.toastr.errorToastr('Estimado Usuario, para solicitar la inactivación de su Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Inactivación');
          return;
       }
+      console.log(this.user);
+      console.log(this.ruc);
       console.log(this.establishment_selected);
+      console.log(this.declaration_selected);
       //AQUI
    }
 
