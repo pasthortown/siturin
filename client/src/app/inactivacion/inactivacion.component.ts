@@ -874,6 +874,7 @@ export class InactivacionComponent implements OnInit {
                   this.establishment_selected.address_reference = establecimiento.address_reference;
                   this.establishment_selected.ubication_id = establecimiento.ubication_id;
                   this.recoverUbication();
+                  this.checkEstablishmentAddress();
                   this.getDeclarationsByEstablishment(establecimiento.id);
                 }
               });
