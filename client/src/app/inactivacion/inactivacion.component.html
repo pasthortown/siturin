@@ -309,12 +309,18 @@
         </ngb-pagination>
       </div>
     </div>
-    <div class="row mt-5" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row">
+      <div class="col-12" *ngIf="conectandoSRIUbicacion">
+        <div class="progress mb-3"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div></div>
+      </div>
+    </div>
+    <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
+    <div class="row mt-5" *ngIf="!conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12 text-left">
         <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="!conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <label class="col-12"><strong>Ubicación</strong></label>
       <div class="col-3" [hidden]="true">
         <div class="form-group">
@@ -381,11 +387,11 @@
         </div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="!conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <label class="col-12"><strong>Dirección*</strong></label><span *ngIf="!addressEstablishmentValidated"
       class="ml-2 badge badge-danger">Incorrecto</span>
     </div>
-    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="!conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-4">
           <div class="form-group">
               <label>Calle Principal</label><span *ngIf="establishment_selected.address_main_street === ''"
@@ -417,7 +423,7 @@
           </div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="!conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="form-group col-12">
         <label>Referencia de Ubicación* - ¿Como llegar?</label><span
           *ngIf="establishment_selected.address_reference == ''"
@@ -441,7 +447,7 @@
         </agm-map>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-3" *ngIf="!conectandoSRIUbicacion && mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12">
           <label>Causales</label><span *ngIf="idCausal == 0"
           class="ml-2 badge badge-danger">Incorrecto</span>

@@ -59,6 +59,7 @@ export class InactivacionComponent implements OnInit {
   mostrarDataDeclaration = false;
   consumoCedula = false;
   fechaExpedicion = 'porValidar';
+  conectandoSRIUbicacion = false;
   fechaExpiracion = 'porValidar';
   fechaNacimiento = 'porValidar';
   inactivationRequest: InactivationRequest = new InactivationRequest();
@@ -767,10 +768,9 @@ export class InactivacionComponent implements OnInit {
    this.SRIOK = true; 
    this.rucValidated = true;
    this.isRucOwner = true;
-   console.log(this.ruc.number);
+   this.startToGetInformationRegisters();
    this.rucDataService.get_filtered(this.ruc.number).then( ruc_response => {
       const rucIncomming: Ruc = ruc_response.Ruc as Ruc;
-      console.log(rucIncomming);
       if (ruc_response !== 'ruc no encontrado') {
         this.ruc.id = rucIncomming.id;
         this.ruc.baised_accounting = rucIncomming.baised_accounting;
@@ -786,7 +786,6 @@ export class InactivacionComponent implements OnInit {
             }).catch( e => { console.log(e); });
          }
       }
-      this.startToGetInformationRegisters();
      }).catch( e => { console.log(e); } );
   }
 
@@ -798,7 +797,9 @@ export class InactivacionComponent implements OnInit {
    this.establishment_selected.ruc_id = this.ruc.id;
    this.establishmentDataService.getByRuc(this.ruc.number, this.recordsByPageEstablishment, currentpage).then( r => {
       const establecimientos = r.data as Establishment[];
+      this.conectandoSRIUbicacion = true;
       this.dinardapDataService.get_RUC(this.ruc.number).then( dinardap => {
+         this.conectandoSRIUbicacion = false;
         this.establecimientos_pendiente = false;
         let itemsDetalles = [];
         if (!Array.isArray(dinardap.sri_establecimientos.original.entidades.entidad.filas.fila)) {
@@ -882,8 +883,14 @@ export class InactivacionComponent implements OnInit {
            this.ruc.establishments = [];
         }
         this.buildDataTableEstablishment();
-      }).catch( e => { console.log(e); });
-   }).catch( e => { console.log(e); });
+      }).catch( e => { 
+         console.log(e); 
+         this.conectandoSRIUbicacion = false;
+      });
+   }).catch( e => { 
+      console.log(e); 
+      this.conectandoSRIUbicacion = false;
+   });
   }
 
   recoverUbication() {
