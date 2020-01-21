@@ -943,7 +943,7 @@ export class InactivacionComponent implements OnInit {
          code: item.ruc_code_id,
          yaRegistrado: yaRegistrado,
          main_street_address: item.address_main_street, 
-         secondary_street_address: item.address_main_street,
+         secondary_street_address: item.address_secondary_street,
          number_address: item.address_number,
          address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
          name: item.commercially_known_name,
@@ -983,8 +983,8 @@ export class InactivacionComponent implements OnInit {
    this.declarations = [];
    this.establishment_selected.sri_state = event.row.sri_state;
    this.establishment_selected.commercially_known_name = event.row.name;
-   this.establishment_selected.address_main_street = event.row.address_main_street;
-   this.establishment_selected.address_number = event.row.address_number;
+   this.establishment_selected.address_main_street = event.row.main_street_address;
+   this.establishment_selected.address_number = event.row.number_address;
    this.establishment_selected.address_secondary_street = event.row.secondary_street_address;
    this.rowsEstablishment.forEach(row => {
       if (row.code == event.row.code) {
