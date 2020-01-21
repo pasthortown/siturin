@@ -309,12 +309,12 @@
         </ngb-pagination>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12" *ngIf="conectandoSRIUbicacion">
+    <div class="row" *ngIf="conectandoSRIUbicacion">
+      <div class="col-12">
         <div class="progress mb-3"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div></div>
       </div>
+      <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
     </div>
-    <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
     <div class="row mt-5" *ngIf="!conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12 text-left">
         <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
