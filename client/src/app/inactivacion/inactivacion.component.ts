@@ -1,7 +1,3 @@
-import { InactivationRequestDeclarationService } from './../services/CRUD/INACTIVACION/inactivationrequestdeclaration.service';
-import { InactivationRequestDeclaration } from './../models/INACTIVACION/InactivationRequestDeclaration';
-import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
-import { InactivationRequest } from './../models/INACTIVACION/InactivationRequest';
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { ConsultorService } from './../services/negocio/consultor.service';
 import { Router } from '@angular/router';
@@ -64,8 +60,6 @@ export class InactivacionComponent implements OnInit {
   conectandoSRIUbicacion = false;
   fechaExpiracion = 'porValidar';
   fechaNacimiento = 'porValidar';
-  inactivationRequest: InactivationRequest = new InactivationRequest();
-  inactivationRequestDeclarations: InactivationRequestDeclaration[] = [];
   recordsByPagePays = 5;
   rowsPays = [];
   columnsPays = [];
@@ -158,8 +152,6 @@ export class InactivacionComponent implements OnInit {
     private ubicationDataService: UbicationService,
     private declarationDataService: DeclarationService,
     private establishmentDataService: EstablishmentService,
-    private inactivationRequestDataService: InactivationRequestService,
-    private inactivationRequestDeclarationDataService: InactivationRequestDeclarationService,
     private declarationAttachmentDataService: DeclarationAttachmentService,
     private procedureJustificationDataService: ProcedureJustificationService,
     private declarationItemCategoryDataService: DeclarationItemCategoryService,
