@@ -691,13 +691,11 @@ export class InactivacionComponent implements OnInit {
                }
                const byteArray = new Uint8Array(byteNumbers);
                const blob = new Blob([byteArray], { type: 'application/pdf'});
-               this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
-                  let newRegisterProcedure = new RegisterProcedure();
-                  newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
-                  newRegisterProcedure.register_id = r.id;
-                  newRegisterProcedure.date = new Date();
-                  this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
-                  }).catch( e => { console.log(e); });
+               let newRegisterProcedure = new RegisterProcedure();
+               newRegisterProcedure.procedure_justification_id = this.idCausal;
+               newRegisterProcedure.register_id = r.id;
+               newRegisterProcedure.date = new Date();
+               this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
                }).catch( e => { console.log(e); });
                saveAs(blob, qr_value + '.pdf');
                const information = {
@@ -762,13 +760,11 @@ export class InactivacionComponent implements OnInit {
                }
                const byteArray = new Uint8Array(byteNumbers);
                const blob = new Blob([byteArray], { type: 'application/pdf'});
-               this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
-                  let newRegisterProcedure = new RegisterProcedure();
-                  newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
-                  newRegisterProcedure.register_id = r.id;
-                  newRegisterProcedure.date = new Date();
-                  this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
-                  }).catch( e => { console.log(e); });
+               let newRegisterProcedure = new RegisterProcedure();
+               newRegisterProcedure.procedure_justification_id = this.idCausal;
+               newRegisterProcedure.register_id = r.id;
+               newRegisterProcedure.date = new Date();
+               this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
                }).catch( e => { console.log(e); });
                saveAs(blob, qr_value + '.pdf');
                const information = {
