@@ -25,6 +25,7 @@ import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
 import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -41,6 +42,7 @@ import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
         StateService,
         RegisterStateService,
         PayService,
+        RegisterABService,
         DeclarationService,
         RucService,
         DeclarationItemService,
