@@ -1,4 +1,3 @@
-import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,7 +6,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { StateService } from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
-
 import { InactivacionRoutingModule } from './inactivacion-routing.module';
 import { InactivacionComponent } from './inactivacion.component';
 import { ConsultorService } from './../services/negocio/consultor.service';
@@ -26,6 +24,7 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
 import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
 import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -37,15 +36,16 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
         AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
         HttpModule],
     declarations: [InactivacionComponent],
-    providers: [ConsultorService, 
-        NgbModal, 
-        StateService, 
+    providers: [ConsultorService,
+        NgbModal,
+        StateService,
         RegisterStateService,
         PayService,
         DeclarationService,
         RucService,
         DeclarationItemService,
         DeclarationAttachmentService,
+        EstablishmentService,
         DeclarationItemCategoryService,
         UbicationService,
         CatastroRegisterService,
