@@ -575,9 +575,13 @@ export class InactivacionComponent implements OnInit {
       let tipo_tramite = 'Inactivación';
       this.rucEstablishmentRegisterSelected.status = 51;
       this.procedureJustification.procedure_id = 5;
-      console.log(this.registers_mintur);
+      let clasificacion = '';
+      let categoria = '';
       this.registers_mintur.forEach(element => {
-         
+         if(element.id == this.selected_register_data.id) {
+            clasificacion = element.classification;
+            categoria = element.category;
+         }
       });
       this.procedureJustificationsToShow.forEach(element => {
          if (element.id == this.idCausal) {
@@ -636,22 +640,11 @@ export class InactivacionComponent implements OnInit {
 
       }
       if (actividad == 'ALIMENTOS Y BEBIDAS') {
+         console.log(this.razon_social);
          // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
-         //    let clasificacion = '';
-         //    this.clasifications_registers.forEach(element => {
-         //       if (element.code == this.categorySelectedCode) {
-         //          clasificacion = element.name.toString();
-         //       }
-         //    });
-         //    let categoria = '';
-         //    this.categories_registers.forEach(element => {
-         //       if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-         //          categoria = element.name.toString();
-         //       }
-         //    });
          //    const zonalName = zonal.name.split(' ');
          //    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-         //    let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+         //    let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc.number + '-SOLICITUD-INACTIVACION-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
          //    const params = [{tipo_tramite: tipo_tramite},
          //       {fecha: today.toLocaleDateString().toUpperCase()},
          //       {representante_legal: this.user.name.toUpperCase()},
