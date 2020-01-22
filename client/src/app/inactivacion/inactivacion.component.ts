@@ -636,11 +636,11 @@ export class InactivacionComponent implements OnInit {
       } else {
          this.rucEstablishmentRegisterSelected.register_type_id = 1001;
       }
+      console.log(this.razon_social);
       if (actividad == 'ALOJAMIENTO') {
 
       }
       if (actividad == 'ALIMENTOS Y BEBIDAS') {
-         console.log(this.razon_social);
          // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
          //    const zonalName = zonal.name.split(' ');
          //    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
