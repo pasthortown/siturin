@@ -598,8 +598,8 @@ export class InactivacionComponent implements OnInit {
       this.procedureJustification.procedure_id = 5;
       let clasificacion = '';
       let categoria = '';
-      console.log(this.user);
-      return;
+      this.user.address = this.establishment_selected.address_main_street.toUpperCase() + ' ' + this.establishment_selected.address_number.toUpperCase() + ' ' + this.establishment_selected.address_secondary_street.toUpperCase();
+      this.user.ruc = this.ruc.number;
       this.registrar_usuario();
       this.registers_mintur.forEach(element => {
          if(element.id == this.selected_register_data.id) {
