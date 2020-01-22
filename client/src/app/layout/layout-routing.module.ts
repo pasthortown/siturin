@@ -495,26 +495,6 @@ const routes: Routes = [
             loadChildren: './CRUD/GAD/ReportAttachment/reportattachment.module#ReportAttachmentModule'
          },
 
-         //INACTIVACION
-
-         {
-            path: 'inactivation_request',
-            loadChildren: './CRUD/INACTIVACION/InactivationRequest/inactivationrequest.module#InactivationRequestModule'
-         },
-         {
-            path: 'inactivation_request_attachment',
-            loadChildren: './CRUD/INACTIVACION/InactivationRequestAttachment/inactivationrequestattachment.module#InactivationRequestAttachmentModule'
-         },
-         {
-            path: 'inactivation_state',
-            loadChildren: './CRUD/INACTIVACION/State/state.module#StateModule'
-         },
-         {
-            path: 'inactivation_request_declaration',
-            loadChildren: './CRUD/INACTIVACION/InactivationRequestDeclaration/inactivationrequestdeclaration.module#InactivationRequestDeclarationModule'
-         },
-
-
          //ADMINISTRATORS
 
          {
