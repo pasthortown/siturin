@@ -616,10 +616,6 @@ export class InactivacionComponent implements OnInit {
          zonal = element;
          }
       });
-      console.log(provincia);
-      console.log(canton);
-      console.log(parroquia);
-      console.log(zonal);
       // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       //       this.certificadoUsoSuelo.register_id = r.id;
       //       this.guardarCertificadoUsoSuelos();
