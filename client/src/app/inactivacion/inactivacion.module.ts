@@ -23,8 +23,6 @@ import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
-import { InactivationRequestDeclarationService } from './../services/CRUD/INACTIVACION/inactivationrequestdeclaration.service';
-import { InactivationRequestService } from './../services/CRUD/INACTIVACION/inactivationrequest.service';
 import { PayService } from './../services/CRUD/FINANCIERO/pay.service';
 import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
@@ -44,8 +42,6 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
         StateService, 
         RegisterStateService,
         PayService,
-        EstablishmentService,
-        InactivationRequestDeclarationService,
         InactivationRequestService,
         DeclarationService,
         RucService,
