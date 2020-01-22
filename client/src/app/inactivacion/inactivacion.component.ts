@@ -605,8 +605,10 @@ export class InactivacionComponent implements OnInit {
          if(element.id == this.selected_register_data.id) {
             clasificacion = element.classification;
             categoria = element.category;
+            console.log(element);
          }
       });
+      return;
       this.procedureJustificationsToShow.forEach(element => {
          if (element.id == this.idCausal) {
             this.procedureJustification.justification = element.justification;
