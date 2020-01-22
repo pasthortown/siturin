@@ -3853,7 +3853,9 @@ export class InspectorComponent implements OnInit {
             const clasificaciones = [];
             r.forEach(element => {
                if (element.id !== 30 && element.id !== 44) {
-                  clasificaciones.push(element);
+                  if (element.id < 1000) {
+                     clasificaciones.push(element);
+                  }
                }
             });
             this.clasifications_registers = clasificaciones;
@@ -3876,7 +3878,9 @@ export class InspectorComponent implements OnInit {
             const clasificaciones = [];
             r.forEach(element => {
                if (element.id !== 30 && element.id !== 44) {
-                  clasificaciones.push(element);
+                  if (element.id < 1000) {
+                     clasificaciones.push(element);
+                  }
                }
             });
             this.clasifications_registers = clasificaciones;

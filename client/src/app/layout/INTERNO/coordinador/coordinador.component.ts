@@ -4795,7 +4795,9 @@ selectKitchenType(kitchenType: KitchenType) {
             const clasificaciones = [];
             r.forEach(element => {
                if (element.id !== 30 && element.id !== 44) {
-                  clasificaciones.push(element);
+                  if (element.id < 1000) {
+                     clasificaciones.push(element);
+                  }
                }
             });
             this.clasifications_registers = clasificaciones;
@@ -4818,7 +4820,9 @@ selectKitchenType(kitchenType: KitchenType) {
             const clasificaciones = [];
             r.forEach(element => {
                if (element.id !== 30 && element.id !== 44) {
-                  clasificaciones.push(element);
+                  if (element.id < 1000) {
+                     clasificaciones.push(element);
+                  }
                }
             });
             this.clasifications_registers = clasificaciones;

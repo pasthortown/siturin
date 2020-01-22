@@ -612,7 +612,6 @@ export class InactivacionComponent implements OnInit {
       this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
       this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = [];
       this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = [];
-      //this.rucEstablishmentRegisterSelected.register_type_id: number;
       this.rucEstablishmentRegisterSelected.capacities_on_register = [];
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.rucEstablishmentRegisterSelected.editable = false;
@@ -622,7 +621,7 @@ export class InactivacionComponent implements OnInit {
       this.rucEstablishmentRegisterSelected.tarifario_rack = [];
       this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
       this.rucEstablishmentRegisterSelected.service_types_on_register = [];
-
+      console.log(provincia);
       // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       //       this.certificadoUsoSuelo.register_id = r.id;
       //       this.guardarCertificadoUsoSuelos();

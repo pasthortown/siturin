@@ -1619,14 +1619,18 @@ export class RegistroComponent implements OnInit {
          if ( this.regionSelectedCode != '1' && esRegitro) {
             const clasificaciones = [];
             r.forEach(element => {
-               clasificaciones.push(element);
+               if (element.id < 1000) {
+                  clasificaciones.push(element);
+               }
             });
             this.clasifications_registers = clasificaciones;
          } else {
             this.clasifications_registers = [];
             const clasificaciones = r as RegisterType[];
             clasificaciones.forEach(clasificacion => {
-               this.clasifications_registers.push(clasificacion);
+               if (clasificacion.id < 1000) {
+                  this.clasifications_registers.push(clasificacion);
+               }
             });
          }
       }).catch( e => { console.log(e) });
