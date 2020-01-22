@@ -50,6 +50,13 @@ export class UserService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   register_user_by_inactivation(user: User): Promise<any> {
+      return this.http.post(this.url + 'register_user_by_inactivation', JSON.stringify(user), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }
+
    put(user: User): Promise<any> {
       return this.http.put(this.url, JSON.stringify(user), this.options).toPromise()
       .then( r => {

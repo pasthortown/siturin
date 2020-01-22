@@ -34,6 +34,12 @@ import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.s
 import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { RegisterProcedure } from 'src/app/models/ALOJAMIENTO/RegisterProcedure';
+import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
+import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { UserService } from 'src/app/services/profile/user.service';
 
 @Component({
     selector: 'inactivacion-login',
@@ -145,9 +151,12 @@ export class InactivacionComponent implements OnInit {
   constructor(private router: Router, 
     private modalService: NgbModal,
     private toastr: ToastrManager,
+    private exporterDataService: ExporterService,
+    private userDataService: UserService,
     private stateDataService: StateService,
     private catastroRegisterDataService: CatastroRegisterService,
     private register_typeDataService: RegisterTypeService,
+    private mailerDataService: MailerService,
     private ubicationDataService: UbicationService,
     private declarationDataService: DeclarationService,
     private establishmentDataService: EstablishmentService,
@@ -156,6 +165,8 @@ export class InactivacionComponent implements OnInit {
     private declarationItemCategoryDataService: DeclarationItemCategoryService,
     private declarationItemDataService: DeclarationItemService,
     private registerABDataService: RegisterABService,
+    private registerDataService: RegisterService,
+    private registerProcedureDataService: RegisterProcedureService,
     private registerStateDataService: RegisterStateService,
     private rucDataService: RucService,
     private payDataService: PayService,
@@ -558,6 +569,16 @@ export class InactivacionComponent implements OnInit {
    }
 
    guardarRegistro() {
+      if (this.user.email.split('@')[1] == 'turismo.gob.ec'){
+         Swal.fire({
+            title: 'Correo eletrónico no válido.',
+            text: 'Los correos del dominio turismo.gob.ec no pueden solicitar inactivación de registros.',
+            type: 'error',
+          })
+          .then( response => {
+          });
+         return;
+      }
       if (this.idCausal == 0) {
          this.toastr.errorToastr('Seleccione el motivo del trámite de inactivación.', 'Declaración');
          return;
@@ -577,6 +598,9 @@ export class InactivacionComponent implements OnInit {
       this.procedureJustification.procedure_id = 5;
       let clasificacion = '';
       let categoria = '';
+      console.log(this.user);
+      return;
+      this.registrar_usuario();
       this.registers_mintur.forEach(element => {
          if(element.id == this.selected_register_data.id) {
             clasificacion = element.classification;
@@ -636,83 +660,154 @@ export class InactivacionComponent implements OnInit {
       } else {
          this.rucEstablishmentRegisterSelected.register_type_id = 1001;
       }
-      console.log(this.razon_social);
       if (actividad == 'ALOJAMIENTO') {
-
+         this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+            const zonalName = zonal.name.split(' ');
+            iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc.number + '-SOLICITUD-INACTIVACION-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            const params = [{tipo_tramite: tipo_tramite},
+               {fecha: today.toLocaleDateString().toUpperCase()},
+               {representante_legal: this.user.name.toUpperCase()},
+               {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+               {ruc: this.ruc.number},
+               {razon_social: this.razon_social},
+               {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+               {actividad: actividad},
+               {clasificacion: clasificacion.toUpperCase()},
+               {categoria: categoria.toUpperCase()},
+               {provincia: provincia.name.toUpperCase()},
+               {canton: canton.name.toUpperCase()},
+               {parroquia: parroquia.name.toUpperCase()},
+               {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+               {numeracion: this.establishment_selected.address_number.toUpperCase()},
+               {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+            this.exporterDataService.template(10, true, qr_value, params).then( r => {
+               let pdfBase64 = r;
+               const byteCharacters = atob(r);
+               const byteNumbers = new Array(byteCharacters.length);
+               for (let i = 0; i < byteCharacters.length; i++) {
+                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+               }
+               const byteArray = new Uint8Array(byteNumbers);
+               const blob = new Blob([byteArray], { type: 'application/pdf'});
+               this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
+                  let newRegisterProcedure = new RegisterProcedure();
+                  newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
+                  newRegisterProcedure.register_id = r.id;
+                  newRegisterProcedure.date = new Date();
+                  this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+                  }).catch( e => { console.log(e); });
+               }).catch( e => { console.log(e); });
+               saveAs(blob, qr_value + '.pdf');
+               const information = {
+                  para: this.user.name.toUpperCase(),
+                  tramite: tipo_tramite.toUpperCase(),
+                  ruc: this.ruc.number,
+                  nombreComercial: this.establishment_selected.commercially_known_name.toUpperCase(),
+                  fechaSolicitud: today.toLocaleString(),
+                  actividad: 'Alojamiento Turístico'.toUpperCase(),
+                  clasificacion: clasificacion.toUpperCase(),
+                  categoria: categoria.toUpperCase(),
+                  razon_social: this.razon_social.toUpperCase(),
+                  tipoSolicitud: tipo_tramite.toUpperCase(),
+                  provincia: provincia.name.toUpperCase(),
+                  canton: canton.name.toUpperCase(),
+                  parroquia: parroquia.name.toUpperCase(),
+                  callePrincipal: this.establishment_selected.address_main_street.toUpperCase(),
+                  calleInterseccion: this.establishment_selected.address_secondary_street.toUpperCase(),
+                  numeracion: this.establishment_selected.address_number.toUpperCase(),
+                  thisYear: today.getFullYear(),
+                  pdfBase64: pdfBase64,
+               };
+               this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+                  this.guardando = false;
+                  this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Inactivación');
+                  this.router.navigate(['/login']);
+               }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+         }).catch( e => {
+            this.guardando = false;
+            this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Inactivación');
+            return;
+         });
       }
       if (actividad == 'ALIMENTOS Y BEBIDAS') {
-         // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
-         //    const zonalName = zonal.name.split(' ');
-         //    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-         //    let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc.number + '-SOLICITUD-INACTIVACION-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-         //    const params = [{tipo_tramite: tipo_tramite},
-         //       {fecha: today.toLocaleDateString().toUpperCase()},
-         //       {representante_legal: this.user.name.toUpperCase()},
-         //       {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
-         //       {ruc: this.ruc.number},
-         //       {razon_social: this.razon_social},
-         //       {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
-         //       {actividad: actividad},
-         //       {clasificacion: clasificacion.toUpperCase()},
-         //       {categoria: categoria.toUpperCase()},
-         //       {provincia: provincia.name.toUpperCase()},
-         //       {canton: canton.name.toUpperCase()},
-         //       {parroquia: parroquia.name.toUpperCase()},
-         //       {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
-         //       {numeracion: this.establishment_selected.address_number.toUpperCase()},
-         //       {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
-         //    this.exporterDataService.template(10, true, qr_value, params).then( r => {
-         //       let pdfBase64 = r;
-         //       const byteCharacters = atob(r);
-         //       const byteNumbers = new Array(byteCharacters.length);
-         //       for (let i = 0; i < byteCharacters.length; i++) {
-         //          byteNumbers[i] = byteCharacters.charCodeAt(i);
-         //       }
-         //       const byteArray = new Uint8Array(byteNumbers);
-         //       const blob = new Blob([byteArray], { type: 'application/pdf'});
-         //       this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
-         //          let newRegisterProcedure = new RegisterProcedure();
-         //          newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
-         //          newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
-         //          newRegisterProcedure.date = new Date();
-         //          this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
-         //          }).catch( e => { console.log(e); });
-         //       }).catch( e => { console.log(e); });
-         //       saveAs(blob, qr_value + '.pdf');
-         //       const information = {
-         //          para: this.user.name,
-         //          tramite: tipo_tramite,
-         //          ruc: this.user.ruc,
-         //          nombreComercial: this.establishment_selected.commercially_known_name,
-         //          fechaSolicitud: today.toLocaleString(),
-         //          actividad: 'Alimentos y Bebidas',
-         //          clasificacion: clasificacion,
-         //          categoria: categoria,
-         //          razon_social: this.razon_social,
-         //          tipoSolicitud: tipo_tramite,
-         //          provincia: provincia.name.toUpperCase(),
-         //          canton: canton.name.toUpperCase(),
-         //          parroquia: parroquia.name.toUpperCase(),
-         //          callePrincipal: this.establishment_selected.address_main_street,
-         //          calleInterseccion: this.establishment_selected.address_secondary_street,
-         //          numeracion: this.establishment_selected.address_number,
-         //          thisYear: today.getFullYear(),
-         //          pdfBase64: pdfBase64,
-         //       };
-         //       this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
-         //          this.guardando = false;
-         //          this.refresh();
-         //          this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
-         //          this.router.navigate(['/main']);
-         //       }).catch( e => { console.log(e); });
-         //    }).catch( e => { console.log(e); });
-         // }).catch( e => {
-         //    this.guardando = false;
-         //    this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
-         //    return;
-         // });
+         this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+            const zonalName = zonal.name.split(' ');
+            iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc.number + '-SOLICITUD-INACTIVACION-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            const params = [{tipo_tramite: tipo_tramite},
+               {fecha: today.toLocaleDateString().toUpperCase()},
+               {representante_legal: this.user.name.toUpperCase()},
+               {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+               {ruc: this.ruc.number},
+               {razon_social: this.razon_social},
+               {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+               {actividad: actividad},
+               {clasificacion: clasificacion.toUpperCase()},
+               {categoria: categoria.toUpperCase()},
+               {provincia: provincia.name.toUpperCase()},
+               {canton: canton.name.toUpperCase()},
+               {parroquia: parroquia.name.toUpperCase()},
+               {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+               {numeracion: this.establishment_selected.address_number.toUpperCase()},
+               {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+            this.exporterDataService.template(10, true, qr_value, params).then( r => {
+               let pdfBase64 = r;
+               const byteCharacters = atob(r);
+               const byteNumbers = new Array(byteCharacters.length);
+               for (let i = 0; i < byteCharacters.length; i++) {
+                  byteNumbers[i] = byteCharacters.charCodeAt(i);
+               }
+               const byteArray = new Uint8Array(byteNumbers);
+               const blob = new Blob([byteArray], { type: 'application/pdf'});
+               this.procedureJustificationDataService.post(this.procedureJustification).then(procedureJustificationResponse => {
+                  let newRegisterProcedure = new RegisterProcedure();
+                  newRegisterProcedure.procedure_justification_id = procedureJustificationResponse.id;
+                  newRegisterProcedure.register_id = r.id;
+                  newRegisterProcedure.date = new Date();
+                  this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+                  }).catch( e => { console.log(e); });
+               }).catch( e => { console.log(e); });
+               saveAs(blob, qr_value + '.pdf');
+               const information = {
+                  para: this.user.name.toUpperCase(),
+                  tramite: tipo_tramite.toUpperCase(),
+                  ruc: this.ruc.number,
+                  nombreComercial: this.establishment_selected.commercially_known_name.toUpperCase(),
+                  fechaSolicitud: today.toLocaleString(),
+                  actividad: 'Alimentos y Bebidas'.toUpperCase(),
+                  clasificacion: clasificacion.toUpperCase(),
+                  categoria: categoria.toUpperCase(),
+                  razon_social: this.razon_social.toUpperCase(),
+                  tipoSolicitud: tipo_tramite.toUpperCase(),
+                  provincia: provincia.name.toUpperCase(),
+                  canton: canton.name.toUpperCase(),
+                  parroquia: parroquia.name.toUpperCase(),
+                  callePrincipal: this.establishment_selected.address_main_street.toUpperCase(),
+                  calleInterseccion: this.establishment_selected.address_secondary_street.toUpperCase(),
+                  numeracion: this.establishment_selected.address_number.toUpperCase(),
+                  thisYear: today.getFullYear(),
+                  pdfBase64: pdfBase64,
+               };
+               this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+                  this.guardando = false;
+                  this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Inactivación');
+                  this.router.navigate(['/login']);
+               }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+         }).catch( e => {
+            this.guardando = false;
+            this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Inactivación');
+            return;
+         });
       }
-     }
+   }
+
+   registrar_usuario() {
+      this.userDataService.register_user_by_inactivation(this.user).then( r => {
+      }).catch( e => {console.log(e); });
+   }
 
   checkCedula() {
     this.user.identification = this.user.identification.replace(/[^\d]/, '');

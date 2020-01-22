@@ -26,6 +26,11 @@ import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.s
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
+import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { UserService } from 'src/app/services/profile/user.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -40,12 +45,17 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
     providers: [ConsultorService,
         NgbModal,
         StateService,
+        RegisterService,
         RegisterStateService,
+        ExporterService,
+        RegisterProcedureService,
         PayService,
         RegisterABService,
         DeclarationService,
+        MailerService,
         RucService,
         DeclarationItemService,
+        UserService,
         DeclarationAttachmentService,
         EstablishmentService,
         DeclarationItemCategoryService,
