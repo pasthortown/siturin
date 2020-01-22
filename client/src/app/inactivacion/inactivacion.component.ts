@@ -606,27 +606,22 @@ export class InactivacionComponent implements OnInit {
          zonal = element;
          }
       });
-      console.log(this.selected_register_data);
-   //    this.rucEstablishmentRegisterSelected.code =
-
-   //    id: number;
-   // code: String;
-   // autorized_complementary_capacities: Boolean;
-   // autorized_complementary_food_capacities: Boolean;
-   // establishment_id: number;
-   // complementary_service_types_on_register: any[];
-   // complementary_service_foods_on_register: any[];
-   // register_type_id: number;
-   // capacities_on_register: any[];
-   // requisites: any[];
-   // editable: Boolean;
-   // total_spaces: number;
-   // total_habitations: number;
-   // total_beds: number;
-   // status: number;
-   // tarifario_rack: any[];
-   // kitchen_types_on_register: any[];
-   // service_types_on_register: any[];
+      this.rucEstablishmentRegisterSelected.code = this.selected_register_data.register_code;
+      this.rucEstablishmentRegisterSelected.autorized_complementary_capacities = false;
+      this.rucEstablishmentRegisterSelected.autorized_complementary_food_capacities = false;
+      this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
+      this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = [];
+      this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = [];
+      //this.rucEstablishmentRegisterSelected.register_type_id: number;
+      this.rucEstablishmentRegisterSelected.capacities_on_register = [];
+      this.rucEstablishmentRegisterSelected.requisites = [];
+      this.rucEstablishmentRegisterSelected.editable = false;
+      this.rucEstablishmentRegisterSelected.total_spaces = 0;
+      this.rucEstablishmentRegisterSelected.total_habitations = 0;
+      this.rucEstablishmentRegisterSelected.total_beds = 0;
+      this.rucEstablishmentRegisterSelected.tarifario_rack = [];
+      this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
+      this.rucEstablishmentRegisterSelected.service_types_on_register = [];
 
       // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       //       this.certificadoUsoSuelo.register_id = r.id;
