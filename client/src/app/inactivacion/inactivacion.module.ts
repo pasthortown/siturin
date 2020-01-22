@@ -42,7 +42,6 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
         StateService, 
         RegisterStateService,
         PayService,
-        InactivationRequestService,
         DeclarationService,
         RucService,
         DeclarationItemService,
