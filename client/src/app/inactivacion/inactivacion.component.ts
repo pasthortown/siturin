@@ -56,6 +56,7 @@ export class InactivacionComponent implements OnInit {
   mostrarDataEstablishment = false;
   maxYear: number = 2019;
   estados_tramites: State[];
+  rucEstablishmentRegisterSelected: Register = new Register();
   declaration_selected: Declaration = new Declaration();
   mostrarDataDeclaration = false;
   consumoCedula = false;
@@ -135,6 +136,7 @@ export class InactivacionComponent implements OnInit {
   zonalEstablishmentSelectedCode = '-';
   provinciaEstablishmentSelectedCode = '-';
   cantonEstablishmentSelectedCode = '-';
+  ubications: Ubication[] = [];
   zonalesEstablishment: Ubication[] = []; 
   provinciasEstablishment: Ubication[] = [];
   cantonesEstablishment: Ubication[];
@@ -176,6 +178,14 @@ export class InactivacionComponent implements OnInit {
     this.getProcedureJustifications();
     this.getDeclarationCategories();
     this.getDeclarationItems();
+    this.getUbications();
+  }
+
+  getUbications() {
+   this.ubications = [];
+   this.ubicationDataService.get().then( r => {
+      this.ubications = r as Ubication[];
+   }).catch( e => { console.log(e); });
   }
 
   getDeclarationCategories() {
@@ -571,7 +581,7 @@ export class InactivacionComponent implements OnInit {
    saveRegister() {
       this.guardando = true;
       let tipo_tramite = 'Inactivación';
-      //this.rucEstablishmentRegisterSelected.status = 51;
+      this.rucEstablishmentRegisterSelected.status = 51;
       this.procedureJustification.procedure_id = 5;
       this.procedureJustificationsToShow.forEach(element => {
          if (element.id == this.idCausal) {
@@ -581,32 +591,35 @@ export class InactivacionComponent implements OnInit {
       tipo_tramite = tipo_tramite.toUpperCase();
       const today = new Date();
       const actividad = this.selected_register_data.activity;
-
-      // let provincia = new Ubication();
-      // let canton = new Ubication();
-      // let parroquia = new Ubication();
-      // let zonal = new Ubication();
-      // let iniciales_cordinacion_zonal = '';
-      // this.ubications.forEach(element => {
-      //    if (element.id == this.establishment_selected.ubication_id) {
-      //    parroquia = element;
-      //    }
-      // });
-      // this.ubications.forEach(element => {
-      //    if (element.code == parroquia.father_code) {
-      //    canton = element;
-      //    }
-      // });
-      // this.ubications.forEach(element => {
-      //    if (element.code == canton.father_code) {
-      //    provincia = element;
-      //    }
-      // });
-      // this.ubications.forEach(element => {
-      //    if (element.code == provincia.father_code) {
-      //    zonal = element;
-      //    }
-      // });
+      let provincia = new Ubication();
+      let canton = new Ubication();
+      let parroquia = new Ubication();
+      let zonal = new Ubication();
+      let iniciales_cordinacion_zonal = '';
+      this.ubications.forEach(element => {
+         if (element.id == this.establishment_selected.ubication_id) {
+         parroquia = element;
+         }
+      });
+      this.ubications.forEach(element => {
+         if (element.code == parroquia.father_code) {
+         canton = element;
+         }
+      });
+      this.ubications.forEach(element => {
+         if (element.code == canton.father_code) {
+         provincia = element;
+         }
+      });
+      this.ubications.forEach(element => {
+         if (element.code == provincia.father_code) {
+         zonal = element;
+         }
+      });
+      console.log(provincia);
+      console.log(canton);
+      console.log(parroquia);
+      console.log(zonal);
       // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       //       this.certificadoUsoSuelo.register_id = r.id;
       //       this.guardarCertificadoUsoSuelos();
