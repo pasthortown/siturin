@@ -682,9 +682,9 @@ export class InactivacionComponent implements OnInit {
                {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
                {numeracion: this.establishment_selected.address_number.toUpperCase()},
                {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
-            this.exporterDataService.template(10, true, qr_value, params).then( r => {
-               let pdfBase64 = r;
-               const byteCharacters = atob(r);
+            this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
+               let pdfBase64 = r_exporter;
+               const byteCharacters = atob(r_exporter);
                const byteNumbers = new Array(byteCharacters.length);
                for (let i = 0; i < byteCharacters.length; i++) {
                   byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -718,7 +718,7 @@ export class InactivacionComponent implements OnInit {
                   thisYear: today.getFullYear(),
                   pdfBase64: pdfBase64,
                };
-               this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+               this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r_mail => {
                   this.guardando = false;
                   this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Inactivación');
                   this.router.navigate(['/login']);
@@ -751,9 +751,9 @@ export class InactivacionComponent implements OnInit {
                {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
                {numeracion: this.establishment_selected.address_number.toUpperCase()},
                {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
-            this.exporterDataService.template(10, true, qr_value, params).then( r => {
-               let pdfBase64 = r;
-               const byteCharacters = atob(r);
+            this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
+               let pdfBase64 = r_exporter;
+               const byteCharacters = atob(r_exporter);
                const byteNumbers = new Array(byteCharacters.length);
                for (let i = 0; i < byteCharacters.length; i++) {
                   byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -787,7 +787,7 @@ export class InactivacionComponent implements OnInit {
                   thisYear: today.getFullYear(),
                   pdfBase64: pdfBase64,
                };
-               this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r => {
+               this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r_mail => {
                   this.guardando = false;
                   this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Inactivación');
                   this.router.navigate(['/login']);
