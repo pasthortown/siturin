@@ -621,7 +621,12 @@ export class InactivacionComponent implements OnInit {
       this.rucEstablishmentRegisterSelected.tarifario_rack = [];
       this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
       this.rucEstablishmentRegisterSelected.service_types_on_register = [];
-      console.log(provincia);
+      if (provincia.name == 'GALÁPAGOS') {
+         this.rucEstablishmentRegisterSelected.register_type_id = 1003;
+      } else {
+         this.rucEstablishmentRegisterSelected.register_type_id = 1001;
+      }
+      console.log(this.rucEstablishmentRegisterSelected);
       // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       //       this.certificadoUsoSuelo.register_id = r.id;
       //       this.guardarCertificadoUsoSuelos();
