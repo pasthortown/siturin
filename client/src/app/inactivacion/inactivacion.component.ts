@@ -606,6 +606,28 @@ export class InactivacionComponent implements OnInit {
          zonal = element;
          }
       });
+      console.log(this.selected_register_data);
+   //    this.rucEstablishmentRegisterSelected.code =
+
+   //    id: number;
+   // code: String;
+   // autorized_complementary_capacities: Boolean;
+   // autorized_complementary_food_capacities: Boolean;
+   // establishment_id: number;
+   // complementary_service_types_on_register: any[];
+   // complementary_service_foods_on_register: any[];
+   // register_type_id: number;
+   // capacities_on_register: any[];
+   // requisites: any[];
+   // editable: Boolean;
+   // total_spaces: number;
+   // total_habitations: number;
+   // total_beds: number;
+   // status: number;
+   // tarifario_rack: any[];
+   // kitchen_types_on_register: any[];
+   // service_types_on_register: any[];
+
       // this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       //       this.certificadoUsoSuelo.register_id = r.id;
       //       this.guardarCertificadoUsoSuelos();
