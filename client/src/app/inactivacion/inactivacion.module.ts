@@ -36,8 +36,7 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
         AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
         HttpModule],
     declarations: [InactivacionComponent],
-    providers: [ 
-        NgbModal, 
+    providers: [NgbModal, 
         StateService, 
         RegisterStateService,
         PayService,
