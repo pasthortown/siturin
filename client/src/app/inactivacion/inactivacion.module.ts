@@ -10,7 +10,6 @@ import { StateService } from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
 
 import { InactivacionRoutingModule } from './inactivacion-routing.module';
 import { InactivacionComponent } from './inactivacion.component';
-import { ConsultorService } from './../services/negocio/consultor.service';
 import { DinardapService } from '../services/negocio/dinardap.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
@@ -37,7 +36,7 @@ import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/register
         AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
         HttpModule],
     declarations: [InactivacionComponent],
-    providers: [ConsultorService, 
+    providers: [ 
         NgbModal, 
         StateService, 
         RegisterStateService,

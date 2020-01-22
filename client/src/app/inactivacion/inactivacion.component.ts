@@ -1,5 +1,4 @@
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
-import { ConsultorService } from './../services/negocio/consultor.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
@@ -142,8 +141,7 @@ export class InactivacionComponent implements OnInit {
   declarations: Declaration[] = [];
   balance: DeclarationAttachment = new DeclarationAttachment();
    
-  constructor(private consultorDataService: ConsultorService,
-    private router: Router, 
+  constructor(private router: Router, 
     private modalService: NgbModal,
     private toastr: ToastrManager,
     private stateDataService: StateService,
