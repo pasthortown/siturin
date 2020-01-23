@@ -2700,7 +2700,7 @@ export class InspectorComponent implements OnInit {
   }
   
   validateInspectionInfo(): Boolean {
-     if (tipo_tramite_seleccionado !== 'inactivation') {
+     if (this.tipo_tramite_seleccionado !== 'inactivation') {
       return this.validateNotesInspection() && this.validateInformeFile() && this.validateRequisitesFile();
      } else {
       return this.validateNotesInspection() && this.validateInformeFile();   
