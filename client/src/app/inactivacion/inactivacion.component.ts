@@ -1233,6 +1233,8 @@ export class InactivacionComponent implements OnInit {
   }
 
   onCellClickEstablishment(event) {
+     console.log(event);
+     return;
    this.mostrarUbicationEstablishment = true;
    this.establishment_selected.ruc_id = this.ruc.id;
    this.establishment_selected.id = 0;

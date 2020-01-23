@@ -3304,34 +3304,71 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   inactivar_into_catastro(pdfCertificadoInactivation) {
-   // const information = {para: r.name.toUpperCase(),
-   //    pdfBase64_certificado: pdfRegistro,
-   //    activity: this.activity,
-   //    tramite: this.tipo_tramite.toUpperCase(),
-   //    ruc: newRegistroCatastro.ruc,
-   //    provincia: provinciaName.toUpperCase(),
-   //    nombreComercial: newRegistroCatastro.comercial_name,
-   //    canton: cantonName.toUpperCase(),
-   //    fechaRegistro: today.toLocaleDateString(),
-   //    parroquia: parroquiaName.toUpperCase(),
-   //    actividad: this.registerMinturSelected.activity.toUpperCase(),
-   //    callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
-   //    clasificacion: clasificacion.toUpperCase(),
-   //    calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street.toUpperCase(),
-   //    categoria: categoria.toUpperCase(),
-   //    numeracion: this.registerMinturSelected.establishment.address_number.toUpperCase(),
-   //    tipoSolicitud: this.tipo_tramite.toUpperCase(),
-   //    thisYear: today.getFullYear()};
-   // this.mailerDataService.entregar_documentos(r.email, 'Inactivación de Registro Turístico', information).then( respMail => {
-   //    Swal.fire(
-   //       'Confirmado!',
-   //       'La solicitud de trámite, ha sido atendida satisfactoriamente.',
-   //       'success'
-   //    );
-   //    this.toastr.successToastr('Datos guardados satisfactoriamente', 'Coordinador');
-   //    this.mostrarDataRegisterMintur = false;
-   //    this.refresh();
-   // }).catch( e => { console.log(e); });
+   let provincia = new Ubication();
+   let canton = new Ubication();
+   let parroquia = new Ubication();
+   let zonal = new Ubication();
+   this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
+      this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+         const actividad = this.registerMinturSelected.activity.toUpperCase();
+         this.ubications.forEach(element => {
+            if (element.id == r2.establishment.ubication_id) {
+            parroquia = element;
+            }
+         });
+         this.ubications.forEach(element => {
+            if (element.code == parroquia.father_code) {
+            canton = element;
+            }
+         });
+         this.ubications.forEach(element => {
+            if (element.code == canton.father_code) {
+            provincia = element;
+            }
+         });
+         this.ubications.forEach(element => {
+            if (element.code == provincia.father_code) {
+            zonal = element;
+            }
+         });
+         let iniciales_cordinador_zonal = '';
+         this.user.name.split(' ').forEach(element => {
+            iniciales_cordinador_zonal += element.substring(0, 1).toUpperCase();
+         });
+         let iniciales_cordinacion_zonal = '';
+         const zonalName = zonal.name.split(' ');
+         iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+         const today = new Date();
+         const information = {para: this.representante_legal.toUpperCase(),
+            pdfBase64_certificado: pdfCertificadoInactivation,
+            activity: actividad,
+            tramite: this.tipo_tramite.toUpperCase(),
+            ruc: this.ruc_registro_selected.ruc.number,         
+            provincia: provincia.name.toUpperCase(),
+            nombreComercial: r2.establishment.commercially_known_name.toUpperCase(),
+            canton: canton.name.toUpperCase(),
+            parroquia: parroquia.name.toUpperCase(),
+            actividad: actividad,         
+            callePrincipal: r2.establishment.address_main_street.toUpperCase(),
+            calleInterseccion: r2.establishment.address_secondary_street.toUpperCase(),
+            numeracion: r2.establishment.address_number.toUpperCase(),
+            clasificacion: catastro_classification.toUpperCase(),
+            categoria: catastro_category.toUpperCase(),
+            tipoSolicitud: this.tipo_tramite.toUpperCase(),
+            thisYear: today.getFullYear()};
+            //AQUI
+            this.mailerDataService.inactivar_email(r.email, 'Inactivación de Registro Turístico', information).then( respMail => {
+               Swal.fire(
+                  'Confirmado!',
+                  'La solicitud de trámite, ha sido atendida satisfactoriamente.',
+                  'success'
+               );
+               this.toastr.successToastr('Datos guardados satisfactoriamente', 'Coordinador');
+               this.mostrarDataRegisterMintur = false;
+               this.refresh();
+            }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+   }).catch( e => { console.log(e); });
   }
 
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
