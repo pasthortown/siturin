@@ -3304,8 +3304,34 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   inactivar_into_catastro(pdfCertificadoInactivation) {
-   //AQUI
-   console.log("llegue");
+   // const information = {para: r.name.toUpperCase(),
+   //    pdfBase64_certificado: pdfRegistro,
+   //    activity: this.activity,
+   //    tramite: this.tipo_tramite.toUpperCase(),
+   //    ruc: newRegistroCatastro.ruc,
+   //    provincia: provinciaName.toUpperCase(),
+   //    nombreComercial: newRegistroCatastro.comercial_name,
+   //    canton: cantonName.toUpperCase(),
+   //    fechaRegistro: today.toLocaleDateString(),
+   //    parroquia: parroquiaName.toUpperCase(),
+   //    actividad: this.registerMinturSelected.activity.toUpperCase(),
+   //    callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
+   //    clasificacion: clasificacion.toUpperCase(),
+   //    calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street.toUpperCase(),
+   //    categoria: categoria.toUpperCase(),
+   //    numeracion: this.registerMinturSelected.establishment.address_number.toUpperCase(),
+   //    tipoSolicitud: this.tipo_tramite.toUpperCase(),
+   //    thisYear: today.getFullYear()};
+   // this.mailerDataService.entregar_documentos(r.email, 'Inactivación de Registro Turístico', information).then( respMail => {
+   //    Swal.fire(
+   //       'Confirmado!',
+   //       'La solicitud de trámite, ha sido atendida satisfactoriamente.',
+   //       'success'
+   //    );
+   //    this.toastr.successToastr('Datos guardados satisfactoriamente', 'Coordinador');
+   //    this.mostrarDataRegisterMintur = false;
+   //    this.refresh();
+   // }).catch( e => { console.log(e); });
   }
 
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
