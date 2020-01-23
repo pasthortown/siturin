@@ -1594,6 +1594,7 @@ calcularUnoxMil() {
  }
 
  refresh() {
+   this.mostrarMotivoTramite = false;
    this.registerMinturSelected = new Register();
    this.mostrarDataRegisterMintur = false;
    this.ruc_registro_selected = new RegistroDataCarrier();
