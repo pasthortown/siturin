@@ -89,7 +89,7 @@
       <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes">
       </div>
   </div>
-  <div class="col-12 mb-2 mt-2" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+  <div class="col-12 mb-2 mt-2">
     <h4>Descarga de documentos para inspección/verificación</h4>
   </div>
   <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
@@ -138,7 +138,7 @@
       [ngModel]="registerApprovalInspector.date_fullfill | date:'y-MM-dd'" 
       (ngModelChange)="registerApprovalInspector.date_fullfill = $event">
   </div> -->
-  <div class="col-12">
+  <div class="col-12 mb-2">
     <div class="form-control">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
