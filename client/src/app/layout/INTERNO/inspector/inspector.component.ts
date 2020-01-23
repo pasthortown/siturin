@@ -1969,7 +1969,7 @@ export class InspectorComponent implements OnInit {
             }
             const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
             this.userDataService.get(zone.id_coordinator).then( resp => {
-               const coordinatorName = resp[0].name;
+               const coordinatorName = resp.name;
 
                this.documentDataService.get_doc_id(qr_value).then( respuesta => {
                   const codigo_informe = 'MT-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
