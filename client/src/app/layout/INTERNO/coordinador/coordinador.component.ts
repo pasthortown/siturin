@@ -3356,8 +3356,8 @@ selectKitchenType(kitchenType: KitchenType) {
             categoria: this.catastro_category.toUpperCase(),
             tipoSolicitud: this.tipo_tramite.toUpperCase(),
             thisYear: today.getFullYear()};
-            //AQUI
-            //this.registerCatastroDataService.inactivate_register()
+            this.registerCatastroDataService.inactivate_register(this.registerMinturSelected.register_data_on_catastro.register_code.toUpperCase()).then(res_inac => {
+            }).catch( e => { console.log(e); });
             this.mailerDataService.inactivar_email(r.email, 'Inactivación de Registro Turístico', information).then( respMail => {
                Swal.fire(
                   'Confirmado!',
