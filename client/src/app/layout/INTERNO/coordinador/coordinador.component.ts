@@ -3541,6 +3541,7 @@ selectKitchenType(kitchenType: KitchenType) {
    let parroquia = new Ubication();
    let zonal = new Ubication();
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+      const actividad = this.registerMinturSelected.activity.toUpperCase();
       this.ubications.forEach(element => {
          if (element.id == r2.establishment.ubication_id) {
          parroquia = element;
@@ -3719,7 +3720,6 @@ selectKitchenType(kitchenType: KitchenType) {
             document.zonal = zonal.name;
             document.user = iniciales_cordinador_zonal;
             document.params = JSON.stringify(paramsToBuild);
-            //DEAQUI
             this.documentDataService.post(document).then().catch( e => { console.log(e); });
             this.exporterDataService.template(4, true, qr_value, params).then( r => {
                const byteCharacters = atob(r);
