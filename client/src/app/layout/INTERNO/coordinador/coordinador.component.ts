@@ -3625,7 +3625,8 @@ selectKitchenType(kitchenType: KitchenType) {
                {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
                {habitaciones: habitaciones},
                {plazas: plazas},
-               {nombre_coordinador_Zonal: this.user.name.toUpperCase()}];
+               {coordinador_zonal: this.user.name.toUpperCase()},
+               {nombre_coordinador_zonal: this.user.name.toUpperCase()}];
    
             let document = new Documento();
             document.activity =actividad;
@@ -3787,7 +3788,8 @@ selectKitchenType(kitchenType: KitchenType) {
                   {c4: c4},
                   {c5: c5},
                   {qrcode: '**main_qr_code**'},
-                  {nombre_coordinador_Zonal: this.user.name.toUpperCase()}];
+                  {coordinador_zonal: this.user.name.toUpperCase()},
+                  {nombre_coordinador_zonal: this.user.name.toUpperCase()}];
                let document = new Documento();
                document.activity =actividad;
                document.code = qr_value;
