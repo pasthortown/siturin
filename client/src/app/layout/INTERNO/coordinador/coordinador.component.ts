@@ -4685,6 +4685,7 @@ selectKitchenType(kitchenType: KitchenType) {
       this.registroApprovalStateAttachment.approval_state_attachment_file_type,
       this.registroApprovalStateAttachment.approval_state_attachment_file_name);
   }
+  }
 
   descargarTarifarioRack() {
    this.downloadFile(
