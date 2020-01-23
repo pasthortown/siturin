@@ -2622,7 +2622,7 @@ export class CoordinadorComponent implements OnInit {
                this.informeApprovalStateAttachment = approvalStateAttachment;
                this.hasInform = true;
             }
-            if (approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) {
+            if ((approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) && (approvalStateAttachment.approval_state_attachment_file !== '')) {
                this.requisitosApprovalStateAttachment = approvalStateAttachment;
                this.hasRequisites = true;
             }
