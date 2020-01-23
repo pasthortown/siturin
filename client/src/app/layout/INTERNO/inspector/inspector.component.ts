@@ -1464,6 +1464,7 @@ export class InspectorComponent implements OnInit {
       {title: 'Número de RUC', name: 'number'},
       {title: 'Número de Establecimiento', name: 'ruc_code_id'},
       {title: 'Nombre Comercial', name: 'establishment'},
+      {title: 'Sistema de Origen', name: 'system_source'},
       {title: 'Bandeja', name: 'status'},
       {title: 'Actividad', name: 'actividad'},
       {title: 'Provincia', name: 'provincia'},
@@ -1524,6 +1525,12 @@ export class InspectorComponent implements OnInit {
             zonal = element;
             }
          });
+         let thiscategory: String =  '';
+         if (item.register_data_on_catastro.classification == '') {
+            thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+         } else {
+            thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
+         }
          if ( digito == '4' || digito == '5' || digito == '6' ) {
             const creacion = new Date(item.register.created_at.toString());
             data.push({
@@ -1541,7 +1548,8 @@ export class InspectorComponent implements OnInit {
                address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
                created_at: creacion.toLocaleDateString(),
                code: item.register.code,
-               category: this.getRegisterCategory(item.register.register_type_id, item.activity),
+               category: thiscategory.toUpperCase(),
+               system_source: item.register_data_on_catastro.system_source,
                status: registerState,
                status_id: item.states.state_id,
             });
