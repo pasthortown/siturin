@@ -1651,6 +1651,7 @@ export class InactivacionComponent implements OnInit {
       }
      });
      this.selected_register_data = event.row;
+     console.log(this.selected_register_data);
      this.establishment_ruc_code = event.row.establishment_ruc_code;
      this.getEstablishmentsOnRuc(1);
   }
