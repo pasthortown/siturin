@@ -4677,14 +4677,12 @@ selectKitchenType(kitchenType: KitchenType) {
       this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_type,
       this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name);
    }
-  }
 
   descargarRegistro() {
    this.downloadFile(
       this.registroApprovalStateAttachment.approval_state_attachment_file,
       this.registroApprovalStateAttachment.approval_state_attachment_file_type,
       this.registroApprovalStateAttachment.approval_state_attachment_file_name);
-  }
   }
 
   descargarTarifarioRack() {
