@@ -139,16 +139,18 @@
       (ngModelChange)="registerApprovalInspector.date_fullfill = $event">
   </div> -->
   <div class="col-12">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRuc()">
-          <i class="fas fa-sync"></i>
-        </button>
-      </div>
-      <small *ngIf="!SRIOK">
-        <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
+    <div class="form-control">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRuc()">
+            <i class="fas fa-sync"></i>
+          </button>
         </div>
-      </small>
+        <small>
+          <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
+          </div>
+        </small>
+      </div>
     </div>
   </div>
   <div class="col-12">
