@@ -207,7 +207,7 @@
     <label>Informe de Inspección</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <button type="button" [disabled]="imprimiendo_informe" class="btn btn-secondary" title="Imprimir Informe" (click)="imprimirInforme()"><i class="fas fa-print"></i></button>
+        <button type="button" [disabled]="imprimiendo_informe && (inspectionState == 0)" class="btn btn-secondary" title="Imprimir Informe" (click)="imprimirInforme()"><i class="fas fa-print"></i></button>
         <button type="button" [disabled]="!validateInformeFile()" class="btn btn-secondary ml-2" title="Descargar Informe Cargado" (click)="descargarInforme()"><i class="fas fa-download"></i></button>
         <button type="button" [disabled]="!validateInformeFile()" class="btn btn-danger" title="Borrar Informe Cargado" (click)="borrarInforme()"><i class="fas fa-trash"></i></button>
       </div>
@@ -215,6 +215,12 @@
         name="informeFile" placeholder="Informe de Inspección"
         (change)="CodeFileInformeAttachment($event)">
     </div>
+    <small *ngIf="imprimiendo_informe">
+      <div class="alert alert-info mt-2 mb-2" role="alert">
+        <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label><br />
+        El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.
+      </div>
+    </small>
   </div>
   <div class="col-12 text-center mb-3">
       <input type="checkbox" name="vacacionesCheck" id="vacacionesCheck" value="Bike" [(ngModel)]="estoyVacaciones" (change)= "rechazarCheck()"> Devolver el trámite seleccionado
