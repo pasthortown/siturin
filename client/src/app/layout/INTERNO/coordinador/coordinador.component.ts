@@ -3570,8 +3570,6 @@ selectKitchenType(kitchenType: KitchenType) {
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
       const today = new Date();
-      console.log(this.registerMinturSelected);
-      return;
       let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();   
       const params = [{canton: canton.name.toUpperCase()},
          {fecha: today.toLocaleDateString().toUpperCase()},
@@ -3579,7 +3577,7 @@ selectKitchenType(kitchenType: KitchenType) {
          {razon_social: this.razon_social.toUpperCase()},
          {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
          {representante_legal: this.representante_legal.toUpperCase()},
-         {numero_establecimiento: this.representante_legal.toUpperCase()},
+         {numero_establecimiento: this.registerMinturSelected.establishment.ruc_code_id.toUpperCase()},
          {ruc: this.ruc_registro_selected.ruc.number},
          {zonal: iniciales_cordinacion_zonal.toUpperCase()},
          {provincia: provincia.name.toUpperCase()},
