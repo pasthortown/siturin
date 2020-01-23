@@ -142,6 +142,8 @@ export class CoordinadorComponent implements OnInit {
    idTramiteEstadoFilter = 0;
    tramite = '-';
    tabActive = 'paso1';
+   catastro_category = '';
+   catastro_classification = '';
    tabActiveSuperior = 'tab1';
    selectedNameType: RucNameType = new RucNameType();
    total_workers = 0;
@@ -2431,6 +2433,8 @@ export class CoordinadorComponent implements OnInit {
                created_at: creacion.toLocaleDateString(),
                code: item.register.code,
                category: thiscategory.toUpperCase(),
+               catastro_category: item.register_data_on_catastro.category.toUpperCase(),
+               catastro_classification: item.register_data_on_catastro.classification.toUpperCase(),
                system_source: item.register_data_on_catastro.system_source,
                status: registerState,
                status_id: item.states.state_id,
@@ -2553,6 +2557,8 @@ export class CoordinadorComponent implements OnInit {
    let estado = '';
    this.idRegister = event.row.registerId;
    this.activity = event.row.actividad;
+   this.catastro_category = event.row.catastro_category;
+   this.catastro_classification = event.row.catastro_classification;
    this.rows.forEach(row => {
       if (this.idRegister == row.registerId && this.activity == row.actividad) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
@@ -2860,9 +2866,54 @@ selectKitchenType(kitchenType: KitchenType) {
 }
 
   guardarTramite() {
-     //AQUI
      this.guardandoTramite = true;
      const estado: String = this.stateTramiteId.toString();
+     const PrimerDigito = estado.substring(0, 1);
+     if (PrimerDigito == '1') {
+        this.mostrarMotivoTramite = false;
+     } else {
+        this.mostrarMotivoTramite = true;
+     }
+     this.tipo_tramite = 'REGISTRO';
+     const primerdigito = estado.substring(0, 1);
+     if (primerdigito == '1') {
+        this.tipo_tramite = 'REGISTRO';
+     }
+     if (primerdigito == '2') {
+        this.tipo_tramite = 'RECLASIFICACIÓN';
+     }
+     if (primerdigito == '3') {
+        this.tipo_tramite = 'RECATEGORIZACIÓN';
+     }
+     if (primerdigito == '4') {
+        this.tipo_tramite = 'ACTUALIZACIÓN';
+     }
+     if (primerdigito == '5') {
+        this.tipo_tramite = 'INACTIVACIÓN';
+     }
+     if (primerdigito == '6') {
+        this.tipo_tramite = 'REINGRESO';
+     }
+      
+     if (estado == '20') {
+        this.tipo_tramite = 'REGISTRO';
+     }
+     if (estado == '30') {
+        this.tipo_tramite = 'RECLASIFICACIÓN';
+     }
+     if (estado == '40') {
+        this.tipo_tramite = 'RECATEGORIZACIÓN';
+     }
+     if (estado == '50') {
+        this.tipo_tramite = 'ACTUALIZACIÓN';
+     }
+     if (estado == '60') {
+        this.tipo_tramite = 'INACTIVACIÓN';
+     }
+     if (estado == '70') {
+        this.tipo_tramite = 'REINGRESO';
+     }
+      
      this.refreshMotivoTramite(estado);
      const digito = estado.substring(estado.length-1, estado.length);
      if ( this.stateTramite == 0) {
@@ -3027,21 +3078,30 @@ selectKitchenType(kitchenType: KitchenType) {
       if (this.activity == 'ALIMENTOS Y BEBIDAS') {
         numeric_register = '3000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
       }
-     const code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;
+     let code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;
+     if (this.tipo_tramite_seleccionado == 'inactivation') {
+         clasificacion = this.catastro_classification;
+         categoria = this.catastro_category;
+         code = this.registerMinturSelected.register_data_on_catastro.register_code.toUpperCase();   
+     }
      if (this.activity == 'ALOJAMIENTO') {
       this.approvalStateDataService.put(this.registerApprovalCoordinador).then( r => {
          this.registerDataService.set_register_code(code, this.idRegister).then( r => {
          }).catch( e => { console.log(e); });
-         this.establishmentDataService.set_register_date(establishmentId).then( r => {
-         }).catch( e => { console.log(e); });
+         if (this.tipo_tramite == 'REGISTRO') {
+            this.establishmentDataService.set_register_date(establishmentId).then( r => {
+            }).catch( e => { console.log(e); });
+         }
       }).catch( e => { console.log(e); }); 
      }
       if (this.activity == 'ALIMENTOS Y BEBIDAS') {
        this.approvalStateABDataService.put(this.registerApprovalCoordinador).then( r => {
           this.registerABDataService.set_register_code(code, this.idRegister).then( r => {
           }).catch( e => { console.log(e); });
-          this.establishmentDataService.set_register_date(establishmentId).then( r => {
-          }).catch( e => { console.log(e); });
+          if (this.tipo_tramite == 'REGISTRO') {
+             this.establishmentDataService.set_register_date(establishmentId).then( r => {
+            }).catch( e => { console.log(e); });
+          }
        }).catch( e => { console.log(e); });
       }
       this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
@@ -3535,8 +3595,6 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   imprimirCertificadoInactivacion() {
-     console.log(this.registerMinturSelected);
-     return;
    this.imprimiendo_certificado_inactivacion = true;
    let provincia = new Ubication();
    let canton = new Ubication();
