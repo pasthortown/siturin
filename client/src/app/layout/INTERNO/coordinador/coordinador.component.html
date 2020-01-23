@@ -643,7 +643,7 @@
                                       </option>
                                     </select>
                                   </div>
-                                  <div class="form-group">
+                                  <div class="form-group" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
                                     <label>Dirección URL de la Página WEB</label><span *ngIf="!urlwebEstablishmentValidated"
                                       class="ml-2 badge badge-danger">Incorrecto</span>
                                     <input type="text" class="form-control" id="url_web" name="url_web" (keyup)="checkURLWeb()"
@@ -676,12 +676,12 @@
                                         accept="image/*" />
                                     </div>
                                   </div>
-                                  <div class="row mt-5">
+                                  <div class="row mt-5" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
                                     <div class="col-12 text-left">
                                       <h4><strong>Personal del Establecimiento:</strong></h4>
                                     </div>
                                   </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
                                       <div class="col-12">
                                         <div class="alert alert-info mt-2 mb-2" role="alert">
                                           <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -866,12 +866,12 @@
                                         [animation]="'DROP'"></agm-marker>
                                     </agm-map>
                                   </div>
-                                  <div class="row mt-5">
+                                  <div class="row mt-5" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
                                     <div class="col-12 text-left">
                                       <h4><strong>Certificaciones:</strong></h4>
                                     </div>
                                   </div>
-                                  <div class="form-group row">
+                                  <div class="form-group row" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
                                     <div class="col-12">
                                       <div class="alert alert-info mt-2 mb-2" role="alert">
                                         <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -1329,7 +1329,7 @@
                         (click)="pasos.select('paso1')">
                         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
                       </button>
-                      <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
+                      <button *ngIf="(establishment_selected.id !== 0) && (tipo_tramite_seleccionado !== 'inactivation')" type="button" class="btn btn-info ml-2" title="Siguiente"
                       (click)="pasos.select('paso3')">
                         <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
                       </button>
