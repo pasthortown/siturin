@@ -1906,6 +1906,8 @@ export class InspectorComponent implements OnInit {
 
   imprimirInforme() {
    this.imprimiendo_informe = true;
+   alert(this.activity);
+   return;
    if (this.activity == 'ALOJAMIENTO') {
       this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
          this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
