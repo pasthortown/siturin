@@ -4033,6 +4033,7 @@ selectKitchenType(kitchenType: KitchenType) {
    this.getEstablishmentCertificationTypesCategories();
    this.getComplementaryServiceTypeCategories();
    this.getZonales();
+   this.getRegistersMintur();
    this.groupTypeSelected = new GroupType();
   }
 
