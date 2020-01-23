@@ -3539,37 +3539,36 @@ selectKitchenType(kitchenType: KitchenType) {
    let canton = new Ubication();
    let parroquia = new Ubication();
    let zonal = new Ubication();
-   this.ubications.forEach(element => {
-      if (element.id == r2.establishment.ubication_id) {
-      parroquia = element;
-      }
-   });
-   this.ubications.forEach(element => {
-      if (element.code == parroquia.father_code) {
-      canton = element;
-      }
-   });
-   this.ubications.forEach(element => {
-      if (element.code == canton.father_code) {
-      provincia = element;
-      }
-   });
-   this.ubications.forEach(element => {
-      if (element.code == provincia.father_code) {
-      zonal = element;
-      }
-   });
-   let iniciales_cordinador_zonal = '';
-   this.user.name.split(' ').forEach(element => {
-      iniciales_cordinador_zonal += element.substring(0, 1).toUpperCase();
-   });
-   let iniciales_cordinacion_zonal = '';
-   const zonalName = zonal.name.split(' ');
-   iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-   const today = new Date();
-   let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-      console.log(r2);
+      this.ubications.forEach(element => {
+         if (element.id == r2.establishment.ubication_id) {
+         parroquia = element;
+         }
+      });
+      this.ubications.forEach(element => {
+         if (element.code == parroquia.father_code) {
+         canton = element;
+         }
+      });
+      this.ubications.forEach(element => {
+         if (element.code == canton.father_code) {
+         provincia = element;
+         }
+      });
+      this.ubications.forEach(element => {
+         if (element.code == provincia.father_code) {
+         zonal = element;
+         }
+      });
+      let iniciales_cordinador_zonal = '';
+      this.user.name.split(' ').forEach(element => {
+         iniciales_cordinador_zonal += element.substring(0, 1).toUpperCase();
+      });
+      let iniciales_cordinacion_zonal = '';
+      const zonalName = zonal.name.split(' ');
+      iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+      const today = new Date();
+      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();   
       const params = [{canton: canton.name.toUpperCase()},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {numero_registro: registerDataIncomming.register.code.toUpperCase()},
