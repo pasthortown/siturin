@@ -89,10 +89,10 @@
       <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes">
       </div>
   </div>
-  <div class="col-12 mb-2 mt-2">
+  <div class="col-12 mb-2 mt-2" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
     <h4>Descarga de documentos para inspección/verificación</h4>
   </div>
-  <div class="col-12">
+  <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <button type="button" [disabled]="!SRIOK || please_wait_requisites" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()">
@@ -114,10 +114,10 @@
       </div>
     </small>
   </div>
-  <div class="col-12 mb-2 mt-2">
+  <div class="col-12 mb-2 mt-2" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
     <h4>Resultado de la inspección/verificación</h4>
   </div>
-  <div class="col-12">
+  <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
       <label>Formulario de Requisitos (Check List)</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -131,10 +131,6 @@
           name="requisitesFile" placeholder="Formulario de Revisión de Requisitos (Check List)"
           (change)="CodeFileRequisitesAttachment($event)">
       </div>
-      <small *ngIf="!SRIOK">
-        <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
-        </div>
-      </small>
        </div>
   <!-- <div class="col-6">
       <label>Fecha de la Inspección</label>
@@ -142,6 +138,19 @@
       [ngModel]="registerApprovalInspector.date_fullfill | date:'y-MM-dd'" 
       (ngModelChange)="registerApprovalInspector.date_fullfill = $event">
   </div> -->
+  <div class="col-12">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRuc()">
+          <i class="fas fa-sync"></i>
+        </button>
+      </div>
+      <small *ngIf="!SRIOK">
+        <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
+        </div>
+      </small>
+    </div>
+  </div>
   <div class="col-12">
       <label>Estado de la Inspección</label>
       <select class="form-control" id="stateInspection" name="stateInspection" [(ngModel)]="inspectionState">
