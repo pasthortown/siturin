@@ -25,7 +25,14 @@ export class MailerService {
    }
 
    inactivar_email(email: string, subject: string, information: any): Promise<any> {
-
+      const data = {
+         'email': email,
+         'subject': subject,
+         'information': information};
+      return this.http.post(this.url + 'inactivar_email', JSON.stringify(data), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
    }
 
    entregar_documentos(email: string, subject: string, information: any): Promise<any> {
