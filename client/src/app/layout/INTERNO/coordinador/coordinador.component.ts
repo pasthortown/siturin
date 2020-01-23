@@ -3568,19 +3568,21 @@ selectKitchenType(kitchenType: KitchenType) {
    iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
    const today = new Date();
    let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-   const params = [{canton: canton.name.toUpperCase()},
-      {fecha: today.toLocaleDateString().toUpperCase()},
-      {numero_registro: registerDataIncomming.register.code.toUpperCase()},
-      {razon_social: this.razon_social.toUpperCase()},
-      {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
-      {representant_legal: this.representante_legal.toUpperCase()},
-      {ruc: this.ruc_registro_selected.ruc.number},
-      {zonal: iniciales_cordinacion_zonal.toUpperCase()},
-      {provincia: provincia.name.toUpperCase()},
-      {parroquia: parroquia.name.toUpperCase()},
-      {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
-      {coordinador_zonal: this.user.name.toUpperCase()},
-      {nombre_coordinador_zonal: this.user.name.toUpperCase()}];
+   this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+
+      const params = [{canton: canton.name.toUpperCase()},
+         {fecha: today.toLocaleDateString().toUpperCase()},
+         {numero_registro: registerDataIncomming.register.code.toUpperCase()},
+         {razon_social: this.razon_social.toUpperCase()},
+         {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+         {representant_legal: this.representante_legal.toUpperCase()},
+         {ruc: this.ruc_registro_selected.ruc.number},
+         {zonal: iniciales_cordinacion_zonal.toUpperCase()},
+         {provincia: provincia.name.toUpperCase()},
+         {parroquia: parroquia.name.toUpperCase()},
+         {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
+         {coordinador_zonal: this.user.name.toUpperCase()},
+         {nombre_coordinador_zonal: this.user.name.toUpperCase()}];
       let document = new Documento();
       document.activity = actividad;
       document.code = qr_value;
@@ -3604,6 +3606,7 @@ selectKitchenType(kitchenType: KitchenType) {
          saveAs(blob, qr_value + '.pdf');
          this.imprimiendo_certificado_inactivacion = false;
       }).catch( e => { console.log(e); });
+   }).catch( e => { console.log(e); });
   }
 
   imprimirRegistro() {
