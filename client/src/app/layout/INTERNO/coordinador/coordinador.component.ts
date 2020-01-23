@@ -4010,6 +4010,7 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   refresh() {
+   this.mostrarMotivoTramite = false;
    this.fechasNombramiento();
    this.pays = [];
    this.guardandoTramite = false;
