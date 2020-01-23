@@ -2700,8 +2700,12 @@ export class InspectorComponent implements OnInit {
   }
   
   validateInspectionInfo(): Boolean {
-   return this.validateNotesInspection() && this.validateInformeFile() && this.validateRequisitesFile();
-  }
+     if (tipo_tramite_seleccionado !== 'inactivation') {
+      return this.validateNotesInspection() && this.validateInformeFile() && this.validateRequisitesFile();
+     } else {
+      return this.validateNotesInspection() && this.validateInformeFile();   
+     }
+   }
 
   descargarRequisitos() {
    this.downloadFile(
