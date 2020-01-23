@@ -466,7 +466,6 @@ export class InspectorComponent implements OnInit {
   }
 
   checkMotivoTramite(estado: String) {
-     console.log(estado);
    this.motivoTramite = '';
    const PrimerDigito = estado.substring(0, 1);
    if (PrimerDigito == '1') {
@@ -484,6 +483,7 @@ export class InspectorComponent implements OnInit {
             }
             this.tipo_tramite = 'REGISTRO';
             const primerdigito = estado.substring(0, 1);
+            console.log(primerdigito);
             if (primerdigito == '1') {
                this.tipo_tramite = 'REGISTRO';
             }
