@@ -207,7 +207,7 @@
     <label>Informe de Inspección</label>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <button type="button" [disabled]="imprimiendo_informe && (inspectionState == 0)" class="btn btn-secondary" title="Imprimir Informe" (click)="imprimirInforme()"><i class="fas fa-print"></i></button>
+        <button type="button" [disabled]="imprimiendo_informe || (inspectionState == 0)" class="btn btn-secondary" title="Imprimir Informe" (click)="imprimirInforme()"><i class="fas fa-print"></i></button>
         <button type="button" [disabled]="!validateInformeFile()" class="btn btn-secondary ml-2" title="Descargar Informe Cargado" (click)="descargarInforme()"><i class="fas fa-download"></i></button>
         <button type="button" [disabled]="!validateInformeFile()" class="btn btn-danger" title="Borrar Informe Cargado" (click)="borrarInforme()"><i class="fas fa-trash"></i></button>
       </div>
