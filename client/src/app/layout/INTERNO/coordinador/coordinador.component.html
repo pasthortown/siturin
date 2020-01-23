@@ -204,7 +204,7 @@
       <button type="button" class="btn btn-danger ml-2" *ngIf="digito != '9'" title="Cancelar Cambios" (click)="refresh()"><i class="fas fa-times"></i> Cancelar</button>
   </div>
 </div>
-<div class="row" *ngIf="(activity == 'ALOJAMIENTO') && ((stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9')">
+<div class="row" *ngIf="(tipo_tramite_seleccionado !== 'inactivation') && (activity == 'ALOJAMIENTO') && ((stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9')">
   <div class="col-12 mt-3 mb-2">
     <label>Tarifario Rack o Mostrador</label>
     <div class="input-group mb-3">
@@ -229,7 +229,7 @@
     </small>
   </div>
 </div>
-<div class="row" *ngIf="(stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9'">
+<div class="row" *ngIf="(tipo_tramite_seleccionado !== 'inactivation') && (stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9'">
   <div class="col-12 mt-3 mb-2">
     <label>Registro Turístico</label>
     <div class="input-group mb-3">
@@ -238,8 +238,8 @@
         <button type="button" [disabled]="!validateRegistroFile()" class="btn btn-secondary ml-2" title="Descargar Registro Turístico Cargado" (click)="descargarRegistro()"><i class="fas fa-download"></i></button>
         <button type="button" [disabled]="!validateRegistroFile() || digito == '9'" class="btn btn-danger" title="Borrar Registro Turístico Cargado" (click)="borrarRegistro()"><i class="fas fa-trash"></i></button>
       </div>
-      <input type="file" class="form-control" id="actaFile"
-        name="actaFile" placeholder="Registro Turístico"
+      <input type="file" class="form-control" id="registroFile"
+        name="registroFile" placeholder="Registro Turístico"
         (change)="CodeFileRegistroAttachment($event)">
     </div>
     <small *ngIf="!SRIOK">
@@ -247,6 +247,31 @@
       </div>
     </small>
     <small *ngIf="imprimiendo_registro">
+      <div class="alert alert-info mt-2 mb-2" role="alert">
+        <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label><br />
+        El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.
+      </div>
+    </small>
+  </div>
+</div>
+<div class="row" *ngIf="(tipo_tramite_seleccionado == 'inactivation') && (stateTramite == 1 && estadoOrigen == 1 && mostrarDataRegisterMintur) || digito == '9'">
+  <div class="col-12 mt-3 mb-2">
+    <label>Certificado de Inactivación</label>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button type="button" [disabled]="!SRIOK || imprimiendo_certificado_inactivacion" class="btn btn-secondary" title="Imprimir Certificado de Inactivación" (click)="imprimirCertificadoInactivacion()"><i class="fas fa-print"></i></button>
+        <button type="button" [disabled]="!validateCertificadoInactivacionFile()" class="btn btn-secondary ml-2" title="Descargar Certificado de Inactivación" (click)="descargarCertificadoInactivacion()"><i class="fas fa-download"></i></button>
+        <button type="button" [disabled]="!validateCertificadoInactivacionFile() || digito == '9'" class="btn btn-danger" title="Borrar Certificado de Inactivación Cargado" (click)="borrarCertificadoInactivacion()"><i class="fas fa-trash"></i></button>
+      </div>
+      <input type="file" class="form-control" id="certificadoInactivacionFile"
+        name="certificadoInactivacionFile" placeholder="Certificado de Inactivación"
+        (change)="CodeFileCertificadoInactivacionAttachment($event)">
+    </div>
+    <small *ngIf="!SRIOK">
+      <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
+      </div>
+    </small>
+    <small *ngIf="imprimiendo_certificado_inactivacion">
       <div class="alert alert-info mt-2 mb-2" role="alert">
         <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label><br />
         El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.

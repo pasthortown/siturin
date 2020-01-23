@@ -225,6 +225,7 @@ export class CoordinadorComponent implements OnInit {
    actaNotificacionApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
    tarifarioRackApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
    registroApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
+   certificadoInactivacionApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
    financialSelectedId: number = 0;
    isAssignedFinancial = false;
    //RREGISTROS MINTUR
@@ -281,6 +282,7 @@ export class CoordinadorComponent implements OnInit {
   secondaryPhoneContactValidated = true;
   imprimiendo_tarifario = false;
   imprimiendo_registro = false;
+  imprimiendo_certificado_inactivacion = false;
   register_code = '';
   as_turistic_date = null;
   user: User = new User();
@@ -885,6 +887,9 @@ export class CoordinadorComponent implements OnInit {
    return !(this.registroApprovalStateAttachment.approval_state_attachment_file_name == '');
   }
 
+  validateCertificadoInactivacionFile(): Boolean {
+   return !(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name == '');
+  }
 
   getPays() {
    this.payDataService.get_by_ruc_number(this.registerMinturSelected.ruc.number).then( r => {
@@ -3528,6 +3533,10 @@ selectKitchenType(kitchenType: KitchenType) {
    this.groupTypeSelected = new GroupType();
   }
 
+  imprimirCertificadoInactivacion() {
+   //AQUI
+  }
+
   imprimirRegistro() {
    this.imprimiendo_registro = true;
    if (this.activity == 'ALOJAMIENTO') {
@@ -4605,6 +4614,19 @@ selectKitchenType(kitchenType: KitchenType) {
    }
   }
 
+  CodeFileCertificadoInactivacionAttachment(event) {
+   const reader = new FileReader();
+   if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+         this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = file.name;
+         this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_type = file.type;
+         this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file = reader.result.toString().split(',')[1];
+      };
+   }
+  }
+
   CodeFileRegistroAttachment(event) {
    const reader = new FileReader();
    if (event.target.files && event.target.files.length > 0) {
@@ -4643,6 +4665,18 @@ selectKitchenType(kitchenType: KitchenType) {
 
   borrarRegistro() {
    this.registroApprovalStateAttachment = new ApprovalStateAttachment();
+  }
+
+  borrarCertificadoInactivacion() {
+     this.certificadoInactivacionApprovalStateAttachment = new ApprovalStateAttachment();
+  }
+
+  descargarCertificadoInactivacion() {
+   this.downloadFile(
+      this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file,
+      this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_type,
+      this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name);
+   }
   }
 
   descargarRegistro() {
