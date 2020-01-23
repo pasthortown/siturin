@@ -917,6 +917,7 @@ calcularUnoxMil() {
       {title: 'Número de RUC', name: 'number'},
       {title: 'Número de Establecimiento', name: 'ruc_code_id'},
       {title: 'Nombre Comercial', name: 'establishment'},
+      {title: 'Sistema de Origen', name: 'system_source'},
       {title: 'Bandeja', name: 'status'},
       {title: 'Estado', name: 'estado'},
       {title: 'Actividad', name: 'actividad'},
@@ -937,6 +938,12 @@ calcularUnoxMil() {
          let date_assigment_alert = '';
          let date1 = new Date();
          const registerState = this.getRegisterState(item.states.state_id);
+         let thiscategory: String =  '';
+         if (item.register_data_on_catastro.classification == '') {
+            thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+         } else {
+            thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
+         }
          if (registerState.search('Aprobado') == 0) {
             date1 = new Date(item.states.updated_at);
          }
@@ -971,7 +978,8 @@ calcularUnoxMil() {
             address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
             created_at: creacion.toLocaleDateString(),
             code: item.register.code,
-            category: this.getRegisterCategory(item.register.register_type_id, item.activity),
+            category: thiscategory.toUpperCase(),
+            system_source: item.register_data_on_catastro.system_source,
             status: registerState,
             establishment_id: item.establishment.id,
             status_id: item.states.state_id,
