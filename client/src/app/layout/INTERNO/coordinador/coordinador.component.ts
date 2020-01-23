@@ -3535,6 +3535,8 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   imprimirCertificadoInactivacion() {
+     console.log(this.registerMinturSelected);
+     return;
    this.imprimiendo_certificado_inactivacion = true;
    let provincia = new Ubication();
    let canton = new Ubication();
