@@ -92,8 +92,8 @@
   <div class="col-12 mb-2 mt-2">
     <h4>Descarga de documentos para inspección/verificación</h4>
   </div>
-  <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
-    <div class="input-group mb-3">
+  <div class="col-12">
+    <div class="input-group mb-3" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
       <div class="input-group-prepend">
         <button type="button" [disabled]="!SRIOK || please_wait_requisites" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()">
           <i class="fas fa-print"></i>&nbsp;Formulario de Requisitos (Check List)
