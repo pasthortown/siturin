@@ -178,7 +178,7 @@ export class InspectorComponent implements OnInit {
    totalABPuntos = 0;
    totalABPuntosShown = 0;
    categoryAB = 'Pendiente';
-   
+   tipo_tramite_seleccionado = 'pendiente';
    //ASIGNACIONES
    inspectores: User[] = [];
    financieros: User[] = [];
@@ -3101,6 +3101,10 @@ export class InspectorComponent implements OnInit {
          }).catch( e => { console.log(e); });
          this.stateTramiteId = element.states.state_id;
          this.estado = this.stateTramiteId.toString();
+         const primerDigito = this.estado.substring(0, this.estado.length-1);
+         if ((primerDigito == '5' || this.estado == '60') && (this.estado !== '50')) {
+            this.tipo_tramite_seleccionado = 'inactivation';
+         }
          this.checkMotivoTramite(this.estado);
          this.getApprovalStates();
       }

@@ -219,6 +219,7 @@ export class CoordinadorComponent implements OnInit {
    canSave = true;
    organization_type = '';
    hasRequisites = false;
+   tipo_tramite_seleccionado = 'pendiente';
    informeApprovalStateAttachment = new ApprovalStateAttachment();
    requisitosApprovalStateAttachment = new ApprovalStateAttachment();
    actaNotificacionApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
@@ -2556,6 +2557,10 @@ export class CoordinadorComponent implements OnInit {
          this.stateTramite = 0;
          this.estadoOrigen = 0;
          this.canSave = true;
+         const primerDigito = estado.substring(0, estado.length-1);
+         if ((primerDigito == '5' || estado == '60') && (estado !== '50')) {
+            this.tipo_tramite_seleccionado = 'inactivation';
+         }
          if (registerState.search('Solicitud Aprobada') == 0) {
             this.stateTramite = 1;
             this.hasRegisterReady = true;
@@ -4831,7 +4836,6 @@ selectKitchenType(kitchenType: KitchenType) {
          }
       }).catch( e => { console.log(e) });
      }
-   
   }
 
   getRucNameTypes() {

@@ -1295,7 +1295,7 @@
                   </ng-template>
                 </ngb-tab>
                 <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3"
-                  *ngIf="rucSaved() && SRIOK && declarations.length > 0">
+                  *ngIf="(rucSaved() && SRIOK && declarations.length > 0) && (tipo_tramite_seleccionado !== 'inactivation')">
                   <ng-template ngbTabContent>
                     <div class="row" *ngIf="mostrarDataRegister">
                       <div class="col-12">
