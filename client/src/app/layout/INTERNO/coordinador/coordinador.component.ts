@@ -3630,7 +3630,7 @@ selectKitchenType(kitchenType: KitchenType) {
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
       const today = new Date();
-      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();   
+      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-' + this.tipo_tramite + '-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();   
       const params = [{canton: canton.name.toUpperCase()},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {numero_registro: this.registerMinturSelected.register_data_on_catastro.register_code.toUpperCase()},
@@ -3710,7 +3710,7 @@ selectKitchenType(kitchenType: KitchenType) {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-' + this.tipo_tramite + '-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             let clasificacion = '';
             this.register_types.forEach(element => {
@@ -3832,7 +3832,7 @@ selectKitchenType(kitchenType: KitchenType) {
             const zonalName = zonal.name.split(' ');
             iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
             const today = new Date();
-            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-' + this.tipo_tramite + '-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
             const actividad = this.registerMinturSelected.activity.toUpperCase();
             let clasificacion = '';
             let template_id = 15;
