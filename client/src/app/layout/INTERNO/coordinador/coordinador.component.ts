@@ -3352,11 +3352,12 @@ selectKitchenType(kitchenType: KitchenType) {
             callePrincipal: r2.establishment.address_main_street.toUpperCase(),
             calleInterseccion: r2.establishment.address_secondary_street.toUpperCase(),
             numeracion: r2.establishment.address_number.toUpperCase(),
-            clasificacion: catastro_classification.toUpperCase(),
-            categoria: catastro_category.toUpperCase(),
+            clasificacion: this.catastro_classification.toUpperCase(),
+            categoria: this.catastro_category.toUpperCase(),
             tipoSolicitud: this.tipo_tramite.toUpperCase(),
             thisYear: today.getFullYear()};
             //AQUI
+            //this.registerCatastroDataService.inactivate_register()
             this.mailerDataService.inactivar_email(r.email, 'Inactivación de Registro Turístico', information).then( respMail => {
                Swal.fire(
                   'Confirmado!',

@@ -37,6 +37,13 @@ export class RegisterService {
       }).catch( error => { this.handledError(error.json());  });
    }
 
+   inactivate_register(code: String): Promise<any> {
+      return this.http.get(this.url + 'inactivate_register?register_code=' + code, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
    update_ruc_code_id(id: number, establishment_ruc_code: String, establishment_state: String): Promise<any> {
       return this.http.get(this.url + 'update_ruc_code_id?id=' + id.toString() + '&establishment_ruc_code=' + establishment_ruc_code + '&establishment_state=' + establishment_state, this.options).toPromise()
       .then( r => {
