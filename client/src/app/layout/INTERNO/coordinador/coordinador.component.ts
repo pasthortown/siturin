@@ -2834,9 +2834,12 @@ export class CoordinadorComponent implements OnInit {
      newRegisterState.register_id = this.idRegister;
      this.registroApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
      this.tarifarioRackApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+     this.certificadoInactivacionApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
      const today = new Date();
      this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     if (this.activity == 'ALOJAMIENTO') {
+     this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+     if (this.tipo_tramite_seleccionado !== 'inactivation') {
+      if (this.activity == 'ALOJAMIENTO') {
          this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
          this.registerStateDataService.post(newRegisterState).then( r1 => {
          }).catch( e => { console.log(e); });
@@ -2855,6 +2858,22 @@ export class CoordinadorComponent implements OnInit {
             }).catch( e => { console.log(e); });
          }).catch( e => { console.log(e); });    
       }
+     } else {
+      if (this.activity == 'ALOJAMIENTO') {
+         this.registerStateDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
+         this.approvalStateAttachmentDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
+            this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
+         }).catch( e => { console.log(e); });      
+      }
+      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+         this.registerStateABDataService.post(newRegisterState).then( r1 => {
+         }).catch( e => { console.log(e); });
+         this.approvalStateAttachmentABDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
+            this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
+         }).catch( e => { console.log(e); });    
+      }
+     }
   }
 
   selectServiceType(serviceType: ServiceType) {
@@ -3282,6 +3301,11 @@ selectKitchenType(kitchenType: KitchenType) {
             }).catch( e => { console.log(e); });
          }
       }).catch( e => { console.log(e); });
+  }
+
+  inactivar_into_catastro(pdfCertificadoInactivation) {
+   //AQUI
+   console.log("llegue");
   }
 
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
