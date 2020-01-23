@@ -305,7 +305,8 @@ export class InspectorComponent implements OnInit {
   secondaryPhoneEstablishmentValidated = true;
   urlwebEstablishmentValidated = true;
   establishment_certifications_establishmentSelected: EstablishmentCertification = new EstablishmentCertification();
-
+  catastro_category = '';
+  catastro_classification = '';
   //DATOS REGISTRO
   rowsRegister = [];
   columnsRegister = [];
@@ -1547,6 +1548,8 @@ export class InspectorComponent implements OnInit {
                created_at: creacion.toLocaleDateString(),
                code: item.register.code,
                category: thiscategory.toUpperCase(),
+               catastro_category: item.register_data_on_catastro.category.toUpperCase(),
+               catastro_classification: item.register_data_on_catastro.classification.toUpperCase(),
                system_source: item.register_data_on_catastro.system_source,
                status: registerState,
                status_id: item.states.state_id,
@@ -1970,7 +1973,16 @@ export class InspectorComponent implements OnInit {
             const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
             this.userDataService.get(zone.id_coordinator).then( resp => {
                const coordinatorName = resp.name;
-
+               let category = '';
+               let classification = '';
+               if (this.tipo_tramite_seleccionado !== 'inactivation') {
+                  category = clasificacion.toUpperCase();
+                  classification = r0.register_category.name.toUpperCase();
+               } else {
+                  category = this.catastro_category;
+                  classification = this.catastro_classification;       
+               }
+               
                this.documentDataService.get_doc_id(qr_value).then( respuesta => {
                   const codigo_informe = 'MT-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                   const params = [{codigo_informe: codigo_informe},
@@ -1987,10 +1999,10 @@ export class InspectorComponent implements OnInit {
                      {fecha_solicitud: (new Date(r0.register.updated_at.toString())).toLocaleDateString().toUpperCase()},
                      {parroquia: parroquia.name.toUpperCase()},
                      {actividad: actividad},
-                     {clasificacion: r0.register_category.name.toUpperCase()},
+                     {clasificacion: classification},
                      {tipo_tramite: this.tipo_tramite},
                      {fecha_inspeccion: new Date(this.registerApprovalInspector.date_fullfill.toString()).toLocaleDateString()},
-                     {categoria: clasificacion.toUpperCase()},
+                     {categoria: category},
                      {calle_principal: r2.establishment.address_main_street.toUpperCase()},            
                      {numeracion: r2.establishment.address_number.toUpperCase()},
                      {calle_secundaria: r2.establishment.address_secondary_street.toUpperCase()},
@@ -3090,6 +3102,8 @@ export class InspectorComponent implements OnInit {
    this.register_code = event.row.code;
    this.idRegister = event.row.registerId;
    this.activity = event.row.actividad;
+   this.catastro_category = event.row.catastro_category;
+   this.catastro_classification = event.row.catastro_classification;
    this.rows.forEach(row => {
       if (this.idRegister == row.registerId && this.activity == row.actividad) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
