@@ -3899,8 +3899,9 @@ selectKitchenType(kitchenType: KitchenType) {
                {categoria: clasificacion.toUpperCase()},
                {registro: r0.register.code.toUpperCase()},
                {representante_legal: this.representante_legal.toUpperCase()},
+               {coordinador_zonal: this.user.name.toUpperCase()},
                {clasificacion: r0.register_category.name.toUpperCase()},
-               {nombre_coordinador_Zonal: this.user.name.toUpperCase()},
+               {nombre_coordinador_zonal: this.user.name.toUpperCase()},
                {zonal: iniciales_cordinacion_zonal.toUpperCase()}];
             let document = new Documento();
             document.activity =actividad;
