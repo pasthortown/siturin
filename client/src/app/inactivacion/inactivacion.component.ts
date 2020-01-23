@@ -1651,7 +1651,7 @@ export class InactivacionComponent implements OnInit {
       }
      });
      this.selected_register_data = event.row;
-     console.log(this.selected_register_data);
+     this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
      this.establishment_ruc_code = event.row.establishment_ruc_code;
      this.getEstablishmentsOnRuc(1);
   }
