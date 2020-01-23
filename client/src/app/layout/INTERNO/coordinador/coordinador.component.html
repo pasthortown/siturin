@@ -689,7 +689,7 @@
                                     <input type="text" class="form-control" id="url_web" name="url_web" (keyup)="checkURLWeb()"
                                       placeholder="Ejemplo: www.google.com" [disabled]="true" [(ngModel)]="establishment_selected.url_web" />
                                   </div>
-                                  <div class="row">
+                                  <div class="row" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
                                     <div class="col-12">
                                       <div class="form-group">
                                         <label>Fotografía de la Fachada del Establecimiento*</label><span *ngIf="establishment_selected_picture.establishment_picture_file === ''"
