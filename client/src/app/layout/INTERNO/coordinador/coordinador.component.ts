@@ -3569,7 +3569,7 @@ selectKitchenType(kitchenType: KitchenType) {
    const today = new Date();
    let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
-
+      console.log(r2);
       const params = [{canton: canton.name.toUpperCase()},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {numero_registro: registerDataIncomming.register.code.toUpperCase()},
