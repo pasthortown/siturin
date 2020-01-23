@@ -3534,7 +3534,76 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   imprimirCertificadoInactivacion() {
-   //AQUI
+   this.imprimiendo_certificado_inactivacion = true;
+   let provincia = new Ubication();
+   let canton = new Ubication();
+   let parroquia = new Ubication();
+   let zonal = new Ubication();
+   this.ubications.forEach(element => {
+      if (element.id == r2.establishment.ubication_id) {
+      parroquia = element;
+      }
+   });
+   this.ubications.forEach(element => {
+      if (element.code == parroquia.father_code) {
+      canton = element;
+      }
+   });
+   this.ubications.forEach(element => {
+      if (element.code == canton.father_code) {
+      provincia = element;
+      }
+   });
+   this.ubications.forEach(element => {
+      if (element.code == provincia.father_code) {
+      zonal = element;
+      }
+   });
+   let iniciales_cordinador_zonal = '';
+   this.user.name.split(' ').forEach(element => {
+      iniciales_cordinador_zonal += element.substring(0, 1).toUpperCase();
+   });
+   let iniciales_cordinacion_zonal = '';
+   const zonalName = zonal.name.split(' ');
+   iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+   const today = new Date();
+   let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-REGISTRO-' + this.registerMinturSelected.activity.toUpperCase()  + '-' + iniciales_cordinador_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+   const params = [{canton: canton.name.toUpperCase()},
+      {fecha: today.toLocaleDateString().toUpperCase()},
+      {numero_registro: registerDataIncomming.register.code.toUpperCase()},
+      {razon_social: this.razon_social.toUpperCase()},
+      {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+      {representant_legal: this.representante_legal.toUpperCase()},
+      {ruc: this.ruc_registro_selected.ruc.number},
+      {zonal: iniciales_cordinacion_zonal.toUpperCase()},
+      {provincia: provincia.name.toUpperCase()},
+      {parroquia: parroquia.name.toUpperCase()},
+      {dirección: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
+      {coordinador_zonal: this.user.name.toUpperCase()},
+      {nombre_coordinador_zonal: this.user.name.toUpperCase()}];
+      let document = new Documento();
+      document.activity = actividad;
+      document.code = qr_value;
+      document.document_type = 'CERTIFICADO DE INACTIVACIÓN';
+      let paramsToBuild = {
+         template: 19, qr: true, qr_value: qr_value, params: params
+      };
+      document.procedure_id = this.tipo_tramite.toUpperCase();
+      document.zonal = zonal.name;
+      document.user = iniciales_cordinador_zonal;
+      document.params = JSON.stringify(paramsToBuild);
+      this.documentDataService.post(document).then().catch( e => { console.log(e); });
+      this.exporterDataService.template(19, true, qr_value, params).then( r => {
+         const byteCharacters = atob(r);
+         const byteNumbers = new Array(byteCharacters.length);
+         for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+         }
+         const byteArray = new Uint8Array(byteNumbers);
+         const blob = new Blob([byteArray], { type: 'application/pdf'});
+         saveAs(blob, qr_value + '.pdf');
+         this.imprimiendo_certificado_inactivacion = false;
+      }).catch( e => { console.log(e); });
   }
 
   imprimirRegistro() {
@@ -3636,7 +3705,6 @@ selectKitchenType(kitchenType: KitchenType) {
                {plazas: plazas},
                {coordinador_zonal: this.user.name.toUpperCase()},
                {nombre_coordinador_zonal: this.user.name.toUpperCase()}];
-   
             let document = new Documento();
             document.activity =actividad;
             document.code = qr_value;
@@ -3648,6 +3716,7 @@ selectKitchenType(kitchenType: KitchenType) {
             document.zonal = zonal.name;
             document.user = iniciales_cordinador_zonal;
             document.params = JSON.stringify(paramsToBuild);
+            //DEAQUI
             this.documentDataService.post(document).then().catch( e => { console.log(e); });
             this.exporterDataService.template(4, true, qr_value, params).then( r => {
                const byteCharacters = atob(r);
