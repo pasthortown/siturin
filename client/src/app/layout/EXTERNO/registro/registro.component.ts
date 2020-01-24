@@ -4103,91 +4103,100 @@ export class RegistroComponent implements OnInit {
   }
 
   calcSpaces(capacity?) {
- if(typeof capacity !== 'undefined') {
-    this.allowed_capacity_types.forEach(capacityType => {
-       if (capacityType.id == capacity.capacity_type_id) {
-          if (!capacityType.editable_spaces) {
-             capacity.max_spaces = capacityType.spaces * capacity.quantity;
-          }
-          if (capacity.max_beds > capacityType.bed_quantity){
-             capacity.max_beds = capacityType.bed_quantity;
-          }
-          if (capacity.max_beds == 0) {
-             capacity.max_beds = 1;
-          }
-       }
-    });
- }
- const lastValuesTariffs = {cabecera: [], valores: []};
- this.tarifarioRack.cabecera.forEach(c=> {
-    lastValuesTariffs.cabecera.push(c);
- });
- this.tarifarioRack.valores.forEach(v=> {
-    lastValuesTariffs.valores.push(v);
- });
- this.rucEstablishmentRegisterSelected.total_spaces = 0;
- this.rucEstablishmentRegisterSelected.total_habitations = 0;
- this.rucEstablishmentRegisterSelected.total_beds = 0;
- if (this.tarifarioRack.valores.length == this.rucEstablishmentRegisterSelected.capacities_on_register.length) {
-    for (let i = 0; i<this.rucEstablishmentRegisterSelected.capacities_on_register.length ; i++) {
-       this.tarifarioRack.valores[i].idTipoCapacidad = this.rucEstablishmentRegisterSelected.capacities_on_register[i].capacity_type_id;
-    }
- } else {
-    this.tarifarioRack.valores = [];
-    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
-       const childs = [];
-       let idTipoCapacidad = c1.capacity_type_id;
-       let editable = c1.editable;
-       if (this.modificadoCapacidades) {
-          editable = true;
-       }
-       this.tarifas.forEach(tariffType => {
-          tariffType.childs.forEach(tariffTypeChild => {
-             const es_referencia = tariffType.father.is_reference;
-             let plazasHabitacion = 0;
-             this.allowed_capacity_types.forEach(capacityType => {
-                if (capacityType.id == idTipoCapacidad) {
-                   plazasHabitacion = capacityType.spaces;
-                }
-             });
-             let nombreDivision = '';
-             nombreDivision = tariffTypeChild.name;
-             const tariff = new Tariff();
-             tariff.tariff_type_id = tariffTypeChild.id;
-             tariff.price = 0;
-             tariff.year = this.selected_year_id;
-             lastValuesTariffs.valores.forEach(tariffValue => {
-                if (tariffValue.idTipoCapacidad == idTipoCapacidad) {
-                   tariffValue.tariffs.forEach(t1 => {
-                      if (t1.tariff.tariff_type_id == tariff.tariff_type_id) {
-                         tariff.price = t1.tariff.price;
-                         tariff.year = t1.tariff.year;
-                      }
-                   });
-                }
-             });
-             tariff.capacity_type_id = c1.capacity_type_id;
-             tariff.isNewTariff = c1.isNewCapacity;
-             let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
-             childs.push(newChild);
-          });
-       });
-       const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
-       this.tarifarioRack.valores.push(topush);
-    });
- }
- this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {
-    this.allowed_capacity_types.forEach(capacityType => {
-       if (capacityType.id == c2.capacity_type_id) {
-          c2.editable_beds = capacityType.editable_beds;
-          c2.editable_spaces = capacityType.editable_spaces;
-       }
-    });
-    this.rucEstablishmentRegisterSelected.total_spaces += c2.max_spaces;
-    this.rucEstablishmentRegisterSelected.total_habitations += c2.quantity;
-    this.rucEstablishmentRegisterSelected.total_beds += (c2.max_beds * c2.quantity);
- });
-}
+   if(typeof capacity !== 'undefined') {
+      this.allowed_capacity_types.forEach(capacityType => {
+         if (capacityType.id == capacity.capacity_type_id) {
+            if (!capacityType.editable_spaces) {
+               capacity.max_spaces = capacityType.spaces * capacity.quantity;
+            }
+            if (capacity.max_beds > capacityType.bed_quantity){
+               capacity.max_beds = capacityType.bed_quantity;
+            }
+            if (capacity.max_beds == 0) {
+               capacity.max_beds = 1;
+            }
+         }
+      });
+   }
+   const lastValuesTariffs = {cabecera: [], valores: []};
+   this.tarifarioRack.cabecera.forEach(c=> {
+      lastValuesTariffs.cabecera.push(c);
+   });
+   this.tarifarioRack.valores.forEach(v=> {
+      lastValuesTariffs.valores.push(v);
+   });
+   this.rucEstablishmentRegisterSelected.total_spaces = 0;
+   this.rucEstablishmentRegisterSelected.total_habitations = 0;
+   this.rucEstablishmentRegisterSelected.total_beds = 0;
+   if (this.tarifarioRack.valores.length == this.rucEstablishmentRegisterSelected.capacities_on_register.length) {
+      for (let i = 0; i<this.rucEstablishmentRegisterSelected.capacities_on_register.length ; i++) {
+         this.tarifarioRack.valores[i].idTipoCapacidad = this.rucEstablishmentRegisterSelected.capacities_on_register[i].capacity_type_id;
+      }
+   } else {
+      this.tarifarioRack.valores = [];
+      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
+         const childs = [];
+         let idTipoCapacidad = c1.capacity_type_id;
+         let editable = c1.editable;
+         if (this.modificadoCapacidades) {
+            editable = true;
+         }
+         this.tarifas.forEach(tariffType => {
+            tariffType.childs.forEach(tariffTypeChild => {
+               const es_referencia = tariffType.father.is_reference;
+               let plazasHabitacion = 0;
+               this.allowed_capacity_types.forEach(capacityType => {
+                  if (capacityType.id == idTipoCapacidad) {
+                     plazasHabitacion = capacityType.spaces;
+                  }
+               });
+               let nombreDivision = '';
+               nombreDivision = tariffTypeChild.name;
+               const tariff = new Tariff();
+               tariff.tariff_type_id = tariffTypeChild.id;
+               tariff.price = 0;
+               tariff.year = this.selected_year_id;
+               lastValuesTariffs.valores.forEach(tariffValue => {
+                  if (tariffValue.idTipoCapacidad == idTipoCapacidad) {
+                     tariffValue.tariffs.forEach(t1 => {
+                        if (t1.tariff.tariff_type_id == tariff.tariff_type_id) {
+                           tariff.price = t1.tariff.price;
+                           tariff.year = t1.tariff.year;
+                        }
+                     });
+                  }
+               });
+               tariff.capacity_type_id = c1.capacity_type_id;
+               tariff.isNewTariff = c1.isNewCapacity;
+               let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
+               childs.push(newChild);
+            });
+         });
+         const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
+         this.tarifarioRack.valores.push(topush);
+         let ya_existe_capacidad = false;
+         this.tarifarioRack.valores.forEach(el_t_r => {
+            if (el_t_r.idTipoCapacidad == idTipoCapacidad) {
+               ya_existe_capacidad = true;
+            }
+         });
+         if (!ya_existe_capacidad) {
+            this.tarifarioRack.valores.push(topush);
+         }
+      });
+   }
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {
+      this.allowed_capacity_types.forEach(capacityType => {
+         if (capacityType.id == c2.capacity_type_id) {
+            c2.editable_beds = capacityType.editable_beds;
+            c2.editable_spaces = capacityType.editable_spaces;
+         }
+      });
+      this.rucEstablishmentRegisterSelected.total_spaces += c2.max_spaces;
+      this.rucEstablishmentRegisterSelected.total_habitations += c2.quantity;
+      this.rucEstablishmentRegisterSelected.total_beds += (c2.max_beds * c2.quantity);
+   });
+   }
 
   checkValuesTariffs() {
      this.tarifarioRack.valores.forEach(valor => {

@@ -5645,7 +5645,7 @@ selectKitchenType(kitchenType: KitchenType) {
   }
 
   calcSpaces(capacity?) {
-   this.getYears();
+     this.getYears();
    if(typeof capacity !== 'undefined') {
       this.allowed_capacity_types.forEach(capacityType => {
          if (capacityType.id == capacity.capacity_type_id) {
@@ -5717,6 +5717,15 @@ selectKitchenType(kitchenType: KitchenType) {
          });
          const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
          this.tarifarioRack.valores.push(topush);
+         let ya_existe_capacidad = false;
+         this.tarifarioRack.valores.forEach(el_t_r => {
+            if (el_t_r.idTipoCapacidad == idTipoCapacidad) {
+               ya_existe_capacidad = true;
+            }
+         });
+         if (!ya_existe_capacidad) {
+            this.tarifarioRack.valores.push(topush);
+         }
       });
    }
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {

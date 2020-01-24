@@ -6845,6 +6845,15 @@ guardarDeclaracion() {
          });
          const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
          this.tarifarioRack.valores.push(topush);
+         let ya_existe_capacidad = false;
+         this.tarifarioRack.valores.forEach(el_t_r => {
+            if (el_t_r.idTipoCapacidad == idTipoCapacidad) {
+               ya_existe_capacidad = true;
+            }
+         });
+         if (!ya_existe_capacidad) {
+            this.tarifarioRack.valores.push(topush);
+         }
       });
    }
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c2 => {
