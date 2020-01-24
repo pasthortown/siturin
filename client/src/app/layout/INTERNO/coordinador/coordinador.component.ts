@@ -2837,7 +2837,7 @@ export class CoordinadorComponent implements OnInit {
      this.certificadoInactivacionApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
      const today = new Date();
      this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_Cumplimiento_Obligaciones_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+     this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_Inactivación_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
      if (this.tipo_tramite_seleccionado !== 'inactivation') {
       if (this.activity == 'ALOJAMIENTO') {
          this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
@@ -3736,7 +3736,7 @@ selectKitchenType(kitchenType: KitchenType) {
       let document = new Documento();
       document.activity = actividad;
       document.code = qr_value;
-      document.document_type = 'CERTIFICADO DE CUMPLIMIENTO DE OBLIGACIONES';
+      document.document_type = 'CERTIFICADO DE INACTIVACIÓN';
       let paramsToBuild = {
          template: 19, qr: true, qr_value: qr_value, params: params
       };
