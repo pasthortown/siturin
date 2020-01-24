@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
       reader.onload = () => {
         this.profilePicture.file_name = file.name;
         this.profilePicture.file_type = file.type;
-        this.profilePicture.file = reader.result.toString().split(',')[1];
+        this.profilePicture.file = this.domSanitizer.bypassSecurityTrustUrl(reader.result.toString().split(',')[1]);
         this.profileImg = 'data:' + this.profilePicture.file_type + ';base64,' + this.profilePicture.file;
       };
     }
