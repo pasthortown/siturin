@@ -228,6 +228,8 @@ export class InspectorComponent implements OnInit {
   recordsByPageRegister = 5;
   mostrarData = true;
   group_types: GroupType[] = [];
+  hasdateByUserRequisites = false;
+  dateByUserRequisites = new Date();
   rucs_registrados: RegistroDataCarrier[] = [];
   representante_legal = '';
   ruc_registro_selected: RegistroDataCarrier = new RegistroDataCarrier();
@@ -1619,7 +1621,7 @@ export class InspectorComponent implements OnInit {
             this.documentDataService.get_doc_id(qr_value).then( respuesta => {
                const codigo = 'MT-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                const params = [{canton: canton.name.toUpperCase()},
-                  {fecha: new Date(this.registerApprovalInspector.date_fullfill.toString()).toLocaleDateString()},
+                  {fecha: this.dateByUserRequisites.toString()).toLocaleDateString()},
                   {codigo: codigo},
                   {numero_coordinacion_zonal: iniciales_cordinacion_zonal},
                   {aclaracion_registro: aclaracion_registro},
@@ -2223,7 +2225,11 @@ export class InspectorComponent implements OnInit {
                return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
             }
             const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+            this.hasdateByUserRequisites = true;
+            this.dateByUserRequisites = dateByUser;
             if (dateByUser < today) {
+               this.hasdateByUserRequisites = false;
+               this.dateByUserRequisites = new Date();
                return 'No se admiten fechas pasadas.';
             }
             this.please_wait_requisites = true;

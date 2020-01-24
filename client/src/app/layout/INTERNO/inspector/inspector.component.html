@@ -102,7 +102,7 @@
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <button type="button" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()">
+        <button type="button" [disabled]="!SRIOK || imprimiendo_acta || !hasdateByUserRequisites" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()">
           <i class="fas fa-file-powerpoint"></i>&nbsp;Acta de Notificación
         </button>
       </div>
