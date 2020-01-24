@@ -4016,7 +4016,7 @@ export class RegistroComponent implements OnInit {
      reader.onload = () => {
        this.establishment_selected_picture.establishment_picture_file_name = file.name;
        this.establishment_selected_picture.establishment_picture_file_type = file.type;
-       this.establishment_selected_picture.establishment_picture_file = domSanitizer.bypassSecurityTrustUrl(reader.result.toString().split(',')[1]);
+       this.establishment_selected_picture.establishment_picture_file = this.domSanitizer.bypassSecurityTrustUrl(reader.result.toString().split(',')[1]);
      };
     }
    }
