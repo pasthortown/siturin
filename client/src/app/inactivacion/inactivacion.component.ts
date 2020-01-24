@@ -1452,14 +1452,16 @@ export class InactivacionComponent implements OnInit {
           updated_at: item.updated_at,
           web: item.web,
        };
-       if (newItem.system_source == 'SIETE') {
-          dataSIETE.push(newItem);
-       }
-       if (newItem.system_source == 'SITURIN') {
-          dataSITURIN.push(newItem);
-       }
-       if (newItem.system_source !== 'SITURIN' || newItem.system_source !== 'SIETE') {
-          dataOTHERS.push(newItem);
+       if (newItem.establishment_state == 'Abierto') {
+         if (newItem.system_source == 'SIETE') {
+            dataSIETE.push(newItem);
+         }
+         if (newItem.system_source == 'SITURIN') {
+            dataSITURIN.push(newItem);
+         }
+         if (newItem.system_source !== 'SITURIN' || newItem.system_source !== 'SIETE') {
+            dataOTHERS.push(newItem);
+         }
        }
    });
    dataSITURIN.forEach(element => {
