@@ -3909,16 +3909,18 @@ guardarDeclaracion() {
   calcTotalPoints() {
    let totalScore = 0;
    let totalScoreShown = 0;
+   let totalAviable = 0;
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+      totalAviable += element.score * 1;
       if (element.fullfill) {
-         totalScore += element.score * 1;
+         totalScore += element.score;
          if (!element.mandatory) {
             totalScoreShown += element.score * 1;
          }
       }
    });
-   this.totalABPuntos = totalScore;
-   this.totalABPuntosShown = totalScoreShown;
+   this.totalABPuntos = totalScore * 100 / totalAviable;
+   this.totalABPuntosShown = totalScoreShown * 100 / totalAviable;
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points <= this.totalABPuntos) {
