@@ -2830,12 +2830,12 @@ export class RegistroComponent implements OnInit {
       this.establishment_declarations_selected.id = r.id;
       if (typeof this.establishment_selected_picture.id === 'undefined') {
          this.establishment_selected_picture.establishment_id = r.id;
-         this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r => {
+         this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r_picture => {
             this.selectRegisterEstablishment(this.establishment_selected);
             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
          }).catch( e => console.log(e) );
       } else {
-         this.establishmentPictureDataService.put(this.establishment_selected_picture).then( r => {
+         this.establishmentPictureDataService.put(this.establishment_selected_picture).then( r_picture => {
             this.selectRegisterEstablishment(this.establishment_selected);
             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
          }).catch( e => console.log(e) );
