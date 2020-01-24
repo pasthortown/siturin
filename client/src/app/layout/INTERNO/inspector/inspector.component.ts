@@ -1621,7 +1621,7 @@ export class InspectorComponent implements OnInit {
             this.documentDataService.get_doc_id(qr_value).then( respuesta => {
                const codigo = 'MT-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
                const params = [{canton: canton.name.toUpperCase()},
-                  {fecha: this.dateByUserRequisites.toString()).toLocaleDateString()},
+                  {fecha: this.dateByUserRequisites.toString().toLocaleDateString()},
                   {codigo: codigo},
                   {numero_coordinacion_zonal: iniciales_cordinacion_zonal},
                   {aclaracion_registro: aclaracion_registro},
