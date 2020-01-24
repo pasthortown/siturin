@@ -3316,7 +3316,7 @@ export class RegistroComponent implements OnInit {
             max_year = element.year;
          }
       });
-      //AQUI
+      console.log(this.tarifarioRack);
       this.tarifarioRack.valores.forEach(element => {
          element.tariffs.forEach(tariffRack => {
             const tariff = tariffRack.tariff;
