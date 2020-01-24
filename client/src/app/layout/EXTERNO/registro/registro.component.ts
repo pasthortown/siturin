@@ -3802,6 +3802,7 @@ export class RegistroComponent implements OnInit {
        this.capacityTypeDataService.get_filtered_by_register_type(this.rucEstablishmentRegisterSelected.register_type_id).then( r2 => {
          this.allowed_capacity_types = r2 as CapacityType[];
          //AQUI
+         console.log('entre');
          this.getTarifarioRack(register.id);
          this.mostrarDataRegister = true;
          this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
