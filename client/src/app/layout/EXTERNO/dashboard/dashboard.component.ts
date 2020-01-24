@@ -1480,6 +1480,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onCellClickEstablishment(event) {
+   this.establishment_selected_picture = new EstablishmentPicture();
    if (event.row.name == ''){
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
       return;
@@ -4185,14 +4186,14 @@ guardarDeclaracion() {
          return;
       }
       this.establishment_declarations_selected.id = r.id;
-      if (typeof this.establishment_selected_picture.id === 'undefined') {
-         this.establishment_selected_picture.establishment_id = r.id;
-         this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r => {
+      this.establishment_selected_picture.establishment_id = r.id;
+         if (typeof this.establishment_selected_picture.id === 'undefined') {
+         this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r_picture => {
             this.selectRegisterEstablishment(this.establishment_selected);
             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
          }).catch( e => console.log(e) );
       } else {
-         this.establishmentPictureDataService.put(this.establishment_selected_picture).then( r => {
+         this.establishmentPictureDataService.put(this.establishment_selected_picture).then( r_picture => {
             this.selectRegisterEstablishment(this.establishment_selected);
             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
          }).catch( e => console.log(e) );

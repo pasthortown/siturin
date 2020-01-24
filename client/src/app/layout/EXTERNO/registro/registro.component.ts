@@ -786,6 +786,7 @@ export class RegistroComponent implements OnInit {
   }
 
   onCellClickEstablishment(event) {
+     this.establishment_selected_picture = new EstablishmentPicture();
    if (event.row.name == ''){
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
       return;
