@@ -47,7 +47,6 @@ import { EstablishmentPicture } from 'src/app/models/BASE/EstablishmentPicture';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
 import { TaxPayerType } from 'src/app/models/BASE/TaxPayerType';
@@ -352,7 +351,6 @@ export class RegistroComponent implements OnInit {
               private requisiteDataService: RequisiteService,
               private bedTypeDataService: BedTypeService,
               private declarationDataService: DeclarationService,
-              private domSanitizer: DomSanitizer,
               private declarationItemCategoryDataService: DeclarationItemCategoryService,
               private declarationItemDataService: DeclarationItemService,
               private tariffTypeDataService: TariffTypeService,
@@ -4016,7 +4014,7 @@ export class RegistroComponent implements OnInit {
      reader.onload = () => {
        this.establishment_selected_picture.establishment_picture_file_name = file.name;
        this.establishment_selected_picture.establishment_picture_file_type = file.type;
-       this.establishment_selected_picture.establishment_picture_file = this.domSanitizer.bypassSecurityTrustUrl(reader.result.toString().split(',')[1]);
+       this.establishment_selected_picture.establishment_picture_file = reader.result.toString().split(',')[1];
      };
     }
    }
