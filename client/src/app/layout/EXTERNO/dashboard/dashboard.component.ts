@@ -57,7 +57,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
 import { TaxPayerType } from 'src/app/models/BASE/TaxPayerType';
@@ -423,6 +423,7 @@ export class DashboardComponent implements OnInit {
               private requisiteABDataService: RequisiteABService,
               private approvalStateAttachmentDataService: ApprovalStateAttachmentService,
               private modalService: NgbModal,
+              private domSanitizer: DomSanitizer,
               private agreementDataService: AgreementService,
               private rucNameTypeDataService: RucNameTypeService,
               private group_typeDataService: GroupTypeService,

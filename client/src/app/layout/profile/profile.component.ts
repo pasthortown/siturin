@@ -6,6 +6,7 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastrManager,
     private authDataServise: AuthService,
     private profilePictureDataService: ProfilePictureService,
+    private domSanitizer: DomSanitizer,
     private userDataService: UserService) {
     this.user = new User();
     this.profilePicture = new ProfilePicture();
