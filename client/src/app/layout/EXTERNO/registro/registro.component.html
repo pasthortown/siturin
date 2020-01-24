@@ -447,16 +447,8 @@
                                       </div>
                                     </div>
                                     <div class="col-12 text-center">
-                                      <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file !== '' && !rucEstablishmentRegisterSelected.editable" src="data:{{
-                                          establishment_selected_picture.establishment_picture_file_type
-                                        }};base64,{{
-                                          establishment_selected_picture.establishment_picture_file
-                                        }}" height="400px" width="600px" />
-                                      <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file !== '' && rucEstablishmentRegisterSelected.editable" src="data:{{
-                                          establishment_selected_picture.establishment_picture_file_type
-                                        }};base64,{{
-                                          establishment_selected_picture.establishment_picture_file
-                                        }}" height="400px" width="600px" (click)="subirFotoFachada()" />
+                                      <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file !== '' && !rucEstablishmentRegisterSelected.editable" [src]="'data:' + establishment_selected_picture.establishment_picture_file_type + ';base64,' + establishment_selected_picture.establishment_picture_file" height="400px" width="600px" />
+                                      <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file !== '' && rucEstablishmentRegisterSelected.editable" [src]="'data:' + establishment_selected_picture.establishment_picture_file_type + ';base64,' + establishment_selected_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
                                     </div>
                                     <div class="col-12 text-center" *ngIf="rucEstablishmentRegisterSelected.editable">
                                       <button type="button" class="btn btn-primary" (click)="subirFotoFachada()">
