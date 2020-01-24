@@ -591,7 +591,7 @@
                     [maxSize]="10"
                     [boundaryLinks]="true"
                     (pageChange)="onChangeTableEstablishment(config, $event)"
-                    [collectionSize]="ruc_registro_selected.ruc.establishments.length">
+                    [collectionSize]="dataEstablishment.length">
                     <ng-template ngbPaginationFirst>Primera</ng-template>
                     <ng-template ngbPaginationPrevious>Anterior</ng-template>
                     <ng-template ngbPaginationNext>Siguiente</ng-template>
