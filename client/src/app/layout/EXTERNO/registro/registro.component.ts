@@ -387,8 +387,9 @@ export class RegistroComponent implements OnInit {
       if (element.fullfill) {
          totalScore += element.score;
          if (!element.mandatory) {
-            totalAviableExtra += element.score * 1;;
             totalScoreShown += element.score * 1;
+         } else {
+            totalAviableExtra += element.score * 1;
          }
       }
    });
