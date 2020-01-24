@@ -3791,12 +3791,12 @@ export class RegistroComponent implements OnInit {
        this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register = r.complementary_service_foods_on_register as ComplementaryServiceFood[];
        this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
        this.calcSpaces();
-       this.getTarifarioRack(register.id);
        this.getCategories();
        this.getAllowedInfo(r.requisites);
        this.allowed_capacity_types = [];
        this.capacityTypeDataService.get_filtered_by_register_type(this.rucEstablishmentRegisterSelected.register_type_id).then( r2 => {
          this.allowed_capacity_types = r2 as CapacityType[];
+         this.getTarifarioRack(register.id);
          this.mostrarDataRegister = true;
          this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
             this.getMaxBed(capacity);
