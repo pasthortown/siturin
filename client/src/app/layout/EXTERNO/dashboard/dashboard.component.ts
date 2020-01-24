@@ -1984,7 +1984,7 @@ export class DashboardComponent implements OnInit {
    this.my_classification_current = event.row.classification;
    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
    this.rows.forEach(row => {
-      if (this.register_code == row.register_code && row.as_turistic_date == this.register_as_turistic_Date) {
+      if (event.row == row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
       } else {
          row.selected = '';
