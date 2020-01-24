@@ -2828,8 +2828,8 @@ export class RegistroComponent implements OnInit {
          return;
       }
       this.establishment_declarations_selected.id = r.id;
+      this.establishment_selected_picture.establishment_id = r.id;
       if (typeof this.establishment_selected_picture.id === 'undefined') {
-         this.establishment_selected_picture.establishment_id = r.id;
          this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r_picture => {
             this.selectRegisterEstablishment(this.establishment_selected);
             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
