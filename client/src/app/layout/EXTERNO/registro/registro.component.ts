@@ -4103,7 +4103,6 @@ export class RegistroComponent implements OnInit {
   }
 
   calcSpaces(capacity?) {
-   this.getYears();
  if(typeof capacity !== 'undefined') {
     this.allowed_capacity_types.forEach(capacityType => {
        if (capacityType.id == capacity.capacity_type_id) {
