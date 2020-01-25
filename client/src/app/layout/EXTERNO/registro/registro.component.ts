@@ -4261,6 +4261,8 @@ export class RegistroComponent implements OnInit {
                });
             });
             const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
+            console.log(this.tarifas);
+            console.log(topush);
             this.tarifarioRack.valores.push(topush);
             let ya_existe_capacidad = false;
             this.tarifarioRack.valores.forEach(el_t_r => {
@@ -4268,7 +4270,6 @@ export class RegistroComponent implements OnInit {
                   ya_existe_capacidad = true;
                }
             });
-            console.log(this.tarifarioRack);
             if (!ya_existe_capacidad) {
                this.tarifarioRack.valores.push(topush);
             }
