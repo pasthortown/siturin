@@ -545,6 +545,9 @@ export class InspectorComponent implements OnInit {
 
   changeTabActiveSuperior(event) {
    this.tabActiveSuperior = event.nextId;
+   if (this.tabActiveSuperior == 'tab2') {
+      this.getEstablishmentsOnRuc(1);
+   }
   }
 
   validateNombreComercial() {
@@ -5720,7 +5723,6 @@ selectKitchenType(kitchenType: KitchenType) {
                });
             });
             const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
-            this.tarifarioRack.valores.push(topush);
             let ya_existe_capacidad = false;
             this.tarifarioRack.valores.forEach(el_t_r => {
                if (el_t_r.idTipoCapacidad == idTipoCapacidad) {

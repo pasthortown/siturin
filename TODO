@@ -48,25 +48,7 @@ mintur.123
 
 
 
-
-
-// SI TODO SALE MAL
-
-INSERT INTO public.users(
-	id, created_at, updated_at, name, email, password, address, address_map_latitude, address_map_longitude, main_phone_number, secondary_phone_number, identification, ruc, api_token)
-	VALUES (1, '2020-01-03 17:41:44', '2020-01-03 17:41:44', 'Consultor Catastro', 'consultor.catastro@turismo.gob.ec', 'eyJpdiI6Im40dHFSeGh1eXdnZEI1ZDF3TTM1ZlE9PSIsInZhbHVlIjoid3FtUFdhdHp3U2Zva1hjZmRVdjVPb28zR1ZrM0RIamcrWmRZR1owdzM0az0iLCJtYWMiOiI5ODk5YmEzODFiYmE5ZTc5Yzk2ZGVmY2M5NDNmYmE0YjYyOWZkMTIxNjQxODA3OGZlMTNkMWViOTgzMzE0ZWU5In0=', null, null, null, '0000000000', '0000000000', '0000000000', '0000000000001', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWJqZWN0IjoyLCJjcmVhdGlvbl90aW1lIjoxNTc4MDkxMzA0LCJleHBpcmF0aW9uX3RpbWUiOjE1NzgwOTQ5MDR9.Bn5MJOEX0PxeZD0_myJtIfnPyxH18lPzCX75XV-Brxc');
-INSERT INTO public.users(
-	id, created_at, updated_at, name, email, password, address, address_map_latitude, address_map_longitude, main_phone_number, secondary_phone_number, identification, ruc, api_token)
-	VALUES (2, '2020-01-03 17:41:44', '2020-01-03 17:41:44', 'SALAZAR VACA LUIS ALFONSO', 'luis.salazar@turismo.gob.ec', 'eyJpdiI6ImhEZUVuMzBobXpRa3lCS1wvVjVVMVpnPT0iLCJ2YWx1ZSI6IjZNd09OSzVQQ1ozUmFNWWxCK2RvcWI4cXE2dFdXY25vUFJubFVuaVFQdjA9IiwibWFjIjoiMWU1M2I0NDRlZDlkY2Y5MmQ4MjI1NWQ0Y2U4ZjU1OGQ1MjYyNmE2ZTdhN2NkNjdhMzkxMzllNDI0YTY0NjJiNyJ9', null, null, null, '0000000000', '0000000000', '1720364049', '1720364049001', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWJqZWN0IjoyLCJjcmVhdGlvbl90aW1lIjoxNTc4MDkxMzA0LCJleHBpcmF0aW9uX3RpbWUiOjE1NzgwOTQ5MDR9.Bn5MJOEX0PxeZD0_myJtIfnPyxH18lPzCX75XV-Brxc');
-INSERT INTO public.account_rol_assigments(
-	id, created_at, updated_at, account_rol_id, user_id)
-	VALUES (1, '2020-01-03 17:41:44', '2020-01-03 17:41:44', 1, 2);
-INSERT INTO public.account_rol_assigments(
-	id, created_at, updated_at, account_rol_id, user_id)
-	VALUES (2, '2020-01-03 17:41:44', '2020-01-03 17:41:44', 10, 1);
-
 TRAER ULTIMO REGISTRO POR CODIGO
-VALIDAR QUE SUCEDE CON LAS CAPACIDADES
 Validar Puntaje
 BITÁCORA
 GADs

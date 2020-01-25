@@ -1251,6 +1251,9 @@ export class DashboardComponent implements OnInit {
 
   changeTabActiveSuperior(event) {
    this.tabActiveSuperior = event.nextId;
+   if (this.tabActiveSuperior == 'tab2') {
+      this.getEstablishmentsOnRuc(1);
+   }
   }
 
   desasignarInspector() {
@@ -5282,7 +5285,7 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
             const childs = [];
             let idTipoCapacidad = c1.capacity_type_id;
-            let editable = c1.editable;
+            let editable = false;
             if (this.modificadoCapacidades) {
                editable = true;
             }
@@ -5318,7 +5321,6 @@ guardarDeclaracion() {
                });
             });
             const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
-            this.tarifarioRack.valores.push(topush);
             let ya_existe_capacidad = false;
             this.tarifarioRack.valores.forEach(el_t_r => {
                if (el_t_r.idTipoCapacidad == idTipoCapacidad) {
