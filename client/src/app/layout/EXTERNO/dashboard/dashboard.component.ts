@@ -2456,16 +2456,17 @@ export class DashboardComponent implements OnInit {
          this.tariffsToShow.cabecera.push(c);
       });
       this.tarifarioRack.valores.forEach(v=> {
+         let insertar = false;
          v.tariffs.forEach(v1 => {
             if (v1.tariff.year == this.selected_year_id) {
-               this.tariffsToShow.valores.push(v);
+               insertar = true;
             }
          });
+         if (insertar) {
+            this.tariffsToShow.valores.push(v);
+         }
       });
    }
-   this.listaPrecios = new FoodDrinkAttachment();
-   const today = new Date();
-   this.listaPrecios.year = today.getFullYear();
    this.listasPrecios.forEach(element => {
       if (element.year == this.selected_year_id) {
          this.listaPrecios = element;
