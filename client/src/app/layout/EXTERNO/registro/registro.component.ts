@@ -176,8 +176,13 @@ export class RegistroComponent implements OnInit {
   cedulaEstablishmentContactData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
   tax_payer_types: TaxPayerType[] = [];
   registersByEstablishment: any[] = [];
+  listasPrecios: FoodDrinkAttachment[] = [];
+  capacitiesToShow: any[] = [];
   canAlojamiento = true;
   canAlimentosBebidas = true;
+  canEditCapacity = false;
+  currentYear = 2019;
+  minYear = 2019;
   zonalSelectedCode = '-';
   registerTypesAB: any[] = [];
   provinciaSelectedCode = '-';
@@ -223,8 +228,11 @@ export class RegistroComponent implements OnInit {
   cantonEstablishmentSelectedCode = '-';
   zonalesEstablishment: Ubication[] = [];
   provinciasEstablishment: Ubication[] = [];
+  tariffsToShow = {cabecera: [], valores: []};
+  modificadoCapacidades = false;
   ruc_name_types: RucNameType[] = [];
   cantonesEstablishment: Ubication[];
+  selected_year_id = 2019;
   parroquiasEstablishment: Ubication[];
   preview_register_codes: PreviewRegisterCode[] = [];
   establishment_selected: Establishment = new Establishment();
@@ -294,6 +302,7 @@ export class RegistroComponent implements OnInit {
   REGCIVILOKEstablishment = false;
   REGCIVILREPRESENTANTELEGALOK = false;
   guardando = false;
+  years: any[] = [];
 
   //DECLARACIONES
   currentPageDeclaration = 1;
@@ -1248,6 +1257,80 @@ export class RegistroComponent implements OnInit {
 
   selectComplementaryFoodService(complementaryServiceFood: ComplementaryServiceFood) {
    this.complementaryServiceFoodSelected = complementaryServiceFood;
+  }
+
+  getYears() {
+   this.years = [];
+   const today = new Date();
+   this.minYear = 2019;
+   let lastYearDeclared = 2019;
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
+      let existe = false;
+      this.years.forEach(year => {
+         if (year.value == capacity.year) {
+            existe = true;
+         }
+      });
+      if (capacity.year < this.minYear) {
+         this.minYear = capacity.year;
+      }
+      if (capacity.year > lastYearDeclared){
+         lastYearDeclared = capacity.year;
+      }
+      if (!existe) {
+         let newYear = capacity.year;
+         if (newYear != null) {
+            this.years.push({value: newYear});
+         }
+      }
+   });
+   this.years.sort(function(a, b) {
+      const a_value = a.value;
+      const b_value = b.value;
+      return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
+  });
+  this.selected_year_id = lastYearDeclared;
+  this.yearCapacity();
+ }
+
+ yearCapacity() {
+   if (this.selected_year_id > this.currentYear) {
+      this.canEditCapacity = true;
+   } else {
+      this.canEditCapacity = false;
+   }
+   this.capacitiesToShow = [];
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
+      if (c1.year == this.selected_year_id) {
+         this.capacitiesToShow.push(c1);
+      }
+   });
+   if (this.actividadSelected == '2') {
+      if (this.capacitiesToShow.length == 0) {
+         const newCapacity = new CapacityAB();
+         newCapacity.year = this.selected_year_id;
+         this.capacitiesToShow.push(newCapacity);
+      }
+   }
+   this.tariffsToShow.cabecera = [];
+   this.tariffsToShow.valores = [];
+   if (this.actividadSelected == '1') {
+      this.tarifarioRack.cabecera.forEach(c=> {
+         this.tariffsToShow.cabecera.push(c);
+      });
+      this.tarifarioRack.valores.forEach(v=> {
+         v.tariffs.forEach(v1 => {
+            if (v1.tariff.year == this.selected_year_id) {
+               this.tariffsToShow.valores.push(v);
+            }
+         });
+      });
+   }
+   this.listasPrecios.forEach(element => {
+      if (element.year == this.selected_year_id) {
+         this.listaPrecios = element;
+      }
+   });
   }
 
   removeComplementaryFoodService(complementaryServiceFood: ComplementaryServiceFood) {
