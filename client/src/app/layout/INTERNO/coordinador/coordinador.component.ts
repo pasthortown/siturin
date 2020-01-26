@@ -6554,25 +6554,32 @@ guardarDeclaracion() {
   calcTotalPoints() {
    let totalScore = 0;
    let totalScoreShown = 0;
+   let totalAviable = 0;
+   let totalAviableExtra = 0;
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+      totalAviable += element.score * 1;
       if (element.fullfill) {
-         totalScore += element.score * 1;
+         totalScore += element.score;
          if (!element.mandatory) {
             totalScoreShown += element.score * 1;
+         } else {
+            totalAviableExtra += element.score * 1;
          }
       }
    });
-   this.totalABPuntos = totalScore;
-   this.totalABPuntosShown = totalScoreShown;
+   this.totalABPuntos = totalScore * 100 / totalAviable;
+   this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);
+   console.log(this.totalABPuntos);
+   console.log(this.totalABPuntosShown);
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
-      if (category.min_points <= this.totalABPuntos) {
+      if (category.min_points*1 <= this.totalABPuntosShown*1) {
          this.categoryAB = category.name;
          this.rucEstablishmentRegisterSelected.register_type_id = category.id;
       }
    });
   }
-
+  
  getServiceType() {
    this.service_types = [];
    let categorySelectedID = 0;
