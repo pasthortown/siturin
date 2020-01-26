@@ -409,7 +409,7 @@ export class RegistroComponent implements OnInit {
    console.log(this.totalABPuntosShown);
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
-      if (category.min_points <= this.totalABPuntos) {
+      if (category.min_points*1 <= this.totalABPuntosShown*1) {
          this.categoryAB = category.name;
          this.rucEstablishmentRegisterSelected.register_type_id = category.id;
       }
