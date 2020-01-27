@@ -5136,7 +5136,7 @@ guardarDeclaracion() {
 
   addComplementaryServiceType() {
     if (this.complementary_service_types_registerSelectedId === 0) {
-      this.toastr.errorToastr('Seleccione un coordinador.', 'Error');
+      this.toastr.errorToastr('Seleccione un registro.', 'Error');
       return;
     }
     this.complementary_service_types.forEach(complementary_capacity => {
