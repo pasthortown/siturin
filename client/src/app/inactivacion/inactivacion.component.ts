@@ -1452,7 +1452,7 @@ export class InactivacionComponent implements OnInit {
           updated_at: item.updated_at,
           web: item.web,
        };
-       if (newItem.establishment_state == 'Abierto') {
+       if (newItem.establishment_state.toUpperCase() == 'ABIERTO') {
          if (newItem.system_source == 'SIETE') {
             dataSIETE.push(newItem);
          }
