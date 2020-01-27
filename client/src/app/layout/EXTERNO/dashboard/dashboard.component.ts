@@ -3756,6 +3756,8 @@ guardarDeclaracion() {
    if (this.resetCap) {
       this.capacitiesToShow = [];
       this.rucEstablishmentRegisterSelected.capacities_on_register = [];
+      this.tarifarioRack.valores = [];
+      this.calcSpaces();
    }
   }
 
@@ -5288,6 +5290,7 @@ guardarDeclaracion() {
    const today = new Date();
    newCapacity.year = today.getFullYear();
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+   this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
   }
 
   newTariffs(): Tariff[] {
