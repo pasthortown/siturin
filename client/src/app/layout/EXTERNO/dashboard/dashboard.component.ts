@@ -5353,16 +5353,13 @@ guardarDeclaracion() {
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(element => {
-      console.log({element: element, capacity: capacity});
       if (capacity.year == this.selected_year_id) {
          if (capacity.capacity_type_id != element.capacity_type_id) {
-            console.log("entre");
             newCapacities.push(element);
          }
       }
    });
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
-   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.capacitiesToShow = [];
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c1 => {
       if (c1.year == this.selected_year_id) {
