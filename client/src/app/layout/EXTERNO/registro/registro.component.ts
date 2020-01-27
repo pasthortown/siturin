@@ -372,6 +372,8 @@ export class RegistroComponent implements OnInit {
   ngOnInit() {
    const today = new Date();
    this.thisYear = today.getFullYear();
+   this.selected_year_id = this.thisYear;
+   this.currentYear = this.thisYear;
    this.getTramiteStates();
    this.getUser();
    this.getDeclarationCategories();
