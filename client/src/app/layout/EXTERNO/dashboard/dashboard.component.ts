@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
    @ViewChild('pasosSuperioresActualizandoCapacidadesPrecios') pasosSuperioresActualizandoCapacidadesPreciosTabSet;
    @ViewChild('pasosSuperioresDeclarandoUnoMil') pasosSuperioresDeclarandoUnoMilTabSet;
    @ViewChild('pasosActualizandoCapacidadesPrecios') pasosActualizandoCapacidadesPreciosTabSet;
-   @ViewChild('pasosSuperioresDeclarandoUnoMil') pasosDeclarandoUnoMilTabSet;
+   @ViewChild('pasosDeclarandoUnoMil') pasosDeclarandoUnoMilTabSet;
    
    idTramiteEstadoFilter = 0;
    tramite = '-';
@@ -1248,6 +1248,28 @@ export class DashboardComponent implements OnInit {
          this.refresh();
       }).catch( e => { console.log(e); });
    }).catch( e => { console.log(e); });
+  }
+
+  changeTabActiveActualizandoCapacidadesPrecios(event) {
+   this.tabActive = event.nextId;
+  }
+
+  changeTabActiveSuperiorActualizandoCapacidadesPrecios(event) {
+   this.tabActiveSuperior = event.nextId;
+   if (this.tabActiveSuperior == 'tab2') {
+      this.getEstablishmentsOnRuc(1);
+   }
+  }
+
+  changeTabActiveDeclarandoUnoMil(event) {
+   this.tabActive = event.nextId;
+  }
+
+  changeTabActiveSuperiorDeclarandoUnoMil(event) {
+   this.tabActiveSuperior = event.nextId;
+   if (this.tabActiveSuperior == 'tab2') {
+      this.getEstablishmentsOnRuc(1);
+   }
   }
 
   changeTabActive(event) {
