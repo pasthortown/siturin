@@ -4033,20 +4033,24 @@ export class RegistroComponent implements OnInit {
                c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
             }
          });
-         let c8: Boolean = true;
-         this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
-            if (element.mandatory) {
-               if (!element.fullfill) {
-                  c8 = false;
-               }   
-            }
-         });
-         toReturn = !(c2 || c3 || c4 || c5 || c6 || c7 || !c8);
+         toReturn = !(c2 || c3 || c4 || c5 || c6 || c7 );
       }
       if (!this.rucEstablishmentRegisterSelected.editable) {
          toReturn = false;
       }
       return toReturn;
+  }
+
+  validateRequisites() {
+   let validated: Boolean = true;
+   this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+      if (element.mandatory) {
+         if (!element.fullfill) {
+            validated = false;
+         }   
+      }
+   });
+   return validated;
   }
 
   removeKitchenType() {
