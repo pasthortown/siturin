@@ -397,8 +397,8 @@ export class RegistroComponent implements OnInit {
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
       totalAviable += element.score * 1;
       if (element.fullfill) {
-         totalScore += element.score;
          if (!element.mandatory) {
+            totalScore += element.score;
             totalScoreShown += element.score * 1;
          } else {
             totalAviableExtra += element.score * 1;
@@ -2575,6 +2575,7 @@ export class RegistroComponent implements OnInit {
       this.getCapacityTypesAB();
       const today = new Date();
       const newCapacity = new CapacityAB();
+      this.modificadoCapacidades = true;
       newCapacity.year = today.getFullYear();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
@@ -4169,6 +4170,8 @@ export class RegistroComponent implements OnInit {
   addCapacity() {
    const newCapacity = new Capacity();
    newCapacity.editable = true;
+   newCapacity.isNewCapacity = true;
+   this.modificadoCapacidades = true;
    const today = new Date();
    newCapacity.year = today.getFullYear();
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
