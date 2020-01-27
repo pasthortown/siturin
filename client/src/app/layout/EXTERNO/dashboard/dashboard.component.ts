@@ -3792,8 +3792,6 @@ guardarDeclaracion() {
       this.capacitiesToShow = [];
       this.rucEstablishmentRegisterSelected.capacities_on_register = [];
       this.tarifarioRack.valores = [];
-      const today = new Date();
-      this.years.push(today.getFullYear());
       this.calcSpaces();
    }
   }
@@ -5163,6 +5161,10 @@ guardarDeclaracion() {
       const b_value = b.value;
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
   });
+  if (this.years.length == 1) { 
+   const today = new Date();
+   this.years.push(today.getFullYear());
+  }
   this.selected_year_id = lastYearDeclared;
   this.yearCapacity();
  }
