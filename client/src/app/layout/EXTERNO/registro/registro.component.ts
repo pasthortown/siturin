@@ -2015,6 +2015,7 @@ export class RegistroComponent implements OnInit {
   }
 
   guardarRegistro() {
+   this.rucEstablishmentRegisterSelected.capacities_on_register = this.capacitiesToShow;
    this.rucEstablishmentRegisterSelected.status = 11;
    if (this.actividadSelected == '1') {
       this.saveAlojamiento();
@@ -2574,6 +2575,7 @@ export class RegistroComponent implements OnInit {
       const newCapacity = new CapacityAB();
       newCapacity.year = today.getFullYear();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+      this.rucEstablishmentRegisterSelected.capacities_on_register = this.capacitiesToShow;
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType();
       this.totalABPuntos = 0;
@@ -4169,6 +4171,7 @@ export class RegistroComponent implements OnInit {
    newCapacity.year = today.getFullYear();
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+   this.rucEstablishmentRegisterSelected.capacities_on_register = this.capacitiesToShow;
   }
 
   newTariffs(): Tariff[] {
