@@ -5323,10 +5323,11 @@ guardarDeclaracion() {
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    newCapacity.isNewCapacity = true;
-   const today = new Date();
    newCapacity.year = this.selected_year_id;
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
    this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
+   this.yearCapacity();
+   this.calcSpaces();
   }
 
   newTariffs(): Tariff[] {
