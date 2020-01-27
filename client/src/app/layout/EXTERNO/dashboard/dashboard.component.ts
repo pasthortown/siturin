@@ -2434,6 +2434,19 @@ export class DashboardComponent implements OnInit {
   }
  
   yearCapacity() {
+   if (this.capacitiesToShow.length > 0) {
+      this.capacitiesToShow.forEach(new_cap => {
+         let existe = false;
+         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(cap_preview => {
+            if (new_cap == cap_preview) {
+               existe = true;
+            }
+         });
+         if (!existe) {
+            this.rucEstablishmentRegisterSelected.capacities_on_register.push(new_cap);  
+         }
+      });
+   }
    if (this.selected_year_id > this.currentYear) {
       this.canEditCapacity = true;
    } else {
@@ -3103,6 +3116,17 @@ guardarDeclaracion() {
   }
 
   guardarRegistro() {
+     this.capacitiesToShow.forEach(new_cap => {
+         let existe = false;
+         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(cap_preview => {
+            if (new_cap == cap_preview) {
+               existe = true;
+            }
+         });
+         if (!existe) {
+            this.rucEstablishmentRegisterSelected.capacities_on_register.push(new_cap);  
+         }
+     });
    if (this.actividadSelected == '1') {
       this.saveAlojamiento();
    }  
