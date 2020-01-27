@@ -1983,6 +1983,14 @@ export class RegistroComponent implements OnInit {
    this.ruc_registro_selected.ruc.person_representative_attachment.ruc = this.ruc_registro_selected.ruc.number;
    this.guardando = true;
    this.ruc_registro_selected.ruc.contact_user_id = this.user.id;
+   
+   const today = new Date();
+   if (this.ruc_registro_selected.ruc.tax_payer_type_id == 1 && (today < this.ruc_registro_selected.ruc.person_representative_attachment.assignment_date)) {
+      this.toastr.errorToastr('La fecha de nombramiento de representante legal, es incorrecta.', 'Nuevo');
+      return;
+   }
+   return;
+   
    if (typeof this.ruc_registro_selected.ruc.id === 'undefined') {
       this.rucDataService.register_ruc(this.ruc_registro_selected.ruc).then( r => {
          this.guardando = false;
