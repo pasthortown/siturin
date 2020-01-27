@@ -5361,6 +5361,7 @@ guardarDeclaracion() {
       }
    });
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
+   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.yearCapacity();
    this.calcSpaces();
   }
