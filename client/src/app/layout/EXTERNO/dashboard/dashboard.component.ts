@@ -2337,6 +2337,20 @@ export class DashboardComponent implements OnInit {
    return true;
   }
 
+  validateRequisites() {
+   let validated: Boolean = true;
+   if (continuarTramite && (!actualizando && (categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0)))) {
+      this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+         if (element.mandatory) {
+            if (!element.fullfill) {
+               validated = false;
+            }   
+         }
+      });
+   }
+   return validated;
+  }
+
   validateRuc(): Boolean {
    let validateRepresentantLegalId = true;
    this.fechaNombramientoOK = true;
