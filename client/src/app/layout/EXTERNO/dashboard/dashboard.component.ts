@@ -2517,10 +2517,6 @@ export class DashboardComponent implements OnInit {
    });
   }
 
-  consolador() {
-   console.log(this.regionSelectedCode);
-  }
-
   addComplementaryFoodService() {
    const complementaryFoodService = new ComplementaryServiceFood();
    let agregable = true;

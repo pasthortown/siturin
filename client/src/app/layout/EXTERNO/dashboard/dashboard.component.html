@@ -1056,7 +1056,6 @@
                                     <option value="1" *ngIf="canAlojamiento">Alojamiento Turístico</option>
                                     <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas">Alimentos y Bebidas</option>
                                   </select>
-                                  <button (click)="consolador()">AQUI ESTOY Y MIRA QUE BONITO QUE SOY</button>
                                   <small class="col-12" *ngIf="regionSelectedCode == '2'">
                                     <div class="alert alert-info mb-2" role="alert">
                                       <label class="col-12 text-justify"><strong>Información</strong></label><br />
@@ -4076,7 +4075,7 @@
                                   </select>
                                 </div>
                                 <small class="col-12">
-                                  <div class="alert alert-info mt-2 mb-2" role="alert">
+                                  <div class="alert alert-info mt-2 mb-2" *ngIf="regionSelectedCode == '2'" role="alert">
                                     <label class="col-12 text-justify"><strong>Información</strong></label><br />
                                     <p>Para realizar algún trámite referente a Alimentos y Bebidas en la provincia de Galápagos se solicita de manera presencial en la Coordinación Zonal Insular.</p>
                                   </div>
