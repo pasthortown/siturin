@@ -145,6 +145,7 @@ export class DashboardComponent implements OnInit {
    mostrarInactivar = true;
    mostrarActualizarCapacidadesPrecios = true;
    actualizandoCapacidadesPrecios = false;
+   resetCap = false;
    mostrarDarBaja = true;
    mostrarReclasificar = true;
    mostrarRecategorizar = true;
@@ -3741,10 +3742,21 @@ guardarDeclaracion() {
    }).catch( e => console.log(e) );
   }
 
+  changeCategory(resetCap?) {
+   if (typeof resetCap !== 'undefined') {
+      this.resetCap = true;
+   }
+   this.getAllowedInfo();   
+  }
+
   getAllowedInfo(requisites?: RegisterRequisite[]) {
    this.getRequisitesByRegisterType(requisites);
    this.getBedTypes();
    this.getCapacityTypes();
+   if (resetCap) {
+      this.capacitiesToShow = [];
+      this.rucEstablishmentRegisterSelected.capacities_on_register = [];
+   }
   }
 
   getBedTypes() {
@@ -3811,7 +3823,10 @@ guardarDeclaracion() {
    }).catch( e => console.log(e) );
   }
 
-  getCategories() {
+  getCategories(resetCap?) {
+     if (typeof resetCap !== 'undefined') {
+        this.resetCap = true;
+     }
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.requisites = [];
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
