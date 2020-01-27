@@ -5345,20 +5345,16 @@ guardarDeclaracion() {
   }
 
   removeCapacity(capacity: Capacity) {
-     console.log(capacity);
    const newCapacities: Capacity[] = [];
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(element => {
       if (capacity.year == this.selected_year_id) {
-         console.log("entre");
-         if(capacity !== element) {
+         if (capacity.capacity_type_id !== element.capacity_type_id) {
             newCapacities.push(element);
-            console.log("entre2");
          }
       }
    });
-   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
    this.yearCapacity();
    this.calcSpaces();
