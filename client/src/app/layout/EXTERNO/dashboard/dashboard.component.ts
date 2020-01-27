@@ -5355,13 +5355,11 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(element => {
       console.log({element: element, capacity: capacity});
       if (capacity.year == this.selected_year_id) {
-         if (capacity.capacity_type_id !== element.capacity_type_id) {
-            console.log("entre");
+         if (capacity.capacity_type_id != element.capacity_type_id) {
             newCapacities.push(element);
          }
       }
    });
-   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
    this.yearCapacity();
    this.calcSpaces();
