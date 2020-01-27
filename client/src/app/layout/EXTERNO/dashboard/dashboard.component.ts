@@ -5351,8 +5351,10 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(element => {
       if (capacity.year == this.selected_year_id) {
+         console.log("entre");
          if(capacity !== element) {
             newCapacities.push(element);
+            console.log("entre2");
          }
       }
    });
