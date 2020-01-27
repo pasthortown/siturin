@@ -1199,8 +1199,13 @@ export class DashboardComponent implements OnInit {
       });
       this.clasifications_registers = [];
       this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
-         this.clasifications_registers = r as RegisterType[];
+         const response = r as RegisterType[];
          this.categorySelectedCode = categoryCode;
+         response.forEach(element => {
+            if (element.id < 1000) {
+               this.clasifications_registers.push(element);
+            }
+         });
          this.categories_registers = [];
          this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
             this.categories_registers = r as RegisterType[];
