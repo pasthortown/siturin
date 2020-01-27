@@ -5156,15 +5156,15 @@ guardarDeclaracion() {
          }
       }
    });
+   if (this.years.length == 1) { 
+    const today = new Date();
+    this.years.push(today.getFullYear());
+   }
    this.years.sort(function(a, b) {
       const a_value = a.value;
       const b_value = b.value;
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
   });
-  if (this.years.length == 1) { 
-   const today = new Date();
-   this.years.push(today.getFullYear());
-  }
   this.selected_year_id = lastYearDeclared;
   this.yearCapacity();
  }
