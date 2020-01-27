@@ -147,7 +147,8 @@ export class InactivacionComponent implements OnInit {
   register_catastro_selected_id = 0;
   declarations: Declaration[] = [];
   balance: DeclarationAttachment = new DeclarationAttachment();
-   
+   mensajeMostrado = false;
+
   constructor(private router: Router, 
     private modalService: NgbModal,
     private toastr: ToastrManager,
@@ -1483,15 +1484,18 @@ export class InactivacionComponent implements OnInit {
    });
    this.data = data;
    if (this.data.length == 0) {
-      Swal.fire({
-         title: 'No tiene Registros Mintur',
-         text: 'Se ha validado que usted no tiene registros catastrados en el Ministerio de Turismo',
-         type: 'error',
-       })
-       .then( response => {
-         sessionStorage.clear();
-         this.router.navigate(['/login']);
-       });
+      if (!this.mensajeMostrado) {
+         this.mensajeMostrado = true;
+         Swal.fire({
+            title: 'No tiene Registros Mintur',
+            text: 'Se ha validado que usted no tiene registros catastrados en el Ministerio de Turismo',
+            type: 'error',
+          })
+          .then( response => {
+            sessionStorage.clear();
+            this.router.navigate(['/login']);
+          });
+      }
    }
    this.onChangeTable(this.config);
   }
