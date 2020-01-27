@@ -1201,9 +1201,17 @@ export class DashboardComponent implements OnInit {
       this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          const response = r as RegisterType[];
          this.categorySelectedCode = categoryCode;
-         response.forEach(element => {
-            if (element.id < 1000) {
-               this.clasifications_registers.push(element);
+         response.forEach(element_2 => {
+            let existe = false;
+            this.clasifications_registers.forEach(element_1 => {
+               if (element_1 == element_2) {
+                  existe = true;
+               }
+            });
+            if (!existe) {
+               if (element_2.id < 1000) {
+                  this.clasifications_registers.push(element_2);
+               }
             }
          });
          this.categories_registers = [];
@@ -2915,8 +2923,16 @@ export class DashboardComponent implements OnInit {
             this.clasifications_registers = [];
             const clasificaciones = r as RegisterType[];
             clasificaciones.forEach(clasificacion => {
-               if (clasificacion.id < 1000) {
-                  this.clasifications_registers.push(clasificacion);
+               let existe = false;
+               this.clasifications_registers.forEach(element_1 => {
+                  if (element_1 == clasificacion) {
+                     existe = true;
+                  }
+               });
+               if (!existe) {
+                  if (clasificacion.id < 1000) {
+                     this.clasifications_registers.push(clasificacion);
+                  }
                }
             });
          }
