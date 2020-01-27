@@ -2015,6 +2015,9 @@ export class RegistroComponent implements OnInit {
   }
 
   guardarRegistro() {
+   const fecha_nombramiento_seleccionada = this.ruc_registro_selected.ruc.person_representative_attachment.assignment_date.toString();
+   console.log(fecha_nombramiento_seleccionada);
+   return;
    this.rucEstablishmentRegisterSelected.capacities_on_register = this.capacitiesToShow;
    this.rucEstablishmentRegisterSelected.status = 11;
    if (this.actividadSelected == '1') {
