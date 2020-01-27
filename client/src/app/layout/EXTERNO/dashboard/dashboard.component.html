@@ -121,7 +121,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <ngb-tabset #pasosSuperiores (tabChange)="changeTabActiveSuperior($event)">
+        <ngb-tabset #pasosSuperioresActualizandoCapacidadesPrecios (tabChange)="changeTabActiveSuperiorActualizandoCapacidadesPrecios($event)">
           <ngb-tab title="Paso I. Información de la Persona Natural / Jurídica" id="tab1">
             <ng-template ngbTabContent>
               <div class="row mt-3">
@@ -329,7 +329,7 @@
                     <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
                   </button>
                   <button *ngIf="this.ruc_registro_selected.ruc.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
-                    (click)="pasosSuperiores.select('tab2')">
+                    (click)="pasosSuperioresDeclarandoUnoMil.select('tab2')">
                     <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
                   </button>
                 </div>
@@ -420,7 +420,7 @@
                   </ngb-pagination>
                 </div>
               </div>
-              <ngb-tabset *ngIf="establishment_selected.ruc_code_id !== '-'" #pasos (tabChange)="changeTabActive($event)">
+              <ngb-tabset *ngIf="establishment_selected.ruc_code_id !== '-'" #pasosActualizandoCapacidadesPrecios (tabChange)="changeTabActiveActualizandoCapacidadesPrecios($event)">
                   <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1" #paso1>
                     <ng-template ngbTabContent>
                         <div class="row" *ngIf="mostrarDataEstablishment">
@@ -1716,7 +1716,7 @@
                     </div>
                     <div class="col-12 text-center">
                       <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
-                        (click)="pasos.select('paso2')">
+                        (click)="pasosActualizandoCapacidadesPrecios.select('paso2')">
                         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
                       </button>
                       <button [disabled]="guardando" *ngIf="continuarTramite && (actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))" type="button" class="btn btn-success" title="Enviar Solicitud"
@@ -1749,7 +1749,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <ngb-tabset #pasosSuperiores (tabChange)="changeTabActiveSuperior($event)">
+        <ngb-tabset #pasosSuperioresDeclarandoUnoMil (tabChange)="changeTabActiveSuperiorDeclarandoUnoMil($event)">
           <ngb-tab title="Paso I. Información de la Persona Natural / Jurídica" id="tab1">
             <ng-template ngbTabContent>
               <div class="row mt-3">
@@ -1957,7 +1957,7 @@
                     <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
                   </button>
                   <button *ngIf="this.ruc_registro_selected.ruc.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
-                    (click)="pasosSuperiores.select('tab2')">
+                    (click)="pasosSuperioresDeclarandoUnoMil.select('tab2')">
                     <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
                   </button>
                 </div>
@@ -2048,7 +2048,7 @@
                   </ngb-pagination>
                 </div>
               </div>
-              <ngb-tabset *ngIf="establishment_selected.ruc_code_id !== '-'" #pasos (tabChange)="changeTabActive($event)">
+              <ngb-tabset *ngIf="establishment_selected.ruc_code_id !== '-'" #pasosDeclarandoUnoMil (tabChange)="changeTabActiveDeclarandoUnoMil($event)">
                   <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1" #paso1>
                     <ng-template ngbTabContent>
                         <div class="row" *ngIf="mostrarDataEstablishment">
@@ -2839,7 +2839,7 @@
                     </div>
                     <div class="col-12 text-center">
                       <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
-                        (click)="pasos.select('paso1')">
+                        (click)="pasosDeclarandoUnoMil.select('paso1')">
                         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
                       </button>
                     </div>

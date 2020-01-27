@@ -131,6 +131,11 @@ export class DashboardComponent implements OnInit {
    @ViewChild('EstablishmentCertificationAttachedFile') EstablishmentCertificationAttachedFile;
    @ViewChild('pasos') pasosTabSet;
    @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
+   @ViewChild('pasosSuperioresActualizandoCapacidadesPrecios') pasosSuperioresActualizandoCapacidadesPreciosTabSet;
+   @ViewChild('pasosSuperioresDeclarandoUnoMil') pasosSuperioresDeclarandoUnoMilTabSet;
+   @ViewChild('pasosActualizandoCapacidadesPrecios') pasosActualizandoCapacidadesPreciosTabSet;
+   @ViewChild('pasosSuperioresDeclarandoUnoMil') pasosDeclarandoUnoMilTabSet;
+   
    idTramiteEstadoFilter = 0;
    tramite = '-';
    tabActive = 'paso1';
