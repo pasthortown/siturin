@@ -5348,14 +5348,12 @@ guardarDeclaracion() {
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(element => {
-      if (capacity.year == selected_year_id) {
+      if (capacity.year == this.selected_year_id) {
          if(capacity !== element) {
             newCapacities.push(element);
          }
       }
    });
-   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
-   console.log(newCapacities);
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
    this.yearCapacity();
    this.calcSpaces();
