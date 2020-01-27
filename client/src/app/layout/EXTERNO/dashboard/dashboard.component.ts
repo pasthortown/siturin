@@ -3753,7 +3753,7 @@ guardarDeclaracion() {
    this.getRequisitesByRegisterType(requisites);
    this.getBedTypes();
    this.getCapacityTypes();
-   if (resetCap) {
+   if (this.resetCap) {
       this.capacitiesToShow = [];
       this.rucEstablishmentRegisterSelected.capacities_on_register = [];
    }
