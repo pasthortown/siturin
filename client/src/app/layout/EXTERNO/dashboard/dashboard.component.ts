@@ -5345,6 +5345,7 @@ guardarDeclaracion() {
   }
 
   removeCapacity(capacity: Capacity) {
+     console.log(capacity);
    const newCapacities: Capacity[] = [];
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
@@ -5355,6 +5356,7 @@ guardarDeclaracion() {
          }
       }
    });
+   console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
    this.yearCapacity();
    this.calcSpaces();
