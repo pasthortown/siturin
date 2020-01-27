@@ -5353,7 +5353,7 @@ guardarDeclaracion() {
       }
    });
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
-   this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
+   this.yearCapacity();
    this.calcSpaces();
   }
 
