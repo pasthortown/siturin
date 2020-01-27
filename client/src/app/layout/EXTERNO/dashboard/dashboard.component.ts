@@ -5398,7 +5398,6 @@ guardarDeclaracion() {
                   ya_existe_capacidad = true;
                }
             });
-            console.log(this.tarifarioRack);
             if (!ya_existe_capacidad) {
                this.tarifarioRack.valores.push(topush);
             }
