@@ -3792,6 +3792,8 @@ guardarDeclaracion() {
       this.capacitiesToShow = [];
       this.rucEstablishmentRegisterSelected.capacities_on_register = [];
       this.tarifarioRack.valores = [];
+      const today = new Date();
+      this.years.push(today.getFullYear());
       this.calcSpaces();
    }
   }
