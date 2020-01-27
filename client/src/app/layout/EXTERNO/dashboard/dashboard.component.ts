@@ -5158,7 +5158,7 @@ guardarDeclaracion() {
    });
    if (this.years.length == 1) { 
     const today = new Date();
-    this.years.push(today.getFullYear());
+    this.years.push({value: today.getFullYear()});
    }
    this.years.sort(function(a, b) {
       const a_value = a.value;
