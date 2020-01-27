@@ -5324,7 +5324,7 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    newCapacity.isNewCapacity = true;
    const today = new Date();
-   newCapacity.year = today.getFullYear();
+   newCapacity.year = this.selected_year_id;
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
    this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
   }
@@ -5348,8 +5348,10 @@ guardarDeclaracion() {
    this.modificadoCapacidades = true;
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(element => {
-      if(capacity !== element) {
-         newCapacities.push(element);
+      if (capacity.year == selected_year_id) {
+         if(capacity !== element) {
+            newCapacities.push(element);
+         }
       }
    });
    this.rucEstablishmentRegisterSelected.capacities_on_register = newCapacities;
