@@ -1954,11 +1954,6 @@ export class InspectorComponent implements OnInit {
           const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
           this.hasdateByUserRequisites = true;
           this.dateByUserRequisites = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
-          if (dateByUser < today) {
-             this.hasdateByUserRequisites = false;
-             this.dateByUserRequisites = new Date();
-             return 'No se admiten fechas pasadas.';
-          }
           this.please_wait_requisites = true;
        }
     },
