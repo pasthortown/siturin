@@ -5782,6 +5782,237 @@ selectKitchenType(kitchenType: KitchenType) {
    this.capacitySelected = capacity;
   }
 
+   imprimirActaNotificacionInactivacion() {
+      const today = new Date();
+     Swal.fire({
+      title: 'Ingreso de Información',
+      text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
+      type: 'warning',
+      inputValue: today.toLocaleDateString(),
+      input: 'text',
+      inputValidator: (value) => {
+         if (!value) {
+           return 'Por favor, ingrese la fecha.'
+         } else {
+            const dateParts = value.split('/'); 
+            if (dateParts.length != 3) {
+               return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+            }
+            let noAdmitido = false;
+            dateParts.forEach(element => {
+               if (this.stringHasLetter(element)){
+                  noAdmitido = true;
+               }
+            });
+            if (parseInt(dateParts[0])>31) {
+               noAdmitido = true;
+            }
+            if (parseInt(dateParts[1])>12) {
+               noAdmitido = true;
+            }
+            if (dateParts[2].length > 4){
+               noAdmitido = true;
+            }
+            if (parseInt(dateParts[2])>9999) {
+               noAdmitido = true;
+            }
+            if (noAdmitido) {
+               return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+            }
+            const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+            this.hasdateByUserRequisites = true;
+            this.dateByUserRequisites = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+            if (dateByUser < today) {
+               this.hasdateByUserRequisites = false;
+               this.dateByUserRequisites = new Date();
+               return 'No se admiten fechas pasadas.';
+            }
+            this.please_wait_requisites = true;
+         }
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         const dateParts = result.value.split('/'); 
+         const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+         this.imprimiendo_acta = true;
+         if (this.activity == 'ALOJAMIENTO') {
+               this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
+               this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+                  let provincia = new Ubication();
+                  let canton = new Ubication();
+                  let parroquia = new Ubication();
+                  let zonal = new Ubication();
+                  this.ubications.forEach(element => {
+                     if (element.id == r2.establishment.ubication_id) {
+                     parroquia = element;
+                     }
+                  });
+                  this.ubications.forEach(element => {
+                     if (element.code == parroquia.father_code) {
+                     canton = element;
+                     }
+                  });
+                  this.ubications.forEach(element => {
+                     if (element.code == canton.father_code) {
+                     provincia = element;
+                     }
+                  });
+                  this.ubications.forEach(element => {
+                     if (element.code == provincia.father_code) {
+                     zonal = element;
+                     }
+                  });
+                  let iniciales_tecnico_zonal = '';
+                  this.user.name.split(' ').forEach(element => {
+                     iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
+                  });
+                  let iniciales_cordinacion_zonal = '';
+                  const zonalName = zonal.name.split(' ');
+                  iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+                  const today = new Date();
+                  let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION- ' + this.activity + ' -' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                  let aclaracion_registro = '';
+                  if (this.tipo_tramite == 'REGISTRO') {
+                     aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
+                  }
+                  const actividad = this.registerMinturSelected.activity.toUpperCase();
+                  this.documentDataService.get_doc_id(qr_value).then( respuesta => {
+                     const codigo = 'MT-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+                     const params = [{canton: canton.name.toUpperCase()},
+                        {fecha: dateByUser.toLocaleDateString()},
+                        {codigo: codigo},
+                        {numero_coordinacion_zonal: iniciales_cordinacion_zonal},
+                        {aclaracion_registro: aclaracion_registro},
+                        {razon_social: this.razon_social.toUpperCase()},
+                        {tramite: this.tipo_tramite.toUpperCase()},
+                        {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+                        {representante_legal: this.representante_legal.toUpperCase()},
+                        {direccion_establecimiento: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
+                        {tipo_tramite: this.tipo_tramite.toUpperCase()}];
+                     
+                     let document = new Documento();
+                     document.activity =actividad;
+                     document.code = qr_value;
+                     document.document_type = 'ACTA NOTIFICACION';
+                     let paramsToBuild = {
+                        template: 1, qr: true, qr_value: qr_value, params: params
+                     }
+                     document.procedure_id = this.tipo_tramite.toUpperCase();
+                     document.zonal = zonal.name;
+                     document.user = iniciales_tecnico_zonal;
+                     document.params = JSON.stringify(paramsToBuild);
+                     this.documentDataService.post(document).then().catch( e => { console.log(e); });
+                     this.exporterDataService.template(1, true, qr_value, params).then( r => {
+                        const byteCharacters = atob(r);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                           byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: 'application/pdf'});
+                        saveAs(blob, qr_value + '.pdf');
+                        this.imprimiendo_acta = false;
+                     }).catch( e => { console.log(e); });
+                  }).catch( e => { console.log(e); });
+               }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+         }
+         if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+            this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
+               this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
+                  let provincia = new Ubication();
+                  let canton = new Ubication();
+                  let parroquia = new Ubication();
+                  let zonal = new Ubication();
+                  this.ubications.forEach(element => {
+                     if (element.id == r2.establishment.ubication_id) {
+                     parroquia = element;
+                     }
+                  });
+                  this.ubications.forEach(element => {
+                     if (element.code == parroquia.father_code) {
+                     canton = element;
+                     }
+                  });
+                  this.ubications.forEach(element => {
+                     if (element.code == canton.father_code) {
+                     provincia = element;
+                     }
+                  });
+                  this.ubications.forEach(element => {
+                     if (element.code == provincia.father_code) {
+                     zonal = element;
+                     }
+                  });
+                  let iniciales_tecnico_zonal = '';
+                  this.user.name.split(' ').forEach(element => {
+                     iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
+                  });
+                  let iniciales_cordinacion_zonal = '';
+                  const zonalName = zonal.name.split(' ');
+                  iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+                  const today = new Date();
+                  let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-' + r2.establishment.ruc_code_id + '-ACTA-NOTIFICACION-' + this.activity + '-' + iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+                  let aclaracion_registro = '';
+                  if (this.tipo_tramite == 'REGISTRO') {
+                     aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
+                  }
+                  const actividad = this.registerMinturSelected.activity.toUpperCase();
+                  this.documentDataService.get_doc_id(qr_value).then( respuesta => {
+                     const codigo = 'MT-AN-' + iniciales_cordinacion_zonal + '-' + iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+                     const params = [{canton: canton.name.toUpperCase()},
+                        {fecha: dateByUser.toLocaleDateString()},
+                        {codigo: codigo},
+                        {numero_coordinacion_zonal: iniciales_cordinacion_zonal},
+                        {aclaracion_registro: aclaracion_registro},
+                        {razon_social: this.razon_social.toUpperCase()},
+                        {tramite: this.tipo_tramite.toUpperCase()},
+                        {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
+                        {representante_legal: this.representante_legal.toUpperCase()},
+                        {direccion_establecimiento: r2.establishment.address_main_street.toUpperCase() + ' ' + r2.establishment.address_number.toUpperCase() + ' ' + r2.establishment.address_secondary_street.toUpperCase()},
+                        {tipo_tramite: this.tipo_tramite.toUpperCase()}];
+                     
+                     let document = new Documento();
+                     document.activity =actividad;
+                     document.code = qr_value;
+                     document.document_type = 'ACTA NOTIFICACION';
+                     let paramsToBuild = {
+                        template: 1, qr: true, qr_value: qr_value, params: params
+                     }
+                     document.procedure_id = this.tipo_tramite.toUpperCase();
+                     document.zonal = zonal.name;
+                     document.user = iniciales_tecnico_zonal;
+                     document.params = JSON.stringify(paramsToBuild);
+                     this.documentDataService.post(document).then().catch( e => { console.log(e); });
+                     this.exporterDataService.template(1, true, qr_value, params).then( r => {
+                        const byteCharacters = atob(r);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                           byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: 'application/pdf'});
+                        saveAs(blob, qr_value + '.pdf');
+                        this.imprimiendo_acta = false;
+                     }).catch( e => { console.log(e); });
+                  }).catch( e => { console.log(e); });
+               }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+         }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+         Swal.fire(
+           'Cancelado',
+           '',
+           'error'
+         );
+      }
+    });
+   }
+
   openDialog(content, status) {
      this.statusSelected = status;
    this.modalService.open(content, { centered: true, size: 'sm' }).result.then(( response => {
