@@ -2596,6 +2596,7 @@ export class RegistroComponent implements OnInit {
                      this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
                      this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
                      this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                     this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
                      this.rucEstablishmentRegisterSelected.requisites = [];
                      this.getRequisitesABByRegisterType(r.requisites);
                      this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
