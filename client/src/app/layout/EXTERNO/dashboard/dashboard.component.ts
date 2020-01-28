@@ -2049,7 +2049,7 @@ export class DashboardComponent implements OnInit {
            this.mostrarActualizarCapacidadesPrecios = true;
            cambioEstado = true;
          }
-         if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS") {
+         if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || element.establishment_state.toUpperCase().trim() == "CERRADO") {
             this.mostrarActualizar = false;
             this.mostrarActivar = true;
             this.mostrarDarBaja = false;
