@@ -2869,6 +2869,7 @@ export class InspectorComponent implements OnInit {
   guardarInspeccion() {
    const estado: String = this.stateTramiteId.toString();
    const digito = estado.substring(estado.length-1, estado.length);
+   //AQUI
    console.log(estado);
    console.log(digito);
    if ( this.inspectionState == 0) {
@@ -2975,9 +2976,6 @@ export class InspectorComponent implements OnInit {
          }
          this.newRegisterState.justification = 'Resultados de la Inspección cargados en la fecha ' + new Date(this.registerApprovalInspector.date_fullfill).toDateString();
          this.newRegisterState.register_id = this.registerApprovalInspector.register_id;
-         console.log(this.newRegisterState);
-         console.log(this.registerApprovalInspector);
-         return;
          this.registerApprovalInspector.notes = '';
          this.report.approval_state_id = this.registerApprovalInspector.id;
          if (this.activity == 'ALOJAMIENTO') {
