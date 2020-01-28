@@ -1872,7 +1872,7 @@ export class RegistroComponent implements OnInit {
   }
 
   guardarDeclaracion() {
-   if (this.balance.declaration_attachment_file_name.length < 50) {
+   if (this.balance.declaration_attachment_file_name.length > 40) {
       this.toastr.errorToastr('El nombre del archivo adjunto es demasiado largo.', 'Declaración');
       return;
    }
