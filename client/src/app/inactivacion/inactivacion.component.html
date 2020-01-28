@@ -708,7 +708,7 @@
 <div class="container mt-5">
 <div class="row">
   <div class="col-12 text-center">
-    <button *ngIf="requestReady()" [disabled]="guardando" type="button" class="btn btn-success" title="Enviar Solicitud"
+    <button *ngIf="requestReady() && (declarations.length > 0)" [disabled]="guardando" type="button" class="btn btn-success" title="Enviar Solicitud"
       (click)="guardarRegistro()">
       <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
     </button>
