@@ -819,6 +819,7 @@ export class RegistroComponent implements OnInit {
       this.toastr.errorToastr('Éste establecimiento, ya tiene un número de Registro, diríjase a la opción Gestión de Actividades Turísiticas para administrarlo.', 'MINISTERIO DE TURISMO');
       return;
    }
+   console.log(this.ruc_registro_selected.ruc.establishments);
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {
          this.selectRegisterEstablishment(element);
