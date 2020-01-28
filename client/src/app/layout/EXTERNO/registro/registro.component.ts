@@ -820,6 +820,7 @@ export class RegistroComponent implements OnInit {
       return;
    }
    console.log(this.ruc_registro_selected.ruc.establishments);
+   console.log(event);
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {
          this.selectRegisterEstablishment(element);
