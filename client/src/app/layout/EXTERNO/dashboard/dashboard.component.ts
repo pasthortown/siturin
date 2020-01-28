@@ -3044,6 +3044,10 @@ export class DashboardComponent implements OnInit {
 }
 
 guardarDeclaracion() {
+   if (this.balance.declaration_attachment_file_name.length < 50) {
+         this.toastr.errorToastr('El nombre del archivo adjunto es demasiado largo.', 'Declaración');
+         return;
+   }
    if(!this.validateDeclaration) {
       this.toastr.errorToastr('La información ingresada es incorrecta.', 'Declaración');
       return;
