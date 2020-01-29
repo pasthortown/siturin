@@ -3466,7 +3466,7 @@ export class RegistroComponent implements OnInit {
          }
          if (register.activity == "ALIMENTOS Y BEBIDAS") {
             this.canAlojamiento = false;
-            this.isAlojamiento = false;
+            isAlojamiento = false;
          }
        }
     });
