@@ -625,9 +625,7 @@
                                     <label>Referencia de Ubicación* - ¿Como llegar?</label><span
                                       *ngIf="establishment_selected.address_reference == ''"
                                       class="ml-2 badge badge-danger">Incorrecto</span>
-                                    <ck-editor id="address_reference" *ngIf="rucEstablishmentRegisterSelected.editable" name="address_reference" skin="moono-lisa"
-                                      [(ngModel)]="establishment_selected.address_reference"></ck-editor>
-                                    <ck-editor id="address_reference" [readonly]="true" *ngIf="!rucEstablishmentRegisterSelected.editable" name="address_reference" skin="moono-lisa"
+                                    <ck-editor id="address_reference" *ngIf="true" name="address_reference" skin="moono-lisa"
                                       [(ngModel)]="establishment_selected.address_reference"></ck-editor>
                                   </div>
                                   <div class="form-group" *ngIf="establishmentComercialNameValidated">
