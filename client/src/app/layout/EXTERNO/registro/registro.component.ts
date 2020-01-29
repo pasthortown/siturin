@@ -2052,7 +2052,7 @@ export class RegistroComponent implements OnInit {
                apueba = false;
             }
          });
-         capacitiesToShow.push(c1.capacity_type_id);
+         capacidades_ingresadas_shown.push(c1.capacity_type_id);
       });
       this.tariffsToShow.valores.forEach( tariffRack => {
          capacidades_ingresadas.forEach( c => {
