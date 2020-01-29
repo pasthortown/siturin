@@ -928,15 +928,15 @@ calcularUnoxMil() {
      ];
     const data = [];
     this.registers_mintur.forEach(item => {
-       let existe = false;
        let thiscategory: String =  '';
        if (item.register_data_on_catastro.classification == '') {
           thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
        } else {
           thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
        }
+       let existe = false;
        data.forEach(element => {
-          if (element.registerId == thiscategory && element.category) {
+          if ((element.registerId == item.register.id) && (thiscategory && element.category)) {
              existe = true;
           }
        });
@@ -944,7 +944,6 @@ calcularUnoxMil() {
          let date_assigment_alert = '';
          let date1 = new Date();
          const registerState = this.getRegisterState(item.states.state_id);
-         
          if (registerState.search('Aprobado') == 0) {
             date1 = new Date(item.states.updated_at);
          }
