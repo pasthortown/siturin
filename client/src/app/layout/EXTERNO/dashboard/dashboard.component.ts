@@ -3464,21 +3464,7 @@ guardarDeclaracion() {
    let capacidades_ingresadas = [];
    let capacidades_ingresadas_shown = [];
    let aprueba = true;
-   this.capacitiesToShow.forEach( c1 => {
-      capacidades_ingresadas_shown.forEach( c => {
-         if (c1.capacity_type_id == c) {
-            aprueba = false;
-         }
-      });
-      capacidades_ingresadas_shown.push(c1.capacity_type_id);
-   });
    this.tariffsToShow.valores.forEach( tariffRack => {
-      capacidades_ingresadas.forEach( c => {
-         if (c == tariffRack.idTipoCapacidad) {
-            aprueba = false;
-         }
-      });
-      capacidades_ingresadas.push(tariffRack.idTipoCapacidad);
       tariffRack.tariffs.forEach( tariff => {
          if (tariff.tariff.price == 0) {
             aprueba = false;
