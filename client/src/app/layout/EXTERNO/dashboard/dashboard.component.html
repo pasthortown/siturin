@@ -4756,7 +4756,7 @@
                                 </h4>
                             </div>
                           </div>
-                          <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única')">
+                          <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
                             <div class="alert alert-info" role="alert">
                               <label class="col-12 text-justify"><strong>Información:</strong><br />
                                 <p class="text-justify">La sumatoria total de puntos (respuestas SI), seleccionado es <strong>{{totalAbPointsSelected}}</strong> de un total de <strong>{{totalAviable}}</strong> puntos. Con lo cual el puntaje de categorización obtenido es: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>.<br/>La categoría obtenida es: <strong>{{categoryAB}}</strong></p>
@@ -5006,7 +5006,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única')">
+                          <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
                             <div class="alert alert-info" role="alert">
                               <label class="col-12 text-justify"><strong>Información:</strong><br />
                                 <p class="text-justify">La sumatoria total de puntos (respuestas SI), seleccionado es <strong>{{totalAbPointsSelected}}</strong> de un total de <strong>{{totalAviable}}</strong> puntos. Con lo cual el puntaje de categorización obtenido es: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>.<br/>La categoría obtenida es: <strong>{{categoryAB}}</strong></p>
