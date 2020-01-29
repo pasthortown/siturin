@@ -389,7 +389,7 @@ export class DashboardComponent implements OnInit {
   REGCIVILOKEstablishment = false;
   REGCIVILREPRESENTANTELEGALOK = false;
   guardando = false;
-
+  totalAviable = 0;
   //DECLARACIONES
   currentPageDeclaration = 1;
   lastPageDeclaration = 1;
@@ -3723,7 +3723,7 @@ guardarDeclaracion() {
   }
 
   continuarIngresoTarifarioRack() {
-      this.calcspaces();
+   this.calcSpaces();
   }
 
   continuarTramiteF() {

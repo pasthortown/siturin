@@ -204,6 +204,7 @@ export class RegistroComponent implements OnInit {
   user: User = new User();
   specific_states: State[];
   states: State[];
+  totalAviable = 0;
   
   //DATOS ESTABLECIMIENTO
    config: any = {
