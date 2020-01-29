@@ -2252,6 +2252,14 @@ export class RegistroComponent implements OnInit {
          return;
       }   
    }
+   if (this.rucEstablishmentRegisterSelected.kitchen_types_on_register.length == 0) {
+      this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
+      return;
+   }
+   if (this.rucEstablishmentRegisterSelected.service_types_on_register.length == 0) {
+      this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
+      return;
+   }
    if ((this.categorySelectedCode == '1.1' || 
    this.categorySelectedCode == '1.2' || 
    this.categorySelectedCode == '1.3' || 
