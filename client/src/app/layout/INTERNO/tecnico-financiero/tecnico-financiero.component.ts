@@ -938,7 +938,7 @@ calcularUnoxMil() {
        data.forEach(elementOnData => {
           if ( (elementOnData.number == item.ruc.number) &&
                (elementOnData.ruc_code_id == item.establishment.ruc_code_id) && 
-               (thiscategory == elementOnData.category)) {
+               (thiscategory.toUpperCase() == elementOnData.category)) {
              existe = true;
           }
        });
