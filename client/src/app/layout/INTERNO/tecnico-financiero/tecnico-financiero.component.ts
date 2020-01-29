@@ -940,7 +940,6 @@ calcularUnoxMil() {
                (element.ruc_code_id == item.establishment.ruc_code_id) && 
                (element.establishment == item.establishment.commercially_known_name) && 
                (thiscategory && element.category)) {
-             existe = true;
              console.log({number: element.number, category: thiscategory});
           }
        });
