@@ -935,14 +935,14 @@ calcularUnoxMil() {
           thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
        }
        let existe = false;
-       data.forEach(element => {
-          if ( (element.number == item.ruc.number) &&
-               (element.ruc_code_id == item.establishment.ruc_code_id) && 
-               (element.establishment == item.establishment.commercially_known_name) && 
-               (thiscategory && element.category)) {
-             existe = true;
-          }
-       });
+      //  data.forEach(element => {
+      //     if ( (element.number == item.ruc.number) &&
+      //          (element.ruc_code_id == item.establishment.ruc_code_id) && 
+      //          (element.establishment == item.establishment.commercially_known_name) && 
+      //          (thiscategory && element.category)) {
+      //        existe = true;
+      //     }
+      //  });
        if (!existe) {
          let date_assigment_alert = '';
          let date1 = new Date();
