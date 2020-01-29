@@ -3482,18 +3482,19 @@ export class RegistroComponent implements OnInit {
          this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
        }
     } else {
-       console.log('entre');
       this.mostrarDataRegister = true;
       this.canRestaurante = true;
       this.canCafeteria = true;
       this.canBar = true;
       this.canDiscoteca = true;
       this.canCatering = true;
+      this.activity_selected = '2';
       this.canEstablecimientoMovil = true;
       this.canPlazaComida = true;
       this.ruc_registro_selected.registers.forEach(register => {
          if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
             let clasificationAB = this.getRegisterABType(register);
+            console.log(clasificationAB);
             //Restaurante
             if (clasificationAB.id == 11 || clasificationAB.id == 42) {
                this.canEstablecimientoMovil = false;
