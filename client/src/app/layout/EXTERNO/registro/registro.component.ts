@@ -2049,7 +2049,7 @@ export class RegistroComponent implements OnInit {
       this.capacitiesToShow.forEach( c1 => {
          capacidades_ingresadas_shown.forEach( c => {
             if (c1.capacity_type_id == c) {
-               apueba = false;
+               aprueba = false;
             }
          });
          capacidades_ingresadas_shown.push(c1.capacity_type_id);
