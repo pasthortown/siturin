@@ -3857,6 +3857,9 @@ export class RegistroComponent implements OnInit {
   }
 
   setCategory(type_id: number){
+   if (this.actividadSelected == '2') {
+      return;
+   }
    let categoryCode = '';
    this.actividadSelected = '1';
    this.register_typeDataService.get().then(r => {
