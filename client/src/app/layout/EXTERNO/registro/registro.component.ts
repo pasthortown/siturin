@@ -3488,7 +3488,7 @@ export class RegistroComponent implements OnInit {
       this.canBar = true;
       this.canDiscoteca = true;
       this.canCatering = true;
-      this.activity_selected = '2';
+      this.actividadSelected = '2';
       this.canEstablecimientoMovil = true;
       this.canPlazaComida = true;
       this.ruc_registro_selected.registers.forEach(register => {
