@@ -3901,6 +3901,7 @@ export class RegistroComponent implements OnInit {
     this.rucEstablishmentRegisterSelected = new Register();
     this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
     this.registerDataService.get_register_data(register.id).then( r => {
+       console.log(r);
        this.rucEstablishmentRegisterSelected = r.register as Register;
        this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
        this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
