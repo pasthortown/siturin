@@ -3462,7 +3462,16 @@ guardarDeclaracion() {
 
   validateTarifarioRackIngresado(): Boolean {
    let capacidades_ingresadas = [];
+   let capacidades_ingresadas_shown = [];
    let aprueba = true;
+   this.capacitiesToShow.forEach( c1 => {
+      capacidades_ingresadas_shown.forEach( c => {
+         if (c1.capacity_type_id == c) {
+            apueba = false;
+         }
+      });
+      capacitiesToShow.push(c1.capacity_type_id);
+   });
    this.tariffsToShow.valores.forEach( tariffRack => {
       capacidades_ingresadas.forEach( c => {
          if (c == tariffRack.idTipoCapacidad) {
@@ -3477,7 +3486,7 @@ guardarDeclaracion() {
       });
    });
    return aprueba;
-  }
+}
 
   saveAlojamiento() {
    if (this.validateTarifarioRackIngresado()){

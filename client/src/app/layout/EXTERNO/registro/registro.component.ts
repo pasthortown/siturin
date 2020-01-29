@@ -2044,20 +2044,26 @@ export class RegistroComponent implements OnInit {
 
   validateTarifarioRackIngresado(): Boolean {
       let capacidades_ingresadas = [];
+      let capacidades_ingresadas_shown = [];
       let aprueba = true;
+      this.capacitiesToShow.forEach( c1 => {
+         capacidades_ingresadas_shown.forEach( c => {
+            if (c1.capacity_type_id == c) {
+               apueba = false;
+            }
+         });
+         capacitiesToShow.push(c1.capacity_type_id);
+      });
       this.tariffsToShow.valores.forEach( tariffRack => {
          capacidades_ingresadas.forEach( c => {
             if (c == tariffRack.idTipoCapacidad) {
                aprueba = false;
-               console.log("no pasa capacidad repetida");
             }
          });
          capacidades_ingresadas.push(tariffRack.idTipoCapacidad);
          tariffRack.tariffs.forEach( tariff => {
-            console.log(tariff);
             if (tariff.tariff.price == 0) {
                aprueba = false;
-               console.log("no pasa tarifa 0");
             }
          });
       });
