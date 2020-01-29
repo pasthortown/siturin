@@ -929,8 +929,14 @@ calcularUnoxMil() {
     const data = [];
     this.registers_mintur.forEach(item => {
        let existe = false;
+       let thiscategory: String =  '';
+       if (item.register_data_on_catastro.classification == '') {
+          thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+       } else {
+          thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
+       }
        data.forEach(element => {
-          if (element.registerId == item.register.id) {
+          if (element.registerId == thiscategory && element.category) {
              existe = true;
           }
        });
@@ -938,12 +944,7 @@ calcularUnoxMil() {
          let date_assigment_alert = '';
          let date1 = new Date();
          const registerState = this.getRegisterState(item.states.state_id);
-         let thiscategory: String =  '';
-         if (item.register_data_on_catastro.classification == '') {
-            thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
-         } else {
-            thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
-         }
+         
          if (registerState.search('Aprobado') == 0) {
             date1 = new Date(item.states.updated_at);
          }
