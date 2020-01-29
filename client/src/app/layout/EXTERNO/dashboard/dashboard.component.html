@@ -1311,6 +1311,23 @@
                               <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
                               <p class="col-12 text-justify">- Para registrar las tarifas en esta tipología de habitación, es necesario que su establecimiento cuente con la declaración de dichas habitaciones, por favor revise las "Capacidades del establecimiento" que se encuentran en la sección anterior.</p>
                               <p class="col-12 text-justify">- Registrar la tarifa de habitación por noche incluyendo IVA.</p>
+                              <p class="col-12 text-justify">- Por ley, todos los establecimientos de alojamiento prestadores de servicios al turismo y registrados ante el Ministerio de Turismo deben declarar las tarifas rack hasta el 01 de diciembre de cada año y exhibirlo en el año de vigencia.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
+                          <div class="col-12">
+                            <div class="col-12">
+                              <div class="form-group mt-3">
+                                <label class="col-12"><strong>Continuar con el ingreso del Tarifario Rack.</strong></label>
+                                <div class="onoffswitch">
+                                  <input type="checkbox" class="onoffswitch-checkbox"  id="tarifRackswitch" (change)="continuarTarifarioRack()"
+                                    name="baised_accounting" [(ngModel)]="continuarTarifarioRack"><label class="onoffswitch-label" for="baised_accounting">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -4189,7 +4206,7 @@
                                   </td>
                                   <td>
                                     <select class="form-control" id="capacity_type_id" name="capacity_type_id"
-                                      [(ngModel)]="capacity.capacity_type_id" (change)="refreshMaxBed(capacity)" [disabled]="selected_year_id < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable))">
+                                      [(ngModel)]="capacity.capacity_type_id" (change)="refreshMaxBed(capacity)" [disabled]="continuarTarifarioRack || (selected_year_id < currentYear) || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable))">
                                       <option value="0" selected>Seleccione...</option>
                                       <option *ngFor="
                                           let capacity_type of allowed_capacity_types
@@ -4200,23 +4217,23 @@
                                   </td>
                                   <td>
                                       <input type="number" class="form-control" min="0" max="9999" id="count_space" name="count_space" (input)="calcSpaces(capacity)"
-                                      placeholder="Cantidad" [(ngModel)]="capacity.quantity" [disabled]="selected_year_id < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable))"/>
+                                      placeholder="Cantidad" [(ngModel)]="capacity.quantity" [disabled]="continuarTarifarioRack || (selected_year_id < currentYear) || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable))"/>
                                   </td>
                                   <td>
                                     <div class="col-12">
                                         <input type="number" class="form-control" min="0" max="9999" id="count_camas" name="count_camas" (input)="calcSpaces(capacity)"
-                                        placeholder="Cantidad de Camas" [(ngModel)]="capacity.max_beds" [disabled]="selected_year_id < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable || !capacity.editable_beds))"/>
+                                        placeholder="Cantidad de Camas" [(ngModel)]="capacity.max_beds" [disabled]="continuarTarifarioRack || (selected_year_id < currentYear) || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable || !capacity.editable_beds))"/>
                                     </div>
                                   </td>
                                   <td>
                                     <div class="col-12">
                                         <input type="number" class="form-control" min="0" max="9999" id="count_plazas" name="count_plazas" (input)="calcSpaces(capacity)"
-                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.max_spaces" [disabled]="selected_year_id < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable || !capacity.editable_spaces))"/>
+                                        placeholder="Cantidad de Plazas" [(ngModel)]="capacity.max_spaces" [disabled]="continuarTarifarioRack || (selected_year_id < currentYear) || (!capacity.isNewCapacity && (!canEditCapacity || !rucEstablishmentRegisterSelected.editable || !capacity.editable_spaces))"/>
                                     </div>
                                   </td>
                                   <td>
                                     <button type="button" title="Eliminar" class="btn btn-danger"
-                                      (click)="removeCapacity(capacity)" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="removeCapacity(capacity)" [disabled]="continuarTarifarioRack || !rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
@@ -4324,10 +4341,27 @@
                               <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
                               <p class="col-12 text-justify">- Para registrar las tarifas en esta tipología de habitación, es necesario que su establecimiento cuente con la declaración de dichas habitaciones, por favor revise las "Capacidades del establecimiento" que se encuentran en la sección anterior.</p>
                               <p class="col-12 text-justify">- Registrar la tarifa de habitación por noche incluyendo IVA.</p>
+                              <p class="col-12 text-justify">- Por ley, todos los establecimientos de alojamiento prestadores de servicios al turismo y registrados ante el Ministerio de Turismo deben declarar las tarifas rack hasta el 01 de diciembre de cada año y exhibirlo en el año de vigencia.</p>
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="continuarTramite && (actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
+                        <div class="row" *ngIf="actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
+                          <div class="col-12">
+                            <div class="col-12">
+                              <div class="form-group mt-3">
+                                <label class="col-12"><strong>Continuar con el ingreso del Tarifario Rack.</strong></label>
+                                <div class="onoffswitch">
+                                  <input type="checkbox" class="onoffswitch-checkbox"  id="tarifRackswitch" (change)="continuarTarifarioRack()"
+                                    name="baised_accounting" [(ngModel)]="continuarTarifarioRack"><label class="onoffswitch-label" for="baised_accounting">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="continuarTarifarioRack && continuarTramite && (actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
                           <div class="col-12">
                               <table class="table table-hover mt-2">
                                 <thead>

@@ -221,6 +221,7 @@ export class RegistroComponent implements OnInit {
   emailContactEstablishmentValidated = false;
   currentPageEstablishment = 1;
   lastPageEstablishment = 1;
+  continuarTarifarioRack = false;
   recordsByPageEstablishment = 5;
   fechaNombramientoOK = false;
   mostrarDataEstablishment = false;
@@ -380,6 +381,10 @@ export class RegistroComponent implements OnInit {
    this.getDeclarationItems();
    this.getMaxDeclarationDate();
    this.getTramiteStates();
+  }
+
+  continuarIngresoTarifarioRack() {
+   this.calcspaces();
   }
 
   editableTramiteRequerido(): Boolean {
@@ -2029,11 +2034,34 @@ export class RegistroComponent implements OnInit {
    }
   }
 
-  saveAlojamiento() {
+  validateTarifarioRackIngresado(): Boolean {
+      let capacidades_ingresadas = [];
+      let aprueba = true;
+      this.tariffsToShow.valores.forEach( tariffRack => {
+         capacidades_ingresadas.forEach( c => {
+            if (c == tariffRack.idTipoCapacidad) {
+               no_aprueba = false;
+            }
+         });
+         capacidades_ingresadas.push(tariffRack.idTipoCapacidad);
+         tariffRack.tariffs.forEach( tariff => {
+            if (tariff.tariff.price == 0) {
+               no aprueba = false;
+            }
+         });
+      });
+      return aprueba;
+  }
+
+  saveAlojamiento() { 
+   if (this.validateTarifarioRackIngresado()){
+      this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
+      return;
+   }
    if (!this.validateHabitaciones()) {
       this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
       return;
-     }
+   }
    if (this.tituloPropiedad.property_title_attachment_file === '' && (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46)){
       this.toastr.errorToastr('Debe cargar el título de propiedad de su establecimiento.', 'Nuevo');
       return;
@@ -3437,7 +3465,7 @@ export class RegistroComponent implements OnInit {
   selectRegisterEstablishment(establishment: Establishment) {
      if(establishment.id == 0) {
       if (establishment.sri_state == 'CERRADO') {
-         this.toastr.errorToastr('El sistema ha detectado que el establecimeinto seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
+         this.toastr.errorToastr('El sistema ha detectado que el establecimiento seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
          return;
       }
       this.newRegisterEstablishment();

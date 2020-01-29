@@ -378,6 +378,7 @@ export class DashboardComponent implements OnInit {
   
   //DINARDAP
   consumoCedula = false;
+  continuarTarifarioRack = false;
   consumoCedulaEstablishmentContact = false;
   consumoRuc = false;
   consumoCedulaRepresentanteLegal = false;
@@ -3450,7 +3451,30 @@ guardarDeclaracion() {
    });
   }
 
+  validateTarifarioRackIngresado(): Boolean {
+   let capacidades_ingresadas = [];
+   let aprueba = true;
+   this.tariffsToShow.valores.forEach( tariffRack => {
+      capacidades_ingresadas.forEach( c => {
+         if (c == tariffRack.idTipoCapacidad) {
+            no_aprueba = false;
+         }
+      });
+      capacidades_ingresadas.push(tariffRack.idTipoCapacidad);
+      tariffRack.tariffs.forEach( tariff => {
+         if (tariff.tariff.price == 0) {
+            no aprueba = false;
+         }
+      });
+   });
+   return aprueba;
+  }
+
   saveAlojamiento() {
+   if (this.validateTarifarioRackIngresado()){
+      this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
+      return;
+   }
    if (!this.validateHabitaciones()) {
       this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
       return;
@@ -3695,6 +3719,10 @@ guardarDeclaracion() {
    if (this.terminosCondiciones) {
       this.getCategories();
    }
+  }
+
+  continuarIngresoTarifarioRack() {
+      this.calcspaces();
   }
 
   continuarTramiteF() {
