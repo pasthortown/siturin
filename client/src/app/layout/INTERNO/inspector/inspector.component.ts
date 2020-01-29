@@ -2869,9 +2869,6 @@ export class InspectorComponent implements OnInit {
   guardarInspeccion() {
    const estado: String = this.stateTramiteId.toString();
    const digito = estado.substring(estado.length-1, estado.length);
-   //AQUI
-   console.log(estado);
-   console.log(digito);
    if ( this.inspectionState == 0) {
       this.toastr.errorToastr('Debe seleccionar un estado de la inspección', 'Inspección');
       return;
