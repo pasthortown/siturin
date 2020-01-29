@@ -2133,12 +2133,12 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-12" *ngIf="actividadSelected == '2'">
-                              <div class="row mt-3">
-                                  <h4 class="col-12">
-                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Puntos Obtenidos: {{totalABPuntosShown | number : '1.2-2'}}</span>&nbsp;
-                                    <span class="badge badge-info" *ngIf="actividadSelected == '2'">Categoría: {{categoryAB}}</span>
-                                  </h4>
+                            <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única')">
+                              <div class="alert alert-warning" role="alert">
+                                <label class="col-12 text-justify"><strong>Información:</strong><br />
+                                  <p class="text-justify">Usted ha seleccionado un total de <strong>{{totalAbPointsSelected}}</strong> puntos de un total disponible de <strong>{{totalAviable}}</strong> puntos. Con lo cual los puntos de categorización obtenidos son: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>. Su categoría es: <strong>{{categoryAB}}</strong></p>
+                                  <p class="text-justify"><strong>Forma de Cálculo:</strong><br/>({{totalAbPointsSelected}}<strong style="color:red;">*</strong>100)<strong style="color:red;">/</strong>({{totalAviable}})</p>
+                                </label>
                               </div>
                             </div>
                           </div>
