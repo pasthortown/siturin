@@ -289,6 +289,7 @@ export class DashboardComponent implements OnInit {
   addressContactValidated = false;
   emailContactValidated = false;
   mainPhoneContactValidated = false;
+  totalAbPointsSelected = 0;
   procedureJustifications = [];
   procedureJustificationsToShow = [];
   secondaryPhoneContactValidated = true;
@@ -3461,8 +3462,6 @@ guardarDeclaracion() {
   }
 
   validateTarifarioRackIngresado(): Boolean {
-   let capacidades_ingresadas = [];
-   let capacidades_ingresadas_shown = [];
    let aprueba = true;
    this.tariffsToShow.valores.forEach( tariffRack => {
       tariffRack.tariffs.forEach( tariff => {
@@ -4072,6 +4071,7 @@ guardarDeclaracion() {
       this.totalABPuntos = totalScore;
       this.totalABPuntosShown = totalScoreShown;
    }
+   this.totalAbPointsSelected = totalScoreShown;
    this.totalAviable = totalAviable;
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {

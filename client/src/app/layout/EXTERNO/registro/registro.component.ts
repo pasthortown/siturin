@@ -131,6 +131,7 @@ export class RegistroComponent implements OnInit {
    canBar = true;
    canDiscoteca = true;
    canCatering = true;
+   totalAbPointsSelected = 0;
    canEstablecimientoMovil = true;
    thisYear = 1000;
    canPlazaComida = true;
@@ -419,6 +420,7 @@ export class RegistroComponent implements OnInit {
       this.totalABPuntos = totalScore;
       this.totalABPuntosShown = totalScoreShown;
    }
+   this.totalAbPointsSelected = totalScoreShown;
    this.totalAviable = totalAviable;
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
@@ -2043,8 +2045,6 @@ export class RegistroComponent implements OnInit {
   }
 
   validateTarifarioRackIngresado(): Boolean {
-      let capacidades_ingresadas = [];
-      let capacidades_ingresadas_shown = [];
       let aprueba = true;
       this.tariffsToShow.valores.forEach( tariffRack => {
          tariffRack.tariffs.forEach( tariff => {
