@@ -4188,7 +4188,7 @@
                             <table class="table table-hover mt-2">
                               <thead>
                                 <th>
-                                  <button type="button" title="Agregar" *ngIf="selected_year_id >= currentYear" class="btn btn-success ml-2" (click)="addCapacity()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                  <button type="button" title="Agregar" *ngIf="selected_year_id >= currentYear" class="btn btn-success ml-2" (click)="addCapacity()" [disabled]="continuarTarifarioRack || !rucEstablishmentRegisterSelected.editable">
                                     <i class="fas fa-plus-circle"></i>
                                   </button>
                                 </th>
