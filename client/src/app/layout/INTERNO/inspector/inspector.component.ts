@@ -5440,8 +5440,6 @@ selectKitchenType(kitchenType: KitchenType) {
    });
    this.totalABPuntos = totalScore * 100 / totalAviable;
    this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);
-   console.log(this.totalABPuntos);
-   console.log(this.totalABPuntosShown);
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points*1 <= this.totalABPuntosShown*1) {
