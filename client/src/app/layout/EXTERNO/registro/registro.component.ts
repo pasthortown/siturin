@@ -205,7 +205,7 @@ export class RegistroComponent implements OnInit {
   specific_states: State[];
   states: State[];
   totalAviable = 0;
-  
+
   //DATOS ESTABLECIMIENTO
    config: any = {
       paging: true,
@@ -4227,6 +4227,8 @@ export class RegistroComponent implements OnInit {
    this.modificadoCapacidades = true;
    const today = new Date();
    newCapacity.year = today.getFullYear();
+   this.selected_year_id = today.getFullYear();
+   this.currentYear = today.getFullYear();
    this.rucEstablishmentRegisterSelected.total_spaces = 0;
    this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
    this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
