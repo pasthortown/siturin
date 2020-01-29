@@ -3474,7 +3474,7 @@ guardarDeclaracion() {
 }
 
   saveAlojamiento() {
-   if (this.validateTarifarioRackIngresado()){
+   if (!this.validateTarifarioRackIngresado()){
       this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
       return;
    }
