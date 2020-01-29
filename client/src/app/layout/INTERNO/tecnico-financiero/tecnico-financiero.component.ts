@@ -936,7 +936,10 @@ calcularUnoxMil() {
        }
        let existe = false;
        data.forEach(element => {
-          if ((element.registerId == item.register.id) && (thiscategory && element.category)) {
+          if ( (element.number == item.ruc.number) &&
+               (element.ruc_code_id == item.establishment.ruc_code_id) && 
+               (element.establishment == item.establishment.commercially_known_name) && 
+               (thiscategory && element.category)) {
              existe = true;
           }
        });
