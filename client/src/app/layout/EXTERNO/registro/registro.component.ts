@@ -2040,13 +2040,13 @@ export class RegistroComponent implements OnInit {
       this.tariffsToShow.valores.forEach( tariffRack => {
          capacidades_ingresadas.forEach( c => {
             if (c == tariffRack.idTipoCapacidad) {
-               no_aprueba = false;
+               aprueba = false;
             }
          });
          capacidades_ingresadas.push(tariffRack.idTipoCapacidad);
          tariffRack.tariffs.forEach( tariff => {
             if (tariff.tariff.price == 0) {
-               no aprueba = false;
+               aprueba = false;
             }
          });
       });
