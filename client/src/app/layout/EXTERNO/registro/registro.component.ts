@@ -3900,6 +3900,7 @@ export class RegistroComponent implements OnInit {
     this.mostrarDataRegister = false;
     this.rucEstablishmentRegisterSelected = new Register();
     this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+    console.log(register);
     this.registerDataService.get_register_data(register.id).then( r => {
        console.log(r);
        this.rucEstablishmentRegisterSelected = r.register as Register;
