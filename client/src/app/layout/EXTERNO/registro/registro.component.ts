@@ -2064,6 +2064,7 @@ export class RegistroComponent implements OnInit {
          tariffRack.tariffs.forEach( tariff => {
             if (tariff.tariff.price == 0) {
                aprueba = false;
+               console.log(tariff);
             }
          });
       });
