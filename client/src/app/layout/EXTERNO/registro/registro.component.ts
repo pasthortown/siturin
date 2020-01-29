@@ -148,6 +148,7 @@ export class RegistroComponent implements OnInit {
    stateTramiteId = 0;
    actividadSelected = '-';
    totalunoxmil = 0;
+   totalPointsAviable = 0;
    regiones = [];
    regionSelectedCode = '-';
    capacityTypesAB: any[] = [];
@@ -384,7 +385,7 @@ export class RegistroComponent implements OnInit {
   }
 
   continuarIngresoTarifarioRack() {
-   this.calcspaces();
+   this.calcSpaces();
   }
 
   editableTramiteRequerido(): Boolean {
@@ -410,8 +411,14 @@ export class RegistroComponent implements OnInit {
          }
       }
    });
-   this.totalABPuntos = totalScore * 100 / totalAviable;
-   this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);
+   if (totalAviable !== 0) {
+      this.totalABPuntos = totalScore * 100 / totalAviable;
+      this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);   
+   } else {
+      this.totalABPuntos = totalScore;
+      this.totalABPuntosShown = totalScoreShown;
+   }
+   this.totalAviable = totalAviable;
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points*1 <= this.totalABPuntosShown*1) {
