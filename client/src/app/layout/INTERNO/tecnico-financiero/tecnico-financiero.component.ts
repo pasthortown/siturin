@@ -941,7 +941,7 @@ calcularUnoxMil() {
                (element.establishment == item.establishment.commercially_known_name) && 
                (thiscategory && element.category)) {
              existe = true;
-             console.log(thiscategory);
+             console.log({number: element.number, category: thiscategory});
           }
        });
        if (!existe) {
