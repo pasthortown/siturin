@@ -939,7 +939,7 @@ calcularUnoxMil() {
           if ( (elementOnData.number == item.ruc.number) &&
                (elementOnData.ruc_code_id == item.establishment.ruc_code_id) && 
                (elementOnData.establishment == item.establishment.commercially_known_name) && 
-               (thiscategory && elementOnData.category)) {
+               (thiscategory == elementOnData.category)) {
              existe = true;
           }
        });
