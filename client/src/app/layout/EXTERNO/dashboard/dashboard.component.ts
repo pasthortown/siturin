@@ -384,6 +384,7 @@ export class DashboardComponent implements OnInit {
   consumoCedulaRepresentanteLegal = false;
   SRIOK = false;
   categoryAB = 'Pendiente';
+  totalPointsAviable = 0;
   REGCIVILOK = false;
   REGCIVILOKEstablishment = false;
   REGCIVILREPRESENTANTELEGALOK = false;
@@ -4046,9 +4047,6 @@ guardarDeclaracion() {
   }
 
   calcTotalPoints() {
-   if (this.registerMinturSelected.activity == "ALOJAMIENTO") {
-      return;
-   }
    let totalScore = 0;
    let totalScoreShown = 0;
    let totalAviable = 0;
@@ -4056,16 +4054,22 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
       totalAviable += element.score * 1;
       if (element.fullfill) {
-         totalScore += element.score;
          if (!element.mandatory) {
+            totalScore += element.score;
             totalScoreShown += element.score * 1;
          } else {
             totalAviableExtra += element.score * 1;
          }
       }
    });
-   this.totalABPuntos = totalScore * 100 / totalAviable;
-   this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);
+   if (totalAviable !== 0) {
+      this.totalABPuntos = totalScore * 100 / totalAviable;
+      this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);   
+   } else {
+      this.totalABPuntos = totalScore;
+      this.totalABPuntosShown = totalScoreShown;
+   }
+   this.totalAviable = totalAviable;
    this.categoryAB = 'Pendiente';
    this.categories_registers.forEach(category => {
       if (category.min_points*1 <= this.totalABPuntosShown*1) {
