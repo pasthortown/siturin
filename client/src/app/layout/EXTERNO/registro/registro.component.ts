@@ -2049,12 +2049,15 @@ export class RegistroComponent implements OnInit {
          capacidades_ingresadas.forEach( c => {
             if (c == tariffRack.idTipoCapacidad) {
                aprueba = false;
+               console.log("no pasa capacidad repetida");
             }
          });
          capacidades_ingresadas.push(tariffRack.idTipoCapacidad);
          tariffRack.tariffs.forEach( tariff => {
+            console.log(tariff);
             if (tariff.tariff.price == 0) {
                aprueba = false;
+               console.log("no pasa tarifa 0");
             }
          });
       });
