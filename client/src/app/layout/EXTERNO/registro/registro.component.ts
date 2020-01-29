@@ -3466,6 +3466,7 @@ export class RegistroComponent implements OnInit {
          }
          if (register.activity == "ALIMENTOS Y BEBIDAS") {
             this.canAlojamiento = false;
+            this.isAlojamiento = false;
          }
        }
     });
@@ -3481,6 +3482,7 @@ export class RegistroComponent implements OnInit {
          this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
        }
     } else {
+       console.log('entre');
       this.mostrarDataRegister = true;
       this.canRestaurante = true;
       this.canCafeteria = true;
@@ -3857,9 +3859,6 @@ export class RegistroComponent implements OnInit {
   }
 
   setCategory(type_id: number){
-   if (this.actividadSelected == '2') {
-      return;
-   }
    let categoryCode = '';
    this.actividadSelected = '1';
    this.register_typeDataService.get().then(r => {
@@ -3900,9 +3899,7 @@ export class RegistroComponent implements OnInit {
     this.mostrarDataRegister = false;
     this.rucEstablishmentRegisterSelected = new Register();
     this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
-    console.log(register);
     this.registerDataService.get_register_data(register.id).then( r => {
-       console.log(r);
        this.rucEstablishmentRegisterSelected = r.register as Register;
        this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
        this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
