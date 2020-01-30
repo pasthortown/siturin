@@ -3192,7 +3192,7 @@ export class InspectorComponent implements OnInit {
       //AQUI
       console.log(element);
       console.log(event);
-      if ((element.ruc.number == event.row.number) && (element.establishment.ruc_code_id == event.row.ruc_code_id) && (element.register.id == event.row.registerId) && (event.row.activity == element.activity)) {
+      if ((element.ruc.number == event.row.number) && (element.establishment.ruc_code_id == event.row.ruc_code_id) && (element.register.id == event.row.registerId) && (event.row.actividad == element.activity)) {
          this.selectRegisterMintur(element);
          this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
             if (typeof r2.activity != 'undefined') {
