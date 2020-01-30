@@ -1355,6 +1355,7 @@ export class InspectorComponent implements OnInit {
       }
    });
    this.stateTramiteId = event.row.state_id;
+   console.log(event.row.state_id);
    this.showTramiteState();
    this.rowsRegister.forEach(row => {
       if (row.id == event.row.id) {
