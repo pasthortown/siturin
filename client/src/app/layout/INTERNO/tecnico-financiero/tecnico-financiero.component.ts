@@ -1378,7 +1378,7 @@ calcularUnoxMil() {
       }
    });  
    this.registers_mintur.forEach(element => {
-   if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
+   if ((element.ruc.number == event.row.number) && (element.establishment.ruc_code_id == event.row.ruc_code_id) && (element.register.id == event.row.registerId) && (event.row.actividad == element.activity)) {
         this.selectRegisterMintur(element);
         this.stateTramiteId = element.states.state_id;
         const estado = this.stateTramiteId.toString();
