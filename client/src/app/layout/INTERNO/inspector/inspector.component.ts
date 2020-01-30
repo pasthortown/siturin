@@ -107,6 +107,7 @@ import Swal from 'sweetalert2';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
 import { Document as Documento } from 'src/app/models/EXPORTER/Document';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { AuthorizationAttachment } from 'src/app/models/ALOJAMIENTO/AuthorizationAttachment';
 import { PropertyTitleAttachment } from 'src/app/models/ALOJAMIENTO/PropertyTitleAttachment';
@@ -403,6 +404,7 @@ export class InspectorComponent implements OnInit {
               private rucDataService: RucService,
               private modalService: NgbModal,
               private agreementDataService: AgreementService,
+              private registerProcedureABDataService: RegisterProcedureABService,
               private rucNameTypeDataService: RucNameTypeService,
               private group_typeDataService: GroupTypeService,
               private languageDataService: LanguageService,
@@ -514,14 +516,23 @@ export class InspectorComponent implements OnInit {
    if (estado == '70') {
       this.tipo_tramite = 'REINGRESO';
    }
-   this.registerProcedureDataService.get_by_register_id(this.idRegister.toString()).then( r => {
-      if (typeof r.id != 'undefined') {
-         this.motivoTramite = r.justification;
-         this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
-            if (typeof r2.activity != 'undefined') {
-               this.as_turistic_date = new Date(r2.as_turistic_date.toString());
-            }
-         }).catch( e => { console.log(e); });
+   this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
+      if (typeof r2.activity != 'undefined') {
+         this.as_turistic_date = new Date(r2.as_turistic_date.toString());
+         if (r2.activity == 'ALOJAMIENTO') {
+            this.registerProcedureDataService.get_by_register_id(this.idRegister.toString()).then( r => {
+               if (typeof r.id != 'undefined') {
+                  this.motivoTramite = r.justification;
+               }
+            }).catch( e => { console.log(e); });
+         }
+         if (r2.activity == 'ALIMENTOS Y BEBIDAS') {
+            this.registerProcedureABDataService.get_by_register_id(this.idRegister.toString()).then( r => {
+               if (typeof r.id != 'undefined') {
+                  this.motivoTramite = r.justification;
+               }
+            }).catch( e => { console.log(e); });
+         }      
       }
    }).catch( e => { console.log(e); });
   }

@@ -68,6 +68,7 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -87,6 +88,7 @@ import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/C
     DeclarationItemService,
     ApprovalStateService,
     ProcedureJustificationService,
+    RegisterProcedureABService,
     CatastroRegisterService,
     RegisterProcedureService,
     RegisterABService,

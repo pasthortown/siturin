@@ -99,6 +99,7 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
 import { PayTax } from 'src/app/models/FINANCIERO/PayTax';
 import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
 import { PayAttachment } from 'src/app/models/FINANCIERO/PayAttachment';
@@ -340,6 +341,7 @@ export class TecnicoFinancieroComponent implements OnInit {
              private stateDeclaratonDataService: StateDeclarationService,
              private registerCatastroDataService: RegistroCatastroService,
              private languageDataService: LanguageService,
+             private registerProcedureABDataService: RegisterProcedureABService,
              private zoneDataService: ZoneService,
              private complementaryServiceFoodTypeDataService: ComplementaryServiceFoodTypeService,
              private establishmentPictureDataService: EstablishmentPictureService,
@@ -414,52 +416,61 @@ export class TecnicoFinancieroComponent implements OnInit {
       this.mostrarMotivoTramite = true;
    }
    this.tipo_tramite = 'REGISTRO';
-   this.registerProcedureDataService.get_by_register_id(this.idRegister.toString()).then( r => {
-      if (typeof r.id != 'undefined') {
-         this.motivoTramite = r.justification;
-         this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
-            if (typeof r2.activity != 'undefined') {
-               this.as_turistic_date = new Date(r2.as_turistic_date.toString());
-            }
-            const primerdigito = estado.substring(0, 1);
-            if (primerdigito == '1') {
-               this.tipo_tramite = 'REGISTRO';
-            }
-            if (primerdigito == '2') {
-               this.tipo_tramite = 'RECLASIFICACIÓN';
-            }
-            if (primerdigito == '3') {
-               this.tipo_tramite = 'RECATEGORIZACIÓN';
-            }
-            if (primerdigito == '4') {
-               this.tipo_tramite = 'ACTUALIZACIÓN';
-            }
-            if (primerdigito == '5') {
-               this.tipo_tramite = 'INACTIVACIÓN';
-            }
-            if (primerdigito == '6') {
-               this.tipo_tramite = 'REINGRESO';
-            }
-            
-            if (estado == '20') {
-               this.tipo_tramite = 'REGISTRO';
-            }
-            if (estado == '30') {
-               this.tipo_tramite = 'RECLASIFICACIÓN';
-            }
-            if (estado == '40') {
-               this.tipo_tramite = 'RECATEGORIZACIÓN';
-            }
-            if (estado == '50') {
-               this.tipo_tramite = 'ACTUALIZACIÓN';
-            }
-            if (estado == '60') {
-               this.tipo_tramite = 'INACTIVACIÓN';
-            }
-            if (estado == '70') {
-               this.tipo_tramite = 'REINGRESO';
-            }
-         }).catch( e => { console.log(e); });
+   const primerdigito = estado.substring(0, 1);
+   if (primerdigito == '1') {
+      this.tipo_tramite = 'REGISTRO';
+   }
+   if (primerdigito == '2') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+   }
+   if (primerdigito == '3') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+   }
+   if (primerdigito == '4') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+   }
+   if (primerdigito == '5') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+   }
+   if (primerdigito == '6') {
+      this.tipo_tramite = 'REINGRESO';
+   }
+   
+   if (estado == '20') {
+      this.tipo_tramite = 'REGISTRO';
+   }
+   if (estado == '30') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+   }
+   if (estado == '40') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+   }
+   if (estado == '50') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+   }
+   if (estado == '60') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+   }
+   if (estado == '70') {
+      this.tipo_tramite = 'REINGRESO';
+   }
+   this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
+      if (typeof r2.activity != 'undefined') {
+         this.as_turistic_date = new Date(r2.as_turistic_date.toString());
+         if (r2.activity == 'ALOJAMIENTO') {
+            this.registerProcedureDataService.get_by_register_id(this.idRegister.toString()).then( r => {
+               if (typeof r.id != 'undefined') {
+                  this.motivoTramite = r.justification;
+               }
+            }).catch( e => { console.log(e); });
+         }
+         if (r2.activity == 'ALIMENTOS Y BEBIDAS') {
+            this.registerProcedureABDataService.get_by_register_id(this.idRegister.toString()).then( r => {
+               if (typeof r.id != 'undefined') {
+                  this.motivoTramite = r.justification;
+               }
+            }).catch( e => { console.log(e); });
+         }      
       }
    }).catch( e => { console.log(e); });
   }

@@ -40,6 +40,7 @@ import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/regi
 import { MailerService } from 'src/app/services/negocio/mailer.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { UserService } from 'src/app/services/profile/user.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 
 @Component({
     selector: 'inactivacion-login',
@@ -168,6 +169,7 @@ export class InactivacionComponent implements OnInit {
     private registerABDataService: RegisterABService,
     private registerDataService: RegisterService,
     private registerProcedureDataService: RegisterProcedureService,
+    private registerProcedureABDataService: RegisterProcedureABService,
     private registerStateDataService: RegisterStateService,
     private rucDataService: RucService,
     private payDataService: PayService,
@@ -777,7 +779,7 @@ export class InactivacionComponent implements OnInit {
                   newRegisterProcedure.procedure_justification_id = this.idCausal;
                   newRegisterProcedure.register_id = r.id;
                   newRegisterProcedure.date = new Date();
-                  this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+                  this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
                   }).catch( e => { console.log(e); });
                   saveAs(blob, qr_value + '.pdf');
                   const information = {

@@ -114,6 +114,7 @@ import { RegisterService as CatastroRegisterService } from 'src/app/services/CRU
 import { Register as CatastroRegister } from 'src/app/models/CATASTRO/Register';
 import { RegisterProcedure } from 'src/app/models/ALOJAMIENTO/RegisterProcedure';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { AuthorizationAttachment } from 'src/app/models/ALOJAMIENTO/AuthorizationAttachment';
 import { PropertyTitleAttachment } from 'src/app/models/ALOJAMIENTO/PropertyTitleAttachment';
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
@@ -413,6 +414,7 @@ export class DashboardComponent implements OnInit {
               private payDataService: PayService,
               private registerABDataService: RegisterABService,
               private registerProcedureDataService: RegisterProcedureService,
+              private registerProcedureABDataService: RegisterProcedureABService,
               private floorAuthorizationCertificateDataService: FloorAuthorizationCertificateService,
               private propertyTitleAttachmentDataService: PropertyTitleAttachmentService,
               private authorizationAttachmentDataService: AuthorizationAttachmentService,
@@ -3424,7 +3426,7 @@ guardarDeclaracion() {
             newRegisterProcedure.procedure_justification_id = this.idCausal;
             newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
             newRegisterProcedure.date = new Date();
-            this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+            this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
             }).catch( e => { console.log(e); });
          saveAs(blob, qr_value + '.pdf');
          const information = {

@@ -44,6 +44,13 @@ export class RegisterProcedureService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
+   get_by_register_id(id: String): Promise<any> {
+      return this.http.get(this.url + 'get_by_register_id?id=' + id.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
    getBackUp(): Promise<any> {
       return this.http.get(this.url + 'backup', this.options).toPromise()
       .then( r => {

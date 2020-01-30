@@ -72,6 +72,7 @@ import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALI
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -87,6 +88,7 @@ import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBID
   providers: [NgbModal,
     UserService,
     DinardapService,
+    RegisterProcedureABService,
     FoodDrinkAttachmentService,
     ServiceTypeService,
     KitchenTypeService,

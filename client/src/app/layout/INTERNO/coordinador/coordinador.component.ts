@@ -114,6 +114,7 @@ import { Document as Documento } from 'src/app/models/EXPORTER/Document';
 import { Register as RegistroCatastro } from 'src/app/models/CATASTRO/Register';
 import { RegisterService as RegistroCatastroService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { RegisterProcedureService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { PropertyTitleAttachment } from 'src/app/models/ALOJAMIENTO/PropertyTitleAttachment';
 import { AuthorizationAttachment } from 'src/app/models/ALOJAMIENTO/AuthorizationAttachment';
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
@@ -405,6 +406,7 @@ export class CoordinadorComponent implements OnInit {
               private serviceTypeDataService: ServiceTypeService,
               private kitchenTypeDataService: KitchenTypeService,
               private approvalStateDataService: ApprovalStateService, 
+              private registerProcedureABDataService: RegisterProcedureABService,
               private consultorDataService: ConsultorService,
               private userDataService: UserService,
               private registerStateDataService: RegisterStateService,
@@ -2499,14 +2501,24 @@ export class CoordinadorComponent implements OnInit {
    if (estado == '70') {
       this.tipo_tramite = 'REINGRESO';
    }
-   this.registerProcedureDataService.get_by_register_id(this.idRegister.toString()).then( r => {
-      if (typeof r.id != 'undefined') {
-         this.motivoTramite = r.justification;
-         this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
-            if (typeof r2.activity != 'undefined') {
-               this.as_turistic_date = new Date(r2.as_turistic_date.toString());
-            }
-         }).catch( e => { console.log(e); });
+   this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
+      if (typeof r2.activity != 'undefined') {
+         this.as_turistic_date = new Date(r2.as_turistic_date.toString());
+         if (r2.activity == 'ALOJAMIENTO') {
+            this.registerProcedureDataService.get_by_register_id(this.idRegister.toString()).then( r => {
+               if (typeof r.id != 'undefined') {
+                  this.motivoTramite = r.justification;
+               }
+            }).catch( e => { console.log(e); });
+         }
+         if (r2.activity == 'ALIMENTOS Y BEBIDAS') {
+            this.registerProcedureABDataService.get_by_register_id(this.idRegister.toString()).then( r => {
+               if (typeof r.id != 'undefined') {
+                  this.motivoTramite = r.justification;
+               }
+            }).catch( e => { console.log(e); });
+         }
+         
       }
    }).catch( e => { console.log(e); });
   }
