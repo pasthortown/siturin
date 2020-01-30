@@ -1534,6 +1534,7 @@ export class CoordinadorComponent implements OnInit {
          newRegisterState.state_id = this.stateTramiteId - 3;
          this.desasignandoInspector = true;
          this.registerStateDataService.post(newRegisterState).then( r1 => {
+            this.desasignandoInspector = false;
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
@@ -1546,6 +1547,7 @@ export class CoordinadorComponent implements OnInit {
          this.desasignandoInspector = true;
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
             this.registerStateABDataService.post(newRegisterState).then( r1 => {
+               this.desasignandoInspector = false;
             }).catch( e => { console.log(e); });
          }
       }).catch( e => { console.log(e); });
