@@ -2517,8 +2517,7 @@ export class CoordinadorComponent implements OnInit {
                   this.motivoTramite = r.justification;
                }
             }).catch( e => { console.log(e); });
-         }
-         
+         }      
       }
    }).catch( e => { console.log(e); });
   }
