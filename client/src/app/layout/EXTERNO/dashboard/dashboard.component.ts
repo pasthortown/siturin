@@ -164,6 +164,7 @@ export class DashboardComponent implements OnInit {
    canEstablecimientoMovil = true;
    canPlazaComida = true;
    idCausal = 0;
+   mostrarMensajeNoNombreComercial = false;
    reclasificando = false;
    listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
    recategorizando = false;
@@ -1532,7 +1533,10 @@ export class DashboardComponent implements OnInit {
    this.establishment_selected_picture = new EstablishmentPicture();
    if (event.row.name == ''){
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
+      this.mostrarMensajeNoNombreComercial = true;
       return;
+   }  else {
+      this.mostrarMensajeNoNombreComercial = false;
    }
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {

@@ -442,10 +442,10 @@
                                             placeholder="Nombre Comercial" [(ngModel)]="
                                               establishment_selected.commercially_known_name
                                             "/>
-                                            <small class="col-12" *ngIf="!establishmentComercialNameValidated">
+                                            <small class="col-12" *ngIf="!establishmentComercialNameValidated && !mostrarMensajeNoNombreComercial">
                                               <div class="alert alert-info mt-2 mb-2" role="alert">
                                                 <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                                                <p>Estimado usuario, el sistema ha detectado que su nombre comercial no se encuentra registrado en el SRI o contiene alguno de 
+                                                <p>Estimado usuario, el sistema ha detectado que su nombre comercial o contiene alguno de 
                                                   los siguientes términos/frases listadas en el documento PDF adjunto <a href="assets/documents/nombrecomercial.pdf" download="Palabras no Admitidas en Nombre Comercial.pdf" title="Descargar Listado - Palabras no Admitidas"><i class="far fa-file-pdf"></i></a>; por lo que de acuerdo al 
                                                   artículo 63 del Reglamento General a la Ley de Turismo, “Uso de denominación.-
                                                   Ningún establecimiento podrá usar denominación, razón social o nombre comercial y 
@@ -454,6 +454,12 @@
                                                   procedimientos establecidos en este reglamento y en las normas de procedimiento que 
                                                   fueren aplicables”; solicitamos ingrese nuevamente su Nombre Comercial con estas 
                                                   consideraciones.</p>&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
+                                              </div>
+                                            </small>
+                                            <small class="col-12" *ngIf="mostrarMensajeNoNombreComercial">
+                                              <div class="alert alert-info mt-2 mb-2" role="alert">
+                                                <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                                <p>Estimado usuario, el sistema ha detectado que el nombre comercial del establecimiento seleccionado no se encuentra registrado en el SRI. Para registrarlo diríjase al sitio oficial del SRI.</p>&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
                                               </div>
                                             </small>
                                         </div>

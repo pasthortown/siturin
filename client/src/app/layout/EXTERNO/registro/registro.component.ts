@@ -182,6 +182,7 @@ export class RegistroComponent implements OnInit {
   listasPrecios: FoodDrinkAttachment[] = [];
   capacitiesToShow: any[] = [];
   canAlojamiento = true;
+  mostrarMensajeNoNombreComercial = false;
   canAlimentosBebidas = true;
   canEditCapacity = false;
   currentYear = 2019;
@@ -828,8 +829,11 @@ export class RegistroComponent implements OnInit {
      this.establishment_selected_picture = new EstablishmentPicture();
    if (event.row.name == ''){
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
+      this.mostrarMensajeNoNombreComercial = true;
       return;
-   } 
+   }  else {
+      this.mostrarMensajeNoNombreComercial = false;
+   }
    if (event.row.yaRegistrado) {
       this.toastr.errorToastr('Éste establecimiento, ya tiene un número de Registro, diríjase a la opción Gestión de Actividades Turísiticas para administrarlo.', 'MINISTERIO DE TURISMO');
       return;
