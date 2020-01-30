@@ -1223,6 +1223,9 @@ export class DashboardComponent implements OnInit {
          this.categories_registers = [];
          this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
             this.categories_registers = r as RegisterType[];
+            if (this.activando) {
+               this.changeCategory(true);
+            }
          }).catch( e => { console.log(e) });
       }).catch( e => { console.log(e) });
    }).catch( e=> { console.log(e); });
