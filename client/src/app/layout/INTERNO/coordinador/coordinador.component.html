@@ -102,7 +102,7 @@
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <button [disabled]="(digito !== '1' && digito !== '4') || desasignandoInspector" type="button" title="No se requiere Inspección de Técnico Zonal" class="mr-2 btn btn-warning" (click)="noRequiereInspeccion()"><span class="fas fa-user-check"></span></button>
-        <button [disabled]="(digito !== '1') || asignandoInspector" type="button" title="Asignar" class="btn btn-success" (click)="asignarInspector()"><span class="fas fa-user-plus"></span></button>
+        <button [disabled]="(inspectorSelectedId == 0) || (digito !== '1') || asignandoInspector" type="button" title="Asignar" class="btn btn-success" (click)="asignarInspector()"><span class="fas fa-user-plus"></span></button>
         <button [disabled]="(inspectorSelectedId == 0) || desasignandoInspector || registerApprovalInspector.value || ((digito !== '1') && (digito !== '4'))" type="button" title="Remover" class="btn btn-danger" (click)="desasignarInspector()"><span class="fas fa-user-minus"></span></button>
       </div>
       <select [disabled]="isAssigned" class="form-control" id="idInspector" name="idInspector" [(ngModel)]="inspectorSelectedId">
