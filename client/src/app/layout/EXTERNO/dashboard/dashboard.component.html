@@ -4085,7 +4085,7 @@
                                 <div class="form-group">
                                   <label>Actividad Turística</label><span *ngIf="actividadSelected == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
-                                  <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="recategorizando || reclasificando || actualizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
+                                  <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="activando || recategorizando || reclasificando || actualizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
                                     <option value="-" selected>Seleccione...</option>
                                     <option value="1" *ngIf="canAlojamiento">Alojamiento Turístico</option>
                                     <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas">Alimentos y Bebidas</option>
