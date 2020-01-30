@@ -3190,6 +3190,8 @@ export class InspectorComponent implements OnInit {
    });
    this.registers_mintur.forEach(element => {
       //AQUI
+      console.log(element);
+      console.log(event);
       if ((element.ruc.number == event.row.number) && (element.establishment.ruc_code_id == event.row.ruc_code_id) && (element.register.id == event.row.registerId) && (event.row.activity == element.activity)) {
          this.selectRegisterMintur(element);
          this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
