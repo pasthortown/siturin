@@ -1355,7 +1355,6 @@ export class InspectorComponent implements OnInit {
       }
    });
    this.stateTramiteId = event.row.state_id;
-   console.log(event.row.state_id);
    this.showTramiteState();
    this.rowsRegister.forEach(row => {
       if (row.id == event.row.id) {
@@ -3190,7 +3189,8 @@ export class InspectorComponent implements OnInit {
       }
    });
    this.registers_mintur.forEach(element => {
-      if (element.ruc.number == event.row.number && element.establishment.ruc_code_id == event.row.ruc_code_id) {
+      //AQUI
+      if ((element.ruc.number == event.row.number) && (element.establishment.ruc_code_id == event.row.ruc_code_id) && (element.register.id == event.row.registerId) && (event.row.activity == element.activity)) {
          this.selectRegisterMintur(element);
          this.registerCatastroDataService.get_by_register_code(this.register_code).then( r2 => {
             if (typeof r2.activity != 'undefined') {
