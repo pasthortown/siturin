@@ -606,6 +606,7 @@ export class InactivacionComponent implements OnInit {
                text: 'El correo electrónico se encuentra utilizado para gestionar los registros de un RUC diferente al ingresado.',
                type: 'error',
             });
+            this.guardando = false;
             return;
          }
          let tipo_tramite = 'Inactivación';
