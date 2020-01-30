@@ -2867,6 +2867,8 @@ export class InspectorComponent implements OnInit {
   }
 
   guardarInspeccion() {
+     console.log(this.stateTramiteId);
+     return;
    const estado: String = this.stateTramiteId.toString();
    const digito = estado.substring(estado.length-1, estado.length);
    if ( this.inspectionState == 0) {
