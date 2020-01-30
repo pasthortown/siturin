@@ -1221,11 +1221,12 @@ export class DashboardComponent implements OnInit {
             }
          });
          this.categories_registers = [];
+         if (this.activando) {
+            this.categorySelectedCode = '-';
+            this.rucEstablishmentRegisterSelected.register_type_id = 0;
+         }
          this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
             this.categories_registers = r as RegisterType[];
-            if (this.activando) {
-               this.changeCategory(true);
-            }
          }).catch( e => { console.log(e) });
       }).catch( e => { console.log(e) });
    }).catch( e=> { console.log(e); });
