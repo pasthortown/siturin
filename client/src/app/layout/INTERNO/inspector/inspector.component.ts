@@ -5840,6 +5840,7 @@ selectKitchenType(kitchenType: KitchenType) {
 
    imprimirActaNotificacionInactivacion() {
       const today = new Date();
+      this.tipo_tramite = 'INACTIVACIÓN';
      Swal.fire({
       title: 'Ingreso de Información',
       text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
