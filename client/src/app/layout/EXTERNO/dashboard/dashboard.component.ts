@@ -2559,6 +2559,7 @@ export class DashboardComponent implements OnInit {
          }
       });
    }
+   console.log(this.allowed_capacity_types);
   }
 
   addComplementaryFoodService() {
