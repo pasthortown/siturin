@@ -102,8 +102,8 @@
         <button class="btn btn-light" (click)="recategorizacion()" *ngIf="!recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         <button class="btn btn-secondary" (click)="recategorizacion()" *ngIf="recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
         
-        <button class="btn btn-light" (click)="reactivar()" *ngIf="!activando" [disabled]="!mostrarActivar">Reactivar</button>
-        <button class="btn btn-secondary" (click)="reactivar()" *ngIf="activando" [disabled]="!mostrarActivar">Reactivar</button>
+        <button class="btn btn-light" (click)="reactivar()" *ngIf="!activando" [disabled]="!mostrarActivar">Reingreso</button>
+        <button class="btn btn-secondary" (click)="reactivar()" *ngIf="activando" [disabled]="!mostrarActivar">Reingreso</button>
       </div>
     </div>
     <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="mensajePorTipoTramite != ''">
@@ -1026,8 +1026,8 @@
                                   <div class="form-group mt-3">
                                     <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi registro.</strong></label>
                                     <div class="onoffswitch">
-                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="continuarTramiteF()"
-                                        name="baised_accounting" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="baised_accounting">
+                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="continueReview" (change)="continuarTramiteF()"
+                                        name="continueReview" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="continueReview">
                                                        <span class="onoffswitch-inner"></span>
                                                        <span class="onoffswitch-switch"></span>
                                                  </label>
@@ -1328,7 +1328,7 @@
                                 <label class="col-12"><strong>Continuar con el ingreso del Tarifario Rack.</strong></label>
                                 <div class="onoffswitch">
                                   <input type="checkbox" class="onoffswitch-checkbox"  id="tarifRackswitch" (change)="continuarTarifarioRack()"
-                                    name="baised_accounting" [(ngModel)]="continuarTarifarioRack"><label class="onoffswitch-label" for="tarifRackswitch">
+                                    name="tarifRackswitch" [(ngModel)]="continuarTarifarioRack"><label class="onoffswitch-label" for="tarifRackswitch">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
                                   </label>
@@ -4056,8 +4056,8 @@
                                   <div class="form-group mt-3">
                                     <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi registro.</strong></label>
                                     <div class="onoffswitch">
-                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" (change)="continuarTramiteF()"
-                                        name="baised_accounting" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="baised_accounting">
+                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="continueReview" (change)="continuarTramiteF()"
+                                        name="continueReview" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="continueReview">
                                                        <span class="onoffswitch-inner"></span>
                                                        <span class="onoffswitch-switch"></span>
                                                  </label>
@@ -4358,7 +4358,7 @@
                                 <label class="col-12"><strong>Continuar con el ingreso del Tarifario Rack.</strong></label>
                                 <div class="onoffswitch">
                                   <input type="checkbox" class="onoffswitch-checkbox"  id="tarifRackswitch" (change)="continuarTarifarioRack()"
-                                    name="baised_accounting" [(ngModel)]="continuarTarifarioRack"><label class="onoffswitch-label" for="baised_accounting">
+                                    name="tarifRackswitch" [(ngModel)]="continuarTarifarioRack"><label class="onoffswitch-label" for="baised_accounting">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
                                   </label>
