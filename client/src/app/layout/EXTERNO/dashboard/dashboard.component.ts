@@ -2560,6 +2560,7 @@ export class DashboardComponent implements OnInit {
       });
    }
    console.log(this.tariffsToShow);
+   console.log(this.tarifarioRack);
   }
 
   addComplementaryFoodService() {
