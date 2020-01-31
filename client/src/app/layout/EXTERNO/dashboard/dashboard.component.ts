@@ -2533,6 +2533,14 @@ export class DashboardComponent implements OnInit {
          this.capacitiesToShow.push(newCapacity);
       }
    }
+   this.listasPrecios.forEach(element => {
+      if (element.year == this.selected_year_id) {
+         this.listaPrecios = element;
+      }
+   });
+  }
+
+  updateTariffToShow() {
    this.tariffsToShow.cabecera = [];
    this.tariffsToShow.valores = [];
    if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
@@ -2551,11 +2559,6 @@ export class DashboardComponent implements OnInit {
          }
       });
    }
-   this.listasPrecios.forEach(element => {
-      if (element.year == this.selected_year_id) {
-         this.listaPrecios = element;
-      }
-   });
   }
 
   addComplementaryFoodService() {
@@ -5512,6 +5515,7 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.total_habitations += c2.quantity;
          this.rucEstablishmentRegisterSelected.total_beds += (c2.max_beds * c2.quantity);
       });
+      this.updateTariffToShow();
    }
 
   calcBeds(capacity: Capacity) {
