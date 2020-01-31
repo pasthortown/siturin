@@ -2558,8 +2558,16 @@ export class DashboardComponent implements OnInit {
             this.tariffsToShow.valores.push(v);
          }
       });
-   }
-   console.log(this.allowed_capacity_types);
+   }   
+   this.tariffsToShow.valores.forEach(tariffRack => {
+      this.allowed_capacity_types.forEach(cap => {
+         if (cap.id == tariffRack.idTipoCapacidad) {
+            tariffRack.tariffs.forEach(tariff => {
+               tariff.plazasHabitacion = cap.spaces;
+            });
+         }
+      });
+   });
   }
 
   addComplementaryFoodService() {
