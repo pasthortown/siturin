@@ -3200,23 +3200,43 @@ guardarDeclaracion() {
   }
 
   guardarRegistro() {
-     this.capacitiesToShow.forEach(new_cap => {
-         let existe = false;
-         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(cap_preview => {
-            if (new_cap == cap_preview) {
-               existe = true;
-            }
+   Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de enviar la solicitud al Ministerio de Turismo? Tome en cuenta que una vez enviada la solicitud, la información no podrá ser modificada; y ésta, será verificada mediante inspección.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         this.capacitiesToShow.forEach(new_cap => {
+               let existe = false;
+               this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(cap_preview => {
+                  if (new_cap == cap_preview) {
+                     existe = true;
+                  }
+               });
+               if (!existe) {
+                  this.rucEstablishmentRegisterSelected.capacities_on_register.push(new_cap);  
+               }
          });
-         if (!existe) {
-            this.rucEstablishmentRegisterSelected.capacities_on_register.push(new_cap);  
+         if (this.actividadSelected == '1') {
+            this.saveAlojamiento();
+         }  
+         if (this.actividadSelected == '2') {
+            this.saveAlimentosBebidas();
          }
+      } else if (
+         result.dismiss === Swal.DismissReason.cancel
+       ) {
+         Swal.fire(
+           'Cancelado',
+           '',
+           'error'
+         );
+       }
      });
-   if (this.actividadSelected == '1') {
-      this.saveAlojamiento();
-   }  
-   if (this.actividadSelected == '2') {
-      this.saveAlimentosBebidas();
-   }
   }
 
   validateCapacidades(): Boolean {

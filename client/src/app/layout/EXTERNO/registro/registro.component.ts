@@ -107,6 +107,7 @@ import { ServiceType } from 'src/app/models/ALIMENTOSBEBIDAS/ServiceType';
 import { KitchenType } from 'src/app/models/ALIMENTOSBEBIDAS/KitchenType';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -2038,14 +2039,34 @@ export class RegistroComponent implements OnInit {
   }
 
   guardarRegistro() {
-   this.rucEstablishmentRegisterSelected.capacities_on_register = this.capacitiesToShow;
-   this.rucEstablishmentRegisterSelected.status = 11;
-   if (this.actividadSelected == '1') {
-      this.saveAlojamiento();
-   }  
-   if (this.actividadSelected == '2') {
-      this.saveAlimentosBebidas();
-   }
+   Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de enviar la solicitud de registro al Ministerio de Turismo? Tome en cuenta que una vez enviada la solicitud, la información no podrá ser modificada; y ésta, será verificada mediante inspección.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         this.rucEstablishmentRegisterSelected.capacities_on_register = this.capacitiesToShow;
+         this.rucEstablishmentRegisterSelected.status = 11;
+         if (this.actividadSelected == '1') {
+            this.saveAlojamiento();
+         }  
+         if (this.actividadSelected == '2') {
+            this.saveAlimentosBebidas();
+         }
+      } else if (
+         result.dismiss === Swal.DismissReason.cancel
+       ) {
+         Swal.fire(
+           'Cancelado',
+           '',
+           'error'
+         );
+       }
+     });
   }
 
   validateTarifarioRackIngresado(): Boolean {
