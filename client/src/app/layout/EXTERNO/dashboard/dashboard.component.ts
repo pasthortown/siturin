@@ -2559,8 +2559,6 @@ export class DashboardComponent implements OnInit {
          }
       });
    }
-   console.log(this.tariffsToShow);
-   console.log(this.tarifarioRack);
   }
 
   addComplementaryFoodService() {
@@ -3760,7 +3758,9 @@ guardarDeclaracion() {
   }
 
   continuarIngresoTarifarioRack() {
-   this.calcSpaces();
+   this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c => {
+      this.calcSpaces(c);
+   });
   }
 
   continuarTramiteF() {
