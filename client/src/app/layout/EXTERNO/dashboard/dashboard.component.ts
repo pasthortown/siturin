@@ -219,6 +219,7 @@ export class DashboardComponent implements OnInit {
    registerApprovalInspector: ApprovalState = new ApprovalState();
    registerApprovalFinanciero: ApprovalState = new ApprovalState();
    isAssigned = false;
+   idCatasterID = 0;
    hasIspectionDate  = false;
    hasInform  = false;
    hasRegisterReady = false;
@@ -1535,7 +1536,6 @@ export class DashboardComponent implements OnInit {
 
   onCellClickEstablishment(event) {
    this.establishment_selected_picture = new EstablishmentPicture();
-   console.log(event);
    if (event.row.name == ''){
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
       this.mostrarMensajeNoNombreComercial = true;
@@ -2039,6 +2039,7 @@ export class DashboardComponent implements OnInit {
    }
    this.register_code = event.row.register_code;
    this.my_category_current = event.row.category;
+   this.idCatasterID = event.row.id;
    this.my_classification_current = event.row.classification;
    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
    this.rows.forEach(row => {
@@ -4364,7 +4365,7 @@ guardarDeclaracion() {
       return;
    }
    console.log(
-      {idRegister: this.idRegister, 
+      {idRegister: this.idCatasterID, 
       ruc_code_id: this.establishment_selected.ruc_code_id, 
       sri_state: this.establishment_selected.sri_state}
    );
@@ -4885,7 +4886,6 @@ guardarDeclaracion() {
   }
 
   selectRegisterEstablishment(establishment: Establishment) {
-     console.log(establishment);
    this.selectRegisterEstablishmentDeclaration(establishment);
    this.registersByEstablishment = [];
    let isAlojamiento = false;
