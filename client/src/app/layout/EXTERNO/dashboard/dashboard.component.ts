@@ -3518,17 +3518,6 @@ guardarDeclaracion() {
 }
 
   saveAlojamiento() {
-   const tariffs2: Tariff[] = [];
-   this.tarifarioRack.valores.forEach(tarifRackValor => {
-      const idTipoCapacidad = tarifRackValor.idTipoCapacidad;
-      tarifRackValor.tariffs.forEach(tariff => {
-         tariff.tariff.capacity_type_id = idTipoCapacidad;
-         tariffs2.push(tariff.tariff);
-      });
-   });
-   console.log({tarifarioRack: this.tarifarioRack});
-   console.log({tariffs: tariffs2});
-   return;
    if (!this.validateTarifarioRackIngresado()){
       this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
       return;
@@ -3614,10 +3603,10 @@ guardarDeclaracion() {
    this.tarifarioRack.valores.forEach(tarifRackValor => {
       const idTipoCapacidad = tarifRackValor.idTipoCapacidad;
       tarifRackValor.tariffs.forEach(tariff => {
-         tariff.capacity_type_id = idTipoCapacidad;
+         tariff.tariff.capacity_type_id = idTipoCapacidad;
          tariffs.push(tariff.tariff);
       });
-   });
+   });  
    this.rucEstablishmentRegisterSelected.tarifario_rack = tariffs;
    this.rucEstablishmentRegisterSelected.code = this.register_code;
    let tipo_tramite = 'Registro';
