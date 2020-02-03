@@ -3600,6 +3600,7 @@ guardarDeclaracion() {
    }
    this.guardando = true;
    const tariffs: Tariff[] = [];
+   console.log(this.tariffsToShow);
    this.tariffsToShow.valores.forEach(tarifRackValor => {
       tarifRackValor.tariffs.forEach(tariff => {
          tariffs.push(tariff.tariff);
