@@ -4906,6 +4906,7 @@ guardarDeclaracion() {
       this.checkEmailContactEstablishment();
       this.buildWorkerGroups();
       this.establishment_selected.workers_on_establishment = r.workers_on_establishment as Worker[];
+      this.establishment_selected.sri_state = establishment.sri_state;
       this.establishment_selected.workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
