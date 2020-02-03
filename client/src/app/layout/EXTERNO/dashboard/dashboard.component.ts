@@ -3521,6 +3521,7 @@ guardarDeclaracion() {
    const tariffs2: Tariff[] = [];
    this.tarifarioRack.valores.forEach(tarifRackValor => {
       const idTipoCapacidad = tarifRackValor.idTipoCapacidad;
+      console.log(idTipoCapacidad);
       tarifRackValor.tariffs.forEach(tariff => {
          tariff.capacity_type_id = idTipoCapacidad;
          tariffs2.push(tariff.tariff);
