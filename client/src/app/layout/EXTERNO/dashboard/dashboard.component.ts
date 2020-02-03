@@ -4362,9 +4362,18 @@ guardarDeclaracion() {
    if(!this.REGCIVILOKEstablishment){
       return;
    }
+   console.log(
+      {idRegister: this.idRegister, 
+      ruc_code_id: this.establishment_selected.ruc_code_id, 
+      sri_state: this.establishment_selected.sri_state}
+   );
+   return;
    this.guardando = true;
    this.establishment_selected.ruc_id = this.ruc_registro_selected.ruc.id;
    this.establishment_declarations_selected = this.establishment_selected;
+   // this.catastroRegisterDataService.update_ruc_code_id(this.idRegister, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
+//AQUI
+   // }).catch(e => { console.log(e); });
    if (this.establishment_selected.ruc_name_type_id <= 1 ) {
       this.establishment_selected.franchise_chain_name = '';
    } else {
