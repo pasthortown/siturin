@@ -1535,6 +1535,7 @@ export class DashboardComponent implements OnInit {
 
   onCellClickEstablishment(event) {
    this.establishment_selected_picture = new EstablishmentPicture();
+   console.log(event);
    if (event.row.name == ''){
       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
       this.mostrarMensajeNoNombreComercial = true;
@@ -4884,6 +4885,7 @@ guardarDeclaracion() {
   }
 
   selectRegisterEstablishment(establishment: Establishment) {
+     console.log(establishment);
    this.selectRegisterEstablishmentDeclaration(establishment);
    this.registersByEstablishment = [];
    let isAlojamiento = false;
