@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BitacoraPageComponent } from './bitacora-page.component';
+import { BitacoraPageComponent } from './bitacora.component';
 
 const routes: Routes = [
   {

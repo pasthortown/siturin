@@ -1,4 +1,4 @@
-import { BitacoraPageModule } from './bitacora-page.module';
+import { BitacoraPageModule } from './bitacora.module';
 
 describe('BitacoraPageModule', () => {
   let blackPageModule: BitacoraPageModule;
