@@ -1542,7 +1542,7 @@ export class InspectorComponent implements OnInit {
          });
          let thiscategory: String =  '';
          const PrimerDigito = item.states.state_id.toString().substring(0, 1);
-         if (PrimerDigito == '6' || PrimerDigito == '7') {
+         if (PrimerDigito == '5' || item.states.state_id.toString() == '60') {
             if (item.register_data_on_catastro.classification == '') {
                thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
             } else {
