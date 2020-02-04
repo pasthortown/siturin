@@ -31,3 +31,33 @@
         <button type="button" *ngIf="rucValidated && SRIOK" class="btn btn-info" (click)="mostrarBitacora()"><span class="fas fa-search"></span>&nbsp;AQUI ESTOY Y MIRA QUE BONITO QUE SOY</button>
     </div>
 </div>
+<div style="width: 100%; overflow-x: auto;" *ngIf="mostrarEstablecimientos">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <ng-table
+                [config]="config"
+                (cellClicked)="onCellClick($event)"
+                (tableChanged)="onChangeTable(config)"
+                [rows]="rows"
+                [columns]="columns">
+            </ng-table>
+        </div>
+        </div>
+</div>
+<div class="row" *ngIf="mostrarEstablecimientos">
+    <div class="col-12">
+    <ngb-pagination
+        *ngIf="config.paging"
+        [(page)]="currentPageEstablishments"
+        [pageSize]="recordsByPageEstablishments"
+        [maxSize]="10"
+        [boundaryLinks]="true"
+        (pageChange)="onChangeTable(config, $event)"
+        [collectionSize]="establishments.length">
+        <ng-template ngbPaginationFirst>Primera</ng-template>
+        <ng-template ngbPaginationPrevious>Anterior</ng-template>
+        <ng-template ngbPaginationNext>Siguiente</ng-template>
+        <ng-template ngbPaginationLast>Última</ng-template>
+    </ngb-pagination>
+    </div>
+</div>

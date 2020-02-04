@@ -23,6 +23,18 @@ export class BitacoraComponent implements OnInit {
   SRIOK = false;
   razon_social = '';
   bitacora: any[] = [];
+  mostrarEstablecimientos = false;
+  establishments: any[] = [];
+  currentPageEstablishments = 0;
+  recordsByPageEstablishments = 0;
+  config: any = {
+    paging: true,
+    filtering: {filterString: ''},
+    className: ['table-striped', 'table-hover', 'table-bordered']
+  };
+  rows = [];
+  columns = [];
+  data = [];
   
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
@@ -37,6 +49,7 @@ export class BitacoraComponent implements OnInit {
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
+      this.mostrarEstablecimientos = false;
       this.ruc.baised_accounting = false;
       this.ruc.tax_payer_type_id = 1;
       return;
@@ -150,12 +163,14 @@ export class BitacoraComponent implements OnInit {
       resp.forEach(element => {
         this.bitacora.push(element);
       });
-    }).catch( e => { console.log(e);});
-    this.registerABDataService.bitacora_states(this.ruc.number).then( r => {
-      const resp = r as any[];
-      resp.forEach(element => {
-        this.bitacora.push(element);
-      });
+      this.registerABDataService.bitacora_states(this.ruc.number).then( r => {
+        const resp = r as any[];
+        resp.forEach(element => {
+          this.bitacora.push(element);
+        });
+        this.mostrarEstablecimientos = true;
+        this.buildDataTable();
+      }).catch( e => { console.log(e);});
     }).catch( e => { console.log(e);});
   }
 
@@ -163,5 +178,110 @@ export class BitacoraComponent implements OnInit {
   mostrarBitacora() {
     console.log(this.bitacora);
   }
+
+  // buildDataTable() {
+  //   this.columns = [
+  //      {title: '', name: 'selected'},
+  //      {title: 'Número de RUC', name: 'number'},
+  //      {title: 'Número de Establecimiento', name: 'ruc_code_id'},
+  //      {title: 'Nombre Comercial', name: 'establishment'},
+  //      {title: 'Sistema de Origen', name: 'system_source'},
+  //      {title: 'Bandeja', name: 'status'},
+  //      {title: 'Actividad', name: 'actividad'},
+  //      {title: 'Provincia', name: 'provincia'},
+  //      {title: 'Cantón', name: 'canton'},
+  //      {title: 'Parroquia', name: 'parroquia'},
+  //      {title: 'Dirección', name: 'address'},
+  //      {title: 'Clasificación - Categoría', name: 'category'},
+  //      {title: 'Fecha de Solicitud', name: 'created_at'},
+  //      {title: 'Número de Registro', name: 'code'},
+  //   ];
+  //   const data = [];
+  //   this.registers_mintur.forEach(item => {
+  //      let addRegister = false;
+  //       this.myAbleUbications.forEach( ub => {
+  //          if (ub.id == item.establishment.ubication_id) {
+  //             addRegister = true;
+  //          }
+  //       });
+  //       if (addRegister) {
+  //          let date_assigment_alert = '';
+  //          let date1 = new Date();
+  //          const registerState = this.getRegisterState(item.states.state_id);
+  //          if (registerState.search('Aprobado') == 0) {
+  //             date1 = new Date(item.states.updated_at);
+  //          }
+  //          if (registerState.search('Negado') == 0) {
+  //             date1 = new Date(item.states.updated_at);
+  //          }
+  //          const date2 = new Date(item.register.created_at);
+  //          const diffTime = Math.abs(date2.getTime() - date1.getTime());
+  //          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  //          if (diffDays < 7) {
+  //             date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-success">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
+  //          }
+  //          if (diffDays >= 7 && diffDays <= 10) {
+  //             date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-warning">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
+  //          }
+  //          if (diffDays > 10) {
+  //             date_assigment_alert = '<div class="col-12 text-center"><span class="badge badge-danger">&nbsp;' + diffDays.toString() + '&nbsp;</span></div>';
+  //          }
+  //          let provincia = new Ubication();
+  //          let canton = new Ubication();
+  //          let parroquia = new Ubication();
+  //          let zonal = new Ubication();
+  //          this.ubications.forEach(element => {
+  //             if (element.id == item.establishment.ubication_id) {
+  //             parroquia = element;
+  //             }
+  //          });
+  //          this.ubications.forEach(element => {
+  //             if (element.code == parroquia.father_code) {
+  //             canton = element;
+  //             }
+  //          });
+  //          this.ubications.forEach(element => {
+  //             if (element.code == canton.father_code) {
+  //             provincia = element;
+  //             }
+  //          });
+  //          this.ubications.forEach(element => {
+  //             if (element.code == provincia.father_code) {
+  //             zonal = element;
+  //             }
+  //          });
+  //          const creacion = new Date(item.register.created_at.toString());
+  //          let thiscategory: String =  '';
+  //          if (item.register_data_on_catastro.classification == '') {
+  //             thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+  //          } else {
+  //             thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
+  //          }
+  //          data.push({
+  //             selected: '',
+  //             date_assigment_alert: date_assigment_alert,
+  //             number: item.ruc.number,
+  //             registerId: item.register.id,
+  //             actividad: item.activity,
+  //             provincia: provincia.name,
+  //             canton: canton.name,
+  //             parroquia: parroquia.name,
+  //             ruc_code_id: item.establishment.ruc_code_id,
+  //             establishment: item.establishment.commercially_known_name,
+  //             address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
+  //             created_at: creacion.toLocaleDateString(),
+  //             code: item.register.code,
+  //             category: thiscategory.toUpperCase(),
+  //             catastro_category: item.register_data_on_catastro.category.toUpperCase(),
+  //             catastro_classification: item.register_data_on_catastro.classification.toUpperCase(),
+  //             system_source: item.register_data_on_catastro.system_source,
+  //             status: registerState,
+  //             status_id: item.states.state_id,
+  //          });
+  //       }
+  //   });
+  //   this.data = data;
+  //   this.onChangeTable(this.config);
+  // }
 }
 
