@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './bitacora.component.html',
   styleUrls: ['./bitacora.component.scss']
 })
-export class BitacoraPageComponent implements OnInit {
+export class BitacoraComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}

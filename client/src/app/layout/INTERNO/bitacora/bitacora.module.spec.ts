@@ -1,10 +1,10 @@
-import { BitacoraPageModule } from './bitacora.module';
+import { BitacoraModule } from './bitacora.module';
 
-describe('BitacoraPageModule', () => {
-  let blackPageModule: BitacoraPageModule;
+describe('BitacoraModule', () => {
+  let blackPageModule: BitacoraModule;
 
   beforeEach(() => {
-    blackPageModule = new BitacoraPageModule();
+    blackPageModule = new BitacoraModule();
   });
 
   it('should create an instance', () => {

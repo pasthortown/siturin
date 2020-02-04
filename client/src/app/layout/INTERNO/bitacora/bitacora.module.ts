@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { BitacoraPageRoutingModule } from './bitacora-routing.module';
-import { BitacoraPageComponent } from './bitacora.component';
+import { BitacoraRoutingModule } from './bitacora-routing.module';
+import { BitacoraComponent } from './bitacora.component';
 
 @NgModule({
-  imports: [CommonModule, BitacoraPageRoutingModule],
-  declarations: [BitacoraPageComponent]
+  imports: [CommonModule, BitacoraRoutingModule],
+  declarations: [BitacoraComponent]
 })
-export class BitacoraPageModule {}
+export class BitacoraModule {}

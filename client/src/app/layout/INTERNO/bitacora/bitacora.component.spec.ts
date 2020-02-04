@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BitacoraPageComponent } from './bitacora.component';
+import { BitacoraComponent } from './bitacora.component';
 
-describe('BitacoraPageComponent', () => {
-  let component: BitacoraPageComponent;
-  let fixture: ComponentFixture<BitacoraPageComponent>;
+describe('BitacoraComponent', () => {
+  let component: BitacoraComponent;
+  let fixture: ComponentFixture<BitacoraComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [BitacoraPageComponent]
+      declarations: [BitacoraComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BitacoraPageComponent);
+    fixture = TestBed.createComponent(BitacoraComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
