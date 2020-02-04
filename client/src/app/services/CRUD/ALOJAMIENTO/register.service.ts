@@ -17,6 +17,13 @@ export class RegisterService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
+   bitacora_states(ruc_number: String): Promise<any> {
+      return this.http.get(this.url + 'bitacora_states?ruc=' + ruc_number, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }   
+
    get(id?: number): Promise<any> {
       if (typeof id === 'undefined') {
          return this.http.get(this.url, this.options).toPromise()

@@ -4,6 +4,11 @@ import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import Swal from 'sweetalert2';
+import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { UserService } from 'src/app/services/profile/user.service';
+import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 
 @Component({
   selector: 'app-bitacora',
@@ -17,8 +22,12 @@ export class BitacoraComponent implements OnInit {
   consumoRuc = false;
   SRIOK = false;
   razon_social = '';
+  bitacora: any[] = [];
   
-  constructor(private dinardapDataService: DinardapService) {}
+  constructor(private dinardapDataService: DinardapService,
+    private registerABDataService: RegisterABService,
+    private registerDataService: RegisterService
+    ) {}
 
   ngOnInit() {}
 
@@ -137,4 +146,25 @@ export class BitacoraComponent implements OnInit {
    }
   }
 
+  buscarBitacora() {
+    this.bitacora = [];
+    this.registerDataService.bitacora_states(this.ruc.number).then( r => {
+      const resp = r as any[];
+      resp.forEach(element => {
+        this.bitacora.push(element);
+      });
+    }).catch( e => { console.log(e);});
+    this.registerABDataService.bitacora_states(this.ruc.number).then( r => {
+      const resp = r as any[];
+      resp.forEach(element => {
+        this.bitacora.push(element);
+      });
+    }).catch( e => { console.log(e);});
+  }
+
+  
+  mostrarBitacora() {
+    console.log(this.bitacora);
+  }
 }
+
