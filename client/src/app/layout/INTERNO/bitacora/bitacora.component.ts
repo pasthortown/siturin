@@ -201,7 +201,7 @@ export class BitacoraComponent implements OnInit {
     this.bitacora.forEach(bitElement => {
       let existe = false;
       this.establishments.forEach(establishment => {
-        if (establishment == bitElement.establishment) {
+        if (establishment.id == bitElement.establishment.id) {
           existe = true;
         }
       });
