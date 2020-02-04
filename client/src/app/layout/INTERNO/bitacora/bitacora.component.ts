@@ -24,7 +24,8 @@ export class BitacoraComponent implements OnInit {
   consumoRuc = false;
   SRIOK = false;
   razon_social = '';
-  bitacora: any[] = [];
+  bitacoraAlojamiento: any[] = [];
+  bitacoraAlimentosBebidas: any[] = [];
   mostrarEstablecimientos = false;
   registers: any[] = [];
   currentPageRegisters = 1;
@@ -183,77 +184,32 @@ export class BitacoraComponent implements OnInit {
 
   buildDataTableRegisters() {
     this.mostrarRegistros = true;
-    this.columns = [
-       {title: '', name: 'selected'},
-       {title: 'Número de Establecimiento', name: 'ruc_code_id'},
-       {title: 'Nombre Comercial', name: 'establishment'},
-       {title: 'Provincia', name: 'provincia'},
-       {title: 'Cantón', name: 'canton'},
-       {title: 'Parroquia', name: 'parroquia'},
-       {title: 'Dirección', name: 'address'},
-    ];
-    const data = [];
-    this.bitacora.forEach(bitElement => {
-      let existe = false;
-      this.establishments.forEach(establishment => {
-        if (establishment.id == bitElement.establishment.id) {
-          existe = true;
-        }
-      });
-      if (!existe) {
-        this.establishments.push(bitElement.establishment);
-      }
-    });
-    this.establishments.forEach(item => {
-        let provincia = new Ubication();
-        let canton = new Ubication();
-        let parroquia = new Ubication();
-        let zonal = new Ubication();
-        this.ubications.forEach(element => {
-          if (element.id == item.ubication_id) {
-          parroquia = element;
-          }
-        });
-        this.ubications.forEach(element => {
-          if (element.code == parroquia.father_code) {
-          canton = element;
-          }
-        });
-        this.ubications.forEach(element => {
-          if (element.code == canton.father_code) {
-          provincia = element;
-          }
-        });
-        this.ubications.forEach(element => {
-          if (element.code == provincia.father_code) {
-          zonal = element;
-          }
-        });
-        data.push({
-          selected: '',
-          provincia: provincia.name,
-          canton: canton.name,
-          parroquia: parroquia.name,
-          ruc_code_id: item.ruc_code_id,
-          establishment: item.commercially_known_name,
-          address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
-        });
-    });
-    this.data = data;
-    this.onChangeTable(this.config);
+    this.columnsRegisters = [
+      {title: '', name: 'selected'},
+      //{title: 'Tiempo de Atención', name: 'date_assigment_alert'},
+      {title: 'Actividad', name: 'actividad'},
+      {title: 'Clasificación - Categoría', name: 'category'},
+      {title: 'Número de Registro', name: 'code'},
+   ];
+   const data = [];
+   this.bitacoraAlimentosBebidas.forEach(bitElement => {
+      console.log(bitElement);
+   });
+   
   }
 
   buscarBitacora() {
-    this.bitacora = [];
+    this.bitacoraAlojamiento = [];
+    this.bitacoraAlimentosBebidas = [];
     this.registerDataService.bitacora_states(this.ruc.number).then( r => {
       const resp = r as any[];
       resp.forEach(element => {
-        this.bitacora.push(element);
+        this.bitacoraAlojamiento.push(element);
       });
       this.registerABDataService.bitacora_states(this.ruc.number).then( r => {
         const resp = r as any[];
         resp.forEach(element => {
-          this.bitacora.push(element);
+          this.bitacoraAlimentosBebidas.push(element);
         });
         this.mostrarEstablecimientos = true;
         this.buildDataTable();
@@ -279,7 +235,18 @@ export class BitacoraComponent implements OnInit {
        {title: 'Dirección', name: 'address'},
     ];
     const data = [];
-    this.bitacora.forEach(bitElement => {
+    this.bitacoraAlojamiento.forEach(bitElement => {
+      let existe = false;
+      this.establishments.forEach(establishment => {
+        if (establishment.id == bitElement.establishment.id) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        this.establishments.push(bitElement.establishment);
+      }
+    });
+    this.bitacoraAlimentosBebidas.forEach(bitElement => {
       let existe = false;
       this.establishments.forEach(establishment => {
         if (establishment.id == bitElement.establishment.id) {

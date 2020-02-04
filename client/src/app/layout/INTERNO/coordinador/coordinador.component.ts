@@ -2425,12 +2425,17 @@ export class CoordinadorComponent implements OnInit {
             const creacion = new Date(item.register.created_at.toString());
             let thiscategory: String =  '';
             const PrimerDigito = item.states.state_id.toString().substring(0, 1);
+            console.log(PrimerDigito);
             if (item.register_data_on_catastro.classification == '') {
                thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+               console.log("AQUI MAL");
             } else {
+               console.log("AQUI BIEN");
                if (PrimerDigito == 6 || PrimerDigito == 7) {
+                  console.log("AQUI SUPER MAL");
                   thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();   
                } else {
+                  console.log("AQUI SUPER BIEN");
                   thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
                }
             }
