@@ -45,7 +45,9 @@ export class BitacoraComponent implements OnInit {
     private registerDataService: RegisterService
     ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getUbications();
+  }
 
   checkRuc() {
     this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
