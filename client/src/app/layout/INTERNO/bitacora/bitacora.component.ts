@@ -45,6 +45,7 @@ export class BitacoraComponent implements OnInit {
   data = [];
   ubications: Ubication[] = [];
   mostrarRegistros = false;
+  establishment_id_selected = 0;
 
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
@@ -175,6 +176,7 @@ export class BitacoraComponent implements OnInit {
     this.rows.forEach(row => {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+         this.establishment_id_selected = row.id;
          this.buildDataTableRegisters();
       } else {
         row.selected = '';
@@ -191,9 +193,13 @@ export class BitacoraComponent implements OnInit {
       {title: 'Número de Registro', name: 'code'},
    ];
    const data = [];
+   this.registers = [];
    this.bitacoraAlimentosBebidas.forEach(bitElement => {
-     if (bitElement.register_data.length > 0) {
-      console.log(bitElement);
+     if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
+      console.log('entre');
+      bitElement.register_data.forEach(element => {
+        this.registers.push(element);
+      });
      }
    });
    
@@ -244,7 +250,9 @@ export class BitacoraComponent implements OnInit {
         }
       });
       if (!existe) {
-        this.establishments.push(bitElement.establishment);
+        if (bitElement.register_data.length > 0) {
+          this.establishments.push(bitElement.establishment);
+        }
       }
     });
     this.bitacoraAlimentosBebidas.forEach(bitElement => {
@@ -255,7 +263,9 @@ export class BitacoraComponent implements OnInit {
         }
       });
       if (!existe) {
-        this.establishments.push(bitElement.establishment);
+        if (bitElement.register_data.length > 0) {
+          this.establishments.push(bitElement.establishment);
+        }
       }
     });
     this.establishments.forEach(item => {
@@ -285,6 +295,7 @@ export class BitacoraComponent implements OnInit {
         });
         data.push({
           selected: '',
+          id: item.id,
           provincia: provincia.name,
           canton: canton.name,
           parroquia: parroquia.name,
