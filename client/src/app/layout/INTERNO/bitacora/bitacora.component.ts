@@ -233,6 +233,7 @@ export class BitacoraComponent implements OnInit {
         id: item.id,
         actividad: 'ALOJAMIENTO',
         code: item.code,
+        category: 'PRUEBA',
       });
    });
    this.registersAlimentosBebidas.forEach(item => {
@@ -241,6 +242,7 @@ export class BitacoraComponent implements OnInit {
       id: item.id,
       actividad: 'ALIMENTOS Y BEBIDAS',
       code: item.code,
+      category: 'PRUEBA',
     });
    });
    this.dataRegisters = data;
