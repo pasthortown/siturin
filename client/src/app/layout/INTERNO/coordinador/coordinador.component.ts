@@ -3059,18 +3059,33 @@ selectKitchenType(kitchenType: KitchenType) {
      const today = new Date();
       let clasificacion: String = '';
       let categoria: String = '';
-      let category: RegisterType = new RegisterType();
-      this.register_types_AB.forEach(element => {
-         if (this.registerMinturSelected.register.register_type_id == element.id) {
-            category = element;
-            categoria = element.name;
-         }
-      });
-      this.register_types_AB.forEach(element => {
-         if (category.father_code == element.code) {
-            clasificacion = element.name;
-         }
-      });
+      let category: any = null;
+      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+         this.register_types_AB.forEach(element => {
+            if (this.registerMinturSelected.register.register_type_id == element.id) {
+               category = element;
+               categoria = element.name;
+            }
+         });
+         this.register_types_AB.forEach(element => {
+            if (category.father_code == element.code) {
+               clasificacion = element.name;
+            }
+         });   
+      }
+      if (this.activity == 'ALOJAMIENTO') {
+         this.register_types.forEach(element => {
+            if (this.registerMinturSelected.register.register_type_id == element.id) {
+               category = element;
+               categoria = element.name;
+            }
+         });
+         this.register_types.forEach(element => {
+            if (category.father_code == element.code) {
+               clasificacion = element.name;
+            }
+         }); 
+      }
       let parroquiaName: String = '';
       let parroquia: Ubication = new Ubication();
       this.ubications.forEach(element => {
