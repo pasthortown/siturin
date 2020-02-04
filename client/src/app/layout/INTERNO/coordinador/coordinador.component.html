@@ -25,7 +25,7 @@
               </div>
               <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [(ngModel)]="idTramiteEstadoFilter" (change)="filterByTramiteState()">
                 <option value="0" selected>Todas</option>
-                <option *ngFor="let tramite_state of estados_tramites" value="{{tramite_state.id}}">{{tramite_state.name}}</option>
+                <option *ngFor="let tramite_state of estados_tramites" *ngIf="tramite_state.name != 'Documentación Entregada'" value="{{tramite_state.id}}">{{tramite_state.name}}</option>
               </select>
               <div class="input-group-append" *ngIf="idTramiteEstadoFilter>0">
                   <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [(ngModel)]="tramite" (change)="filterByTramiteState(tramite)">
