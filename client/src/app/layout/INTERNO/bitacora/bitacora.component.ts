@@ -574,6 +574,7 @@ export class BitacoraComponent implements OnInit {
    onCellClickRegisters(event) {
     console.log(event);
     console.log(this.registersAlojamiento);
+    console.log(this.registersAlimentosBebidas);
    }
 }
 
