@@ -225,6 +225,7 @@ export class BitacoraComponent implements OnInit {
       {title: 'Actividad', name: 'actividad'},
       {title: 'Clasificación - Categoría', name: 'category'},
       {title: 'Número de Registro', name: 'code'},
+      {title: 'Trámite', name: 'tramit'},
    ];
    const data = [];
    this.registersAlojamiento.forEach(item => {
@@ -234,6 +235,7 @@ export class BitacoraComponent implements OnInit {
         actividad: 'ALOJAMIENTO',
         code: item.code,
         category: 'PRUEBA',
+        tramit: 'PRUEBA',
       });
    });
    this.registersAlimentosBebidas.forEach(item => {
@@ -243,6 +245,7 @@ export class BitacoraComponent implements OnInit {
       actividad: 'ALIMENTOS Y BEBIDAS',
       code: item.code,
       category: 'PRUEBA',
+      tramit: 'PRUEBA',
     });
    });
    this.dataRegisters = data;
