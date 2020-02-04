@@ -1541,10 +1541,15 @@ export class InspectorComponent implements OnInit {
             }
          });
          let thiscategory: String =  '';
+         const PrimerDigito = item.states.state_id.toString().substring(0, 1);
          if (item.register_data_on_catastro.classification == '') {
             thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
          } else {
-            thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();
+            if (PrimerDigito == 6 || PrimerDigito == 7) {
+               thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();   
+            } else {
+               thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+            }
          }
          if ( digito == '4' || digito == '5' || digito == '6' ) {
             const creacion = new Date(item.register.created_at.toString());

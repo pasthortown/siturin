@@ -28,6 +28,11 @@
         <button type="button" *ngIf="rucValidated && SRIOK" class="btn btn-info" (click)="buscarBitacora()"><span class="fas fa-search"></span>&nbsp;Consultar</button>
     </div>
 </div>
+<div class="row" *ngIf="mostrarEstablecimientos">
+    <h4 class="col-12">
+        <strong>&nbsp;Listado de Establecimientos</strong>
+    </h4>
+</div>
 <div style="width: 100%; overflow-x: auto;" *ngIf="mostrarEstablecimientos">
     <div class="row">
         <div class="col-12 mt-2">
@@ -51,6 +56,41 @@
         [boundaryLinks]="true"
         (pageChange)="onChangeTable(config, $event)"
         [collectionSize]="establishments.length">
+        <ng-template ngbPaginationFirst>Primera</ng-template>
+        <ng-template ngbPaginationPrevious>Anterior</ng-template>
+        <ng-template ngbPaginationNext>Siguiente</ng-template>
+        <ng-template ngbPaginationLast>Última</ng-template>
+    </ngb-pagination>
+    </div>
+</div>
+<div class="row mt-2" *ngIf="mostrarRegistros">
+    <h4 class="col-12">
+        <strong>&nbsp;Listado de Registros</strong>
+    </h4>
+</div>
+<div style="width: 100%; overflow-x: auto;" *ngIf="mostrarRegistros">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <ng-table
+                [config]="config"
+                (cellClicked)="onCellClickRegisters($event)"
+                (tableChanged)="onChangeTableRegisters(config)"
+                [rows]="rowsRegisters"
+                [columns]="columnsRegisters">
+            </ng-table>
+        </div>
+        </div>
+</div>
+<div class="row" *ngIf="mostrarRegistros">
+    <div class="col-12">
+    <ngb-pagination
+        *ngIf="config.paging"
+        [(page)]="currentPageRegisters"
+        [pageSize]="recordsByPageRegisters"
+        [maxSize]="10"
+        [boundaryLinks]="true"
+        (pageChange)="onChangeTableRegisters(config, $event)"
+        [collectionSize]="registers.length">
         <ng-template ngbPaginationFirst>Primera</ng-template>
         <ng-template ngbPaginationPrevious>Anterior</ng-template>
         <ng-template ngbPaginationNext>Siguiente</ng-template>

@@ -26,9 +26,12 @@ export class BitacoraComponent implements OnInit {
   razon_social = '';
   bitacora: any[] = [];
   mostrarEstablecimientos = false;
+  registers: any[] = [];
+  currentPageRegisters = 1;
+  recordsByPageRegisters = 5;
   establishments: any[] = [];
   currentPageEstablishments = 1;
-  recordsByPageEstablishments = 10;
+  recordsByPageEstablishments = 5;
   config: any = {
     paging: true,
     filtering: {filterString: ''},
@@ -36,9 +39,12 @@ export class BitacoraComponent implements OnInit {
   };
   rows = [];
   columns = [];
+  rowsRegisters = [];
+  columnsRegisters = [];
   data = [];
   ubications: Ubication[] = [];
-  
+  mostrarRegistros = false;
+
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
     private ubicationDataService: UbicationService,
@@ -55,6 +61,7 @@ export class BitacoraComponent implements OnInit {
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
+      this.mostrarRegistros = false;
       this.mostrarEstablecimientos = false;
       this.ruc.baised_accounting = false;
       this.ruc.tax_payer_type_id = 1;
@@ -164,14 +171,76 @@ export class BitacoraComponent implements OnInit {
 
   
   onCellClick(event) {
-    console.log(event);
     this.rows.forEach(row => {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+         this.buildDataTableRegisters();
       } else {
-         row.selected = '';
+        row.selected = '';
       }
    });
+  }
+
+  buildDataTableRegisters() {
+    this.mostrarRegistros = true;
+    this.columns = [
+       {title: '', name: 'selected'},
+       {title: 'Número de Establecimiento', name: 'ruc_code_id'},
+       {title: 'Nombre Comercial', name: 'establishment'},
+       {title: 'Provincia', name: 'provincia'},
+       {title: 'Cantón', name: 'canton'},
+       {title: 'Parroquia', name: 'parroquia'},
+       {title: 'Dirección', name: 'address'},
+    ];
+    const data = [];
+    this.bitacora.forEach(bitElement => {
+      let existe = false;
+      this.establishments.forEach(establishment => {
+        if (establishment.id == bitElement.establishment.id) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        this.establishments.push(bitElement.establishment);
+      }
+    });
+    this.establishments.forEach(item => {
+        let provincia = new Ubication();
+        let canton = new Ubication();
+        let parroquia = new Ubication();
+        let zonal = new Ubication();
+        this.ubications.forEach(element => {
+          if (element.id == item.ubication_id) {
+          parroquia = element;
+          }
+        });
+        this.ubications.forEach(element => {
+          if (element.code == parroquia.father_code) {
+          canton = element;
+          }
+        });
+        this.ubications.forEach(element => {
+          if (element.code == canton.father_code) {
+          provincia = element;
+          }
+        });
+        this.ubications.forEach(element => {
+          if (element.code == provincia.father_code) {
+          zonal = element;
+          }
+        });
+        data.push({
+          selected: '',
+          provincia: provincia.name,
+          canton: canton.name,
+          parroquia: parroquia.name,
+          ruc_code_id: item.ruc_code_id,
+          establishment: item.commercially_known_name,
+          address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
+        });
+    });
+    this.data = data;
+    this.onChangeTable(this.config);
   }
 
   buscarBitacora() {
