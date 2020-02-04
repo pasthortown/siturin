@@ -409,6 +409,10 @@ const routes: Routes = [
             loadChildren: './INTERNO/registro/registro.module#RegistroModule'
          },
          {
+            path: 'bitacora',
+            loadChildren: './INTERNO/bitacora/bitacora.module#BitacoraModule'
+         },
+         {
             path: 'coordinador',
             loadChildren: './INTERNO/coordinador/coordinador.module#CoordinadorModule'
          },
