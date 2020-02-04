@@ -244,6 +244,7 @@ export class BitacoraComponent implements OnInit {
         });
     });
     this.data = data;
+    console.log(this.data);  
     //this.onChangeTable(this.config);
   }
 }
