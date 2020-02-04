@@ -285,14 +285,12 @@ export class BitacoraComponent implements OnInit {
    ];
    const data = [];
    this.registersAlojamiento.forEach(item => {
-     //this.getRegisterCategory(item.register.register_type_id, item.activity).toString()
-     console.log(item);
       data.push({
         selected: '',
         id: item.id,
         actividad: 'ALOJAMIENTO',
         code: item.code,
-        category: 'PRUEBA',
+        category: this.getRegisterCategory(item.register_type_id, 'ALOJAMIENTO').toString().toUpperCase(),
         tramit: 'PRUEBA',
       });
    });
@@ -302,7 +300,7 @@ export class BitacoraComponent implements OnInit {
       id: item.id,
       actividad: 'ALIMENTOS Y BEBIDAS',
       code: item.code,
-      category: 'PRUEBA',
+      category: this.getRegisterCategory(item.register_type_id, 'ALIMENTOS Y BEBIDAS').toString().toUpperCase(),
       tramit: 'PRUEBA',
     });
    });
