@@ -192,7 +192,9 @@ export class BitacoraComponent implements OnInit {
    ];
    const data = [];
    this.bitacoraAlimentosBebidas.forEach(bitElement => {
+     if (bitElement.register_data.length > 0) {
       console.log(bitElement);
+     }
    });
    
   }
