@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="form-group" *ngIf="identidadConfirmada">
+        <div class="form-group">
             <label for="ruc">Número de RUC al que pertenece el Establecimiento</label><span
             *ngIf="!rucValidated"
             class="ml-2 badge badge-danger"
@@ -21,12 +21,5 @@
     <div class="col-12 mb-3" *ngIf="rucValidated">
         <small id="rucDataIncomming"
         class="form-text text-muted" [innerHTML]="rucData"></small>
-    </div>
-</div>
-<div class="row" *ngIf="esperando">
-    <div class="col-12">
-        <div class="progress mb-3">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%">Espere...</div>
-        </div>
     </div>
 </div>

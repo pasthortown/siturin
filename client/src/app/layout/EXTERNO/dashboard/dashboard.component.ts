@@ -3677,10 +3677,12 @@ guardarDeclaracion() {
       });
    this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
       this.certificadoUsoSuelo.register_id = r.id;
-      this.tituloPropiedad.register_id = r.id;
-      this.autorizacionCondomino.register_id = r.id;
-      this.guardarTituloPropiedad();
-      this.guardarAutorizacionCondominos();
+      if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
+         this.tituloPropiedad.register_id = r.id;
+         this.autorizacionCondomino.register_id = r.id;
+         this.guardarTituloPropiedad();
+         this.guardarAutorizacionCondominos();      
+      }
       this.guardarRecepcionRoom(r.id);
       this.guardarCertificadoUsoSuelos();
       let clasificacion = '';
