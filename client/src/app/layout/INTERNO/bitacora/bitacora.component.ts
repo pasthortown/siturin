@@ -190,7 +190,6 @@ export class BitacoraComponent implements OnInit {
        {title: '', name: 'selected'},
        {title: 'Número de Establecimiento', name: 'ruc_code_id'},
        {title: 'Nombre Comercial', name: 'establishment'},
-       {title: 'Actividad', name: 'actividad'},
        {title: 'Provincia', name: 'provincia'},
        {title: 'Cantón', name: 'canton'},
        {title: 'Parroquia', name: 'parroquia'},
@@ -215,7 +214,7 @@ export class BitacoraComponent implements OnInit {
         let parroquia = new Ubication();
         let zonal = new Ubication();
         this.ubications.forEach(element => {
-          if (element.id == item.establishment.ubication_id) {
+          if (element.id == item.ubication_id) {
           parroquia = element;
           }
         });
@@ -236,7 +235,6 @@ export class BitacoraComponent implements OnInit {
         });
         data.push({
           selected: '',
-          actividad: item.activity,
           provincia: provincia.name,
           canton: canton.name,
           parroquia: parroquia.name,
