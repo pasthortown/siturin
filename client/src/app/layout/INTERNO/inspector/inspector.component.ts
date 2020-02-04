@@ -1545,7 +1545,7 @@ export class InspectorComponent implements OnInit {
          if (item.register_data_on_catastro.classification == '') {
             thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
          } else {
-            if (PrimerDigito == 6 || PrimerDigito == 7) {
+            if (PrimerDigito == '6' || PrimerDigito == '7') {
                thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();   
             } else {
                thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
