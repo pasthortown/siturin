@@ -3,4 +3,32 @@
         BITÁCORA
     </h1>
 </div>
-  
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="form-group" *ngIf="identidadConfirmada">
+            <label for="ruc">Número de RUC al que pertenece el Establecimiento</label><span
+            *ngIf="!rucValidated"
+            class="ml-2 badge badge-danger"
+            >Incorrecto</span>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button type="button" class="btn btn-primary" (click)="checkRuc()"><span class="fas fa-sync"></span></button>
+              </div>
+              <input type="text" class="form-control" maxlength="13" id="ruc" placeholder="Número de RUC" [(ngModel)]="ruc.number" (keyup)="checkRuc()"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mb-3" *ngIf="rucValidated">
+        <small id="rucDataIncomming"
+        class="form-text text-muted" [innerHTML]="rucData"></small>
+    </div>
+</div>
+<div class="row" *ngIf="esperando">
+    <div class="col-12">
+        <div class="progress mb-3">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%">Espere...</div>
+        </div>
+    </div>
+</div>
