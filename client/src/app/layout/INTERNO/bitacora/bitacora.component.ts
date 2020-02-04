@@ -65,6 +65,7 @@ export class BitacoraComponent implements OnInit {
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
+      this.SRIOK = false;
       this.mostrarRegistros = false;
       this.mostrarEstablecimientos = false;
       this.ruc.baised_accounting = false;
