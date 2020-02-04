@@ -165,8 +165,15 @@ export class BitacoraComponent implements OnInit {
   
   onCellClick(event) {
     console.log(event);
+    this.rows.forEach(row => {
+      if (row == event.row) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+      } else {
+         row.selected = '';
+      }
+   });
   }
-  
+
   buscarBitacora() {
     this.bitacora = [];
     this.registerDataService.bitacora_states(this.ruc.number).then( r => {
