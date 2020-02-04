@@ -32,9 +32,6 @@ export class BitacoraComponent implements OnInit {
   ngOnInit() {}
 
   checkRuc() {
-    if (this.consumoRuc && this.SRIOK) {
-      return;
-    }
     this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
     this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
     if (this.ruc.number.length !== 13) {

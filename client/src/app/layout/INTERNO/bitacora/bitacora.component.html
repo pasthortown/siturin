@@ -25,9 +25,9 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <button type="button" *ngIf="rucValidated" class="btn btn-info" (click)="buscarBitacora()"><span class="fas fa-search"></span>&nbsp;Consultar</button>
+        <button type="button" *ngIf="rucValidated && SRIOK" class="btn btn-info" (click)="buscarBitacora()"><span class="fas fa-search"></span>&nbsp;Consultar</button>
     </div>
     <div class="col-12">
-        <button type="button" *ngIf="rucValidated" class="btn btn-info" (click)="mostrarBitacora()"><span class="fas fa-search"></span>&nbsp;AQUI ESTOY Y MIRA QUE BONITO QUE SOY</button>
+        <button type="button" *ngIf="rucValidated && SRIOK" class="btn btn-info" (click)="mostrarBitacora()"><span class="fas fa-search"></span>&nbsp;AQUI ESTOY Y MIRA QUE BONITO QUE SOY</button>
     </div>
 </div>
