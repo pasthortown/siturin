@@ -941,16 +941,16 @@ calcularUnoxMil() {
     this.registers_mintur.forEach(item => {
        let thiscategory: String =  '';
        const PrimerDigito = item.states.state_id.toString().substring(0, 1);
-       if (item.register_data_on_catastro.classification == '') {
-         thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
-       } else {
-         if (PrimerDigito == '6' || PrimerDigito == '7') {
-            thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();   
-         } else {
+       if (PrimerDigito == '6' || PrimerDigito == '7') {
+         if (item.register_data_on_catastro.classification == '') {
             thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+         } else {
+            thiscategory = item.register_data_on_catastro.classification.toString() + ' - ' + item.register_data_on_catastro.category.toString();   
          }
-       }
-       let existe = false;
+      } else {
+         thiscategory = this.getRegisterCategory(item.register.register_type_id, item.activity).toString();
+      }
+      let existe = false;
        data.forEach(elementOnData => {
           if ( (elementOnData.number == item.ruc.number) &&
                (elementOnData.ruc_code_id == item.establishment.ruc_code_id) && 

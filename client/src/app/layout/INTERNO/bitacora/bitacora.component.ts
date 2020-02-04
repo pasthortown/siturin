@@ -186,7 +186,6 @@ export class BitacoraComponent implements OnInit {
     this.mostrarRegistros = true;
     this.columnsRegisters = [
       {title: '', name: 'selected'},
-      //{title: 'Tiempo de Atención', name: 'date_assigment_alert'},
       {title: 'Actividad', name: 'actividad'},
       {title: 'Clasificación - Categoría', name: 'category'},
       {title: 'Número de Registro', name: 'code'},
