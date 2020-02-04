@@ -27,8 +27,8 @@ export class BitacoraComponent implements OnInit {
   bitacora: any[] = [];
   mostrarEstablecimientos = false;
   establishments: any[] = [];
-  currentPageEstablishments = 0;
-  recordsByPageEstablishments = 0;
+  currentPageEstablishments = 1;
+  recordsByPageEstablishments = 10;
   config: any = {
     paging: true,
     filtering: {filterString: ''},
