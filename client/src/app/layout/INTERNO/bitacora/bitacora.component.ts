@@ -11,6 +11,9 @@ import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
+import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
+import { RegisterType as RegisterTypeAB} from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
+import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 
 @Component({
   selector: 'app-bitacora',
@@ -32,6 +35,8 @@ export class BitacoraComponent implements OnInit {
   currentPageRegisters = 1;
   recordsByPageRegisters = 5;
   establishments: any[] = [];
+  register_types: RegisterType[] = [];
+  register_types_AB: RegisterTypeAB[] = [];
   currentPageEstablishments = 1;
   recordsByPageEstablishments = 5;
   config: any = {
@@ -174,7 +179,41 @@ export class BitacoraComponent implements OnInit {
    }
   }
 
-  
+  getRegisterCategory(id: number, activity: string): String {
+    let toReturn: String = '';
+    let fatherCode: String = '';
+    if (activity == 'ALOJAMIENTO') {
+       this.register_types.forEach(register_type => {
+          if (register_type.id == id) {
+           toReturn = register_type.name;
+           fatherCode = register_type.father_code;
+          }
+       });
+       this.register_types.forEach(register_type => {
+          if (register_type.code == fatherCode) {
+             toReturn = register_type.name + ' - ' + toReturn;
+          }
+       });
+    }
+    if (activity == 'ALIMENTOS Y BEBIDAS') {
+       this.register_types_AB.forEach(register_type => {
+          if (register_type.id == id) {
+           toReturn = register_type.name;
+           if (register_type.name == 'Pendiente') {
+              toReturn = "No Cumple Inspección (No Turístico)";
+           }
+           fatherCode = register_type.father_code;
+          }
+       });
+       this.register_types_AB.forEach(register_type => {
+          if (register_type.code == fatherCode) {
+             toReturn = register_type.name + ' - ' + toReturn;
+          }
+       });
+    }
+    return toReturn;
+  }
+
   onCellClick(event) {
     this.rows.forEach(row => {
       if (row == event.row) {

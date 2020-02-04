@@ -17,6 +17,7 @@ import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -30,6 +31,7 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     StateService,
     RegisterService,
     UbicationService,
+    RegisterTypeABService,
     RegisterStateService,
     RegisterABService,
     UserService,
