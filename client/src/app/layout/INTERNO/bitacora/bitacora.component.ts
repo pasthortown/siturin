@@ -198,6 +198,18 @@ export class BitacoraComponent implements OnInit {
     ];
     const data = [];
     console.log(this.bitacora);
+    this.bitacora.forEach(bitElement => {
+      let existe = false;
+      this.establishments.forEach(establishment => {
+        if (establishment == bitElement.establishment) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        this.establishments.push(bitElement.establishment);
+      }
+    });
+    console.log(this.establishments);
     return;
     this.bitacora.forEach(item => {
         let addRegister = false;
