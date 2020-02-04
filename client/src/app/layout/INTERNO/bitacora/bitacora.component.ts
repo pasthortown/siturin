@@ -162,6 +162,11 @@ export class BitacoraComponent implements OnInit {
    }
   }
 
+  
+  onCellClick(event) {
+    console.log(event);
+  }
+  
   buscarBitacora() {
     this.bitacora = [];
     this.registerDataService.bitacora_states(this.ruc.number).then( r => {
