@@ -182,8 +182,7 @@ export class BitacoraComponent implements OnInit {
          this.registersAlojamiento = [];
          this.registersAlimentosBebidas = [];
          this.bitacoraAlimentosBebidas.forEach(bitElement => {
-           console.log(bitElement);
-           if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
+           if ((bitElement.register_data.length > 0) && (bitElement.establishment.id == this.establishment_id_selected)) {
              bitElement.register_data.forEach(element => {
               let existe = false;
               this.registersAlimentosBebidas.forEach(e1 => {
@@ -198,7 +197,7 @@ export class BitacoraComponent implements OnInit {
            }
          });
          this.bitacoraAlojamiento.forEach(bitElement => {
-           if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
+           if ((bitElement.register_data.length > 0) && (bitElement.establishment.id == this.establishment_id_selected)) {
            bitElement.register_data.forEach(element => {
               let existe = false;
               this.registersAlojamiento.forEach(e1 => {
