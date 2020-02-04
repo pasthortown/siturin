@@ -27,7 +27,8 @@ export class BitacoraComponent implements OnInit {
   bitacoraAlojamiento: any[] = [];
   bitacoraAlimentosBebidas: any[] = [];
   mostrarEstablecimientos = false;
-  registers: any[] = [];
+  registersAlojamiento: any[] = [];
+  registersAlimentosBebidas: any[] = [];
   currentPageRegisters = 1;
   recordsByPageRegisters = 5;
   establishments: any[] = [];
@@ -43,6 +44,7 @@ export class BitacoraComponent implements OnInit {
   rowsRegisters = [];
   columnsRegisters = [];
   data = [];
+  dataRegisters = [];
   ubications: Ubication[] = [];
   mostrarRegistros = false;
   establishment_id_selected = 0;
@@ -177,6 +179,38 @@ export class BitacoraComponent implements OnInit {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
          this.establishment_id_selected = row.id;
+         this.registersAlojamiento = [];
+         this.registersAlimentosBebidas = [];
+         this.bitacoraAlimentosBebidas.forEach(bitElement => {
+           if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
+             bitElement.register_data.forEach(element => {
+              let existe = false;
+              this.registersAlimentosBebidas.forEach(e1 => {
+                if (e1.id == element.id) {
+                  existe = true;
+                }
+              }); 
+              if (!existe) {
+                this.registersAlimentosBebidas.push(element);
+              }
+             });
+           }
+         });
+         this.bitacoraAlojamiento.forEach(bitElement => {
+           if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
+           bitElement.register_data.forEach(element => {
+              let existe = false;
+              this.registersAlojamiento.forEach(e1 => {
+                if (e1.id == element.id) {
+                  existe = true;
+                }
+              }); 
+              if (!existe) {
+                this.registersAlojamiento.push(element);
+              }
+           });
+           }
+         });
          this.buildDataTableRegisters();
       } else {
         row.selected = '';
@@ -193,16 +227,25 @@ export class BitacoraComponent implements OnInit {
       {title: 'Número de Registro', name: 'code'},
    ];
    const data = [];
-   this.registers = [];
-   this.bitacoraAlimentosBebidas.forEach(bitElement => {
-     if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
-      console.log('entre');
-      bitElement.register_data.forEach(element => {
-        this.registers.push(element);
+   this.registersAlojamiento.forEach(item => {
+      data.push({
+        selected: '',
+        id: item.id,
+        actividad: 'ALOJAMIENTO',
+        code: item.code,
       });
-     }
    });
-   
+   this.registersAlimentosBebidas.forEach(item => {
+    data.push({
+      selected: '',
+      id: item.id,
+      actividad: 'ALIMENTOS Y BEBIDAS',
+      code: item.code,
+    });
+   });
+   this.dataRegisters = data;
+   console.log(this.dataRegisters);
+   //this.onChangeTable(this.config);
   }
 
   buscarBitacora() {
