@@ -209,47 +209,41 @@ export class BitacoraComponent implements OnInit {
         this.establishments.push(bitElement.establishment);
       }
     });
-    console.log(this.establishments);
-    return;
-    this.bitacora.forEach(item => {
-        let addRegister = false;
-
-        if (addRegister) {
-           let provincia = new Ubication();
-           let canton = new Ubication();
-           let parroquia = new Ubication();
-           let zonal = new Ubication();
-           this.ubications.forEach(element => {
-              if (element.id == item.establishment.ubication_id) {
-              parroquia = element;
-              }
-           });
-           this.ubications.forEach(element => {
-              if (element.code == parroquia.father_code) {
-              canton = element;
-              }
-           });
-           this.ubications.forEach(element => {
-              if (element.code == canton.father_code) {
-              provincia = element;
-              }
-           });
-           this.ubications.forEach(element => {
-              if (element.code == provincia.father_code) {
-              zonal = element;
-              }
-           });
-           data.push({
-              selected: '',
-              actividad: item.activity,
-              provincia: provincia.name,
-              canton: canton.name,
-              parroquia: parroquia.name,
-              ruc_code_id: item.establishment.ruc_code_id,
-              establishment: item.establishment.commercially_known_name,
-              address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
-           });
-        }
+    this.establishments.forEach(item => {
+        let provincia = new Ubication();
+        let canton = new Ubication();
+        let parroquia = new Ubication();
+        let zonal = new Ubication();
+        this.ubications.forEach(element => {
+          if (element.id == item.establishment.ubication_id) {
+          parroquia = element;
+          }
+        });
+        this.ubications.forEach(element => {
+          if (element.code == parroquia.father_code) {
+          canton = element;
+          }
+        });
+        this.ubications.forEach(element => {
+          if (element.code == canton.father_code) {
+          provincia = element;
+          }
+        });
+        this.ubications.forEach(element => {
+          if (element.code == provincia.father_code) {
+          zonal = element;
+          }
+        });
+        data.push({
+          selected: '',
+          actividad: item.activity,
+          provincia: provincia.name,
+          canton: canton.name,
+          parroquia: parroquia.name,
+          ruc_code_id: item.establishment.ruc_code_id,
+          establishment: item.establishment.commercially_known_name,
+          address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
+        });
     });
     this.data = data;
     //this.onChangeTable(this.config);
