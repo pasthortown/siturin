@@ -182,6 +182,7 @@ export class BitacoraComponent implements OnInit {
          this.registersAlojamiento = [];
          this.registersAlimentosBebidas = [];
          this.bitacoraAlimentosBebidas.forEach(bitElement => {
+           console.log(bitElement);
            if ((bitElement.register_data.length) > 0 && (bitElement.establishment.id == this.establishment_id_selected)) {
              bitElement.register_data.forEach(element => {
               let existe = false;
