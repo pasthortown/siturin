@@ -238,9 +238,9 @@ export class BitacoraComponent implements OnInit {
           provincia: provincia.name,
           canton: canton.name,
           parroquia: parroquia.name,
-          ruc_code_id: item.establishment.ruc_code_id,
-          establishment: item.establishment.commercially_known_name,
-          address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
+          ruc_code_id: item.ruc_code_id,
+          establishment: item.commercially_known_name,
+          address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
         });
     });
     this.data = data;
