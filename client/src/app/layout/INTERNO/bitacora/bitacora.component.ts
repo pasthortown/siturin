@@ -57,13 +57,29 @@ export class BitacoraComponent implements OnInit {
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
     private ubicationDataService: UbicationService,
-    private registerDataService: RegisterService
+    private registerDataService: RegisterService,
+    private register_typeDataService: RegisterTypeService,
+    private register_typeABDataService: RegisterTypeABService
     ) {}
 
   ngOnInit() {
     this.getUbications();
+    this.getRegisterTypes();
   }
 
+  getRegisterTypes() {
+    this.register_typeDataService.get().then( r => {
+       this.register_types = r as RegisterType[];
+       this.getRegisterTypesAB();
+    }).catch( e => { console.log(e); });
+  }
+ 
+  getRegisterTypesAB() {
+    this.register_typeABDataService.get().then( r => {
+       this.register_types_AB = r as RegisterTypeAB[];
+    }).catch( e => { console.log(e); });
+  }
+   
   checkRuc() {
     this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
     this.ruc.number = this.ruc.number.replace(/[^\d]/, '');
@@ -269,6 +285,8 @@ export class BitacoraComponent implements OnInit {
    ];
    const data = [];
    this.registersAlojamiento.forEach(item => {
+     //this.getRegisterCategory(item.register.register_type_id, item.activity).toString()
+     console.log(item);
       data.push({
         selected: '',
         id: item.id,
