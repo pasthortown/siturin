@@ -570,5 +570,10 @@ export class BitacoraComponent implements OnInit {
     const end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
     return data.slice(start, end);
    }
+
+   onCellClickRegisters(event) {
+    console.log(event);
+    console.log(this.registersAlojamiento);
+   }
 }
 
