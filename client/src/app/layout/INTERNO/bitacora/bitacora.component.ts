@@ -389,7 +389,6 @@ export class BitacoraComponent implements OnInit {
         register_on_bitacora.states = states;
       });
     });
-    console.log(this.bitacora);
     this.buildDataTable();
   }
 
@@ -427,6 +426,7 @@ export class BitacoraComponent implements OnInit {
     this.columns = [
        {title: '', name: 'selected'},
        {title: 'Número de Establecimiento', name: 'ruc_code_id'},
+       {title: 'Actividad', name: 'activity'},
        {title: 'Nombre Comercial', name: 'establishment'},
        {title: 'Provincia', name: 'provincia'},
        {title: 'Cantón', name: 'canton'},
@@ -434,33 +434,8 @@ export class BitacoraComponent implements OnInit {
        {title: 'Dirección', name: 'address'},
     ];
     const data = [];
-    this.bitacoraAlojamiento.forEach(bitElement => {
-      let existe = false;
-      this.establishments.forEach(establishment => {
-        if (establishment.id == bitElement.establishment.id) {
-          existe = true;
-        }
-      });
-      if (!existe) {
-        if (bitElement.register_data.length > 0) {
-          this.establishments.push(bitElement.establishment);
-        }
-      }
-    });
-    this.bitacoraAlimentosBebidas.forEach(bitElement => {
-      let existe = false;
-      this.establishments.forEach(establishment => {
-        if (establishment.id == bitElement.establishment.id) {
-          existe = true;
-        }
-      });
-      if (!existe) {
-        if (bitElement.register_data.length > 0) {
-          this.establishments.push(bitElement.establishment);
-        }
-      }
-    });
-    this.establishments.forEach(item => {
+    this.bitacora.forEach(bitItem => {
+        const item = bitItem.establishment.establishment; 
         let provincia = new Ubication();
         let canton = new Ubication();
         let parroquia = new Ubication();
@@ -493,6 +468,7 @@ export class BitacoraComponent implements OnInit {
           parroquia: parroquia.name,
           ruc_code_id: item.ruc_code_id,
           establishment: item.commercially_known_name,
+          activity: bitItem.establishment.activity,
           address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
         });
     });
