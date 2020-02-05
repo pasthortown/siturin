@@ -253,30 +253,22 @@ export class BitacoraComponent implements OnInit {
       {title: 'Trámite', name: 'tramit'},
    ];
    const data = [];
-   console.log(this.establishment_id_selected);
-   console.log(this.bitacora);
-
-   this.registersAlojamiento.forEach(item => {
-      data.push({
-        selected: '',
-        id: item.id,
-        actividad: 'ALOJAMIENTO',
-        code: item.code,
-        category: this.getRegisterCategory(item.register_type_id, 'ALOJAMIENTO').toString().toUpperCase(),
-        tramit: item.state_id,
+   this.bitacora.forEach(bitItem => {
+    if (bitItem.establishment.establishment.id == this.establishment_id_selected) {
+      bitItem.registers.forEach(reg_data => {
+        data.push({
+          selected: '',
+          id: reg_data.register.id,
+          actividad: reg_data.activity,
+          code: reg_data.register.code,
+          category: this.getRegisterCategory(reg_data.register.register_type_id, reg_data.activity).toString().toUpperCase(),
+          tramit: reg_data.state,
+        });
       });
-   });
-   this.registersAlimentosBebidas.forEach(item => {
-    data.push({
-      selected: '',
-      id: item.id,
-      actividad: 'ALIMENTOS Y BEBIDAS',
-      code: item.code,
-      category: this.getRegisterCategory(item.register_type_id, 'ALIMENTOS Y BEBIDAS').toString().toUpperCase(),
-      tramit: item.state_id,
-    });
+    }
    });
    this.dataRegisters = data;
+   console.log(this.bitacora);
    this.onChangeTableRegisters(this.config);
   }
 
