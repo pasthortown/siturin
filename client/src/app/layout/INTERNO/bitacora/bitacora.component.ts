@@ -36,6 +36,7 @@ export class BitacoraComponent implements OnInit {
   currentPageRegisters = 1;
   recordsByPageRegisters = 5;
   establishments: any[] = [];
+  states_selected: any[] = [];
   register_types: RegisterType[] = [];
   register_types_AB: RegisterTypeAB[] = [];
   currentPageEstablishments = 1;
@@ -598,7 +599,15 @@ export class BitacoraComponent implements OnInit {
    }
 
    onCellClickRegisters(event) {
-    console.log(event.row.states);
+    this.rowsRegisters.forEach(row => {
+      if (row == event.row) {
+         row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+         this.states_selected = row.states;
+         console.log (this.states_selected);
+      } else {
+        row.selected = '';
+      }
+   });
    }
 }
 
