@@ -635,8 +635,9 @@ export class DashboardComponent implements OnInit {
  }
 
   guardarRecepcionRoom(register_id: number) {
-     this.salaRecepciones.register_id = register_id;
      if (this.salaRecepciones.id == 0 || typeof this.salaRecepciones.id == 'undefined') {
+      this.salaRecepciones = new ReceptionRoom();
+      this.salaRecepciones.register_id = register_id;
       this.receptionRoomDataService.post(this.salaRecepciones).then( r => {
 
       }).catch( e => { console.log(e); });
