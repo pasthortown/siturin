@@ -291,7 +291,7 @@ export class BitacoraComponent implements OnInit {
         actividad: 'ALOJAMIENTO',
         code: item.code,
         category: this.getRegisterCategory(item.register_type_id, 'ALOJAMIENTO').toString().toUpperCase(),
-        tramit: 'PRUEBA',
+        tramit: item.state_id,
       });
    });
    this.registersAlimentosBebidas.forEach(item => {
