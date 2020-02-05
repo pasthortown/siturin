@@ -282,6 +282,8 @@ export class BitacoraComponent implements OnInit {
    data.sort((d1,d2)=> {
      let date1 = new Date(d1.created_at.toString());
      let date2 = new Date(d2.created_at.toString());
+     console.log(date1);
+     console.log(date1.getTime());
      if (date1.getTime() > date2.getTime()) {
        return 1;
      }
