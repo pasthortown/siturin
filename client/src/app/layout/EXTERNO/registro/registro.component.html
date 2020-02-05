@@ -224,7 +224,7 @@
                           <i class="fas fa-trash"></i>
                         </button>
                       </div>
-                      <input type="file" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" id="person_representative_attachment_file"
+                      <input type="file" class="form-control" accept="application/pdf" [disabled]="!rucEstablishmentRegisterSelected.editable" id="person_representative_attachment_file"
                         name="person_representative_attachment_file" placeholder="Nombramiento Representante del Legal"
                         (change)="CodeFilePersonRepresentativeAttachment($event)">
                     </div>
