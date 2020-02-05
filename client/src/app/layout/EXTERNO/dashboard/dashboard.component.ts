@@ -145,6 +145,7 @@ export class DashboardComponent implements OnInit {
    mostrarActivar = true;
    mostrarInactivar = true;
    mostrarActualizarCapacidadesPrecios = true;
+   registrando_antiguos = false;
    actualizandoCapacidadesPrecios = false;
    resetCap = false;
    mostrarDarBaja = true;
@@ -2068,6 +2069,17 @@ export class DashboardComponent implements OnInit {
          if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || element.establishment_state.toUpperCase().trim() == "CERRADO") {
             this.mostrarActualizar = false;
             this.mostrarActivar = true;
+            this.mostrarDarBaja = false;
+            this.mostrarReclasificar = false;
+            this.mostrarRecategorizar = false; 
+            this.mostrarDeclarandoUnoMil = false;
+            this.mostrarActualizarCapacidadesPrecios = false;
+            cambioEstado = true;
+         }
+         if (!((element.system_source == 'SITURIN') || (element.system_source == 'SIETE'))) {
+            this.mostrarActualizar = true;
+            this.registrando_antiguos = true;
+            this.mostrarActivar = false;
             this.mostrarDarBaja = false;
             this.mostrarReclasificar = false;
             this.mostrarRecategorizar = false; 

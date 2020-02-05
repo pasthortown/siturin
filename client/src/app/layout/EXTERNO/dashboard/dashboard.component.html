@@ -83,10 +83,16 @@
 <div class="row" *ngIf="mostrarDataRegisterMintur">
   <div class="col-12">
     <div class="btn-toolbar" role="toolbar">
-      <div class="btn-group" role="group">
+      <div class="btn-group" role="group" *ngIf="registrando_antiguos">
+        <button class="btn btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Registrar</button>
+        <button class="btn btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Registrar</button>
+      </div>
+      <div class="btn-group" role="group" *ngIf="!registrando_antiguos">
         <button class="btn btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
         <button class="btn btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
-        
+        <button class="btn btn-light" (click)="actualizar()" *ngIf="registrando_antiguos && !actualizando" [disabled]="!mostrarActualizar">Registrar</button>
+        <button class="btn btn-secondary" (click)="actualizar()" *ngIf="registrando_antiguos && actualizando" [disabled]="!mostrarActualizar">Registrar</button>
+
         <button class="btn btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="!actualizandoCapacidadesPrecios && registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS'" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Lista de Precios</button>
         <button class="btn btn-secondary" (click)="actualizarCapacidadesPrecios()" *ngIf="actualizandoCapacidadesPrecios && registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS'" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Lista de Precios</button>
         
