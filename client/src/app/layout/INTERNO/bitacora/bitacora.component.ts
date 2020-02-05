@@ -253,8 +253,9 @@ export class BitacoraComponent implements OnInit {
       {title: 'Trámite', name: 'tramit'},
    ];
    const data = [];
+   console.log(this.establishment_id_selected);
    console.log(this.bitacora);
-   
+
    this.registersAlojamiento.forEach(item => {
       data.push({
         selected: '',
