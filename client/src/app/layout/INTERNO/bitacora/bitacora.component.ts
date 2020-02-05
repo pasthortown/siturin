@@ -359,7 +359,7 @@ export class BitacoraComponent implements OnInit {
             let state = this.getTramiteByState(reg_data.state_id);
             let existe_registro = false;
             bitacoraItem.registers.forEach(element => {
-              if ((element.register.id == reg_data.id) && (element.state == state)) {
+              if ((element.register.id == reg_data.id) && (element.state == state) && (element.register.code == reg_data.code)) {
                 existe_registro = true;
               }
             });
