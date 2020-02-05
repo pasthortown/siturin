@@ -98,3 +98,26 @@
     </ngb-pagination>
     </div>
 </div>
+<div class="row mt-2" *ngIf="mostrarStates">
+    <h4 class="col-12">
+        <strong>&nbsp;Estados</strong>
+    </h4>
+</div>
+<div class="row mt-2" *ngIf="mostrarStates">
+    <div class="col-12">
+        <table class="table table-hover mt-2">
+            <thead>
+            <tr>
+                <th>Seleccionado</th>
+                <th>name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- <tr *ngFor="let approval of approvals" (click)="selectApproval(approval)">
+                <td class="text-right"><span *ngIf="approvalSelected === approval" class="far fa-hand-point-right"></span></td>
+                <td>{{approval.name}}</td>
+            </tr> -->
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -56,6 +56,7 @@ export class BitacoraComponent implements OnInit {
   mostrarRegistros = false;
   establishment_id_selected = 0;
   bitacora = [];
+  mostrarStates = false;
 
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
@@ -91,6 +92,7 @@ export class BitacoraComponent implements OnInit {
       this.consumoRuc = false;
       this.SRIOK = false;
       this.mostrarRegistros = false;
+      this.mostrarStates = false;
       this.mostrarEstablecimientos = false;
       this.ruc.baised_accounting = false;
       this.ruc.tax_payer_type_id = 1;
@@ -604,6 +606,7 @@ export class BitacoraComponent implements OnInit {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
          this.states_selected = row.states;
          console.log (this.states_selected);
+         this.mostrarStates = true;
       } else {
         row.selected = '';
       }
