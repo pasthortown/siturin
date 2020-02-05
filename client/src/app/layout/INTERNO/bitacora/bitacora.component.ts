@@ -351,10 +351,11 @@ export class BitacoraComponent implements OnInit {
         }
       }
     });
+
     this.establishments.forEach(establishment => {
       let bitacoraItem = {establishment: establishment, registers: []};
       myData.forEach( bitElement => {
-        if (establishment.establishment.id == bitElement.data.establishment.id) {
+        if ((establishment.establishment.id == bitElement.data.establishment.id) && (bitElement.activity == establishment.activity)) {
           bitElement.data.register_data.forEach( reg_data => {
             let state = this.getTramiteByState(reg_data.state_id);
             let existe_registro = false;
@@ -371,16 +372,19 @@ export class BitacoraComponent implements OnInit {
       });
       this.bitacora.push(bitacoraItem);
     });
+
     this.bitacora.forEach(bitacoraAItem => {
       bitacoraAItem.registers.forEach( register_on_bitacora => {
         let states = [];
         myData.forEach( bitElement => {
-          bitElement.data.register_data.forEach( reg_data => {
-            let state = this.getTramiteByState(reg_data.state_id);
-            if ((register_on_bitacora.register.id == reg_data.id) && (register_on_bitacora.state == state)) {
-              states.push(reg_data);
-            }
-          });
+          if (bitElement.activity == bitacoraAItem.establishment.activity) {
+            bitElement.data.register_data.forEach( reg_data => {
+              let state = this.getTramiteByState(reg_data.state_id);
+              if ((register_on_bitacora.register.id == reg_data.id) && (register_on_bitacora.state == state)) {
+                states.push(reg_data);
+              }
+            });
+          }
         });
         register_on_bitacora.states = states;
       });
