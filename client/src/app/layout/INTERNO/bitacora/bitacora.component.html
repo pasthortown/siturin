@@ -115,7 +115,7 @@
             <tbody>
             <tr *ngFor="let state of states_selected">
                 <td>{{state.created_at}}</td>
-                <td>{{getRegisterState(state.state_id)}}</td>
+                <td><strong [innerHTML]="getRegisterState(state.state_id)"></strong></td>
             </tr>
             </tbody>
         </table>
