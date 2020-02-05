@@ -265,8 +265,8 @@ export class BitacoraComponent implements OnInit {
    const data = [];
    this.registers_selected.forEach(reg_data => {
      let category = 'INACTIVO';
-     if (reg_data.state != 'INACTIVACIÓN') {
-      this.getRegisterCategory(reg_data.register.register_type_id, reg_data.activity).toString().toUpperCase()
+     if (reg_data.state !== 'INACTIVACIÓN') {
+      this.getRegisterCategory(reg_data.register.register_type_id, reg_data.activity).toString().toUpperCase();
      }
      data.push({
        selected: '',
