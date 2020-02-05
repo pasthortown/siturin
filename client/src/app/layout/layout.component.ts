@@ -99,22 +99,11 @@ export class LayoutComponent implements OnInit {
           const cuentaInterna = r.email.split('@')[1] == 'turismo.gob.ec';
           this.catastroDataService.searchByRuc(user.ruc.toString()).then( r => {
               const registros = r as Register[];
-              console.log(r);
               let toReturn = false;
               if (registros.length == 0 || r == 0) {
                   toReturn = false;
               } else {
-                let autorizado = false;
-                registros.forEach(element => {
-                    if (element.system_source.toString() == "SITURIN" || element.system_source.toString() == "SIETE") {
-                        autorizado = true;
-                    }
-                });
-                if (autorizado) {
-                    toReturn = true;
-                } else {
-                    toReturn = false;
-                }
+                toReturn = true;
               }
               const establecimientos_id = [];
               registros.forEach(registro => {
