@@ -229,7 +229,7 @@
         <button type="button" [disabled]="!validateTarifarioRackFile() || digito == '9'" class="btn btn-danger" title="Borrar Tarifario Rack Cargado" (click)="borrarTarifarioRack()"><i class="fas fa-trash"></i></button>
       </div>
       <input type="file" class="form-control" id="tarifarioFile"
-        name="tarifarioFile" placeholder="Tarifario Rack o Mostrador"
+        name="tarifarioFile" accept="application/pdf" placeholder="Tarifario Rack o Mostrador"
         (change)="CodeFileTarifarioRackAttachment($event)">
     </div>
     <small *ngIf="imprimiendo_tarifario">
@@ -254,7 +254,7 @@
         <button type="button" [disabled]="!validateRegistroFile() || digito == '9'" class="btn btn-danger" title="Borrar Registro Turístico Cargado" (click)="borrarRegistro()"><i class="fas fa-trash"></i></button>
       </div>
       <input type="file" class="form-control" id="registroFile"
-        name="registroFile" placeholder="Registro Turístico"
+        name="registroFile" accept="application/pdf" placeholder="Registro Turístico"
         (change)="CodeFileRegistroAttachment($event)">
     </div>
     <small *ngIf="!SRIOK">
@@ -279,7 +279,7 @@
         <button type="button" [disabled]="!validateCertificadoInactivacionFile() || digito == '9'" class="btn btn-danger" title="Borrar Certificado de Inactivación Cargado" (click)="borrarCertificadoInactivacion()"><i class="fas fa-trash"></i></button>
       </div>
       <input type="file" class="form-control" id="certificadoInactivacionFile"
-        name="certificadoInactivacionFile" placeholder="Certificado de Inactivación"
+        name="certificadoInactivacionFile" accept="application/pdf" placeholder="Certificado de Inactivación"
         (change)="CodeFileCertificadoInactivacionAttachment($event)">
     </div>
     <small *ngIf="!SRIOK">
@@ -484,7 +484,7 @@
                         </button>
                       </div>
                       <input type="file" class="form-control" disabled id="person_representative_attachment_file"
-                        name="person_representative_attachment_file" placeholder="Nombramiento Representante del Legal"
+                        name="person_representative_attachment_file" accept="application/pdf" placeholder="Nombramiento Representante del Legal"
                         (change)="CodeFilePersonRepresentativeAttachment($event)">
                     </div>
                     <small class="col-12">

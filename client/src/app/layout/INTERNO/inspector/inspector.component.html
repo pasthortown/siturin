@@ -131,7 +131,7 @@
           </a>
         </div>
         <input type="file" class="form-control" id="requisitesFile"
-          name="requisitesFile" placeholder="Formulario de Revisión de Requisitos (Check List)"
+          name="requisitesFile" accept="application/pdf" placeholder="Formulario de Revisión de Requisitos (Check List)"
           (change)="CodeFileRequisitesAttachment($event)">
       </div>
        </div>
@@ -182,7 +182,7 @@
         <button type="button" [disabled]="!validateActaNotificacionFile()" class="btn btn-danger" title="Borrar Acta de Notificación Cargada" (click)="borrarActaNotificacion()"><i class="fas fa-trash"></i></button>
       </div>
       <input type="file" class="form-control" id="actaFile"
-        name="actaFile" placeholder="Acta de Notificación"
+        name="actaFile" accept="application/pdf" placeholder="Acta de Notificación"
         (change)="CodeFileActaNotificacionAttachment($event)">
     </div>
     <small *ngIf="!SRIOK">
@@ -215,7 +215,7 @@
         <button type="button" [disabled]="!validateInformeFile()" class="btn btn-danger" title="Borrar Informe Cargado" (click)="borrarInforme()"><i class="fas fa-trash"></i></button>
       </div>
       <input type="file" class="form-control" id="informeFile"
-        name="informeFile" placeholder="Informe de Inspección"
+        name="informeFile" accept="application/pdf" placeholder="Informe de Inspección"
         (change)="CodeFileInformeAttachment($event)">
     </div>
     <small *ngIf="imprimiendo_informe">
@@ -422,7 +422,7 @@
                         </button>
                       </div>
                       <input type="file" class="form-control" disabled id="person_representative_attachment_file"
-                        name="person_representative_attachment_file" placeholder="Nombramiento Representante del Legal"
+                        name="person_representative_attachment_file" accept="application/pdf" placeholder="Nombramiento Representante del Legal"
                         (change)="CodeFilePersonRepresentativeAttachment($event)">
                     </div>
                     <small class="col-12">
