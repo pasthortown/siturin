@@ -663,13 +663,10 @@ export class BitacoraComponent implements OnInit {
          this.states_selected.sort((d1,d2)=> {
            let date1 = new Date(d1.created_at.toString());
            let date2 = new Date(d2.created_at.toString());
-           console.log(d1);
-           console.log(date1);
-           console.log(date1.getTime());
-           if (date1.getTime() > date2.getTime()) {
+           if (date1.getTime() < date2.getTime()) {
              return 1;
            }
-           if (date1.getTime() < date2.getTime()) {
+           if (date1.getTime() > date2.getTime()) {
              return -1;
            }
            return 0;
