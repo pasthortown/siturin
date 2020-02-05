@@ -28,6 +28,7 @@ export class BitacoraComponent implements OnInit {
   SRIOK = false;
   razon_social = '';
   bitacoraAlojamiento: any[] = [];
+  registers_selected: any[] = [];
   bitacoraAlimentosBebidas: any[] = [];
   mostrarEstablecimientos = false;
   registersAlojamiento: any[] = [];
@@ -235,7 +236,7 @@ export class BitacoraComponent implements OnInit {
     this.rows.forEach(row => {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-         this.establishment_id_selected = row.id;
+         this.registers_selected = row.registers;
          this.buildDataTableRegisters();
       } else {
         row.selected = '';
@@ -244,6 +245,7 @@ export class BitacoraComponent implements OnInit {
   }
 
   buildDataTableRegisters() {
+    console.log(this.registers_selected);
     this.mostrarRegistros = true;
     this.columnsRegisters = [
       {title: '', name: 'selected'},
@@ -432,6 +434,7 @@ export class BitacoraComponent implements OnInit {
           ruc_code_id: item.ruc_code_id,
           establishment: item.commercially_known_name,
           activity: bitItem.establishment.activity,
+          registers: bitItem.registers,
           address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
         });
     });
