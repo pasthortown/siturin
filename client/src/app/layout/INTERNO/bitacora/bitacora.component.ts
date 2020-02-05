@@ -346,7 +346,7 @@ export class BitacoraComponent implements OnInit {
         }
       });
       if (!existe) {
-        if (bitElement.register_data.length > 0) {
+        if (bitElement.data.register_data.length > 0) {
           this.establishments.push({establishment: bitElement.data.establishment, activity: bitElement.activity});
         }
       }
