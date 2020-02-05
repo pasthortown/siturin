@@ -245,7 +245,6 @@ export class BitacoraComponent implements OnInit {
   }
 
   buildDataTableRegisters() {
-    console.log(this.registers_selected);
     this.mostrarRegistros = true;
     this.columnsRegisters = [
       {title: '', name: 'selected'},
@@ -255,22 +254,18 @@ export class BitacoraComponent implements OnInit {
       {title: 'Trámite', name: 'tramit'},
    ];
    const data = [];
-   this.bitacora.forEach(bitItem => {
-    if (bitItem.establishment.establishment.id == this.establishment_id_selected) {
-      bitItem.registers.forEach(reg_data => {
-        data.push({
-          selected: '',
-          id: reg_data.register.id,
-          actividad: reg_data.activity,
-          code: reg_data.register.code,
-          category: this.getRegisterCategory(reg_data.register.register_type_id, reg_data.activity).toString().toUpperCase(),
-          tramit: reg_data.state,
-        });
-      });
-    }
+   this.registers_selected.forEach(reg_data => {
+     data.push({
+       selected: '',
+       id: reg_data.register.id,
+       actividad: reg_data.activity,
+       code: reg_data.register.code,
+       category: this.getRegisterCategory(reg_data.register.register_type_id, reg_data.activity).toString().toUpperCase(),
+       tramit: reg_data.state,
+       states: reg_data.states,
+     });
    });
    this.dataRegisters = data;
-   console.log(this.bitacora);
    this.onChangeTableRegisters(this.config);
   }
 
@@ -603,9 +598,7 @@ export class BitacoraComponent implements OnInit {
    }
 
    onCellClickRegisters(event) {
-    console.log(event);
-    console.log(this.registersAlojamiento);
-    console.log(this.bitacoraAlimentosBebidas);
+    console.log(event.row.states);
    }
 }
 
