@@ -113,9 +113,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let state of states_selected">
-                <td>{{state.created_at}}</td>
-                <td>{{state.state}}</td>
+            <tr *ngFor="let state of states_to_show">
+                <td>{{state.state.created_at}}</td>
+                <td>{{state.state_name}}</td>
             </tr>
             </tbody>
         </table>
