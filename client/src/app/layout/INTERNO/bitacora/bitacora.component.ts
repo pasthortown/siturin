@@ -354,8 +354,7 @@ export class BitacoraComponent implements OnInit {
     this.establishments.forEach(establishment => {
       let bitacoraItem = {establishment: establishment, registers: []};
       myData.forEach( bitElement => {
-        console.log(bitElement);
-        if (establishment.id == bitElement.data.establishment.id) {
+        if (establishment.establishment.id == bitElement.data.establishment.id) {
           bitElement.data.register_data.forEach( reg_data => {
             let state = this.getTramiteByState(reg_data.state_id);
             let existe_registro = false;
