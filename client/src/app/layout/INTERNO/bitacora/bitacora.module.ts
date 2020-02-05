@@ -28,9 +28,9 @@ import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CR
     HttpModule],
   declarations: [BitacoraComponent],
   providers: [
-    StateService,
     RegisterService,
     UbicationService,
+    StateService,
     RegisterTypeABService,
     RegisterStateService,
     RegisterABService,

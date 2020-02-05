@@ -1,3 +1,4 @@
+import { State } from 'src/app/models/ALOJAMIENTO/State';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/profile/User';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
@@ -14,6 +15,7 @@ import { Ubication } from 'src/app/models/BASE/Ubication';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { RegisterType as RegisterTypeAB} from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { RegisterTypeService as RegisterTypeABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { StateService } from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
 
 @Component({
   selector: 'app-bitacora',
@@ -27,6 +29,7 @@ export class BitacoraComponent implements OnInit {
   consumoRuc = false;
   SRIOK = false;
   razon_social = '';
+  states: State[] = [];
   bitacoraAlojamiento: any[] = [];
   registers_selected: any[] = [];
   bitacoraAlimentosBebidas: any[] = [];
@@ -62,6 +65,7 @@ export class BitacoraComponent implements OnInit {
     private registerABDataService: RegisterABService,
     private ubicationDataService: UbicationService,
     private registerDataService: RegisterService,
+    private stateDataService: StateService,
     private register_typeDataService: RegisterTypeService,
     private register_typeABDataService: RegisterTypeABService
     ) {}
@@ -270,6 +274,13 @@ export class BitacoraComponent implements OnInit {
    });
    this.dataRegisters = data;
    this.onChangeTableRegisters(this.config);
+  }
+
+  getStates() {
+    this.states = [];
+    this.stateDataService.get().then( r => {
+       this.states = r as State[];
+    }).catch( e => { console.log(e); });
   }
 
   buscarBitacora() {
@@ -600,6 +611,23 @@ export class BitacoraComponent implements OnInit {
     return data.slice(start, end);
    }
 
+   getRegisterState(id: number): String {
+    let toReturn: String = '';
+    let fatherCode: String = '';
+    this.states.forEach(state => {
+       if (state.id == id) {
+        toReturn = state.name;
+        fatherCode = state.father_code;
+       }
+    });
+    this.states.forEach(state => {
+       if (state.code == fatherCode) {
+          toReturn = state.name + ' - ' + toReturn;
+       }
+    });
+    return toReturn;
+  }
+
    onCellClickRegisters(event) {
     this.rowsRegisters.forEach(row => {
       if (row == event.row) {
@@ -610,7 +638,7 @@ export class BitacoraComponent implements OnInit {
       } else {
         row.selected = '';
       }
-   });
+    });
    }
 }
 

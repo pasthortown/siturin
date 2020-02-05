@@ -108,15 +108,15 @@
         <table class="table table-hover mt-2">
             <thead>
             <tr>
-                <th>Seleccionado</th>
-                <th>name</th>
+                <th>Fecha y Hora</th>
+                <th>Bandeja</th>
             </tr>
             </thead>
             <tbody>
-            <!-- <tr *ngFor="let approval of approvals" (click)="selectApproval(approval)">
-                <td class="text-right"><span *ngIf="approvalSelected === approval" class="far fa-hand-point-right"></span></td>
-                <td>{{approval.name}}</td>
-            </tr> -->
+            <tr *ngFor="let state of states_selected">
+                <td>{{state.created_at}}</td>
+                <td>{{getRegisterState(state.state_id)}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
