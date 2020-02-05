@@ -272,11 +272,23 @@ export class BitacoraComponent implements OnInit {
        selected: '',
        id: reg_data.register.id,
        actividad: reg_data.activity,
+       created_at: reg_data.register.created_at,
        code: reg_data.register.code,
        category: category,
        tramit: reg_data.state,
        states: reg_data.states,
      });
+   });
+   data.sort((d1,d2)=> {
+     let date1 = new Date(d1.created_at.toString());
+     let date2 = new Date(d2.created_at.toString());
+     if (date1.getTime() > date2.getTime()) {
+       return 1;
+     }
+     if (date1.getTime() < date2.getTime()) {
+       return -1;
+     }
+     return 0;
    });
    this.dataRegisters = data;
    this.onChangeTableRegisters(this.config);
