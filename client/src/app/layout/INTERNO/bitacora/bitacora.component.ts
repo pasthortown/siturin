@@ -282,8 +282,6 @@ export class BitacoraComponent implements OnInit {
    data.sort((d1,d2)=> {
      let date1 = new Date(d1.created_at.toString());
      let date2 = new Date(d2.created_at.toString());
-     console.log(date1);
-     console.log(date1.getTime());
      if (date1.getTime() > date2.getTime()) {
        return 1;
      }
@@ -662,6 +660,20 @@ export class BitacoraComponent implements OnInit {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
          this.states_selected = row.states;
+         this.states_selected.sort((d1,d2)=> {
+           let date1 = new Date(d1.created_at.toString());
+           let date2 = new Date(d2.created_at.toString());
+           console.log(d1);
+           console.log(date1);
+           console.log(date1.getTime());
+           if (date1.getTime() > date2.getTime()) {
+             return 1;
+           }
+           if (date1.getTime() < date2.getTime()) {
+             return -1;
+           }
+           return 0;
+         });
          this.states_selected.forEach(element => {
            this.states_to_show.push({state: element, state_name: this.getRegisterState(element.state_id)});
          });
