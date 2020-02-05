@@ -4251,7 +4251,7 @@ selectKitchenType(kitchenType: KitchenType) {
    this.estados_tramites = [];
    this.stateDataService.get().then( r => {
       r.forEach(element => {
-         if (element.father_code == '-') {
+         if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
             this.estados_tramites.push(element);
          }
       });
