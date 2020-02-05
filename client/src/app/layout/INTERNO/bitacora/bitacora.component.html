@@ -110,12 +110,14 @@
             <tr>
                 <th>Fecha y Hora</th>
                 <th>Bandeja</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let state of states_to_show">
                 <td>{{state.state.created_at}}</td>
                 <td>{{state.state_name}}</td>
+                <td>{{state.last}}</td>
             </tr>
             </tbody>
         </table>

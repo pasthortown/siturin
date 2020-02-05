@@ -663,17 +663,19 @@ export class BitacoraComponent implements OnInit {
          this.states_selected.sort((d1,d2)=> {
            let date1 = new Date(d1.created_at.toString());
            let date2 = new Date(d2.created_at.toString());
-           if (date1.getTime() < date2.getTime()) {
+           if (date1.getTime() > date2.getTime()) {
              return 1;
            }
-           if (date1.getTime() > date2.getTime()) {
+           if (date1.getTime() < date2.getTime()) {
              return -1;
            }
            return 0;
          });
+         this.states_to_show = [];
          this.states_selected.forEach(element => {
-           this.states_to_show.push({state: element, state_name: this.getRegisterState(element.state_id)});
+           this.states_to_show.push({state: element, state_name: this.getRegisterState(element.state_id), last: false});
          });
+         this.states_to_show[this.states_to_show.length - 1].last = true;
          this.mostrarStates = true;
       } else {
         row.selected = '';
