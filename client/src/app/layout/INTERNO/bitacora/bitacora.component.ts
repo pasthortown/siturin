@@ -452,6 +452,15 @@ export class BitacoraComponent implements OnInit {
           registers: bitItem.registers,
           address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
         });
+        data.sort((d1,d2)=> {
+          if (d1.ruc_code_id > d2.ruc_code_id) {
+            return 1;
+          }
+          if (d1.ruc_code_id < d2.ruc_code_id) {
+            return -1;
+          }
+          return 0;
+        });
     });
     this.data = data;
     this.onChangeTable(this.config);
@@ -642,7 +651,6 @@ export class BitacoraComponent implements OnInit {
          this.states_selected.forEach(element => {
            this.states_to_show.push({state: element, state_name: this.getRegisterState(element.state_id)});
          });
-         console.log(this.states_to_show);
          this.mostrarStates = true;
       } else {
         row.selected = '';
