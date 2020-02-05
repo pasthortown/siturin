@@ -254,6 +254,8 @@ export class BitacoraComponent implements OnInit {
   }
 
   buildDataTableRegisters() {
+    this.mostrarStates = false;
+    this.states_selected = [];
     this.mostrarRegistros = true;
     this.columnsRegisters = [
       {title: '', name: 'selected'},
