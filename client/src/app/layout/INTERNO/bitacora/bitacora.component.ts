@@ -301,7 +301,7 @@ export class BitacoraComponent implements OnInit {
       actividad: 'ALIMENTOS Y BEBIDAS',
       code: item.code,
       category: this.getRegisterCategory(item.register_type_id, 'ALIMENTOS Y BEBIDAS').toString().toUpperCase(),
-      tramit: 'PRUEBA',
+      tramit: item.state_id,
     });
    });
    this.dataRegisters = data;
