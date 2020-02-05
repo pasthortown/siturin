@@ -236,38 +236,6 @@ export class BitacoraComponent implements OnInit {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
          this.establishment_id_selected = row.id;
-         this.registersAlojamiento = [];
-         this.registersAlimentosBebidas = [];
-         this.bitacoraAlimentosBebidas.forEach(bitElement => {
-           if ((bitElement.register_data.length > 0) && (bitElement.establishment.id == this.establishment_id_selected)) {
-             bitElement.register_data.forEach(element => {
-              let existe = false;
-              this.registersAlimentosBebidas.forEach(e1 => {
-                if (e1.id == element.id) {
-                  existe = true;
-                }
-              }); 
-              if (!existe) {
-                this.registersAlimentosBebidas.push(element);
-              }
-             });
-           }
-         });
-         this.bitacoraAlojamiento.forEach(bitElement => {
-           if ((bitElement.register_data.length > 0) && (bitElement.establishment.id == this.establishment_id_selected)) {
-           bitElement.register_data.forEach(element => {
-              let existe = false;
-              this.registersAlojamiento.forEach(e1 => {
-                if (e1.id == element.id) {
-                  existe = true;
-                }
-              }); 
-              if (!existe) {
-                this.registersAlojamiento.push(element);
-              }
-           });
-           }
-         });
          this.buildDataTableRegisters();
       } else {
         row.selected = '';
@@ -285,6 +253,8 @@ export class BitacoraComponent implements OnInit {
       {title: 'Trámite', name: 'tramit'},
    ];
    const data = [];
+   console.log(this.bitacora);
+   
    this.registersAlojamiento.forEach(item => {
       data.push({
         selected: '',
