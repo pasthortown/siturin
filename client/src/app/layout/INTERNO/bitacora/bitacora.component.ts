@@ -60,6 +60,7 @@ export class BitacoraComponent implements OnInit {
   establishment_id_selected = 0;
   bitacora = [];
   mostrarStates = false;
+  states_to_show: any[] = [];
 
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
@@ -73,6 +74,7 @@ export class BitacoraComponent implements OnInit {
   ngOnInit() {
     this.getUbications();
     this.getRegisterTypes();
+    this.getStates();
   }
 
   getRegisterTypes() {
@@ -633,7 +635,10 @@ export class BitacoraComponent implements OnInit {
       if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
          this.states_selected = row.states;
-         console.log (this.states_selected);
+         this.states_selected.forEach(element => {
+           this.states_to_show.push({state: element, state_name: this.getRegisterState(element.state_id)});
+         });
+         console.log(this.states_to_show);
          this.mostrarStates = true;
       } else {
         row.selected = '';
