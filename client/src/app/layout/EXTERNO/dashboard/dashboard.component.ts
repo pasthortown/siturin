@@ -2411,7 +2411,6 @@ export class DashboardComponent implements OnInit {
    this.REGCIVILREPRESENTANTELEGALOK = false;
    this.guardando = false;
    this.ruc_registro_selected = new RegistroDataCarrier();
-   console.log('entre');
    this.getTaxPayerType();
    this.getAllCapacityTypes();
    this.getGroupType();
@@ -3188,7 +3187,6 @@ guardarDeclaracion() {
             return;
          }
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
-         this.refresh();
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -3202,7 +3200,6 @@ guardarDeclaracion() {
             return;
          }
          this.toastr.successToastr('Datos actualizados satisfactoriamente.', 'Actualizar');
-         this.refresh();
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
