@@ -53,6 +53,7 @@ export class BitacoraComponent implements OnInit {
   ubications: Ubication[] = [];
   mostrarRegistros = false;
   establishment_id_selected = 0;
+  bitacora = [];
 
   constructor(private dinardapDataService: DinardapService,
     private registerABDataService: RegisterABService,
@@ -322,9 +323,93 @@ export class BitacoraComponent implements OnInit {
           this.bitacoraAlimentosBebidas.push(element);
         });
         this.mostrarEstablecimientos = true;
-        this.buildDataTable();
+        this.buildBitacora();
       }).catch( e => { console.log(e);});
     }).catch( e => { console.log(e);});
+  }
+
+  buildBitacora() {
+    this.bitacora = [];
+    let myData = [];
+    this.bitacoraAlimentosBebidas.forEach( e => {
+      myData.push(e);
+    });
+    this.bitacoraAlojamiento.forEach( e => {
+      myData.push(e);
+    });
+    this.establishments = [];
+    myData.forEach( bitElement => {
+      let existe = false;
+      this.establishments.forEach(establishment => {
+        if (establishment.id == bitElement.establishment.id) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        if (bitElement.register_data.length > 0) {
+          this.establishments.push(bitElement.establishment);
+        }
+      }
+    });
+    this.establishments.forEach(establishment => {
+      let bitacoraItem = {establishment: establishment, registers: []};
+      myData.forEach( bitElement => {
+        if (establishment.id == bitElement.establishment.id) {
+          bitElement.register_data.forEach( reg_data => {
+            let state = this.getTramiteByState(reg_data.state_id);
+            let existe_registro = false;
+            bitacoraItem.registers.forEach(element => {
+              if ((element.register.id == reg_data.id) && (element.state == state)) {
+                existe_registro = true;
+              }
+            });
+            if (!existe_registro) {
+              bitacoraItem.registers.push({register: reg_data, state: state, states: []});
+            }
+          });
+        }
+      });
+      this.bitacora.push(bitacoraItem);
+    });
+    this.bitacora.forEach(bitacoraAItem => {
+      bitacoraAItem.registers.forEach( register_on_bitacora => {
+        let states = [];
+        myData.forEach( bitElement => {
+          bitElement.register_data.forEach( reg_data => {
+            let state = this.getTramiteByState(reg_data.state_id);
+            if ((register_on_bitacora.register.id == reg_data.id) && (register_on_bitacora.state == state)) {
+              states.push(reg_data);
+            }
+          });
+        });
+        register_on_bitacora.states = states;
+      });
+    });
+    console.log(this.bitacora);
+    this.buildDataTable();
+  }
+
+  getTramiteByState(state_id) {
+    let state = '';
+    if (state_id >= 11 && state_id <= 20 ) {
+      state = 'REGISTRO';
+    }
+    if (state_id >= 21 && state_id <= 30 ) {
+      state = 'RECLASIFICACIÓN';
+    }
+    if (state_id >= 31 && state_id <= 40 ) {
+      state = 'RECATEGORIZACIÓN';
+    }
+    if (state_id >= 41 && state_id <= 50 ) {
+      state = 'ACTUALIZACIÓN';
+    }
+    if (state_id >= 51 && state_id <= 60 ) {
+      state = 'INACTIVACIÓN';
+    }
+    if (state_id >= 61 && state_id <= 70 ) {
+      state = 'REINGRESO';
+    }
+    return state;
   }
 
   getUbications() {
