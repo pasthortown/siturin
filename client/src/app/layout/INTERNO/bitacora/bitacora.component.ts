@@ -332,30 +332,30 @@ export class BitacoraComponent implements OnInit {
     this.bitacora = [];
     let myData = [];
     this.bitacoraAlimentosBebidas.forEach( e => {
-      myData.push(e);
+      myData.push({data: e, activity: 'ALIMENTOS Y BEBIDAS'});
     });
     this.bitacoraAlojamiento.forEach( e => {
-      myData.push(e);
+      myData.push({data: e, activity: 'ALOJAMIENTO'});
     });
     this.establishments = [];
     myData.forEach( bitElement => {
       let existe = false;
       this.establishments.forEach(establishment => {
-        if (establishment.id == bitElement.establishment.id) {
+        if (establishment.id == bitElement.data.establishment.id) {
           existe = true;
         }
       });
       if (!existe) {
         if (bitElement.register_data.length > 0) {
-          this.establishments.push(bitElement.establishment);
+          this.establishments.push({establishment: bitElement.data.establishment, activity: bitElement.activity});
         }
       }
     });
     this.establishments.forEach(establishment => {
       let bitacoraItem = {establishment: establishment, registers: []};
       myData.forEach( bitElement => {
-        if (establishment.id == bitElement.establishment.id) {
-          bitElement.register_data.forEach( reg_data => {
+        if (establishment.id == bitElement.data.establishment.id) {
+          bitElement.data.register_data.forEach( reg_data => {
             let state = this.getTramiteByState(reg_data.state_id);
             let existe_registro = false;
             bitacoraItem.registers.forEach(element => {
@@ -364,7 +364,7 @@ export class BitacoraComponent implements OnInit {
               }
             });
             if (!existe_registro) {
-              bitacoraItem.registers.push({register: reg_data, state: state, states: []});
+              bitacoraItem.registers.push({register: reg_data, activity: bitElement.activity, state: state, states: []});
             }
           });
         }
@@ -375,7 +375,7 @@ export class BitacoraComponent implements OnInit {
       bitacoraAItem.registers.forEach( register_on_bitacora => {
         let states = [];
         myData.forEach( bitElement => {
-          bitElement.register_data.forEach( reg_data => {
+          bitElement.data.register_data.forEach( reg_data => {
             let state = this.getTramiteByState(reg_data.state_id);
             if ((register_on_bitacora.register.id == reg_data.id) && (register_on_bitacora.state == state)) {
               states.push(reg_data);
