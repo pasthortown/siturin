@@ -3562,7 +3562,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = today;
+               newRegistroCatastro.as_turistic_date = today; //AQUI
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3638,7 +3638,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = today;
+               newRegistroCatastro.as_turistic_date = today;//AQUI
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
