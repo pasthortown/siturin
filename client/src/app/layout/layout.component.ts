@@ -99,6 +99,7 @@ export class LayoutComponent implements OnInit {
           const cuentaInterna = r.email.split('@')[1] == 'turismo.gob.ec';
           this.catastroDataService.searchByRuc(user.ruc.toString()).then( r => {
               const registros = r as Register[];
+              console.log(r);
               let toReturn = false;
               if (registros.length == 0 || r == 0) {
                   toReturn = false;
