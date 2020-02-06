@@ -185,6 +185,7 @@ export class DashboardComponent implements OnInit {
    rechazarTramite = false;
    mostrarCausales = false;
    digito = '';
+   isAlimentosBebidas = false;
    listasPrecios: FoodDrinkAttachment[] = [];
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
@@ -1575,7 +1576,6 @@ export class DashboardComponent implements OnInit {
    }
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {
-         console.log('entre');
          this.selectRegisterEstablishment(element);
       }
    }); 
@@ -5018,14 +5018,18 @@ guardarDeclaracion() {
     }).catch( e => { console.log(e); });
    if (this.registerMinturSelected.activity == "ALOJAMIENTO") {
       isAlojamiento = true;
+      isAlimentosBebidas = false;
       this.canAlimentosBebidas = false;
    }
    if (this.registerMinturSelected.activity == "ALIMENTOS Y BEBIDAS") {
+      isAlimentosBebidas = true;
+      isAlojamiento = false;
       this.canAlojamiento = false;
    }
   if (isAlojamiento) {
     this.selectEstablishmentRegister(this.registerMinturSelected.register, false);
-  } else {
+  } 
+  if (isAlimentosBebidas) {
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
     this.canCafeteria = true;
