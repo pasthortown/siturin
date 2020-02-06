@@ -507,6 +507,7 @@ export class DashboardComponent implements OnInit {
       row.selected = '';
    });
    this.selectedRegister = null;
+   this.seleccionarRegistro();
   }
 
   filterByTramiteState(tramite?: String) {
@@ -2080,102 +2081,114 @@ export class DashboardComponent implements OnInit {
          row.selected = '';
       }
    });
-   this.registers_mintur.forEach(element => {
-      if (element.id == event.row.id) {
-         this.selectedRegister = element;
-         this.register_as_turistic_Date = new Date(element.as_turistic_date.toString());
-         let cambioEstado = false;
-         if(element.establishment_state.toUpperCase().trim() == "ACTIVO" || element.establishment_state.toUpperCase().trim() == "ABIERTO" || element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
-           this.mostrarActualizar = true;
-           this.mostrarActivar = false;
-           this.mostrarDarBaja = true;
-           this.mostrarReclasificar = true;
-           this.mostrarRecategorizar = true; 
-           this.mostrarDeclarandoUnoMil = true;
-           this.mostrarActualizarCapacidadesPrecios = true;
-           cambioEstado = true;
+  }
+
+  seleccionarRegistro(row?) {
+   this.register_as_turistic_Date = new Date();
+   if (typeof row != 'undefined') {
+      this.register_as_turistic_Date = new Date(row.as_turistic_date.toString());
+      this.registers_mintur.forEach(element => {
+         if (element.id == row.id) {
+            this.selectedRegister = element;
+            let cambioEstado = false;
+            if(element.establishment_state.toUpperCase().trim() == "ACTIVO" || element.establishment_state.toUpperCase().trim() == "ABIERTO" || element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
+               this.mostrarActualizar = true;
+               this.mostrarActivar = false;
+               this.mostrarDarBaja = true;
+               this.mostrarReclasificar = true;
+               this.mostrarRecategorizar = true; 
+               this.mostrarDeclarandoUnoMil = true;
+               this.mostrarActualizarCapacidadesPrecios = true;
+               cambioEstado = true;
+            }
+            if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || element.establishment_state.toUpperCase().trim() == "CERRADO") {
+               this.mostrarActualizar = false;
+               this.mostrarActivar = true;
+               this.mostrarDarBaja = false;
+               this.mostrarReclasificar = false;
+               this.mostrarRecategorizar = false; 
+               this.mostrarDeclarandoUnoMil = false;
+               this.mostrarActualizarCapacidadesPrecios = false;
+               cambioEstado = true;
+            }
+            if (!((element.system_source == 'SITURIN') || (element.system_source == 'SIETE'))) {
+               this.mostrarActualizar = true;
+               this.registrando_antiguos = true;
+               this.mostrarActivar = false;
+               this.mostrarDarBaja = false;
+               this.mostrarReclasificar = false;
+               this.mostrarRecategorizar = false; 
+               this.mostrarDeclarandoUnoMil = false;
+               this.mostrarActualizarCapacidadesPrecios = false;
+               cambioEstado = true;
+            }
+            if (!cambioEstado) {
+               this.mostrarActualizar = false;
+               this.mostrarActivar = false;
+               this.mostrarDarBaja = false;
+               this.mostrarReclasificar = false;
+               this.mostrarRecategorizar = false;
+               this.mostrarDeclarandoUnoMil = false;
+               this.mostrarActualizarCapacidadesPrecios = false;
+               return;
+            }
+            this.mostrarDataRegisterMintur = true;
+            this.checkTramitEmitted(this.register_code);
+            if (element.system_source == 'SITURIN') {
+               this.consultorDataService.get_register_by_code(this.register_code).then( r => {
+                  const registerMintur = r[0];
+                  this.selectRegisterMintur(registerMintur);
+                  const registerState = this.getRegisterState(registerMintur.states.state_id);
+                  this.stateTramiteId = registerMintur.states.state_id;
+                  const estado: String = this.stateTramiteId.toString();
+                  this.digito = estado.substring(estado.length-1, estado.length);
+                  this.stateTramite = 0;
+                  this.canSave = true;
+                  if (registerState.search('Solicitud Aprobada') == 0) {
+                     this.stateTramite = 1;
+                     this.hasRegisterReady = true;
+                     this.canSave = false;
+                  }
+                  if (registerState.search('Solicitud Rechazada') == 0) {
+                     this.stateTramite = 2;
+                     this.hasRegisterReady = false;
+                     this.canSave = false;
+                  }
+                  if (registerState.search('Documentación Entregada') == 0) {
+                     this.stateTramite = 3;
+                     this.hasRegisterReady = false;
+                     this.canSave = false;
+                  }
+                  this.idRegister = registerMintur.register.id;
+                  this.getApprovalStates();
+               }).catch( e => { console.log(e); });
+            } else {
+               this.startInitialDataRegisterNew();
+            }
          }
-         if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || element.establishment_state.toUpperCase().trim() == "CERRADO") {
-            this.mostrarActualizar = false;
-            this.mostrarActivar = true;
-            this.mostrarDarBaja = false;
-            this.mostrarReclasificar = false;
-            this.mostrarRecategorizar = false; 
-            this.mostrarDeclarandoUnoMil = false;
-            this.mostrarActualizarCapacidadesPrecios = false;
-            cambioEstado = true;
-         }
-         if (!((element.system_source == 'SITURIN') || (element.system_source == 'SIETE'))) {
-            this.mostrarActualizar = true;
-            this.registrando_antiguos = true;
-            this.mostrarActivar = false;
-            this.mostrarDarBaja = false;
-            this.mostrarReclasificar = false;
-            this.mostrarRecategorizar = false; 
-            this.mostrarDeclarandoUnoMil = false;
-            this.mostrarActualizarCapacidadesPrecios = false;
-            cambioEstado = true;
-         }
-         if (!cambioEstado) {
-            this.mostrarActualizar = false;
-            this.mostrarActivar = false;
-            this.mostrarDarBaja = false;
-            this.mostrarReclasificar = false;
-            this.mostrarRecategorizar = false;
-            this.mostrarDeclarandoUnoMil = false;
-            this.mostrarActualizarCapacidadesPrecios = false;
-            return;
-         }
-         this.mostrarDataRegisterMintur = true;
-         this.checkTramitEmitted(this.register_code);
-         if (element.system_source == 'SITURIN') {
-            this.consultorDataService.get_register_by_code(this.register_code).then( r => {
-               const registerMintur = r[0];
-               this.selectRegisterMintur(registerMintur);
-               const registerState = this.getRegisterState(registerMintur.states.state_id);
-               this.stateTramiteId = registerMintur.states.state_id;
-               const estado: String = this.stateTramiteId.toString();
-               this.digito = estado.substring(estado.length-1, estado.length);
-               this.stateTramite = 0;
-               this.canSave = true;
-               if (registerState.search('Solicitud Aprobada') == 0) {
-                  this.stateTramite = 1;
-                  this.hasRegisterReady = true;
-                  this.canSave = false;
-               }
-               if (registerState.search('Solicitud Rechazada') == 0) {
-                  this.stateTramite = 2;
-                  this.hasRegisterReady = false;
-                  this.canSave = false;
-               }
-               if (registerState.search('Documentación Entregada') == 0) {
-                  this.stateTramite = 3;
-                  this.hasRegisterReady = false;
-                  this.canSave = false;
-               }
-               this.idRegister = registerMintur.register.id;
-               this.getApprovalStates();
-            }).catch( e => { console.log(e); });
-         } else {
-            this.registerMinturSelected = {register: new Register(), establishment: new Establishment(), ruc: new Ruc(), states: new RegisterState()};
-            this.registerMinturSelected.ruc.number = this.user.ruc;
-            this.fechasNombramiento();
-            this.pays = [];
-            this.consumoCedula = false;
-            this.consumoCedulaEstablishmentContact = false;
-            this.consumoRuc = false;
-            this.consumoCedulaRepresentanteLegal = false;
-            this.SRIOK = false;
-            this.REGCIVILOK = false;
-            this.REGCIVILOKEstablishment = false;
-            this.REGCIVILREPRESENTANTELEGALOK = false;
-            this.guardando = false;
-            this.ruc_registro_selected = new RegistroDataCarrier();
-            this.getRuc(this.user.ruc);
-            this.groupTypeSelected = new GroupType();
-         }
-      }
-   });
+      });
+   } else {
+      this.startInitialDataRegisterNew();
+   }
+  }
+
+  startInitialDataRegisterNew() {
+   this.registerMinturSelected = {register: new Register(), establishment: new Establishment(), ruc: new Ruc(), states: new RegisterState()};
+   this.registerMinturSelected.ruc.number = this.user.ruc;
+   this.fechasNombramiento();
+   this.pays = [];
+   this.consumoCedula = false;
+   this.consumoCedulaEstablishmentContact = false;
+   this.consumoRuc = false;
+   this.consumoCedulaRepresentanteLegal = false;
+   this.SRIOK = false;
+   this.REGCIVILOK = false;
+   this.REGCIVILOKEstablishment = false;
+   this.REGCIVILREPRESENTANTELEGALOK = false;
+   this.guardando = false;
+   this.ruc_registro_selected = new RegistroDataCarrier();
+   this.getRuc(this.user.ruc);
+   this.groupTypeSelected = new GroupType();
   }
 
   getUbications() {
@@ -2203,6 +2216,7 @@ export class DashboardComponent implements OnInit {
 
    buildOpciones(row) {
       this.mostrarOpciones = true;
+      this.seleccionarRegistro(row);
    }
 
   checkAttachments() {
