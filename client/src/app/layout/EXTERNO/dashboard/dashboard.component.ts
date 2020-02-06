@@ -185,7 +185,6 @@ export class DashboardComponent implements OnInit {
    rechazarTramite = false;
    mostrarCausales = false;
    digito = '';
-   isAlimentosBebidas = false;
    listasPrecios: FoodDrinkAttachment[] = [];
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
@@ -4965,6 +4964,7 @@ guardarDeclaracion() {
    this.selectRegisterEstablishmentDeclaration(establishment);
    this.registersByEstablishment = [];
    let isAlojamiento = false;
+   let isAlimentosBebidas = false;
    this.canAlimentosBebidas = true;
    this.canAlojamiento = true;
    this.establishmentDataService.get_filtered(establishment.id).then( r => {
