@@ -1573,6 +1573,7 @@ export class DashboardComponent implements OnInit {
       this.mostrarMensajeNoNombreComercial = true;
       return;
    }  else {
+      this.validateNombreComercial();
       this.mostrarMensajeNoNombreComercial = false;
    }
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
