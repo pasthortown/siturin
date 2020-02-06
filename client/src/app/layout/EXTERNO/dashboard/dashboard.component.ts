@@ -144,6 +144,7 @@ export class DashboardComponent implements OnInit {
    mostrarDeclarandoUnoMil = true;
    mostrarActivar = true;
    mostrarInactivar = true;
+   esRegistro = false;
    mostrarActualizarCapacidadesPrecios = true;
    registrando_antiguos = false;
    actualizandoCapacidadesPrecios = false;
@@ -505,7 +506,7 @@ export class DashboardComponent implements OnInit {
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
    this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
-   this.registroNuevoEstablecimiento = true;
+   this.esRegistro = true;
    this.mostrarIngresoDatos = true;
    this.mostrarOpciones = false;
    if (!this.estaEnTabla) {
