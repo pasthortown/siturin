@@ -4961,75 +4961,53 @@ guardarDeclaracion() {
   }
 
   selectRegisterEstablishment(establishment: Establishment) {
-   this.selectRegisterEstablishmentDeclaration(establishment);
-   this.registersByEstablishment = [];
-   let isAlojamiento = false;
-   let isAlimentosBebidas = false;
-   this.canAlimentosBebidas = true;
-   this.canAlojamiento = true;
-   this.establishmentDataService.get_filtered(establishment.id).then( r => {
-      this.establishment_selected = r.establishment as Establishment;
-      this.recoverUbication();
-      this.checkEstablishmentAddress();
-      this.checkURLWeb();
-      this.getNameTypeInfo();
-      this.validateNombreComercial();
-      this.establishment_selected.contact_user = r.contact_user as User;
-      this.checkCedulaEstablishment();
-      this.checkTelefonoPrincipalContactoEstablecimiento();
-      this.checkTelefonoSecundarioContactoEstablecimiento();
-      this.validateNombreFranquiciaCadena();
-      this.checkEmailContactEstablishment();
-      this.buildWorkerGroups();
-      this.establishment_selected.workers_on_establishment = r.workers_on_establishment as Worker[];
-      this.establishment_selected.sri_state = establishment.sri_state;
-      this.establishment_selected.workers_on_establishment.forEach(worker => {
-         this.genders.forEach(gender => {
-            if(gender.id == worker.gender_id) {
-               worker.gender_name = gender.name;
-            }
-         });
-         this.worker_groups.forEach(worker_group => {
-            if(worker_group.id == worker.worker_group_id) {
-               worker.worker_group_name = worker_group.name;
-               worker.is_max = worker_group.is_max;
-            }
-         });
-      });
-      this.refreshTotalWorkers();
-      this.establishment_selected.languages_on_establishment = r.languages_on_establishment as Language[];
-      this.establishment_selected.establishment_certifications_on_establishment = r.establishment_certifications_on_establishment as EstablishmentCertification[];
-      this.establishment_selected.establishment_certifications_on_establishment.forEach(establishment_certification_on_establishment => {
-         establishment_certification_on_establishment.establishment_certification_attachment = new EstablishmentCertificationAttachment();
-         this.establishment_certification_types.forEach(establishment_certification_type => {
-            if (establishment_certification_on_establishment.establishment_certification_type_id == establishment_certification_type.id) {
-               establishment_certification_on_establishment.establishment_certification_type_fatherCode = establishment_certification_type.father_code;
-               this.getEstablishmentCertificationTypesSpecific(establishment_certification_on_establishment);
-            }
-         });
-         this.establishmentCertificationAttachmentDataService.get(establishment_certification_on_establishment.establishment_certification_attachment_id).then( r_attachment => {
-            establishment_certification_on_establishment.establishment_certification_attachment = r_attachment.EstablishmentCertificationAttachment as EstablishmentCertificationAttachment;
-         }).catch( e => { console.log(e); });
-      });
-      this.mostrarDataEstablishment = true;
-    }).catch( e => { console.log(e); });
-    this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
-       this.establishment_selected_picture = r as EstablishmentPicture;
-    }).catch( e => { console.log(e); });
-   if (this.registerMinturSelected.activity == "ALOJAMIENTO") {
-      isAlojamiento = true;
-      isAlimentosBebidas = false;
-      this.canAlimentosBebidas = false;
+   if(establishment.id == 0) {
+    if (establishment.sri_state == 'CERRADO') {
+       this.toastr.errorToastr('El sistema ha detectado que el establecimiento seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
+       return;
+    }
+    this.newRegisterEstablishment();
+    this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
+    this.establishment_selected.commercially_known_name = establishment.commercially_known_name;
+    this.establishment_selected.address_main_street = establishment.address_main_street;
+    this.establishment_selected.address_number = establishment.address_number;
+    this.establishment_selected.address_secondary_street = establishment.address_secondary_street;
+    this.establishment_selected.sri_state = establishment.sri_state;
+    this.checkEstablishmentAddress();
+    this.validateNombreComercial();
+    this.selectedNameType = new RucNameType();
+    return;
    }
-   if (this.registerMinturSelected.activity == "ALIMENTOS Y BEBIDAS") {
-      isAlimentosBebidas = true;
-      isAlojamiento = false;
-      this.canAlojamiento = false;
-   }
+  this.selectRegisterEstablishmentDeclaration(establishment);
+  this.registersByEstablishment = [];
+  let isAlojamiento = false;
+  this.canAlimentosBebidas = true;
+  this.canAlojamiento = true;
+  this.ruc_registro_selected.registers.forEach(register => {
+     if (register.establishment.id == establishment.id) {
+       this.registersByEstablishment.push(register);
+       if (register.activity == "ALOJAMIENTO") {
+          isAlojamiento = true;
+          this.canAlimentosBebidas = false;
+       }
+       if (register.activity == "ALIMENTOS Y BEBIDAS") {
+          this.canAlojamiento = false;
+          isAlojamiento = false;
+       }
+     }
+  });
   if (isAlojamiento) {
-    this.selectEstablishmentRegister(this.registerMinturSelected.register, false);
-  } 
-  if (isAlimentosBebidas) {
+    if (this.registersByEstablishment[0].register.id == 0) {
+       this.rucEstablishmentRegisterSelected = new Register();
+       this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+       this.rucEstablishmentRegisterSelected.status = 11;
+       this.rucEstablishmentRegisterSelected.register_type_id = 0;
+       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
+       this.mostrarDataRegister = true;
+     } else {
+       this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+     }
+  } else {
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
     this.canCafeteria = true;
@@ -5038,53 +5016,105 @@ guardarDeclaracion() {
     this.canCatering = true;
     this.canEstablecimientoMovil = true;
     this.canPlazaComida = true;
-    let clasificationAB = this.getRegisterABType(this.registerMinturSelected);
-    //Restaurante
-    if (clasificationAB.id == 11 || clasificationAB.id == 42) {
-       this.canEstablecimientoMovil = false;
-       this.canPlazaComida = false;
-    }
-    //Cafeteria
-    if (clasificationAB.id == 2 || clasificationAB.id == 33) {
-       this.canEstablecimientoMovil = false;
-       this.canPlazaComida = false;
-    }
-    //Bar
-    if (clasificationAB.id == 6 || clasificationAB.id == 37) {
-       this.canEstablecimientoMovil = false;
-       this.canPlazaComida = false;
-    }
-    //Discoteca
-    if (clasificationAB.id == 18 || clasificationAB.id == 49) {
-       this.canEstablecimientoMovil = false;
-       this.canPlazaComida = false;
-    }
-    //Catering
-    if (clasificationAB.id == 29 || clasificationAB.id == 60) {
-       this.canEstablecimientoMovil = false;
-       this.canPlazaComida = false;
-    }
-    //EstablecimientoMovil
-    if (clasificationAB.id == 23 || clasificationAB.id == 54) {
-       this.canRestaurante = false;
-       this.canCafeteria = false;
-       this.canBar = false;
-       this.canDiscoteca = false;
-       this.canCatering = false;
-       this.canPlazaComida = false;
-    }
-    //PlazaComida
-    if (clasificationAB.id == 26 || clasificationAB.id == 57) {
-       this.canRestaurante = false;
-       this.canCafeteria = false;
-       this.canBar = false;
-       this.canDiscoteca = false;
-       this.canCatering = false;
-       this.canEstablecimientoMovil = false;
-    }
-    this.setABCategory(this.registerMinturSelected.register.register_type_id);
+    this.ruc_registro_selected.registers.forEach(register => {
+       if( register.establishment.ruc_code_id == establishment.ruc_code_id) {
+          let clasificationAB = this.getRegisterABType(register);
+          //Restaurante
+          if (clasificationAB.id == 11 || clasificationAB.id == 42) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Cafeteria
+          if (clasificationAB.id == 2 || clasificationAB.id == 33) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Bar
+          if (clasificationAB.id == 6 || clasificationAB.id == 37) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Discoteca
+          if (clasificationAB.id == 18 || clasificationAB.id == 49) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //Catering
+          if (clasificationAB.id == 29 || clasificationAB.id == 60) {
+             this.canEstablecimientoMovil = false;
+             this.canPlazaComida = false;
+          }
+          //EstablecimientoMovil
+          if (clasificationAB.id == 23 || clasificationAB.id == 54) {
+             this.canRestaurante = false;
+             this.canCafeteria = false;
+             this.canBar = false;
+             this.canDiscoteca = false;
+             this.canCatering = false;
+             this.canPlazaComida = false;
+          }
+          //PlazaComida
+          if (clasificationAB.id == 26 || clasificationAB.id == 57) {
+             this.canRestaurante = false;
+             this.canCafeteria = false;
+             this.canBar = false;
+             this.canDiscoteca = false;
+             this.canCatering = false;
+             this.canEstablecimientoMovil = false;
+          }
+       }
+    });
   }
+  this.establishmentDataService.get_filtered(establishment.id).then( r => {
+    this.establishment_selected = r.establishment as Establishment;
+    this.recoverUbication();
+    this.checkEstablishmentAddress();
+    this.checkURLWeb();
+    this.getNameTypeInfo();
+    this.validateNombreComercial();
+    this.establishment_selected.contact_user = r.contact_user as User;
+    this.checkCedulaEstablishment();
+    this.checkTelefonoPrincipalContactoEstablecimiento();
+    this.checkTelefonoSecundarioContactoEstablecimiento();
+    this.validateNombreFranquiciaCadena();
+    this.checkEmailContactEstablishment();
+    this.buildWorkerGroups();
+    this.establishment_selected.workers_on_establishment = r.workers_on_establishment as Worker[];
+    this.establishment_selected.workers_on_establishment.forEach(worker => {
+       this.genders.forEach(gender => {
+          if(gender.id == worker.gender_id) {
+             worker.gender_name = gender.name;
+          }
+       });
+       this.worker_groups.forEach(worker_group => {
+          if(worker_group.id == worker.worker_group_id) {
+             worker.worker_group_name = worker_group.name;
+             worker.is_max = worker_group.is_max;
+          }
+       });
+    });
+    this.refreshTotalWorkers();
+    this.establishment_selected.languages_on_establishment = r.languages_on_establishment as Language[];
+    this.establishment_selected.establishment_certifications_on_establishment = r.establishment_certifications_on_establishment as EstablishmentCertification[];
+    this.establishment_selected.establishment_certifications_on_establishment.forEach(establishment_certification_on_establishment => {
+       establishment_certification_on_establishment.establishment_certification_attachment = new EstablishmentCertificationAttachment();
+       this.establishment_certification_types.forEach(establishment_certification_type => {
+          if (establishment_certification_on_establishment.establishment_certification_type_id == establishment_certification_type.id) {
+             establishment_certification_on_establishment.establishment_certification_type_fatherCode = establishment_certification_type.father_code;
+             this.getEstablishmentCertificationTypesSpecific(establishment_certification_on_establishment);
+          }
+       });
+       this.establishmentCertificationAttachmentDataService.get(establishment_certification_on_establishment.establishment_certification_attachment_id).then( r_attachment => {
+          establishment_certification_on_establishment.establishment_certification_attachment = r_attachment.EstablishmentCertificationAttachment as EstablishmentCertificationAttachment;
+       }).catch( e => { console.log(e); });
+    });
+    this.mostrarDataEstablishment = true;
+  }).catch( e => { console.log(e); });
+  this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
+     this.establishment_selected_picture = r as EstablishmentPicture;
+  }).catch( e => { console.log(e); });
 }
+
 
   selectRegisterEstablishmentDeclaration(establishment: Establishment) {
    this.establishment_declarations_selected = establishment;
