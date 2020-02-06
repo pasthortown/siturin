@@ -509,7 +509,7 @@ export class DashboardComponent implements OnInit {
    this.rows.forEach(row => {
       row.selected = '';
    });
-   this.hasruccode = false;
+   this.hasRucCode = false;
    this.selectedRegister = null;
    this.seleccionarRegistro();
   }
@@ -1532,7 +1532,7 @@ export class DashboardComponent implements OnInit {
    ];
    const data = [];
    this.ruc_registro_selected.ruc.establishments.forEach(item => {
-      if (this.hasruccode) {
+      if (this.hasRucCode) {
          if (Number(item.ruc_code_id) == Number(this.selectedRegister.establishment_ruc_code)) {
             data.push({
                selected: '',
@@ -2076,9 +2076,9 @@ export class DashboardComponent implements OnInit {
    this.register_code = event.row.register_code;
    this.my_category_current = event.row.category;
    this.idCatasterID = event.row.id;
-   this.hasruccode = false;
+   this.hasRucCode = false;
    if (event.row.establishment_ruc_code !== 'NULL') {
-      this.hasruccode = true;
+      this.hasRucCode = true;
    }
    this.my_classification_current = event.row.classification;
    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
