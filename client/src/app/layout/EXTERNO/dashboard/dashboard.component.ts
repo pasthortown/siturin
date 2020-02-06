@@ -227,7 +227,7 @@ export class DashboardComponent implements OnInit {
    hasIspectionDate  = false;
    hasInform  = false;
    hasRegisterReady = false;
-   hasRucCodeId = false;
+   hasRucCode = false;
    canSave = true;
    hasRequisites = false;
    informeApprovalStateAttachment = new ApprovalStateAttachment();
@@ -267,6 +267,7 @@ export class DashboardComponent implements OnInit {
   kitchen_type_registerSelectedId = 0;
   selected_year_id = 2019;
   years: any[] = [];
+  estaEnTabla = false;
   currentYear = 2019;
   minYear = 2019;
   capacitiesToShow: any[] = [];
@@ -500,7 +501,8 @@ export class DashboardComponent implements OnInit {
    });
   }
 
-  registrarEstablecimientoNuevo() {
+  registrarEstablecimientoNuevo(estaEnTabla: Boolean) {
+   this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
    this.mostrarIngresoDatos = true;
    this.mostrarOpciones = false;
@@ -2091,7 +2093,7 @@ export class DashboardComponent implements OnInit {
          if ((row.system_source == 'SIETE') || (row.system_source == 'SITURIN')) {
             this.buildOpciones(row);
          } else {
-            this.registrarEstablecimientoNuevo();
+            this.registrarEstablecimientoNuevo(true);
          }
       } else {
          row.selected = '';
@@ -4445,8 +4447,10 @@ guardarDeclaracion() {
    this.guardando = true;
    this.establishment_selected.ruc_id = this.ruc_registro_selected.ruc.id;
    this.establishment_declarations_selected = this.establishment_selected;
-   this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
-   }).catch(e => { console.log(e); });
+   if (this.estaEnTabla) {
+      this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
+      }).catch(e => { console.log(e); });
+   }  
    if (this.establishment_selected.ruc_name_type_id <= 1 ) {
       this.establishment_selected.franchise_chain_name = '';
    } else {
