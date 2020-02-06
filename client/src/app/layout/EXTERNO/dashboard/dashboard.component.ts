@@ -505,6 +505,7 @@ export class DashboardComponent implements OnInit {
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
    this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
+   this.registroNuevoEstablecimiento = true;
    this.mostrarIngresoDatos = true;
    this.mostrarOpciones = false;
    if (!this.estaEnTabla) {
