@@ -501,15 +501,17 @@ export class DashboardComponent implements OnInit {
    });
   }
 
-  registrarEstablecimientoNuevo(estaEnTabla) {
+  registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
    this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
    this.mostrarIngresoDatos = true;
    this.mostrarOpciones = false;
-   this.rows.forEach(row => {
-      row.selected = '';
-   });
-   this.hasRucCode = false;
+   if (!this.estaEnTabla) {
+      this.rows.forEach(row => {
+         row.selected = '';
+      });
+   }
+   this.hasRucCode = hasRucCode;
    this.selectedRegister = null;
    this.seleccionarRegistro();
   }
@@ -2093,7 +2095,7 @@ export class DashboardComponent implements OnInit {
          if ((row.system_source == 'SIETE') || (row.system_source == 'SITURIN')) {
             this.buildOpciones(row);
          } else {
-            this.registrarEstablecimientoNuevo(true);
+            this.registrarEstablecimientoNuevo(true, this.hasRucCode);
          }
       } else {
          row.selected = '';
