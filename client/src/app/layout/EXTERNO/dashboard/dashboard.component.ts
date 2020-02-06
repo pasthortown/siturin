@@ -1575,11 +1575,12 @@ export class DashboardComponent implements OnInit {
    }
    this.ruc_registro_selected.ruc.establishments.forEach(element => {
       if (element.ruc_code_id == event.row.code) {
+         console.log('entre');
          this.selectRegisterEstablishment(element);
       }
    }); 
    this.rowsEstablishment.forEach(row => {
-      if (row.code == event.row.code) {
+      if (row == event.row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
       } else {
          row.selected = '';
