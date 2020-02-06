@@ -114,26 +114,18 @@
     </div>
   </div>
 </div>
-<div class="row mt-3 mb-3" *ngIf="terminosCondiciones && !registroNuevoEstablecimiento">
+<div class="row mt-3 mb-3" *ngIf="mostrarOpciones">
   <div class="col-12">
-    <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="mostrarDataRegisterMintur">
+    <div class="alert alert-info mt-2 mb-2" role="alert">
       <label class="col-12 text-justify"><strong>Información</strong></label><br />
       Seleccione el trámite que desea realizar
     </div>
   </div>
-</div>
-<div class="row" *ngIf="mostrarDataRegisterMintur">
   <div class="col-12">
     <h3>Opciones:</h3>
   </div>
-</div>
-<div class="row" *ngIf="mostrarDataRegisterMintur">
   <div class="col-12">
     <div class="btn-toolbar" role="toolbar">
-      <div class="btn-group" role="group" *ngIf="registrando_antiguos">
-        <button class="btn btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Registrar</button>
-        <button class="btn btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Registrar</button>
-      </div>
       <div class="btn-group" role="group" *ngIf="!registrando_antiguos">
         <button class="btn btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
         <button class="btn btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
@@ -2935,7 +2927,7 @@
       </div>
   </div>
 </div>
-<div class="row" *ngIf="registrarlo || actualizando || activando || inactivando || reclasificando || recategorizando">
+<div class="row" *ngIf="mostrarIngresoDatos">
   <div class="col-12">
     <div class="row mt-5">
       <div class="col-12 text-left">

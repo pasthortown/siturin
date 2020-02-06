@@ -404,6 +404,7 @@ export class DashboardComponent implements OnInit {
   establishment_declarations_selected = new Establishment();
   declaration_selected: Declaration = new Declaration();
   mostrarDataDeclaration = false;
+  mostrarOpciones = false;
   declarations: Declaration[] = [];
   payDeclarationSelected: Pay = new Pay();
   declarationItemsToShow: any[] = [];
@@ -411,6 +412,7 @@ export class DashboardComponent implements OnInit {
   declarationItems: DeclarationItem[] = [];
   maxYear: number = 2019;
   idRegister: number = 0;
+  mostrarIngresoDatos = false;
 
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
@@ -499,6 +501,7 @@ export class DashboardComponent implements OnInit {
 
   registrarEstablecimientoNuevo() {
    this.mostrarDataRegisterMintur = true;
+   this.mostrarIngresoDatos = true;
   }
 
   filterByTramiteState(tramite?: String) {
@@ -2052,8 +2055,15 @@ export class DashboardComponent implements OnInit {
    this.rows.forEach(row => {
       if (event.row == row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+         this.mostrarOpciones = true;
+         //AQUI VER SI ES SITUIRN O SIETE O NO
       } else {
          row.selected = '';
+         this.mostrarOpciones = false;
+         this.registroNuevoEstablecimiento = false;
+         this.actualizandoCapacidadesPrecios = false;
+         this.declarandoUnoMil = false;
+         this.mostrarIngresoDatos = false;
       }
    });
    this.registers_mintur.forEach(element => {
