@@ -501,7 +501,7 @@ export class DashboardComponent implements OnInit {
    });
   }
 
-  registrarEstablecimientoNuevo(estaEnTabla: Boolean) {
+  registrarEstablecimientoNuevo(estaEnTabla) {
    this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
    this.mostrarIngresoDatos = true;
