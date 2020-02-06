@@ -1931,6 +1931,7 @@ export class DashboardComponent implements OnInit {
    this.recategorizando = false;
    this.actualizandoCapacidadesPrecios = false;
    this.declarandoUnoMil = false;
+   this.mostrarIngresoDatos = true;
    this.idCausal = 6;
    this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
   }
@@ -1940,6 +1941,7 @@ export class DashboardComponent implements OnInit {
    this.actualizando = false;
    this.activando = false;
    this.inactivando = false;
+   this.mostrarIngresoDatos = false;
    this.reclasificando = false;
    this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = true;
@@ -1972,6 +1974,7 @@ export class DashboardComponent implements OnInit {
    this.actualizando = false;
    this.activando = true;
    this.inactivando = false;
+   this.mostrarIngresoDatos = true;
    this.reclasificando = false;
    this.declarandoUnoMil = false;
    this.recategorizando = false;
@@ -1988,6 +1991,7 @@ export class DashboardComponent implements OnInit {
    this.actualizandoCapacidadesPrecios = false;
    this.reclasificando = true;
    this.recategorizando = false;
+   this.mostrarIngresoDatos = true;
    this.idCausal = 4;
    this.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
   }
@@ -1998,6 +2002,7 @@ export class DashboardComponent implements OnInit {
    this.activando = false;
    this.inactivando = false;
    this.reclasificando = false;
+   this.mostrarIngresoDatos = true;
    this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = false;
    this.recategorizando = true;
@@ -2010,6 +2015,7 @@ export class DashboardComponent implements OnInit {
    this.actualizando = false;
    this.activando = false;
    this.inactivando = false;
+   this.mostrarIngresoDatos = false;
    this.reclasificando = false;
    this.declarandoUnoMil = true;
    this.actualizandoCapacidadesPrecios = false;
