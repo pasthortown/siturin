@@ -3266,6 +3266,7 @@ guardarDeclaracion() {
             return;
          }
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+         this.getRuc(this.ruc_registro_selected.ruc.number);
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -3279,6 +3280,7 @@ guardarDeclaracion() {
             return;
          }
          this.toastr.successToastr('Datos actualizados satisfactoriamente.', 'Actualizar');
+         this.getRuc(this.ruc_registro_selected.ruc.number);
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
