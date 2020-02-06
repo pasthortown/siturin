@@ -227,6 +227,7 @@ export class DashboardComponent implements OnInit {
    hasIspectionDate  = false;
    hasInform  = false;
    hasRegisterReady = false;
+   hasRucCodeId = false;
    canSave = true;
    hasRequisites = false;
    informeApprovalStateAttachment = new ApprovalStateAttachment();
@@ -506,6 +507,7 @@ export class DashboardComponent implements OnInit {
    this.rows.forEach(row => {
       row.selected = '';
    });
+   this.hasruccode = false;
    this.selectedRegister = null;
    this.seleccionarRegistro();
   }
@@ -1528,7 +1530,17 @@ export class DashboardComponent implements OnInit {
    ];
    const data = [];
    this.ruc_registro_selected.ruc.establishments.forEach(item => {
-      if (Number(item.ruc_code_id) == Number(this.selectedRegister.establishment_ruc_code)) {
+      if (this.hasruccode) {
+         if (Number(item.ruc_code_id) == Number(this.selectedRegister.establishment_ruc_code)) {
+            data.push({
+               selected: '',
+               code: item.ruc_code_id,
+               address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
+               name: item.commercially_known_name,
+               sri_state: item.sri_state,
+            });
+         }
+      } else {
          data.push({
             selected: '',
             code: item.ruc_code_id,
@@ -2062,6 +2074,10 @@ export class DashboardComponent implements OnInit {
    this.register_code = event.row.register_code;
    this.my_category_current = event.row.category;
    this.idCatasterID = event.row.id;
+   this.hasruccode = false;
+   if (event.row.establishment_ruc_code !== 'NULL') {
+      this.hasruccode = true;
+   }
    this.my_classification_current = event.row.classification;
    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
    this.mostrarOpciones = false;
