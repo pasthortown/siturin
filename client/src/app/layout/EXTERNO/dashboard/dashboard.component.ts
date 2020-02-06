@@ -2056,6 +2056,7 @@ export class DashboardComponent implements OnInit {
       if (event.row == row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
          this.mostrarOpciones = true;
+         console.log('entre');
          //AQUI VER SI ES SITUIRN O SIETE O NO
       } else {
          row.selected = '';
