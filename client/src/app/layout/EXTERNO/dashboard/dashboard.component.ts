@@ -4042,13 +4042,16 @@ guardarDeclaracion() {
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
+      this.rucEstablishmentRegisterSelected.capacities_on_register = [];
       this.getServiceType();
       this.getKitchenType();
       this.getCapacityTypesAB();
-      const newCapacity = new CapacityAB();
       const today = new Date();
+      const newCapacity = new CapacityAB();
+      this.modificadoCapacidades = true;
       newCapacity.year = today.getFullYear();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+      this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesABByRegisterType();
       this.totalABPuntos = 0;
@@ -4062,24 +4065,49 @@ guardarDeclaracion() {
   }
 
   showRegisterABInfo() {
-   this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
-      this.rucEstablishmentRegisterSelected = r.register as Register;
-      this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
-      this.rucEstablishmentRegisterSelected.editable = true;
-      this.rucEstablishmentRegisterSelected.status = r.status.state_id;
-      this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
-      this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
-      this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
-      this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
-         capacity.isNewCapacity = false;
+   if (this.esRegistro) {
+      this.ruc_registro_selected.registers.forEach(element => {
+         if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
+            let clasificationAB = this.getRegisterABType(element);
+            if (clasificationAB.code == this.categorySelectedCode) {
+               this.registerABDataService.get_register_data(element.register.id).then( r => {
+                  this.rucEstablishmentRegisterSelected = r.register as Register;
+                  this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+                  this.rucEstablishmentRegisterSelected.editable = false;
+                  this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+                  this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+                  this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+                  this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                  this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
+                  this.rucEstablishmentRegisterSelected.requisites = [];
+                  this.getRequisitesABByRegisterType(r.requisites);
+                  this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
+                  this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
+                  this.getListaPrecios(r.register.id);
+               }).catch( e => { console.log(e); });
+            }
+         }
       });
-      this.getYears();
-      this.rucEstablishmentRegisterSelected.requisites = [];
-      this.getRequisitesABByRegisterType(r.requisites);
-      this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
-      this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
-      this.getListaPrecios(r.register.id);
-   }).catch( e => { console.log(e); });
+   } else {
+      this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
+         this.rucEstablishmentRegisterSelected = r.register as Register;
+         this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
+         this.rucEstablishmentRegisterSelected.editable = true;
+         this.rucEstablishmentRegisterSelected.status = r.status.state_id;
+         this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+         this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
+         this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach( capacity => {
+            capacity.isNewCapacity = false;
+         });
+         this.getYears();
+         this.rucEstablishmentRegisterSelected.requisites = [];
+         this.getRequisitesABByRegisterType(r.requisites);
+         this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
+         this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
+         this.getListaPrecios(r.register.id);
+      }).catch( e => { console.log(e); });
+   }
   }
 
   getListaPrecios(register_id: number) {
