@@ -2060,9 +2060,11 @@ export class DashboardComponent implements OnInit {
    this.rows.forEach(row => {
       if (event.row == row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-         this.mostrarOpciones = true;
-         console.log('entre');
-         //AQUI VER SI ES SITUIRN O SIETE O NO
+         if ((row.system_source == 'SIETE') || (row.system_source == 'SITURIN')) {
+            this.buildOpciones(row);
+         } else {
+            this.registrarEstablecimientoNuevo();
+         }
       } else {
          row.selected = '';
       }
@@ -2186,6 +2188,10 @@ export class DashboardComponent implements OnInit {
 
    selectKitchenType(kitchenType: KitchenType) {
       this.kitchen_type_registerSelectedId = kitchenType.id;
+   }
+
+   buildOpciones(row) {
+      this.mostrarOpciones = true;
    }
 
   checkAttachments() {
