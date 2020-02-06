@@ -8,7 +8,6 @@ import { PayService } from './../../../services/CRUD/FINANCIERO/pay.service';
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
-import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 import { UserService } from 'src/app/services/profile/user.service';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -69,6 +68,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
+import { Agreement } from 'src/app/models/BASE/Agreement';
 
 @NgModule({
   imports: [CommonModule,
@@ -86,6 +87,7 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
     UserService,
     DinardapService,
     DeclarationItemService,
+    AgreementService,
     ApprovalStateService,
     ProcedureJustificationService,
     RegisterProcedureABService,
@@ -111,7 +113,6 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
     EstablishmentPropertyTypeService,
     RequisiteService,
     FoodDrinkAttachmentService,
-    AgreementService,
     MailerService,
     UbicationService,
     RegisterService,
