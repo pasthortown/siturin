@@ -167,6 +167,7 @@ export class DashboardComponent implements OnInit {
    canEstablecimientoMovil = true;
    canPlazaComida = true;
    idCausal = 0;
+   registroNuevoEstablecimiento = false;
    mostrarMensajeNoNombreComercial = false;
    reclasificando = false;
    listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
@@ -494,6 +495,10 @@ export class DashboardComponent implements OnInit {
          }
       }
    });
+  }
+
+  registrarEstablecimientoNuevo() {
+   this.mostrarDataRegisterMintur = true;
   }
 
   filterByTramiteState(tramite?: String) {
