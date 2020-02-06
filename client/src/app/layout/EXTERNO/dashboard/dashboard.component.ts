@@ -2052,6 +2052,11 @@ export class DashboardComponent implements OnInit {
    this.idCatasterID = event.row.id;
    this.my_classification_current = event.row.classification;
    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
+   this.mostrarOpciones = false;
+   this.registroNuevoEstablecimiento = false;
+   this.actualizandoCapacidadesPrecios = false;
+   this.declarandoUnoMil = false;
+   this.mostrarIngresoDatos = false;
    this.rows.forEach(row => {
       if (event.row == row) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
@@ -2060,11 +2065,6 @@ export class DashboardComponent implements OnInit {
          //AQUI VER SI ES SITUIRN O SIETE O NO
       } else {
          row.selected = '';
-         this.mostrarOpciones = false;
-         this.registroNuevoEstablecimiento = false;
-         this.actualizandoCapacidadesPrecios = false;
-         this.declarandoUnoMil = false;
-         this.mostrarIngresoDatos = false;
       }
    });
    this.registers_mintur.forEach(element => {
