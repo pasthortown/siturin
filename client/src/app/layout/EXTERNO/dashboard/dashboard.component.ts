@@ -502,6 +502,11 @@ export class DashboardComponent implements OnInit {
   registrarEstablecimientoNuevo() {
    this.mostrarDataRegisterMintur = true;
    this.mostrarIngresoDatos = true;
+   this.mostrarOpciones = false;
+   this.rows.forEach(row => {
+      row.selected = '';
+   });
+   this.selectedRegister = null;
   }
 
   filterByTramiteState(tramite?: String) {
