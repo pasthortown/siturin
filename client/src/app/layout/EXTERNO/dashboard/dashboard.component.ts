@@ -2085,6 +2085,7 @@ export class DashboardComponent implements OnInit {
    }
    this.my_classification_current = event.row.classification;
    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
+   console.log(new Date(event.row.as_turistic_date.toString()));
    this.mostrarOpciones = false;
    this.registroNuevoEstablecimiento = false;
    this.actualizandoCapacidadesPrecios = false;
