@@ -148,6 +148,7 @@ export class DashboardComponent implements OnInit {
    registrando_antiguos = false;
    actualizandoCapacidadesPrecios = false;
    resetCap = false;
+   establishment_selected_ruc_code_id = 'NULL';
    mostrarDarBaja = true;
    mostrarReclasificar = true;
    terminosCondiciones = false;
@@ -1534,8 +1535,8 @@ export class DashboardComponent implements OnInit {
    ];
    const data = [];
    this.ruc_registro_selected.ruc.establishments.forEach(item => {
-      if (this.hasRucCode) {
-         if (Number(item.ruc_code_id) == Number(this.selectedRegister.establishment_ruc_code)) {
+      if (this.establishment_selected_ruc_code_id !== 'NULL') {
+         if (Number(item.ruc_code_id) == Number(this.establishment_selected_ruc_code_id)) {
             data.push({
                selected: '',
                code: item.ruc_code_id,
@@ -2077,6 +2078,7 @@ export class DashboardComponent implements OnInit {
       this.actividadSelected = '1';
    }
    this.register_code = event.row.register_code;
+   this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
    this.my_category_current = event.row.category;
    this.idCatasterID = event.row.id;
    this.hasRucCode = false;
