@@ -150,6 +150,8 @@ export class DashboardComponent implements OnInit {
    resetCap = false;
    mostrarDarBaja = true;
    mostrarReclasificar = true;
+   terminosCondiciones = false;
+   terminosCondicionesAgreement: Agreement = new Agreement();
    mostrarRecategorizar = true;
    actualizando = false;
    declarandoUnoMil = false;
@@ -253,8 +255,6 @@ export class DashboardComponent implements OnInit {
   editable = false;
   imContactRuc: Boolean = true;
   roles:any[] = [];
-  terminosCondiciones = false;
-  terminosCondicionesAgreement: Agreement = new Agreement();
   rucReady = false;
   currentPageRegister = 1;
   lastPageRegister = 1;
