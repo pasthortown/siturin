@@ -4452,6 +4452,9 @@ guardarDeclaracion() {
    this.guardando = true;
    this.establishment_selected.ruc_id = this.ruc_registro_selected.ruc.id;
    this.establishment_declarations_selected = this.establishment_selected;
+   console.log(this.estaEnTabla);
+   console.log(this.register_as_turistic_Date);
+   return;
    this.establishment_selected.as_turistic_register_date = new Date();
    if (this.estaEnTabla) {
       this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
