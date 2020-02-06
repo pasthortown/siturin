@@ -2105,10 +2105,7 @@ export class DashboardComponent implements OnInit {
   }
 
   seleccionarRegistro(row?) {
-   this.register_as_turistic_Date = new Date();
    if (typeof row != 'undefined') {
-      this.register_as_turistic_Date = new Date(row.as_turistic_date.toString());
-      console.log(new Date(row.as_turistic_date.toString()));
       this.registers_mintur.forEach(element => {
          if (element.id == row.id) {
             this.selectedRegister = element;
@@ -4453,9 +4450,6 @@ guardarDeclaracion() {
    this.guardando = true;
    this.establishment_selected.ruc_id = this.ruc_registro_selected.ruc.id;
    this.establishment_declarations_selected = this.establishment_selected;
-   console.log(this.estaEnTabla);
-   console.log(this.register_as_turistic_Date);
-   return;
    this.establishment_selected.as_turistic_register_date = new Date();
    if (this.estaEnTabla) {
       this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
