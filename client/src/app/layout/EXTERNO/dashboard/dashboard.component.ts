@@ -4450,7 +4450,10 @@ guardarDeclaracion() {
    if (this.estaEnTabla) {
       this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
       }).catch(e => { console.log(e); });
-   }  
+      this.establishment_selected.as_turistic_register_date = this.register_as_turistic_Date;
+   } else {
+      this.establishment_selected.as_turistic_register_date = new Date();
+   }
    if (this.establishment_selected.ruc_name_type_id <= 1 ) {
       this.establishment_selected.franchise_chain_name = '';
    } else {
