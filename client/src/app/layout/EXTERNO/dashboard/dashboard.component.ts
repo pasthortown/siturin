@@ -4097,10 +4097,7 @@ guardarDeclaracion() {
             }
          }
       });
-      if (!encontrado) {
-         console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
-         this.getYears();
-      }
+      this.getYears();
    } else {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
          this.rucEstablishmentRegisterSelected = r.register as Register;
