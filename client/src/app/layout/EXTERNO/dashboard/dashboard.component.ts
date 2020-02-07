@@ -1063,11 +1063,14 @@ export class DashboardComponent implements OnInit {
   }
 
   changeFullfill(register_requisite: RegisterRequisite) {
-     if (register_requisite.fullfill) {
-      register_requisite.value = 'true';
-     } else {
-      register_requisite.value = 'false';
-     }
+   if (register_requisite.fullfill) {
+    register_requisite.value = 'true';
+   } else {
+    register_requisite.value = 'false';
+   }
+   if (this.actividadSelected == '2') {
+      this.calcTotalPoints();
+   }
   }
 
   getCertificadoUsoSuelo(register_id: number) {
@@ -4220,7 +4223,6 @@ guardarDeclaracion() {
   }
 
   calcTotalPoints() {
-     console.log('entre');
    let totalScore = 0;
    let totalScoreShown = 0;
    let totalAviable = 0;
