@@ -4066,7 +4066,6 @@ guardarDeclaracion() {
 
   showRegisterABInfo() {
    const today = new Date();
-   console.log(this.esRegistro);
    if (this.esRegistro) {
       this.ruc_registro_selected.registers.forEach(element => {
          if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
@@ -4096,6 +4095,13 @@ guardarDeclaracion() {
             }
          }
       });
+      if (this.rucEstablishmentRegisterSelected.capacities_on_register == []) {
+         this.modificadoCapacidades = true;
+         const newCapacity = new CapacityAB();
+         newCapacity.year = today.getFullYear();
+         this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+         this.getYears();
+      }
    } else {
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
          this.rucEstablishmentRegisterSelected = r.register as Register;
