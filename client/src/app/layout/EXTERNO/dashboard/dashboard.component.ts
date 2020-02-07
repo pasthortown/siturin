@@ -5497,12 +5497,15 @@ guardarDeclaracion() {
       categoryAB: this.categoryAB.toUpperCase() == 'PENDIENTE'
    });
 
+   continuarTramite && (actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))
+
   }
 
   validateRegister(): Boolean {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
          if (this.esRegistro) {
+            console.log('entre');
             const c3 = (this.categorySelectedCode == '-');
             const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
             const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
@@ -5519,7 +5522,9 @@ guardarDeclaracion() {
                }
             });
             toReturn = !(c3 || c4 || c5 || c6 || c7 );
+            console.log(toReturn);
          } else {
+            console.log('no entre');
             const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
             const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
             const c3 = (this.categorySelectedCode == '-');
