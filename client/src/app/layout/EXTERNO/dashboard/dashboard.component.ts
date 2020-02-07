@@ -5491,7 +5491,11 @@ guardarDeclaracion() {
   }
 
   mostrarValidado() {
-     console.log({validate_register: this.validateRegister()});
+   console.log ({continuarTramite: this.continuarTramite,
+      actividadSelected: this.actividadSelected,
+      validateRegister: this.validateRegister(),
+      categoryAB: this.categoryAB.toUpperCase() == 'PENDIENTE'
+   });
 
   }
 
@@ -5514,7 +5518,6 @@ guardarDeclaracion() {
                   c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
                }
             });
-            console.log({c3: c3, c4: c4, c5:c5, c6:c6, c7:c7});
             toReturn = !(c3 || c4 || c5 || c6 || c7 );
          } else {
             const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
