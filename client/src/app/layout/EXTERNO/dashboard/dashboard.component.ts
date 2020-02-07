@@ -5496,9 +5496,6 @@ guardarDeclaracion() {
       validateRegister: this.validateRegister(),
       categoryAB: this.categoryAB.toUpperCase() == 'PENDIENTE'
    });
-
-   continuarTramite && (actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))
-
   }
 
   validateRegister(): Boolean {
