@@ -3859,6 +3859,7 @@ guardarDeclaracion() {
   }
 
   continuarIngresoTarifarioRack() {
+     console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c => {
       this.calcSpaces(c);
    });
