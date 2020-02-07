@@ -5493,24 +5493,44 @@ guardarDeclaracion() {
   validateRegister(): Boolean {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
-         const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
-         const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
-         const c3 = (this.categorySelectedCode == '-');
-         const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
-         const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
-         let c6: Boolean = false;
-         this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
-            if (!c6) {
-               c6 = (capacity.quantity * capacity.total_spaces == 0);
-            }
-         });
-         let c7: Boolean = false;
-         this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register.forEach(complementaryServiceFood => {
-            if (!c7) {
-               c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
-            }
-         });
-         toReturn = c1 || c2 || c3 || c4 || c5 || c6 || c7;
+         if (this.esRegistro) {
+            const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
+            const c3 = (this.categorySelectedCode == '-');
+            const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
+            const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
+            let c6: Boolean = false;
+            this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+               if (!c6) {
+                  c6 = (capacity.quantity * capacity.total_spaces == 0);
+               }
+            });
+            let c7: Boolean = false;
+            this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register.forEach(complementaryServiceFood => {
+               if (!c7) {
+                  c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
+               }
+            });
+            toReturn = !(c2 || c3 || c4 || c5 || c6 || c7 );
+         } else {
+            const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
+            const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
+            const c3 = (this.categorySelectedCode == '-');
+            const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
+            const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
+            let c6: Boolean = false;
+            this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(capacity => {
+               if (!c6) {
+                  c6 = (capacity.quantity * capacity.total_spaces == 0);
+               }
+            });
+            let c7: Boolean = false;
+            this.rucEstablishmentRegisterSelected.complementary_service_foods_on_register.forEach(complementaryServiceFood => {
+               if (!c7) {
+                  c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
+               }
+            });
+            toReturn = c1 || c2 || c3 || c4 || c5 || c6 || c7;   
+         }
          return !toReturn;
       }
       toReturn = true;
