@@ -2631,7 +2631,7 @@ export class DashboardComponent implements OnInit {
   updateTariffToShow() {
    this.tariffsToShow.cabecera = [];
    this.tariffsToShow.valores = [];
-   if (this.registerMinturSelected.activity == 'ALOJAMIENTO') {
+   if ((this.registerMinturSelected.activity == 'ALOJAMIENTO') || (this.actividadSelected == '1')) {
       this.tarifarioRack.cabecera.forEach(c=> {
          this.tariffsToShow.cabecera.push(c);
       });
@@ -5647,7 +5647,6 @@ guardarDeclaracion() {
 
   calcSpaces(capacity?) {
       this.getYears();
-      console.log(this.tarifarioRack);
       if(typeof capacity !== 'undefined') {
          this.allowed_capacity_types.forEach(capacityType => {
             if (capacityType.id == capacity.capacity_type_id) {
