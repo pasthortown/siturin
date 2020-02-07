@@ -4095,7 +4095,9 @@ guardarDeclaracion() {
             }
          }
       });
+      console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
       if (this.rucEstablishmentRegisterSelected.capacities_on_register == []) {
+         console.log('entre');
          this.modificadoCapacidades = true;
          const newCapacity = new CapacityAB();
          newCapacity.year = today.getFullYear();
