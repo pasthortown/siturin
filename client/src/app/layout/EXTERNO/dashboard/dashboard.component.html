@@ -4191,7 +4191,7 @@
                                 <span class="input-group-text" id="basic-addon1">Año</span>
                               </div>
                               <select class="form-control" id="year_id" name="year_id"
-                                [(ngModel)]="selected_year_id" (change)="yearCapacity()">
+                                [(ngModel)]="selected_year_id" [disabled]="esRegistro" (change)="yearCapacity()">
                                 <option value="0" selected>Seleccione...</option>
                                 <option *ngFor="
                                     let year of years
