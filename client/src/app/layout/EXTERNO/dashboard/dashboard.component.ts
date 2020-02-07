@@ -1216,7 +1216,7 @@ export class DashboardComponent implements OnInit {
 
   setCategory(type_id: number){
    let categoryCode = '';
-   this.actividadSelected = '1';
+   this.actividadSelected = '-';
    this.register_typeDataService.get().then(r => {
       let types: RegisterType[] = r as RegisterType[];
       types.forEach(registerType => {
