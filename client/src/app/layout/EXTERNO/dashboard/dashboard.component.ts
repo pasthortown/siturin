@@ -4066,6 +4066,7 @@ guardarDeclaracion() {
 
   showRegisterABInfo() {
    const today = new Date();
+   console.log(this.esRegistro);
    if (this.esRegistro) {
       this.ruc_registro_selected.registers.forEach(element => {
          if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
