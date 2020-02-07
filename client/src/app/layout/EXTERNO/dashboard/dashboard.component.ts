@@ -4047,8 +4047,8 @@ guardarDeclaracion() {
       this.getKitchenType();
       this.getCapacityTypesAB();
       const today = new Date();
-      const newCapacity = new CapacityAB();
       this.modificadoCapacidades = true;
+      const newCapacity = new CapacityAB();
       newCapacity.year = today.getFullYear();
       this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
@@ -4078,6 +4078,12 @@ guardarDeclaracion() {
                   this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
                   this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
                   this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                  if (this.rucEstablishmentRegisterSelected.capacities_on_register == []) {
+                     this.modificadoCapacidades = true;
+                     const newCapacity = new CapacityAB();
+                     newCapacity.year = today.getFullYear();
+                     this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+                  }
                   this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
                   this.rucEstablishmentRegisterSelected.requisites = [];
                   this.getRequisitesABByRegisterType(r.requisites);
@@ -5330,7 +5336,7 @@ guardarDeclaracion() {
     };
    }
   }
-  
+
   CodificarArchivoEstablishmentCertification(event, establishment_certification) {
    const reader = new FileReader();
    if (event.target.files && event.target.files.length > 0) {
@@ -5424,7 +5430,11 @@ guardarDeclaracion() {
       const b_value = b.value;
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
   });
-  this.selected_year_id = lastYearDeclared;
+  if (this.esRegistro) {
+   this.selected_year_id = today.getFullYear();
+  } else {
+   this.selected_year_id = lastYearDeclared;
+  }
   this.yearCapacity();
  }
 
