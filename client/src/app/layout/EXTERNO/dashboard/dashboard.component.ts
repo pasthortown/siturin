@@ -5490,6 +5490,11 @@ guardarDeclaracion() {
     });
   }
 
+  mostrarValidado() {
+     console.log({validate_register: this.validateRegister()});
+
+  }
+
   validateRegister(): Boolean {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
