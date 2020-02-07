@@ -4220,6 +4220,7 @@ guardarDeclaracion() {
   }
 
   calcTotalPoints() {
+     console.log('entre');
    let totalScore = 0;
    let totalScoreShown = 0;
    let totalAviable = 0;
