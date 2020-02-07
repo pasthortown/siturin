@@ -3859,7 +3859,6 @@ guardarDeclaracion() {
   }
 
   continuarIngresoTarifarioRack() {
-     console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
    this.rucEstablishmentRegisterSelected.capacities_on_register.forEach(c => {
       this.calcSpaces(c);
    });
@@ -5648,6 +5647,7 @@ guardarDeclaracion() {
 
   calcSpaces(capacity?) {
       this.getYears();
+      console.log(this.tarifarioRack);
       if(typeof capacity !== 'undefined') {
          this.allowed_capacity_types.forEach(capacityType => {
             if (capacityType.id == capacity.capacity_type_id) {
