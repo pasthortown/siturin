@@ -4067,8 +4067,10 @@ guardarDeclaracion() {
   showRegisterABInfo() {
    const today = new Date();
    if (this.esRegistro) {
+      let encontrado = false;
       this.ruc_registro_selected.registers.forEach(element => {
          if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
+            encontrado = true;
             let clasificationAB = this.getRegisterABType(element);
             if (clasificationAB.code == this.categorySelectedCode) {
                this.registerABDataService.get_register_data(element.register.id).then( r => {
@@ -4095,13 +4097,8 @@ guardarDeclaracion() {
             }
          }
       });
-      console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
-      if (this.rucEstablishmentRegisterSelected.capacities_on_register == []) {
-         console.log('entre');
-         this.modificadoCapacidades = true;
-         const newCapacity = new CapacityAB();
-         newCapacity.year = today.getFullYear();
-         this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+      if (!encontrado) {
+         console.log(this.rucEstablishmentRegisterSelected.capacities_on_register);
          this.getYears();
       }
    } else {
