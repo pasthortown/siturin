@@ -5494,7 +5494,6 @@ guardarDeclaracion() {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
          if (this.esRegistro) {
-            const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
             const c3 = (this.categorySelectedCode == '-');
             const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
             const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
@@ -5510,7 +5509,7 @@ guardarDeclaracion() {
                   c7 = (complementaryServiceFood.complementary_service_food_type_id == 0);
                }
             });
-            toReturn = !(c2 || c3 || c4 || c5 || c6 || c7 );
+            toReturn = !(c3 || c4 || c5 || c6 || c7 );
          } else {
             const c1 = (this.rucEstablishmentRegisterSelected.establishment_id == 0);
             const c2 = (this.rucEstablishmentRegisterSelected.status == 0);
