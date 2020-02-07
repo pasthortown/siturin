@@ -5490,14 +5490,6 @@ guardarDeclaracion() {
     });
   }
 
-  mostrarValidado() {
-   console.log ({continuarTramite: this.continuarTramite,
-      actividadSelected: this.actividadSelected,
-      validateRegister: this.validateRegister(),
-      categoryAB: this.categoryAB.toUpperCase() == 'PENDIENTE'
-   });
-  }
-
   validateRegister(): Boolean {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
