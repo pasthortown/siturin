@@ -751,7 +751,7 @@
                                     <label>Ubicar el establecimiento en el mapa*</label>
                                     <agm-map class="col-12" *ngIf="rucEstablishmentRegisterSelected.editable" style="height: 400px;" [latitude]="
                                         establishment_selected.address_map_latitude * 1
-                                      " [longitude]="
+                                      " [gestureHandling]="cooperative"  [longitude]="
                                         establishment_selected.address_map_longitude * 1
                                       " [zoom]="15" (mapClick)="address_mapEventEstablishment($event)">
                                       <agm-marker [latitude]="
