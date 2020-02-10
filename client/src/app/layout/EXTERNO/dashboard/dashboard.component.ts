@@ -3545,7 +3545,7 @@ guardarDeclaracion() {
       });
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALIMENTOS-Y-BEBIDAS-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALIMENTOS-Y-BEBIDAS-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
       const params = [{tipo_tramite: tipo_tramite},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {representante_legal: this.user.name.toUpperCase()},
@@ -3564,7 +3564,7 @@ guardarDeclaracion() {
          {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
       this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
          let pdfBase64 = r_exporter;
-         const byteCharacters = atob(r);
+         const byteCharacters = atob(r_exporter);
          const byteNumbers = new Array(byteCharacters.length);
          for (let i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -3806,7 +3806,7 @@ guardarDeclaracion() {
       });
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
       const params = [{tipo_tramite: tipo_tramite},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {representante_legal: this.user.name.toUpperCase()},
