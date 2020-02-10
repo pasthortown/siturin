@@ -3341,12 +3341,33 @@ guardarDeclaracion() {
 
   saveAlimentosBebidas() {
    if (this.rucEstablishmentRegisterSelected.kitchen_types_on_register.length == 0) {
-      this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
-      return;
+      if (this.categorySelectedCode == '1.1' || 
+         this.categorySelectedCode == '1.2' || 
+         this.categorySelectedCode == '1.3' || 
+         this.categorySelectedCode == '1.5' || 
+         this.categorySelectedCode == '1.7' || 
+         this.categorySelectedCode == '2.1' || 
+         this.categorySelectedCode == '2.2' || 
+         this.categorySelectedCode == '2.3' || 
+         this.categorySelectedCode == '2.5' || 
+         this.categorySelectedCode == '2.7')
+      {
+         this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
+         return;  
+      }
    }
    if (this.rucEstablishmentRegisterSelected.service_types_on_register.length == 0) {
-      this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
-      return;
+      if (
+         this.categorySelectedCode == '1.1' || 
+         this.categorySelectedCode == '1.2' || 
+         this.categorySelectedCode == '1.3' || 
+         this.categorySelectedCode == '2.1' || 
+         this.categorySelectedCode == '2.2' || 
+         this.categorySelectedCode == '2.3')
+      {
+         this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
+         return;
+      }
    }
    if (this.categorySelectedCode !== '1.7') {
       if (!this.validateCapacidades()) {
