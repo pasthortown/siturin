@@ -3562,7 +3562,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = today; //AQUI
+               newRegistroCatastro.as_turistic_date = new Date(r2.as_turistic_date.toString());
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3599,7 +3599,7 @@ selectKitchenType(kitchenType: KitchenType) {
                      provincia: provinciaName.toUpperCase(),
                      nombreComercial: newRegistroCatastro.comercial_name,
                      canton: cantonName.toUpperCase(),
-                     fechaRegistro: today.toLocaleDateString(),
+                     fechaRegistro: new Date(r2.as_turistic_date.toString()).toLocaleDateString(),
                      parroquia: parroquiaName.toUpperCase(),
                      actividad: this.registerMinturSelected.activity.toUpperCase(),
                      callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
@@ -3638,7 +3638,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = today;//AQUI
+               newRegistroCatastro.as_turistic_date = new Date(r2.as_turistic_date.toString());//AQUI
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3674,7 +3674,7 @@ selectKitchenType(kitchenType: KitchenType) {
                      provincia: provinciaName.toUpperCase(),
                      nombreComercial: newRegistroCatastro.comercial_name,
                      canton: cantonName.toUpperCase(),
-                     fechaRegistro: today.toLocaleDateString(),
+                     fechaRegistro: new Date(r2.as_turistic_date.toString()).toLocaleDateString(),
                      parroquia: parroquiaName.toUpperCase(),
                      actividad: this.registerMinturSelected.activity.toUpperCase(),
                      callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
