@@ -120,7 +120,7 @@
             <div class="form-group row">
                <label for="location" class="col-4 col-form-label">Geo-Referenciación</label>
                <div class="col-8">
-                  <agm-map class="col-12" style="height: 200px;"[latitude]="zoneSelected.location_latitude * 1" [longitude]="zoneSelected.location_longitude * 1" [zoom]="15" (mapClick)="locationEvent($event)">
+                  <agm-map class="col-12" style="height: 200px;" [gestureHandling]="'cooperative'" [latitude]="zoneSelected.location_latitude * 1" [longitude]="zoneSelected.location_longitude * 1" [zoom]="15" (mapClick)="locationEvent($event)">
                      <agm-marker [latitude]="zoneSelected.location_latitude * 1" [longitude]="zoneSelected.location_longitude * 1" [markerDraggable]="true" (dragEnd)="locationEvent($event)" [animation]="'DROP'"></agm-marker>
                   </agm-map>
                </div>

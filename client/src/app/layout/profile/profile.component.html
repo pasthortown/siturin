@@ -133,7 +133,7 @@
           <div class="col-12">
             <div class="form-group">
                 <label>Dirección de Domicilio Georeferenciada</label>
-                <agm-map class="col-12" style="height: 400px;"[latitude]="user.address_map_latitude * 1" [longitude]="user.address_map_longitude * 1" [zoom]="15" (mapClick)="address_mapEvent($event)">
+                <agm-map class="col-12" style="height: 400px;" [gestureHandling]="'cooperative'" [latitude]="user.address_map_latitude * 1" [longitude]="user.address_map_longitude * 1" [zoom]="15" (mapClick)="address_mapEvent($event)">
                     <agm-marker [latitude]="user.address_map_latitude * 1" [longitude]="user.address_map_longitude * 1" [markerDraggable]="true" (dragEnd)="address_mapEvent($event)" [animation]="'DROP'"></agm-marker>
                  </agm-map>
             </div>

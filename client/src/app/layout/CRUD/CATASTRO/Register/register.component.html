@@ -258,7 +258,7 @@
             <div class="form-group row">
                <label for="georeference" class="col-4 col-form-label">georeference</label>
                <div class="col-8">
-                  <agm-map class="col-12" style="height: 200px;"[latitude]="registerSelected.georeference_latitude * 1" [longitude]="registerSelected.georeference_longitude * 1" [zoom]="15" (mapClick)="georeferenceEvent($event)">
+                  <agm-map class="col-12" style="height: 200px;" [gestureHandling]="'cooperative'" [latitude]="registerSelected.georeference_latitude * 1" [longitude]="registerSelected.georeference_longitude * 1" [zoom]="15" (mapClick)="georeferenceEvent($event)">
                      <agm-marker [latitude]="registerSelected.georeference_latitude * 1" [longitude]="registerSelected.georeference_longitude * 1" [markerDraggable]="true" (dragEnd)="georeferenceEvent($event)" [animation]="'DROP'"></agm-marker>
                   </agm-map>
                </div>

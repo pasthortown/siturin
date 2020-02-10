@@ -662,7 +662,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label>Ubicar el establecimiento en el mapa*</label>
-                                    <agm-map class="col-12" *ngIf="false" style="height: 400px;" [latitude]="
+                                    <agm-map class="col-12" *ngIf="false" style="height: 400px;" [gestureHandling]="'cooperative'" [latitude]="
                                         establishment_selected.address_map_latitude * 1
                                       " [longitude]="
                                         establishment_selected.address_map_longitude * 1
@@ -677,7 +677,7 @@
 
                                     <agm-map class="col-12" *ngIf="true" style="height: 400px;" [latitude]="
                                         establishment_selected.address_map_latitude * 1
-                                      " [longitude]="
+                                      " [gestureHandling]="'cooperative'" [longitude]="
                                         establishment_selected.address_map_longitude * 1
                                       " [zoom]="15">
                                       <agm-marker [latitude]="
