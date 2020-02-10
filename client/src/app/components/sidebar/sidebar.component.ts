@@ -85,6 +85,7 @@ export class SidebarComponent implements OnInit {
     if ( JSON.parse(sessionStorage.getItem('user')) !== null ) {
       this.user = JSON.parse(sessionStorage.getItem('user'));
     }
+    console.log(this.user);
     if ( JSON.parse(sessionStorage.getItem('profilePicture')) !== null ) {
       const profilePicture = JSON.parse(sessionStorage.getItem('profilePicture')) as ProfilePicture;
       this.profileImg = 'data:' + profilePicture.file_type + ';base64,' + profilePicture.file;
