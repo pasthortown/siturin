@@ -2794,113 +2794,141 @@ export class CoordinadorComponent implements OnInit {
   }
   
   entregarDocumentos() {
-     this.stateTramite = 3;
-     const estado: String = this.stateTramiteId.toString();
-     const digito = estado.substring(estado.length-1, estado.length);
-     const newRegisterState = new RegisterState();
-     let establishmentId = 0;
-     let countRegisters = 1;
-     this.ruc_registro_selected.registers.forEach(element => {
-        if (element.register.id == this.idRegister) {
-           establishmentId = element.establishment.id;
-        }
-     });
-     this.ruc_registro_selected.registers.forEach(element => {
-      if (establishmentId == element.establishment.id && element.status_register.state_id == 9) {
-         countRegisters++;
+   Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de enviar los documentos al cliente?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         Swal.fire(
+            'Documentos Enviados!',
+            'Los documentos fueron enviados por correo electrónico al cliente.',
+            'success'
+          );
+          this.doEntregarDocumentos();
+         } else if (
+            result.dismiss === Swal.DismissReason.cancel
+         ) {
+            Swal.fire(
+              'Cancelado',
+              '',
+              'error'
+         );
       }
-     });
-     if( this.stateTramite == 1 ){
-        this.registerApprovalCoordinador.value = true;
-         if (digito == '0') {
-            newRegisterState.state_id = this.stateTramiteId - 8;
-         }
-         if (digito == '2') {
-            newRegisterState.state_id = this.stateTramiteId;
-         }
-         if (digito == '3') {
-            newRegisterState.state_id = this.stateTramiteId - 1;
-         }
-         if (digito == '9') {
-            newRegisterState.state_id = this.stateTramiteId - 7;
-         }
-     }
-     if( this.stateTramite == 2 ){
-      this.registerApprovalCoordinador.value = false;
-      if (digito == '0') {
-         newRegisterState.state_id = this.stateTramiteId - 7;
-      }
-      if (digito == '2') {
-         newRegisterState.state_id = this.stateTramiteId + 1;
-      }
-      if (digito == '3') {
-         newRegisterState.state_id = this.stateTramiteId;
-      }
-      if (digito == '9') {
-         newRegisterState.state_id = this.stateTramiteId - 6;
-      }
-     }
-     if( this.stateTramite == 3 ){
-      this.registerApprovalCoordinador.value = true;
-      if (digito == '0') {
-         newRegisterState.state_id = this.stateTramiteId - 1;
-      }
-      if (digito == '2') {
-         newRegisterState.state_id = this.stateTramiteId + 7;
-      }
-      if (digito == '3') {
-         newRegisterState.state_id = this.stateTramiteId + 6;
-      }
-      if (digito == '9') {
-         newRegisterState.state_id = this.stateTramiteId;
-      }
-     }
-     newRegisterState.justification = this.registerApprovalCoordinador.notes;
-     newRegisterState.register_id = this.idRegister;
-     this.registroApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
-     this.tarifarioRackApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
-     this.certificadoInactivacionApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
-     const today = new Date();
-     this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_Inactivación_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     if (this.tipo_tramite_seleccionado !== 'inactivation') {
-      if (this.activity == 'ALOJAMIENTO') {
-         this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-         this.registerStateDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
-            this.approvalStateAttachmentDataService.post(this.registroApprovalStateAttachment).then( r3 => {
-               this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
-            }).catch( e => { console.log(e); });
-           }).catch( e => { console.log(e); });      
-      }
-      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentABDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
-            this.approvalStateAttachmentABDataService.post(this.registroApprovalStateAttachment).then( r3 => {
-               this.catastrarRegistro(null, this.registroApprovalStateAttachment.approval_state_attachment_file);
-            }).catch( e => { console.log(e); });
-         }).catch( e => { console.log(e); });    
-      }
-     } else {
-      if (this.activity == 'ALOJAMIENTO') {
-         this.registerStateDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
-            this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
-         }).catch( e => { console.log(e); });      
-      }
-      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentABDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
-            this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
-         }).catch( e => { console.log(e); });    
-      }
-     }
+   });
   }
 
+  doEntregarDocumentos() {
+   this.stateTramite = 3;
+   const estado: String = this.stateTramiteId.toString();
+   const digito = estado.substring(estado.length-1, estado.length);
+   const newRegisterState = new RegisterState();
+   let establishmentId = 0;
+   let countRegisters = 1;
+   this.ruc_registro_selected.registers.forEach(element => {
+      if (element.register.id == this.idRegister) {
+         establishmentId = element.establishment.id;
+      }
+   });
+   this.ruc_registro_selected.registers.forEach(element => {
+    if (establishmentId == element.establishment.id && element.status_register.state_id == 9) {
+       countRegisters++;
+    }
+   });
+   if( this.stateTramite == 1 ){
+      this.registerApprovalCoordinador.value = true;
+       if (digito == '0') {
+          newRegisterState.state_id = this.stateTramiteId - 8;
+       }
+       if (digito == '2') {
+          newRegisterState.state_id = this.stateTramiteId;
+       }
+       if (digito == '3') {
+          newRegisterState.state_id = this.stateTramiteId - 1;
+       }
+       if (digito == '9') {
+          newRegisterState.state_id = this.stateTramiteId - 7;
+       }
+   }
+   if( this.stateTramite == 2 ){
+    this.registerApprovalCoordinador.value = false;
+    if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId - 7;
+    }
+    if (digito == '2') {
+       newRegisterState.state_id = this.stateTramiteId + 1;
+    }
+    if (digito == '3') {
+       newRegisterState.state_id = this.stateTramiteId;
+    }
+    if (digito == '9') {
+       newRegisterState.state_id = this.stateTramiteId - 6;
+    }
+   }
+   if( this.stateTramite == 3 ){
+    this.registerApprovalCoordinador.value = true;
+    if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId - 1;
+    }
+    if (digito == '2') {
+       newRegisterState.state_id = this.stateTramiteId + 7;
+    }
+    if (digito == '3') {
+       newRegisterState.state_id = this.stateTramiteId + 6;
+    }
+    if (digito == '9') {
+       newRegisterState.state_id = this.stateTramiteId;
+    }
+   }
+   newRegisterState.justification = this.registerApprovalCoordinador.notes;
+   newRegisterState.register_id = this.idRegister;
+   this.registroApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+   this.tarifarioRackApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+   this.certificadoInactivacionApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+   const today = new Date();
+   this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+   this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_Inactivación_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+   if (this.tipo_tramite_seleccionado !== 'inactivation') {
+    if (this.activity == 'ALOJAMIENTO') {
+       this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+       this.registerStateDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
+          this.approvalStateAttachmentDataService.post(this.registroApprovalStateAttachment).then( r3 => {
+             this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
+          }).catch( e => { console.log(e); });
+         }).catch( e => { console.log(e); });      
+    }
+    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.registerStateABDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentABDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
+          this.approvalStateAttachmentABDataService.post(this.registroApprovalStateAttachment).then( r3 => {
+             this.catastrarRegistro(null, this.registroApprovalStateAttachment.approval_state_attachment_file);
+          }).catch( e => { console.log(e); });
+       }).catch( e => { console.log(e); });    
+    }
+   } else {
+    if (this.activity == 'ALOJAMIENTO') {
+       this.registerStateDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
+          this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
+       }).catch( e => { console.log(e); });      
+    }
+    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.registerStateABDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentABDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
+          this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
+       }).catch( e => { console.log(e); });    
+    }
+   }
+  }
   selectServiceType(serviceType: ServiceType) {
    this.service_type_registerSelectedId = serviceType.id;
 }
