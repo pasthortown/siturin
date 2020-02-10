@@ -3415,6 +3415,7 @@ selectKitchenType(kitchenType: KitchenType) {
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
       const workers_on_establishment = r2.workers_on_establishment as Worker[];
+      this.as_turistic_date = new Date(r2.as_turistic_date.toString());
       workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
@@ -3526,11 +3527,11 @@ selectKitchenType(kitchenType: KitchenType) {
       const newRegistroCatastro = new RegistroCatastro();
       this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
          if (this.activity == 'ALOJAMIENTO') {
-            this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
+            this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r20 => {
                let max_spaces = 0;
                let max_beds = 0;
                let max_areas = 0;
-               const capacities_on_register = r2.capacities_on_register;
+               const capacities_on_register = r20.capacities_on_register;
                capacities_on_register.forEach(capacity => {
                   this.capacity_types.forEach(capacityType => {
                      if (capacityType.id == capacity.capacity_type_id) {
@@ -3562,7 +3563,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = new Date(r2.as_turistic_date.toString());
+               newRegistroCatastro.as_turistic_date = this.as_turistic_date;
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3599,7 +3600,7 @@ selectKitchenType(kitchenType: KitchenType) {
                      provincia: provinciaName.toUpperCase(),
                      nombreComercial: newRegistroCatastro.comercial_name,
                      canton: cantonName.toUpperCase(),
-                     fechaRegistro: new Date(r2.as_turistic_date.toString()).toLocaleDateString(),
+                     fechaRegistro: this.as_turistic_date.toLocaleDateString(),
                      parroquia: parroquiaName.toUpperCase(),
                      actividad: this.registerMinturSelected.activity.toUpperCase(),
                      callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
@@ -3623,8 +3624,8 @@ selectKitchenType(kitchenType: KitchenType) {
             }).catch( e => { console.log(e); });
          }
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-            this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
-               const capacities_on_register = r2.capacities_on_register;
+            this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r20 => {
+               const capacities_on_register = r20.capacities_on_register;
                let mesas = 0;
                let plazas = 0;
                capacities_on_register.forEach(capacity => {
@@ -3638,7 +3639,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = new Date(r2.as_turistic_date.toString());//AQUI
+               newRegistroCatastro.as_turistic_date = this.as_turistic_date;
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3674,7 +3675,7 @@ selectKitchenType(kitchenType: KitchenType) {
                      provincia: provinciaName.toUpperCase(),
                      nombreComercial: newRegistroCatastro.comercial_name,
                      canton: cantonName.toUpperCase(),
-                     fechaRegistro: new Date(r2.as_turistic_date.toString()).toLocaleDateString(),
+                     fechaRegistro: this.as_turistic_date.toLocaleDateString(),
                      parroquia: parroquiaName.toUpperCase(),
                      actividad: this.registerMinturSelected.activity.toUpperCase(),
                      callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
