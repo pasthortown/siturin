@@ -3008,8 +3008,35 @@ export class InspectorComponent implements OnInit {
                   this.actaNotificacionApprovalStateAttachment.approval_state_attachment_file_name = 'Acta_Notificacion_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
                }
                if (this.requisitosApprovalStateAttachment.id == 0) {
-                  this.approvalStateAttachmentDataService.post(this.requisitosApprovalStateAttachment).then( r2 => {
+                  this.approvalStateAttachmentDataService.post(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
                      this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+                     if (this.informeApprovalStateAttachment.id == 0) {
+                        this.approvalStateAttachmentDataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     } else {
+                        this.approvalStateAttachmentDataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     }
                      Swal.fire(
                         'Confirmado!',
                         'El resultado del trámite ha sido almacenado',
@@ -3018,8 +3045,35 @@ export class InspectorComponent implements OnInit {
                      this.refresh();
                   }).catch( e => { console.log(e); });
                } else {
-                  this.approvalStateAttachmentDataService.put(this.requisitosApprovalStateAttachment).then( r2 => {
+                  this.approvalStateAttachmentDataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
                      this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+                     if (this.informeApprovalStateAttachment.id == 0) {
+                        this.approvalStateAttachmentDataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     } else {
+                        this.approvalStateAttachmentDataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     }
                      Swal.fire(
                         'Confirmado!',
                         'El resultado del trámite ha sido almacenado',
@@ -3027,23 +3081,6 @@ export class InspectorComponent implements OnInit {
                      );
                      this.refresh();
                   }).catch( e => { console.log(e); });
-               }
-               if (this.informeApprovalStateAttachment.id == 0) {
-                  this.approvalStateAttachmentDataService.post(this.informeApprovalStateAttachment).then( r3 => {
-                  }).catch( e => { console.log(e); });
-               } else {
-                  this.approvalStateAttachmentDataService.put(this.informeApprovalStateAttachment).then( r3 => {
-                  }).catch( e => { console.log(e); });
-               }
-               if ( this.validateActaNotificacionFile() ) { 
-                  this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
-                  if (this.actaNotificacionApprovalStateAttachment.id == 0) {
-                     this.approvalStateAttachmentDataService.post(this.actaNotificacionApprovalStateAttachment).then( r3 => {
-                     }).catch( e => { console.log(e); });
-                  } else {
-                     this.approvalStateAttachmentDataService.put(this.actaNotificacionApprovalStateAttachment).then( r3 => {
-                     }).catch( e => { console.log(e); });
-                  }
                }
             }).catch( e => { console.log(e); });
          }
@@ -3064,8 +3101,35 @@ export class InspectorComponent implements OnInit {
                   this.actaNotificacionApprovalStateAttachment.approval_state_attachment_file_name = 'Acta_Notificacion_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
                }
                if (this.requisitosApprovalStateAttachment.id == 0) {
-                  this.approvalStateAttachmentABDataService.post(this.requisitosApprovalStateAttachment).then( r2 => {
+                  this.approvalStateAttachmentABDataService.post(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
                      this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+                     if (this.informeApprovalStateAttachment.id == 0) {
+                        this.approvalStateAttachmentABDataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentABDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentABDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     } else {
+                        this.approvalStateAttachmentABDataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentABDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentABDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     }
                      Swal.fire(
                         'Confirmado!',
                         'El resultado del trámite ha sido almacenado',
@@ -3074,8 +3138,35 @@ export class InspectorComponent implements OnInit {
                      this.refresh();
                   }).catch( e => { console.log(e); });
                } else {
-                  this.approvalStateAttachmentABDataService.put(this.requisitosApprovalStateAttachment).then( r2 => {
+                  this.approvalStateAttachmentABDataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
                      this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+                     if (this.informeApprovalStateAttachment.id == 0) {
+                        this.approvalStateAttachmentABDataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentABDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentABDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     } else {
+                        this.approvalStateAttachmentABDataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+                           if ( this.validateActaNotificacionFile() ) { 
+                              this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                              if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                                 this.approvalStateAttachmentABDataService.post(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              } else {
+                                 this.approvalStateAttachmentABDataService.put(this.actaNotificacionApprovalStateAttachment).then( r_attach_3 => {
+                                 }).catch( e => { console.log(e); });
+                              }
+                           }
+                        }).catch( e => { console.log(e); });
+                     }
                      Swal.fire(
                         'Confirmado!',
                         'El resultado del trámite ha sido almacenado',
@@ -3083,23 +3174,6 @@ export class InspectorComponent implements OnInit {
                      );
                      this.refresh();
                   }).catch( e => { console.log(e); });
-               }
-               if (this.informeApprovalStateAttachment.id == 0) {
-                  this.approvalStateAttachmentABDataService.post(this.informeApprovalStateAttachment).then( r3 => {
-                  }).catch( e => { console.log(e); });
-               } else {
-                  this.approvalStateAttachmentABDataService.put(this.informeApprovalStateAttachment).then( r3 => {
-                  }).catch( e => { console.log(e); });
-               }
-               if ( this.validateActaNotificacionFile() ) { 
-                  this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
-                  if (this.actaNotificacionApprovalStateAttachment.id == 0) {
-                     this.approvalStateAttachmentABDataService.post(this.actaNotificacionApprovalStateAttachment).then( r3 => {
-                     }).catch( e => { console.log(e); });
-                  } else {
-                     this.approvalStateAttachmentABDataService.put(this.actaNotificacionApprovalStateAttachment).then( r3 => {
-                     }).catch( e => { console.log(e); });
-                  }
                }
             }).catch( e => { console.log(e); });
          }
