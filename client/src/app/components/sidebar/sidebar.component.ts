@@ -79,13 +79,9 @@ export class SidebarComponent implements OnInit {
   }
 
   refreshUser(): Boolean {
-    if ( JSON.parse(sessionStorage.getItem('cuentaInterna')) !== null ) {
-      this.cuentaInterna = JSON.parse(sessionStorage.getItem('cuentaInterna')) as Boolean;
-    }
     if ( JSON.parse(sessionStorage.getItem('user')) !== null ) {
       this.user = JSON.parse(sessionStorage.getItem('user'));
     }
-    console.log(this.user);
     if ( JSON.parse(sessionStorage.getItem('profilePicture')) !== null ) {
       const profilePicture = JSON.parse(sessionStorage.getItem('profilePicture')) as ProfilePicture;
       this.profileImg = 'data:' + profilePicture.file_type + ';base64,' + profilePicture.file;
@@ -119,6 +115,15 @@ export class SidebarComponent implements OnInit {
     this.isExternal = false;
     this.isCoordinadorZonal = false;
     this.roles = JSON.parse(sessionStorage.getItem('roles'));
+    let cuentaIn: Boolean = false;
+    if ( JSON.parse(sessionStorage.getItem('cuentaInterna')) !== null ) {
+      cuentaIn = JSON.parse(sessionStorage.getItem('cuentaInterna')) as Boolean;
+    }
+    if (cuentaIn == true) {
+      this.cuentaInterna = true;
+    } else {
+      this.cuentaInterna = false;
+    }
     this.roles.forEach(element => {
       if(element.name === 'Administrador') {
         this.isAdmin = true;
