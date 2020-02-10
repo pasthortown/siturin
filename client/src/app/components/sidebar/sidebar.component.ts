@@ -15,19 +15,19 @@ export class SidebarComponent implements OnInit {
   user: any;
   profileImg = 'assets/images/accounts.png';
   roles: any;
-  cuentaInterna = false;
-  isAdmin = false;
-  isAdminRuc = false;
-  isCoAdminRuc = false;
-  isConsultorCatastro = false;
-  isAdminEst = false;
-  isInsp = false;
-  isAdminF = false;
-  isTecnF = false;
-  isAdminRegC = false;
-  isGestorPag = false;
-  isExternal = false;
-  isCoordinadorZonal = false;
+  cuentaInterna: Boolean = false;
+  isAdmin: Boolean = false;
+  isAdminRuc: Boolean = false;
+  isCoAdminRuc: Boolean = false;
+  isConsultorCatastro: Boolean = false;
+  isAdminEst: Boolean = false;
+  isInsp: Boolean = false;
+  isAdminF: Boolean = false;
+  isTecnF: Boolean = false;
+  isAdminRegC: Boolean = false;
+  isGestorPag: Boolean = false;
+  isExternal: Boolean = false;
+  isCoordinadorZonal: Boolean = false;
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -80,7 +80,7 @@ export class SidebarComponent implements OnInit {
 
   refreshUser(): Boolean {
     if ( JSON.parse(sessionStorage.getItem('cuentaInterna')) !== null ) {
-      this.cuentaInterna = JSON.parse(sessionStorage.getItem('cuentaInterna'));
+      this.cuentaInterna = JSON.parse(sessionStorage.getItem('cuentaInterna')) as Boolean;
     }
     if ( JSON.parse(sessionStorage.getItem('user')) !== null ) {
       this.user = JSON.parse(sessionStorage.getItem('user'));
