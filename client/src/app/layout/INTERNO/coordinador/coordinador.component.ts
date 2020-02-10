@@ -3435,7 +3435,7 @@ selectKitchenType(kitchenType: KitchenType) {
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
       const workers_on_establishment = r2.workers_on_establishment as Worker[];
-      this.as_turistic_date = new Date(r2.establishment.as_turistic_date.toString());
+      this.as_turistic_date = new Date(r2.establishment.as_turistic_register_date.toString());
       workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
@@ -3903,7 +3903,7 @@ selectKitchenType(kitchenType: KitchenType) {
             });
             const params = [{canton: canton.name.toUpperCase()},
                {fecha: today.toLocaleDateString().toUpperCase()},
-               {fecha_registro: new Date(r2.establishment.as_turistic_date.toString()).toLocaleDateString().toUpperCase()},
+               {fecha_registro: new Date(r2.establishment.as_turistic_register_date.toString()).toLocaleDateString().toUpperCase()},
                {numero_registro: registerDataIncomming.register.code.toUpperCase()},
                {razon_social: this.razon_social.toUpperCase()},
                {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
@@ -4060,7 +4060,7 @@ selectKitchenType(kitchenType: KitchenType) {
                }
                const params = [{canton: canton.name.toUpperCase()},
                   {fecha: today.toLocaleDateString().toUpperCase()},
-                  {fecha_registro: new Date(r2.establishment.as_turistic_date.toString()).toLocaleDateString().toUpperCase()},
+                  {fecha_registro: new Date(r2.establishment.as_turistic_register_date.toString()).toLocaleDateString().toUpperCase()},
                   {numero_registro: registerDataIncomming.register.code.toUpperCase()},
                   {razon_social: this.razon_social.toUpperCase()},
                   {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
