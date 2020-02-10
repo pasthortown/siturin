@@ -3317,6 +3317,7 @@ guardarDeclaracion() {
                   this.rucEstablishmentRegisterSelected.capacities_on_register.push(new_cap);  
                }
          });
+         this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
          if (this.actividadSelected == '1') {
             this.saveAlojamiento();
          }  
