@@ -3545,7 +3545,7 @@ guardarDeclaracion() {
       });
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-      let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-ALIMENTOS-Y-BEBIDAS-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
       const params = [{tipo_tramite: tipo_tramite},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {representante_legal: this.user.name.toUpperCase()},
@@ -3571,12 +3571,14 @@ guardarDeclaracion() {
          }
          const byteArray = new Uint8Array(byteNumbers);
          const blob = new Blob([byteArray], { type: 'application/pdf'});
-         let newRegisterProcedure = new RegisterProcedure();
-         newRegisterProcedure.procedure_justification_id = this.idCausal;
-         newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
-         newRegisterProcedure.date = new Date();
-         this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
-         }).catch( e => { console.log(e); });
+         if (this.idCausal == 0) {
+            let newRegisterProcedure = new RegisterProcedure();
+            newRegisterProcedure.procedure_justification_id = this.idCausal;
+            newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+            newRegisterProcedure.date = new Date();
+            this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
+            }).catch( e => { console.log(e); });   
+         }
          saveAs(blob, qr_value + '.pdf');
          const information = {
             para: this.user.name,
@@ -3720,6 +3722,7 @@ guardarDeclaracion() {
    this.procedureJustification.justification = "Registro";
    this.rucEstablishmentRegisterSelected.status = 11;
    this.procedureJustification.procedure_id = 6;
+   this.idCausal = 0;
    if (this.actualizando){
       tipo_tramite = 'Actualización';
       this.procedureJustification.justification = "Actualización";
@@ -3832,12 +3835,14 @@ guardarDeclaracion() {
          }
          const byteArray = new Uint8Array(byteNumbers);
          const blob = new Blob([byteArray], { type: 'application/pdf'});
-         let newRegisterProcedure = new RegisterProcedure();
-         newRegisterProcedure.procedure_justification_id = this.idCausal;
-         newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
-         newRegisterProcedure.date = new Date();
-         this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
-         }).catch( e => { console.log(e); });
+         if (this.idCausal == 0) {
+            let newRegisterProcedure = new RegisterProcedure();
+            newRegisterProcedure.procedure_justification_id = this.idCausal;
+            newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+            newRegisterProcedure.date = new Date();
+            this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+            }).catch( e => { console.log(e); });   
+         }
          saveAs(blob, qr_value + '.pdf');
          const information = {
             para: this.user.name,
