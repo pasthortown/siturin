@@ -2090,7 +2090,6 @@ export class DashboardComponent implements OnInit {
    this.idCatasterID = event.row.id;
    this.selected_category_catastro = event.row.category;
    this.selected_classification_catastro = event.row.classification;
-   console.log({selected_category_catastro: this.selected_category_catastro, selected_classification_catastro: this.selected_classification_catastro});
    this.hasRucCode = false;
    if (event.row.establishment_ruc_code !== 'NULL') {
       this.hasRucCode = true;
@@ -5061,6 +5060,7 @@ guardarDeclaracion() {
     this.selectedNameType = new RucNameType();
     return;
    }
+   console.log('AQUI');
   this.selectRegisterEstablishmentDeclaration(establishment);
   this.registersByEstablishment = [];
   let isAlojamiento = false;
@@ -5087,7 +5087,6 @@ guardarDeclaracion() {
        this.rucEstablishmentRegisterSelected.register_type_id = 0;
        this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
        this.mostrarDataRegister = true;
-       console.log('AQUI');
      } else {
        this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
      }
