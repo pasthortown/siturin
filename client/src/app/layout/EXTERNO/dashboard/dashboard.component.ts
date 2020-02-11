@@ -170,6 +170,7 @@ export class DashboardComponent implements OnInit {
    canCatering = true;
    canEstablecimientoMovil = true;
    canPlazaComida = true;
+   selected_system_source = '';
    idCausal = 0;
    registroNuevoEstablecimiento = false;
    mostrarMensajeNoNombreComercial = false;
@@ -2088,6 +2089,7 @@ export class DashboardComponent implements OnInit {
    this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
    this.my_category_current = event.row.category;
    this.idCatasterID = event.row.id;
+   this.selected_system_source = event.row.system_source;
    this.selected_category_catastro = event.row.category;
    this.selected_classification_catastro = event.row.classification;
    this.hasRucCode = false;
@@ -4072,7 +4074,7 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
    if (this.actividadSelected == '1') {
-      if (this.selected_classification_catastro !== '') {
+      if (this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE') {
          this.register_types.forEach( cat_element => {
             if (cat_element.name == this.selected_classification_catastro) {
                if (cat_element.father_code == this.regionSelectedCode) {
@@ -4083,12 +4085,14 @@ guardarDeclaracion() {
       }
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         this.categories_registers.forEach( category_element => {
-            if (category_element.name == this.selected_category_catastro) {
-               this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
-            }
-         });
-         this.getYears();
+         if (this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE') {
+            this.categories_registers.forEach( category_element => {
+               if (category_element.name == this.selected_category_catastro) {
+                  this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
+               }
+            });
+            this.getAllowedInfo();
+         }
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
