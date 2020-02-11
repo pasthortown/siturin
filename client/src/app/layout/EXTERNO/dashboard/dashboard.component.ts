@@ -4091,6 +4091,7 @@ guardarDeclaracion() {
                   this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
                }
             });
+            this.getYears();
             this.getAllowedInfo();
          }
       }).catch( e => { console.log(e) });   
