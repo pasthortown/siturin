@@ -5087,6 +5087,7 @@ guardarDeclaracion() {
        this.rucEstablishmentRegisterSelected.register_type_id = 0;
        this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
        this.mostrarDataRegister = true;
+       console.log('AQUI');
      } else {
        this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
      }
