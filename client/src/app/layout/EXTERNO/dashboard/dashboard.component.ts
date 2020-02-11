@@ -2241,6 +2241,7 @@ export class DashboardComponent implements OnInit {
    }
 
    buildOpciones(row) {
+      this.estaEnTabla = true;
       this.mostrarOpciones = true;
       this.seleccionarRegistro(row);
    }
