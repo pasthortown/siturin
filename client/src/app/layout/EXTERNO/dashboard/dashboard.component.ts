@@ -4088,6 +4088,7 @@ guardarDeclaracion() {
                this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
             }
          });
+         this.getYears();
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
