@@ -4074,7 +4074,7 @@ guardarDeclaracion() {
    if (this.actividadSelected == '1') {
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         //AQUI
+         console.log('AQUI');
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
