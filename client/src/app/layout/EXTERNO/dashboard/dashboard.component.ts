@@ -4077,6 +4077,7 @@ guardarDeclaracion() {
             if (cat_element.name == this.selected_classification_catastro) {
                if (cat_element.father_code = this.regionSelectedCode) {
                   this.categorySelectedCode = cat_element.code;
+                  console.log(cat_element);
                }
             }
          });
