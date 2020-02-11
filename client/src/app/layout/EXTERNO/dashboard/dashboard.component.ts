@@ -3317,6 +3317,7 @@ guardarDeclaracion() {
                   this.rucEstablishmentRegisterSelected.capacities_on_register.push(new_cap);  
                }
          });
+         this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
          if (this.actividadSelected == '1') {
             this.saveAlojamiento();
          }  
@@ -3341,12 +3342,33 @@ guardarDeclaracion() {
 
   saveAlimentosBebidas() {
    if (this.rucEstablishmentRegisterSelected.kitchen_types_on_register.length == 0) {
-      this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
-      return;
+      if (this.categorySelectedCode == '1.1' || 
+         this.categorySelectedCode == '1.2' || 
+         this.categorySelectedCode == '1.3' || 
+         this.categorySelectedCode == '1.5' || 
+         this.categorySelectedCode == '1.7' || 
+         this.categorySelectedCode == '2.1' || 
+         this.categorySelectedCode == '2.2' || 
+         this.categorySelectedCode == '2.3' || 
+         this.categorySelectedCode == '2.5' || 
+         this.categorySelectedCode == '2.7')
+      {
+         this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
+         return;  
+      }
    }
    if (this.rucEstablishmentRegisterSelected.service_types_on_register.length == 0) {
-      this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
-      return;
+      if (
+         this.categorySelectedCode == '1.1' || 
+         this.categorySelectedCode == '1.2' || 
+         this.categorySelectedCode == '1.3' || 
+         this.categorySelectedCode == '2.1' || 
+         this.categorySelectedCode == '2.2' || 
+         this.categorySelectedCode == '2.3')
+      {
+         this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
+         return;
+      }
    }
    if (this.categorySelectedCode !== '1.7') {
       if (!this.validateCapacidades()) {
@@ -3507,55 +3529,57 @@ guardarDeclaracion() {
       }
    });
    this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
-         this.certificadoUsoSuelo.register_id = r.id;
-         this.guardarCertificadoUsoSuelos();
-         this.guardarListaPrecios(r.id);
-         let clasificacion = '';
-         this.clasifications_registers.forEach(element => {
-            if (element.code == this.categorySelectedCode) {
-               clasificacion = element.name.toString();
-            }
-         });
-         let categoria = '';
-         this.categories_registers.forEach(element => {
-            if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-               categoria = element.name.toString();
-            }
-         });
-         const zonalName = zonal.name.split(' ');
-         iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-         let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-         const params = [{tipo_tramite: tipo_tramite},
-            {fecha: today.toLocaleDateString().toUpperCase()},
-            {representante_legal: this.user.name.toUpperCase()},
-            {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
-            {ruc: this.ruc_registro_selected.ruc.number},
-            {razon_social: this.razon_social},
-            {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
-            {actividad: actividad},
-            {clasificacion: clasificacion.toUpperCase()},
-            {categoria: categoria.toUpperCase()},
-            {provincia: provincia.name.toUpperCase()},
-            {canton: canton.name.toUpperCase()},
-            {parroquia: parroquia.name.toUpperCase()},
-            {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
-            {numeracion: this.establishment_selected.address_number.toUpperCase()},
-            {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
-         this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
-            let pdfBase64 = r_exporter;
-            const byteCharacters = atob(r);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-               byteNumbers[i] = byteCharacters.charCodeAt(i);
-            }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: 'application/pdf'});
+      this.certificadoUsoSuelo.register_id = r.id;
+      this.guardarCertificadoUsoSuelos();
+      this.guardarListaPrecios(r.id);
+      let clasificacion = '';
+      this.clasifications_registers.forEach(element => {
+         if (element.code == this.categorySelectedCode) {
+            clasificacion = element.name.toString();
+         }
+      });
+      let categoria = '';
+      this.categories_registers.forEach(element => {
+         if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+            categoria = element.name.toString();
+         }
+      });
+      const zonalName = zonal.name.split(' ');
+      iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+      let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      const params = [{tipo_tramite: tipo_tramite},
+         {fecha: today.toLocaleDateString().toUpperCase()},
+         {representante_legal: this.user.name.toUpperCase()},
+         {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+         {ruc: this.ruc_registro_selected.ruc.number},
+         {razon_social: this.razon_social},
+         {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+         {actividad: actividad},
+         {clasificacion: clasificacion.toUpperCase()},
+         {categoria: categoria.toUpperCase()},
+         {provincia: provincia.name.toUpperCase()},
+         {canton: canton.name.toUpperCase()},
+         {parroquia: parroquia.name.toUpperCase()},
+         {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+         {numeracion: this.establishment_selected.address_number.toUpperCase()},
+         {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+      this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
+         let pdfBase64 = r_exporter;
+         const byteCharacters = atob(r_exporter);
+         const byteNumbers = new Array(byteCharacters.length);
+         for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+         }
+         const byteArray = new Uint8Array(byteNumbers);
+         const blob = new Blob([byteArray], { type: 'application/pdf'});
+         if (this.idCausal == 0) {
             let newRegisterProcedure = new RegisterProcedure();
             newRegisterProcedure.procedure_justification_id = this.idCausal;
             newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
             newRegisterProcedure.date = new Date();
             this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
-            }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });   
+         }
          saveAs(blob, qr_value + '.pdf');
          const information = {
             para: this.user.name,
@@ -3699,6 +3723,7 @@ guardarDeclaracion() {
    this.procedureJustification.justification = "Registro";
    this.rucEstablishmentRegisterSelected.status = 11;
    this.procedureJustification.procedure_id = 6;
+   this.idCausal = 0;
    if (this.actualizando){
       tipo_tramite = 'Actualización';
       this.procedureJustification.justification = "Actualización";
@@ -3785,7 +3810,7 @@ guardarDeclaracion() {
       });
       const zonalName = zonal.name.split(' ');
       iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-      let qr_value = 'MT-CZ' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
       const params = [{tipo_tramite: tipo_tramite},
          {fecha: today.toLocaleDateString().toUpperCase()},
          {representante_legal: this.user.name.toUpperCase()},
@@ -3811,12 +3836,14 @@ guardarDeclaracion() {
          }
          const byteArray = new Uint8Array(byteNumbers);
          const blob = new Blob([byteArray], { type: 'application/pdf'});
-         let newRegisterProcedure = new RegisterProcedure();
-         newRegisterProcedure.procedure_justification_id = this.idCausal;
-         newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
-         newRegisterProcedure.date = new Date();
-         this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
-         }).catch( e => { console.log(e); });
+         if (this.idCausal == 0) {
+            let newRegisterProcedure = new RegisterProcedure();
+            newRegisterProcedure.procedure_justification_id = this.idCausal;
+            newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+            newRegisterProcedure.date = new Date();
+            this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
+            }).catch( e => { console.log(e); });   
+         }
          saveAs(blob, qr_value + '.pdf');
          const information = {
             para: this.user.name,

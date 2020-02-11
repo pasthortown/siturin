@@ -109,7 +109,7 @@
             <div class="form-group row">
                <label for="gmap_reference" class="col-4 col-form-label">gmap_reference</label>
                <div class="col-8">
-                  <agm-map class="col-12" style="height: 200px;"[latitude]="ubicationSelected.gmap_reference_latitude * 1" [longitude]="ubicationSelected.gmap_reference_longitude * 1" [zoom]="15" (mapClick)="gmap_referenceEvent($event)">
+                  <agm-map class="col-12" style="height: 200px;" [gestureHandling]="'cooperative'" [scrollwheel]="null"  [latitude]="ubicationSelected.gmap_reference_latitude * 1" [longitude]="ubicationSelected.gmap_reference_longitude * 1" [zoom]="15" (mapClick)="gmap_referenceEvent($event)">
                      <agm-marker [latitude]="ubicationSelected.gmap_reference_latitude * 1" [longitude]="ubicationSelected.gmap_reference_longitude * 1" [markerDraggable]="true" (dragEnd)="gmap_referenceEvent($event)" [animation]="'DROP'"></agm-marker>
                   </agm-map>
                </div>

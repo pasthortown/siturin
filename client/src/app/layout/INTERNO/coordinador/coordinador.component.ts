@@ -2794,113 +2794,141 @@ export class CoordinadorComponent implements OnInit {
   }
   
   entregarDocumentos() {
-     this.stateTramite = 3;
-     const estado: String = this.stateTramiteId.toString();
-     const digito = estado.substring(estado.length-1, estado.length);
-     const newRegisterState = new RegisterState();
-     let establishmentId = 0;
-     let countRegisters = 1;
-     this.ruc_registro_selected.registers.forEach(element => {
-        if (element.register.id == this.idRegister) {
-           establishmentId = element.establishment.id;
-        }
-     });
-     this.ruc_registro_selected.registers.forEach(element => {
-      if (establishmentId == element.establishment.id && element.status_register.state_id == 9) {
-         countRegisters++;
+   Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de enviar los documentos al cliente?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+         Swal.fire(
+            'Documentos Enviados!',
+            'Los documentos fueron enviados por correo electrónico al cliente.',
+            'success'
+          );
+          this.doEntregarDocumentos();
+         } else if (
+            result.dismiss === Swal.DismissReason.cancel
+         ) {
+            Swal.fire(
+              'Cancelado',
+              '',
+              'error'
+         );
       }
-     });
-     if( this.stateTramite == 1 ){
-        this.registerApprovalCoordinador.value = true;
-         if (digito == '0') {
-            newRegisterState.state_id = this.stateTramiteId - 8;
-         }
-         if (digito == '2') {
-            newRegisterState.state_id = this.stateTramiteId;
-         }
-         if (digito == '3') {
-            newRegisterState.state_id = this.stateTramiteId - 1;
-         }
-         if (digito == '9') {
-            newRegisterState.state_id = this.stateTramiteId - 7;
-         }
-     }
-     if( this.stateTramite == 2 ){
-      this.registerApprovalCoordinador.value = false;
-      if (digito == '0') {
-         newRegisterState.state_id = this.stateTramiteId - 7;
-      }
-      if (digito == '2') {
-         newRegisterState.state_id = this.stateTramiteId + 1;
-      }
-      if (digito == '3') {
-         newRegisterState.state_id = this.stateTramiteId;
-      }
-      if (digito == '9') {
-         newRegisterState.state_id = this.stateTramiteId - 6;
-      }
-     }
-     if( this.stateTramite == 3 ){
-      this.registerApprovalCoordinador.value = true;
-      if (digito == '0') {
-         newRegisterState.state_id = this.stateTramiteId - 1;
-      }
-      if (digito == '2') {
-         newRegisterState.state_id = this.stateTramiteId + 7;
-      }
-      if (digito == '3') {
-         newRegisterState.state_id = this.stateTramiteId + 6;
-      }
-      if (digito == '9') {
-         newRegisterState.state_id = this.stateTramiteId;
-      }
-     }
-     newRegisterState.justification = this.registerApprovalCoordinador.notes;
-     newRegisterState.register_id = this.idRegister;
-     this.registroApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
-     this.tarifarioRackApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
-     this.certificadoInactivacionApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
-     const today = new Date();
-     this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_Inactivación_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-     if (this.tipo_tramite_seleccionado !== 'inactivation') {
-      if (this.activity == 'ALOJAMIENTO') {
-         this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
-         this.registerStateDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
-            this.approvalStateAttachmentDataService.post(this.registroApprovalStateAttachment).then( r3 => {
-               this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
-            }).catch( e => { console.log(e); });
-           }).catch( e => { console.log(e); });      
-      }
-      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentABDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
-            this.approvalStateAttachmentABDataService.post(this.registroApprovalStateAttachment).then( r3 => {
-               this.catastrarRegistro(null, this.registroApprovalStateAttachment.approval_state_attachment_file);
-            }).catch( e => { console.log(e); });
-         }).catch( e => { console.log(e); });    
-      }
-     } else {
-      if (this.activity == 'ALOJAMIENTO') {
-         this.registerStateDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
-            this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
-         }).catch( e => { console.log(e); });      
-      }
-      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-         }).catch( e => { console.log(e); });
-         this.approvalStateAttachmentABDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
-            this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
-         }).catch( e => { console.log(e); });    
-      }
-     }
+   });
   }
 
+  doEntregarDocumentos() {
+   this.stateTramite = 3;
+   const estado: String = this.stateTramiteId.toString();
+   const digito = estado.substring(estado.length-1, estado.length);
+   const newRegisterState = new RegisterState();
+   let establishmentId = 0;
+   let countRegisters = 1;
+   this.ruc_registro_selected.registers.forEach(element => {
+      if (element.register.id == this.idRegister) {
+         establishmentId = element.establishment.id;
+      }
+   });
+   this.ruc_registro_selected.registers.forEach(element => {
+    if (establishmentId == element.establishment.id && element.status_register.state_id == 9) {
+       countRegisters++;
+    }
+   });
+   if( this.stateTramite == 1 ){
+      this.registerApprovalCoordinador.value = true;
+       if (digito == '0') {
+          newRegisterState.state_id = this.stateTramiteId - 8;
+       }
+       if (digito == '2') {
+          newRegisterState.state_id = this.stateTramiteId;
+       }
+       if (digito == '3') {
+          newRegisterState.state_id = this.stateTramiteId - 1;
+       }
+       if (digito == '9') {
+          newRegisterState.state_id = this.stateTramiteId - 7;
+       }
+   }
+   if( this.stateTramite == 2 ){
+    this.registerApprovalCoordinador.value = false;
+    if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId - 7;
+    }
+    if (digito == '2') {
+       newRegisterState.state_id = this.stateTramiteId + 1;
+    }
+    if (digito == '3') {
+       newRegisterState.state_id = this.stateTramiteId;
+    }
+    if (digito == '9') {
+       newRegisterState.state_id = this.stateTramiteId - 6;
+    }
+   }
+   if( this.stateTramite == 3 ){
+    this.registerApprovalCoordinador.value = true;
+    if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId - 1;
+    }
+    if (digito == '2') {
+       newRegisterState.state_id = this.stateTramiteId + 7;
+    }
+    if (digito == '3') {
+       newRegisterState.state_id = this.stateTramiteId + 6;
+    }
+    if (digito == '9') {
+       newRegisterState.state_id = this.stateTramiteId;
+    }
+   }
+   newRegisterState.justification = this.registerApprovalCoordinador.notes;
+   newRegisterState.register_id = this.idRegister;
+   this.registroApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+   this.tarifarioRackApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+   this.certificadoInactivacionApprovalStateAttachment.approval_state_id = this.registerApprovalCoordinador.id;
+   const today = new Date();
+   this.registroApprovalStateAttachment.approval_state_attachment_file_name = 'Registro_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+   this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file_name = 'Certificado_Inactivación_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+   if (this.tipo_tramite_seleccionado !== 'inactivation') {
+    if (this.activity == 'ALOJAMIENTO') {
+       this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file_name = 'Tarifario_Rack_' + this.registerMinturSelected.register.code + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+       this.registerStateDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
+          this.approvalStateAttachmentDataService.post(this.registroApprovalStateAttachment).then( r3 => {
+             this.catastrarRegistro(this.tarifarioRackApprovalStateAttachment.approval_state_attachment_file, this.registroApprovalStateAttachment.approval_state_attachment_file);
+          }).catch( e => { console.log(e); });
+         }).catch( e => { console.log(e); });      
+    }
+    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.registerStateABDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentABDataService.post(this.tarifarioRackApprovalStateAttachment).then( r2 => {
+          this.approvalStateAttachmentABDataService.post(this.registroApprovalStateAttachment).then( r3 => {
+             this.catastrarRegistro(null, this.registroApprovalStateAttachment.approval_state_attachment_file);
+          }).catch( e => { console.log(e); });
+       }).catch( e => { console.log(e); });    
+    }
+   } else {
+    if (this.activity == 'ALOJAMIENTO') {
+       this.registerStateDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
+          this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
+       }).catch( e => { console.log(e); });      
+    }
+    if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.registerStateABDataService.post(newRegisterState).then( r1 => {
+       }).catch( e => { console.log(e); });
+       this.approvalStateAttachmentABDataService.post(this.certificadoInactivacionApprovalStateAttachment).then( r2 => {
+          this.inactivar_into_catastro(this.certificadoInactivacionApprovalStateAttachment.approval_state_attachment_file);
+       }).catch( e => { console.log(e); });    
+    }
+   }
+  }
   selectServiceType(serviceType: ServiceType) {
    this.service_type_registerSelectedId = serviceType.id;
 }
@@ -3147,20 +3175,12 @@ selectKitchenType(kitchenType: KitchenType) {
       this.approvalStateDataService.put(this.registerApprovalCoordinador).then( r => {
          this.registerDataService.set_register_code(code, this.idRegister).then( r => {
          }).catch( e => { console.log(e); });
-         if (this.tipo_tramite == 'REGISTRO') {
-            this.establishmentDataService.set_register_date(establishmentId).then( r => {
-            }).catch( e => { console.log(e); });
-         }
       }).catch( e => { console.log(e); }); 
      }
       if (this.activity == 'ALIMENTOS Y BEBIDAS') {
        this.approvalStateABDataService.put(this.registerApprovalCoordinador).then( r => {
           this.registerABDataService.set_register_code(code, this.idRegister).then( r => {
           }).catch( e => { console.log(e); });
-          if (this.tipo_tramite == 'REGISTRO') {
-             this.establishmentDataService.set_register_date(establishmentId).then( r => {
-            }).catch( e => { console.log(e); });
-          }
        }).catch( e => { console.log(e); });
       }
       this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
@@ -3415,6 +3435,7 @@ selectKitchenType(kitchenType: KitchenType) {
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
       const workers_on_establishment = r2.workers_on_establishment as Worker[];
+      this.as_turistic_date = new Date(r2.establishment.as_turistic_register_date.toString());
       workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
@@ -3526,11 +3547,11 @@ selectKitchenType(kitchenType: KitchenType) {
       const newRegistroCatastro = new RegistroCatastro();
       this.userDataService.get(this.registerMinturSelected.establishment.contact_user_id).then( r => {
          if (this.activity == 'ALOJAMIENTO') {
-            this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
+            this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r20 => {
                let max_spaces = 0;
                let max_beds = 0;
                let max_areas = 0;
-               const capacities_on_register = r2.capacities_on_register;
+               const capacities_on_register = r20.capacities_on_register;
                capacities_on_register.forEach(capacity => {
                   this.capacity_types.forEach(capacityType => {
                      if (capacityType.id == capacity.capacity_type_id) {
@@ -3562,7 +3583,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = today; //AQUI
+               newRegistroCatastro.as_turistic_date = this.as_turistic_date;
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3599,7 +3620,7 @@ selectKitchenType(kitchenType: KitchenType) {
                      provincia: provinciaName.toUpperCase(),
                      nombreComercial: newRegistroCatastro.comercial_name,
                      canton: cantonName.toUpperCase(),
-                     fechaRegistro: today.toLocaleDateString(),
+                     fechaRegistro: this.as_turistic_date.toLocaleDateString(),
                      parroquia: parroquiaName.toUpperCase(),
                      actividad: this.registerMinturSelected.activity.toUpperCase(),
                      callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
@@ -3623,8 +3644,8 @@ selectKitchenType(kitchenType: KitchenType) {
             }).catch( e => { console.log(e); });
          }
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-            this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r2 => {
-               const capacities_on_register = r2.capacities_on_register;
+            this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r20 => {
+               const capacities_on_register = r20.capacities_on_register;
                let mesas = 0;
                let plazas = 0;
                capacities_on_register.forEach(capacity => {
@@ -3638,7 +3659,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.ubication_main = provinciaName;
                newRegistroCatastro.ubication_sencond = cantonName;
                newRegistroCatastro.ubication_third = parroquiaName;
-               newRegistroCatastro.as_turistic_date = today;//AQUI
+               newRegistroCatastro.as_turistic_date = this.as_turistic_date;
                newRegistroCatastro.category = categoria;
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
@@ -3674,7 +3695,7 @@ selectKitchenType(kitchenType: KitchenType) {
                      provincia: provinciaName.toUpperCase(),
                      nombreComercial: newRegistroCatastro.comercial_name,
                      canton: cantonName.toUpperCase(),
-                     fechaRegistro: today.toLocaleDateString(),
+                     fechaRegistro: this.as_turistic_date.toLocaleDateString(),
                      parroquia: parroquiaName.toUpperCase(),
                      actividad: this.registerMinturSelected.activity.toUpperCase(),
                      callePrincipal: this.registerMinturSelected.establishment.address_main_street.toUpperCase(),
@@ -3882,6 +3903,7 @@ selectKitchenType(kitchenType: KitchenType) {
             });
             const params = [{canton: canton.name.toUpperCase()},
                {fecha: today.toLocaleDateString().toUpperCase()},
+               {fecha_registro: new Date(r2.establishment.as_turistic_register_date.toString()).toLocaleDateString().toUpperCase()},
                {numero_registro: registerDataIncomming.register.code.toUpperCase()},
                {razon_social: this.razon_social.toUpperCase()},
                {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},
@@ -4038,6 +4060,7 @@ selectKitchenType(kitchenType: KitchenType) {
                }
                const params = [{canton: canton.name.toUpperCase()},
                   {fecha: today.toLocaleDateString().toUpperCase()},
+                  {fecha_registro: new Date(r2.establishment.as_turistic_register_date.toString()).toLocaleDateString().toUpperCase()},
                   {numero_registro: registerDataIncomming.register.code.toUpperCase()},
                   {razon_social: this.razon_social.toUpperCase()},
                   {nombre_comercial: r2.establishment.commercially_known_name.toUpperCase()},

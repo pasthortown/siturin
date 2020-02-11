@@ -15,19 +15,19 @@ export class SidebarComponent implements OnInit {
   user: any;
   profileImg = 'assets/images/accounts.png';
   roles: any;
-  cuentaInterna = false;
-  isAdmin = false;
-  isAdminRuc = false;
-  isCoAdminRuc = false;
-  isConsultorCatastro = false;
-  isAdminEst = false;
-  isInsp = false;
-  isAdminF = false;
-  isTecnF = false;
-  isAdminRegC = false;
-  isGestorPag = false;
-  isExternal = false;
-  isCoordinadorZonal = false;
+  cuentaInterna: Boolean = false;
+  isAdmin: Boolean = false;
+  isAdminRuc: Boolean = false;
+  isCoAdminRuc: Boolean = false;
+  isConsultorCatastro: Boolean = false;
+  isAdminEst: Boolean = false;
+  isInsp: Boolean = false;
+  isAdminF: Boolean = false;
+  isTecnF: Boolean = false;
+  isAdminRegC: Boolean = false;
+  isGestorPag: Boolean = false;
+  isExternal: Boolean = false;
+  isCoordinadorZonal: Boolean = false;
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -79,9 +79,6 @@ export class SidebarComponent implements OnInit {
   }
 
   refreshUser(): Boolean {
-    if ( JSON.parse(sessionStorage.getItem('cuentaInterna')) !== null ) {
-      this.cuentaInterna = JSON.parse(sessionStorage.getItem('cuentaInterna'));
-    }
     if ( JSON.parse(sessionStorage.getItem('user')) !== null ) {
       this.user = JSON.parse(sessionStorage.getItem('user'));
     }
@@ -118,6 +115,15 @@ export class SidebarComponent implements OnInit {
     this.isExternal = false;
     this.isCoordinadorZonal = false;
     this.roles = JSON.parse(sessionStorage.getItem('roles'));
+    let cuentaIn: Boolean = false;
+    if ( JSON.parse(sessionStorage.getItem('cuentaInterna')) !== null ) {
+      cuentaIn = JSON.parse(sessionStorage.getItem('cuentaInterna')) as Boolean;
+    }
+    if (cuentaIn == true) {
+      this.cuentaInterna = true;
+    } else {
+      this.cuentaInterna = false;
+    }
     this.roles.forEach(element => {
       if(element.name === 'Administrador') {
         this.isAdmin = true;

@@ -435,7 +435,7 @@
         <label>Ubicar el establecimiento en el mapa*</label>
         <agm-map class="col-12" style="height: 400px;" [latitude]="
             establishment_selected.address_map_latitude * 1
-          " [longitude]="
+          " [gestureHandling]="'cooperative'" [scrollwheel]="null"  [longitude]="
             establishment_selected.address_map_longitude * 1
           " [zoom]="15" (mapClick)="address_mapEventEstablishment($event)">
           <agm-marker [latitude]="

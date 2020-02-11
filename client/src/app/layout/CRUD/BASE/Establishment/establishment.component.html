@@ -115,7 +115,7 @@
             <div class="form-group row">
                <label for="address_map" class="col-4 col-form-label">address_map</label>
                <div class="col-8">
-                  <agm-map class="col-12" style="height: 200px;"[latitude]="establishmentSelected.address_map_latitude * 1" [longitude]="establishmentSelected.address_map_longitude * 1" [zoom]="15" (mapClick)="address_mapEvent($event)">
+                  <agm-map class="col-12" style="height: 200px;" [gestureHandling]="'cooperative'" [scrollwheel]="null"  [latitude]="establishmentSelected.address_map_latitude * 1" [longitude]="establishmentSelected.address_map_longitude * 1" [zoom]="15" (mapClick)="address_mapEvent($event)">
                      <agm-marker [latitude]="establishmentSelected.address_map_latitude * 1" [longitude]="establishmentSelected.address_map_longitude * 1" [markerDraggable]="true" (dragEnd)="address_mapEvent($event)" [animation]="'DROP'"></agm-marker>
                   </agm-map>
                </div>
