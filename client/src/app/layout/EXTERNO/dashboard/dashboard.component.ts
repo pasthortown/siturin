@@ -509,6 +509,9 @@ export class DashboardComponent implements OnInit {
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
    this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
+   this.selected_system_source = '';
+   this.selected_category_catastro = '';
+   this.selected_classification_catastro = '';
    this.esRegistro = true;
    this.mostrarIngresoDatos = true;
    this.mostrarOpciones = false;
