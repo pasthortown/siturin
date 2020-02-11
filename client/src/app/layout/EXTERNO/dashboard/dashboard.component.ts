@@ -2089,7 +2089,7 @@ export class DashboardComponent implements OnInit {
    this.my_category_current = event.row.category;
    this.idCatasterID = event.row.id;
    this.selected_category_catastro = event.row.category;
-   this.selected_classification_catastro = event.row.category;
+   this.selected_classification_catastro = event.row.classification;
    console.log({selected_category_catastro: this.selected_category_catastro, selected_classification_catastro: this.selected_classification_catastro});
    this.hasRucCode = false;
    if (event.row.establishment_ruc_code !== 'NULL') {
