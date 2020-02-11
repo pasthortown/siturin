@@ -4074,6 +4074,7 @@ guardarDeclaracion() {
    if (this.actividadSelected == '1') {
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
+         //AQUI
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
@@ -5060,7 +5061,6 @@ guardarDeclaracion() {
     this.selectedNameType = new RucNameType();
     return;
    }
-   console.log('AQUI');
   this.selectRegisterEstablishmentDeclaration(establishment);
   this.registersByEstablishment = [];
   let isAlojamiento = false;
