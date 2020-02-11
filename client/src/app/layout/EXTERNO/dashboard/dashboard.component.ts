@@ -3579,7 +3579,7 @@ guardarDeclaracion() {
          }
          const byteArray = new Uint8Array(byteNumbers);
          const blob = new Blob([byteArray], { type: 'application/pdf'});
-         if (this.idCausal == 0) {
+         if (this.idCausal !== 0) {
             let newRegisterProcedure = new RegisterProcedure();
             newRegisterProcedure.procedure_justification_id = this.idCausal;
             newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
@@ -3843,7 +3843,7 @@ guardarDeclaracion() {
          }
          const byteArray = new Uint8Array(byteNumbers);
          const blob = new Blob([byteArray], { type: 'application/pdf'});
-         if (this.idCausal == 0) {
+         if (this.idCausal !== 0) {
             let newRegisterProcedure = new RegisterProcedure();
             newRegisterProcedure.procedure_justification_id = this.idCausal;
             newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
