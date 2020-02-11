@@ -1116,7 +1116,7 @@
                                   <label>Clasificación</label><span *ngIf="categorySelectedCode == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="register_type_id" name="register_type_id"
-                                    (change)="getCategories()" [(ngModel)]="categorySelectedCode" [disabled]="true">
+                                    (change)="getCategories()" [(ngModel)]="categorySelectedCode" [disabled]="recategorizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
                                     <option value="-" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of clasifications_registers
@@ -4142,7 +4142,7 @@
                                   <label>Clasificación</label><span *ngIf="categorySelectedCode == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="register_type_id" name="register_type_id"
-                                    (change)="getCategories(true)" [(ngModel)]="categorySelectedCode" [disabled]="recategorizando || actualizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
+                                    (change)="getCategories(true)" [(ngModel)]="categorySelectedCode" [disabled]="recategorizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
                                     <option value="-" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of clasifications_registers
