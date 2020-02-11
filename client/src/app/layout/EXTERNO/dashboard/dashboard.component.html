@@ -1116,7 +1116,7 @@
                                   <label>Clasificación</label><span *ngIf="categorySelectedCode == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="register_type_id" name="register_type_id"
-                                    (change)="getCategories()" [(ngModel)]="categorySelectedCode" [disabled]="recategorizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
+                                    (change)="getCategories()" [(ngModel)]="categorySelectedCode" [disabled]="actualizando || recategorizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
                                     <option value="-" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of clasifications_registers
@@ -1135,7 +1135,7 @@
                                   <select class="form-control" id="register_type_id" name="register_type_id"
                                     (change)="getAllowedInfo()" [(ngModel)]="
                                       rucEstablishmentRegisterSelected.register_type_id
-                                    " [disabled]="(!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')"> 
+                                    " [disabled]="actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')"> 
                                     <option value="0" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of categories_registers
@@ -4142,7 +4142,7 @@
                                   <label>Clasificación</label><span *ngIf="categorySelectedCode == '-'"
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="register_type_id" name="register_type_id"
-                                    (change)="getCategories(true)" [(ngModel)]="categorySelectedCode" [disabled]="recategorizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
+                                    (change)="getCategories(true)" [(ngModel)]="categorySelectedCode" [disabled]="actualizando || recategorizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
                                     <option value="-" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of clasifications_registers
@@ -4161,7 +4161,7 @@
                                   <select class="form-control" id="register_type_id" name="register_type_id"
                                     (change)="changeCategory(true)" [(ngModel)]="
                                       rucEstablishmentRegisterSelected.register_type_id
-                                    " [disabled]="(!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')">
+                                    " [disabled]="actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')">
                                     <option value="0" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of categories_registers
