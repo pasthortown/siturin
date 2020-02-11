@@ -4076,12 +4076,16 @@ guardarDeclaracion() {
          this.register_types.forEach( cat_element => {
             if (cat_element.name == this.selected_classification_catastro) {
                this.categorySelectedCode = cat_element.code;
+               console.log(this.categorySelectedCode);
             }
          });
       }
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
          //AQUI
+         this.categories_registers.forEach( category_element => {
+
+         });
          console.log(this.categories_registers);
    // selected_category_catastro = '';
       }).catch( e => { console.log(e) });   
