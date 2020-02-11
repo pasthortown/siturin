@@ -4072,9 +4072,18 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
    if (this.actividadSelected == '1') {
+      if (this.selected_classification_catastro !== '') {
+         this.register_types.forEach( cat_element => {
+            if (cat_element.name == this.selected_classification_catastro) {
+               this.categorySelectedCode = cat_element.code;
+            }
+         });
+      }
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         console.log('AQUI');
+         //AQUI
+         console.log(this.categories_registers);
+   // selected_category_catastro = '';
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
