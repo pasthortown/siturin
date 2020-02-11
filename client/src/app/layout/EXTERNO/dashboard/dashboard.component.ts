@@ -5545,7 +5545,7 @@ guardarDeclaracion() {
   validateRegister(): Boolean {
       let toReturn: Boolean = false;
       if (this.actividadSelected == '1') {
-         if (this.esRegistro) {
+         if (this.esRegistro || this.selected_system_source == 'SIETE') {
             const c3 = (this.categorySelectedCode == '-');
             const c4 = (this.rucEstablishmentRegisterSelected.register_type_id == 0);
             const c5 = (this.rucEstablishmentRegisterSelected.total_spaces == 0);
