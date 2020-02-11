@@ -4075,9 +4075,8 @@ guardarDeclaracion() {
       if (this.selected_classification_catastro !== '') {
          this.register_types.forEach( cat_element => {
             if (cat_element.name == this.selected_classification_catastro) {
-               if (cat_element.father_code = this.regionSelectedCode) {
+               if (cat_element.father_code == this.regionSelectedCode) {
                   this.categorySelectedCode = cat_element.code;
-                  console.log(cat_element);
                }
             }
          });
