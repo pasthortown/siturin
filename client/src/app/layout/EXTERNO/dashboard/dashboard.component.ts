@@ -4073,6 +4073,7 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
    if (this.actividadSelected == '1') {
       if (this.selected_classification_catastro !== '') {
+         console.log(this.regionSelectedCode);
          this.register_types.forEach( cat_element => {
             if (cat_element.name == this.selected_classification_catastro) {
                this.categorySelectedCode = cat_element.code;
@@ -4084,10 +4085,11 @@ guardarDeclaracion() {
          this.categories_registers = r as any[];
          //AQUI
          this.categories_registers.forEach( category_element => {
-
+            if (category_element.name == this.selected_category_catastro) {
+               this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
+            }
          });
          console.log(this.categories_registers);
-   // selected_category_catastro = '';
       }).catch( e => { console.log(e) });   
    }
    if (this.actividadSelected == '2') {
