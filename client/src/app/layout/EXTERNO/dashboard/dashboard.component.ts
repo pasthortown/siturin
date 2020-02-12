@@ -2126,6 +2126,7 @@ export class DashboardComponent implements OnInit {
          if (element.id == row.id) {
             this.selectedRegister = element;
             let cambioEstado = false;
+            console.log(element);
             if(element.establishment_state.toUpperCase().trim() == "ACTIVO" || element.establishment_state.toUpperCase().trim() == "ABIERTO" || element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
                this.mostrarActualizar = true;
                this.mostrarActivar = false;
@@ -2168,10 +2169,8 @@ export class DashboardComponent implements OnInit {
                return;
             }
             this.mostrarDataRegisterMintur = true;
-            console.log(element);
             this.checkTramitEmitted(this.register_code);
             if (element.system_source == 'SITURIN') {
-               
                this.consultorDataService.get_register_by_code(this.register_code).then( r => {
                   const registerMintur = r[0];
                   this.selectRegisterMintur(registerMintur);
