@@ -5071,8 +5071,6 @@ guardarDeclaracion() {
     this.establishment_selected.address_number = establishment.address_number;
     this.establishment_selected.address_secondary_street = establishment.address_secondary_street;
     this.establishment_selected.sri_state = establishment.sri_state;
-    console.log(establishment);
-    //AQUI
     this.checkEstablishmentAddress();
     this.validateNombreComercial();
     this.selectedNameType = new RucNameType();
@@ -5083,6 +5081,10 @@ guardarDeclaracion() {
   let isAlojamiento = false;
   this.canAlimentosBebidas = true;
   this.canAlojamiento = true;
+  this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
+  this.establishment_selected.sri_state = establishment.sri_state;
+  console.log(establishment);
+    
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
