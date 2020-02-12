@@ -1225,7 +1225,6 @@ export class DashboardComponent implements OnInit {
 
   setCategory(type_id: number){
    let categoryCode = '';
-   this.actividadSelected = '-';
    this.register_typeDataService.get().then(r => {
       let types: RegisterType[] = r as RegisterType[];
       types.forEach(registerType => {
@@ -4545,6 +4544,7 @@ guardarDeclaracion() {
    this.establishment_declarations_selected = this.establishment_selected;
    this.establishment_selected.as_turistic_register_date = new Date();
    if (this.estaEnTabla) {
+      //AQUI
       this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
       }).catch(e => { console.log(e); });
       this.establishment_selected.as_turistic_register_date = this.register_as_turistic_Date;
@@ -5071,6 +5071,8 @@ guardarDeclaracion() {
     this.establishment_selected.address_number = establishment.address_number;
     this.establishment_selected.address_secondary_street = establishment.address_secondary_street;
     this.establishment_selected.sri_state = establishment.sri_state;
+    console.log(establishment);
+    //AQUI
     this.checkEstablishmentAddress();
     this.validateNombreComercial();
     this.selectedNameType = new RucNameType();
