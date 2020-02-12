@@ -2168,9 +2168,10 @@ export class DashboardComponent implements OnInit {
                return;
             }
             this.mostrarDataRegisterMintur = true;
+            console.log(element);
             this.checkTramitEmitted(this.register_code);
             if (element.system_source == 'SITURIN') {
-               console.log('entre');
+               
                this.consultorDataService.get_register_by_code(this.register_code).then( r => {
                   const registerMintur = r[0];
                   this.selectRegisterMintur(registerMintur);
