@@ -526,6 +526,7 @@ export class DashboardComponent implements OnInit {
    }
    this.hasRucCode = hasRucCode;
    this.selectedRegister = null;
+   this.establishment_selected_ruc_code_id = 'NULL';
    this.seleccionarRegistro();
   }
 
@@ -1560,15 +1561,21 @@ export class DashboardComponent implements OnInit {
             });
          }
       } else {
-         //AQUI
-         console.log(this.registers_mintur);
-         data.push({
-            selected: '',
-            code: item.ruc_code_id,
-            address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
-            name: item.commercially_known_name,
-            sri_state: item.sri_state,
+         let tieneRegistro = false;
+         this.registers_mintur.forEach( elem => {
+            if (elemen.establishment_ruc_code == item.ruc_code_id) {
+               tieneRegistro = true;
+            }
          });
+         if (!tieneRegistro) {
+            data.push({
+               selected: '',
+               code: item.ruc_code_id,
+               address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
+               name: item.commercially_known_name,
+               sri_state: item.sri_state,
+            });
+         }
       }
    });
    data.sort((previous: any, current: any) => {
