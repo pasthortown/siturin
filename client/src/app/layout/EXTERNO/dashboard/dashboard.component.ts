@@ -146,7 +146,7 @@ export class DashboardComponent implements OnInit {
    selected_category_catastro = '';
    selected_classification_catastro = '';
    mostrarInactivar = true;
-   selected_establishment_state = '';
+   selected_establishment_state: String = '';
    esRegistro = false;
    mostrarActualizarCapacidadesPrecios = true;
    registrando_antiguos = false;
@@ -5083,7 +5083,7 @@ guardarDeclaracion() {
   this.canAlojamiento = true;
   this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
   this.establishment_selected.sri_state = establishment.sri_state;
-  this.selected_establishment_state = establishment.sri_state;
+  this.selected_establishment_state = establishment.sri_state.toString();;
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
