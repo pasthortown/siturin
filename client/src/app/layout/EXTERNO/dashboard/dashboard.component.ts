@@ -5083,8 +5083,7 @@ guardarDeclaracion() {
   this.canAlojamiento = true;
   this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
   this.establishment_selected.sri_state = establishment.sri_state;
-  console.log(establishment);
-    
+  console.log(this.establishment_selected);
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
