@@ -2146,6 +2146,9 @@ export class DashboardComponent implements OnInit {
                this.mostrarActualizarCapacidadesPrecios = false;
                cambioEstado = true;
             }
+            if (element.system_source == 'SITURIN') {
+               cambioEstado = true;
+            }
             if (!cambioEstado) {
                this.mostrarActualizar = false;
                this.mostrarActivar = false;
