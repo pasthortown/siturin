@@ -1560,6 +1560,8 @@ export class DashboardComponent implements OnInit {
             });
          }
       } else {
+         //AQUI
+         console.log(this.registers_mintur);
          data.push({
             selected: '',
             code: item.ruc_code_id,
