@@ -1563,7 +1563,7 @@ export class DashboardComponent implements OnInit {
       } else {
          let tieneRegistro = false;
          this.registers_mintur.forEach( elem => {
-            if (elemen.establishment_ruc_code == item.ruc_code_id) {
+            if (elem.establishment_ruc_code == item.ruc_code_id) {
                tieneRegistro = true;
             }
          });
