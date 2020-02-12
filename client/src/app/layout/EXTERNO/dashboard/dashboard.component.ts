@@ -2087,6 +2087,7 @@ export class DashboardComponent implements OnInit {
    }
    if (event.row.activity == 'ALOJAMIENTO') {
       this.actividadSelected = '1';
+      console.log('es alojamiento');
    }
    this.register_code = event.row.register_code;
    this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
