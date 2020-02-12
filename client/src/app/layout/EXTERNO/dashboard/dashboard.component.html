@@ -127,6 +127,9 @@
   <div class="col-12">
     <div class="btn-toolbar" role="toolbar">
       <div class="btn-group" role="group" *ngIf="!registrando_antiguos">
+        <button class="btn btn-sm btn-light" (click)="solicitandoNuevaActualizacion()" *ngIf="cannuevaClasificacionAB && !nuevaClasificacionAB" [disabled]="!mostrarNuevaClasificacion">Solicitar Nueva Clasificación</button>
+        <button class="btn btn-sm btn-secondary" (click)="solicitandoNuevaActualizacion()" *ngIf="cannuevaClasificacionAB && nuevaClasificacionAB" [disabled]="!mostrarNuevaClasificacion">Solicitar Nueva Clasificación</button>
+        
         <button class="btn btn-sm btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
         <button class="btn btn-sm btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
         

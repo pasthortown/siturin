@@ -141,6 +141,7 @@ export class DashboardComponent implements OnInit {
    tramite = '-';
    tabActive = 'paso1';
    mostrarActualizar = true;
+   mostrarNuevaClasificacion = false;
    mostrarDeclarandoUnoMil = true;
    mostrarActivar = true;
    selected_category_catastro = '';
@@ -159,6 +160,7 @@ export class DashboardComponent implements OnInit {
    terminosCondicionesAgreement: Agreement = new Agreement();
    mostrarRecategorizar = true;
    actualizando = false;
+   nuevaClasificacionAB = false;
    declarandoUnoMil = false;
    mensajePorTipoTramite = '';
    activando = false;
@@ -421,6 +423,7 @@ export class DashboardComponent implements OnInit {
   maxYear: number = 2019;
   idRegister: number = 0;
   mostrarIngresoDatos = false;
+  cannuevaClasificacionAB = false;
 
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
@@ -1960,6 +1963,7 @@ export class DashboardComponent implements OnInit {
   actualizar() {
    this.mostrarCausales = false;
    this.actualizando = true;
+   this.nuevaClasificacionAB = false;
    this.activando = false;
    this.inactivando = false;
    this.reclasificando = false;
@@ -1971,8 +1975,33 @@ export class DashboardComponent implements OnInit {
    this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
   }
 
+  solicitandoNuevaActualizacion() {
+   this.mostrarCausales = false;
+   this.actualizando = false;
+   this.nuevaClasificacionAB = true;
+   this.activando = false;
+   this.inactivando = false;
+   this.reclasificando = false;
+   this.recategorizando = false;
+   this.actualizandoCapacidadesPrecios = false;
+   this.declarandoUnoMil = false;
+   this.mostrarIngresoDatos = true;
+   this.idCausal = 0;
+
+   this.estaEnTabla = false;
+   this.selected_system_source = '';
+   this.selected_category_catastro = '';
+   this.selected_classification_catastro = '';
+   this.esRegistro = true;
+   this.hasRucCode = true;
+   this.selectedRegister = null;
+
+   this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a solicitar una clasificación adicional para su establecimiento, tiene la opción de guardar la información en cualquier momento.';
+  }
+
   actualizarCapacidadesPrecios() {
    this.mostrarCausales = false;
+   this.nuevaClasificacionAB = false;
    this.actualizando = false;
    this.activando = false;
    this.inactivando = false;
@@ -1995,6 +2024,7 @@ export class DashboardComponent implements OnInit {
    this.activando = false;
    this.inactivando = true;
    this.reclasificando = false;
+   this.nuevaClasificacionAB = false;
    this.recategorizando = false;
    this.declarandoUnoMil = false;
    this.actualizandoCapacidadesPrecios = false;
@@ -2010,6 +2040,7 @@ export class DashboardComponent implements OnInit {
    this.activando = true;
    this.inactivando = false;
    this.mostrarIngresoDatos = true;
+   this.nuevaClasificacionAB = false;
    this.reclasificando = false;
    this.declarandoUnoMil = false;
    this.recategorizando = false;
@@ -2023,6 +2054,7 @@ export class DashboardComponent implements OnInit {
    this.activando = false;
    this.inactivando = false;
    this.declarandoUnoMil = false;
+   this.nuevaClasificacionAB = false;
    this.actualizandoCapacidadesPrecios = false;
    this.reclasificando = true;
    this.recategorizando = false;
@@ -2034,6 +2066,7 @@ export class DashboardComponent implements OnInit {
   recategorizacion() {
    this.mostrarCausales = false;
    this.actualizando = false;
+   this.nuevaClasificacionAB = false;
    this.activando = false;
    this.inactivando = false;
    this.reclasificando = false;
@@ -2047,6 +2080,7 @@ export class DashboardComponent implements OnInit {
 
   declararUnoMil() {
    this.mostrarCausales = false;
+   this.nuevaClasificacionAB = false;
    this.actualizando = false;
    this.activando = false;
    this.inactivando = false;
@@ -2084,9 +2118,11 @@ export class DashboardComponent implements OnInit {
   onCellClick(event) {
    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
       this.actividadSelected = '2';
+      this.cannuevaClasificacionAB = true;
    }
    if (event.row.activity == 'ALOJAMIENTO') {
       this.actividadSelected = '1';
+      this.cannuevaClasificacionAB = false;
    }
    this.register_code = event.row.register_code;
    this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
