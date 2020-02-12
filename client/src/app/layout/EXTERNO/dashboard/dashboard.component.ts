@@ -1225,7 +1225,7 @@ export class DashboardComponent implements OnInit {
 
   setCategory(type_id: number){
    let categoryCode = '';
-   this.actividadSelected = '-';
+   //this.actividadSelected = '-';
    this.register_typeDataService.get().then(r => {
       let types: RegisterType[] = r as RegisterType[];
       types.forEach(registerType => {
@@ -2087,7 +2087,6 @@ export class DashboardComponent implements OnInit {
    }
    if (event.row.activity == 'ALOJAMIENTO') {
       this.actividadSelected = '1';
-      console.log('es alojamiento');
    }
    this.register_code = event.row.register_code;
    this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
