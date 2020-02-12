@@ -1578,6 +1578,13 @@ export class DashboardComponent implements OnInit {
          }
       }
    });
+   if (data.length == 0) {
+      Swal.fire(
+         'No dispone de establecimientos adicionales.',
+         'El sistema ha validado que todos los establecimientos de su RUC cuentan con registro de turismo.',
+         'error'
+      );
+   }
    data.sort((previous: any, current: any) => {
       if (Number(previous.code) > Number(current.code)) {
          return 1;
