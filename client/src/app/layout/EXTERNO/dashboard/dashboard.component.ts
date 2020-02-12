@@ -2126,7 +2126,6 @@ export class DashboardComponent implements OnInit {
          if (element.id == row.id) {
             this.selectedRegister = element;
             let cambioEstado = false;
-            console.log(element);
             if(element.establishment_state.toUpperCase().trim() == "ACTIVO" || element.establishment_state.toUpperCase().trim() == "ABIERTO" || element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
                this.mostrarActualizar = true;
                this.mostrarActivar = false;
@@ -2140,17 +2139,6 @@ export class DashboardComponent implements OnInit {
             if(element.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || element.establishment_state.toUpperCase().trim() == "CERRADO") {
                this.mostrarActualizar = false;
                this.mostrarActivar = true;
-               this.mostrarDarBaja = false;
-               this.mostrarReclasificar = false;
-               this.mostrarRecategorizar = false; 
-               this.mostrarDeclarandoUnoMil = false;
-               this.mostrarActualizarCapacidadesPrecios = false;
-               cambioEstado = true;
-            }
-            if (!((element.system_source == 'SITURIN') || (element.system_source == 'SIETE'))) {
-               this.mostrarActualizar = true;
-               this.registrando_antiguos = true;
-               this.mostrarActivar = false;
                this.mostrarDarBaja = false;
                this.mostrarReclasificar = false;
                this.mostrarRecategorizar = false; 
