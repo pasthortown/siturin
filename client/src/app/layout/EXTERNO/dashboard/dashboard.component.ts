@@ -146,6 +146,7 @@ export class DashboardComponent implements OnInit {
    selected_category_catastro = '';
    selected_classification_catastro = '';
    mostrarInactivar = true;
+   selected_establishment_state = '';
    esRegistro = false;
    mostrarActualizarCapacidadesPrecios = true;
    registrando_antiguos = false;
@@ -4544,8 +4545,7 @@ guardarDeclaracion() {
    this.establishment_declarations_selected = this.establishment_selected;
    this.establishment_selected.as_turistic_register_date = new Date();
    if (this.estaEnTabla) {
-      //AQUI
-      this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
+      this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.selected_establishment_state).then( resp_cat => {
       }).catch(e => { console.log(e); });
       this.establishment_selected.as_turistic_register_date = this.register_as_turistic_Date;
    }
@@ -5083,7 +5083,7 @@ guardarDeclaracion() {
   this.canAlojamiento = true;
   this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
   this.establishment_selected.sri_state = establishment.sri_state;
-  console.log(this.establishment_selected);
+  this.selected_establishment_state = establishment.sri_state;
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
