@@ -2747,7 +2747,7 @@ export class DashboardComponent implements OnInit {
       }
    });
    if (this.registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS') {
-      if (this.capacitiesToShow.length == 0) {
+      if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
          const newCapacity = new CapacityAB();
          newCapacity.year = this.selected_year_id;
          this.capacitiesToShow.push(newCapacity);
@@ -4245,6 +4245,7 @@ guardarDeclaracion() {
          const newCapacity = new CapacityAB();
          newCapacity.year = today.getFullYear();
          this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+         this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
       }
       this.ruc_registro_selected.registers.forEach(element => {
          if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
