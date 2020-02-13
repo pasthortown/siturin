@@ -4253,7 +4253,7 @@ guardarDeclaracion() {
                   this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
                   this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
                   this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
-                  if (this.rucEstablishmentRegisterSelected.capacities_on_register == []) {
+                  if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
                      this.modificadoCapacidades = true;
                      const newCapacity = new CapacityAB();
                      newCapacity.year = today.getFullYear();
