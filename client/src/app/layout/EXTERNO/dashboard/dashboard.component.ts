@@ -2330,7 +2330,17 @@ export class DashboardComponent implements OnInit {
                categoria3.push(ub3);
             }
          });
-         categoria2Elements.push({categoria2: element_2, elementos: categoria3});
+         let categoria3Elements = [];
+         categoria3.forEach(element_3 => {
+            let categoria4 = [];
+            this.ubications.forEach(ub4 => {
+               if (ub4.father_code == element_3.code) {
+                  categoria4.push(ub4);
+               }
+            });
+            categoria3Elements.push({categoria3: element_3, elementos: categoria4});
+         });
+         categoria2Elements.push({categoria2: element_2, elementos: categoria3Elements});
       });
       mapper.push({categoria1: element, elementos: categoria2Elements});
    });
