@@ -3,6 +3,9 @@
      Gestión de Actividades Turísticas
   </h1>
 </div>
+<div class="row" *ngIf="true">
+  <button click="showUbicationsData()">Mostrar alertas de ubicación</button>
+</div>
 <div class="row">
   <div class="col-12">
     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
@@ -1074,10 +1077,10 @@
                                     <div class="onoffswitch">
                                       <input type="checkbox" class="onoffswitch-checkbox"  id="continueReview" (change)="continuarTramiteF()"
                                         name="continueReview" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="continueReview">
-                                                       <span class="onoffswitch-inner"></span>
-                                                       <span class="onoffswitch-switch"></span>
-                                                 </label>
-                                              </div>
+                                              <span class="onoffswitch-inner"></span>
+                                              <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
                                   </div>
                                 </div>
                               </div>

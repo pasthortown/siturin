@@ -2303,7 +2303,6 @@ export class DashboardComponent implements OnInit {
    this.ubications = [];
    this.ubicationDataService.get().then( r => {
       this.ubications = r as Ubication[];
-      this.showUbicationsData();
    }).catch( e => { console.log(e); });
   }
 
