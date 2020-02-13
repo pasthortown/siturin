@@ -1820,7 +1820,7 @@
   </div>
 </div>
 </div>
-<div style="width:100%;" *ngIf="declarandoUnoMil">
+<div style="width:100%;" *ngIf="declarandoUnoUnoMil">
   <div class="col-12">
     <div class="row mt-5">
       <div class="col-12 text-left">
@@ -5096,7 +5096,7 @@
                         (click)="pasos.select('paso2')">
                         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
                       </button>
-                      <button [disabled]="guardando" *ngIf="(!(actividadSelected == '2' && !rucEstablishmentRegisterSelected.editable)) && continuarTramite && (actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE')))" type="button" class="btn btn-success" title="Enviar Solicitud"
+                      <button [disabled]="guardando" *ngIf="(!(actividadSelected == '2' && !rucEstablishmentRegisterSelected.editable)) && continuarTramite && (actividadSelected !== '-' && (validateRegister() && !(actividadSelected == '2' && categoryAB.toUpperCase() == 'PENDIENTE'))) || actualizandoCapacidadesPrecios || actualizando" type="button" class="btn btn-success" title="Enviar Solicitud"
                         (click)="guardarRegistro()">
                         <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
                       </button>
