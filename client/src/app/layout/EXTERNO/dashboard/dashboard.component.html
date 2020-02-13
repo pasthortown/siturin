@@ -1158,13 +1158,27 @@
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
+                          <div class="col-12">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Año</span>
+                              </div>
+                              <select class="form-control" id="year_id" name="year_id"
+                                [(ngModel)]="selected_year_id" [disabled]="esRegistro" (change)="yearCapacity()">
+                                <option value="0" selected>Seleccione...</option>
+                                <option *ngFor="
+                                    let year of years
+                                  " value="{{ year.value }}">
+                                  {{ year.value }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
                         </div>
                         <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
-                        </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && continuarTramite">
                           <div class="col-12">
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
