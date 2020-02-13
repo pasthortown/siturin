@@ -2340,7 +2340,7 @@ export class DashboardComponent implements OnInit {
                }
             });
             categoria3Elements.push({categoria3: element_3, elementos: categoria4});
-            if (categoria4 == []) {
+            if (categoria4.length == 0) {
                alertas.push({categoria3: element_3, elementos: categoria4});
             }
          });
