@@ -2319,10 +2319,20 @@ export class DashboardComponent implements OnInit {
       let categoria2 = [];
       this.ubications.forEach(ub2 => {
          if (ub2.father_code == element.code) {
-            categoria2.push(element);
+            categoria2.push(ub2);
          }
       });
-      mapper.push({categoria1: element, elementos: categoria2});
+      let categoria2Elements = [];
+      categoria2.forEach(element_2 => {
+         let categoria3 = [];
+         this.ubications.forEach(ub3 => {
+            if (ub3.father_code == element_2.code) {
+               categoria3.push(ub3);
+            }
+         });
+         categoria2Elements.push({categoria2: element_2, elementos: categoria3});
+      });
+      mapper.push({categoria1: element, elementos: categoria2Elements});
    });
    console.log(mapper);
   }
