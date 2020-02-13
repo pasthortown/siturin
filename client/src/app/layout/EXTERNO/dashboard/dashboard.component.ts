@@ -2303,7 +2303,28 @@ export class DashboardComponent implements OnInit {
    this.ubications = [];
    this.ubicationDataService.get().then( r => {
       this.ubications = r as Ubication[];
+      this.showUbicationsData();
    }).catch( e => { console.log(e); });
+  }
+
+  showUbicationsData() {
+   let mapper = [];
+   let primeros = [];
+   this.ubications.forEach(element => {
+      if (element.father_code == '-') {
+         primeros.push(element);
+      }
+   });
+   primeros.forEach(element => {
+      let categoria2 = [];
+      this.ubications.forEach(ub2 => {
+         if (ub2.father_code == element.code) {
+            categoria2.push(element);
+         }
+      });
+      mapper.push({categoria1: element, elementos: categoria2});
+   });
+   console.log(mapper);
   }
 
   checkIfIsAssigned() {
