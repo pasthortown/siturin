@@ -4233,12 +4233,14 @@ guardarDeclaracion() {
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
       this.showRegisterABInfo();
-      this.categories_registers = [];
-      this.registerTypesAB.forEach( element => {
-         if (element.father_code == this.categorySelectedCode) {
-            this.categories_registers.push(element);
-         }
-      });
+      if (this.categorySelectedCode !== '-') {
+         this.categories_registers = [];
+         this.registerTypesAB.forEach( element => {
+            if (element.father_code == this.categorySelectedCode) {
+               this.categories_registers.push(element);
+            }
+         });
+      }
    }
   }
 
