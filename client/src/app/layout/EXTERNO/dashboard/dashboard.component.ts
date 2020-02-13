@@ -1249,8 +1249,10 @@ export class DashboardComponent implements OnInit {
                this.clasifications_registers.push(element);
             }
          }
-         //AQUI
-         
+      });
+      this.categories_registers = [];
+      this.registerTypesAB.forEach(element => {
+         this.categories_registers.push(element);
       });
    }).catch( e => { console.log(e); });
   }
@@ -4187,10 +4189,7 @@ guardarDeclaracion() {
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
-      this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
-         this.categories_registers = r as any[];
-         this.showRegisterABInfo();
-      }).catch( e => { console.log(e) });
+      this.showRegisterABInfo();
    }
   }
 
@@ -4241,7 +4240,7 @@ guardarDeclaracion() {
             capacity.isNewCapacity = false;
          });
          this.getYears();
-         this.setABCategory();
+         this.setABCategory(r.register.register_type_id);
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.getRequisitesABByRegisterType(r.requisites);
          this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
