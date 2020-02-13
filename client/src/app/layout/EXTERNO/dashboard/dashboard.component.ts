@@ -4182,7 +4182,7 @@ guardarDeclaracion() {
       this.modificadoCapacidades = true;
       const newCapacity = new CapacityAB();
       newCapacity.year = today.getFullYear();
-      if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
+      if (this.capacitiesToShow.length == 0) {
          this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       }
       this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
