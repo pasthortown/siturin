@@ -2310,6 +2310,7 @@ export class DashboardComponent implements OnInit {
   showUbicationsData() {
    let mapper = [];
    let primeros = [];
+   let alertas = [];
    this.ubications.forEach(element => {
       if (element.father_code == '-') {
          primeros.push(element);
@@ -2339,12 +2340,16 @@ export class DashboardComponent implements OnInit {
                }
             });
             categoria3Elements.push({categoria3: element_3, elementos: categoria4});
+            if (categoria4 == []) {
+               alertas.push({categoria3: element_3, elementos: categoria4});
+            }
          });
          categoria2Elements.push({categoria2: element_2, elementos: categoria3Elements});
       });
       mapper.push({categoria1: element, elementos: categoria2Elements});
    });
    console.log(mapper);
+   console.log(alertas);
   }
 
   checkIfIsAssigned() {
