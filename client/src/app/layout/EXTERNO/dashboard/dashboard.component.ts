@@ -4400,7 +4400,6 @@ guardarDeclaracion() {
   }
 
   calcTotalPoints() {
-     console.log('entre');
    let totalScore = 0;
    let totalScoreShown = 0;
    let totalAviable = 0;
@@ -4423,6 +4422,8 @@ guardarDeclaracion() {
       this.totalABPuntos = totalScore;
       this.totalABPuntosShown = totalScoreShown;
    }
+   console.log(this.totalABPuntos);
+   console.log(this.totalABPuntosShown);
    this.totalAbPointsSelected = totalScoreShown;
    this.totalAviable = totalAviable;
    this.categoryAB = 'Pendiente';
