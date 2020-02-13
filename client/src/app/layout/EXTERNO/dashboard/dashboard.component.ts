@@ -4162,7 +4162,6 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.register_AlimentosBebidas_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         console.log('entre');
          this.showRegisterABInfo();
       }).catch( e => { console.log(e) });
    }
@@ -4172,6 +4171,7 @@ guardarDeclaracion() {
    const today = new Date();
    if (this.esRegistro) {
       let encontrado = false;
+      console.log('aqui no');
       this.ruc_registro_selected.registers.forEach(element => {
          if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
             encontrado = true;
@@ -4203,6 +4203,7 @@ guardarDeclaracion() {
       });
       this.getYears();
    } else {
+      console.log('aqui si');
       this.registerABDataService.get_register_data(this.registerMinturSelected.register.id).then( r => {
          this.rucEstablishmentRegisterSelected = r.register as Register;
          this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
