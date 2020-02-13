@@ -2307,48 +2307,52 @@ export class DashboardComponent implements OnInit {
   }
 
   showUbicationsData() {
-   let mapper = [];
-   let primeros = [];
-   let alertas = [];
-   this.ubications.forEach(element => {
-      if (element.father_code == '-') {
-         primeros.push(element);
-      }
-   });
-   primeros.forEach(element => {
-      let categoria2 = [];
-      this.ubications.forEach(ub2 => {
-         if (ub2.father_code == element.code) {
-            categoria2.push(ub2);
+   this.ubications = [];
+   this.ubicationDataService.get().then( r => {
+      this.ubications = r as Ubication[];
+      let mapper = [];
+      let primeros = [];
+      let alertas = [];
+      this.ubications.forEach(element => {
+         if (element.father_code == '-') {
+            primeros.push(element);
          }
       });
-      let categoria2Elements = [];
-      categoria2.forEach(element_2 => {
-         let categoria3 = [];
-         this.ubications.forEach(ub3 => {
-            if (ub3.father_code == element_2.code) {
-               categoria3.push(ub3);
+      primeros.forEach(element => {
+         let categoria2 = [];
+         this.ubications.forEach(ub2 => {
+            if (ub2.father_code == element.code) {
+               categoria2.push(ub2);
             }
          });
-         let categoria3Elements = [];
-         categoria3.forEach(element_3 => {
-            let categoria4 = [];
-            this.ubications.forEach(ub4 => {
-               if (ub4.father_code == element_3.code) {
-                  categoria4.push(ub4);
+         let categoria2Elements = [];
+         categoria2.forEach(element_2 => {
+            let categoria3 = [];
+            this.ubications.forEach(ub3 => {
+               if (ub3.father_code == element_2.code) {
+                  categoria3.push(ub3);
                }
             });
-            categoria3Elements.push({categoria3: element_3, elementos: categoria4});
-            if (categoria4.length == 0) {
-               alertas.push({categoria3: element_3, elementos: categoria4});
-            }
+            let categoria3Elements = [];
+            categoria3.forEach(element_3 => {
+               let categoria4 = [];
+               this.ubications.forEach(ub4 => {
+                  if (ub4.father_code == element_3.code) {
+                     categoria4.push(ub4);
+                  }
+               });
+               categoria3Elements.push({categoria3: element_3, elementos: categoria4});
+               if (categoria4.length == 0) {
+                  alertas.push({categoria3: element_3, elementos: categoria4});
+               }
+            });
+            categoria2Elements.push({categoria2: element_2, elementos: categoria3Elements});
          });
-         categoria2Elements.push({categoria2: element_2, elementos: categoria3Elements});
+         mapper.push({categoria1: element, elementos: categoria2Elements});
       });
-      mapper.push({categoria1: element, elementos: categoria2Elements});
-   });
-   console.log(mapper);
-   console.log(alertas);
+      console.log(mapper);
+      console.log(alertas);
+   }).catch( e => { console.log(e); });
   }
 
   checkIfIsAssigned() {
