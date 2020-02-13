@@ -2701,6 +2701,7 @@ export class DashboardComponent implements OnInit {
       if (this.capacitiesToShow.length == 0) {
          const newCapacity = new CapacityAB();
          newCapacity.year = this.selected_year_id;
+         console.log('y yo');
          this.capacitiesToShow.push(newCapacity);
       }
    }
@@ -4183,6 +4184,7 @@ guardarDeclaracion() {
       const newCapacity = new CapacityAB();
       newCapacity.year = today.getFullYear();
       if (this.capacitiesToShow.length == 0) {
+         console.log('entre');
          this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
       }
       this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
@@ -4216,6 +4218,7 @@ guardarDeclaracion() {
                      this.modificadoCapacidades = true;
                      const newCapacity = new CapacityAB();
                      newCapacity.year = today.getFullYear();
+                     console.log('yo tambien');
                      this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
                   }
                   this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
