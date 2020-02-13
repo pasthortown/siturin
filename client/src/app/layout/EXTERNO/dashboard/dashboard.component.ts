@@ -4233,6 +4233,12 @@ guardarDeclaracion() {
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
       this.showRegisterABInfo();
+      this.categories_registers = [];
+      this.registerTypesAB.forEach( element => {
+         if (element.father_code == this.categorySelectedCode) {
+            this.categories_registers.push(element);
+         }
+      });
    }
   }
 
@@ -4408,7 +4414,7 @@ guardarDeclaracion() {
       totalAviable += element.score * 1;
       if (element.fullfill) {
          if (!element.mandatory) {
-            totalScore += element.score;
+            totalScore += element.score * 1;
             totalScoreShown += element.score * 1;
          } else {
             totalAviableExtra += element.score * 1;
