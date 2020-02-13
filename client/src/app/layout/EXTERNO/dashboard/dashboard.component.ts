@@ -4240,6 +4240,12 @@ guardarDeclaracion() {
    const today = new Date();
    if (this.esRegistro) {
       let encontrado = false;
+      if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
+         this.modificadoCapacidades = true;
+         const newCapacity = new CapacityAB();
+         newCapacity.year = today.getFullYear();
+         this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
+      }
       this.ruc_registro_selected.registers.forEach(element => {
          if (element.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
             encontrado = true;
