@@ -148,6 +148,7 @@ export class DashboardComponent implements OnInit {
    selected_classification_catastro = '';
    mostrarInactivar = true;
    selected_establishment_state: String = '';
+   incomming_requisites = [];
    esRegistro = false;
    mostrarActualizarCapacidadesPrecios = true;
    registrando_antiguos = false;
@@ -1254,6 +1255,7 @@ export class DashboardComponent implements OnInit {
       this.registerTypesAB.forEach(element => {
          this.categories_registers.push(element);
       });
+      this.getRequisitesABByRegisterType(this.incomming_requisites);
    }).catch( e => { console.log(e); });
   }
 
@@ -4232,21 +4234,20 @@ guardarDeclaracion() {
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
-      console.log(this.categorySelectedCode);
-      if (this.categorySelectedCode !== '-') {
-         this.categories_registers = [];
-         this.registerTypesAB.forEach( element => {
-            if (element.father_code == this.categorySelectedCode) {
-               this.categories_registers.push(element);
-            }
-         });
-      }
       this.showRegisterABInfo();
    }
   }
 
   showRegisterABInfo() {
    const today = new Date();
+   if (this.categorySelectedCode !== '-') {
+      this.categories_registers = [];
+      this.registerTypesAB.forEach( element => {
+         if (element.father_code == this.categorySelectedCode) {
+            this.categories_registers.push(element);
+         }
+      });
+   }
    if (this.esRegistro) {
       let encontrado = false;
       if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
@@ -4301,7 +4302,7 @@ guardarDeclaracion() {
          this.getYears();
          this.setABCategory(r.register.register_type_id);
          this.rucEstablishmentRegisterSelected.requisites = [];
-         this.getRequisitesABByRegisterType(r.requisites);
+         this.incomming_requisites = r.requisites;
          this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
          this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
          this.getListaPrecios(r.register.id);
@@ -4386,7 +4387,6 @@ guardarDeclaracion() {
          }
          this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
       });
-      console.log(this.rucEstablishmentRegisterSelected.requisites);
       this.showRequisites = true;
       if (typeof requisites !== 'undefined') {
          this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
