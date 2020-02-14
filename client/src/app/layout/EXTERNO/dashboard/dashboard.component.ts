@@ -4232,7 +4232,6 @@ guardarDeclaracion() {
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
-      this.showRegisterABInfo();
       if (this.categorySelectedCode !== '-') {
          this.categories_registers = [];
          this.registerTypesAB.forEach( element => {
@@ -4241,6 +4240,7 @@ guardarDeclaracion() {
             }
          });
       }
+      this.showRegisterABInfo();
    }
   }
 
@@ -4386,7 +4386,7 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
       });
       console.log(this.rucEstablishmentRegisterSelected.requisites);
-      this.showRequisites  = true;
+      this.showRequisites = true;
       if (typeof requisites !== 'undefined') {
          this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
             requisites.forEach(requisite_incomming => {
