@@ -4224,6 +4224,7 @@ selectKitchenType(kitchenType: KitchenType) {
                   tariffs.push(newTariff);
                }
             });
+            console.log(this.tarifarioResponse);
             tariffs.forEach(element => {
                this.tarifarioResponse.forEach(tariff => {
                   if (tariff.capacity_type_id == element.capacity_type_id) {
