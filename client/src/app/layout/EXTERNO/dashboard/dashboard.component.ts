@@ -4210,7 +4210,7 @@ guardarDeclaracion() {
       }
       this.register_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
          this.categories_registers = r as any[];
-         if (this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE') {
+         if ((this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE') || this.recategorizando || this.reclasificando) {
             this.categories_registers.forEach( category_element => {
                if (category_element.name == this.selected_category_catastro) {
                   this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
