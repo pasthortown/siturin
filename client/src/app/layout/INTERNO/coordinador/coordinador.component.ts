@@ -4206,39 +4206,60 @@ selectKitchenType(kitchenType: KitchenType) {
                template: 1, qr: true, qr_value: qr_value, params: params
             }
             const tariffs = [];
-            this.tarifarioResponse.forEach(tariff => {
-               const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0};
+            console.log(this.tarifarioResponse);
+            const years = [];
+            let last_year = 0;
+            this.tarifarioResponse.forEach(tariffResponse => {
                let existe = false;
-               tariffs.forEach(element => {
-                  if (element.capacity_type_id == tariff.capacity_type_id) {
+               years.forEach(year => {
+                  if (year == tariffResponse.year) {
                      existe = true;
+                     if (year > last_year) {
+                        last_year = year;
+                     }
                   }
                });
                if (!existe) {
-                  this.capacity_types.forEach(element => {
-                     if (element.id == tariff.capacity_type_id) {
-                        newTariff.type = element.name.toString();
-                        newTariff.capacity_type_id = tariff.capacity_type_id;
-                     }
-                  });
-                  tariffs.push(newTariff);
+                  years.push(tariffResponse.year);
                }
             });
-            console.log(this.tarifarioResponse);
+            this.tarifarioResponse.forEach(tariff => {
+               if (tariff.year == last_year) {
+                  const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0, year: 0};
+                  let existe = false;
+                  tariffs.forEach(element => {
+                     if (element.capacity_type_id == tariff.capacity_type_id) {
+                        existe = true;
+                     }
+                  });
+                  if (!existe) {
+                     this.capacity_types.forEach(element => {
+                        if (element.id == tariff.capacity_type_id) {
+                           newTariff.type = element.name.toString();
+                           newTariff.capacity_type_id = tariff.capacity_type_id;
+                        }
+                     });
+                     tariffs.push(newTariff);
+                  }
+               }
+            });
             tariffs.forEach(element => {
                this.tarifarioResponse.forEach(tariff => {
-                  if (tariff.capacity_type_id == element.capacity_type_id) {
-                     if (tariff.tariff_type_id == 3) {
-                        element.habitacion_baja = tariff.price;
-                     }
-                     if (tariff.tariff_type_id == 5) {
-                        element.habitacion_alta = tariff.price;
-                     }
-                     if (tariff.tariff_type_id == 4) {
-                        element.persona_baja = tariff.price;
-                     }
-                     if (tariff.tariff_type_id == 6) {
-                        element.persona_alta = tariff.price;
+                  if (tariff.year == last_year) {
+                     if (tariff.capacity_type_id == element.capacity_type_id) {
+                        if (tariff.tariff_type_id == 3) {
+                           element.habitacion_baja = tariff.price;
+                        }
+                        if (tariff.tariff_type_id == 5) {
+                           element.habitacion_alta = tariff.price;
+                        }
+                        if (tariff.tariff_type_id == 4) {
+                           element.persona_baja = tariff.price;
+                        }
+                        if (tariff.tariff_type_id == 6) {
+                           element.persona_alta = tariff.price;
+                        }
+                        element.year = tariff.year;
                      }
                   }
                });
