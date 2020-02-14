@@ -4298,7 +4298,6 @@ guardarDeclaracion() {
             capacity.isNewCapacity = false;
          });
          this.getYears();
-         console.log('entre');
          this.setABCategory(r.register.register_type_id);
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.getRequisitesABByRegisterType(r.requisites);
@@ -4386,6 +4385,7 @@ guardarDeclaracion() {
          }
          this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
       });
+      console.log(this.rucEstablishmentRegisterSelected.requisites);
       this.showRequisites  = true;
       if (typeof requisites !== 'undefined') {
          this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
