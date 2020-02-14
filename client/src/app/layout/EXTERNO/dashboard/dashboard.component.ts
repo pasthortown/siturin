@@ -4298,6 +4298,7 @@ guardarDeclaracion() {
             capacity.isNewCapacity = false;
          });
          this.getYears();
+         console.log('entre');
          this.setABCategory(r.register.register_type_id);
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.getRequisitesABByRegisterType(r.requisites);
