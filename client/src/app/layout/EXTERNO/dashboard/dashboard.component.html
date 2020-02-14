@@ -4813,7 +4813,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="actualizandoCapacidadesPrecios || (continuarTramite && (((!actualizando || esRegistro) && (categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0))) || registrando_antiguos))">
+                        <div class="row" *ngIf="reclasificando || recategorizando || (continuarTramite && (((!actualizando || esRegistro) && (categorySelectedCode !== '-' && (actividadSelected == '2' || rucEstablishmentRegisterSelected.register_type_id !== 0))) || registrando_antiguos))">
                           <div class="col-12">
                             <div class="row mt-3">
                                 <h4 class="col-12">
