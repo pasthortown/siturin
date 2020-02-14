@@ -3569,7 +3569,7 @@ guardarDeclaracion() {
          return;
       }
    }
-   if (!(this.actualizando || this.inactivando)) {
+   if (!(this.actualizando || this.inactivando || this.actualizandoCapacidadesPrecios)) {
       let mostradoError = false;
       this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
          if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
@@ -3796,7 +3796,7 @@ guardarDeclaracion() {
          return;
       }
    }
-   if (!(this.actualizando || this.inactivando)) {
+   if (!(this.actualizando || this.inactivando || this.actualizandoCapacidadesPrecios)) {
       if (this.certificadoUsoSuelo.floor_authorization_certificate_file === ''){
          this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
          return;
