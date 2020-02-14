@@ -5222,6 +5222,7 @@ guardarDeclaracion() {
   this.establishment_selected.sri_state = establishment.sri_state;
   this.selected_establishment_state = establishment.sri_state.toString();;
   this.ruc_registro_selected.registers.forEach(register => {
+     console.log(register);
      if (register.establishment.id == establishment.id) {
        this.registersByEstablishment.push(register);
        if (register.activity == "ALOJAMIENTO") {
