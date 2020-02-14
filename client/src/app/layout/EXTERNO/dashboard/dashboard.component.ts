@@ -4232,6 +4232,7 @@ guardarDeclaracion() {
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
       this.rucEstablishmentRegisterSelected.editable = true;
+      console.log(this.categorySelectedCode);
       if (this.categorySelectedCode !== '-') {
          this.categories_registers = [];
          this.registerTypesAB.forEach( element => {
