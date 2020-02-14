@@ -2331,51 +2331,76 @@ export class InspectorComponent implements OnInit {
                      this.tarifarioResponse = r3 as Tariff[];
                      const capacities = [];
                      const capacities_on_register = r0.capacities_on_register;
+                     const years = [];
+                     let last_year = 0;
                      capacities_on_register.forEach(capacity => {
-                        const newCapacity = {type: '', spaces: 0, habitaciones: 0, beds: 0};
-                        newCapacity.habitaciones = capacity.quantity;
-                        newCapacity.spaces = capacity.max_spaces;
-                        newCapacity.beds = capacity.max_beds;
-                        this.capacity_types.forEach(element => {
-                              if (element.id == capacity.capacity_type_id) {
-                                 newCapacity.type = element.name.toString();
-                              }
-                        });
-                        capacities.push(newCapacity);
-                     });
-                     const tariffs = [];
-                     this.tarifarioResponse.forEach(tariff => {
-                        const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0};
                         let existe = false;
-                        tariffs.forEach(element => {
-                           if (element.capacity_type_id == tariff.capacity_type_id) {
+                        years.forEach(year => {
+                           if (capacity.year == year) {
                               existe = true;
+                              if (year > last_year) {
+                                 last_year = year;
+                              }
                            }
                         });
                         if (!existe) {
+                           years.push(capacity.year);
+                        }
+                     });   
+                     capacities_on_register.forEach(capacity => {
+                        if (capacity.year == last_year) {
+                           const newCapacity = {type: '', spaces: 0, habitaciones: 0, beds: 0, year: 0};
+                           newCapacity.habitaciones = capacity.quantity;
+                           newCapacity.spaces = capacity.max_spaces;
+                           newCapacity.beds = capacity.max_beds;
+                           newCapacity.year = capacity.year;
                            this.capacity_types.forEach(element => {
-                              if (element.id == tariff.capacity_type_id) {
-                                 newTariff.type = element.name.toString();
-                                 newTariff.capacity_type_id = tariff.capacity_type_id;
+                                 if (element.id == capacity.capacity_type_id) {
+                                    newCapacity.type = element.name.toString();
+                                 }
+                           });
+                           capacities.push(newCapacity);
+                        }
+                     });
+                     const tariffs = [];
+                     this.tarifarioResponse.forEach(tariff => {
+                        if (tariff.year == last_year) {
+                           const newTariff = {capacity_type_id: 0, type: '', habitacion_alta: 0, habitacion_baja: 0, persona_alta: 0, persona_baja: 0, year: 0};
+                           let existe = false;
+                           tariffs.forEach(element => {
+                              if (element.capacity_type_id == tariff.capacity_type_id) {
+                                 existe = true;
                               }
                            });
-                           tariffs.push(newTariff);
+                           if (!existe) {
+                              this.capacity_types.forEach(element => {
+                                 if (element.id == tariff.capacity_type_id) {
+                                    newTariff.type = element.name.toString();
+                                    newTariff.capacity_type_id = tariff.capacity_type_id;
+                                    newTariff.year = tariff.year;
+                                 }
+                              });
+                              tariffs.push(newTariff);
+                           }
                         }
                      });
                      tariffs.forEach(element => {
                         this.tarifarioResponse.forEach(tariff => {
-                           if (tariff.capacity_type_id == element.capacity_type_id) {
-                              if (tariff.tariff_type_id == 3) {
-                                 element.habitacion_baja = tariff.price;
-                              }
-                              if (tariff.tariff_type_id == 5) {
-                                 element.habitacion_alta = tariff.price;
-                              }
-                              if (tariff.tariff_type_id == 4) {
-                                 element.persona_baja = tariff.price;
-                              }
-                              if (tariff.tariff_type_id == 6) {
-                                 element.persona_alta = tariff.price;
+                           if (tariff.year == last_year) {
+                              if (tariff.capacity_type_id == element.capacity_type_id) {
+                                 element.year = tariff.year;
+                                 if (tariff.tariff_type_id == 3) {
+                                    element.habitacion_baja = tariff.price;
+                                 }
+                                 if (tariff.tariff_type_id == 5) {
+                                    element.habitacion_alta = tariff.price;
+                                 }
+                                 if (tariff.tariff_type_id == 4) {
+                                    element.persona_baja = tariff.price;
+                                 }
+                                 if (tariff.tariff_type_id == 6) {
+                                    element.persona_alta = tariff.price;
+                                 }
                               }
                            }
                         });
