@@ -486,7 +486,7 @@
             </ul>
          </li>
       </div>
-      <a [routerLink]="['/externo-dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!cuentaInterna">
+      <a [routerLink]="['/externo-dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!cuentaInterna && !isAdmin">
          <i class="fas fa-newspaper"></i>&nbsp; <span>&nbsp;Gestión de Actividades Turísticas</span>
       </a>
       <div class="nested-menu">
