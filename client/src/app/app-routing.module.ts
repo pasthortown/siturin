@@ -16,6 +16,10 @@ const routes: Routes = [
       loadChildren: './inactivacion/inactivacion.module#InactivacionModule'
   },
   {
+      path: 'password-recovery',
+      loadChildren: './password-recovery/password-recovery.module#PasswordRecoveryModule'
+  },
+  {
       path: '',
       loadChildren: './layout/layout.module#LayoutModule',
       canActivate: [AuthGuard]
