@@ -17,6 +17,13 @@ export class RegisterService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
+   last_tramit_state(ruc_number: String): Promise<any> {
+      return this.http.get(this.url + 'last_tramit_state?ruc=' + ruc_number, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }   
+   
    register_register_data(register: Register): Promise<any> {
       return this.http.post(this.url + 'register_register_data', JSON.stringify(register), this.options).toPromise()
       .then( r => {

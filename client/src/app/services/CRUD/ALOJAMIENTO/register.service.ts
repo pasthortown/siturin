@@ -23,7 +23,14 @@ export class RegisterService {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
    }   
-
+   
+   last_tramit_state(ruc_number: String): Promise<any> {
+      return this.http.get(this.url + 'last_tramit_state?ruc=' + ruc_number, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json()); });
+   }   
+   
    get(id?: number): Promise<any> {
       if (typeof id === 'undefined') {
          return this.http.get(this.url, this.options).toPromise()

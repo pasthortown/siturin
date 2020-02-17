@@ -149,6 +149,7 @@ export class DashboardComponent implements OnInit {
    mostrarInactivar = true;
    selected_establishment_state: String = '';
    incomming_requisites = [];
+   my_tramits = [];
    esRegistro = false;
    mostrarActualizarCapacidadesPrecios = true;
    registrando_antiguos = false;
@@ -3264,6 +3265,19 @@ export class DashboardComponent implements OnInit {
    this.declarations = [];
     this.declarationDataService.get_by_establishment(id).then( r => {
        this.declarations = r as Declaration[];
+       this.my_tramits = [];
+       this.registerABDataService.last_tramit_state(this.ruc_registro_selected.ruc.number).then(response_last_tramit_state => {
+         const myTramitsAB = response_last_tramit_state as any[];
+         myTramitsAB.forEach(element => {
+            this.my_tramits.push(element);
+         })
+       }).catch( e => { console.log(e); });
+       this.registerDataService.last_tramit_state(this.ruc_registro_selected.ruc.number).then(response_last_tramit_state => {
+         const myTramits = response_last_tramit_state as any[];
+         myTramits.forEach(element => {
+            this.my_tramits.push(element);
+         })
+       }).catch( e => { console.log(e); });
     }).catch( e => { console.log(e); });
   }
 
