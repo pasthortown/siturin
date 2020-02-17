@@ -332,6 +332,7 @@ export class RegisterComponent implements OnInit {
     }
     if (this.user.email.split('@')[1] == 'turismo.gob.ec') {
        this.cuentaInterno = true;
+       return false;
     } else {
       this.cuentaInterno = false;
     }
