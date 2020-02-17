@@ -2813,7 +2813,7 @@
                                     <i class="fas fa-trash"></i>
                                   </button>
                                 </div>
-                                <input type="file" class="form-control" [disabled]="balance.declaration_attachment_file === '' || declaration.bloqued || !declaration.editable" (change)="
+                                <input type="file" class="form-control" [disabled]="declaration.bloqued || !declaration.editable" (change)="
                                       CodificarArchivoBalance(
                                         $event
                                       )
@@ -3938,7 +3938,7 @@
                                     <i class="fas fa-trash"></i>
                                   </button>
                                 </div>
-                                <input type="file" class="form-control" [disabled]="balance.declaration_attachment_file === '' || declaration.bloqued || !declaration.editable" (change)="
+                                <input type="file" class="form-control" [disabled]="declaration.bloqued || !declaration.editable" (change)="
                                       CodificarArchivoBalance(
                                         $event
                                       )
