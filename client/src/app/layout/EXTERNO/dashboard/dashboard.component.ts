@@ -1253,8 +1253,11 @@ export class DashboardComponent implements OnInit {
       });
       this.categories_registers = [];
       this.registerTypesAB.forEach(element => {
-         this.categories_registers.push(element);
+         if (element.father_code == this.categorySelectedCode) {
+            this.categories_registers.push(element);
+         }
       });
+      console.log(this.categories_registers);
       this.getRequisitesABByRegisterType(this.incomming_requisites);
    }).catch( e => { console.log(e); });
   }
@@ -4300,8 +4303,6 @@ guardarDeclaracion() {
             capacity.isNewCapacity = false;
          });
          this.getYears();
-         //AQUI
-         console.log(r.register.register_type_id);
          this.setABCategory(r.register.register_type_id);
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.incomming_requisites = r.requisites;
