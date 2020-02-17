@@ -2765,7 +2765,7 @@
                                       <td>{{declaration.year}}</td>
                                       <td>{{declaration.declaration_date}}</td>
                                       <td>
-                                        <button type="button" title="Borrar" class="btn btn-danger" (click)="borrarDeclaration(declaration)">
+                                        <button type="button" title="Borrar" class="btn btn-danger" [disabled]="(declaration.year < thisyear) || declaration.bloqued" (click)="borrarDeclaration(declaration)">
                                           <i class="fas fa-trash"></i>
                                         </button>
                                       </td>
@@ -3890,7 +3890,7 @@
                                       <td>{{declaration.year}}</td>
                                       <td>{{declaration.declaration_date}}</td>
                                       <td>
-                                        <button type="button" [disabled]="declaration.year < thisyear" title="Borrar" class="btn btn-danger" (click)="borrarDeclaration(declaration)">
+                                        <button type="button" [disabled]="(declaration.year < thisyear) || declaration.bloqued" title="Borrar" class="btn btn-danger" (click)="borrarDeclaration(declaration)">
                                           <i class="fas fa-trash"></i>
                                         </button>
                                       </td>

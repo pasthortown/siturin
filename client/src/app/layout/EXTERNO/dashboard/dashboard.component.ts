@@ -3277,14 +3277,12 @@ export class DashboardComponent implements OnInit {
             this.my_tramits.forEach(tramit => {
                const tramit_date = new Date(tramit.created_at.toString());
                const tramit_year = tramit_date.getFullYear();
-               console.log(tramit_date);
-               console.log(tramit_year);
                if (declaration.year == tramit_year) {
                   declaration.bloqued = true;
+                  declaration.editable = false;
                }
             });
           });
-          console.log(this.declarations);
        }).catch( e => { console.log(e); });
        this.registerDataService.last_tramit_state(this.ruc_registro_selected.ruc.number).then(response_last_tramit_state => {
          const myTramits = response_last_tramit_state as any[];
@@ -3297,14 +3295,12 @@ export class DashboardComponent implements OnInit {
             this.my_tramits.forEach(tramit => {
                const tramit_date = new Date(tramit.created_at.toString());
                const tramit_year = tramit_date.getFullYear();
-               console.log(tramit_date);
-               console.log(tramit_year);
                if (declaration.year == tramit_year) {
                   declaration.bloqued = true;
+                  declaration.editable = false;
                }
             });
           });
-          console.log(this.declarations);
        }).catch( e => { console.log(e); });
        
     }).catch( e => { console.log(e); });
