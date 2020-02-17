@@ -4300,6 +4300,8 @@ guardarDeclaracion() {
             capacity.isNewCapacity = false;
          });
          this.getYears();
+         //AQUI
+         console.log(r.register.register_type_id);
          this.setABCategory(r.register.register_type_id);
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.incomming_requisites = r.requisites;
