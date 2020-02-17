@@ -220,7 +220,7 @@
       <label>Estado del Trámite</label>
       <select class="form-control" id="stateTramite" name="stateTramite" [(ngModel)]="stateTramite">
         <option value="0" selected>Pendiente</option>
-        <option value="1" selected>Solicitud Aprobada</option>
+        <option value="1" *ngIf="registerApprovalFinanciero.value && registerApprovalInspector.value" selected>Solicitud Aprobada</option>
         <option value="2" selected>Solicitud Rechazada</option>
       </select>
   </div>
