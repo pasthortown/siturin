@@ -633,7 +633,7 @@ export class CoordinadorComponent implements OnInit {
          'success'
          );
          this.isAssigned = true;
-         this.registerApprovalFinanciero.id_user = this.financieroSelectedId;
+         this.registerApprovalFinanciero.id_user = this.financialSelectedId;
          this.registerApprovalFinanciero.date_assigment = new Date();
          if (this.activity == 'ALOJAMIENTO') {
          this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
@@ -694,7 +694,7 @@ export class CoordinadorComponent implements OnInit {
          });
          let financiero = new User();
          this.financieros.forEach(element => {
-            if (element.id == this.financieroSelectedId) {
+            if (element.id == this.financialSelectedId) {
                financiero = element;
             }
          });
@@ -3563,7 +3563,7 @@ selectKitchenType(kitchenType: KitchenType) {
       if (r2.establishment.as_turistic_register_date == null) {
          this.as_turistic_date = new Date();  
          this.establishmentDataService.set_register_date(this.registerMinturSelected.establishment.id).then( r => {
-            
+
          }).catch( e => { console.log(e); }); 
       } else {
          this.as_turistic_date = new Date(r2.establishment.as_turistic_register_date.toString());
