@@ -702,7 +702,7 @@ export class CoordinadorComponent implements OnInit {
          motivoRechazo = motivoRechazo.replace('<p>', '');
          motivoRechazo = motivoRechazo.replace('</p>', '');
          const information = {
-            para: inspector.name,
+            para: financiero.name,
             tramite: this.tipo_tramite.toUpperCase(),
             motivoRechazo: motivoRechazo,
             ruc: this.ruc_registro_selected.ruc.number,
