@@ -147,7 +147,7 @@
         </button>
     </div>
     <div class="col-12 text-center mb-3" *ngIf="isAssigned && digito == '0' && registerApprovalCoordinador.id_user == 0">
-        <input type="checkbox" name="vacacionesCheck" id="vacacionesCheck" value="Bike" [(ngModel)]="rechazarTramite" (change)="rechazarCheck()"> Rechazar y devolver traḿite
+        <input type="checkbox" name="vacacionesCheck" id="vacacionesCheck" [(ngModel)]="rechazarTramite" (change)="rechazarCheck()"> Rechazar y devolver traḿite
     </div>
     <div class="col-12 mt-5 mb-2" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
       <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
@@ -200,6 +200,20 @@
         </div>
     </div>
   </div>
+</div>
+<div class="col-12 text-center mb-3" *ngIf="!(registerApprovalFinanciero.notes.search('Devuelto: ') == 0) && (registerApprovalFinanciero.notes != '') && (digito == '0')">
+  <input type="checkbox" name="devolverFinanciero" id="devolverFinanciero" [(ngModel)]="rechazarTramiteFinanciero" (change)="rechazarCheckFinanciero()"> Rechazar y devolver traḿite
+</div>
+<div class="col-12 mt-5 mb-2" *ngIf="rechazarTramiteFinanciero">
+  <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
+  <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
+</div>
+<div class="col-12 text-center" *ngIf="rechazarTramiteFinanciero">
+  <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="
+      confirmarRechazoTramiteFinanciero()
+    " *ngIf="rechazarTramiteFinanciero">
+    <i class="fas fa-trash"></i>&nbsp;Rechazar resultado y devolver el trámite al técnico financiero
+  </button>
 </div>
 <div class="row" *ngIf="(registerApprovalInspector.value && registerApprovalFinanciero.notes != '' && mostrarDataRegisterMintur) && (estadoOrigen == 0)">
   <div class="col-12">
