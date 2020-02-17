@@ -3560,7 +3560,14 @@ selectKitchenType(kitchenType: KitchenType) {
   catastrarRegistro(pdfTarifarioRack, pdfRegistro) {
    this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
       const workers_on_establishment = r2.workers_on_establishment as Worker[];
-      this.as_turistic_date = new Date(r2.establishment.as_turistic_register_date.toString());
+      if (r2.establishment.as_turistic_register_date == null) {
+         this.as_turistic_date = new Date();  
+         this.establishmentDataService.set_register_date(this.registerMinturSelected.establishment.id).then( r => {
+            
+         }).catch( e => { console.log(e); }); 
+      } else {
+         this.as_turistic_date = new Date(r2.establishment.as_turistic_register_date.toString());
+      }
       workers_on_establishment.forEach(worker => {
          this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
