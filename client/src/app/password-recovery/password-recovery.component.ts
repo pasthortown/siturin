@@ -20,6 +20,7 @@ export class PasswordRecoveryComponent implements OnInit {
   busy: Promise<any>;
   esperando: Boolean;
   isRepresentantLegal = true;
+  cuentaInterna = false;
   isRucOwner = true;
 //   isRepresentantLegal = false;
 //   isRucOwner = false;
@@ -27,7 +28,6 @@ export class PasswordRecoveryComponent implements OnInit {
   identificationValidated = false; 
   consumoCedula = false;
   cedulaNombre = '';
-  cuentaInterno = false;
   identidadConfirmada = false;
   rucValidated = false;
   consumoRuc = false;
@@ -331,10 +331,10 @@ export class PasswordRecoveryComponent implements OnInit {
        this.user.name = '';
     }
     if (this.user.email.split('@')[1] == 'turismo.gob.ec') {
-       this.cuentaInterno = true;
-    } else {
-      this.cuentaInterno = false;
+      this.cuentaInterna = true; 
+      return false;
     }
+    this.cuentaInterna = false;
     return this.emailContactValidated;
   }
 
