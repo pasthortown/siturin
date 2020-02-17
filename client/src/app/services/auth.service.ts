@@ -21,6 +21,16 @@ export class AuthService {
     });
   }
 
+  recover_credentials(user: User): Promise<any> {
+    const data = {user: user};
+    return this.http.post(environment.api_auth + 'recover_credentials', JSON.stringify(data)).toPromise()
+    .then( r =>
+      r.json()
+    ).catch( error => {
+      error.json();
+    });
+  }
+
   register(user: User): Promise<any> {
     const data = {user: user};
     return this.http.post(environment.api_auth + 'register', JSON.stringify(data)).toPromise()

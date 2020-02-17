@@ -55,86 +55,44 @@ export class PasswordRecoveryComponent implements OnInit {
     this.esperando = false;
   }
 
-  registrar() {
-     if (this.user.email.split('@')[1] == 'turismo.gob.ec'){
-      if(this.emailContactValidated && this.identidadConfirmada && !this.esperando){
-         this.esperando = true;
-         this.user.ruc = this.user.identification + '001';
-         this.ruc.number = this.user.identification + '001';
-         this.ruc.contact_user = this.user;
-         this.busy = this.authDataServise.register(this.user).then( r => {
-            this.esperando = false;
-            if (r == 0 || typeof r == 'undefined') {
-               Swal.fire({
-                  title: 'La información proporcionada no es correcta.',
-                  text: 'No es posible crear una nueva cuenta, con la información proporcionada.',
-                  type: 'error',
-                })
-                .then( response => {
-                  this.router.navigate(['/login']);
-                });
-                return;
-            }
+  recuperarCredenciales() {
+   if(this.emailContactValidated && this.rucValidated && this.identidadConfirmada && !this.esperando){
+      this.esperando = true;
+      this.user.ruc = this.ruc.number;
+      this.ruc.contact_user = this.user;
+      this.busy = this.authDataServise.recover_credentials(this.user).then( r => {
+         this.esperando = false;
+         if (r == 0 || typeof r == 'undefined') {
             Swal.fire({
-              title: 'Te damos la bienvenida',
-              text: 'Tu contraseña, es la misma que utilizas para acceder a tu correo institucional.',
-              type: 'success',
-            })
-            .then( response => {
-              this.user = new User();
-              this.ruc = new Ruc();
-              this.router.navigate(['/login']);
-            });
-          }).catch( e => {
-            this.esperando = false;
-            console.log(e);
-          });
-        } else {
+               title: 'La información proporcionada no es correcta.',
+               text: 'No es posible recuperar los credenciales de la cuenta, con la información proporcionada.',
+               type: 'error',
+             })
+             .then( response => {
+               this.router.navigate(['/login']);
+             });
+             return;
+         }
          Swal.fire({
-            title: 'Datos no confirmados',
-            text: 'El registro no se pudo completar, los datos ingresados no se pudieron confirmar.',
-            type: 'error',
-          });
-        }
+           title: 'Te damos la bienvenida',
+           text: 'Enviamos tu contraseña a tu correo',
+           type: 'success',
+         })
+         .then( response => {
+           this.user = new User();
+           this.ruc = new Ruc();
+           this.router.navigate(['/login']);
+         });
+       }).catch( e => {
+         this.esperando = false;
+         console.log(e);
+       });
      } else {
-      if(this.emailContactValidated && this.rucValidated && this.identidadConfirmada && !this.esperando){
-         this.esperando = true;
-         this.user.ruc = this.ruc.number;
-         this.ruc.contact_user = this.user;
-         this.busy = this.authDataServise.register(this.user).then( r => {
-            this.esperando = false;
-            if (r == 0 || typeof r == 'undefined') {
-               Swal.fire({
-                  title: 'La información proporcionada no es correcta.',
-                  text: 'No es posible crear una nueva cuenta, con la información proporcionada.',
-                  type: 'error',
-                })
-                .then( response => {
-                  this.router.navigate(['/login']);
-                });
-                return;
-            }
-            Swal.fire({
-              title: 'Te damos la bienvenida',
-              text: 'Enviamos tu contraseña a tu correo',
-              type: 'success',
-            })
-            .then( response => {
-              this.user = new User();
-              this.ruc = new Ruc();
-              this.router.navigate(['/login']);
-            });
-          }).catch( e => {
-            this.esperando = false;
-            console.log(e);
-          });
-        } else {
-         Swal.fire({
-            title: 'Datos no confirmados',
-            text: 'El registro no se pudo completar, los datos ingresados no se pudieron confirmar.',
-            type: 'error',
-          });
-        }
+      Swal.fire({
+         title: 'Datos no confirmados',
+         text: 'La recuperación de credenciales no se pudo completar, los datos ingresados no se pudieron confirmar.',
+         type: 'error',
+       });
      }
   }
   
