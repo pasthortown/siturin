@@ -3267,9 +3267,11 @@ export class DashboardComponent implements OnInit {
        this.declarations = r as Declaration[];
        this.my_tramits = [];
        this.registerABDataService.last_tramit_state(this.ruc_registro_selected.ruc.number).then(response_last_tramit_state => {
-         const myTramitsAB = response_last_tramit_state as any[];
-         myTramitsAB.forEach(element => {
-            this.my_tramits.push(element);
+         const myTramits = response_last_tramit_state as any[];
+         myTramits.forEach(element => {
+            element.forEach(e1 => {
+               this.my_tramits.push(e1);
+            });
          })
          this.declarations.forEach(declaration => {
             this.my_tramits.forEach(tramit => {
@@ -3287,7 +3289,9 @@ export class DashboardComponent implements OnInit {
        this.registerDataService.last_tramit_state(this.ruc_registro_selected.ruc.number).then(response_last_tramit_state => {
          const myTramits = response_last_tramit_state as any[];
          myTramits.forEach(element => {
-            this.my_tramits.push(element);
+            element.forEach(e1 => {
+               this.my_tramits.push(e1);
+            });
          })
          this.declarations.forEach(declaration => {
             this.my_tramits.forEach(tramit => {
