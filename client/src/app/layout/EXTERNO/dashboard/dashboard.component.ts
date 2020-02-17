@@ -3278,6 +3278,16 @@ export class DashboardComponent implements OnInit {
             this.my_tramits.push(element);
          })
        }).catch( e => { console.log(e); });
+       this.declarations.forEach(declaration => {
+         this.my_tramits.forEach(tramit => {
+            const tramit_date = new Date(tramit.created_at.toString());
+            const tramit_year = tramit_date.getFullYear();
+            if (declaration.year == tramit_year) {
+               declaration.bloqued = true;
+            }
+         });
+       });
+       console.log(this.declarations);
     }).catch( e => { console.log(e); });
   }
 
