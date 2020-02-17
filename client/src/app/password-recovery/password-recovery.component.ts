@@ -332,6 +332,7 @@ export class PasswordRecoveryComponent implements OnInit {
     }
     if (this.user.email.split('@')[1] == 'turismo.gob.ec') {
       this.cuentaInterna = true; 
+      this.emailContactValidated = false;
       return false;
     }
     this.cuentaInterna = false;
