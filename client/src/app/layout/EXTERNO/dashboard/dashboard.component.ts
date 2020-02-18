@@ -510,7 +510,6 @@ export class DashboardComponent implements OnInit {
          }
       }
    });
-   console.log(this.allowed_capacity_types);
    this.capacitiesToShow.forEach(capacityShow => {
       this.allowed_capacity_types.forEach(capacityType => {
          if(capacityType.id == capacityShow.capacity_type_id) {
@@ -525,7 +524,6 @@ export class DashboardComponent implements OnInit {
          }
       });
    });
-   console.log(this.capacitiesToShow);
   }
 
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
@@ -3275,26 +3273,6 @@ export class DashboardComponent implements OnInit {
    this.rucNameTypeDataService.get().then( r => {
       this.ruc_name_types = r as RucNameType[];
    }).catch( e => { console.log(e); });
-  }
-
-  mostrarInfo(capacity) {
-   const r1 = this.continuarTarifarioRack;
-   const r2 = this.selected_year_id < this.currentYear;
-   const r3 = !capacity.isNewCapacity;
-   const r4 = !this.canEditCapacity;
-   const r5 = !this.rucEstablishmentRegisterSelected.editable;
-   const r6 = !capacity.editable_beds;
-   console.log({r1:r1, r2:r2, r3:r3, r4:r4, r5:r5, r6:r6});
-  }
-
-  mostrarInfo2(capacity) {
-   const r1 = this.continuarTarifarioRack;
-   const r2 = this.selected_year_id < this.currentYear;
-   const r3 = !capacity.isNewCapacity;
-   const r4 = !this.canEditCapacity;
-   const r5 = !this.rucEstablishmentRegisterSelected.editable;
-   const r6 = !capacity.editable_spaces;
-   console.log({r1:r1, r2:r2, r3:r3, r4:r4, r5:r5, r6:r6});
   }
 
   getDeclarationsByEstablishment(id: number) {

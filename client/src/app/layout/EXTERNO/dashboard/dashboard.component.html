@@ -1794,7 +1794,7 @@
                         </div>
                       </small>  
                     </div>
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center" *ngIf="continuarTramite">
                       <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
                         (click)="pasosActualizandoCapacidadesPrecios.select('paso1')">
                         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
@@ -5084,7 +5084,7 @@
                         </div>
                       </small>  
                     </div>
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center" *ngIf="continuarTramite">
                       <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
                         (click)="pasos.select('paso2')">
                         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
