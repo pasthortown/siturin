@@ -553,8 +553,9 @@ export class DashboardComponent implements OnInit {
 
   calcularUnoxMil() {
    this.totalunoxmil = 0;
-   console.log('entre');
+   console.log('aqui tambien');
    this.declarationItemsToShow.forEach(itemToShow => {
+      console.log(itemToShow);
       itemToShow.items.forEach(item => {
          this.totalunoxmil += item.valueItem.value * (item.declarationItem.factor);
       });
@@ -4602,6 +4603,7 @@ guardarDeclaracion() {
   }
 
   refreshDeclarationInfo() {
+   console.log('aqui');
    this.calcTotalPartials();
    this.calcularUnoxMil();
   }
