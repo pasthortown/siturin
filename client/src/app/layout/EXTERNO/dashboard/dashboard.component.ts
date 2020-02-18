@@ -510,6 +510,7 @@ export class DashboardComponent implements OnInit {
          }
       }
    });
+   console.log(this.allowed_capacity_types);
    this.capacitiesToShow.forEach(capacityShow => {
       this.allowed_capacity_types.forEach(capacityType => {
          if(capacityType.id == capacityShow.capacity_type_id) {
@@ -524,6 +525,7 @@ export class DashboardComponent implements OnInit {
          }
       });
    });
+   console.log(this.capacitiesToShow);
   }
 
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
