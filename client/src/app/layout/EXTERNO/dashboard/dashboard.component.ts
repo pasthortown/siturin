@@ -498,7 +498,6 @@ export class DashboardComponent implements OnInit {
 
 
   refreshMaxBed(capacity: Capacity) {
-     console.log(this.allowed_capacity_types);
    this.allowed_capacity_types.forEach(capacityType => {
       if(capacityType.id == capacity.capacity_type_id) {
          capacity.editable_beds = capacityType.editable_beds;
