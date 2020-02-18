@@ -5244,6 +5244,13 @@ guardarDeclaracion() {
   }
 
   validateHabitaciones(): Boolean {
+   
+   const capacidadesRevisadas = [];
+   this.capacitiesToShow.forEach(capacityShown => {
+      
+   });
+   console.log(this.capacitiesToShow);
+   return true;
    if (this.rucEstablishmentRegisterSelected.total_spaces == 0){
       return false;
    }
