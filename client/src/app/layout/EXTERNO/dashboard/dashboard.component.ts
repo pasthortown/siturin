@@ -4300,6 +4300,7 @@ guardarDeclaracion() {
    }
    if (this.esRegistro) {
       let encontrado = false;
+      this.capacitiesToShow = [];
       if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
          this.modificadoCapacidades = true;
          const newCapacity = new CapacityAB();
@@ -4320,6 +4321,7 @@ guardarDeclaracion() {
                   this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
                   this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
                   this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as Capacity[];
+                  this.capacitiesToShow = [];
                   if (this.rucEstablishmentRegisterSelected.capacities_on_register.length == 0) {
                      this.modificadoCapacidades = true;
                      const newCapacity = new CapacityAB();
