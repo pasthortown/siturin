@@ -5246,11 +5246,25 @@ guardarDeclaracion() {
   validateHabitaciones(): Boolean {
    
    const capacidadesRevisadas = [];
+   let continueChecking = true;
    this.capacitiesToShow.forEach(capacityShown => {
-      
+      if (continueChecking) {
+         let existe = false;
+         capacidadesRevisadas.forEach(element => {
+            if (element == capacityShown.capacity_type_id) {
+               continueChecking = false;
+               existe = true;
+            }
+         });
+         if (!existe) {
+            capacidadesRevisadas.push(capacityShown.capacity_type_id);
+         }
+      }
    });
-   console.log(this.capacitiesToShow);
-   return true;
+   if (!continueChecking) {
+      this.toastr.errorToastr('El sistema ha detectado errores en las capacidades ingresadas.', 'Estado de Establecimiento');
+      return;
+   }
    if (this.rucEstablishmentRegisterSelected.total_spaces == 0){
       return false;
    }
