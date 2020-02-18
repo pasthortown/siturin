@@ -1040,7 +1040,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="continuarTramite">
                           <div class="col-12">
                             <div class="row" *ngIf="rucEstablishmentRegisterSelected.code != '' && rucEstablishmentRegisterSelected.code != 'PENDIENTE' ">
                               <div class="col-4">
@@ -4075,7 +4075,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="continuarTramite">
                           <div class="col-12">
                             <div class="row" *ngIf="rucEstablishmentRegisterSelected.code != '' && rucEstablishmentRegisterSelected.code != 'PENDIENTE' ">
                               <div class="col-4">
