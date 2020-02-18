@@ -1260,12 +1260,14 @@
                                   </td>
                                   <td>
                                     <div class="col-12">
+                                      <button (click)="mostrarInfo(capacity)">Mostrar</button>
                                         <input type="number" class="form-control" min="0" max="9999" id="count_camas" name="count_camas" (input)="calcSpaces(capacity)"
                                         placeholder="Cantidad de Camas" [(ngModel)]="capacity.max_beds" [disabled]="continuarTarifarioRack || (selected_year_id < currentYear) || !capacity.isNewCapacity || !canEditCapacity || !rucEstablishmentRegisterSelected.editable || !capacity.editable_beds"/>
                                     </div>
                                   </td>
                                   <td>
                                     <div class="col-12">
+                                      <button (click)="mostrarInfo2(capacity)">Mostrar</button>
                                         <input type="number" class="form-control" min="0" max="9999" id="count_plazas" name="count_plazas" (input)="calcSpaces(capacity)"
                                         placeholder="Cantidad de Plazas" [(ngModel)]="capacity.max_spaces" [disabled]="continuarTarifarioRack || (selected_year_id < currentYear) || !capacity.isNewCapacity || !canEditCapacity || !rucEstablishmentRegisterSelected.editable || !capacity.editable_spaces"/>
                                     </div>

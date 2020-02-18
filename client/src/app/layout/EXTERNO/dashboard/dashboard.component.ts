@@ -3277,6 +3277,26 @@ export class DashboardComponent implements OnInit {
    }).catch( e => { console.log(e); });
   }
 
+  mostrarInfo(capacity) {
+   const r1 = this.continuarTarifarioRack;
+   const r2 = this.selected_year_id < this.currentYear;
+   const r3 = !capacity.isNewCapacity;
+   const r4 = !this.canEditCapacity;
+   const r5 = !this.rucEstablishmentRegisterSelected.editable;
+   const r6 = !capacity.editable_beds;
+   console.log({r1:r1, r2:r2, r3:r3, r4:r4, r5:r5, r6:r6});
+  }
+
+  mostrarInfo2(capacity) {
+   const r1 = this.continuarTarifarioRack;
+   const r2 = this.selected_year_id < this.currentYear;
+   const r3 = !capacity.isNewCapacity;
+   const r4 = !this.canEditCapacity;
+   const r5 = !this.rucEstablishmentRegisterSelected.editable;
+   const r6 = !capacity.editable_spaces;
+   console.log({r1:r1, r2:r2, r3:r3, r4:r4, r5:r5, r6:r6});
+  }
+
   getDeclarationsByEstablishment(id: number) {
    this.declarations = [];
     this.declarationDataService.get_by_establishment(id).then( r => {
