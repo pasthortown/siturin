@@ -4279,6 +4279,7 @@ guardarDeclaracion() {
       this.getKitchenType();
       this.getCapacityTypesAB();
       this.rucEstablishmentRegisterSelected.requisites = [];
+      //AQUI
       this.getRequisitesABByRegisterType();
       this.totalABPuntos = 0;
       this.totalABPuntosShown = 0;
@@ -4326,7 +4327,6 @@ guardarDeclaracion() {
                      this.rucEstablishmentRegisterSelected.capacities_on_register.push(newCapacity);
                   }
                   this.capacitiesToShow = this.rucEstablishmentRegisterSelected.capacities_on_register;
-                  this.rucEstablishmentRegisterSelected.requisites = [];
                   this.getRequisitesABByRegisterType(r.requisites);
                   this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
                   this.rucEstablishmentRegisterSelected.service_types_on_register = r.service_types;
@@ -4403,6 +4403,7 @@ guardarDeclaracion() {
   }
 
   getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
+   this.rucEstablishmentRegisterSelected.requisites = [];
    let categorySelectedID = 0;
    this.clasifications_registers.forEach(classification => {
       if (classification.code == this.categorySelectedCode) {
