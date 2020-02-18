@@ -510,6 +510,20 @@ export class DashboardComponent implements OnInit {
          }
       }
    });
+   this.capacitiesToShow.forEach(capacityShow => {
+      this.allowed_capacity_types.forEach(capacityType => {
+         if(capacityType.id == capacityShow.capacity_type_id) {
+            capacityShow.editable_beds = capacityType.editable_beds;
+            capacityShow.editable_spaces = capacityType.editable_spaces;
+            if (capacityShow.editable_beds) {
+               capacity.max_beds = 0;
+            }
+            if (capacityShow.editable_spaces) {
+               capacity.max_spaces = 0;
+            }
+         }
+      });
+   });
   }
 
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
