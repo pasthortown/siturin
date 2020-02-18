@@ -5262,8 +5262,7 @@ guardarDeclaracion() {
       }
    });
    if (!continueChecking) {
-      this.toastr.errorToastr('El sistema ha detectado errores en las capacidades ingresadas.', 'Estado de Establecimiento');
-      return;
+      return false;
    }
    if (this.rucEstablishmentRegisterSelected.total_spaces == 0){
       return false;
