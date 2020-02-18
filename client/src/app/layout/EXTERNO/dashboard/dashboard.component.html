@@ -2787,7 +2787,7 @@
                           <div class="form-group">
                             <label>Año de Obligación de Pago</label>
                             <input type="number" class="form-control" id="declarationYear" name="declarationYear"
-                              placeholder="Año a Declarar" [(ngModel)]="declaration_selected.year" [max]="maxYear" [disabled]="!declaration_selected.editable">
+                              placeholder="Año a Declarar" [(ngModel)]="declaration_selected.year" [max]="maxYear" [disabled]="!declaration_selected.editable || esRegistro">
                           </div>
                         </div>
                         <div class="col-6">
@@ -3912,7 +3912,7 @@
                           <div class="form-group">
                             <label>Año de Obligación de Pago</label>
                             <input type="number" [disabled]="esRegistro" class="form-control" id="declarationYear" name="declarationYear"
-                              placeholder="Año a Declarar" [(ngModel)]="declaration_selected.year" [max]="maxYear" [disabled]="!declaration_selected.editable">
+                              placeholder="Año a Declarar" [(ngModel)]="declaration_selected.year" [max]="maxYear" [disabled]="!declaration_selected.editable || esRegistro">
                           </div>
                         </div>
                         <div class="col-6">
