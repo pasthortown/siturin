@@ -553,9 +553,7 @@ export class DashboardComponent implements OnInit {
 
   calcularUnoxMil() {
    this.totalunoxmil = 0;
-   console.log('aqui tambien');
    this.declarationItemsToShow.forEach(itemToShow => {
-      console.log(itemToShow);
       itemToShow.items.forEach(item => {
          this.totalunoxmil += item.valueItem.value * (item.declarationItem.factor);
       });
@@ -3266,7 +3264,11 @@ export class DashboardComponent implements OnInit {
   getDeclarationsByEstablishment(id: number) {
    this.declarations = [];
     this.declarationDataService.get_by_establishment(id).then( r => {
-       this.declarations = r as Declaration[];
+       let my_declaration_response = r as Declaration[];
+       my_declaration_response.forEach(element => {
+          element.bloqued = false;
+       });
+       this.declarations = my_declaration_response;
        this.my_tramits = [];
        this.registerABDataService.last_tramit_state(this.ruc_registro_selected.ruc.number).then(response_last_tramit_state => {
          const myTramits = response_last_tramit_state as any[];
@@ -4603,7 +4605,6 @@ guardarDeclaracion() {
   }
 
   refreshDeclarationInfo() {
-   console.log('aqui');
    this.calcTotalPartials();
    this.calcularUnoxMil();
   }
