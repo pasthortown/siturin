@@ -4066,6 +4066,22 @@
                       <div class="col-12">
                         <div class="row">
                           <div class="col-12">
+                            <div class="col-12">
+                              <div class="form-group mt-3">
+                                <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi establecimiento.</strong></label>
+                                <div class="onoffswitch">
+                                             <input type="checkbox" class="onoffswitch-checkbox"  id="continueReview" (change)="continuarTramiteF()"
+                                    name="continueReview" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="continueReview">
+                                                   <span class="onoffswitch-inner"></span>
+                                                   <span class="onoffswitch-switch"></span>
+                                             </label>
+                                          </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
                             <div class="row" *ngIf="rucEstablishmentRegisterSelected.code != '' && rucEstablishmentRegisterSelected.code != 'PENDIENTE' ">
                               <div class="col-4">
                                 <div class="form-group">
@@ -4106,22 +4122,6 @@
                                   " (ngModelChange)="
                                   establishment_selected.as_turistic_register_date = $event
                                   "/>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-12">
-                                <div class="col-12">
-                                  <div class="form-group mt-3">
-                                    <label class="col-12"><strong>Deseo continuar con la revisión y edición de la información turística de mi establecimiento.</strong></label>
-                                    <div class="onoffswitch">
-                                                 <input type="checkbox" class="onoffswitch-checkbox"  id="continueReview" (change)="continuarTramiteF()"
-                                        name="continueReview" [(ngModel)]="continuarTramite"><label class="onoffswitch-label" for="continueReview">
-                                                       <span class="onoffswitch-inner"></span>
-                                                       <span class="onoffswitch-switch"></span>
-                                                 </label>
-                                              </div>
-                                  </div>
                                 </div>
                               </div>
                             </div>
