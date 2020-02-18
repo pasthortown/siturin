@@ -2807,13 +2807,13 @@
                                     <i class="fas fa-download"></i>
                                   </button>
                                   <button
-                                    [disabled]="balance.declaration_attachment_file === '' || declaration.bloqued || !declaration.editable"
+                                    [disabled]="balance.declaration_attachment_file === '' || declaration_selected.bloqued || !declaration_selected.editable"
                                     type="button" title="Eliminar" class="btn btn-danger"
                                     (click)="borrarBalance()">
                                     <i class="fas fa-trash"></i>
                                   </button>
                                 </div>
-                                <input type="file" class="form-control" [disabled]="declaration.bloqued || !declaration.editable" (change)="
+                                <input type="file" class="form-control" [disabled]="declaration_selected.bloqued || !declaration_selected.editable" (change)="
                                       CodificarArchivoBalance(
                                         $event
                                       )
@@ -3931,11 +3931,11 @@
                                         ">
                                     <i class="fas fa-download"></i>
                                   </button>
-                                  <button type="button" title="Eliminar" class="btn btn-danger" (click)="borrarBalance()">
+                                  <button [disabled]="balance.declaration_attachment_file === '' || declaration_selected.bloqued || !declaration_selected.editable" type="button" title="Eliminar" class="btn btn-danger" (click)="borrarBalance()">
                                     <i class="fas fa-trash"></i>
                                   </button>
                                 </div>
-                                <input type="file" class="form-control" (change)="CodificarArchivoBalance($event)" accept="application/pdf" />
+                                <input type="file" class="form-control" [disabled]="declaration_selected.bloqued || !declaration_selected.editable" (change)="CodificarArchivoBalance($event)" accept="application/pdf" />
                               </div>
                               <small class="col-12">
                                 <div class="alert alert-info mt-2 mb-2" role="alert">
