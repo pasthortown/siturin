@@ -1303,7 +1303,9 @@ export class DashboardComponent implements OnInit {
             });
             if (!existe) {
                if (element_2.id < 1000) {
-                  this.clasifications_registers.push(element_2);
+                  if (element_2.id !== 46 && element_2.id !== 47) {
+                     this.clasifications_registers.push(element_2);
+                  }
                }
             }
          });
@@ -3194,8 +3196,10 @@ export class DashboardComponent implements OnInit {
                   }
                });
                if (!existe) {
-                  if (clasificacion.id < 1000) {
-                     this.clasifications_registers.push(clasificacion);
+                  if (clasificacion.id < 1000) { 
+                     if (clasificacion.id !== 46 && clasificacion.id !== 47) {
+                        this.clasifications_registers.push(clasificacion);
+                     }
                   }
                }
             });
@@ -3828,6 +3832,10 @@ guardarDeclaracion() {
    return aprueba;
 }
 
+mostrarInfo() {
+   console.log(this.selected_classification_catastro.toUpperCase())
+   console.log(this.categorySelectedCode);
+}
   saveAlojamiento() {
    if (!this.validateTarifarioRackIngresado()){
       this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
@@ -4270,7 +4278,6 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
    if (this.actividadSelected == '1') {
-
       if ((this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE' ) && (!this.recategorizando || !this.reclasificando)) {
          this.register_types.forEach( cat_element => {
             if (cat_element.name == this.selected_classification_catastro) {
