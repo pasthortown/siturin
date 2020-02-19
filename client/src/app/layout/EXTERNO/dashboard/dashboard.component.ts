@@ -3848,7 +3848,7 @@ guardarDeclaracion() {
             newClassification = element.name.toString();
          }
       });
-      if (this.my_classification_current.toUpperCase() == newClassification.toUpperCase()) {
+      if (this.selected_classification_catastro.toUpperCase() == newClassification.toUpperCase()) {
          this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
          return;
       }
@@ -3860,7 +3860,7 @@ guardarDeclaracion() {
             newCategory = element.name.toString();
          }
       });
-      if (this.my_category_current.toUpperCase() == newCategory.toUpperCase()) {
+      if (this.selected_category_catastro.toUpperCase() == newCategory.toUpperCase()) {
          this.toastr.errorToastr('Debe seleccionar una Categoría diferente a la que ya posee.', 'RECATEGORIZACIÓN');
          return;
       }
