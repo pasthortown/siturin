@@ -3832,18 +3832,6 @@ guardarDeclaracion() {
    return aprueba;
 }
 
-mostrarInfo() {
-   let newClassification = '';
-      this.clasifications_registers.forEach(element => {
-         if (element.code == this.categorySelectedCode) {
-            newClassification = element.name.toString();
-         }
-      });
-      console.log(newClassification);
-   console.log(this.selected_classification_catastro.toUpperCase())
-   console.log(this.categorySelectedCode);
-}
-
   saveAlojamiento() {
    if (!this.validateTarifarioRackIngresado()){
       this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
