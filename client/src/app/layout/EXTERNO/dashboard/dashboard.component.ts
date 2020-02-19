@@ -4270,7 +4270,8 @@ guardarDeclaracion() {
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
    this.rucEstablishmentRegisterSelected.service_types_on_register = [];
    if (this.actividadSelected == '1') {
-      if (this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE') {
+
+      if (this.selected_classification_catastro !== '' && this.selected_system_source == 'SIETE' || !this.recategorizando || !this.reclasificando) {
          this.register_types.forEach( cat_element => {
             if (cat_element.name == this.selected_classification_catastro) {
                if (cat_element.father_code == this.regionSelectedCode) {
