@@ -3322,7 +3322,7 @@ export class DashboardComponent implements OnInit {
                this.canAddNewDeclaration = false;
             }   
          });
-         this.declarations.forEach(declaration => {
+         /* this.declarations.forEach(declaration => {
             myTramits.forEach(tramit => {
                const tramit_date = new Date(tramit.created_at.toString());
                const tramit_year = tramit_date.getFullYear();
@@ -3331,7 +3331,7 @@ export class DashboardComponent implements OnInit {
                   declaration.editable = false;
                }
             });
-          });
+          });*/
        }).catch( e => { console.log(e); });
        
     }).catch( e => { console.log(e); });
