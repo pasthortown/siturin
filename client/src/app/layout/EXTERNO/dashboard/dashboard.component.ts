@@ -3848,6 +3848,8 @@ guardarDeclaracion() {
             newClassification = element.name.toString();
          }
       });
+      console.log(this.selected_classification_catastro);
+      console.log(newClassification);
       if (this.selected_classification_catastro.toUpperCase() == newClassification.toUpperCase()) {
          this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
          return;
