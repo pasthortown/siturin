@@ -3832,18 +3832,6 @@ guardarDeclaracion() {
    return aprueba;
 }
 
-mostrarInfo() {
-   let newCategory = '';
-      this.categories_registers.forEach(element => {
-         if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-            newCategory = element.name.toString();
-         }
-      });
-      console.log(newCategory);
-   console.log(this.selected_category_catastro.toUpperCase())
-   console.log(this.rucEstablishmentRegisterSelected.register_type_id);
-}
-
   saveAlojamiento() {
    if (!this.validateTarifarioRackIngresado()){
       this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
