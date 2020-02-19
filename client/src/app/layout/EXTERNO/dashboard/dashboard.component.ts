@@ -158,6 +158,7 @@ export class DashboardComponent implements OnInit {
    establishment_selected_ruc_code_id = 'NULL';
    mostrarDarBaja = true;
    mostrarReclasificar = true;
+   canAddNewDeclaration = true;
    terminosCondiciones = false;
    terminosCondicionesAgreement: Agreement = new Agreement();
    mostrarRecategorizar = true;
@@ -3313,6 +3314,14 @@ export class DashboardComponent implements OnInit {
                this.my_tramits.push(e1);
             });
          })
+         const today = new Date();
+         myTramits.forEach(tramit => {
+            const tramit_date = new Date(tramit.created_at.toString());
+            const tramit_year = tramit_date.getFullYear();
+            if (tramit_year == today.getFullYear()) {
+               this.canAddNewDeclaration = false;
+            }   
+         });
          this.declarations.forEach(declaration => {
             this.my_tramits.forEach(tramit => {
                const tramit_date = new Date(tramit.created_at.toString());

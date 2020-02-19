@@ -2739,7 +2739,7 @@
                                 </button>
                               </div>
                               <div class="btn-group mr-2" role="group">
-                                <button type="button" title="Nuevo" class="btn btn-success" (click)="newDeclaration()">
+                                <button type="button" title="Nuevo" class="btn btn-success" *ngIf="canAddNewDeclaration" (click)="newDeclaration()">
                                   <i class="fas fa-file"></i>
                                 </button>
                               </div>
