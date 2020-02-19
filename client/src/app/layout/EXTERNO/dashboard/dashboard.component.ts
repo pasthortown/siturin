@@ -3351,11 +3351,11 @@ export class DashboardComponent implements OnInit {
 
 guardarDeclaracion() {
    let minim_year_declaration = 0;
-   console.log(this.establishment_selected.as_turistic_register_date);
-   return;
-   if (this.establishment_selected.as_turistic_register_date != null || typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
-      minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();   
+   if (this.establishment_selected.as_turistic_register_date !== null || typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
+      minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();
+      console.log('entre');   
    }
+   return;
    if (this.declaration_selected.year < minim_year_declaration) {
       this.toastr.errorToastr('Existe inconsistencia con el año de la declaración.', 'Declaración');
       return;
