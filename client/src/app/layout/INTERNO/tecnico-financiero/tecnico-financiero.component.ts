@@ -1444,7 +1444,11 @@ calcularUnoxMil() {
                if (element.value) {
                   this.inspectionState = 1;
                } else {
-                  this.inspectionState = 2;
+                  if (this.pays.length > 0) {
+                     this.inspectionState = 2;
+                  } else {
+                     this.inspectionState = 0;
+                  }
                   const estado: String = this.stateTramiteId.toString();
                   const digito = estado.substring(estado.length-1, estado.length);
                   if (digito == '8'){
@@ -1493,7 +1497,11 @@ calcularUnoxMil() {
                if (element.value) {
                   this.inspectionState = 1;
                } else {
-                  this.inspectionState = 2;
+                  if (this.pays.length > 0) {
+                     this.inspectionState = 2;
+                  } else {
+                     this.inspectionState = 0;
+                  }
                   const estado: String = this.stateTramiteId.toString();
                   const digito = estado.substring(estado.length-1, estado.length);
                   if (digito == '8'){
