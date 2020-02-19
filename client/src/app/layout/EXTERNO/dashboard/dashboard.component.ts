@@ -3323,7 +3323,7 @@ export class DashboardComponent implements OnInit {
             }   
          });
          this.declarations.forEach(declaration => {
-            this.my_tramits.forEach(tramit => {
+            myTramits.forEach(tramit => {
                const tramit_date = new Date(tramit.created_at.toString());
                const tramit_year = tramit_date.getFullYear();
                if (declaration.year == tramit_year) {
