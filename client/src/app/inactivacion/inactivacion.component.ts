@@ -57,9 +57,11 @@ export class InactivacionComponent implements OnInit {
   procedureJustification = new ProcedureJustification();
   isRepresentantLegal = false;
   isRucOwner = false;
+  canAddNewDeclaration = true;
   identificationValidated = false;
   mostrarDataEstablishment = false;
   maxYear: number = 2019;
+  my_tramits = [];
   estados_tramites: State[];
   rucEstablishmentRegisterSelected: Register = new Register();
   declaration_selected: Declaration = new Declaration();
@@ -468,7 +470,56 @@ export class InactivacionComponent implements OnInit {
    getDeclarationsByEstablishment(id: number) {
       this.declarations = [];
        this.declarationDataService.get_by_establishment(id).then( r => {
-          this.declarations = r as Declaration[];
+          let my_declaration_response = r as Declaration[];
+          my_declaration_response.forEach(element => {
+             element.bloqued = false;
+          });
+          this.declarations = my_declaration_response;
+          this.my_tramits = [];
+          this.registerABDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
+            const myTramits = response_last_tramit_state as any[];
+            myTramits.forEach(element => {
+               element.forEach(e1 => {
+                  this.my_tramits.push(e1);
+               });
+            })
+            this.declarations.forEach(declaration => {
+               this.my_tramits.forEach(tramit => {
+                  const tramit_date = new Date(tramit.created_at.toString());
+                  const tramit_year = tramit_date.getFullYear();
+                  if (declaration.year == tramit_year) {
+                     declaration.bloqued = true;
+                     declaration.editable = false;
+                  }
+               });
+             });
+          }).catch( e => { console.log(e); });
+          this.registerDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
+            const myTramits = response_last_tramit_state as any[];
+            myTramits.forEach(element => {
+               element.forEach(e1 => {
+                  this.my_tramits.push(e1);
+               });
+            })
+            const today = new Date();
+            this.my_tramits.forEach(tramit => {
+               const tramit_date = new Date(tramit.created_at.toString());
+               const tramit_year = tramit_date.getFullYear();
+               if (tramit_year == today.getFullYear()) {
+                  this.canAddNewDeclaration = false;
+               }   
+            });
+            this.declarations.forEach(declaration => {
+               this.my_tramits.forEach(tramit => {
+                  const tramit_date = new Date(tramit.created_at.toString());
+                  const tramit_year = tramit_date.getFullYear();
+                  if (declaration.year == tramit_year) {
+                     declaration.bloqued = true;
+                     declaration.editable = false;
+                  }
+               });
+             });
+          }).catch( e => { console.log(e); });
        }).catch( e => { console.log(e); });
    }
 
