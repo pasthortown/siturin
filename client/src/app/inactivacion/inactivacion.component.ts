@@ -144,6 +144,7 @@ export class InactivacionComponent implements OnInit {
   provinciaEstablishmentSelectedCode = '-';
   cantonEstablishmentSelectedCode = '-';
   ubications: Ubication[] = [];
+  terminosCondiciones = false;
   zonalesEstablishment: Ubication[] = []; 
   provinciasEstablishment: Ubication[] = [];
   cantonesEstablishment: Ubication[];
