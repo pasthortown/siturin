@@ -3720,7 +3720,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
                newRegistroCatastro.establishment_ruc_code = this.registerMinturSelected.establishment.ruc_code_id;
-               newRegistroCatastro.establishment_state = 'ACTIVO';
+               newRegistroCatastro.establishment_state = 'ABIERTO';
                newRegistroCatastro.georeference_latitude = this.registerMinturSelected.establishment.address_map_latitude;
                newRegistroCatastro.georeference_longitude = this.registerMinturSelected.establishment.address_map_longitude;
                newRegistroCatastro.main_phone_number = r.main_phone_number;
@@ -3796,7 +3796,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
                newRegistroCatastro.establishment_ruc_code = this.registerMinturSelected.establishment.ruc_code_id;
-               newRegistroCatastro.establishment_state = 'ACTIVO';
+               newRegistroCatastro.establishment_state = 'ABIERTO';
                newRegistroCatastro.georeference_latitude = this.registerMinturSelected.establishment.address_map_latitude;
                newRegistroCatastro.georeference_longitude = this.registerMinturSelected.establishment.address_map_longitude;
                newRegistroCatastro.main_phone_number = r.main_phone_number;
