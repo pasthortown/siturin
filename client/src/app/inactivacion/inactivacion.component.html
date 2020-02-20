@@ -496,7 +496,7 @@
     </div>
     <div class="row mt-3" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12">
-          <label>Causales</label><span *ngIf="idCausal == 0"
+          <label>Causales de Inactivación</label><span *ngIf="idCausal == 0"
           class="ml-2 badge badge-danger">Incorrecto</span>
           <select class="form-control" id="causales" name="causales"
             [(ngModel)]="idCausal">
