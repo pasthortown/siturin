@@ -1295,6 +1295,7 @@ export class DashboardComponent implements OnInit {
       this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          const response = r as RegisterType[];
          this.categorySelectedCode = categoryCode;
+         this.clasifications_registers = [];
          response.forEach(element_2 => {
             let existe = false;
             this.clasifications_registers.forEach(element_1 => {
@@ -3171,6 +3172,7 @@ export class DashboardComponent implements OnInit {
    if (this.actividadSelected == '1') {
       this.register_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
+         this.clasifications_registers = [];
          this.specific_states.forEach(element => {
             if (element.id == this.rucEstablishmentRegisterSelected.status) {
                if (element.name == 'Registro') {
@@ -4273,9 +4275,17 @@ guardarDeclaracion() {
   }
 
   getCategories(resetCap?) {
-     if (typeof resetCap !== 'undefined') {
-        this.resetCap = true;
-     }
+   if (typeof resetCap !== 'undefined') {
+      if (this.selected_system_source !== 'SITURIN') {
+         this.resetCap = true; 
+      } else {
+         if (!this.actualizando && !this.reclasificando && !this.recategorizando) {
+            this.resetCap = true;   
+         } else {
+            this.resetCap = false;
+         }
+      }
+   }
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.requisites = [];
    this.rucEstablishmentRegisterSelected.kitchen_types_on_register = [];
