@@ -4322,7 +4322,7 @@ guardarDeclaracion() {
 
   showRegisterABInfo() {
    const today = new Date();
-   if (this.categorySelectedCode !== '-') {
+   if (this.categorySelectedCode !== '-' && !this.reclasificando) {
       this.categories_registers = [];
       this.registerTypesAB.forEach( element => {
          if (element.father_code == this.categorySelectedCode) {
@@ -4383,7 +4383,9 @@ guardarDeclaracion() {
             capacity.isNewCapacity = false;
          });
          this.getYears();
-         this.setABCategory(r.register.register_type_id);
+         if (!this.reclasificando) {
+            this.setABCategory(r.register.register_type_id);
+         }
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.incomming_requisites = r.requisites;
          this.rucEstablishmentRegisterSelected.kitchen_types_on_register = r.kitchen_types;
