@@ -41,6 +41,8 @@ import { MailerService } from 'src/app/services/negocio/mailer.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
+import { Agreement } from 'src/app/models/BASE/Agreement';
 
 @Component({
     selector: 'inactivacion-login',
@@ -102,6 +104,7 @@ export class InactivacionComponent implements OnInit {
   thisYear = 1000;
   currentPagePays = 1;
   pays: Pay[] = [];
+  terminosCondicionesAgreement: Agreement = new Agreement();
   declarationItemsToShow: any[] = [];
   mainPhoneValidated: Boolean = false;
   secondaryPhoneValidated: Boolean = false;
@@ -171,6 +174,7 @@ export class InactivacionComponent implements OnInit {
     private declarationItemDataService: DeclarationItemService,
     private registerABDataService: RegisterABService,
     private registerDataService: RegisterService,
+    private agreementDataService: AgreementService,
     private registerProcedureDataService: RegisterProcedureService,
     private registerProcedureABDataService: RegisterProcedureABService,
     private registerStateDataService: RegisterStateService,
@@ -188,6 +192,15 @@ export class InactivacionComponent implements OnInit {
     this.getDeclarationCategories();
     this.getDeclarationItems();
     this.getUbications();
+    this.getTerminosCondicionesAgreement();
+  }
+
+  getTerminosCondicionesAgreement() {
+   this.agreementDataService.get(1).then( r => {
+      this.terminosCondicionesAgreement = r.Agreement as Agreement;
+      this.terminosCondicionesAgreement.content = this.terminosCondicionesAgreement.content.replace('##USER##', '<strong>' + this.user.name.toUpperCase() + '</strong>');
+      this.terminosCondicionesAgreement.content = this.terminosCondicionesAgreement.content.replace('##RUC##', '<strong>' + this.user.ruc + '</strong>');
+   }).catch( e => { console.log(e); });
   }
 
   getUbications() {

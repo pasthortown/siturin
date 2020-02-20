@@ -32,6 +32,7 @@ import { MailerService } from 'src/app/services/negocio/mailer.service';
 import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 
 @NgModule({
     imports: [CommonModule, 
@@ -48,6 +49,7 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
         StateService,
         RegisterService,
         RegisterStateService,
+        AgreementService,
         ExporterService,
         RegisterProcedureService,
         RegisterProcedureABService,
