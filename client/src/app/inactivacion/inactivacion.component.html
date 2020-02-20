@@ -274,7 +274,7 @@
         </div>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="mostrarMasData && mostrarListadoEstablecimientos && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1)))">
+    <div class="row mt-3" *ngIf="continuarTramite && mostrarMasData && mostrarListadoEstablecimientos && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1)))">
       <h4 class="col-12">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
@@ -292,7 +292,7 @@
         </div>
       </div>
     </div>
-    <div class="row" *ngIf="mostrarMasData && mostrarListadoEstablecimientos && (establecimientos_pendiente)">
+    <div class="row" *ngIf="continuarTramite && mostrarMasData && mostrarListadoEstablecimientos && (establecimientos_pendiente)">
       <div class="col-12">
         <div class="progress mb-3">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div>
@@ -300,7 +300,7 @@
         <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarMasData && mostrarListadoEstablecimientos && (!establecimientos_pendiente && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))))">
+    <div class="row mt-2" *ngIf="continuarTramite && mostrarMasData && mostrarListadoEstablecimientos && (!establecimientos_pendiente && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))))">
       <div class="col-12">
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
@@ -326,7 +326,7 @@
         </div>
       </div>
     </div>
-    <div style="width: 100%; overflow-x: auto;" *ngIf="mostrarMasData && mostrarListadoEstablecimientos && (!establecimientos_pendiente && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))))">
+    <div style="width: 100%; overflow-x: auto;" *ngIf="continuarTramite && mostrarMasData && mostrarListadoEstablecimientos && (!establecimientos_pendiente && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))))">
         <div class="row">
             <div class="col-12 mt-2">
                <ng-table
@@ -339,7 +339,7 @@
             </div>
           </div>
     </div>
-    <div class="row" *ngIf="mostrarMasData && mostrarListadoEstablecimientos && (!establecimientos_pendiente && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))))">
+    <div class="row" *ngIf="continuarTramite && mostrarMasData && mostrarListadoEstablecimientos && (!establecimientos_pendiente && (rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))))">
       <div class="col-12">
         <ngb-pagination
           *ngIf="config.paging"
@@ -356,18 +356,18 @@
         </ngb-pagination>
       </div>
     </div>
-    <div class="row" *ngIf="mostrarMasData && conectandoSRIUbicacion">
+    <div class="row" *ngIf="continuarTramite && mostrarMasData && conectandoSRIUbicacion">
       <div class="col-12">
         <div class="progress mb-3"><div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div></div>
       </div>
       <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
     </div>
-    <div class="row mt-5" *ngIf="mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-5" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12 text-left">
         <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <label class="col-12"><strong>Ubicación</strong></label>
       <div class="col-3" [hidden]="true">
         <div class="form-group">
@@ -434,11 +434,11 @@
         </div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <label class="col-12"><strong>Dirección*</strong></label><span *ngIf="!addressEstablishmentValidated"
       class="ml-2 badge badge-danger">Incorrecto</span>
     </div>
-    <div class="row mt-2" *ngIf="mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-4">
           <div class="form-group">
               <label>Calle Principal</label><span *ngIf="establishment_selected.address_main_street === ''"
@@ -470,7 +470,7 @@
           </div>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-2" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarUbicationEstablishment && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="form-group col-12">
         <label>Referencia de Ubicación* - ¿Como llegar?</label><span
           *ngIf="establishment_selected.address_reference == ''"
@@ -494,7 +494,7 @@
         </agm-map>
       </div>
     </div>
-    <div class="row mt-3" *ngIf="mostrarMasData && !conectandoSRIUbicacion && mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+    <div class="row mt-3" *ngIf="continuarTramite && mostrarMasData && !conectandoSRIUbicacion && mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
       <div class="col-12">
           <label>Causales</label><span *ngIf="idCausal == 0"
           class="ml-2 badge badge-danger">Incorrecto</span>
@@ -510,7 +510,7 @@
       </div>
     </div>
 </div>
-<div class="container" *ngIf="mostrarMasData && mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
+<div class="container" *ngIf="continuarTramite && mostrarMasData && mostrarCausales && rucValidated && SRIOK && !((!isRepresentantLegal && ruc.tax_payer_type_id == 2) || (!isRucOwner && ruc.tax_payer_type_id == 1))">
   <div class="row mt-5">
       <div class="col-12">
         <Strong><h4>Órdenes de Pagos</h4></Strong>
@@ -753,7 +753,7 @@
 </div>
 </div>
 <div class="container mt-5">
-<div class="mostrarMasData && row">
+<div class="continuarTramite && mostrarMasData && row">
   <div class="col-12 text-center">
     <button *ngIf="requestReady() && (declarations.length > 0)" [disabled]="guardando" type="button" class="btn btn-success" title="Enviar Solicitud"
       (click)="guardarRegistro()">
