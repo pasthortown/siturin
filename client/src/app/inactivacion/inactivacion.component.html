@@ -3,14 +3,8 @@
         <h1 class="col-12 text-right">
             INACTIVACIÓN
         </h1>
-        <div class="alert alert-info mt-3" role="alert">
-            <label class="col-12 text-justify"><strong>Atención</strong><br />
-                En ésta sección, usted puede remitir su solicitud de inactivación de los registros de turismo que usted mantenga aperturados con el Ministerio de Turismo.
-            </label>
-        </div>
     </div>
 </div>
-
 <div class="row">
   <div class="col-12">
     <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
@@ -35,6 +29,15 @@
             </label>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="terminosCondiciones">
+  <div class="row mt-3">
+    <div class="alert alert-info mt-3" role="alert">
+        <label class="col-12 text-justify"><strong>Atención</strong><br />
+            En ésta sección, usted puede remitir su solicitud de inactivación de los registros de turismo que usted mantenga aperturados con el Ministerio de Turismo.
+        </label>
     </div>
   </div>
 </div>
