@@ -4276,18 +4276,7 @@ guardarDeclaracion() {
 
   getCategories(resetCap?) {
    if (typeof resetCap !== 'undefined') {
-      if (this.selected_system_source !== 'SITURIN') {
-         this.resetCap = true; 
-         console.log('aqui1');
-      } else {
-         if (!this.actualizando && !this.reclasificando && !this.recategorizando) {
-            this.resetCap = true; 
-            console.log('aqui2');   
-         } else {
-            this.resetCap = false;
-            console.log('aqui3');
-         }
-      }
+      this.resetCap = true; 
    }
    this.categories_registers = [];
    this.rucEstablishmentRegisterSelected.requisites = [];
