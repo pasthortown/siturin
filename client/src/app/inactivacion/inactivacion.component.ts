@@ -87,6 +87,7 @@ export class InactivacionComponent implements OnInit {
   aleatorio = 0;
   totalunoxmil = 0;
   guardando = false;
+  continuarTramite = false;
   cedulaNombre = '';
   rucValidated = false;
   consumoRuc = false;
@@ -106,6 +107,8 @@ export class InactivacionComponent implements OnInit {
   secondaryPhoneValidated: Boolean = false;
   idTramiteEstadoFilter = 0;
   tramite = '-';
+  continuar_proceso = false;
+  mostrarMasData = false;
   guardandoRucNuevo = false;
   estados = [];
   config: any = {
@@ -824,6 +827,8 @@ export class InactivacionComponent implements OnInit {
        this.consumoCedula = false;
        this.fechaIngresada = '';
        this.identidadConfirmada = false;
+       this.continuar_proceso = false;
+       this.mostrarMasData = false;
        return;
     }
     if (this.consumoCedula && this.REGCIVILOK) {
@@ -944,6 +949,8 @@ export class InactivacionComponent implements OnInit {
     if (this.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
+      this.continuar_proceso = false;
+      this.mostrarMasData = false;
       return;
     }
     if (this.consumoRuc && this.SRIOK) {
@@ -1081,14 +1088,14 @@ export class InactivacionComponent implements OnInit {
       this.conectandoSRIUbicacion = true;
       this.dinardapDataService.get_RUC(this.ruc.number).then( dinardap => {
          this.conectandoSRIUbicacion = false;
-        this.establecimientos_pendiente = false;
-        let itemsDetalles = [];
-        if (!Array.isArray(dinardap.sri_establecimientos.original.entidades.entidad.filas.fila)) {
-           itemsDetalles = [dinardap.sri_establecimientos.original.entidades.entidad.filas.fila];
-        } else {
-           itemsDetalles = dinardap.sri_establecimientos.original.entidades.entidad.filas.fila;
-        }
-        itemsDetalles.forEach(sri_establecimiento => {
+         this.establecimientos_pendiente = false;
+         let itemsDetalles = [];
+         if (!Array.isArray(dinardap.sri_establecimientos.original.entidades.entidad.filas.fila)) {
+            itemsDetalles = [dinardap.sri_establecimientos.original.entidades.entidad.filas.fila];
+         } else {
+            itemsDetalles = dinardap.sri_establecimientos.original.entidades.entidad.filas.fila;
+         }
+         itemsDetalles.forEach(sri_establecimiento => {
            let existe = false;
            const newEstablishment = new Establishment();
            sri_establecimiento.columnas.columna.forEach(sriData => {
@@ -1138,31 +1145,7 @@ export class InactivacionComponent implements OnInit {
               establecimientos.push(newEstablishment);
            }
            this.ruc.establishments = establecimientos;
-           if (this.establishment_ruc_code == 'NULL') {
-              this.mostrarListadoEstablecimientos = true;
-           } else {
-              this.mostrarListadoEstablecimientos = false;
-              this.ruc.establishments.forEach(establecimiento => {
-                 console.log(establecimiento.ruc_code_id);
-                 console.log(this.establishment_ruc_code);
-                 if (this.establishment_ruc_code == establecimiento.ruc_code_id) {
-                  this.establishment_selected.ruc_id = this.ruc.id;
-                  this.establishment_selected.id = establecimiento.id;
-                  this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
-                  this.establishment_selected.ruc_code_id = establecimiento.ruc_code_id;
-                  this.establishment_selected.address_main_street = establecimiento.address_main_street;
-                  this.establishment_selected.address_secondary_street = establecimiento.address_secondary_street;
-                  this.establishment_selected.address_number = establecimiento.address_number;
-                  this.establishment_selected.address_map_latitude = establecimiento.address_map_latitude;
-                  this.establishment_selected.address_map_longitude = establecimiento.address_map_longitude;
-                  this.establishment_selected.address_reference = establecimiento.address_reference;
-                  this.establishment_selected.ubication_id = establecimiento.ubication_id;
-                  this.recoverUbication();
-                  this.checkEstablishmentAddress();
-                  this.getDeclarationsByEstablishment(establecimiento.id);
-                }
-              });
-           }
+           this.continuar_proceso = true;
         });
         if(establecimientos.length == 0){
            this.ruc.establishments = [];
@@ -1176,6 +1159,33 @@ export class InactivacionComponent implements OnInit {
       console.log(e); 
       this.conectandoSRIUbicacion = false;
    });
+  }
+
+  continuarProcesoInactivacion() {
+   if (this.establishment_ruc_code == 'NULL') {
+      this.mostrarListadoEstablecimientos = true;
+   } else {
+      this.mostrarListadoEstablecimientos = false;
+      this.ruc.establishments.forEach(establecimiento => {
+         if (this.establishment_ruc_code == establecimiento.ruc_code_id) {
+          this.establishment_selected.ruc_id = this.ruc.id;
+          this.establishment_selected.id = establecimiento.id;
+          this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
+          this.establishment_selected.ruc_code_id = establecimiento.ruc_code_id;
+          this.establishment_selected.address_main_street = establecimiento.address_main_street;
+          this.establishment_selected.address_secondary_street = establecimiento.address_secondary_street;
+          this.establishment_selected.address_number = establecimiento.address_number;
+          this.establishment_selected.address_map_latitude = establecimiento.address_map_latitude;
+          this.establishment_selected.address_map_longitude = establecimiento.address_map_longitude;
+          this.establishment_selected.address_reference = establecimiento.address_reference;
+          this.establishment_selected.ubication_id = establecimiento.ubication_id;
+          this.mostrarMasData = true;
+          this.recoverUbication();
+          this.checkEstablishmentAddress();
+          this.getDeclarationsByEstablishment(establecimiento.id);
+        }
+      });
+   }
   }
 
   recoverUbication() {
