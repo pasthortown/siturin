@@ -1143,6 +1143,8 @@ export class InactivacionComponent implements OnInit {
            } else {
               this.mostrarListadoEstablecimientos = false;
               this.ruc.establishments.forEach(establecimiento => {
+                 console.log(establecimiento.ruc_code_id);
+                 console.log(this.establishment_ruc_code);
                  if (this.establishment_ruc_code == establecimiento.ruc_code_id) {
                   this.establishment_selected.ruc_id = this.ruc.id;
                   this.establishment_selected.id = establecimiento.id;
