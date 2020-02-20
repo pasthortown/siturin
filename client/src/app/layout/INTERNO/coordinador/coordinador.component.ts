@@ -4475,6 +4475,10 @@ selectKitchenType(kitchenType: KitchenType) {
    this.REGCIVILREPRESENTANTELEGALOK = false;
    this.guardando = false;
    this.ruc_registro_selected = new RegistroDataCarrier();
+   this.registerApprovalFinanciero = new ApprovalState();
+   this.registerApprovalInspector = new ApprovalState();
+   this.registerApprovalCoordinador = new ApprovalState();
+   this.rechazarTramiteFinanciero = false;
    this.getTaxPayerType();
    this.getGroupType();
    this.getCapacityTypes();
