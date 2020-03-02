@@ -5362,6 +5362,7 @@ guardarDeclaracion() {
        this.mostrarDataRegister = true;
      } else {
        this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+       console.log('entre');
      }
   } else {
     this.mostrarDataRegister = true;
