@@ -1952,6 +1952,9 @@ export class DashboardComponent implements OnInit {
          if (!existe) {
             this.estados.push(item.establishment_state);
          }
+         if (item.establishment_state == '') {
+            item.establishment_state = 'ACTIVO';
+         }
          const newItem = {
             selected: '',
             activity: item.activity,
