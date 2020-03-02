@@ -5679,6 +5679,7 @@ guardarDeclaracion() {
       } else {
          this.establishment_selected.as_turistic_register_date = null;
       }
+      console.log(this.establishment_selected.as_turistic_register_date);
       this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
       this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
       this.getAutorizacionCondominos(this.rucEstablishmentRegisterSelected.id);
