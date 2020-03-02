@@ -5353,6 +5353,7 @@ guardarDeclaracion() {
      }
   });
   if (isAlojamiento) {
+     console.log('entre');
     if (this.registersByEstablishment[0].register.id == 0) {
        this.rucEstablishmentRegisterSelected = new Register();
        this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
@@ -5362,9 +5363,9 @@ guardarDeclaracion() {
        this.mostrarDataRegister = true;
      } else {
        this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
-       console.log('entre');
      }
   } else {
+   console.log('no entre');
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
     this.canCafeteria = true;
