@@ -5340,8 +5340,8 @@ guardarDeclaracion() {
   this.establishment_selected.sri_state = establishment.sri_state;
   this.selected_establishment_state = establishment.sri_state;
   this.ruc_registro_selected.registers.forEach(register => {
+     console.log(register);
      if (register.establishment.id == establishment.id) {
-      console.log(register.activity);
       this.registersByEstablishment.push(register);
        if (register.activity == "ALOJAMIENTO") {
           isAlojamiento = true;
@@ -5353,7 +5353,6 @@ guardarDeclaracion() {
        }
      }
   });
-  console.log(isAlojamiento);
   if (isAlojamiento) {
     if (this.registersByEstablishment[0].register.id == 0) {
        this.rucEstablishmentRegisterSelected = new Register();
