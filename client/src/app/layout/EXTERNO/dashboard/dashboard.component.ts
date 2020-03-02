@@ -5339,20 +5339,16 @@ guardarDeclaracion() {
   this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
   this.establishment_selected.sri_state = establishment.sri_state;
   this.selected_establishment_state = establishment.sri_state;
-  this.ruc_registro_selected.registers.forEach(register => {
-     console.log(register);
-     if (register.establishment.id == establishment.id) {
-      this.registersByEstablishment.push(register);
-       if (register.activity == "ALOJAMIENTO") {
-          isAlojamiento = true;
-          this.canAlimentosBebidas = false;
-       }
-       if (register.activity == "ALIMENTOS Y BEBIDAS") {
-          this.canAlojamiento = false;
+  
+  if (this.actividadSelected == '1') {
+   isAlojamiento = true;
+   this.canAlimentosBebidas = false;
+  }
+
+  if (this.actividadSelected == '2') {
+   this.canAlojamiento = false;
           isAlojamiento = false;
-       }
-     }
-  });
+  }
   if (isAlojamiento) {
     if (this.registersByEstablishment[0].register.id == 0) {
        this.rucEstablishmentRegisterSelected = new Register();
