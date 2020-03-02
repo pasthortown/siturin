@@ -3372,8 +3372,6 @@ export class DashboardComponent implements OnInit {
 
 guardarDeclaracion() {
    let minim_year_declaration = 0;
-   console.log(this.establishment_selected.as_turistic_register_date);
-   return;
    if (this.establishment_selected.as_turistic_register_date !== null && typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
       minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();   
    }
@@ -5339,7 +5337,6 @@ guardarDeclaracion() {
   this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
   this.establishment_selected.sri_state = establishment.sri_state;
   this.selected_establishment_state = establishment.sri_state;
-  //AQUI
   this.ruc_registro_selected.registers.forEach(register => {
      if (register.establishment.id == establishment.id) {
       this.registersByEstablishment.push(register);
