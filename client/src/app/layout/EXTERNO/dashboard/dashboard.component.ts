@@ -4772,6 +4772,9 @@ guardarDeclaracion() {
    this.establishment_declarations_selected = this.establishment_selected;
    this.establishment_selected.as_turistic_register_date = null;
    if (this.estaEnTabla) {
+      if (this.selected_establishment_state == '') {
+         this.selected_establishment_state = 'ACTIVO';
+      }
       this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment_selected.ruc_code_id, this.selected_establishment_state).then( resp_cat => {
       }).catch(e => { console.log(e); });
       this.establishment_selected.as_turistic_register_date = this.register_as_turistic_Date;
