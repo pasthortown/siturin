@@ -2062,7 +2062,6 @@ export class DashboardComponent implements OnInit {
    this.declarandoUnoMil = false;
    this.mostrarIngresoDatos = true;
    this.idCausal = 0;
-
    this.estaEnTabla = false;
    this.selected_system_source = '';
    this.selected_category_catastro = '';
@@ -2070,7 +2069,6 @@ export class DashboardComponent implements OnInit {
    this.esRegistro = true;
    this.hasRucCode = true;
    this.selectedRegister = null;
-
    this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a solicitar una clasificación adicional para su establecimiento, tiene la opción de guardar la información en cualquier momento.';
   }
 
@@ -5337,27 +5335,44 @@ guardarDeclaracion() {
   this.establishment_selected.ruc_code_id = establishment.ruc_code_id;
   this.establishment_selected.sri_state = establishment.sri_state;
   this.selected_establishment_state = establishment.sri_state;
-  this.ruc_registro_selected.registers.forEach(register => {
-     if (register.establishment.id == establishment.id) {
-      this.registersByEstablishment.push(register);
-       if (register.activity == "ALOJAMIENTO") {
-          
-       }
-       if (register.activity == "ALIMENTOS Y BEBIDAS") {
-          
-       }
-     }
-  });
+  if (this.ruc_registro_selected.registers.length > 0) {
+   this.ruc_registro_selected.registers.forEach(register => {
+      if (register.establishment.id == establishment.id) {
+       this.registersByEstablishment.push(register);
+        if (register.activity == "ALOJAMIENTO") {
+           isAlojamiento = true;
+           this.canAlimentosBebidas = false;
+        }
+        if (register.activity == "ALIMENTOS Y BEBIDAS") {
+           isAlojamiento = false;
+           this.canAlojamiento = false;
+        }
+      }
+   });
+  } else {
+   if (this.actividadSelected == '1') {
+      isAlojamiento = true;
+      this.canAlimentosBebidas = false;
+   }
+   if (this.actividadSelected == '2') {
+      isAlojamiento = false;
+      this.canAlojamiento = false;
+   }
+  }
   if (isAlojamiento) {
-    if (this.registersByEstablishment[0].register.id == 0) {
-       this.rucEstablishmentRegisterSelected = new Register();
-       this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
-       this.rucEstablishmentRegisterSelected.status = 11;
-       this.rucEstablishmentRegisterSelected.register_type_id = 0;
-       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
-       this.mostrarDataRegister = true;
+     if (this.registersByEstablishment.length > 0) {
+      if (this.registersByEstablishment[0].register.id == 0) {
+         this.rucEstablishmentRegisterSelected = new Register();
+         this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+         this.rucEstablishmentRegisterSelected.status = 11;
+         this.rucEstablishmentRegisterSelected.register_type_id = 0;
+         this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
+         this.mostrarDataRegister = true;
+       } else {
+         this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+       }
      } else {
-       this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+      this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
      }
   } else {
     this.mostrarDataRegister = true;
