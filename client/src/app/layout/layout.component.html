@@ -8,22 +8,31 @@
     Asistente Virtual
   </div>
   <div style="width: 40%; text-align: right;">
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
-        <i class="fas fa-window-minimize"></i>
-      </button>
+    <div class="row">
+      <div class="col-6 text-light">
+        Asistente Virtual
+      </div>
+      <div class="col-6 text-right">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
+            <i class="fas fa-window-minimize"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <div class="chatspace-minimized" *ngIf="chat_minimized">
-  <div style="width: 40%;" class="text-light">
-    Asistente Virtual
-  </div>
-  <div style="width: 40%; text-align: right;">
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
-        <i class="fas fa-window-minimize"></i>
-      </button>
+  <div class="row">
+    <div class="col-6 text-light">
+      Asistente Virtual
+    </div>
+    <div class="col-6 text-right">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
+          <i class="fas fa-window-maximize"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>
