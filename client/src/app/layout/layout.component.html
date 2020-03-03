@@ -25,7 +25,7 @@
               {{line.message}}
               <small class="col-12 text-right"><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
             </div>
-            <div class="alert alert-success" role="alert" *ngIf="line.from !== 'Tu'">
+            <div class="alert alert-success col-12" role="alert" *ngIf="line.from !== 'Tu'">
               <small class="col-12 text-left"><strong>{{line.from}}</strong></small>
               {{line.message}}
               <small class="col-12 text-right"><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
