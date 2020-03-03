@@ -4,8 +4,8 @@
   <router-outlet></router-outlet>
 </section>
 <div class="chatspace" *ngIf="!chat_minimized">
-  HOLA
+  <button (click)="change_chat_state()">Minimizar</button>
 </div>
 <div class="chatspace-minimized" *ngIf="chat_minimized">
-  HOLA
+  <button (click)="change_chat_state()">Normal</button>
 </div>
