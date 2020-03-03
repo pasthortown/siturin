@@ -3371,7 +3371,8 @@ export class DashboardComponent implements OnInit {
 guardarDeclaracion() {
    let minim_year_declaration = 0;
    if (this.establishment_selected.as_turistic_register_date !== null && typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
-      minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();   
+      let asturisticdate = new Date(this.establishment_selected.as_turistic_register_date.toString());
+      minim_year_declaration = asturisticdate.getFullYear();   
    }
    if (this.declaration_selected.year < minim_year_declaration) {
       this.toastr.errorToastr('Existe inconsistencia con el año de la declaración.', 'Declaración');
@@ -5378,6 +5379,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.register_type_id = 0;
       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
       this.mostrarDataRegister = true;
+      this.establishment_selected.as_turistic_register_date = new Date(this.register_as_turistic_Date.toString());
      }
   } else {
     this.mostrarDataRegister = true;
