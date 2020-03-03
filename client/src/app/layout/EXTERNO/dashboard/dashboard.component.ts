@@ -3370,6 +3370,8 @@ export class DashboardComponent implements OnInit {
 
 guardarDeclaracion() {
    let minim_year_declaration = 0;
+   console.log(this.establishment_selected.as_turistic_register_date);
+   return;
    if (this.establishment_selected.as_turistic_register_date !== null && typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
       minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();   
    }
@@ -5360,7 +5362,6 @@ guardarDeclaracion() {
    }
   }
   if (isAlojamiento) {
-     console.log('entre');
      if (this.registersByEstablishment.length > 0) {
       if (this.registersByEstablishment[0].register.id == 0) {
          this.rucEstablishmentRegisterSelected = new Register();
@@ -5373,16 +5374,15 @@ guardarDeclaracion() {
          this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
        }
      } else {
-      console.log('entre2');
       this.rucEstablishmentRegisterSelected = new Register();
       this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
       this.rucEstablishmentRegisterSelected.status = 11;
       this.rucEstablishmentRegisterSelected.register_type_id = 0;
       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
       this.mostrarDataRegister = true;
+      //AQUI
      }
   } else {
-   console.log('no entre');
     this.mostrarDataRegister = true;
     this.canRestaurante = true;
     this.canCafeteria = true;
