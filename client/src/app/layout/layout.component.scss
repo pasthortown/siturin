@@ -45,6 +45,8 @@
   height: 230px;
   background-color: white;
   border-style: solid;
+  overflow-y: auto;
+  overflow-x: none;
   border-width: 1px;
   border-color: black;
 }
