@@ -19,18 +19,18 @@
   <div class="row text-center">
     <div class="col-12">
       <div class="messagespace col-12">
+        <div class="row">&nbsp;</div>
         <div class="row" *ngFor="let line of conversacion">
           <div class="col-12">
-            <div class="col-12">&nbsp;</div>
             <div class="alert alert-info" role="alert" *ngIf="line.from == 'Tu'">
-              <p style="width: 100%; text-align: left;"><small><strong>{{line.from}}</strong></small></p>
-              <p class="text-justify">{{line.message}}</p>
-              <p style="width: 100%; text-align: right;"><small><strong>{{line.time | date: 'y-MM-dd'}}</strong></small></p>
+              <small style="width: 100%; text-align: left;"><strong>{{line.from}}</strong></small>
+              <span style="width: 100%; text-align: justify;">{{line.message}}</span>
+              <small style="width: 100%; text-align: right;"><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
             </div>
             <div class="alert alert-success" role="alert" *ngIf="line.from !== 'Tu'">
-              <p style="width: 100%; text-align: left;"><small><strong>{{line.from}}</strong></small></p>
-              <p class="text-justify">{{line.message}}</p>
-              <p style="width: 100%; text-align: right;"><small><strong>{{line.time | date: 'y-MM-dd'}}</strong></small></p>
+              <small style="width: 100%; text-align: left;"><strong>{{line.from}}</strong></small>
+              <span style="width: 100%; text-align: justify;">{{line.message}}</span>
+              <small style="width: 100%; text-align: right;"><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
             </div>
           </div>
         </div>
