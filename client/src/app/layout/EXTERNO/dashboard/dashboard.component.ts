@@ -5380,7 +5380,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.register_type_id = 0;
       this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
       this.mostrarDataRegister = true;
-      //AQUI
+      this.establishment_selected.as_turistic_register_date = new Date(this.register_as_turistic_Date.toString());
      }
   } else {
     this.mostrarDataRegister = true;
