@@ -21,7 +21,16 @@
       <div class="messagespace">
         <div class="row">
           <div class="col-12 text-left" *ngFor="let line of conversacion">
-            {{line.from}}: {{line.message}}
+            <div class="alert alert-info col-12" role="alert" *ngIf="line.from == 'Tu'">
+              <small class="col-12 text-left"><strong>{{line.from}}</strong></small>
+              {{line.message}}
+              <small class="col-12 text-right"><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
+            </div>
+            <div class="alert alert-info" role="alert" *ngIf="line.from !== 'Tu'">
+              <small class="col-12 text-left"><strong>{{line.from}}</strong></small>
+              {{line.message}}
+              <small class="col-12 text-right"><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
+            </div>
           </div>
         </div>
       </div>

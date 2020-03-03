@@ -20,7 +20,7 @@ export class LayoutComponent implements OnInit {
     two = false;
     three = false;
     chat_minimized = true;
-    conversacion = [{from: 'ia', message: 'Hola'},{from: 'Tu', message: 'Hola'},{from: 'ia', message: 'Hola'}];
+    conversacion = [{from: 'ia', message: 'Hola', time: new Date()},{from: 'Tu', message: 'Hola', time: new Date()},{from: 'ia', message: 'Hola', time: new Date()}];
 
     constructor(private toastr: ToastrManager, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
