@@ -3371,7 +3371,8 @@ export class DashboardComponent implements OnInit {
 guardarDeclaracion() {
    let minim_year_declaration = 0;
    if (this.establishment_selected.as_turistic_register_date !== null && typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
-      console.log(this.establishment_selected.as_turistic_register_date.getFullYear());
+      let asturisticdate = new Date(this.establishment_selected.as_turistic_register_date.toString());
+      console.log(asturisticdate.getFullYear());
       return;
       minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();   
    }
