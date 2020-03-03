@@ -33,7 +33,7 @@
 .chatspace {
   position: fixed;
   bottom: 0px;
-  right: 300px;
+  right: opx;
   height: 300px;
   width: 300px;
   background-color: red;
@@ -42,7 +42,7 @@
 .chatspace-minimized {
   position: fixed;
   bottom: 0px;
-  right: 300px;
+  right: 0px;
   height: 30px;
   width: 300px;
   background-color: red;
