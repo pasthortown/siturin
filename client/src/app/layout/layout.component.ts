@@ -20,7 +20,8 @@ export class LayoutComponent implements OnInit {
     two = false;
     three = false;
     chat_minimized = true;
-    
+    conversacion = [{from: 'ia', message: 'Hola'},{from: 'Tu', message: 'Hola'},{from: 'ia', message: 'Hola'}];
+
     constructor(private toastr: ToastrManager, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
     ngOnInit() {

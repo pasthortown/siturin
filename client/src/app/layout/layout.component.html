@@ -18,7 +18,13 @@
   </div>
   <div class="row text-center">
     <div class="col-12">
-      <div class="messagespace"></div>
+      <div class="messagespace">
+        <div class="row">
+          <div class="col-12" *ngFor="let line of conversacion">
+            {{line.from}}: {{line.message}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
