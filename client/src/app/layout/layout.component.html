@@ -3,17 +3,27 @@
 <section class="main-container" [ngClass]="{ collapsed: collapedSideBar }">
   <router-outlet></router-outlet>
 </section>
-<div class="chatspace text-right" *ngIf="!chat_minimized">
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
-      <i class="fas fa-window-minimize"></i>
-    </button>
+<div class="chatspace" *ngIf="!chat_minimized">
+  <div style="width: 50%;" class="text-light">
+    Asistente Virtual
+  </div>
+  <div style="width: 50%; text-align: right;">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
+        <i class="fas fa-window-minimize"></i>
+      </button>
+    </div>
   </div>
 </div>
-<div class="chatspace-minimized text-right" *ngIf="chat_minimized">
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
-      <i class="fas fa-window-maximize"></i>
-    </button>
+<div class="chatspace-minimized" *ngIf="chat_minimized">
+  <div style="width: 50%;" class="text-light">
+    Asistente Virtual
+  </div>
+  <div style="width: 50%; text-align: right;">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
+        <i class="fas fa-window-minimize"></i>
+      </button>
+    </div>
   </div>
 </div>
