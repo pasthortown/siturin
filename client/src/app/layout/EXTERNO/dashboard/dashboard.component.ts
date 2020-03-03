@@ -3372,9 +3372,7 @@ guardarDeclaracion() {
    let minim_year_declaration = 0;
    if (this.establishment_selected.as_turistic_register_date !== null && typeof this.establishment_selected.as_turistic_register_date != 'undefined') {
       let asturisticdate = new Date(this.establishment_selected.as_turistic_register_date.toString());
-      console.log(asturisticdate.getFullYear());
-      return;
-      minim_year_declaration = this.establishment_selected.as_turistic_register_date.getFullYear();   
+      minim_year_declaration = asturisticdate.getFullYear();   
    }
    if (this.declaration_selected.year < minim_year_declaration) {
       this.toastr.errorToastr('Existe inconsistencia con el año de la declaración.', 'Declaración');
