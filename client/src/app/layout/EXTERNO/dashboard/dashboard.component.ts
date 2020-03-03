@@ -5372,7 +5372,12 @@ guardarDeclaracion() {
          this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
        }
      } else {
-      this.selectEstablishmentRegister(this.registersByEstablishment[0].register, false);
+      this.rucEstablishmentRegisterSelected = new Register();
+      this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+      this.rucEstablishmentRegisterSelected.status = 11;
+      this.rucEstablishmentRegisterSelected.register_type_id = 0;
+      this.rucEstablishmentRegisterSelected.establishment_id = establishment.id;
+      this.mostrarDataRegister = true;
      }
   } else {
     this.mostrarDataRegister = true;
@@ -5690,7 +5695,6 @@ guardarDeclaracion() {
       } else {
          this.establishment_selected.as_turistic_register_date = null;
       }
-      console.log(this.establishment_selected.as_turistic_register_date);
       this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
       this.getTituloPropiedad(this.rucEstablishmentRegisterSelected.id);
       this.getAutorizacionCondominos(this.rucEstablishmentRegisterSelected.id);
