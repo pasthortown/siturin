@@ -22,11 +22,11 @@
         <div class="row">&nbsp;</div>
         <div class="row" *ngFor="let line of conversacion">
           <div class="col-12">
-            <div class="alert alert-info" role="alert" *ngIf="line.from == 'Tu'">
+            <div class="badge badge-info col-12" role="alert" *ngIf="line.from == 'Tu'">
               <small><strong>{{line.from}}</strong></small><br/>
               <span>{{line.message}}</span>
             </div>
-            <div class="alert alert-success" role="alert" *ngIf="line.from !== 'Tu'">
+            <div class="badge badge-info col-12" role="alert" *ngIf="line.from !== 'Tu'">
               <small><strong>{{line.from}}</strong></small><br/>
               <span>{{line.message}}</span>
             </div>
