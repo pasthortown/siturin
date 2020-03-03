@@ -19,6 +19,7 @@ export class LayoutComponent implements OnInit {
     half = false;
     two = false;
     three = false;
+    chat_minimized = true;
     
     constructor(private toastr: ToastrManager, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
@@ -131,5 +132,9 @@ export class LayoutComponent implements OnInit {
                 Swal.fire(r.title, r.message, r.type);
             }
         }).catch( e => { console.log(e); });
+    }
+
+    change_chat_state() {
+        this.chat_minimized = !this.chat_minimized;
     }
 }

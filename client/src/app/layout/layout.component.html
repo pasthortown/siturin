@@ -3,6 +3,9 @@
 <section class="main-container" [ngClass]="{ collapsed: collapedSideBar }">
   <router-outlet></router-outlet>
 </section>
-<div class="chatspace">
+<div class="chatspace" *ngIf="!chat_minimized">
+  HOLA
+</div>
+<div class="chatspace-minimized" *ngIf="chat_minimized">
   HOLA
 </div>
