@@ -10,7 +10,7 @@
     </div>
     <div class="col-6 text-right">
       <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-sm btn-secondary" (click)="change_chat_state()">
+        <button type="button" class="btn btn-sm btn-warning" (click)="change_chat_state()">
           <i class="fas fa-window-minimize"></i>
         </button>
       </div>
@@ -26,7 +26,9 @@
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Mensaje...">
         <div class="input-group-append">
-          <span class="input-group-text" id="basic-addon2">Enviar</span>
+          <button  class="btn btn-success" (click)="enviar()">
+            <i class="far fa-share-square"></i>
+          </button>
         </div>
       </div>
     </div>
