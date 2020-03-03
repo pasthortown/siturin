@@ -19,8 +19,7 @@
   <div class="row text-center">
     <div class="col-12">
       <div class="messagespace">
-        <div class="row">
-          <div class="col-12 text-left" *ngFor="let line of conversacion">
+          <div class="row text-center" *ngFor="let line of conversacion">
             <div class="alert alert-info col-12" role="alert" *ngIf="line.from == 'Tu'">
               <small class="col-12 text-left"><strong>{{line.from}}</strong></small>
               {{line.message}}
