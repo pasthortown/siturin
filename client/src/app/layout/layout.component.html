@@ -19,22 +19,33 @@
   <div class="row text-center">
     <div class="col-12">
       <div class="messagespace col-12">
-        <div class="row">&nbsp;</div>
         <div class="row" *ngFor="let line of conversacion">
-          <div class="col-12">
+          <div class="col-12 mt-2">
             <div class="badge badge-info col-12" role="alert" *ngIf="line.from == 'Tu'">
               <div class="row">
                 <div class="col-12 text-left">
-                  <small class=""><strong>{{line.from}}</strong></small>
+                  <small><strong>{{line.from}}</strong></small>
                 </div>
                 <div class="col-12 text-justify">
                   {{line.message}}
                 </div>
+                <div class="col-12 text-right">
+                  <small><strong>{{line.time}}</strong></small>
+                </div>
               </div>
             </div>
             <div class="badge badge-info col-12" role="alert" *ngIf="line.from !== 'Tu'">
-              <small><strong>{{line.from}}</strong></small><br/>
-              <span>{{line.message}}</span>
+              <div class="row">
+                <div class="col-12 text-left">
+                  <small><strong>{{line.from}}</strong></small>
+                </div>
+                <div class="col-12 text-justify">
+                  {{line.message}}
+                </div>
+                <div class="col-12 text-right">
+                  <small><strong>{{line.time}}</strong></small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
