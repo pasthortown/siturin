@@ -20,8 +20,8 @@
     <div class="col-12">
       <div class="messagespace col-12">
         <div class="row" *ngFor="let line of conversacion">
-          <div class="col-12 mt-2">
-            <div class="badge badge-info col-12" role="alert" *ngIf="line.from == 'Tu'">
+          <div class="col-12 mt-1">
+            <div class="badge badge-secondary col-12" role="alert" *ngIf="line.from == 'Tu'">
               <div class="row">
                 <div class="col-12 text-left">
                   <small><strong>{{line.from}}</strong></small>
@@ -30,7 +30,7 @@
                   {{line.message}}
                 </div>
                 <div class="col-12 text-right">
-                  <small><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
+                  <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
                   {{line.message}}
                 </div>
                 <div class="col-12 text-right">
-                  <small><strong>{{line.time | date: 'y-MM-dd'}}</strong></small>
+                  <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
                 </div>
               </div>
             </div>
