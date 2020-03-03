@@ -23,8 +23,14 @@
         <div class="row" *ngFor="let line of conversacion">
           <div class="col-12">
             <div class="badge badge-info col-12" role="alert" *ngIf="line.from == 'Tu'">
-              <small><strong>{{line.from}}</strong></small><br/>
-              <span>{{line.message}}</span>
+              <div class="row">
+                <div class="col-12 text-left">
+                  <small class=""><strong>{{line.from}}</strong></small>
+                </div>
+                <div class="col-12 text-justify">
+                  {{line.message}}
+                </div>
+              </div>
             </div>
             <div class="badge badge-info col-12" role="alert" *ngIf="line.from !== 'Tu'">
               <small><strong>{{line.from}}</strong></small><br/>
