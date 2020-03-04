@@ -74,26 +74,26 @@
             <tr>
                <th>Seleccionado</th>
                <th>name</th>
-               <th>description</th>
                <th>father_code</th>
+               <th>code</th>
+               <th>description</th>
                <th>to_approve</th>
                <th>mandatory</th>
                <th>type</th>
                <th>params</th>
-               <th>code</th>
             </tr>
          </thead>
          <tbody>
             <tr *ngFor="let requisite of requisites" (click)="selectRequisite(requisite)">
                <td class="text-right"><span *ngIf="requisiteSelected === requisite" class="far fa-hand-point-right"></span></td>
+               <td>{{requisite.father_code}}</td>
+               <td>{{requisite.code}}</td>
                <td>{{requisite.name}}</td>
                <td>{{requisite.description}}</td>
-               <td>{{requisite.father_code}}</td>
                <td>{{requisite.to_approve}}</td>
                <td>{{requisite.mandatory}}</td>
                <td>{{requisite.type}}</td>
                <td>{{requisite.params}}</td>
-               <td>{{requisite.code}}</td>
             </tr>
          </tbody>
       </table>
