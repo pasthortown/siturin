@@ -18,7 +18,7 @@ export class ChatService {
 
    enviar(decir: string): Promise<any> {
     const data ={decir: decir};
-    this.http.post(this.url, JSON.stringify(data)).toPromise().then( r => {
+    return this.http.post(this.url, JSON.stringify(data)).toPromise().then( r => {
       return r.json();
     }).catch( e=> {console.log(e)});
    }
