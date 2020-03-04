@@ -149,9 +149,9 @@ export class LayoutComponent implements OnInit {
     }
 
     tratarenviar(event) {
-        const newMessage = {from: 'Tu', message: this.textoEnviarIA, time: new Date()};
-        this.conversacion.push(newMessage);
         if (event.key == 'Enter') {
+            const newMessage = {from: 'Tu', message: this.textoEnviarIA, time: new Date()};
+            this.conversacion.push(newMessage);
             this.enviarTextoChat();
         }
     }
