@@ -67,7 +67,7 @@ export class RequisiteComponent implements OnInit {
       this.requisites = [];
       let filter = 0;
       this.register_types.forEach( element => {
-         if (element.father_code == this.classificationSelectedCode) {
+         if (element.code == this.classificationSelectedCode) {
             filter = element.id;
          }
       });
