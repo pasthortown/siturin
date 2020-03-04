@@ -48,6 +48,15 @@ export class RequisiteComponent implements OnInit {
       });
    }
 
+   getCategories() {
+      this.categories = [];
+      this.register_types.forEach( element => {
+         if (element.father_code == this.classificationSelectedCode) {
+            this.categories.push(element);
+         }
+      });
+   }
+
    selectRequisite(requisite: Requisite) {
       this.requisiteSelected = requisite;
    }
