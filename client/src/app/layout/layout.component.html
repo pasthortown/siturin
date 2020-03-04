@@ -19,6 +19,19 @@
   <div class="row text-center">
     <div class="col-12">
       <div class="messagespace col-12">
+        <div class="col-12" style="background-color: #429b88; color: whitesmoke; border-radius: 5px; line-height: 15px;">
+          <div class="row">
+            <div class="col-12 text-left mt-1">
+              <small><strong>Asistente Virtual</strong></small>
+            </div>
+            <div class="col-12 text-justify" style="font-style: italic;">
+              <small>Saludos, Hay algo en lo que te pueda servir?</small>
+            </div>
+            <div class="col-12 text-right mb-1">
+              <small><i>{{new Date() | date: 'y-MM-dd'}}</i></small>
+            </div>
+          </div>
+        </div>
         <div class="row" *ngFor="let line of conversacion">
           <div class="col-12 mt-1">
             <div class="col-12" style="background-color: #727575; color: whitesmoke; border-radius: 5px; line-height: 15px;" *ngIf="line.from == 'Tu'">
