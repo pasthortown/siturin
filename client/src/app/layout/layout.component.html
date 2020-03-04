@@ -21,28 +21,24 @@
       <div class="messagespace col-12">
         <div class="row" *ngFor="let line of conversacion">
           <div class="col-12 mt-1">
-            <div class="badge badge-secondary col-12" style="background-color: gray;" role="alert" *ngIf="line.from == 'Tu'">
+            <div class="badge badge-secondary col-12" role="alert" *ngIf="line.from == 'Tu'">
               <div class="row">
                 <div class="col-12 text-left">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
-                <div class="col-12 text-center">
-                  <textarea style="width: 100%; background-color: gray; text-align: justify; border-style: none;" readonly cols="50" [innerHTML]="line.message">
-                  </textarea>
+                <div class="col-12 text-justify" [innerHTML]="line.message">
                 </div>
                 <div class="col-12 text-right">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
                 </div>
               </div>
             </div>
-            <div class="badge badge-info col-12" style="background-color: teal;" role="alert" *ngIf="line.from !== 'Tu'">
+            <div class="badge badge-info col-12" role="alert" *ngIf="line.from !== 'Tu'">
               <div class="row">
                 <div class="col-12 text-left">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
-                <div class="col-12 text-justify">
-                  <span class="form-control" readonly [innerHTML]="line.message">
-                  </span>
+                <div class="col-12 text-justify" [innerHTML]="line.message">
                 </div>
                 <div class="col-12 text-right">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
