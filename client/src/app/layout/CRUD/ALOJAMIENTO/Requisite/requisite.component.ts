@@ -59,9 +59,9 @@ export class RequisiteComponent implements OnInit {
    }
 
    showFilteredRequisites() {
-      this.requisitesFiltered = [];
+      this.requisites = [];
       this.requisiteDataService.get_filtered(this.categorySelectedID).then( r => {
-         this.requisitesFiltered = r as Requisite[];
+         this.requisites = r as Requisite[];
       }).catch( e => { console.log(e); });
    }
 
