@@ -1,3 +1,4 @@
+import { ChatService } from './../services/negocio/chat.service';
 import { Router } from '@angular/router';
 import { UserService } from './../services/profile/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,15 +21,11 @@ export class LayoutComponent implements OnInit {
     two = false;
     three = false;
     chat_minimized = true;
-    conversacion = [{from: 'ia', message: 'Hola', time: new Date()},
-    {from: 'Tu', message: 'Hola', time: new Date()},
-    {from: 'ia', message: 'Hola', time: new Date()},
-    {from: 'Tu', message: 'Hola', time: new Date()},
-    {from: 'ia', message: 'Hola', time: new Date()},
-    {from: 'Tu', message: 'Hola', time: new Date()},
-    {from: 'ia', message: 'Hola', time: new Date()}];
+    conversacion = [];
+    textoEnviarIA = '';
+    enviandoTexto = false;
 
-    constructor(private toastr: ToastrManager, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
+    constructor(private toastr: ToastrManager, private chatDataService: ChatService, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
     ngOnInit() {
         this.half = false;
@@ -143,5 +140,27 @@ export class LayoutComponent implements OnInit {
 
     change_chat_state() {
         this.chat_minimized = !this.chat_minimized;
+    }
+
+    enviar(event) {
+        const newMessage = {from: 'Tu', message: this.textoEnviarIA, time: new Date()};
+        this.conversacion.push(newMessage);
+        if (event == null) {
+            this.enviarTextoChat();
+        } else {
+            if (event.key == 'Enter') {
+                this.enviarTextoChat();
+            }
+        }
+    }
+
+    enviarTextoChat() {
+        this.enviandoTexto = true;
+        this.chatDataService.enviar(this.textoEnviarIA).then( r => {
+            const newMessage = {from: 'Asistente Virtual', message: r.data, time: new Date()};
+            this.conversacion.push(newMessage);
+            this.textoEnviarIA = '';
+            this.enviandoTexto = false;
+        }).catch( e => { console.log(e); });
     }
 }
