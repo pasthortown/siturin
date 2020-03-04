@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { ChatService } from './../services/negocio/chat.service';
 import { ProfilePictureService } from 'src/app/services/profile/profilepicture.service';
 import { HttpModule } from '@angular/http';
@@ -13,7 +14,7 @@ import { UserService } from '../services/profile/user.service';
 import { RegisterService } from '../services/CRUD/CATASTRO/register.service';
 
 @NgModule({
-    imports: [CommonModule, LayoutRoutingModule, NgbDropdownModule, HttpModule],
+    imports: [CommonModule, LayoutRoutingModule, NgbDropdownModule, HttpModule, FormsModule],
     declarations: [LayoutComponent, NavbarComponent, SidebarComponent],
     providers: [ProfilePictureService, UserService, RegisterService, ChatService]
 })
