@@ -22,27 +22,27 @@
         <div class="row" *ngFor="let line of conversacion">
           <div class="col-12 mt-1">
             <div class="col-12" style="background-color: #727575; color: whitesmoke; border-radius: 5px; line-height: 15px;" *ngIf="line.from == 'Tu'">
-              <div class="row mt-2 mb-2">
-                <div class="col-12 text-left">
+              <div class="row">
+                <div class="col-12 text-left mt-1">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
                 <div class="col-12 text-justify" style="font-style: italic;">
                   <small [innerHTML]="line.message"></small>
                 </div>
-                <div class="col-12 text-right">
+                <div class="col-12 text-right mb-1">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
                 </div>
               </div>
             </div>
             <div class="col-12" style="background-color: #429b88; color: whitesmoke; border-radius: 5px; line-height: 15px;" *ngIf="line.from !== 'Tu'">
-              <div class="row mt-2 mb-2">
-                <div class="col-12 text-left">
+              <div class="row">
+                <div class="col-12 text-left mt-1">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
                 <div class="col-12 text-justify" style="font-style: italic;">
                   <small [innerHTML]="line.message"></small>
                 </div>
-                <div class="col-12 text-right">
+                <div class="col-12 text-right mb-1">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
                 </div>
               </div>
