@@ -3290,6 +3290,11 @@ selectKitchenType(kitchenType: KitchenType) {
       if (this.activity == 'ALIMENTOS Y BEBIDAS') {
         numeric_register = '3000000'.substr(0, 6 - this.idRegister.toString().length) + this.idRegister.toString();
       }
+      if (this.registerMinturSelected.establishment.as_turistic_register_date == null) {
+         this.as_turistic_date = new Date();  
+         this.establishmentDataService.set_register_date(this.registerMinturSelected.establishment.id).then( r => {
+         }).catch( e => { console.log(e); }); 
+      }
      let code = this.ruc_registro_selected.ruc.number + '.' + number_by_ruc + '.' + numeric_register;
      if (this.tipo_tramite_seleccionado == 'inactivation') {
          clasificacion = this.catastro_classification;

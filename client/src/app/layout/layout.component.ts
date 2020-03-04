@@ -1,7 +1,7 @@
 import { ChatService } from './../services/negocio/chat.service';
 import { Router } from '@angular/router';
 import { UserService } from './../services/profile/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfilePictureService } from '../services/profile/profilepicture.service';
 import { ProfilePicture } from '../models/profile/ProfilePicture';
 import { User } from '../models/profile/User';
@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
     styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
+    @ViewChild('lastLine') lastLine;
     collapedSideBar: boolean;
     half = false;
     two = false;
@@ -35,6 +36,10 @@ export class LayoutComponent implements OnInit {
         this.getProfilePicture();
         this.getUserInfo();
         this.checkSessionTime();
+    }
+
+    scroll() {
+        this.lastLine.nativeElement.scrollIntoView({behavior: 'smooth'});
     }
 
     getProfilePicture() {
@@ -164,6 +169,7 @@ export class LayoutComponent implements OnInit {
             this.conversacion.push(newMessage);
             this.textoEnviarIA = '';
             this.enviandoTexto = false;
+            this.scroll();
         }).catch( e => { console.log(e); });
     }
 }

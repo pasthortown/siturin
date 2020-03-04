@@ -11,5 +11,6 @@ export const environment = {
   api_catastro: 'http://ws-siturin-catastro.turismo.gob.ec/',
   api_alimentosbebidas: 'http://ws-siturin-alimentos.turismo.gob.ec/',
   api_gad: 'http://ws-siturin-gad.turismo.gob.ec/',
+  api_chat: 'http://siturin-pruebas.turismo.gob.ec:5000',
   gmapapiKey: 'AIzaSyCGUwCcM-LKjRK4rjbBJ06_GLmX2LaYzfg',
 };
