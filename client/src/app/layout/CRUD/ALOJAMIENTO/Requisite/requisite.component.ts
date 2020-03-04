@@ -27,6 +27,7 @@ export class RequisiteComponent implements OnInit {
    clasifications_registers = [];
    categorySelectedID = 0;
    categories = [];
+   requisitesFiltered = [];
 
    constructor(
                private modalService: NgbModal,
@@ -55,6 +56,13 @@ export class RequisiteComponent implements OnInit {
             this.categories.push(element);
          }
       });
+   }
+
+   showFilteredRequisites() {
+      this.requisitesFiltered = [];
+      this.requisiteDataService.get_filtered(this.categorySelectedID).then( r => {
+         this.requisitesFiltered = r as Requisite[];
+      }).catch( e => { console.log(e); });
    }
 
    selectRequisite(requisite: Requisite) {
