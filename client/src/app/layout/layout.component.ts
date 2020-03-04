@@ -24,6 +24,7 @@ export class LayoutComponent implements OnInit {
     conversacion = [];
     textoEnviarIA = '';
     enviandoTexto = false;
+    today = new Date();
 
     constructor(private toastr: ToastrManager, private chatDataService: ChatService, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
