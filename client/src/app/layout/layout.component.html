@@ -55,7 +55,7 @@
   <div class="row">
     <div class="col-12">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Mensaje..." [disabled]="enviandoTexto" [(ngModel)]="textoEnviarIA" (keyup)="enviar($event)">
+        <input type="text" class="form-control" placeholder="Mensaje..." [disabled]="enviandoTexto" [(ngModel)]="textoEnviarIA" (keyup)="tratarenviar($event)">
         <div class="input-group-append">
           <button  class="btn btn-success" (click)="enviar(null)">
             <i class="far fa-share-square"></i>

@@ -145,12 +145,14 @@ export class LayoutComponent implements OnInit {
     enviar(event) {
         const newMessage = {from: 'Tu', message: this.textoEnviarIA, time: new Date()};
         this.conversacion.push(newMessage);
-        if (event == null) {
+        this.enviarTextoChat();
+    }
+
+    tratarenviar(event) {
+        const newMessage = {from: 'Tu', message: this.textoEnviarIA, time: new Date()};
+        this.conversacion.push(newMessage);
+        if (event.key == 'Enter') {
             this.enviarTextoChat();
-        } else {
-            if (event.key == 'Enter') {
-                this.enviarTextoChat();
-            }
         }
     }
 
