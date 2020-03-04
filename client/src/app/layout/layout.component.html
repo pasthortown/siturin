@@ -3,8 +3,8 @@
 <section class="main-container" [ngClass]="{ collapsed: collapedSideBar }">
   <router-outlet></router-outlet>
 </section>
-<div class="chatspace" *ngIf="!chat_minimized" (click)="change_chat_state()">
-  <div class="row">
+<div class="chatspace" *ngIf="!chat_minimized">
+  <div class="row" (click)="change_chat_state()">
     <div class="col-6 text-light mt-1">
       &nbsp;Asistente Virtual
     </div>
@@ -65,8 +65,8 @@
     </div>
   </div>
 </div>
-<div class="chatspace-minimized" *ngIf="chat_minimized" (click)="change_chat_state()">
-  <div class="row">
+<div class="chatspace-minimized" *ngIf="chat_minimized">
+  <div class="row" (click)="change_chat_state()">
     <div class="col-6 text-light mt-1">
       &nbsp;Asistente Virtual
     </div>
