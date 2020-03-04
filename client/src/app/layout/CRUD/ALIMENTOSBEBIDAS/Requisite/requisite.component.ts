@@ -60,6 +60,7 @@ export class RequisiteComponent implements OnInit {
             this.categories.push(element);
          }
       });
+      this.showFilteredRequisites();
    }
 
    showFilteredRequisites() {
