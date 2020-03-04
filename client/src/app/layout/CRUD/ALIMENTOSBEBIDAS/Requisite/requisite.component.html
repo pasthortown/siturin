@@ -25,34 +25,76 @@
       </div>
    </div>
 </div>
+<div class="row mt-5">
+   <h3 class="col-12">Filtro de Búsqueda</h3>
+   <div class="col-4">
+      <div class="form-group">
+         <label>Región</label>
+         <select class="form-control" id="register_type_id" name="register_type_id"
+           (change)="getClassifications()" [(ngModel)]="regionSelectedCode">
+           <option value="-" selected>Seleccione...</option>
+           <option value="1" selected>Continente</option>
+           <option value="2" selected>Galápagos</option>
+         </select>
+       </div>
+   </div>
+   <div class="col-4">
+      <div class="form-group">
+         <label>Clasificación</label>
+         <select class="form-control" id="register_type_id" name="register_type_id"
+           (change)="getCategories()" [(ngModel)]="classificationSelectedCode">
+           <option value="-" selected>Seleccione...</option>
+           <option *ngFor="
+               let classification of clasifications_registers
+             " value="{{ classification.code }}">
+             {{ classification.name }}
+           </option>
+         </select>
+       </div>
+   </div>
+   <div class="col-4">
+      <div class="form-group">
+         <label>Categoría</label>
+         <select class="form-control" id="register_type_id" name="register_type_id"
+           (change)="showFilteredRequisites()" [(ngModel)]="categorySelectedID">
+           <option value="0" selected>Seleccione...</option>
+           <option *ngFor="
+               let categorie of categories
+             " value="{{ categorie.id }}">
+             {{ categorie.name }}
+           </option>
+         </select>
+       </div>
+   </div>
+</div>
 <div class="row">
    <div class="col-12">
       <table class="table table-hover mt-2">
          <thead>
             <tr>
                <th>Seleccionado</th>
+               <th>father_code</th>
+               <th>code</th>
                <th>name</th>
                <th>description</th>
-               <th>father_code</th>
                <th>to_approve</th>
                <th>mandatory</th>
                <th>type</th>
                <th>params</th>
-               <th>code</th>
                <th>score</th>
             </tr>
          </thead>
          <tbody>
             <tr *ngFor="let requisite of requisites" (click)="selectRequisite(requisite)">
                <td class="text-right"><span *ngIf="requisiteSelected === requisite" class="far fa-hand-point-right"></span></td>
+               <td>{{requisite.father_code}}</td>
+               <td>{{requisite.code}}</td>
                <td>{{requisite.name}}</td>
                <td>{{requisite.description}}</td>
-               <td>{{requisite.father_code}}</td>
                <td>{{requisite.to_approve}}</td>
                <td>{{requisite.mandatory}}</td>
                <td>{{requisite.type}}</td>
                <td>{{requisite.params}}</td>
-               <td>{{requisite.code}}</td>
                <td>{{requisite.score}}</td>
             </tr>
          </tbody>
