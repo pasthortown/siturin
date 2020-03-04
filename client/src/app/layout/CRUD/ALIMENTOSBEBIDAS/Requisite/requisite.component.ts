@@ -28,7 +28,7 @@ export class RequisiteComponent implements OnInit {
    categorySelectedID = 0;
    categories = [];
    requisitesFiltered = [];
-   
+
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
@@ -64,7 +64,13 @@ export class RequisiteComponent implements OnInit {
 
    showFilteredRequisites() {
       this.requisites = [];
-      this.requisiteDataService.get_filtered(this.categorySelectedID).then( r => {
+      let filter = 0;
+      this.register_types.forEach( element => {
+         if (element.father_code == this.classificationSelectedCode) {
+            filter = element.id;
+         }
+      });
+      this.requisiteDataService.get_filtered(filter).then( r => {
          this.requisites = r as Requisite[];
       }).catch( e => { console.log(e); });
    }
