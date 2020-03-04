@@ -27,7 +27,8 @@
                   <small><strong>{{line.from}}</strong></small>
                 </div>
                 <div class="col-12 text-center">
-                  <div style="width: 100px; text-align: justify; background-color: red;" [innerHTML]="line.message"></div>
+                  <textarea style="width: 100px; background-color: red; text-align: justify;" rows="4" cols="50" [innerHTML]="line.message">
+                  </textarea>
                 </div>
                 <div class="col-12 text-right">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
@@ -39,8 +40,9 @@
                 <div class="col-12 text-left">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
-                <div class="col-12 text-justify" style="background-color: yellow;">
-                  <div style="width: 100px; text-align: justify; background-color: red;" [innerHTML]="line.message"></div>
+                <div class="col-12 text-justify">
+                  <textarea style="width: 100px; background-color: red; text-align: justify;" rows="4" cols="50" [innerHTML]="line.message">
+                  </textarea>
                 </div>
                 <div class="col-12 text-right">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
