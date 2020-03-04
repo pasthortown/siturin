@@ -26,7 +26,8 @@
                 <div class="col-12 text-left">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
-                <div class="col-12 text-justify" style="font-size: 20px; font-style: italic;" [innerHTML]="line.message">
+                <div class="col-12 text-justify" style="font-style: italic;">
+                  <small [innerHTML]="line.message"></small>
                 </div>
                 <div class="col-12 text-right">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
@@ -38,7 +39,8 @@
                 <div class="col-12 text-left">
                   <small><strong>{{line.from}}</strong></small>
                 </div>
-                <div class="col-12 text-justify" style="font-size: 20px; font-style: italic;" [innerHTML]="line.message">
+                <div class="col-12 text-justify" style="font-style: italic;">
+                  <small [innerHTML]="line.message"></small>
                 </div>
                 <div class="col-12 text-right">
                   <small><i>{{line.time | date: 'y-MM-dd'}}</i></small>
