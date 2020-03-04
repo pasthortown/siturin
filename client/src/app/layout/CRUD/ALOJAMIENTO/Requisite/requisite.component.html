@@ -26,6 +26,48 @@
    </div>
 </div>
 <div class="row">
+   <h3 class="col-12">Filtro de Búsqueda</h3>
+   <div class="col-4">
+      <div class="form-group">
+         <label>Región</label>
+         <select class="form-control" id="register_type_id" name="register_type_id"
+           (change)="getClassifications()" [(ngModel)]="regionSelectedCode">
+           <option value="-" selected>Seleccione...</option>
+           <option value="1" selected>Continente</option>
+           <option value="2" selected>Galápagos</option>
+         </select>
+       </div>
+   </div>
+   <div class="col-4">
+      <div class="form-group">
+         <label>Clasificación</label>
+         <select class="form-control" id="register_type_id" name="register_type_id"
+           (change)="getCategories()" [(ngModel)]="classificationSelectedCode">
+           <option value="-" selected>Seleccione...</option>
+           <option *ngFor="
+               let classification of clasifications_registers
+             " value="{{ classification.code }}">
+             {{ classification.name }}
+           </option>
+         </select>
+       </div>
+   </div>
+   <div class="col-4">
+      <div class="form-group">
+         <label>Categoría</label>
+         <select class="form-control" id="register_type_id" name="register_type_id"
+           (change)="getRequisites()" [(ngModel)]="categorySelectedID">
+           <option value="0" selected>Seleccione...</option>
+           <option *ngFor="
+               let categorie of categories
+             " value="{{ categorie.id }}">
+             {{ categorie.name }}
+           </option>
+         </select>
+       </div>
+   </div>
+</div>
+<div class="row">
    <div class="col-12">
       <table class="table table-hover mt-2">
          <thead>

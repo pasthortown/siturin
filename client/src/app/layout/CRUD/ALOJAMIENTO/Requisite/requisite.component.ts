@@ -22,6 +22,12 @@ export class RequisiteComponent implements OnInit {
    showDialog = false;
    recordsByPage = 5;
    register_types: RegisterType[] = [];
+   regionSelectedCode = '-';
+   classificationSelectedCode = '-';
+   clasifications_registers = [];
+   categorySelectedID = 0;
+   categories = [];
+
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
@@ -31,6 +37,15 @@ export class RequisiteComponent implements OnInit {
    ngOnInit() {
       this.goToPage(1);
       this.getRegisterType();
+   }
+
+   getClassifications() {
+      this.clasifications_registers = [];
+      this.register_types.forEach( element => {
+         if (element.father_code == this.regionSelectedCode) {
+            this.clasifications_registers.push(element);
+         }
+      });
    }
 
    selectRequisite(requisite: Requisite) {
