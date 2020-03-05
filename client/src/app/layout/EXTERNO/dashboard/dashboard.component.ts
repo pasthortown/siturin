@@ -531,6 +531,13 @@ export class DashboardComponent implements OnInit {
   }
 
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
+   this.actividadSelected = '-';
+   this.cannuevaClasificacionAB = false;
+   this.establishment_selected_ruc_code_id = 'NULL';
+   this.my_category_current = '';
+   this.my_classification_current = '';
+   this.idCatasterID = 0;
+   this.register_code = '';
    this.estaEnTabla = estaEnTabla;
    this.mostrarDataRegisterMintur = true;
    this.selected_system_source = '';
@@ -546,7 +553,10 @@ export class DashboardComponent implements OnInit {
    }
    this.hasRucCode = hasRucCode;
    this.selectedRegister = null;
-   this.establishment_selected_ruc_code_id = 'NULL';
+   this.register_as_turistic_Date = new Date();
+   this.registroNuevoEstablecimiento = false;
+   this.declarandoUnoMil = false;
+   this.actualizandoCapacidadesPrecios = false;
    this.seleccionarRegistro();
   }
 
