@@ -428,6 +428,8 @@ export class DashboardComponent implements OnInit {
   mostrarIngresoDatos = false;
   cannuevaClasificacionAB = false;
 
+  activateOperationIntermediation = true;
+  
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
               private catastroRegisterDataService: CatastroRegisterService,
