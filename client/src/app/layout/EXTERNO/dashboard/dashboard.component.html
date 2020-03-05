@@ -1106,8 +1106,8 @@
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="true">
                                     <option value="-" selected>Seleccione...</option>
-                                    <option value="1" *ngIf="canAlojamiento">Alojamiento Turístico</option>
-                                    <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas">Alimentos y Bebidas</option>
+                                    <option value="1" *ngIf="canAlojamiento && activateAlojamiento">Alojamiento Turístico</option>
+                                    <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas && activateAlimentosBebidas">Alimentos y Bebidas</option>
                                     <option value="3" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == '2' && activateOperationIntermediation">Operación e Intermediación</option>          
                                   </select>
                                   <small class="col-12" *ngIf="regionSelectedCode == '2'">
@@ -4140,8 +4140,8 @@
                                     class="ml-2 badge badge-danger">Incorrecto</span>
                                   <select class="form-control" id="actividad" name="actividad" (change)="getClasifications()" [(ngModel)]="actividadSelected" [disabled]="activando || recategorizando || reclasificando || actualizando || ((!rucEstablishmentRegisterSelected.editable) && actividadSelected != '2')">
                                     <option value="-" selected>Seleccione...</option>
-                                    <option value="1" *ngIf="canAlojamiento">Alojamiento Turístico</option>
-                                    <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas">Alimentos y Bebidas</option>
+                                    <option value="1" *ngIf="canAlojamiento && activateAlojamiento">Alojamiento Turístico</option>
+                                    <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas && activateAlimentosBebidas">Alimentos y Bebidas</option>
                                     <option value="3" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == '2' && activateOperationIntermediation">Operación e Intermediación</option>          
                                   </select>
                                 </div>
