@@ -4199,7 +4199,7 @@
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
-                        <div class="row mt-3" *ngIf="categorySelectedCode !== '-' && continuarTramite">
+                        <div class="row mt-3" *ngIf="((categorySelectedCode !== '-' && actividadSelected == '2' && continuarTramite) || (continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'))) && (categorySelectedCode !== '-' && continuarTramite)">
                           <div class="col-12">
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
