@@ -3336,10 +3336,9 @@ export class DashboardComponent implements OnInit {
          })
          const today = new Date();
          this.my_tramits.forEach(tramit => {
-            console.log(tramit);
             const tramit_date = new Date(tramit.created_at.toString());
             const tramit_year = tramit_date.getFullYear();
-            if (tramit_year == today.getFullYear()) {
+            if (tramit_year == today.getFullYear() && tramit.establishment_id == this.establishment_selected.id) {
                this.canAddNewDeclaration = false;
             }   
          });
@@ -5325,7 +5324,6 @@ guardarDeclaracion() {
   }
 
   selectRegisterEstablishment(establishment: Establishment) {
-     //AQUI
    if(establishment.id == 0) {
     if (establishment.sri_state == 'CERRADO') {
        this.toastr.errorToastr('El sistema ha detectado que el establecimiento seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
