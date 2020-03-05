@@ -429,7 +429,7 @@ export class DashboardComponent implements OnInit {
   cannuevaClasificacionAB = false;
 
   activateOperationIntermediation = true;
-  
+
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
               private catastroRegisterDataService: CatastroRegisterService,
@@ -499,6 +499,9 @@ export class DashboardComponent implements OnInit {
    this.getTramiteStates();
   }
 
+  showData() {
+   console.log(this.ruc_registro_selected);
+  }
 
   refreshMaxBed(capacity: Capacity) {
    this.allowed_capacity_types.forEach(capacityType => {
