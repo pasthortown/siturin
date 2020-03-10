@@ -20,7 +20,7 @@ export class RequisiteComponent implements OnInit {
    currentPage = 1;
    lastPage = 1;
    showDialog = false;
-   recordsByPage = 5;
+   recordsByPage = 1000;
    register_types: RegisterType[] = [];
    regionSelectedCode = '-';
    classificationSelectedCode = '-';
