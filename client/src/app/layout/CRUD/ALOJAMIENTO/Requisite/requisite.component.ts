@@ -15,6 +15,7 @@ import { RegisterType } from './../../../../models/ALOJAMIENTO/RegisterType';
 })
 export class RequisiteComponent implements OnInit {
    requisites: Requisite[] = [];
+   requisites_all: Requisite[] = [];
    requisiteSelected: Requisite = new Requisite();
 
    currentPage = 1;
@@ -38,6 +39,17 @@ export class RequisiteComponent implements OnInit {
    ngOnInit() {
       this.goToPage(1);
       this.getRegisterType();
+      this.getAllRequisites();
+   }
+
+   getAllRequisites() {
+      this.requisiteDataService.get().then( r => {
+         this.requisites_all = r as Requisite[];
+         const novedades = [];
+         this.requisites_all.forEach(element => {
+            console.log(element.code.substr(0, element.father_code.length));
+         });
+      }).catch( e => { console.log(e); });
    }
 
    getClassifications() {
