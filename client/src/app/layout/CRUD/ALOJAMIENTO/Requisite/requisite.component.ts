@@ -47,8 +47,8 @@ export class RequisiteComponent implements OnInit {
          this.requisites_all = r as Requisite[];
          const novedades = [];
          this.requisites_all.forEach(element => {
-            if(element.code.substr(0, element.father_code.length) !== element.father_code) {
-               console.log({id: element.id, father_code: element.father_code});
+            if((element.code.substr(0, element.father_code.length) !== element.father_code) && element.father_code !== '-') {
+               console.log({id: element.id, element: element});
             }
          });
       }).catch( e => { console.log(e); });
