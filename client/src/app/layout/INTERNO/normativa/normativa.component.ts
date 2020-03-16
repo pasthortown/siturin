@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./normativa.component.scss']
 })
 export class NormativaComponent implements OnInit {
+  divition_id: number;
+  
   constructor() {}
 
   ngOnInit() {}
