@@ -57,11 +57,11 @@ export class NormativaComponent implements OnInit {
           }
         });
         if (!existe) {
-          this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito as number});
+          this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
         }
       });
     }).catch( e => { console.log(e); });
-    this.requisites.sort((r1,r2)=> {
+    this.requisites = this.requisites.sort((r1,r2)=> {
       if (r1.idCabecera > r2.idCabecera) {
         return 1;
       }
