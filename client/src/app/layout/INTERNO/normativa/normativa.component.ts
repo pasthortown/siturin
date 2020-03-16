@@ -58,9 +58,19 @@ export class NormativaComponent implements OnInit {
         });
         if (!existe) {
           this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+          this.requisites.sort((r1,r2)=> {
+            if (r1.idCabecera > r2.idCabecera) {
+              return 1;
+            }
+            if (r1.idCabecera > r2.idCabecera) {
+              return -1;
+            }
+            return 0;
+          });
         }
       });
     }).catch( e => { console.log(e); });
+
     console.log(this.requisites);
   }
 }
