@@ -8,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NormativaComponent implements OnInit {
   divition_id: number;
-  
+  clasificacion_id: number;
+  actividad_id: number;
 
   actividades = [];
+  clasificaciones = [];
 
   constructor( private normativaDataService: NormativaService) {}
 
@@ -23,5 +25,13 @@ export class NormativaComponent implements OnInit {
     this.normativaDataService.get_actvidades().then( r => {
        this.actividades = r.data;
     }).catch( e => { console.log(e); });
+  }
+
+  getClasificaciones(actividad_id) {
+    this.clasificaciones = [];
+    this.normativaDataService.get_clasificaciones(actividad_id).then( r => {
+      this.clasificaciones = r.data;
+      console.log(this.clasificaciones);
+   }).catch( e => { console.log(e); });
   }
 }
