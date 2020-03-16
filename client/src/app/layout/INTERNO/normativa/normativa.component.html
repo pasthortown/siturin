@@ -21,7 +21,7 @@
             </div>
             <select class="form-control" id="actividad_id" name="actividad_id" [(ngModel)]="actividad_id">
                 <option value="0" selected>Seleccione...</option>
-                <option *ngFor="let activity of actividades" value="activity.id_actividad" selected>activity.descripcion</option>
+                <option *ngFor="let activity of actividades" value="activity.id_actividad" selected>{{activity.descripcion}}</option>
             </select>
         </div>
     </div>
