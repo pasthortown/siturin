@@ -48,7 +48,19 @@ export class NormativaComponent implements OnInit {
     this.requisites = [];
     this.normativaDataService.get_requisites(this.categoria_id).then( r => {
       const incomming = r.data;
+      incomming.forEach(element => {
+        let existe = false;
+        this.requisites.forEach(cabecera => {
+          if (cabecera.nombre == element.cabecera_nombre) {
+            existe = true;
+          }
+        });
+        if (!existe) {
+          this.requisites.push({listaRequisitos: [], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+        }
+      });
       console.log(incomming);
     }).catch( e => { console.log(e); });
+    console.log(this.requisites);
   }
 }
