@@ -78,13 +78,35 @@ export class NormativaComponent implements OnInit {
         }
       });
       this.requisites.sort((r1,r2)=>{
-        if (r1.idCabecera > r2.idCabecera) {
+        if (r1.idCabecera*1 > r2.idCabecera*1) {
           return 1;
         }
-        if (r1.idCabecera < r2.idCabecera) {
+        if (r1.idCabecera*1 < r2.idCabecera*1) {
           return -1;
         }
         return 0;
+      });
+      this.requisites.forEach(cabecera => {
+        cabecera.listaRequisitos.sort((r1, r2)=> {
+          if (r1.id_requisito*1 > r2.id_requisito*1) {
+            return 1;
+          }
+          if (r1.id_requisito*1 < r2.id_requisito*1) {
+            return -1;
+          }
+          return 0
+        });
+        cabecera.listaGrupos.forEach(grupo => {
+          grupo.listaRequisitos.sort((r1, r2)=> {
+            if (r1.id_requisito*1 > r2.id_requisito*1) {
+              return 1;
+            }
+            if (r1.id_requisito*1 < r2.id_requisito*1) {
+              return -1;
+            }
+            return 0
+          });
+        });
       });
     }).catch( e => { console.log(e); });
   }
