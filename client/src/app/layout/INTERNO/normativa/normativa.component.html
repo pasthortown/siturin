@@ -51,7 +51,7 @@
 <div class="row">
     <table class="table table-hover mt-2 col-12" *ngFor="let cabecera of requisites">
         <thead>
-            <th colspan="2">{{cabecera.nombre}}</th>
+            <th colspan="2">{{cabecera.idCabecera}}.- {{cabecera.nombre}}</th>
         </thead>
         <tbody>
             <tr *ngFor="let requisitos of cabecera.listaRequisitos">
