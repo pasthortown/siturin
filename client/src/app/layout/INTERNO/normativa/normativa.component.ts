@@ -1,3 +1,4 @@
+import { NormativaService } from './../../../services/negocio/normativa.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class NormativaComponent implements OnInit {
   divition_id: number;
   
-  constructor() {}
+
+  actividades = [];
+
+  constructor( private normativaDataService: NormativaService) {}
 
   ngOnInit() {}
 }
