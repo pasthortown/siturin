@@ -55,12 +55,17 @@ export class NormativaComponent implements OnInit {
             existe = true;
             if (element.id_grupo_requisito == null) {
               cabecera.listaRequisitos.push(element);
-            }else {
+            } else {
+              let existeGrupo = false;
               cabecera.listaGrupos.forEach(grupo => {
                 if (grupo.idGrupo == element.id_grupo_requisito) {
+                  existeGrupo = true;
                   grupo.listaRequisitos.push(element);
                 }
               });
+              if (!existeGrupo) {
+                cabecera.listaGrupos.push({idGrupo: element.id_grupo_requisito, listaRequisitos: [element]})
+              }
             }
           }
         });
