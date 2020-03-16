@@ -64,7 +64,7 @@ export class NormativaComponent implements OnInit {
                 }
               });
               if (!existeGrupo) {
-                cabecera.listaGrupos.push({idGrupo: element.id_grupo_requisito, listaRequisitos: [element]})
+                cabecera.listaGrupos.push({idGrupo: element.id_grupo_requisito, listaRequisitos: [element], gruporeq_nombre: element.gruporeq_nombre})
               }
             }
           }
@@ -73,7 +73,7 @@ export class NormativaComponent implements OnInit {
           if (element.id_grupo_requisito == null) {
             this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
           }else {
-            this.requisites.push({listaRequisitos: [], listaGrupos: [{idGrupo: element.id_grupo_requisito, listaRequisitos: [element]}], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+            this.requisites.push({listaRequisitos: [], listaGrupos: [{idGrupo: element.id_grupo_requisito, listaRequisitos: [element], gruporeq_nombre: element.gruporeq_nombre}], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
           }
         }
       });
