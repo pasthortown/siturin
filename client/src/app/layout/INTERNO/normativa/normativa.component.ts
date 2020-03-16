@@ -53,13 +53,13 @@ export class NormativaComponent implements OnInit {
         this.requisites.forEach(cabecera => {
           if (cabecera.nombre == element.cabecera_nombre) {
             existe = true;
+            cabecera.listaRequisitos.push(element);
           }
         });
         if (!existe) {
-          this.requisites.push({listaRequisitos: [], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+          this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
         }
       });
-      console.log(incomming);
     }).catch( e => { console.log(e); });
     console.log(this.requisites);
   }
