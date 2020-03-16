@@ -54,24 +54,25 @@ export class NormativaComponent implements OnInit {
           if (cabecera.nombre == element.cabecera_nombre) {
             existe = true;
             cabecera.listaRequisitos.push(element);
+            if (element.id_grupo_requisito == null) {
+              cabecera.listaRequisitos.push(element);
+            }else {
+              cabecera.listaGrupos.forEach(grupo => {
+                if (grupo.idGrupo == element.id_grupo_requisito) {
+                  grupo.listaRequisitos.push(element);
+                }
+              });
+            }
           }
         });
         if (!existe) {
-          this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+          if (element.id_grupo_requisito == null) {
+            this.requisites.push({listaRequisitos: [element], listaGrupos: [], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+          }else {
+            this.requisites.push({listaRequisitos: [element], listaGrupos: [{idGrupo: element.id_grupo_requisito, listaRequisitos: [element]}], nombre: element.cabecera_nombre, idCabecera: element.id_cabecera_requisito});
+          }
         }
       });
     }).catch( e => { console.log(e); });
-    this.requisites.sort((req1, req2) => {
-      console.log(req1);
-      if (req1.idCabecera > req2.idCabecera) {
-        return 1;
-      }
-      if (req1.idCabecera < req2.idCabecera) {
-        return -1;
-      }
-      return 0;
-    });
-    console.log(this.requisites);
-
   }
 }
