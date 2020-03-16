@@ -77,6 +77,15 @@ export class NormativaComponent implements OnInit {
           }
         }
       });
+      this.requisites.sort((r1,r2)=>{
+        if (r1.idCabecera > r2.idCabecera) {
+          return 1;
+        }
+        if (r1.idCabecera < r2.idCabecera) {
+          return -1;
+        }
+        return 0;
+      });
       console.log(this.requisites);
     }).catch( e => { console.log(e); });
   }
