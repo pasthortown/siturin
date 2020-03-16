@@ -61,11 +61,12 @@ export class NormativaComponent implements OnInit {
         }
       });
     }).catch( e => { console.log(e); });
-    this.requisites = this.requisites.sort((r1,r2)=> {
-      if (r1.idCabecera > r2.idCabecera) {
+    this.requisites.sort((req1, req2) => {
+      console.log(req1.idCabecera);
+      if (req1.idCabecera > req2.idCabecera) {
         return 1;
       }
-      if (r1.idCabecera < r2.idCabecera) {
+      if (req1.idCabecera < req2.idCabecera) {
         return -1;
       }
       return 0;
