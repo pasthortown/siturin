@@ -53,7 +53,6 @@ export class NormativaComponent implements OnInit {
         this.requisites.forEach(cabecera => {
           if (cabecera.nombre == element.cabecera_nombre) {
             existe = true;
-            cabecera.listaRequisitos.push(element);
             if (element.id_grupo_requisito == null) {
               cabecera.listaRequisitos.push(element);
             }else {
