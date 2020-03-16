@@ -48,7 +48,6 @@ export class NormativaComponent implements OnInit {
     this.requisites = [];
     this.normativaDataService.get_requisites(this.categoria_id).then( r => {
       this.requisites = r.data;
-      console.log(this.requisites);
     }).catch( e => { console.log(e); });
   }
 }
