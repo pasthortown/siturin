@@ -21,7 +21,7 @@ export class NormativaComponent implements OnInit {
   getActividades() {
     this.actividades = [];
     this.normativaDataService.get_actvidades().then( r => {
-       console.log(r);
+       this.actividades = r.data;
     }).catch( e => { console.log(e); });
   }
 }

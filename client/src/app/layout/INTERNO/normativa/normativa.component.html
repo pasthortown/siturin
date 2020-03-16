@@ -19,7 +19,10 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon3">Actividad</span>
             </div>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <select class="form-control" id="actividad_id" name="actividad_id" [(ngModel)]="actividad_id">
+                <option value="0" selected>Seleccione...</option>
+                <option *ngFor="let activity of actividades" value="activity.id_actividad" selected>activity.descripcion</option>
+            </select>
         </div>
     </div>
     <div class="row">
