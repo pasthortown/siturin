@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class NormativaService {
 
-   actividades_URL = 'http://10.10.10.55/index.php/welcome/actividades';
+   actividades_URL = 'http://normativa.turismo.gob.ec/index.php/welcome/actividades';
    
    constructor(private http: Http, private router: Router) {
    }
