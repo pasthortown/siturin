@@ -41,9 +41,9 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon3">Categoría</span>
             </div>
-            <select class="form-control" id="actividad_id" name="actividad_id" [(ngModel)]="actividad_id">
+            <select class="form-control" id="categoria_id" name="categoria_id" [(ngModel)]="categoria_id" (change)="getRequisites()">
                 <option value="0" selected>Seleccione...</option>
-                <option *ngFor="let categoria of categorias" value="{{categoria.id_categoria}}" selected>{{categoria.nombre}}</option>
+                <option *ngFor="let categoria of categorias" value="{{categoria.id_categoria_clasificacion}}" selected>{{categoria.nombre}}</option>
             </select>
         </div>
     </div>

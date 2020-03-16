@@ -10,10 +10,12 @@ export class NormativaComponent implements OnInit {
   divition_id: number;
   clasificacion_id: number;
   actividad_id: number;
+  categoria_id: number;
 
   actividades = [];
   clasificaciones = [];
   categorias = [];
+  requisites = [];
 
   constructor( private normativaDataService: NormativaService) {}
 
@@ -39,7 +41,14 @@ export class NormativaComponent implements OnInit {
     this.categorias = [];
     this.normativaDataService.get_categorias(this.clasificacion_id, this.divition_id).then( r => {
       this.categorias = r.data;
-      console.log(this.categorias);
+    }).catch( e => { console.log(e); });
+  }
+
+  getRequisites() {
+    this.requisites = [];
+    this.normativaDataService.get_requisites(this.categoria_id).then( r => {
+      this.requisites = r.data;
+      console.log(this.requisites);
     }).catch( e => { console.log(e); });
   }
 }
