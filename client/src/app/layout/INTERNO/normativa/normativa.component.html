@@ -49,27 +49,30 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12" *ngFor="let cabecera of requisites">
-        <div class="row">
-            <div class="col-12">
-                <h5><strong>{{cabecera.nombre}}</strong></h5>
-            </div>
-        </div>
-        <div class="row" *ngFor="let requisitos of cabecera.listaRequisitos">
-            <div class="col-12">
-                {{requisitos.requerimiento}}
-            </div>
-        </div>
-        <div class="row" *ngFor="let grupo of cabecera.listaGrupos">
-            <div class="col-12">
-                <h6><strong>{{grupo.gruporeq_nombre}}</strong></h6>
-            </div>
-            <div class="row" *ngFor="let requisito_grupo of grupo.listaRequisitos">
-                <div class="col-12">
-                    {{requisito_grupo.requerimiento}}
-                </div>
-            </div>
-        </div>
-        
-    </div>
+    <table class="table table-hover mt-2 col-12" *ngFor="let cabecera of requisites">
+        <thead>
+            <th>{{cabecera.nombre}}</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let requisitos of cabecera.listaRequisitos">
+                <td>
+                    {{requisitos.requerimiento}}
+                </td>
+            </tr>
+            <tr *ngFor="let grupo of cabecera.listaGrupos">
+                <td>
+                    <strong>{{grupo.gruporeq_nombre}}</strong>
+                </td>
+                <td>
+                    <table class="table table-hover mt-2 col-12">
+                        <tbody>
+                            <tr *ngFor="let requisito_grupo of grupo.listaRequisitos">
+                                {{requisito_grupo.requerimiento}}
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
