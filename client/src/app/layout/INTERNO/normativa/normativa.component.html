@@ -49,10 +49,17 @@
     </div>
 </div>
 <div class="row">
-    <!-- <div class="card col-12" *ngFor="let cabecera of requisites; trackBy: cabecera.nombre">
-        <div class="card-header">{{cabecera.nombre}}</div>
-        <div class="card-body">
-          dsfdf
+    <div class="col-12" *ngFor="let cabecera of requisites">
+        <div class="row">
+            <div class="col-12">
+                <h4><strong>{{cabecera.nombre}}</strong></h4>
+            </div>
         </div>
-    </div> -->
+        <div class="row" *ngFor="let requisitos of cabecera.listaRequisitos">
+            <div class="col-12">
+                {{requisitos.requerimiento}}
+            </div>
+        </div>
+        
+    </div>
 </div>
