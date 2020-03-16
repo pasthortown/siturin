@@ -15,7 +15,7 @@ export class NormativaService {
    get_actvidades(): Promise<any> {
       return this.http.get(this.actividades_URL).toPromise()
       .then( r => {
-         return r.json();
+         return r;
       }).catch( error => { this.handledError(error.json());  });
    }
 
