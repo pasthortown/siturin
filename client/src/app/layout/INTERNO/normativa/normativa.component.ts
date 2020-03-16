@@ -74,5 +74,6 @@ export class NormativaComponent implements OnInit {
         }
       });
     }).catch( e => { console.log(e); });
+    console.log(this.requisites);
   }
 }
