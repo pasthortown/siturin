@@ -52,10 +52,15 @@
     <div class="col-12" *ngFor="let cabecera of requisites">
         <div class="row">
             <div class="col-12">
-                <h4><strong>{{cabecera.nombre}}</strong></h4>
+                <h5><strong>{{cabecera.nombre}}</strong></h5>
             </div>
         </div>
         <div class="row" *ngFor="let requisitos of cabecera.listaRequisitos">
+            <div class="col-12">
+                {{requisitos.requerimiento}}
+            </div>
+        </div>
+        <div class="row" *ngFor="let grupo of cabecera.listaGrupos">
             <div class="col-12">
                 {{requisitos.requerimiento}}
             </div>
