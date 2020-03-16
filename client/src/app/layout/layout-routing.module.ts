@@ -27,6 +27,10 @@ const routes: Routes = [
             path: 'not-found',
             loadChildren: './not-found/not-found.module#NotFoundModule'
          },
+         {
+            path: 'normativa',
+            loadChildren: './INTERNO/normativa/normativa.module#NormativaModule'
+         },
 
          //BASE
          {
