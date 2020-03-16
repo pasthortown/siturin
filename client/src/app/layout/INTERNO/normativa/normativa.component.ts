@@ -14,5 +14,14 @@ export class NormativaComponent implements OnInit {
 
   constructor( private normativaDataService: NormativaService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getActividades();
+  }
+
+  getActividades() {
+    this.actividades = [];
+    this.normativaDataService.get_actvidades().then( r => {
+       console.log(r);
+    }).catch( e => { console.log(e); });
+  }
 }
