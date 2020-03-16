@@ -19,7 +19,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon3">Actividad</span>
             </div>
-            <select class="form-control" id="actividad_id" name="actividad_id" [(ngModel)]="actividad_id" (change)="getClasificaciones(actividad_id)">
+            <select class="form-control" id="actividad_id" name="actividad_id" [(ngModel)]="actividad_id" (change)="getClasificaciones()">
                 <option value="0" selected>Seleccione...</option>
                 <option *ngFor="let activity of actividades" value="{{activity.id_actividad}}" selected>{{activity.descripcion}}</option>
             </select>
@@ -30,7 +30,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon3">Clasificación</span>
             </div>
-            <select class="form-control" id="clasificacion_id" name="clasificacion_id" [(ngModel)]="clasificacion_id">
+            <select class="form-control" id="clasificacion_id" name="clasificacion_id" [(ngModel)]="clasificacion_id" (change)="getCategorias()">
                 <option value="0" selected>Seleccione...</option>
                 <option *ngFor="let clasificacion of clasificaciones" value="{{clasificacion.id_clasificacion}}" selected>{{clasificacion.descripcion}}</option>
             </select>

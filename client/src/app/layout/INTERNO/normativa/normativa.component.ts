@@ -13,6 +13,7 @@ export class NormativaComponent implements OnInit {
 
   actividades = [];
   clasificaciones = [];
+  categorias = [];
 
   constructor( private normativaDataService: NormativaService) {}
 
@@ -27,11 +28,18 @@ export class NormativaComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
-  getClasificaciones(actividad_id) {
+  getClasificaciones() {
     this.clasificaciones = [];
-    this.normativaDataService.get_clasificaciones(actividad_id).then( r => {
+    this.normativaDataService.get_clasificaciones(this.actividad_id).then( r => {
       this.clasificaciones = r.data;
-      console.log(this.clasificaciones);
-   }).catch( e => { console.log(e); });
+    }).catch( e => { console.log(e); });
+  }
+
+  getCategorias() {
+    this.categorias = [];
+    this.normativaDataService.get_categorias(this.clasificacion_id, this.divition_id).then( r => {
+      this.categorias = r.data;
+      console.log(this.categorias);
+    }).catch( e => { console.log(e); });
   }
 }
