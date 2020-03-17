@@ -14,7 +14,7 @@ export class NormativaComponent implements OnInit {
   categoria_id: number;
 
   categoria_idSiturin: number;
-  clasificacion_idSiturin: number;
+  clasificacion_codeSiturin: string;
 
   actividades = [];
   clasificaciones = [];
@@ -67,7 +67,11 @@ export class NormativaComponent implements OnInit {
 
   getCategoriasSiturin() {
     this.categoriasSiturn = [];
-    this.registerTypeDataService.get_filtered(this.clasificacion_idSiturin.toString())
+    this.allRegisterTypes.forEach(element => {
+      if (element.father_code == this.clasificacion_codeSiturin) {
+        this.categoriasSiturn.push(element);
+      }
+    });
   }
 
   getRequisites() {
