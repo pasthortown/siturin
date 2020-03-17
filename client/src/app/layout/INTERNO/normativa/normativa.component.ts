@@ -93,10 +93,16 @@ export class NormativaComponent implements OnInit {
   buscarDiferencias() {
     this.requisites_diferencias = [];
     this.allrequisites.forEach(req_normativa => {
-      const newDiferencia = {nombre: req_normativa.requerimiento, existeSinturin: true, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
+      const newDiferencia = {nombre: req_normativa.requerimiento, existeSinturin: false, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
+      this.requisites_diferencias.push(newDiferencia);      
+    });
+    
+    this.requisitesSiturin.forEach(req_siturin => {
+      const newDiferencia = {nombre: req_siturin.name, existeSinturin: false, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
       this.requisites_diferencias.push(newDiferencia);      
     });
     console.log(this.allrequisites);
+    console.log(this.requisitesSiturin);
   }  
 
   getRequisites() {
