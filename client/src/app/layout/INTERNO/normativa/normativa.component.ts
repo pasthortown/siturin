@@ -1,3 +1,4 @@
+import { RequisiteService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
 import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 import { NormativaService } from './../../../services/negocio/normativa.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +25,12 @@ export class NormativaComponent implements OnInit {
   clasificacionesSiturin = [];
   categoriasSiturn = [];
   allRegisterTypes = [];
-  constructor( private normativaDataService: NormativaService, private registerTypeDataService: RegisterTypeService) {}
+  
+  requisitesSiturin = [];
+
+  constructor( private normativaDataService: NormativaService, 
+    private registerTypeDataService: RegisterTypeService,
+    private requisiteDataService: RequisiteService) {}
 
   ngOnInit() {
     this.getActividades();
@@ -72,6 +78,13 @@ export class NormativaComponent implements OnInit {
         this.categoriasSiturn.push(element);
       }
     });
+  }
+
+  getRequisitesSiturin() {
+    this.requisitesSiturin = [];
+    this.requisiteDataService.get_filtered(this.categoria_idSiturin).then( r => {
+      this.requisitesSiturin = r as any[];
+    }).catch( e => { console.log(e); });
   }
 
   getRequisites() {

@@ -69,7 +69,7 @@
                 </div>
                 <select class="form-control" id="categoria_id" name="categoria_id" [(ngModel)]="categoria_idSiturin" (change)="getRequisitesSiturin()">
                     <option value="0" selected>Seleccione...</option>
-                    <option *ngFor="let categoria of categoriasSiturn" value="{{categoria.id}}" selected>{{categoria.description}}</option>
+                    <option *ngFor="let categoria of categoriasSiturn" value="{{categoria.id}}" selected>{{categoria.name}}</option>
                 </select>
             </div>
         </div>
