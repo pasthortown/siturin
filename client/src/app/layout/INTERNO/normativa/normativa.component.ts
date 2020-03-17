@@ -21,6 +21,7 @@ export class NormativaComponent implements OnInit {
   clasificaciones = [];
   categorias = [];
   requisites = [];
+  allrequisites = [];
 
   clasificacionesSiturin = [];
   categoriasSiturn = [];
@@ -90,10 +91,21 @@ export class NormativaComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
+  buscarDiferencias() {
+    this.requisitesSiturin_diferencias = [];
+    this.requisites_diferencias = [];
+    this.allrequisites.forEach(req_normativa => {
+      
+    });
+    console.log("ok");
+  }  
+
   getRequisites() {
     this.requisites = [];
+    this.allrequisites = [];
     this.normativaDataService.get_requisites(this.categoria_id).then( r => {
       const incomming = r.data.requisitos as any[];
+      this.allrequisites = incomming;
       incomming.forEach(element => {
         let existe = false;
         this.requisites.forEach(cabecera => {
