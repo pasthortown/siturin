@@ -163,79 +163,38 @@
     <div class="col-12">
         DIFERENCIAS
     </div>
-    <div class="col-6">
-        <h5>NORMATIVA</h5>
-    </div>
-    <div class="col-6">
-        <h5>SITURIN</h5>
-    </div>
 </div>
 <div class="row">
-    <div class="col-6" style="height: 500px; overflow-y: auto;">
-        <table class="table table-hover mt-2 col-12" *ngFor="let cabecera of requisites_diferencias">
+    <div class="col-12" style="height: 500px; overflow-y: auto;">
+        <table class="table table-hover mt-2 col-12">
             <thead>
-                <th colspan="2">{{cabecera.idCabecera}}.- {{cabecera.nombre}}</th>
+                <th>Requisito</th>
+                <th>No Existe en Siturin</th>
+                <th>No Existe en Normativa</th>
+                <th>Diferencia en Texto</th>
+                <th>Diferencia en Obligatoriedad</th>
             </thead>
             <tbody>
-                <tr *ngFor="let requisitos of cabecera.listaRequisitos">
-                    <td colspan="2">
-                        {{requisitos.requerimiento}}
-                        <strong *ngIf="requisitos.es_obligatorio == 't'" style="color: red;">*</strong>
-                    </td>
-                </tr>
-                <tr *ngFor="let grupo of cabecera.listaGrupos">
+                <tr *ngFor="let diferencia of requisites_diferencias">
                     <td>
-                        <strong>{{grupo.gruporeq_nombre}}</strong>
+                        {{diferencia.nombre}}
                     </td>
                     <td>
-                        <table class="table table-hover mt-2 col-12">
-                            <tbody>
-                                <tr *ngFor="let requisito_grupo of grupo.listaRequisitos">
-                                    {{requisito_grupo.requerimiento}}
-                                    <strong *ngIf="requisito_grupo.es_obligatorio == 't'" style="color: red;">*</strong>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <span class="badge badge-success" *ngIf="!diferencia.existeSinturin">OK</span>
+                        <span class="badge badge-danger" *ngIf="diferencia.existeSinturin">ERROR</span>
                     </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-6" style="height: 500px; overflow-y: auto;">
-        <table class="table table-hover mt-2 col-12">
-            <tbody>
-                <tr *ngFor="let register_requisite of requisitesSiturin_diferencias">
                     <td>
-                        <label
-                          *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' &&
-                          register_requisite.HTMLtype !== 'GRUPO 1' &&
-                          register_requisite.HTMLtype !== 'GRUPO 2' &&
-                          register_requisite.HTMLtype !== 'GRUPO 3' &&
-                          register_requisite.HTMLtype !== 'GRUPO 4' && 
-                          register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2' && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
-                        <h5>
-                          <strong
-                          *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </h5>
-                        <h6>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>  
-                        </h6>
-                        <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        <i>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </i>
-                        <i>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </i>
-                        <i>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </i>
-                      </td>
+                        <span class="badge badge-success" *ngIf="!diferencia.existenormativa">OK</span>
+                        <span class="badge badge-danger" *ngIf="diferencia.existenormativa">ERROR</span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success" *ngIf="!diferencia.textoDiferente">OK</span>
+                        <span class="badge badge-danger" *ngIf="diferencia.textoDiferente">ERROR</span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success" *ngIf="!diferencia.obligatorioDiferente">OK</span>
+                        <span class="badge badge-danger" *ngIf="diferencia.obligatorioDiferente">ERROR</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

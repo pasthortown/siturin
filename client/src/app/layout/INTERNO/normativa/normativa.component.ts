@@ -29,7 +29,6 @@ export class NormativaComponent implements OnInit {
   
   requisitesSiturin = [];
   
-  requisitesSiturin_diferencias = [];
   requisites_diferencias = [];
 
   constructor( private normativaDataService: NormativaService, 
@@ -92,10 +91,10 @@ export class NormativaComponent implements OnInit {
   }
 
   buscarDiferencias() {
-    this.requisitesSiturin_diferencias = [];
     this.requisites_diferencias = [];
     this.allrequisites.forEach(req_normativa => {
-      
+      const newDiferencia = {nombre: req_normativa.requerimiento, existeSinturin: true, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
+      this.requisites_diferencias.push(newDiferencia);      
     });
     console.log(this.allrequisites);
   }  
