@@ -84,7 +84,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-6">
+    <div class="col-6" style="height: 500px; overflow-y: auto;">
         <table class="table table-hover mt-2 col-12" *ngFor="let cabecera of requisites">
             <thead>
                 <th colspan="2">{{cabecera.idCabecera}}.- {{cabecera.nombre}}</th>
@@ -93,6 +93,7 @@
                 <tr *ngFor="let requisitos of cabecera.listaRequisitos">
                     <td colspan="2">
                         {{requisitos.requerimiento}}
+                        <strong *ngIf="requisitos.requerimiento.es_obligatorio == 't'" style="color: red;">*</strong>
                     </td>
                 </tr>
                 <tr *ngFor="let grupo of cabecera.listaGrupos">
@@ -104,6 +105,7 @@
                             <tbody>
                                 <tr *ngFor="let requisito_grupo of grupo.listaRequisitos">
                                     {{requisito_grupo.requerimiento}}
+                                    <strong *ngIf="requisitos.requerimiento.es_obligatorio == 't'" style="color: red;">*</strong>
                                 </tr>
                             </tbody>
                         </table>
@@ -112,7 +114,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-6">
+    <div class="col-6" style="height: 500px; overflow-y: auto;">
         <table class="table table-hover mt-2 col-12">
             <tbody>
                 <tr *ngFor="let register_requisite of requisitesSiturin">
