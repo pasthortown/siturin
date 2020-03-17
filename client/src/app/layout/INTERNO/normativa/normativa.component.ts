@@ -97,7 +97,7 @@ export class NormativaComponent implements OnInit {
     this.allrequisites.forEach(req_normativa => {
       
     });
-    console.log("ok");
+    console.log(this.allrequisites);
   }  
 
   getRequisites() {
