@@ -93,7 +93,7 @@
                 <tr *ngFor="let requisitos of cabecera.listaRequisitos">
                     <td colspan="2">
                         {{requisitos.requerimiento}}
-                        <strong *ngIf="requisitos.requerimiento.es_obligatorio == 't'" style="color: red;">*</strong>
+                        <strong *ngIf="requisitos.es_obligatorio == 't'" style="color: red;">*</strong>
                     </td>
                 </tr>
                 <tr *ngFor="let grupo of cabecera.listaGrupos">
@@ -105,7 +105,7 @@
                             <tbody>
                                 <tr *ngFor="let requisito_grupo of grupo.listaRequisitos">
                                     {{requisito_grupo.requerimiento}}
-                                    <strong *ngIf="requisito_grupo.requerimiento.es_obligatorio == 't'" style="color: red;">*</strong>
+                                    <strong *ngIf="requisito_grupo.es_obligatorio == 't'" style="color: red;">*</strong>
                                 </tr>
                             </tbody>
                         </table>
