@@ -93,16 +93,34 @@ export class NormativaComponent implements OnInit {
   buscarDiferencias() {
     this.requisites_diferencias = [];
     this.allrequisites.forEach(req_normativa => {
-      const newDiferencia = {nombre: req_normativa.requerimiento, existeSinturin: false, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
-      this.requisites_diferencias.push(newDiferencia);      
+      let existeSiturin = false;
+      let existenormativa = true;
+      let obligatorioDiferente = true;
+      this.requisitesSiturin.forEach(req_siturin => {
+        if (req_siturin.name == req_normativa.requerimiento) {
+          existeSiturin = true;
+          if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
+            obligatorioDiferente = false;
+          }
+        }   
+      });
+      const newDiferencia = {
+        nombre: req_normativa.requerimiento, 
+        existeSinturin: existeSiturin, 
+        existenormativa: existenormativa, 
+        obligatorioDiferente: obligatorioDiferente
+      };  
+      if (!existeSiturin || obligatorioDiferente || !existenormativa) {
+        this.requisites_diferencias.push(newDiferencia);  
+      }  
     });
     
-    this.requisitesSiturin.forEach(req_siturin => {
-      const newDiferencia = {nombre: req_siturin.name, existeSinturin: false, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
-      this.requisites_diferencias.push(newDiferencia);      
-    });
-    console.log(this.allrequisites);
-    console.log(this.requisitesSiturin);
+    // this.requisitesSiturin.forEach(req_siturin => {
+    //   const newDiferencia = {nombre: req_siturin.name, existeSinturin: false, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
+    //   this.requisites_diferencias.push(newDiferencia);      
+    // });
+    // console.log(this.allrequisites);
+    // console.log(this.requisitesSiturin);
   }  
 
   getRequisites() {

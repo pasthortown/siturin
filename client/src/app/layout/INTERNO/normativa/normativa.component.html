@@ -171,7 +171,6 @@
                 <th>Requisito</th>
                 <th>No Existe en Siturin</th>
                 <th>No Existe en Normativa</th>
-                <th>Diferencia en Texto</th>
                 <th>Diferencia en Obligatoriedad</th>
             </thead>
             <tbody>
@@ -186,10 +185,6 @@
                     <td>
                         <span class="badge badge-success" *ngIf="!diferencia.existenormativa">OK</span>
                         <span class="badge badge-danger" *ngIf="diferencia.existenormativa">ERROR</span>
-                    </td>
-                    <td>
-                        <span class="badge badge-success" *ngIf="!diferencia.textoDiferente">OK</span>
-                        <span class="badge badge-danger" *ngIf="diferencia.textoDiferente">ERROR</span>
                     </td>
                     <td>
                         <span class="badge badge-success" *ngIf="!diferencia.obligatorioDiferente">OK</span>
