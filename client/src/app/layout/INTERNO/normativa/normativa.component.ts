@@ -1,3 +1,4 @@
+import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 import { NormativaService } from './../../../services/negocio/normativa.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,15 +13,28 @@ export class NormativaComponent implements OnInit {
   actividad_id: number;
   categoria_id: number;
 
+  categoria_idSiturin: number;
+  clasificacion_idSiturin: number;
+
   actividades = [];
   clasificaciones = [];
   categorias = [];
   requisites = [];
 
-  constructor( private normativaDataService: NormativaService) {}
+  clasificacionesSiturin = [];
+  categoriasSiturn = [];
+  allRegisterTypes = [];
+  constructor( private normativaDataService: NormativaService, private registerTypeDataService: RegisterTypeService) {}
 
   ngOnInit() {
     this.getActividades();
+    this.getAllRegisterTypes();
+  }
+
+  getAllRegisterTypes() {
+    this.registerTypeDataService.get().then( r => {
+      this.allRegisterTypes = r as any[];
+    }).catch( e => { console.log(e); });
   }
 
   getActividades() {
@@ -32,9 +46,15 @@ export class NormativaComponent implements OnInit {
 
   getClasificaciones() {
     this.clasificaciones = [];
+    this.clasificacionesSiturin = [];
     this.normativaDataService.get_clasificaciones(this.actividad_id).then( r => {
       this.clasificaciones = r.data;
     }).catch( e => { console.log(e); });
+    this.allRegisterTypes.forEach(element => {
+      if (element.father_code == this.divition_id.toString) {
+        this.clasificacionesSiturin.push(element);
+      }
+    });
   }
 
   getCategorias() {
@@ -42,6 +62,11 @@ export class NormativaComponent implements OnInit {
     this.normativaDataService.get_categorias(this.clasificacion_id, this.divition_id).then( r => {
       this.categorias = r.data;
     }).catch( e => { console.log(e); });
+  }
+
+  getCategoriasSiturin() {
+    this.categoriasSiturn = [];
+    this.registerTypeDataService.get_filtered(this.clasificacion_idSiturin.toString())
   }
 
   getRequisites() {

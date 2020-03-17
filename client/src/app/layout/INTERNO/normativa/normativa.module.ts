@@ -1,3 +1,4 @@
+import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,6 +11,6 @@ import { NormativaComponent } from './normativa.component';
   imports: [CommonModule, NormativaRoutingModule,
   FormsModule, HttpModule],
   declarations: [NormativaComponent],
-  providers: [NormativaService]
+  providers: [NormativaService, RegisterTypeService]
 })
 export class NormativaModule {}
