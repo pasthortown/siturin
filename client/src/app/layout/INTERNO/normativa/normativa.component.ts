@@ -115,10 +115,28 @@ export class NormativaComponent implements OnInit {
       }  
     });
     
-    // this.requisitesSiturin.forEach(req_siturin => {
-    //   const newDiferencia = {nombre: req_siturin.name, existeSinturin: false, existenormativa: false, textoDiferente: false, obligatorioDiferente: false};
-    //   this.requisites_diferencias.push(newDiferencia);      
-    // });
+    this.requisitesSiturin.forEach(req_siturin => {
+      let existeSiturin = true;
+      let existenormativa = false;
+      let obligatorioDiferente = true;
+      this.allrequisites.forEach(req_normativa => {
+        if (req_siturin.name == req_normativa.requerimiento) {
+          existenormativa = true;
+          if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
+            obligatorioDiferente = false;
+          }
+        }   
+      });
+      const newDiferencia = {
+        nombre: req_siturin.name, 
+        existeSinturin: existeSiturin, 
+        existenormativa: existenormativa, 
+        obligatorioDiferente: obligatorioDiferente
+      };  
+      if (!existeSiturin || obligatorioDiferente || !existenormativa) {
+        this.requisites_diferencias.push(newDiferencia);  
+      }  
+    });
     // console.log(this.allrequisites);
     // console.log(this.requisitesSiturin);
   }  
