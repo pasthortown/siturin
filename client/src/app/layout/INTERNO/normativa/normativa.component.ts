@@ -27,6 +27,9 @@ export class NormativaComponent implements OnInit {
   allRegisterTypes = [];
   
   requisitesSiturin = [];
+  
+  requisitesSiturin_diferencias = [];
+  requisites_diferencias = [];
 
   constructor( private normativaDataService: NormativaService, 
     private registerTypeDataService: RegisterTypeService,
