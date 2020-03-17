@@ -50,8 +50,9 @@ export class NormativaComponent implements OnInit {
     this.normativaDataService.get_clasificaciones(this.actividad_id).then( r => {
       this.clasificaciones = r.data;
     }).catch( e => { console.log(e); });
+  
     this.allRegisterTypes.forEach(element => {
-      if (element.father_code == this.divition_id.toString) {
+      if (element.father_code == this.divition_id.toString()) {
         this.clasificacionesSiturin.push(element);
       }
     });
