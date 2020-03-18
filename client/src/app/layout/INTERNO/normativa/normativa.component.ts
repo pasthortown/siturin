@@ -97,7 +97,7 @@ export class NormativaComponent implements OnInit {
       let existenormativa = true;
       let obligatorioDiferente = true;
       this.requisitesSiturin.forEach(req_siturin => {
-        if (req_siturin.name == req_normativa.requerimiento) {
+        if (req_siturin.name.toString().toUpperCase().trim() == req_normativa.requerimiento.toString().toUpperCase().trim()) {
           existeSiturin = true;
           if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
             obligatorioDiferente = false;
