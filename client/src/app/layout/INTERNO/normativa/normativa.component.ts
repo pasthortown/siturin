@@ -9,40 +9,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./normativa.component.scss']
 })
 export class NormativaComponent implements OnInit {
-  divition_id: number;
-  clasificacion_id: number;
-  actividad_id: number;
-  categoria_id: number;
-
-  categoria_idSiturin: number;
-  clasificacion_codeSiturin: string;
-
-  actividades = [];
-  clasificaciones = [];
-  categorias = [];
-  requisites = [];
-  allrequisites = [];
-
-  clasificacionesSiturin = [];
-  categoriasSiturn = [];
+  regiones = [];
   allRegisterTypes = [];
-  
-  requisitesSiturin = [];
-  
-  requisites_diferencias = [];
 
   constructor( private normativaDataService: NormativaService, 
     private registerTypeDataService: RegisterTypeService,
     private requisiteDataService: RequisiteService) {}
 
   ngOnInit() {
-    this.getActividades();
     this.getAllRegisterTypes();
   }
+
+  getRegiones() {
+    this.regiones = [];
+    this.allRegisterTypes.forEach(element => {
+      if (element.father_code == '-') {
+        this.regiones.push(element);
+      }
+    });
+   }
 
   getAllRegisterTypes() {
     this.registerTypeDataService.get().then( r => {
       this.allRegisterTypes = r as any[];
+      this.getRegiones();
     }).catch( e => { console.log(e); });
   }
 
@@ -90,54 +80,54 @@ export class NormativaComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
-  buscarDiferencias() {
-    this.requisites_diferencias = [];
-    this.allrequisites.forEach(req_normativa => {
-      let existeSiturin = false;
-      let existenormativa = true;
-      let obligatorioDiferente = true;
-      this.requisitesSiturin.forEach(req_siturin => {
-        if (req_siturin.name.toString().toUpperCase().trim() == req_normativa.requerimiento.toString().toUpperCase().trim()) {
-          existeSiturin = true;
-          if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
-            obligatorioDiferente = false;
-          }
-        }   
-      });
-      const newDiferencia = {
-        nombre: req_normativa.requerimiento, 
-        existeSinturin: existeSiturin, 
-        existenormativa: existenormativa, 
-        obligatorioDiferente: obligatorioDiferente
-      };  
-      if (!existeSiturin || obligatorioDiferente || !existenormativa) {
-        this.requisites_diferencias.push(newDiferencia);  
-      }  
-    });
+  // buscarDiferencias() {
+  //   this.requisites_diferencias = [];
+  //   this.allrequisites.forEach(req_normativa => {
+  //     let existeSiturin = false;
+  //     let existenormativa = true;
+  //     let obligatorioDiferente = true;
+  //     this.requisitesSiturin.forEach(req_siturin => {
+  //       if (req_siturin.name.toString().toUpperCase().trim() == req_normativa.requerimiento.toString().toUpperCase().trim()) {
+  //         existeSiturin = true;
+  //         if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
+  //           obligatorioDiferente = false;
+  //         }
+  //       }   
+  //     });
+  //     const newDiferencia = {
+  //       nombre: req_normativa.requerimiento, 
+  //       existeSinturin: existeSiturin, 
+  //       existenormativa: existenormativa, 
+  //       obligatorioDiferente: obligatorioDiferente
+  //     };  
+  //     if (!existeSiturin || obligatorioDiferente || !existenormativa) {
+  //       this.requisites_diferencias.push(newDiferencia);  
+  //     }  
+  //   });
     
-    // this.requisitesSiturin.forEach(req_siturin => {
-    //   let existeSiturin = true;
-    //   let existenormativa = false;
-    //   let obligatorioDiferente = true;
-    //   this.allrequisites.forEach(req_normativa => {
-    //     if (req_siturin.name == req_normativa.requerimiento) {
-    //       existenormativa = true;
-    //       if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
-    //         obligatorioDiferente = false;
-    //       }
-    //     }   
-    //   });
-    //   const newDiferencia = {
-    //     nombre: req_siturin.name, 
-    //     existeSinturin: existeSiturin, 
-    //     existenormativa: existenormativa, 
-    //     obligatorioDiferente: obligatorioDiferente
-    //   };  
-    //   if (!existeSiturin || obligatorioDiferente || !existenormativa) {
-    //     this.requisites_diferencias.push(newDiferencia);  
-    //   }  
-    // });
-  }  
+  //   // this.requisitesSiturin.forEach(req_siturin => {
+  //   //   let existeSiturin = true;
+  //   //   let existenormativa = false;
+  //   //   let obligatorioDiferente = true;
+  //   //   this.allrequisites.forEach(req_normativa => {
+  //   //     if (req_siturin.name == req_normativa.requerimiento) {
+  //   //       existenormativa = true;
+  //   //       if ((req_siturin.mandatory && req_normativa.es_obligatorio == 't') || (!req_siturin.mandatory && req_normativa.es_obligatorio == 'f')) {
+  //   //         obligatorioDiferente = false;
+  //   //       }
+  //   //     }   
+  //   //   });
+  //   //   const newDiferencia = {
+  //   //     nombre: req_siturin.name, 
+  //   //     existeSinturin: existeSiturin, 
+  //   //     existenormativa: existenormativa, 
+  //   //     obligatorioDiferente: obligatorioDiferente
+  //   //   };  
+  //   //   if (!existeSiturin || obligatorioDiferente || !existenormativa) {
+  //   //     this.requisites_diferencias.push(newDiferencia);  
+  //   //   }  
+  //   // });
+  // }  
 
   getRequisites() {
     this.requisites = [];

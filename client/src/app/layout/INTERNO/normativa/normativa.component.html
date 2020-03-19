@@ -1,197 +1,28 @@
 <div class="container">
     <div class="row">
         <h1 class="col-6 text-right">Normativa</h1>
-        <h1 class="col-6 text-right">SITURIN</h1>
     </div>
     <div class="row">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon3">División Zonal</span>
+        <small class="col-12">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+              <label class="col-12 text-justify"><strong>Información</strong></label><br />
+              <p>Aquí usted podrá revisar los requisitos necesarios en función de la actividad, clasificación y categoría a la que usted desea aplicar.</p>
             </div>
-            <select class="form-control" id="divition_id" name="divition_id" [(ngModel)]="divition_id">
-                <option value="0" selected>Seleccione...</option>
-                <option value="1" selected>Continente</option>
-                <option value="2" selected>Galápagos</option>
+        </small>
+    </div>
+    <div class="row" *ngIf="continuarTramite">
+        <div class="col-3">
+          <div class="form-group">
+            <label>Ámbito de Aplicación</label>
+            <select class="form-control" disabled id="region_id" name="region_id"
+              [(ngModel)]="regionSelectedCode">
+              <option value="-" selected>Seleccione...</option>
+              <option *ngFor="
+                  let register_type of regiones
+                " value="{{ register_type.code }}">
+                {{ register_type.name }}
+              </option>
             </select>
         </div>
-    </div>
-    <div class="row">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon3">Actividad</span>
-            </div>
-            <select class="form-control" id="actividad_id" name="actividad_id" [(ngModel)]="actividad_id" (change)="getClasificaciones()">
-                <option value="0" selected>Seleccione...</option>
-                <option *ngFor="let activity of actividades" value="{{activity.id_actividad}}" selected>{{activity.descripcion}}</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">Clasificación NORMATIVA</span>
-                </div>
-                <select class="form-control" id="clasificacion_id" name="clasificacion_id" [(ngModel)]="clasificacion_id" (change)="getCategorias()">
-                    <option value="0" selected>Seleccione...</option>
-                    <option *ngFor="let clasificacion of clasificaciones" value="{{clasificacion.id_clasificacion}}" selected>{{clasificacion.descripcion}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">Clasificación SITURIN</span>
-                </div>
-                <select class="form-control" id="clasificacion_id" name="clasificacion_id" [(ngModel)]="clasificacion_codeSiturin" (change)="getCategoriasSiturin()">
-                    <option value="0" selected>Seleccione...</option>
-                    <option *ngFor="let clasificacion of clasificacionesSiturin" value="{{clasificacion.code}}" selected>{{clasificacion.name}}</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">Categoría NORMATIVA</span>
-                </div>
-                <select class="form-control" id="categoria_id" name="categoria_id" [(ngModel)]="categoria_id" (change)="getRequisites()">
-                    <option value="0" selected>Seleccione...</option>
-                    <option *ngFor="let categoria of categorias" value="{{categoria.id_categoria_clasificacion}}" selected>{{categoria.nombre}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3">Categoría SITURIN</span>
-                </div>
-                <select class="form-control" id="categoria_id" name="categoria_id" [(ngModel)]="categoria_idSiturin" (change)="getRequisitesSiturin()">
-                    <option value="0" selected>Seleccione...</option>
-                    <option *ngFor="let categoria of categoriasSiturn" value="{{categoria.id}}" selected>{{categoria.name}}</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <button class="btn btn-info" (click)="buscarDiferencias()">BUSCAR DIFERENCIAS</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <h5>NORMATIVA</h5>
-    </div>
-    <div class="col-6">
-        <h5>SITURIN</h5>
-    </div>
-</div>
-<div class="row">
-    <div class="col-6" style="height: 500px; overflow-y: auto;">
-        <table class="table table-hover mt-2 col-12" *ngFor="let cabecera of requisites">
-            <thead>
-                <th colspan="2">{{cabecera.idCabecera}}.- {{cabecera.nombre}}</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let requisitos of cabecera.listaRequisitos">
-                    <td colspan="2">
-                        {{requisitos.requerimiento}}
-                        <strong *ngIf="requisitos.es_obligatorio == 't'" style="color: red;">*</strong>
-                    </td>
-                </tr>
-                <tr *ngFor="let grupo of cabecera.listaGrupos">
-                    <td>
-                        <strong>{{grupo.gruporeq_nombre}}</strong>
-                    </td>
-                    <td>
-                        <table class="table table-hover mt-2 col-12">
-                            <tbody>
-                                <tr *ngFor="let requisito_grupo of grupo.listaRequisitos">
-                                    {{requisito_grupo.requerimiento}}
-                                    <strong *ngIf="requisito_grupo.es_obligatorio == 't'" style="color: red;">*</strong>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-6" style="height: 500px; overflow-y: auto;">
-        <table class="table table-hover mt-2 col-12">
-            <tbody>
-                <tr *ngFor="let register_requisite of requisitesSiturin">
-                    <td>
-                        <label
-                          *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' &&
-                          register_requisite.HTMLtype !== 'GRUPO 1' &&
-                          register_requisite.HTMLtype !== 'GRUPO 2' &&
-                          register_requisite.HTMLtype !== 'GRUPO 3' &&
-                          register_requisite.HTMLtype !== 'GRUPO 4' && 
-                          register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2' && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
-                        <h5>
-                          <strong
-                          *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </h5>
-                        <h6>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>  
-                        </h6>
-                        <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        <i>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </i>
-                        <i>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </i>
-                        <i>
-                          <strong
-                            *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{register_requisite.code}}.- {{ register_requisite.name }}</strong>
-                        </i>
-                      </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        DIFERENCIAS
-    </div>
-</div>
-<div class="row">
-    <div class="col-12" style="height: 500px; overflow-y: auto;">
-        <table class="table table-hover mt-2 col-12">
-            <thead>
-                <th>Requisito</th>
-                <th>No Existe en Siturin</th>
-                <th>No Existe en Normativa</th>
-                <th>Diferencia en Obligatoriedad</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let diferencia of requisites_diferencias">
-                    <td>
-                        {{diferencia.nombre}}
-                    </td>
-                    <td>
-                        <span class="badge badge-success" *ngIf="diferencia.existeSinturin">OK</span>
-                        <span class="badge badge-danger" *ngIf="!diferencia.existeSinturin">ERROR</span>
-                    </td>
-                    <td>
-                        <span class="badge badge-success" *ngIf="diferencia.existenormativa">OK</span>
-                        <span class="badge badge-danger" *ngIf="!diferencia.existenormativa">ERROR</span>
-                    </td>
-                    <td>
-                        <span class="badge badge-success" *ngIf="!diferencia.obligatorioDiferente">OK</span>
-                        <span class="badge badge-danger" *ngIf="diferencia.obligatorioDiferente">ERROR</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>
