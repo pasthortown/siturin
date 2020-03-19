@@ -3,6 +3,9 @@
       <a [routerLink]="['/main']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!isConsultorCatastro">
          <i class="fas fa-tachometer-alt"></i>&nbsp; <span>Inicio</span>
       </a>
+      <a [routerLink]="['/normativa']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+         <i class="fas fa-tachometer-alt"></i>&nbsp; <span>Normativa</span>
+      </a>
       
       <div class="nested-menu">
          <a class="list-group-item" (click)="addExpandClass('administrador')" *ngIf="isAdmin">
@@ -486,7 +489,7 @@
             </ul>
          </li>
       </div>
-      <a [routerLink]="['/externo-dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!cuentaInterna && !isAdmin">
+      <a [routerLink]="['/externo-dashboard']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="!cuentaInterna && !isAdmin && !isConsultorCatastro">
          <i class="fas fa-newspaper"></i>&nbsp; <span>&nbsp;Gestión de Actividades Turísticas</span>
       </a>
       <div class="nested-menu">
