@@ -129,7 +129,7 @@ export class NormativaComponent implements OnInit {
   calcTotalPoints() {
 
   }
-  
+
   getRequisites() {
     this.requisites = [];
     if (this.actividadSelected == '1') {
@@ -163,7 +163,13 @@ export class NormativaComponent implements OnInit {
       }).catch( e => { console.log(e); });
     }
     if (this.actividadSelected == '2') {
-      this.requisiteABDataService.get_filtered(this.register_type_id).then( r=> {
+      let categorySelectedID = 0;
+      this.clasifications_registers.forEach(classification => {
+          if (classification.code == this.categorySelectedCode) {
+            categorySelectedID = classification.id;
+          }
+      });
+      this.requisiteABDataService.get_filtered(categorySelectedID).then( r=> {
         this.totalAbPointsSelected = 0;
         this.totalAviable = 0;
         this.totalABPuntosShown = 0;
