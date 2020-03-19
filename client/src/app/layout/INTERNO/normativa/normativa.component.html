@@ -75,4 +75,98 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
+            <div class="alert alert-info" role="alert">
+              <label class="col-12 text-justify"><strong>Información:</strong><br />
+                <p class="text-justify">La sumatoria total de puntos (respuestas SI), seleccionado es <strong>{{totalAbPointsSelected}}</strong> de un total de <strong>{{totalAviable}}</strong> puntos. Con lo cual el puntaje de categorización obtenido es: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>.<br/>La categoría obtenida es: <strong>{{categoryAB}}</strong></p>
+                <p class="text-justify"><strong>Forma de Cálculo:</strong><br/><strong>Puntaje de Categorización</strong>&nbsp;<strong style="color:red;">=</strong>&nbsp;({{totalAbPointsSelected}}<strong style="color:red;">&nbsp;*&nbsp;</strong>100)<strong style="color:red;">&nbsp;/&nbsp;</strong>({{totalAviable}})</p>
+              </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+              <label class="col-12 text-justify"><strong>Atención</strong><br />
+                Los requisitos listados a continuación serán revisados
+                por el inspector del Ministerio de Turismo el día de
+                la visita a su establecimiento. Asegúrese que su establecimiento cumpla con aquellos seleccionados.<br/><br/>
+                Los requisitos marcados con <strong style="color:red;">*</strong> son obligatorios.
+              </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <!-- <div class="form-group row">
+                <div class="col-12">
+                    <table class="table table-hover mt-2">
+                        <tbody>
+                            <tr *ngFor="
+                                    let register_requisite of rucEstablishmentRegisterSelected.requisites
+                                ">
+                                <td>
+                                    <label
+                                    *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' &&
+                                    register_requisite.HTMLtype !== 'GRUPO 1' &&
+                                    register_requisite.HTMLtype !== 'GRUPO 2' &&
+                                    register_requisite.HTMLtype !== 'GRUPO 3' &&
+                                    register_requisite.HTMLtype !== 'GRUPO 4' && 
+                                    register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == '2' && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
+                                    <h5>
+                                    <strong
+                                    *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                    </h5>
+                                    <h6>
+                                    <strong
+                                        *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>  
+                                    </h6>
+                                    <strong
+                                        *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                    <i>
+                                    <strong
+                                        *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                    </i>
+                                    <i>
+                                    <strong
+                                        *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                    </i>
+                                    <i>
+                                    <strong
+                                        *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
+                                    </i>
+                                </td>
+                                <td>
+                                    <div class="onoffswitch"
+                                    *ngIf="register_requisite.HTMLtype == 'TRUE / FALSE'">
+                                        <input
+                                            type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="{{register_requisite.id}}" name="cumple" [(ngModel)]="
+                                            register_requisite.fullfill
+                                                " (change)="changeFullfill(register_requisite)" /><label class="onoffswitch-label" for="{{register_requisite.id}}">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                    <select class="form-control" *ngIf="register_requisite.HTMLtype == 'YES / NO'" (change)="calcTotalPoints()"
+                                    [(ngModel)]="register_requisite.value" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                    >
+                                    <option value="0" selected>Seleccione...</option>
+                                    <option value="SI" selected>SI</option>
+                                    <option value="NO" selected>NO</option>
+                                    </select>
+                                    <input type="number" *ngIf="register_requisite.HTMLtype == 'NUMBER'" [disabled]="!rucEstablishmentRegisterSelected.editable" [(ngModel)]="register_requisite.value" class="form-control" min="0" 
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> -->
+        </div>
+        <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
+            <div class="alert alert-info" role="alert">
+              <label class="col-12 text-justify"><strong>Información:</strong><br />
+                <p class="text-justify">La sumatoria total de puntos (respuestas SI), seleccionado es <strong>{{totalAbPointsSelected}}</strong> de un total de <strong>{{totalAviable}}</strong> puntos. Con lo cual el puntaje de categorización obtenido es: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>.<br/>La categoría obtenida es: <strong>{{categoryAB}}</strong></p>
+                <p class="text-justify"><strong>Forma de Cálculo:</strong><br/><strong>Puntaje de Categorización</strong>&nbsp;<strong style="color:red;">=</strong>&nbsp;({{totalAbPointsSelected}}<strong style="color:red;">&nbsp;*&nbsp;</strong>100)<strong style="color:red;">&nbsp;/&nbsp;</strong>({{totalAviable}})</p>
+              </label>
+            </div>
+        </div>
+    </div>
 </div>

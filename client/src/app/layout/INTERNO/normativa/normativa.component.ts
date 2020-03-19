@@ -1,4 +1,5 @@
 import { RequisiteService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteABService} from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 import { RegisterTypeService as RegisterTypeABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +25,8 @@ export class NormativaComponent implements OnInit {
 
   constructor( private registerTypeDataService: RegisterTypeService,
     private registerTypeABDataService: RegisterTypeABService,
-    private requisiteDataService: RequisiteService) {}
+    private requisiteDataService: RequisiteService,
+    private requisiteABDataService: RequisiteABService) {}
 
   ngOnInit() {
     this.getAllRegisterTypes();
