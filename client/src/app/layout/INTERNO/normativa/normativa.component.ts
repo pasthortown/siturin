@@ -30,7 +30,8 @@ export class NormativaComponent implements OnInit {
   totalAbPointsSelected = 0;
   totalAviable = 0;
   totalABPuntosShown = 0;
-  categoryAB = 0;
+  categoryAB = '';
+  totalABPuntos = 0;
 
   constructor( private registerTypeDataService: RegisterTypeService,
     private registerTypeABDataService: RegisterTypeABService,
@@ -127,8 +128,49 @@ export class NormativaComponent implements OnInit {
   }
 
   calcTotalPoints() {
-
+    let totalScore = 0;
+    let totalScoreShown = 0;
+    let totalAviable = 0;
+    let totalAviableExtra = 0;
+    this.requisites.forEach(element => {
+       totalAviable += element.score * 1;
+       if (element.fullfill) {
+          if (!element.mandatory) {
+             totalScore += element.score * 1;
+             totalScoreShown += element.score * 1;
+          } else {
+             totalAviableExtra += element.score * 1;
+          }
+       }
+    });
+    if (totalAviable !== 0) {
+       this.totalABPuntos = totalScore * 100 / totalAviable;
+       this.totalABPuntosShown = totalScoreShown * 100 / (totalAviable - totalAviableExtra);   
+    } else {
+       this.totalABPuntos = totalScore;
+       this.totalABPuntosShown = totalScoreShown;
+    }
+    this.totalAbPointsSelected = totalScoreShown;
+    this.totalAviable = totalAviable;
+    this.categoryAB = 'Pendiente';
+    this.categories_registers.forEach(category => {
+       if (category.min_points*1 <= this.totalABPuntosShown*1) {
+          this.categoryAB = category.name;
+          this.register_type_id = category.id;
+       }
+    });
   }
+
+  changeFullfill(register_requisite: RegisterRequisite) {
+    if (register_requisite.fullfill) {
+     register_requisite.value = 'true';
+    } else {
+     register_requisite.value = 'false';
+    }
+    if (this.actividadSelected == '2') {
+       this.calcTotalPoints();
+    }
+   }
 
   getRequisites() {
     this.requisites = [];
@@ -170,11 +212,6 @@ export class NormativaComponent implements OnInit {
           }
       });
       this.requisiteABDataService.get_filtered(categorySelectedID).then( r=> {
-        this.totalAbPointsSelected = 0;
-        this.totalAviable = 0;
-        this.totalABPuntosShown = 0;
-        this.categoryAB = 0;
-
         const requisitesByRegisterType = r as any[];
         requisitesByRegisterType.forEach(element => {
           const newRegisterRequisite = new RegisterABRequisite();
