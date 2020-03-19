@@ -1,5 +1,6 @@
 import { RequisiteService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
 import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterTypeService as RegisterTypeABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NormativaComponent implements OnInit {
   regiones = [];
-  allRegisterTypes = [];
+  allRegisterTypes_alojamiento = [];
+  allRegisterTypes_alimentos_bebidas = [];
   clasifications_registers = [];
   actividadSelected = '-';
   regionSelectedCode = '-';
@@ -19,6 +21,7 @@ export class NormativaComponent implements OnInit {
   activateOperationIntermediation = true;
 
   constructor( private registerTypeDataService: RegisterTypeService,
+    private registerTypeABDataService: RegisterTypeABService,
     private requisiteDataService: RequisiteService) {}
 
   ngOnInit() {
@@ -27,7 +30,7 @@ export class NormativaComponent implements OnInit {
 
   getRegiones() {
     this.regiones = [];
-    this.allRegisterTypes.forEach(element => {
+    this.allRegisterTypes_alojamiento.forEach(element => {
       if (element.father_code == '-') {
         this.regiones.push(element);
       }
@@ -36,18 +39,30 @@ export class NormativaComponent implements OnInit {
 
   getAllRegisterTypes() {
     this.registerTypeDataService.get().then( r => {
-      this.allRegisterTypes = r as any[];
+      this.allRegisterTypes_alojamiento = r as any[];
       this.getRegiones();
+    }).catch( e => { console.log(e); });
+    this.registerTypeABDataService.get().then( r => {
+      this.allRegisterTypes_alimentos_bebidas = r as any[];
     }).catch( e => { console.log(e); });
   }
 
   getClasifications() {
     this.clasifications_registers = [];
-    this.allRegisterTypes.forEach(element => {
-      if (element.father_code == this.actividadSelected) {
-        this.clasifications_registers.push(element);
-      }
-    });
+    if (this.actividadSelected == '1') {
+      this.allRegisterTypes_alojamiento.forEach(element => {
+        if (element.father_code == this.actividadSelected) {
+          this.clasifications_registers.push(element);
+        }
+      });
+    }
+    if (this.actividadSelected == '2') {
+      this.allRegisterTypes_alimentos_bebidas.forEach(element => {
+        if (element.father_code == this.actividadSelected) {
+          this.clasifications_registers.push(element);
+        }
+      });
+    }
   }
 
   
