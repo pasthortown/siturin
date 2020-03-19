@@ -1,6 +1,5 @@
 import { RequisiteService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
 import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
-import { NormativaService } from './../../../services/negocio/normativa.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 export class NormativaComponent implements OnInit {
   regiones = [];
   allRegisterTypes = [];
+  actividadSelected = '-';
+  regionSelectedCode = '-';
+  activateAlojamiento = true;
+  activateAlimentosBebidas = true;
+  activateOperationIntermediation = true;
 
-  constructor( private normativaDataService: NormativaService, 
-    private registerTypeDataService: RegisterTypeService,
+  constructor( private registerTypeDataService: RegisterTypeService,
     private requisiteDataService: RequisiteService) {}
 
   ngOnInit() {
