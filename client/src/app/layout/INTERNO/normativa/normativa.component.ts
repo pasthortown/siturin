@@ -22,6 +22,7 @@ export class NormativaComponent implements OnInit {
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
   activateOperationIntermediation = true;
+  mostrarRequisitos = false;
 
   constructor( private registerTypeDataService: RegisterTypeService,
     private registerTypeABDataService: RegisterTypeABService,
@@ -77,6 +78,7 @@ export class NormativaComponent implements OnInit {
 
   getCategories() { 
     this.categories_registers = [];
+    this.mostrarRequisitos = false;
     if (this.actividadSelected == '1') {
       this.allRegisterTypes_alojamiento.forEach(element => {
         if (element.father_code == this.categorySelectedCode) {
@@ -108,5 +110,9 @@ export class NormativaComponent implements OnInit {
       }
       return 0;
     });
+  }
+
+  getRequisites() {
+    this.mostrarRequisitos = true;
   }
 }

@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="mostrarRequisitos">
         <div class="col-12" *ngIf="actividadSelected == '2' && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
             <div class="alert alert-info" role="alert">
               <label class="col-12 text-justify"><strong>Información:</strong><br />
