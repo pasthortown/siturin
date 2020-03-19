@@ -12,17 +12,18 @@
     </div>
     <div class="row">
         <div class="col-3">
-          <div class="form-group">
-            <label>Ámbito de Aplicación</label>
-            <select class="form-control" disabled id="region_id" name="region_id"
-              [(ngModel)]="regionSelectedCode">
-              <option value="-" selected>Seleccione...</option>
-              <option *ngFor="
-                  let register_type of regiones
-                " value="{{ register_type.code }}">
-                {{ register_type.name }}
-              </option>
-            </select>
+            <div class="form-group">
+                <label>Ámbito de Aplicación</label>
+                <select class="form-control" id="region_id" name="region_id"
+                [(ngModel)]="regionSelectedCode">
+                    <option value="-" selected>Seleccione...</option>
+                    <option *ngFor="
+                        let register_type of regiones
+                        " value="{{ register_type.code }}">
+                        {{ register_type.name }}
+                    </option>
+                </select>
+            </div>
         </div>
         <div class="col-3">
             <div class="form-group">
