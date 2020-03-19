@@ -58,16 +58,13 @@
               </select>
             </div>
         </div>
-        <!-- <div class="col-3">
+        <div class="col-3">
             <div class="form-group">
               <label>Categoría</label><span *ngIf="
-                  rucEstablishmentRegisterSelected.register_type_id ==
-                  0
+                  register_type_id == 0
                 " class="ml-2 badge badge-danger">Incorrecto</span>
               <select class="form-control" id="register_type_id" name="register_type_id"
-                (change)="getAllowedInfo()" [(ngModel)]="
-                  rucEstablishmentRegisterSelected.register_type_id
-                " [disabled]="actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')"> 
+                (change)="getRequisites()" [(ngModel)]="register_type_id"> 
                 <option value="0" selected>Seleccione...</option>
                 <option *ngFor="
                     let register_type of categories_registers
@@ -76,6 +73,6 @@
                 </option>
               </select>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
