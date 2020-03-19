@@ -30,7 +30,7 @@ export class NormativaComponent implements OnInit {
   totalAbPointsSelected = 0;
   totalAviable = 0;
   totalABPuntosShown = 0;
-  categoryAB = '';
+  categoryAB = 'Pendiente';
   totalABPuntos = 0;
 
   constructor( private registerTypeDataService: RegisterTypeService,
