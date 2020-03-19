@@ -1,3 +1,4 @@
+import { RegisterRequisite } from './../../../models/ALOJAMIENTO/RegisterRequisite';
 import { RequisiteService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
 import { RequisiteService as RequisiteABService} from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
@@ -15,6 +16,7 @@ export class NormativaComponent implements OnInit {
   allRegisterTypes_alimentos_bebidas = [];
   clasifications_registers = [];
   categories_registers = [];
+  requisites = [];
   actividadSelected = '-';
   regionSelectedCode = '-';
   categorySelectedCode = '-';
@@ -23,6 +25,11 @@ export class NormativaComponent implements OnInit {
   activateAlimentosBebidas = true;
   activateOperationIntermediation = true;
   mostrarRequisitos = false;
+
+  totalAbPointsSelected = 0;
+  totalAviable = 0;
+  totalABPuntosShown = 0;
+  categoryAB = 0;
 
   constructor( private registerTypeDataService: RegisterTypeService,
     private registerTypeABDataService: RegisterTypeABService,
@@ -119,6 +126,41 @@ export class NormativaComponent implements OnInit {
   }
 
   getRequisites() {
-    this.mostrarRequisitos = true;
+    this.requisites = [];
+    if (this.actividadSelected == '1') {
+      this.requisiteDataService.get_filtered(this.register_type_id).then( r=> {
+        const requisitesByRegisterType = r as any[];
+        requisitesByRegisterType.forEach(element => {
+           const newRegisterRequisite = new RegisterRequisite();
+           newRegisterRequisite.requisite_name = element.name;
+           newRegisterRequisite.requisite_id = element.id;
+           newRegisterRequisite.fullfill = true;
+           newRegisterRequisite.requisite_code = element.code;
+           newRegisterRequisite.mandatory = element.mandatory;
+           newRegisterRequisite.requisite_father_code = element.father_code;
+           newRegisterRequisite.level = element.code.split('.').length;
+           newRegisterRequisite.HTMLtype = element.type;
+           newRegisterRequisite.id = element.id;
+           newRegisterRequisite.fullfill = false;
+           if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+              newRegisterRequisite.value = '0';
+           }
+           if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+              newRegisterRequisite.value = '0';
+           }
+           if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+              newRegisterRequisite.value = 'false';
+           }
+           this.requisites.push(newRegisterRequisite);
+        });
+        this.mostrarRequisitos = true;
+        this.sortArray(this.requisites);
+      }).catch( e => { console.log(e); });
+    }
+    if (this.actividadSelected == '2') {
+      this.requisiteABDataService.get_filtered(this.register_type_id).then( r=> {
+
+      }).catch( e => { console.log(e); });
+    }
   }
 }
