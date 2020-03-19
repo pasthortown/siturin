@@ -37,7 +37,8 @@ export class NormativaComponent implements OnInit {
         this.regiones.push(element);
       }
     });
-   }
+    this.sortArray(this.regiones);
+  }
 
   getAllRegisterTypes() {
     this.registerTypeDataService.get().then( r => {
@@ -69,6 +70,7 @@ export class NormativaComponent implements OnInit {
         }
       });
     }
+    this.sortArray(this.clasifications_registers);
   }
 
   getCategories() { 
@@ -91,5 +93,18 @@ export class NormativaComponent implements OnInit {
         }
       });
     }
+    this.sortArray(this.categories_registers);
+  }
+
+  sortArray(array: any[]) {
+    array.sort( (e1, e2) => {
+      if (e1.id > e2.id) {
+        return 1;
+      }
+      if (e1.id < e2.id) {
+        return -1;
+      }
+      return 0;
+    });
   }
 }
