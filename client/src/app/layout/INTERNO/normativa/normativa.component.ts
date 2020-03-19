@@ -55,6 +55,10 @@ export class NormativaComponent implements OnInit {
 
   getClasifications() {
     this.clasifications_registers = [];
+    this.categories_registers = [];
+    this.mostrarRequisitos = false;
+    this.categorySelectedCode = '-';
+    this.register_type_id = 0;
     if (this.actividadSelected == '1') {
       this.allRegisterTypes_alojamiento.forEach(element => {
         if (element.father_code == this.actividadSelected) {
@@ -79,6 +83,7 @@ export class NormativaComponent implements OnInit {
   getCategories() { 
     this.categories_registers = [];
     this.mostrarRequisitos = false;
+    this.register_type_id = 0;
     if (this.actividadSelected == '1') {
       this.allRegisterTypes_alojamiento.forEach(element => {
         if (element.father_code == this.categorySelectedCode) {
