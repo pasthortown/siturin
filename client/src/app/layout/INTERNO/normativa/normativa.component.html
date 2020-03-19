@@ -52,7 +52,7 @@
                 <option value="-" selected>Seleccione...</option>
                 <option *ngFor="
                     let register_type of clasifications_registers
-                  " value="{{ register_type.code }}">
+                  " value="{{ register_type.code }}" *ngIf="register_type.id < 1000">
                   {{ register_type.name }}
                 </option>
               </select>
