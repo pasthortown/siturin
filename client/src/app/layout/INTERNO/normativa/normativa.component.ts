@@ -52,14 +52,18 @@ export class NormativaComponent implements OnInit {
     if (this.actividadSelected == '1') {
       this.allRegisterTypes_alojamiento.forEach(element => {
         if (element.father_code == this.actividadSelected) {
-          this.clasifications_registers.push(element);
+          if (element.id < 1000) {
+            this.clasifications_registers.push(element);
+          }
         }
       });
     }
     if (this.actividadSelected == '2') {
       this.allRegisterTypes_alimentos_bebidas.forEach(element => {
         if (element.father_code == this.actividadSelected) {
-          this.clasifications_registers.push(element);
+          if (element.id < 1000) {
+            this.clasifications_registers.push(element);
+          }
         }
       });
     }
