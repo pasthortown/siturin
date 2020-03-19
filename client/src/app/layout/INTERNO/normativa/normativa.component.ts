@@ -101,6 +101,7 @@ export class NormativaComponent implements OnInit {
           }
         }
       });
+      this.getRequisites();
     }
     this.sortArray(this.categories_registers);
   }
