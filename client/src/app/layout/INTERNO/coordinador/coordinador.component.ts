@@ -248,7 +248,8 @@ export class CoordinadorComponent implements OnInit {
    rows = [];
    columns = [];
    data = [];
-  
+   register_selected_type_id = 0;
+
   //DATOS RUC
   editable = false;
   imContactRuc: Boolean = true;
@@ -2573,6 +2574,7 @@ export class CoordinadorComponent implements OnInit {
                address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
                created_at: creacion.toLocaleDateString(),
                code: item.register.code,
+               register_type_id: item.register.register_type_id,
                category: thiscategory.toUpperCase(),
                catastro_category: item.register_data_on_catastro.category.toUpperCase(),
                catastro_classification: item.register_data_on_catastro.classification.toUpperCase(),
@@ -2712,6 +2714,7 @@ export class CoordinadorComponent implements OnInit {
    this.rows.forEach(row => {
       if (this.idRegister == row.registerId && this.activity == row.actividad) {
          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+         this.register_selected_type_id = row.register_type_id;
       } else {
          row.selected = '';
       }
@@ -6706,7 +6709,7 @@ guardarDeclaracion() {
          this.rucEstablishmentRegisterSelected.requisites = [];
          this.getListaPrecios(register.id);
          this.mostrarDataRegister = true;
-         this.setCategoryAB(this.rucEstablishmentRegisterSelected.register_type_id, r.requisites);
+         this.setCategoryAB(this.register_selected_type_id, r.requisites);
          this.rucEstablishmentRegisterSelected.complementary_service_types_on_register = r.complementary_service_types_on_register as ComplementaryServiceType[];
          this.rucEstablishmentRegisterSelected.capacities_on_register = r.capacities_on_register as any[];
          this.getYears();
