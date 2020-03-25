@@ -134,6 +134,97 @@ const routes: Routes = [
             loadChildren: './CRUD/BASE/Agreement/agreement.module#AgreementModule'
          },
 
+         //OPERACIONINTERMEDIACION
+
+         {
+            path: 'approval_state_attachment_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ApprovalStateAttachment/approvalstateattachment.module#ApprovalStateAttachmentModule'
+         },
+         {
+            path: 'approval_state_report_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ApprovalStateReport/approvalstatereport.module#ApprovalStateReportModule'
+         },
+         {
+            path: 'register_requisite_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterRequisite/registerrequisite.module#RegisterRequisiteModule'
+         },
+         {
+            path: 'register_procedure_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterProcedure/registerprocedure.module#RegisterProcedureModule'
+         },
+         {
+            path: 'register_state_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterState/registerstate.module#RegisterStateModule'
+         },
+         {
+            path: 'approval_state_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ApprovalState/approvalstate.module#ApprovalStateModule'
+         },
+         {
+            path: 'property_title_attachment_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/PropertyTitleAttachment/propertytitleattachment.module#PropertyTitleAttachmentModule'
+         },
+         {
+            path: 'authorization_attachment_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/AuthorizationAttachment/authorizationattachment.module#AuthorizationAttachmentModule'
+         },
+         {
+            path: 'tour_guide',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/TourGuide/tourguide.module#TourGuideModule'
+         },
+         {
+            path: 'turistic_transport',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/TuristicTransport/turistictransport.module#TuristicTransportModule'
+         },
+         {
+            path: 'register_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/Register/register.module#RegisterModule'
+         },
+         {
+            path: 'requisite_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/Requisite/requisite.module#RequisiteModule'
+         },
+         {
+            path: 'procedure_justification_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ProcedureJustification/procedurejustification.module#ProcedureJustificationModule'
+         },
+         {
+            path: 'register_type_image_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterTypeImage/registertypeimage.module#RegisterTypeImageModule'
+         },
+         {
+            path: 'classification_guide_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ClassificationGuide/classificationguide.module#ClassificationGuideModule'
+         },
+         {
+            path: 'activity_type_transport_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ActivityTypeTransport/activitytypetransport.module#ActivityTypeTransportModule'
+         },
+         {
+            path: 'category_transport_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/CategoryTransport/categorytransport.module#CategoryTransportModule'
+         },
+         {
+            path: 'complementary_service_type_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ComplementaryServiceType/complementaryservicetype.module#ComplementaryServiceTypeModule'
+         },
+         {
+            path: 'register_type_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterType/registertype.module#RegisterTypeModule'
+         },
+         {
+            path: 'state_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/State/state.module#StateModule'
+         },
+         {
+            path: 'approval_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/Approval/approval.module#ApprovalModule'
+         },
+         {
+            path: 'procedure_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/Procedure/procedure.module#ProcedureModule'
+         },
+
          //ALIMENTOSBEBIDAS
 
          {

@@ -283,6 +283,81 @@
          </li>
       </div>
       <div *ngIf="isAdmin" class="nested-menu">
+         <a class="list-group-item" (click)="addExpandClass('bdd operacionintermediacion')">
+            <span class="fas fa-database"></span>&nbsp;BDD OPERACIONINTERMEDIACION
+         </a>
+         <li class="nested" [class.expand]="showMenu === 'bdd operacionintermediacion'">
+            <ul class="submenu">
+               <li>
+                  <a [routerLink]="['/approval_state_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">ApprovalStateAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/approval_state_report']" [routerLinkActive]="['router-link-active']" class="list-group-item">ApprovalStateReport </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register_requisite']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterRequisite </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register_procedure']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterProcedure </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register_state']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterState </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/approval_state']" [routerLinkActive]="['router-link-active']" class="list-group-item">ApprovalState </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/property_title_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">PropertyTitleAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/authorization_attachment']" [routerLinkActive]="['router-link-active']" class="list-group-item">AuthorizationAttachment </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/tour_guide']" [routerLinkActive]="['router-link-active']" class="list-group-item">TourGuide </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/turistic_transport']" [routerLinkActive]="['router-link-active']" class="list-group-item">TuristicTransport </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register']" [routerLinkActive]="['router-link-active']" class="list-group-item">Register </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/requisite']" [routerLinkActive]="['router-link-active']" class="list-group-item">Requisite </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/procedure_justification']" [routerLinkActive]="['router-link-active']" class="list-group-item">ProcedureJustification </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register_type_image']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterTypeImage </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/classification_guide']" [routerLinkActive]="['router-link-active']" class="list-group-item">ClassificationGuide </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/activity_type_transport']" [routerLinkActive]="['router-link-active']" class="list-group-item">ActivityTypeTransport </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/category_transport']" [routerLinkActive]="['router-link-active']" class="list-group-item">CategoryTransport </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/complementary_service_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">ComplementaryServiceType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/register_type']" [routerLinkActive]="['router-link-active']" class="list-group-item">RegisterType </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/state']" [routerLinkActive]="['router-link-active']" class="list-group-item">State </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/approval']" [routerLinkActive]="['router-link-active']" class="list-group-item">Approval </a>
+               </li>
+               <li>
+                  <a [routerLink]="['/procedure']" [routerLinkActive]="['router-link-active']" class="list-group-item">Procedure </a>
+               </li>
+            </ul>
+         </li>
+      </div>
+      <div *ngIf="isAdmin" class="nested-menu">
          <a class="list-group-item" (click)="addExpandClass('bdd alimentosbebidas')">
             <span class="fas fa-database"></span>&nbsp;BDD ALIMENTOSBEBIDAS
          </a>
