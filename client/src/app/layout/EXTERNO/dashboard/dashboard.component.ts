@@ -3291,6 +3291,9 @@ export class DashboardComponent implements OnInit {
          }
       }).catch( e => { console.log(e) });
    }
+   if (this.actividadSelected == '3') {
+      console.log('op e in');
+   }
   }
   
   getRucNameTypes() {
