@@ -3313,18 +3313,21 @@ export class DashboardComponent implements OnInit {
                }
             }
          });
-         const response = r as any[];
-         if ( this.regionSelectedCode != '1' && esRegitro) {
-            this.clasifications_registers = [];
-            response.forEach(element => {
-               // AQUI MANEJAR LAS CLASIFICACIONES
+         this.clasifications_registers = [];
+         const clasificaciones = r as RegisterType[];
+         clasificaciones.forEach(clasificacion => {
+            let existe = false;
+            this.clasifications_registers.forEach(element_1 => {
+               if (element_1 == clasificacion) {
+                  existe = true;
+               }
             });
-         } else {
-            this.clasifications_registers = [];
-            response.forEach(element => {
-               // AQUI MANEJAR LAS CLASIFICACIONES
-            });
-         }
+            if (!existe) {
+               if (clasificacion.id < 1000) { 
+                  this.clasifications_registers.push(clasificacion);
+               }
+            }
+         });
       }).catch( e => { console.log(e) });
    }
   }
