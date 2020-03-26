@@ -1108,7 +1108,7 @@
                                     <option value="-" selected>Seleccione...</option>
                                     <option value="1" *ngIf="canAlojamiento && activateAlojamiento">Alojamiento Turístico</option>
                                     <option value="2" *ngIf="regionSelectedCode == '1' && canAlimentosBebidas && activateAlimentosBebidas">Alimentos y Bebidas</option>
-                                    <option value="3" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == '2' && activateOperationIntermediation">Operación e Intermediación</option>          
+                                    <option value="3" *ngIf="activateOperationIntermediation">Operación e Intermediación</option>          
                                   </select>
                                   <small class="col-12" *ngIf="regionSelectedCode == '2'">
                                     <div class="alert alert-info mb-2" role="alert">

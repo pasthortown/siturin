@@ -428,7 +428,7 @@ export class DashboardComponent implements OnInit {
   mostrarIngresoDatos = false;
   cannuevaClasificacionAB = false;
 
-  activateOperationIntermediation = true;
+  activateOperationIntermediation = false;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
   
@@ -3292,6 +3292,7 @@ export class DashboardComponent implements OnInit {
       }).catch( e => { console.log(e) });
    }
    if (this.actividadSelected == '3') {
+      //aqui
       console.log('op e in');
    }
   }
