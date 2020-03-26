@@ -4375,6 +4375,20 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.editable = true;
       this.showRegisterABInfo();
    }
+   if (this.actividadSelected == '3') {
+      this.register_OP_typeDataService.get_filtered(this.categorySelectedCode).then( r => {
+         this.categories_registers = r as any[];
+         if (this.selected_classification_catastro !== '') {
+            this.categories_registers.forEach( category_element => {
+               if (category_element.name == this.selected_category_catastro) {
+                  this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
+               }
+            });
+            this.esRegistro = false;
+            //aqui
+         }
+      }).catch( e => { console.log(e) });   
+   }
   }
 
   showRegisterABInfo() {
