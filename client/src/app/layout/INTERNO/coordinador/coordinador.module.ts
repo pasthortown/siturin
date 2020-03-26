@@ -73,7 +73,7 @@ import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitch
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
-
+import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 @NgModule({
   imports: [CommonModule,
     CKEditorModule,
@@ -93,6 +93,7 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
     ServiceTypeService,
     KitchenTypeService,
     RegisterTypeABService,
+    StateABService,
     RegisterProcedureABService,
     DeclarationItemService,
     ConsultorService,
