@@ -71,6 +71,8 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 import { Agreement } from 'src/app/models/BASE/Agreement';
 
+import { RegisterTypeService as RegisterTypeOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
+
 @NgModule({
   imports: [CommonModule,
     NgxBarcodeModule,
@@ -84,6 +86,7 @@ import { Agreement } from 'src/app/models/BASE/Agreement';
     FormsModule],   
   declarations: [DashboardComponent],
   providers: [NgbModal,
+    RegisterTypeOPService,
     UserService,
     DinardapService,
     DeclarationItemService,

@@ -83,6 +83,8 @@ import { WorkerGroup } from 'src/app/models/BASE/WorkerGroup';
 import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
 import { GenderService } from 'src/app/services/CRUD/BASE/gender.service';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterTypeService as RegisterTypeOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
+import { RegisterType as RegisterTypeOP } from 'src/app/models/OPERACIONINTERMEDIACION/RegisterType';
 import { RequisiteService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
 import { TariffType } from 'src/app/models/ALOJAMIENTO/TariffType';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
@@ -392,6 +394,7 @@ export class DashboardComponent implements OnInit {
   establishment_service_offers_registerSelectedId = 0;
   tarifas: any[] = [];
   registerTypesAB: any[] = [];
+  registerTypesOP: any[] = [];
   states: State[] = [];
   complementaryServiceFoodTypes: ComplementaryServiceFoodType[] = [];
   
@@ -478,6 +481,7 @@ export class DashboardComponent implements OnInit {
               private establishment_property_typeDataService: EstablishmentPropertyTypeService,
               private establishmentDataService: EstablishmentService,
               private register_typeDataService: RegisterTypeService,
+              private register_OP_typeDataService: RegisterTypeOPService,
               private register_AlimentosBebidas_typeDataService: RegisterTypeAlimentosBebidasService,
               private requisiteDataService: RequisiteService,
               private bedTypeDataService: BedTypeService,
@@ -1195,6 +1199,13 @@ export class DashboardComponent implements OnInit {
    this.registerTypesAB = [];
    this.register_AlimentosBebidas_typeDataService.get().then( r => {
       this.registerTypesAB = r;
+   }).catch( e => { console.log(e); });
+  }
+
+  getRegisterTypesOP() {
+   this.registerTypesOP = [];
+   this.register_OP_typeDataService.get().then( r => {
+      this.registerTypesOP = r;
    }).catch( e => { console.log(e); });
   }
 
@@ -2658,6 +2669,7 @@ export class DashboardComponent implements OnInit {
    this.currentYear = today.getFullYear();
    this.fechasNombramiento();
    this.getRegisterTypesAB();
+   this.getRegisterTypesOP();
    this.pays = [];
    this.consumoCedula = false;
    this.consumoCedulaEstablishmentContact = false;
@@ -3292,8 +3304,28 @@ export class DashboardComponent implements OnInit {
       }).catch( e => { console.log(e) });
    }
    if (this.actividadSelected == '3') {
-      //aqui
-      console.log('op e in');
+      this.register_OP_typeDataService.get_filtered(this.regionSelectedCode).then( r => {
+         let esRegitro = false;
+         this.specific_states.forEach(element => {
+            if (element.id == this.rucEstablishmentRegisterSelected.status) {
+               if (element.name == 'Registro') {
+                  esRegitro = true;
+               }
+            }
+         });
+         const response = r as any[];
+         if ( this.regionSelectedCode != '1' && esRegitro) {
+            this.clasifications_registers = [];
+            response.forEach(element => {
+               // AQUI MANEJAR LAS CLASIFICACIONES
+            });
+         } else {
+            this.clasifications_registers = [];
+            response.forEach(element => {
+               // AQUI MANEJAR LAS CLASIFICACIONES
+            });
+         }
+      }).catch( e => { console.log(e) });
    }
   }
   
