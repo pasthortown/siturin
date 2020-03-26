@@ -4151,6 +4151,12 @@
                                     <p>Para realizar algún trámite referente a Alimentos y Bebidas en la provincia de Galápagos se solicita de manera presencial en la Coordinación Zonal Insular.</p>
                                   </div>
                                 </small>
+                                <small class="col-12">
+                                  <div class="alert alert-info mt-2 mb-2" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == '1'" role="alert">
+                                    <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                                    <p>Los trámites referentes a Operación e Intermediación, se encuentran disponibles únicamente para personerías jurídicas.</p>
+                                  </div>
+                                </small>
                               </div>
                               <div class="col-3">
                                 <div class="form-group">
