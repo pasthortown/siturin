@@ -4385,7 +4385,6 @@ guardarDeclaracion() {
                }
             });
             this.esRegistro = false;
-            //aqui
          }
       }).catch( e => { console.log(e) });   
    }
