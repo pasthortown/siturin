@@ -3740,7 +3740,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
                newRegistroCatastro.establishment_ruc_code = this.registerMinturSelected.establishment.ruc_code_id;
-               newRegistroCatastro.establishment_state = 'ABIERTO';
+               newRegistroCatastro.establishment_state = 'ACTIVO';
                newRegistroCatastro.georeference_latitude = this.registerMinturSelected.establishment.address_map_latitude;
                newRegistroCatastro.georeference_longitude = this.registerMinturSelected.establishment.address_map_longitude;
                newRegistroCatastro.main_phone_number = r.main_phone_number;
@@ -3750,7 +3750,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.organization_type = this.organization_type;
                newRegistroCatastro.register_code = code;
                newRegistroCatastro.ruc = this.ruc_registro_selected.ruc.number;
-               newRegistroCatastro.ruc_state = 'ABIERTO';
+               newRegistroCatastro.ruc_state = 'ACTIVO';
                newRegistroCatastro.secondary_phone_number = r.secondary_phone_number;
                newRegistroCatastro.system_source = 'SITURIN';
                newRegistroCatastro.total_female = this.total_female;
@@ -3816,7 +3816,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.classification = clasificacion;
                newRegistroCatastro.email = r.email;
                newRegistroCatastro.establishment_ruc_code = this.registerMinturSelected.establishment.ruc_code_id;
-               newRegistroCatastro.establishment_state = 'ABIERTO';
+               newRegistroCatastro.establishment_state = 'ACTIVO';
                newRegistroCatastro.georeference_latitude = this.registerMinturSelected.establishment.address_map_latitude;
                newRegistroCatastro.georeference_longitude = this.registerMinturSelected.establishment.address_map_longitude;
                newRegistroCatastro.main_phone_number = r.main_phone_number;
@@ -3826,7 +3826,7 @@ selectKitchenType(kitchenType: KitchenType) {
                newRegistroCatastro.organization_type = this.organization_type;
                newRegistroCatastro.register_code = code;
                newRegistroCatastro.ruc = this.ruc_registro_selected.ruc.number;
-               newRegistroCatastro.ruc_state = 'ABIERTO';
+               newRegistroCatastro.ruc_state = 'ACTIVO';
                newRegistroCatastro.secondary_phone_number = r.secondary_phone_number;
                newRegistroCatastro.system_source = 'SITURIN';
                newRegistroCatastro.total_female = this.total_female;
