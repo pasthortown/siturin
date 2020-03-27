@@ -7,6 +7,7 @@ import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establis
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 import { UserService } from 'src/app/services/profile/user.service';
 import { TecnicoFinancieroComponent } from './tecnico-financiero.component';
+import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { TecnicoFinancieroRoutingModule } from './tecnico-financiero-routing.module';
 import { PersonRepresentativeAttachmentService } from 'src/app/services/CRUD/BASE/personrepresentativeattachment.service';
 import { CommonModule } from '@angular/common';
@@ -85,6 +86,7 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
     RegisterProcedureABService,
     PayService,
     RegisterTypeABService,
+    StateABService,
     RegisterStateABService,
     RegisterABService,
     ApprovalStateABService,

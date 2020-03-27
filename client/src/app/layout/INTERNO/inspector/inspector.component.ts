@@ -2177,10 +2177,10 @@ export class InspectorComponent implements OnInit {
                resultado_aprobacion = 'NEGADA';
             }
             if (this.inspectionState == 3) {
-               resultado_aprobacion = 'PRÓRROGA DE 15 DÍAS';
+               resultado_aprobacion = 'PRÓRROGA DE 30 DÍAS';
             }
             if (this.inspectionState == 4) {
-               resultado_aprobacion = 'PRÓRROGA DE 6 MESES';
+               resultado_aprobacion = 'PRÓRROGA DE 60 DÍAS';
             }
             if (this.registerApprovalInspector.date_fullfill == null || typeof(this.registerApprovalInspector.date_fullfill.toString()) == 'undefined') {
                this.registerApprovalInspector.date_fullfill = new Date();
