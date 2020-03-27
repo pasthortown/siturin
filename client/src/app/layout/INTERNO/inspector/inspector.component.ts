@@ -1318,7 +1318,7 @@ export class InspectorComponent implements OnInit {
    this.ruc_registro_selected.registers.forEach(item => {
        let date_assigment_alert = '';
        let date1 = new Date();
-       const registerState = this.getRegisterState(item.status_register.state_id, this.activity);
+       const registerState = this.getRegisterState(item.status_register.state_id, item.activity);
        let editable = true;
        const estado: String = item.status_register.state_id.toString();
        const digito = estado.substring(estado.length-1, estado.length);
@@ -1499,7 +1499,7 @@ export class InspectorComponent implements OnInit {
      this.registers_mintur.forEach(item => {
          let date_assigment_alert = '';
          let date1 = new Date();
-         const registerState = this.getRegisterState(item.status_register.state_id, this.activity);
+         const registerState = this.getRegisterState(item.status_register.state_id, item.activity);
          if (registerState.search('Aprobado') == 0) {
             date1 = new Date(item.states.updated_at);
          }
