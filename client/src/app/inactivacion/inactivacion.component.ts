@@ -1235,14 +1235,7 @@ export class InactivacionComponent implements OnInit {
   continuarProcesoInactivacion() {
    if (this.establishment_ruc_code == 'NULL') {
       this.mostrarListadoEstablecimientos = true;
-      console.log('entre');
-      const data = {continuarTramite: this.continuarTramite,
-         mostrarMasData: this.mostrarMasData,
-         mostrarListadoEstablecimientos: this.mostrarListadoEstablecimientos,
-         isRepresentanteLegal: {rucValidated: this.rucValidated, SRIOK: this.SRIOK, isRepresentantLegal: this.isRepresentantLegal, tax_payer_type_id_is_2: this.ruc.tax_payer_type_id == 2},
-         isDueno: {isRucOwner: this.isRucOwner, tax_payer_is1: this. ruc.tax_payer_type_id == 1}
-      };
-      console.log(data);
+      this.mostrarMasData = true;
    } else {
       this.mostrarListadoEstablecimientos = false;
       this.ruc.establishments.forEach(establecimiento => {
