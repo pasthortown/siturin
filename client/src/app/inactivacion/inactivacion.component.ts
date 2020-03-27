@@ -1233,6 +1233,8 @@ export class InactivacionComponent implements OnInit {
   }
 
   continuarProcesoInactivacion() {
+     console.log(this.establishment_ruc_code);
+     console.log(this.ruc.establishments);
    if (this.establishment_ruc_code == 'NULL') {
       this.mostrarListadoEstablecimientos = true;
    } else {
