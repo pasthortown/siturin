@@ -11,6 +11,7 @@ import { Approval } from 'src/app/models/ALOJAMIENTO/Approval';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { DeclarationItemValue } from 'src/app/models/FINANCIERO/DeclarationItemValue';
+import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationItem } from 'src/app/models/FINANCIERO/DeclarationItem';
@@ -279,7 +280,8 @@ export class TecnicoFinancieroComponent implements OnInit {
  rack_prices_registerSelectedId = 0;
  establishment_service_offers_registerSelectedId = 0;
  tarifas: any[] = [];
- states: State[] = [];
+ states: any[] = [];
+ states_ab: any[] = [];
  statesAlojamiento: StateAlojamiento[] = [];
  alowed_capacity_types: CapacityType[] = [];
  complementaryServiceFoodTypes: ComplementaryServiceFoodType[] = [];
@@ -336,6 +338,7 @@ export class TecnicoFinancieroComponent implements OnInit {
              private approvalStateABDataService: ApprovalStateABService,
              private registerStateABDataService: RegisterStateABService,
              private register_typeABDataService: RegisterTypeABService,
+             private stateABDataService: StateABService,
              private registerABDataService: RegisterABService,
              private approvalStateAttachmentABDataService: ApprovalStateAttachmentABService,
              private stateDeclaratonDataService: StateDeclarationService,
@@ -799,7 +802,7 @@ calcularUnoxMil() {
            address: item.establishment.address_main_street + ' ' + item.establishment.address_number + ' ' + item.establishment.address_secondary_street,
            register_code: item.register.code,
            register_type: item.type.register_category.name + ' / ' + item.type.register_type.name,
-           state: this.getRegisterState(item.status.id),
+           state: this.getRegisterState(item.status.id, this.activity),
            state_id: item.status_register.state_id,
            notes: '<div class="col-12 text-justify">' + item.status_register.justification + '</div>',
         });
@@ -961,7 +964,7 @@ calcularUnoxMil() {
        if (!existe) {
          let date_assigment_alert = '';
          let date1 = new Date();
-         const registerState = this.getRegisterState(item.states.state_id);
+         const registerState = this.getRegisterState(item.states.state_id, item.activity);
          if (registerState.search('Aprobado') == 0) {
             date1 = new Date(item.states.updated_at);
          }
@@ -1001,7 +1004,7 @@ calcularUnoxMil() {
             status: registerState,
             establishment_id: item.establishment.id,
             status_id: item.states.state_id,
-            estado: this.getRegisterState(item.states.state_id),
+            estado: this.getRegisterState(item.states.state_id, item.activity),
          });
         }
        }
@@ -1958,9 +1961,13 @@ getDeclarationItems() {
 
  getStates() {
   this.states = [];
+  this.states_ab = [];
   this.stateDataService.get().then( r => {
      this.states = r as State[];
      this.getStatesAlojamiento();
+  }).catch( e => { console.log(e); });
+  this.stateABDataService.get().then( r => {
+   this.states_ab = r as State[];
   }).catch( e => { console.log(e); });
  }
 
@@ -2008,24 +2015,38 @@ getDeclarationItems() {
    }
    return toReturn;
   }
-
- getRegisterState(id: number): String {
+ 
+  getRegisterState(id: number, activity: string): String {
    let toReturn: String = '';
    let fatherCode: String = '';
-   this.statesAlojamiento.forEach(state => {
-      if (state.id == id) {
-       toReturn = state.name;
-       fatherCode = state.father_code;
-      }
-   });
-   this.statesAlojamiento.forEach(state => {
-      if (state.code == fatherCode) {
-         toReturn = state.name + ' - ' + toReturn;
-      }
-   });
+   if (activity == 'ALOJAMIENTO') {
+    this.states.forEach(state => {
+       if (state.id == id) {
+        toReturn = state.name;
+        fatherCode = state.father_code;
+       }
+    });
+    this.states.forEach(state => {
+       if (state.code == fatherCode) {
+          toReturn = state.name + ' - ' + toReturn;
+       }
+    });
+   }
+   if (activity == 'ALIMENTOS Y BEBIDAS') {
+    this.states_ab.forEach(state => {
+       if (state.id == id) {
+        toReturn = state.name;
+        fatherCode = state.father_code;
+       }
+    });
+    this.states_ab.forEach(state => {
+       if (state.code == fatherCode) {
+          toReturn = state.name + ' - ' + toReturn;
+       }
+    });
+   }
    return toReturn;
-}
-
+  }
 
  getClasifications() {
   this.clasifications_registers = [];
