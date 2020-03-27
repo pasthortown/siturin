@@ -6920,7 +6920,8 @@ guardarDeclaracion() {
        this.getSpecificStatesAB();
       }
    });
-}
+  }
+
   getSpecificStates() {
    this.specific_states = [];
    this.states.forEach(element => {

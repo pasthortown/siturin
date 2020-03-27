@@ -90,6 +90,7 @@ import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { StateService } from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
+import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { Capacity as CapacityAB} from 'src/app/models/ALIMENTOSBEBIDAS/Capacity';
 import { User } from 'src/app/models/profile/User';
 import { Ruc } from 'src/app/models/BASE/Ruc';
@@ -195,6 +196,7 @@ export class InspectorComponent implements OnInit {
    hasInform  = false;
    hasRequisites = false;
    inspectionState = 0;
+   states_ab: any[] = [];
    requisitosApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
    informeApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
    actaNotificacionApprovalStateAttachment: ApprovalStateAttachment = new ApprovalStateAttachment();
@@ -233,6 +235,7 @@ export class InspectorComponent implements OnInit {
   dateByUserRequisites = new Date();
   rucs_registrados: RegistroDataCarrier[] = [];
   representante_legal = '';
+  specific_states_ab: any[];
   ruc_registro_selected: RegistroDataCarrier = new RegistroDataCarrier();
   rucData = 'CONECTÁNDOSE AL SRI...';
   superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPANÍAS...';
@@ -431,6 +434,7 @@ export class InspectorComponent implements OnInit {
               private declarationItemDataService: DeclarationItemService,
               private tariffTypeDataService: TariffTypeService,
               private stateDataService: StateService,
+              private stateABDataService: StateABService,
               private tax_payer_typeDataService: TaxPayerTypeService,
               private approvalStateReportABDataService: ApprovalStateReportABService,
               private registerDataService: RegisterService) {}
@@ -1314,7 +1318,7 @@ export class InspectorComponent implements OnInit {
    this.ruc_registro_selected.registers.forEach(item => {
        let date_assigment_alert = '';
        let date1 = new Date();
-       const registerState = this.getRegisterState(item.status_register.state_id);
+       const registerState = this.getRegisterState(item.status_register.state_id, this.activity);
        let editable = true;
        const estado: String = item.status_register.state_id.toString();
        const digito = estado.substring(estado.length-1, estado.length);
@@ -1495,7 +1499,7 @@ export class InspectorComponent implements OnInit {
      this.registers_mintur.forEach(item => {
          let date_assigment_alert = '';
          let date1 = new Date();
-         const registerState = this.getRegisterState(item.states.state_id);
+         const registerState = this.getRegisterState(item.status_register.state_id, this.activity);
          if (registerState.search('Aprobado') == 0) {
             date1 = new Date(item.states.updated_at);
          }
@@ -3567,11 +3571,52 @@ export class InspectorComponent implements OnInit {
    this.estados_tramites = [];
    this.stateDataService.get().then( r => {
       r.forEach(element => {
-         if (element.father_code == '-') {
-            this.estados_tramites.push(element);
+         if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
+            let existe_a = false;
+            this.estados_tramites.forEach(e1 => {
+               if (e1.name == element.name) {
+                  existe_a = true;
+               }
+            });
+            if (!existe_a) {
+               this.estados_tramites.push(element);
+            }
          }
       });
+      this.estados_tramites.sort( (s1, s2) => {
+         if (s1.name > s2.name) {
+            return 1;
+         }
+         if (s1.name < s2.name) {
+            return -1;
+         }
+         return 0;
+      });
    }).catch( e => { console.log(e); });
+   this.stateABDataService.get().then( r => {
+      r.forEach(element => {
+         if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
+            let existe_ab = false;
+            this.estados_tramites.forEach(e1 => {
+               if (e1.name == element.name) {
+                  existe_ab = true;
+               }
+            });
+            if (!existe_ab) {
+               this.estados_tramites.push(element);
+            }
+         }
+      });
+      this.estados_tramites.sort( (s1, s2) => {
+         if (s1.name > s2.name) {
+            return 1;
+         }
+         if (s1.name < s2.name) {
+            return -1;
+         }
+         return 0;
+      });
+   });
   }
 
   validateTariffs() {
@@ -3990,11 +4035,25 @@ export class InspectorComponent implements OnInit {
 
   getStates() {
    this.states = [];
+   this.states_ab = [];
    this.stateDataService.get().then( r => {
       this.states = r as State[];
       this.getRegisterTypes();
       this.getSpecificStates();
    }).catch( e => { console.log(e); });
+   this.stateABDataService.get().then( r => {
+      this.states_ab = r as State[];
+      this.getSpecificStatesAB();
+   }).catch( e => { console.log(e); });
+  }
+
+  getSpecificStatesAB() {
+   this.specific_states_ab = [];
+   this.states_ab.forEach(element => {
+      if (element.father_code == this.estado_tramite_selected_code) {
+         this.specific_states_ab.push(element);
+      }
+   });
   }
 
   getRegisterCategory(id: number, activity: string): String {
@@ -4033,21 +4092,36 @@ export class InspectorComponent implements OnInit {
    return toReturn;
   }
 
-  getRegisterState(id: number): String {
-     let toReturn: String = '';
-     let fatherCode: String = '';
-     this.states.forEach(state => {
-        if (state.id == id) {
-         toReturn = state.name;
-         fatherCode = state.father_code;
-        }
-     });
-     this.states.forEach(state => {
-        if (state.code == fatherCode) {
-           toReturn = state.name + ' - ' + toReturn;
-        }
-     });
-     return toReturn;
+  getRegisterState(id: number, activity: string): String {
+   let toReturn: String = '';
+   let fatherCode: String = '';
+   if (activity == 'ALOJAMIENTO') {
+    this.states.forEach(state => {
+       if (state.id == id) {
+        toReturn = state.name;
+        fatherCode = state.father_code;
+       }
+    });
+    this.states.forEach(state => {
+       if (state.code == fatherCode) {
+          toReturn = state.name + ' - ' + toReturn;
+       }
+    });
+   }
+   if (activity == 'ALIMENTOS Y BEBIDAS') {
+    this.states_ab.forEach(state => {
+       if (state.id == id) {
+        toReturn = state.name;
+        fatherCode = state.father_code;
+       }
+    });
+    this.states_ab.forEach(state => {
+       if (state.code == fatherCode) {
+          toReturn = state.name + ' - ' + toReturn;
+       }
+    });
+   }
+   return toReturn;
   }
 
   getClasifications() {
@@ -4081,7 +4155,7 @@ export class InspectorComponent implements OnInit {
      if (this.activity=='ALIMENTOS Y BEBIDAS') {
       this.register_typeABDataService.get_filtered(this.regionSelectedCode).then( r => {
          let esRegitro = false;
-         this.specific_states.forEach(element => {
+         this.specific_states_ab.forEach(element => {
             if (element.id == this.rucEstablishmentRegisterSelected.status) {
                if (element.name == 'Registro') {
                   esRegitro = true;
@@ -5464,7 +5538,7 @@ selectKitchenType(kitchenType: KitchenType) {
          this.getCertificadoUsoSuelo(this.rucEstablishmentRegisterSelected.id);
          this.rucEstablishmentRegisterSelected.editable = false;
          this.rucEstablishmentRegisterSelected.status = r.status.state_id;
-         this.getTramiteStatus(this.rucEstablishmentRegisterSelected.status);
+         this.getTramiteStatusAB(this.rucEstablishmentRegisterSelected.status);
          this.getServiceType();
          this.getKitchenType();
          this.rucEstablishmentRegisterSelected.requisites = [];
@@ -5476,6 +5550,15 @@ selectKitchenType(kitchenType: KitchenType) {
          this.getYears();  
       }).catch( e => { console.log(e); });
    }
+ }
+
+ getTramiteStatusAB(status_id: number) {
+   this.states_ab.forEach(state => {
+      if (state.id == status_id) {
+       this.estado_tramite_selected_code = state.father_code;
+       this.getSpecificStatesAB();
+      }
+   });
  }
 
  getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {
