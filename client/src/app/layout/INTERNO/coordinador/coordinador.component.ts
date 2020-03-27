@@ -162,6 +162,7 @@ export class CoordinadorComponent implements OnInit {
    lastPagePays = 1;
    recordsByPagePays = 5;
    rowsPays = [];
+   register_can_show = [];
    columnsPays = [];
    dataPays = [];
    pays: Pay[] = [];
@@ -2504,6 +2505,7 @@ export class CoordinadorComponent implements OnInit {
         {title: 'Número de Registro', name: 'code'},
      ];
      const data = [];
+     this.register_can_show = [];
      this.registers_mintur.forEach(item => {
         let addRegister = false;
          this.myAbleUbications.forEach( ub => {
@@ -2512,6 +2514,7 @@ export class CoordinadorComponent implements OnInit {
             }
          });
          if (addRegister) {
+            this.register_can_show.push(item);
             let date_assigment_alert = '';
             let date1 = new Date();
             const registerState = this.getRegisterState(item.states.state_id, item.activity);
@@ -4446,10 +4449,51 @@ selectKitchenType(kitchenType: KitchenType) {
    this.stateDataService.get().then( r => {
       r.forEach(element => {
          if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
-            this.estados_tramites.push(element);
+            let existe_a = false;
+            this.estados_tramites.forEach(e1 => {
+               if (e1.name == element.name) {
+                  existe_a = true;
+               }
+            });
+            if (!existe_a) {
+               this.estados_tramites.push(element);
+            }
          }
       });
+      this.estados_tramites.sort( (s1, s2) => {
+         if (s1.name > s2.name) {
+            return 1;
+         }
+         if (s1.name < s2.name) {
+            return -1;
+         }
+         return 0;
+      });
    }).catch( e => { console.log(e); });
+   this.stateABDataService.get().then( r => {
+      r.forEach(element => {
+         if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
+            let existe_ab = false;
+            this.estados_tramites.forEach(e1 => {
+               if (e1.name == element.name) {
+                  existe_ab = true;
+               }
+            });
+            if (!existe_ab) {
+               this.estados_tramites.push(element);
+            }
+         }
+      });
+      this.estados_tramites.sort( (s1, s2) => {
+         if (s1.name > s2.name) {
+            return 1;
+         }
+         if (s1.name < s2.name) {
+            return -1;
+         }
+         return 0;
+      });
+   });
   }
 
   validateTariffs() {
