@@ -1235,7 +1235,6 @@ export class InactivacionComponent implements OnInit {
   continuarProcesoInactivacion() {
    if (this.establishment_ruc_code == 'NULL') {
       this.mostrarListadoEstablecimientos = true;
-      this.mostrarMasData = true;
    } else {
       this.mostrarListadoEstablecimientos = false;
       this.ruc.establishments.forEach(establecimiento => {
@@ -1338,6 +1337,7 @@ export class InactivacionComponent implements OnInit {
    this.establishment_selected.id = 0;
    this.establishment_selected.ruc_code_id = event.row.code;
    this.declarations = [];
+   this.mostrarMasData = true;
    this.establishment_selected.sri_state = event.row.sri_state;
    this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
    this.establishment_selected.commercially_known_name = event.row.name;
