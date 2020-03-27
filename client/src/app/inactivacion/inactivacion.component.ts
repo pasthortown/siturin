@@ -1233,22 +1233,20 @@ export class InactivacionComponent implements OnInit {
   }
 
   continuarProcesoInactivacion() {
-     console.log(this.establishment_ruc_code);
-     console.log(this.ruc.establishments);
    if (this.establishment_ruc_code == 'NULL') {
       this.mostrarListadoEstablecimientos = true;
+      console.log('entre');
+      const data = {continuarTramite: this.continuarTramite,
+         mostrarMasData: this.mostrarMasData,
+         mostrarListadoEstablecimientos: this.mostrarListadoEstablecimientos,
+         isRepresentanteLegal: {rucValidated: this.rucValidated, SRIOK: this.SRIOK, isRepresentantLegal: this.isRepresentantLegal, tax_payer_type_id_is_2: this.ruc.tax_payer_type_id == 2},
+         isDueno: {isRucOwner: this.isRucOwner, tax_payer_is1: this. ruc.tax_payer_type_id == 1}
+      };
+      console.log(data);
    } else {
       this.mostrarListadoEstablecimientos = false;
       this.ruc.establishments.forEach(establecimiento => {
          if (this.establishment_ruc_code == establecimiento.ruc_code_id) {
-            console.log('entre');
-            const data = {continuarTramite: this.continuarTramite,
-               mostrarMasData: this.mostrarMasData,
-               mostrarListadoEstablecimientos: this.mostrarListadoEstablecimientos,
-               isRepresentanteLegal: {rucValidated: this.rucValidated, SRIOK: this.SRIOK, isRepresentantLegal: this.isRepresentantLegal, tax_payer_type_id_is_2: this.ruc.tax_payer_type_id == 2},
-               isDueno: {isRucOwner: this.isRucOwner, tax_payer_is1: this. ruc.tax_payer_type_id == 1}
-            };
-            console.log(data);
           this.establishment_selected.ruc_id = this.ruc.id;
           this.establishment_selected.id = establecimiento.id;
           this.establishment_selected.as_turistic_register_date = this.selected_register_data.as_turistic_date;
