@@ -5279,7 +5279,7 @@ selectKitchenType(kitchenType: KitchenType) {
   getRegisterState(id: number, activity: string): String {
      let toReturn: String = '';
      let fatherCode: String = '';
-     if (this.activity == 'ALOJAMIENTO') {
+     if (activity == 'ALOJAMIENTO') {
       this.states.forEach(state => {
          if (state.id == id) {
           toReturn = state.name;
@@ -5292,7 +5292,7 @@ selectKitchenType(kitchenType: KitchenType) {
          }
       });
      }
-     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+     if (activity == 'ALIMENTOS Y BEBIDAS') {
       this.states_ab.forEach(state => {
          if (state.id == id) {
           toReturn = state.name;
