@@ -1142,7 +1142,7 @@
                                   <select class="form-control" id="register_type_id" name="register_type_id"
                                     (change)="getAllowedInfo()" [(ngModel)]="
                                       rucEstablishmentRegisterSelected.register_type_id
-                                    " [disabled]="actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')"> 
+                                    " [disabled]="actividadSelected == '3' || actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')"> 
                                     <option value="0" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of categories_registers
@@ -4174,7 +4174,7 @@
                                 </div>
                               </div>
                               <div class="col-3">
-                                <div class="form-group" *ngIf="actividadSelected !== '3'">
+                                <div class="form-group">
                                   <label>Categoría</label><span *ngIf="
                                       rucEstablishmentRegisterSelected.register_type_id ==
                                       0
@@ -4182,7 +4182,7 @@
                                   <select class="form-control" id="register_type_id" name="register_type_id"
                                     (change)="changeCategory(true)" [(ngModel)]="
                                       rucEstablishmentRegisterSelected.register_type_id
-                                    " [disabled]="actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')">
+                                    " [disabled]="actividadSelected !== '3' || actualizando || (!rucEstablishmentRegisterSelected.editable || actividadSelected == '2')">
                                     <option value="0" selected>Seleccione...</option>
                                     <option *ngFor="
                                         let register_type of categories_registers
