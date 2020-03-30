@@ -431,7 +431,7 @@ export class DashboardComponent implements OnInit {
   mostrarIngresoDatos = false;
   cannuevaClasificacionAB = false;
 
-  activateOperationIntermediation = false;
+  activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
   
