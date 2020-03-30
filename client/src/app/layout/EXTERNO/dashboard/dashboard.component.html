@@ -1690,7 +1690,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
+                        <div class="row mt-3" *ngIf="actividadSelected == '1' || actividadSelected == '2' || actividadSelected == '3' || continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
                           <h4 class="col-12">
                             <strong>Modalidades de Turismo de Aventura</strong>
                           </h4>
@@ -1702,8 +1702,23 @@
                           </small>
                         </div>
                         <div class="form-group"
-                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
+                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 && ( actividadSelected == '1' || actividadSelected == '2')))">
                           <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
+                          <div class="col-12">
+                            <div class="onoffswitch">
+                              <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
+                                          name="autorized_complementary_adventure_capacities" [(ngModel)]="
+                                            rucEstablishmentRegisterSelected.autorized_complementary_capacities
+                                          " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_adventure_capacities">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group"
+                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 && ( actividadSelected == '3' )))">
+                          <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
                               <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
@@ -4720,7 +4735,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
+                        <div class="row mt-3" *ngIf="actividadSelected == '1' || actividadSelected == '2' || actividadSelected == '3' || continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
                           <h4 class="col-12">
                             <strong>Modalidades de Turismo de Aventura</strong>
                           </h4>
@@ -4732,8 +4747,23 @@
                           </small>
                         </div>
                         <div class="form-group"
-                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 || actividadSelected == '2'))">
+                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 && ( actividadSelected == '1'|| actividadSelected == '2')))">
                           <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
+                          <div class="col-12">
+                            <div class="onoffswitch">
+                              <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
+                                          name="autorized_complementary_adventure_capacities" [(ngModel)]="
+                                            rucEstablishmentRegisterSelected.autorized_complementary_capacities
+                                          " [disabled]="!rucEstablishmentRegisterSelected.editable || rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46"/><label class="onoffswitch-label" for="autorized_complementary_adventure_capacities">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group"
+                          *ngIf="continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0 && ( actividadSelected == '3' )))">
+                          <label>¿Su establecimiento oferta alguna modalidad de turismo de aventura?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
                               <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities"
