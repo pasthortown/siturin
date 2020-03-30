@@ -4200,12 +4200,12 @@
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
-                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
+                        <div class="row mt-3" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected == '1')">
                           <h4 class="col-12">
                             <strong>Capacidades del Establecimiento</strong>
                           </h4>
                         </div>
-                        <div class="row mt-3" *ngIf="((categorySelectedCode !== '-' && actividadSelected == '2' && continuarTramite) || (continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2'))) && (categorySelectedCode !== '-' && continuarTramite)">
+                        <div class="row mt-3" *ngIf="((categorySelectedCode !== '-' && actividadSelected == '2' && continuarTramite) || (continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected == '1'))) && (categorySelectedCode !== '-' && continuarTramite)">
                           <div class="col-12">
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -4224,7 +4224,7 @@
                           </div>
                         </div>
                         <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0)">
-                          <div class="col-12" *ngIf="actividadSelected !== '2'">
+                          <div class="col-12" *ngIf="actividadSelected == '1'">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
                               <p class="col-12 text-justify">Habitación doble (matrimonial): Permite la pernoctación y alojamiento de dos personas, ocupando una cama doble o dos camas individuales.</p>
@@ -4234,7 +4234,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && actividadSelected !== '2')">
+                        <div class="row" *ngIf="continuarTramite && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && actividadSelected == '1')">
                           <div class="col-12">
                             <label class="col-form-label mb-2"><strong>Habitaciones del Establecimiento</strong><span
                                 class="ml-2 mr-2 badge badge-info">Total de Habitaciones:
@@ -4338,7 +4338,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && actividadSelected !== '2' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
+                        <div class="row mt-3" *ngIf="continuarTramite && (categorySelectedCode !== '-' && actividadSelected == '1' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <h4 class="col-12">
                             <strong>Tarifario RACK</strong>
                           </h4>
@@ -4400,7 +4400,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row" *ngIf="continuarTramite && (actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
+                        <div class="row" *ngIf="continuarTramite && (actividadSelected == '1' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
                           <div class="col-12">
                             <div class="alert alert-info mt-2 mb-2" role="alert">
                               <label class="col-12 text-justify"><strong>Atención</strong></label><br />
@@ -4411,7 +4411,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="continuarTramite && continuarTramite && (actividadSelected !== '2') && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
+                        <div class="row" *ngIf="continuarTramite && continuarTramite && (actividadSelected == '1') && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0)">
                           <div class="col-12">
                             <div class="col-12">
                               <div class="form-group mt-3">
@@ -4427,7 +4427,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row" *ngIf="continuarTarifarioRack && continuarTramite && (actividadSelected !== '2' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
+                        <div class="row" *ngIf="continuarTarifarioRack && continuarTramite && (actividadSelected == '1' && (categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0 && tarifarioRack.valores.length > 0))">
                           <div class="col-12">
                               <table class="table table-hover mt-2">
                                 <thead>
@@ -4480,14 +4480,14 @@
                           <label>¿Su establecimiento cuenta con alquiler de Salas de Recepciones?</label>
                           <div class="col-12">
                               <div class="onoffswitch">
-                     <input type="checkbox" class="onoffswitch-checkbox"  id="salas_recepciones"
-                                name="salas_recepciones" [(ngModel)]="
-                                salaRecepciones.fullfill
-                                " [disabled]="!rucEstablishmentRegisterSelected.editable"/><label class="onoffswitch-label" for="salas_recepciones">
-                           <span class="onoffswitch-inner"></span>
-                           <span class="onoffswitch-switch"></span>
-                     </label>
-                  </div>
+                                <input type="checkbox" class="onoffswitch-checkbox"  id="salas_recepciones"
+                                            name="salas_recepciones" [(ngModel)]="
+                                            salaRecepciones.fullfill
+                                            " [disabled]="!rucEstablishmentRegisterSelected.editable"/><label class="onoffswitch-label" for="salas_recepciones">
+                                      <span class="onoffswitch-inner"></span>
+                                      <span class="onoffswitch-switch"></span>
+                                </label>
+                              </div>
                           </div>
                         </div>
                         <div class="form-group"
@@ -4499,7 +4499,7 @@
                               [(ngModel)]="salaRecepciones.quantity" [disabled]="!rucEstablishmentRegisterSelected.editable"/>
                           </div>
                         </div>
-                        <div class="row" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
+                        <div class="row" *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected == '1')">
                           <div class="col-12">
                             <div class="form-group">
                                 <label><strong>Servicios Complementarios</strong></label>
@@ -4507,7 +4507,7 @@
                           </div>
                         </div>
                         <div class="form-group"
-                          *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected !== '2')">
+                          *ngIf="continuarTramite && ((categorySelectedCode !== '-' && rucEstablishmentRegisterSelected.register_type_id !== 0) && actividadSelected == '1')">
                           <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
                           <div class="col-12">
                             <div class="onoffswitch">
