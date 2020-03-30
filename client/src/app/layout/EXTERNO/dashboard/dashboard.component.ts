@@ -4385,12 +4385,9 @@ guardarDeclaracion() {
                }
             });
             this.esRegistro = false;
+         } else {
+            this.rucEstablishmentRegisterSelected.register_type_id = this.categories_registers[0].id;
          }
-         this.categories_registers.forEach(category_element => {
-            if (category_element.name = 'Categoría Única') {
-               this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
-            }
-         });
       }).catch( e => { console.log(e) });   
    }
   }
