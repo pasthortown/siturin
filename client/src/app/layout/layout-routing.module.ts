@@ -169,11 +169,11 @@ const routes: Routes = [
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/AuthorizationAttachment/authorizationattachment.module#AuthorizationAttachmentModule'
          },
          {
-            path: 'tour_guide',
+            path: 'tour_guide_op',
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/TourGuide/tourguide.module#TourGuideModule'
          },
          {
-            path: 'turistic_transport',
+            path: 'turistic_transport_op',
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/TuristicTransport/turistictransport.module#TuristicTransportModule'
          },
          {
