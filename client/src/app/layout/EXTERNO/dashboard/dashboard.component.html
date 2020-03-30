@@ -1690,7 +1690,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode == '1.2' || categorySelectedCode == '1.4' || categorySelectedCode == '2.2' || categorySelectedCode == '2.4') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
                           <h4 class="col-12">
                             <strong>Representante de Ventas</strong>
                           </h4>
@@ -4746,7 +4746,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && (categorySelectedCode !== '-' && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode == '1.2' || categorySelectedCode == '1.4' || categorySelectedCode == '2.2' || categorySelectedCode == '2.4') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
                           <h4 class="col-12">
                             <strong>Representante de Ventas</strong>
                           </h4>
