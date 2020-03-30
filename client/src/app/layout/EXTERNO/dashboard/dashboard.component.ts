@@ -4386,7 +4386,11 @@ guardarDeclaracion() {
             });
             this.esRegistro = false;
          }
-         console.log(r);
+         this.categories_registers.forEach(category_element => {
+            if (category_element.name = 'Categoría Única') {
+               this.rucEstablishmentRegisterSelected.register_type_id = category_element.id;
+            }
+         });
       }).catch( e => { console.log(e) });   
    }
   }
