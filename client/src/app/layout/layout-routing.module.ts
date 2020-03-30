@@ -224,6 +224,10 @@ const routes: Routes = [
             path: 'procedure_op',
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/Procedure/procedure.module#ProcedureModule'
          },
+         {
+            path: 'sales_representative_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/SalesRepresentative/salesrepresentative.module#SalesRepresentativeModule'
+         },
 
          //ALIMENTOSBEBIDAS
 
