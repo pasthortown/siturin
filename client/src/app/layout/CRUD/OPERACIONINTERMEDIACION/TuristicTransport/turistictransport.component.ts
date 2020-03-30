@@ -7,11 +7,11 @@ import { TuristicTransport } from './../../../../models/OPERACIONINTERMEDIACION/
 import { RegisterService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/register.service';
 import { Register } from './../../../../models/OPERACIONINTERMEDIACION/Register';
 
-import { ActivityTypeTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytypetransport.service';
-import { ActivityTypeTransport } from './../../../../models/OPERACIONINTERMEDIACION/ActivityTypeTransport';
+import { ActivityTransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
+import { ActivityTransportType } from './../../../../models/OPERACIONINTERMEDIACION/ActivityTransportType';
 
-import { CategoryTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/categorytransport.service';
-import { CategoryTransport } from './../../../../models/OPERACIONINTERMEDIACION/CategoryTransport';
+import { TransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
+import { TransportType } from './../../../../models/OPERACIONINTERMEDIACION/TransportType';
 
 
 @Component({
@@ -28,21 +28,21 @@ export class TuristicTransportComponent implements OnInit {
    showDialog = false;
    recordsByPage = 5;
    registers: Register[] = [];
-   activity_types_transport: ActivityTypeTransport[] = [];
-   categories_transport: CategoryTransport[] = [];
+   activity_transport_types: ActivityTransportType[] = [];
+   transport_types: TransportType[] = [];
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
                private registerDataService: RegisterService,
-               private activity_type_transportDataService: ActivityTypeTransportService,
-               private category_transportDataService: CategoryTransportService,
+               private activity_transport_typeDataService: ActivityTransportTypeService,
+               private transport_typeDataService: TransportTypeService,
                private turistic_transportDataService: TuristicTransportService) {}
 
    ngOnInit() {
       this.goToPage(1);
       this.getRegister();
-      this.getActivityTypeTransport();
-      this.getCategoryTransport();
+      this.getActivityTransportType();
+      this.getTransportType();
    }
 
    selectTuristicTransport(turistic_transport: TuristicTransport) {
@@ -56,17 +56,17 @@ export class TuristicTransportComponent implements OnInit {
       }).catch( e => console.log(e) );
    }
 
-   getActivityTypeTransport() {
-      this.activity_types_transport = [];
-      this.activity_type_transportDataService.get().then( r => {
-         this.activity_types_transport = r as ActivityTypeTransport[];
+   getActivityTransportType() {
+      this.activity_transport_types = [];
+      this.activity_transport_typeDataService.get().then( r => {
+         this.activity_transport_types = r as ActivityTransportType[];
       }).catch( e => console.log(e) );
    }
 
-   getCategoryTransport() {
-      this.categories_transport = [];
-      this.category_transportDataService.get().then( r => {
-         this.categories_transport = r as CategoryTransport[];
+   getTransportType() {
+      this.transport_types = [];
+      this.transport_typeDataService.get().then( r => {
+         this.transport_types = r as TransportType[];
       }).catch( e => console.log(e) );
    }
 
@@ -83,8 +83,8 @@ export class TuristicTransportComponent implements OnInit {
       this.turistic_transports = [];
       this.turistic_transportSelected = new TuristicTransport();
       this.turistic_transportSelected.register_id = 0;
-      this.turistic_transportSelected.activity_type_transport_id = 0;
-      this.turistic_transportSelected.category_transport_id = 0;
+      this.turistic_transportSelected.activity_transport_type_id = 0;
+      this.turistic_transportSelected.transport_type_id = 0;
       this.turistic_transportDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
          this.turistic_transports = r.data as TuristicTransport[];
          this.lastPage = r.last_page;
@@ -94,8 +94,8 @@ export class TuristicTransportComponent implements OnInit {
    newTuristicTransport(content) {
       this.turistic_transportSelected = new TuristicTransport();
       this.turistic_transportSelected.register_id = 0;
-      this.turistic_transportSelected.activity_type_transport_id = 0;
-      this.turistic_transportSelected.category_transport_id = 0;
+      this.turistic_transportSelected.activity_transport_type_id = 0;
+      this.turistic_transportSelected.transport_type_id = 0;
       this.openDialog(content);
    }
 
@@ -130,9 +130,9 @@ export class TuristicTransportComponent implements OnInit {
    toCSV() {
       this.turistic_transportDataService.get().then( r => {
          const backupData = r as TuristicTransport[];
-         let output = 'id;ruc;tax_payer_type_id;register_code;register_date;register_id;activity_type_transport_id;category_transport_id\n';
+         let output = 'id;ruc;tax_payer_type_id;register_code;register_date;register_id;activity_transport_type_id;transport_type_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.ruc + ';' + element.tax_payer_type_id + ';' + element.register_code + ';' + element.register_date + ';' + element.register_id + ';' + element.activity_type_transport_id + ';' + element.category_transport_id + '\n';
+            output += element.id; + element.ruc + ';' + element.tax_payer_type_id + ';' + element.register_code + ';' + element.register_date + ';' + element.register_id + ';' + element.activity_transport_type_id + ';' + element.transport_type_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

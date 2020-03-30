@@ -124,12 +124,12 @@
                </div>
             </div>
             <div class="form-group row">
-               <label for="classification_guide_id" class="col-4 col-form-label">ClassificationGuide</label>
+               <label for="guide_type_id" class="col-4 col-form-label">GuideType</label>
                <div class="col-8">
-                  <select class="form-control" id="classification_guide_id" name="classification_guide_id" [(ngModel)]="tour_guideSelected.classification_guide_id">
+                  <select class="form-control" id="guide_type_id" name="guide_type_id" [(ngModel)]="tour_guideSelected.guide_type_id">
                      <option value="0" selected>Seleccione...</option>
-                     <option *ngFor="let classification_guide of classifications_guide" value={{classification_guide.id}}>
-                        {{classification_guide.id}}
+                     <option *ngFor="let guide_type of guide_types" value={{guide_type.id}}>
+                        {{guide_type.id}}
                      </option>
                   </select>
                </div>

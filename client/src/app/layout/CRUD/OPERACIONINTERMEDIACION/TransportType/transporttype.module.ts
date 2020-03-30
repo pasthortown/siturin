@@ -2,21 +2,21 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CategoryTransportRoutingModule } from './categorytransport-routing.module';
-import { CategoryTransportComponent } from './categorytransport.component';
-import { CategoryTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/categorytransport.service';
+import { TransportTypeRoutingModule } from './transporttype-routing.module';
+import { TransportTypeComponent } from './transporttype.component';
+import { TransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 import { environment } from 'src/environments/environment';
 import { CKEditorModule } from 'ngx-ckeditor';
 
 @NgModule({
    imports: [CommonModule,
-             CategoryTransportRoutingModule,
+             TransportTypeRoutingModule,
              CKEditorModule,
              FormsModule],
-   declarations: [CategoryTransportComponent],
+   declarations: [TransportTypeComponent],
    providers: [
                NgbModal,
-               CategoryTransportService
+               TransportTypeService
                ]
 })
-export class CategoryTransportModule {}
+export class TransportTypeModule {}

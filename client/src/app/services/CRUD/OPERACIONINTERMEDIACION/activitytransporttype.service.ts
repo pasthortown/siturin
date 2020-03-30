@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { environment } from './../../../../environments/environment';
-import { ActivityTypeTransport } from './../../../models/OPERACIONINTERMEDIACION/ActivityTypeTransport';
+import { ActivityTransportType } from './../../../models/OPERACIONINTERMEDIACION/ActivityTransportType';
 
 @Injectable({
    providedIn: 'root'
 })
-export class ActivityTypeTransportService {
+export class ActivityTransportTypeService {
 
-   url = environment.api_operacionintermediacion + 'activitytypetransport/';
+   url = environment.api_operacionintermediacion + 'activitytransporttype/';
    options = new RequestOptions();
 
    constructor(private http: Http, private router: Router) {
@@ -51,15 +51,15 @@ export class ActivityTypeTransportService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   post(activitytypetransport: ActivityTypeTransport): Promise<any> {
-      return this.http.post(this.url, JSON.stringify(activitytypetransport), this.options).toPromise()
+   post(activitytransporttype: ActivityTransportType): Promise<any> {
+      return this.http.post(this.url, JSON.stringify(activitytransporttype), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   put(activitytypetransport: ActivityTypeTransport): Promise<any> {
-      return this.http.put(this.url, JSON.stringify(activitytypetransport), this.options).toPromise()
+   put(activitytransporttype: ActivityTransportType): Promise<any> {
+      return this.http.put(this.url, JSON.stringify(activitytransporttype), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });

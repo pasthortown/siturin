@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
-import { ActivityTypeTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytypetransport.service';
-import { ActivityTypeTransport } from './../../../../models/OPERACIONINTERMEDIACION/ActivityTypeTransport';
+import { ActivityTransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
+import { ActivityTransportType } from './../../../../models/OPERACIONINTERMEDIACION/ActivityTransportType';
 
 @Component({
-   selector: 'app-activitytypetransport',
-   templateUrl: './activitytypetransport.component.html',
-   styleUrls: ['./activitytypetransport.component.scss']
+   selector: 'app-activitytransporttype',
+   templateUrl: './activitytransporttype.component.html',
+   styleUrls: ['./activitytransporttype.component.scss']
 })
-export class ActivityTypeTransportComponent implements OnInit {
-   activity_types_transport: ActivityTypeTransport[] = [];
-   activity_type_transportSelected: ActivityTypeTransport = new ActivityTypeTransport();
+export class ActivityTransportTypeComponent implements OnInit {
+   activity_transport_types: ActivityTransportType[] = [];
+   activity_transport_typeSelected: ActivityTransportType = new ActivityTransportType();
 
    currentPage = 1;
    lastPage = 1;
@@ -21,14 +21,14 @@ export class ActivityTypeTransportComponent implements OnInit {
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
-               private activity_type_transportDataService: ActivityTypeTransportService) {}
+               private activity_transport_typeDataService: ActivityTransportTypeService) {}
 
    ngOnInit() {
       this.goToPage(1);
    }
 
-   selectActivityTypeTransport(activity_type_transport: ActivityTypeTransport) {
-      this.activity_type_transportSelected = activity_type_transport;
+   selectActivityTransportType(activity_transport_type: ActivityTransportType) {
+      this.activity_transport_typeSelected = activity_transport_type;
    }
 
    goToPage(page: number) {
@@ -37,61 +37,61 @@ export class ActivityTypeTransportComponent implements OnInit {
          return;
       }
       this.currentPage = page;
-      this.getActivityTypesTransport();
+      this.getActivityTransportTypes();
    }
 
-   getActivityTypesTransport() {
-      this.activity_types_transport = [];
-      this.activity_type_transportSelected = new ActivityTypeTransport();
-      this.activity_type_transportDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
-         this.activity_types_transport = r.data as ActivityTypeTransport[];
+   getActivityTransportTypes() {
+      this.activity_transport_types = [];
+      this.activity_transport_typeSelected = new ActivityTransportType();
+      this.activity_transport_typeDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
+         this.activity_transport_types = r.data as ActivityTransportType[];
          this.lastPage = r.last_page;
       }).catch( e => console.log(e) );
    }
 
-   newActivityTypeTransport(content) {
-      this.activity_type_transportSelected = new ActivityTypeTransport();
+   newActivityTransportType(content) {
+      this.activity_transport_typeSelected = new ActivityTransportType();
       this.openDialog(content);
    }
 
-   editActivityTypeTransport(content) {
-      if (typeof this.activity_type_transportSelected.id === 'undefined') {
+   editActivityTransportType(content) {
+      if (typeof this.activity_transport_typeSelected.id === 'undefined') {
          this.toastr.errorToastr('Debe seleccionar un registro.', 'Error');
          return;
       }
       this.openDialog(content);
    }
 
-   deleteActivityTypeTransport() {
-      if (typeof this.activity_type_transportSelected.id === 'undefined') {
+   deleteActivityTransportType() {
+      if (typeof this.activity_transport_typeSelected.id === 'undefined') {
          this.toastr.errorToastr('Debe seleccionar un registro.', 'Error');
          return;
       }
-      this.activity_type_transportDataService.delete(this.activity_type_transportSelected.id).then( r => {
+      this.activity_transport_typeDataService.delete(this.activity_transport_typeSelected.id).then( r => {
          this.toastr.successToastr('Registro Borrado satisfactoriamente.', 'Borrar');
-         this.getActivityTypesTransport();
+         this.getActivityTransportTypes();
       }).catch( e => console.log(e) );
    }
 
    backup() {
-      this.activity_type_transportDataService.getBackUp().then( r => {
+      this.activity_transport_typeDataService.getBackUp().then( r => {
          const backupData = r;
          const blob = new Blob([JSON.stringify(backupData)], { type: 'text/plain' });
          const fecha = new Date();
-         saveAs(blob, fecha.toLocaleDateString() + '_ActivityTypesTransport.json');
+         saveAs(blob, fecha.toLocaleDateString() + '_ActivityTransportTypes.json');
       }).catch( e => console.log(e) );
    }
 
    toCSV() {
-      this.activity_type_transportDataService.get().then( r => {
-         const backupData = r as ActivityTypeTransport[];
+      this.activity_transport_typeDataService.get().then( r => {
+         const backupData = r as ActivityTransportType[];
          let output = 'id;name;description\n';
          backupData.forEach(element => {
             output += element.id; + element.name + ';' + element.description + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
-         saveAs(blob, fecha.toLocaleDateString() + '_ActivityTypesTransport.csv');
+         saveAs(blob, fecha.toLocaleDateString() + '_ActivityTransportTypes.csv');
       }).catch( e => console.log(e) );
    }
 
@@ -103,7 +103,7 @@ export class ActivityTypeTransportComponent implements OnInit {
          reader.onload = () => {
             const fileBytes = reader.result.toString().split(',')[1];
             const newData = JSON.parse(decodeURIComponent(escape(atob(fileBytes)))) as any[];
-            this.activity_type_transportDataService.masiveLoad(newData).then( r => {
+            this.activity_transport_typeDataService.masiveLoad(newData).then( r => {
                this.goToPage(this.currentPage);
             }).catch( e => console.log(e) );
          };
@@ -113,15 +113,15 @@ export class ActivityTypeTransportComponent implements OnInit {
    openDialog(content) {
       this.modalService.open(content, { centered: true , size: 'lg' }).result.then(( response => {
          if ( response === 'Guardar click' ) {
-            if (typeof this.activity_type_transportSelected.id === 'undefined') {
-               this.activity_type_transportDataService.post(this.activity_type_transportSelected).then( r => {
+            if (typeof this.activity_transport_typeSelected.id === 'undefined') {
+               this.activity_transport_typeDataService.post(this.activity_transport_typeSelected).then( r => {
                   this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
-                  this.getActivityTypesTransport();
+                  this.getActivityTransportTypes();
                }).catch( e => console.log(e) );
             } else {
-               this.activity_type_transportDataService.put(this.activity_type_transportSelected).then( r => {
+               this.activity_transport_typeDataService.put(this.activity_transport_typeSelected).then( r => {
                   this.toastr.successToastr('Registro actualizado satisfactoriamente.', 'Actualizar');
-                  this.getActivityTypesTransport();
+                  this.getActivityTransportTypes();
                }).catch( e => console.log(e) );
             }
          }

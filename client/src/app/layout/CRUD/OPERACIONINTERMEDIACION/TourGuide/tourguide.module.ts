@@ -7,7 +7,7 @@ import { TourGuideComponent } from './tourguide.component';
 import { TourGuideService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/tourguide.service';
 import { environment } from 'src/environments/environment';
 import { RegisterService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/register.service';
-import { ClassificationGuideService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/classificationguide.service';
+import { GuideTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 
 @NgModule({
    imports: [CommonModule,
@@ -17,7 +17,7 @@ import { ClassificationGuideService } from './../../../../services/CRUD/OPERACIO
    providers: [
                NgbModal,
                RegisterService,
-               ClassificationGuideService,
+               GuideTypeService,
                TourGuideService
                ]
 })

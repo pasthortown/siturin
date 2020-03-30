@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
-import { ClassificationGuideService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/classificationguide.service';
-import { ClassificationGuide } from './../../../../models/OPERACIONINTERMEDIACION/ClassificationGuide';
+import { GuideTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+import { GuideType } from './../../../../models/OPERACIONINTERMEDIACION/GuideType';
 
 @Component({
-   selector: 'app-classificationguide',
-   templateUrl: './classificationguide.component.html',
-   styleUrls: ['./classificationguide.component.scss']
+   selector: 'app-guidetype',
+   templateUrl: './guidetype.component.html',
+   styleUrls: ['./guidetype.component.scss']
 })
-export class ClassificationGuideComponent implements OnInit {
-   classifications_guide: ClassificationGuide[] = [];
-   classification_guideSelected: ClassificationGuide = new ClassificationGuide();
+export class GuideTypeComponent implements OnInit {
+   guide_types: GuideType[] = [];
+   guide_typeSelected: GuideType = new GuideType();
 
    currentPage = 1;
    lastPage = 1;
@@ -21,14 +21,14 @@ export class ClassificationGuideComponent implements OnInit {
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
-               private classification_guideDataService: ClassificationGuideService) {}
+               private guide_typeDataService: GuideTypeService) {}
 
    ngOnInit() {
       this.goToPage(1);
    }
 
-   selectClassificationGuide(classification_guide: ClassificationGuide) {
-      this.classification_guideSelected = classification_guide;
+   selectGuideType(guide_type: GuideType) {
+      this.guide_typeSelected = guide_type;
    }
 
    goToPage(page: number) {
@@ -37,61 +37,61 @@ export class ClassificationGuideComponent implements OnInit {
          return;
       }
       this.currentPage = page;
-      this.getClassificationsGuide();
+      this.getGuideTypes();
    }
 
-   getClassificationsGuide() {
-      this.classifications_guide = [];
-      this.classification_guideSelected = new ClassificationGuide();
-      this.classification_guideDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
-         this.classifications_guide = r.data as ClassificationGuide[];
+   getGuideTypes() {
+      this.guide_types = [];
+      this.guide_typeSelected = new GuideType();
+      this.guide_typeDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
+         this.guide_types = r.data as GuideType[];
          this.lastPage = r.last_page;
       }).catch( e => console.log(e) );
    }
 
-   newClassificationGuide(content) {
-      this.classification_guideSelected = new ClassificationGuide();
+   newGuideType(content) {
+      this.guide_typeSelected = new GuideType();
       this.openDialog(content);
    }
 
-   editClassificationGuide(content) {
-      if (typeof this.classification_guideSelected.id === 'undefined') {
+   editGuideType(content) {
+      if (typeof this.guide_typeSelected.id === 'undefined') {
          this.toastr.errorToastr('Debe seleccionar un registro.', 'Error');
          return;
       }
       this.openDialog(content);
    }
 
-   deleteClassificationGuide() {
-      if (typeof this.classification_guideSelected.id === 'undefined') {
+   deleteGuideType() {
+      if (typeof this.guide_typeSelected.id === 'undefined') {
          this.toastr.errorToastr('Debe seleccionar un registro.', 'Error');
          return;
       }
-      this.classification_guideDataService.delete(this.classification_guideSelected.id).then( r => {
+      this.guide_typeDataService.delete(this.guide_typeSelected.id).then( r => {
          this.toastr.successToastr('Registro Borrado satisfactoriamente.', 'Borrar');
-         this.getClassificationsGuide();
+         this.getGuideTypes();
       }).catch( e => console.log(e) );
    }
 
    backup() {
-      this.classification_guideDataService.getBackUp().then( r => {
+      this.guide_typeDataService.getBackUp().then( r => {
          const backupData = r;
          const blob = new Blob([JSON.stringify(backupData)], { type: 'text/plain' });
          const fecha = new Date();
-         saveAs(blob, fecha.toLocaleDateString() + '_ClassificationsGuide.json');
+         saveAs(blob, fecha.toLocaleDateString() + '_GuideTypes.json');
       }).catch( e => console.log(e) );
    }
 
    toCSV() {
-      this.classification_guideDataService.get().then( r => {
-         const backupData = r as ClassificationGuide[];
+      this.guide_typeDataService.get().then( r => {
+         const backupData = r as GuideType[];
          let output = 'id;name;description\n';
          backupData.forEach(element => {
             output += element.id; + element.name + ';' + element.description + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
-         saveAs(blob, fecha.toLocaleDateString() + '_ClassificationsGuide.csv');
+         saveAs(blob, fecha.toLocaleDateString() + '_GuideTypes.csv');
       }).catch( e => console.log(e) );
    }
 
@@ -103,7 +103,7 @@ export class ClassificationGuideComponent implements OnInit {
          reader.onload = () => {
             const fileBytes = reader.result.toString().split(',')[1];
             const newData = JSON.parse(decodeURIComponent(escape(atob(fileBytes)))) as any[];
-            this.classification_guideDataService.masiveLoad(newData).then( r => {
+            this.guide_typeDataService.masiveLoad(newData).then( r => {
                this.goToPage(this.currentPage);
             }).catch( e => console.log(e) );
          };
@@ -113,15 +113,15 @@ export class ClassificationGuideComponent implements OnInit {
    openDialog(content) {
       this.modalService.open(content, { centered: true , size: 'lg' }).result.then(( response => {
          if ( response === 'Guardar click' ) {
-            if (typeof this.classification_guideSelected.id === 'undefined') {
-               this.classification_guideDataService.post(this.classification_guideSelected).then( r => {
+            if (typeof this.guide_typeSelected.id === 'undefined') {
+               this.guide_typeDataService.post(this.guide_typeSelected).then( r => {
                   this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
-                  this.getClassificationsGuide();
+                  this.getGuideTypes();
                }).catch( e => console.log(e) );
             } else {
-               this.classification_guideDataService.put(this.classification_guideSelected).then( r => {
+               this.guide_typeDataService.put(this.guide_typeSelected).then( r => {
                   this.toastr.successToastr('Registro actualizado satisfactoriamente.', 'Actualizar');
-                  this.getClassificationsGuide();
+                  this.getGuideTypes();
                }).catch( e => console.log(e) );
             }
          }

@@ -193,16 +193,16 @@ const routes: Routes = [
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterTypeImage/registertypeimage.module#RegisterTypeImageModule'
          },
          {
-            path: 'classification_guide_op',
-            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ClassificationGuide/classificationguide.module#ClassificationGuideModule'
+            path: 'guide_type_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/GuideType/guidetype.module#GuideTypeModule'
          },
          {
-            path: 'activity_type_transport_op',
-            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ActivityTypeTransport/activitytypetransport.module#ActivityTypeTransportModule'
+            path: 'activity_transport_type_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ActivityTransportType/activitytransporttype.module#ActivityTransportTypeModule'
          },
          {
-            path: 'category_transport_op',
-            loadChildren: './CRUD/OPERACIONINTERMEDIACION/CategoryTransport/categorytransport.module#CategoryTransportModule'
+            path: 'transport_type_op',
+            loadChildren: './CRUD/OPERACIONINTERMEDIACION/TransportType/transporttype.module#TransportTypeModule'
          },
          {
             path: 'complementary_service_type_op',

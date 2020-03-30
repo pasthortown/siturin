@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { environment } from './../../../../environments/environment';
-import { TourGuide } from './../../../models/OPERACIONINTERMEDIACION/TourGuide';
+import { TransportType } from './../../../models/OPERACIONINTERMEDIACION/TransportType';
 
 @Injectable({
    providedIn: 'root'
 })
-export class TourGuideService {
+export class TransportTypeService {
 
-   url = environment.api_operacionintermediacion + 'tourguide/';
+   url = environment.api_operacionintermediacion + 'transporttype/';
    options = new RequestOptions();
 
    constructor(private http: Http, private router: Router) {
@@ -51,15 +51,15 @@ export class TourGuideService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   post(tourguide: TourGuide): Promise<any> {
-      return this.http.post(this.url, JSON.stringify(tourguide), this.options).toPromise()
+   post(transporttype: TransportType): Promise<any> {
+      return this.http.post(this.url, JSON.stringify(transporttype), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   put(tourguide: TourGuide): Promise<any> {
-      return this.http.put(this.url, JSON.stringify(tourguide), this.options).toPromise()
+   put(transporttype: TransportType): Promise<any> {
+      return this.http.put(this.url, JSON.stringify(transporttype), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });

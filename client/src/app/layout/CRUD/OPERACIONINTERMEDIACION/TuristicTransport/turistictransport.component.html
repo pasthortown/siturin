@@ -116,23 +116,23 @@
                </div>
             </div>
             <div class="form-group row">
-               <label for="activity_type_transport_id" class="col-4 col-form-label">ActivityTypeTransport</label>
+               <label for="activity_transport_type_id" class="col-4 col-form-label">ActivityTransportType</label>
                <div class="col-8">
-                  <select class="form-control" id="activity_type_transport_id" name="activity_type_transport_id" [(ngModel)]="turistic_transportSelected.activity_type_transport_id">
+                  <select class="form-control" id="activity_transport_type_id" name="activity_transport_type_id" [(ngModel)]="turistic_transportSelected.activity_transport_type_id">
                      <option value="0" selected>Seleccione...</option>
-                     <option *ngFor="let activity_type_transport of activity_types_transport" value={{activity_type_transport.id}}>
-                        {{activity_type_transport.id}}
+                     <option *ngFor="let activity_transport_type of activity_transport_types" value={{activity_transport_type.id}}>
+                        {{activity_transport_type.id}}
                      </option>
                   </select>
                </div>
             </div>
             <div class="form-group row">
-               <label for="category_transport_id" class="col-4 col-form-label">CategoryTransport</label>
+               <label for="transport_type_id" class="col-4 col-form-label">TransportType</label>
                <div class="col-8">
-                  <select class="form-control" id="category_transport_id" name="category_transport_id" [(ngModel)]="turistic_transportSelected.category_transport_id">
+                  <select class="form-control" id="transport_type_id" name="transport_type_id" [(ngModel)]="turistic_transportSelected.transport_type_id">
                      <option value="0" selected>Seleccione...</option>
-                     <option *ngFor="let category_transport of categories_transport" value={{category_transport.id}}>
-                        {{category_transport.id}}
+                     <option *ngFor="let transport_type of transport_types" value={{transport_type.id}}>
+                        {{transport_type.id}}
                      </option>
                   </select>
                </div>

@@ -1,18 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ClassificationGuideComponent } from './classificationguide.component';
+import { GuideTypeComponent } from './guidetype.component';
 
-describe('ClassificationGuideComponent', () => {
-   let component: ClassificationGuideComponent;
-   let fixture: ComponentFixture<ClassificationGuideComponent>;
+describe('GuideTypeComponent', () => {
+   let component: GuideTypeComponent;
+   let fixture: ComponentFixture<GuideTypeComponent>;
 
    beforeEach(async(() => {
       TestBed.configureTestingModule({
-         declarations: [ClassificationGuideComponent]
+         declarations: [GuideTypeComponent]
       }).compileComponents();
    }));
 
    beforeEach(() => {
-      fixture = TestBed.createComponent(ClassificationGuideComponent);
+      fixture = TestBed.createComponent(GuideTypeComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });

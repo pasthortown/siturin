@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { environment } from './../../../../environments/environment';
-import { CategoryTransport } from './../../../models/OPERACIONINTERMEDIACION/CategoryTransport';
+import { GuideType } from './../../../models/OPERACIONINTERMEDIACION/GuideType';
 
 @Injectable({
    providedIn: 'root'
 })
-export class CategoryTransportService {
+export class GuideTypeService {
 
-   url = environment.api_operacionintermediacion + 'categorytransport/';
+   url = environment.api_operacionintermediacion + 'guidetype/';
    options = new RequestOptions();
 
    constructor(private http: Http, private router: Router) {
@@ -51,15 +51,15 @@ export class CategoryTransportService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   post(categorytransport: CategoryTransport): Promise<any> {
-      return this.http.post(this.url, JSON.stringify(categorytransport), this.options).toPromise()
+   post(guidetype: GuideType): Promise<any> {
+      return this.http.post(this.url, JSON.stringify(guidetype), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   put(categorytransport: CategoryTransport): Promise<any> {
-      return this.http.put(this.url, JSON.stringify(categorytransport), this.options).toPromise()
+   put(guidetype: GuideType): Promise<any> {
+      return this.http.put(this.url, JSON.stringify(guidetype), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });

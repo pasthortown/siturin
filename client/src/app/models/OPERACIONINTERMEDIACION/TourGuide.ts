@@ -6,5 +6,5 @@ export class TourGuide {
    credential_date: Date;
    ubication_id: number;
    register_id: number;
-   classification_guide_id: number;
+   guide_type_id: number;
 }

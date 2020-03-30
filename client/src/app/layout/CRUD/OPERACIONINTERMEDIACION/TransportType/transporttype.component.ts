@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
-import { CategoryTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/categorytransport.service';
-import { CategoryTransport } from './../../../../models/OPERACIONINTERMEDIACION/CategoryTransport';
+import { TransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
+import { TransportType } from './../../../../models/OPERACIONINTERMEDIACION/TransportType';
 
 @Component({
-   selector: 'app-categorytransport',
-   templateUrl: './categorytransport.component.html',
-   styleUrls: ['./categorytransport.component.scss']
+   selector: 'app-transporttype',
+   templateUrl: './transporttype.component.html',
+   styleUrls: ['./transporttype.component.scss']
 })
-export class CategoryTransportComponent implements OnInit {
-   categories_transport: CategoryTransport[] = [];
-   category_transportSelected: CategoryTransport = new CategoryTransport();
+export class TransportTypeComponent implements OnInit {
+   transport_types: TransportType[] = [];
+   transport_typeSelected: TransportType = new TransportType();
 
    currentPage = 1;
    lastPage = 1;
@@ -21,14 +21,14 @@ export class CategoryTransportComponent implements OnInit {
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
-               private category_transportDataService: CategoryTransportService) {}
+               private transport_typeDataService: TransportTypeService) {}
 
    ngOnInit() {
       this.goToPage(1);
    }
 
-   selectCategoryTransport(category_transport: CategoryTransport) {
-      this.category_transportSelected = category_transport;
+   selectTransportType(transport_type: TransportType) {
+      this.transport_typeSelected = transport_type;
    }
 
    goToPage(page: number) {
@@ -37,61 +37,61 @@ export class CategoryTransportComponent implements OnInit {
          return;
       }
       this.currentPage = page;
-      this.getCategoriesTransport();
+      this.getTransportTypes();
    }
 
-   getCategoriesTransport() {
-      this.categories_transport = [];
-      this.category_transportSelected = new CategoryTransport();
-      this.category_transportDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
-         this.categories_transport = r.data as CategoryTransport[];
+   getTransportTypes() {
+      this.transport_types = [];
+      this.transport_typeSelected = new TransportType();
+      this.transport_typeDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
+         this.transport_types = r.data as TransportType[];
          this.lastPage = r.last_page;
       }).catch( e => console.log(e) );
    }
 
-   newCategoryTransport(content) {
-      this.category_transportSelected = new CategoryTransport();
+   newTransportType(content) {
+      this.transport_typeSelected = new TransportType();
       this.openDialog(content);
    }
 
-   editCategoryTransport(content) {
-      if (typeof this.category_transportSelected.id === 'undefined') {
+   editTransportType(content) {
+      if (typeof this.transport_typeSelected.id === 'undefined') {
          this.toastr.errorToastr('Debe seleccionar un registro.', 'Error');
          return;
       }
       this.openDialog(content);
    }
 
-   deleteCategoryTransport() {
-      if (typeof this.category_transportSelected.id === 'undefined') {
+   deleteTransportType() {
+      if (typeof this.transport_typeSelected.id === 'undefined') {
          this.toastr.errorToastr('Debe seleccionar un registro.', 'Error');
          return;
       }
-      this.category_transportDataService.delete(this.category_transportSelected.id).then( r => {
+      this.transport_typeDataService.delete(this.transport_typeSelected.id).then( r => {
          this.toastr.successToastr('Registro Borrado satisfactoriamente.', 'Borrar');
-         this.getCategoriesTransport();
+         this.getTransportTypes();
       }).catch( e => console.log(e) );
    }
 
    backup() {
-      this.category_transportDataService.getBackUp().then( r => {
+      this.transport_typeDataService.getBackUp().then( r => {
          const backupData = r;
          const blob = new Blob([JSON.stringify(backupData)], { type: 'text/plain' });
          const fecha = new Date();
-         saveAs(blob, fecha.toLocaleDateString() + '_CategoriesTransport.json');
+         saveAs(blob, fecha.toLocaleDateString() + '_TransportTypes.json');
       }).catch( e => console.log(e) );
    }
 
    toCSV() {
-      this.category_transportDataService.get().then( r => {
-         const backupData = r as CategoryTransport[];
+      this.transport_typeDataService.get().then( r => {
+         const backupData = r as TransportType[];
          let output = 'id;name;description\n';
          backupData.forEach(element => {
             output += element.id; + element.name + ';' + element.description + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
-         saveAs(blob, fecha.toLocaleDateString() + '_CategoriesTransport.csv');
+         saveAs(blob, fecha.toLocaleDateString() + '_TransportTypes.csv');
       }).catch( e => console.log(e) );
    }
 
@@ -103,7 +103,7 @@ export class CategoryTransportComponent implements OnInit {
          reader.onload = () => {
             const fileBytes = reader.result.toString().split(',')[1];
             const newData = JSON.parse(decodeURIComponent(escape(atob(fileBytes)))) as any[];
-            this.category_transportDataService.masiveLoad(newData).then( r => {
+            this.transport_typeDataService.masiveLoad(newData).then( r => {
                this.goToPage(this.currentPage);
             }).catch( e => console.log(e) );
          };
@@ -113,15 +113,15 @@ export class CategoryTransportComponent implements OnInit {
    openDialog(content) {
       this.modalService.open(content, { centered: true , size: 'lg' }).result.then(( response => {
          if ( response === 'Guardar click' ) {
-            if (typeof this.category_transportSelected.id === 'undefined') {
-               this.category_transportDataService.post(this.category_transportSelected).then( r => {
+            if (typeof this.transport_typeSelected.id === 'undefined') {
+               this.transport_typeDataService.post(this.transport_typeSelected).then( r => {
                   this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
-                  this.getCategoriesTransport();
+                  this.getTransportTypes();
                }).catch( e => console.log(e) );
             } else {
-               this.category_transportDataService.put(this.category_transportSelected).then( r => {
+               this.transport_typeDataService.put(this.transport_typeSelected).then( r => {
                   this.toastr.successToastr('Registro actualizado satisfactoriamente.', 'Actualizar');
-                  this.getCategoriesTransport();
+                  this.getTransportTypes();
                }).catch( e => console.log(e) );
             }
          }

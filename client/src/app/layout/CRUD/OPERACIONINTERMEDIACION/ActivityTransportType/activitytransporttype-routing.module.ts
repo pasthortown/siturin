@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClassificationGuideComponent } from './classificationguide.component';
+import { ActivityTransportTypeComponent } from './activitytransporttype.component';
 
 const routes: Routes = [
    {
       path: '',
-      component: ClassificationGuideComponent
+      component: ActivityTransportTypeComponent
    }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
    imports: [RouterModule.forChild(routes)],
    exports: [RouterModule]
 })
-export class ClassificationGuideRoutingModule {}
+export class ActivityTransportTypeRoutingModule {}

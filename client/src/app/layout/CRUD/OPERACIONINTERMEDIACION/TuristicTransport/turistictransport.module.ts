@@ -7,8 +7,8 @@ import { TuristicTransportComponent } from './turistictransport.component';
 import { TuristicTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/turistictransport.service';
 import { environment } from 'src/environments/environment';
 import { RegisterService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/register.service';
-import { ActivityTypeTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytypetransport.service';
-import { CategoryTransportService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/categorytransport.service';
+import { ActivityTransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
+import { TransportTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 
 @NgModule({
    imports: [CommonModule,
@@ -18,8 +18,8 @@ import { CategoryTransportService } from './../../../../services/CRUD/OPERACIONI
    providers: [
                NgbModal,
                RegisterService,
-               ActivityTypeTransportService,
-               CategoryTransportService,
+               ActivityTransportTypeService,
+               TransportTypeService,
                TuristicTransportService
                ]
 })

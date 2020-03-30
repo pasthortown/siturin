@@ -7,8 +7,8 @@ import { TourGuide } from './../../../../models/OPERACIONINTERMEDIACION/TourGuid
 import { RegisterService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/register.service';
 import { Register } from './../../../../models/OPERACIONINTERMEDIACION/Register';
 
-import { ClassificationGuideService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/classificationguide.service';
-import { ClassificationGuide } from './../../../../models/OPERACIONINTERMEDIACION/ClassificationGuide';
+import { GuideTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+import { GuideType } from './../../../../models/OPERACIONINTERMEDIACION/GuideType';
 
 
 @Component({
@@ -25,18 +25,18 @@ export class TourGuideComponent implements OnInit {
    showDialog = false;
    recordsByPage = 5;
    registers: Register[] = [];
-   classifications_guide: ClassificationGuide[] = [];
+   guide_types: GuideType[] = [];
    constructor(
                private modalService: NgbModal,
                private toastr: ToastrManager,
                private registerDataService: RegisterService,
-               private classification_guideDataService: ClassificationGuideService,
+               private guide_typeDataService: GuideTypeService,
                private tour_guideDataService: TourGuideService) {}
 
    ngOnInit() {
       this.goToPage(1);
       this.getRegister();
-      this.getClassificationGuide();
+      this.getGuideType();
    }
 
    selectTourGuide(tour_guide: TourGuide) {
@@ -50,10 +50,10 @@ export class TourGuideComponent implements OnInit {
       }).catch( e => console.log(e) );
    }
 
-   getClassificationGuide() {
-      this.classifications_guide = [];
-      this.classification_guideDataService.get().then( r => {
-         this.classifications_guide = r as ClassificationGuide[];
+   getGuideType() {
+      this.guide_types = [];
+      this.guide_typeDataService.get().then( r => {
+         this.guide_types = r as GuideType[];
       }).catch( e => console.log(e) );
    }
 
@@ -70,7 +70,7 @@ export class TourGuideComponent implements OnInit {
       this.tour_guides = [];
       this.tour_guideSelected = new TourGuide();
       this.tour_guideSelected.register_id = 0;
-      this.tour_guideSelected.classification_guide_id = 0;
+      this.tour_guideSelected.guide_type_id = 0;
       this.tour_guideDataService.get_paginate(this.recordsByPage, this.currentPage).then( r => {
          this.tour_guides = r.data as TourGuide[];
          this.lastPage = r.last_page;
@@ -80,7 +80,7 @@ export class TourGuideComponent implements OnInit {
    newTourGuide(content) {
       this.tour_guideSelected = new TourGuide();
       this.tour_guideSelected.register_id = 0;
-      this.tour_guideSelected.classification_guide_id = 0;
+      this.tour_guideSelected.guide_type_id = 0;
       this.openDialog(content);
    }
 
@@ -115,9 +115,9 @@ export class TourGuideComponent implements OnInit {
    toCSV() {
       this.tour_guideDataService.get().then( r => {
          const backupData = r as TourGuide[];
-         let output = 'id;identification;fullname;credential_number;credential_date;ubication_id;register_id;classification_guide_id\n';
+         let output = 'id;identification;fullname;credential_number;credential_date;ubication_id;register_id;guide_type_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.identification + ';' + element.fullname + ';' + element.credential_number + ';' + element.credential_date + ';' + element.ubication_id + ';' + element.register_id + ';' + element.classification_guide_id + '\n';
+            output += element.id; + element.identification + ';' + element.fullname + ';' + element.credential_number + ';' + element.credential_date + ';' + element.ubication_id + ';' + element.register_id + ';' + element.guide_type_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();
