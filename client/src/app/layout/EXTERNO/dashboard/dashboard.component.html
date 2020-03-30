@@ -395,7 +395,8 @@
                         <i class="fas fa-sync"></i>
                       </button>
                     </div>
-                    <strong>&nbsp;Listado de Establecimientos Inscritos en el RUC*</strong>
+                    <strong *ngIf="establishment_selected_ruc_code_id == 'NULL'">&nbsp;Listado de Establecimientos Inscritos en el RUC*</strong>
+                    <strong *ngIf="establishment_selected_ruc_code_id !== 'NULL'">&nbsp;Datos en el SRI del Establecimiento</strong>
                   </div>
                 </h4>
                 <div class="col-12">
