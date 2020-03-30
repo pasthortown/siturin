@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { environment } from './../../../../environments/environment';
-import { ClassificationGuide } from './../../../models/OPERACIONINTERMEDIACION/ClassificationGuide';
+import { TourGuide } from './../../../models/OPERACIONINTERMEDIACION/TourGuide';
 
 @Injectable({
    providedIn: 'root'
 })
-export class ClassificationGuideService {
+export class TourGuideService {
 
-   url = environment.api_operacionintermediacion + 'classificationguide/';
+   url = environment.api_operacionintermediacion + 'tourguide/';
    options = new RequestOptions();
 
    constructor(private http: Http, private router: Router) {
@@ -51,15 +51,15 @@ export class ClassificationGuideService {
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   post(classificationguide: ClassificationGuide): Promise<any> {
-      return this.http.post(this.url, JSON.stringify(classificationguide), this.options).toPromise()
+   post(tourguide: TourGuide): Promise<any> {
+      return this.http.post(this.url, JSON.stringify(tourguide), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
    }
 
-   put(classificationguide: ClassificationGuide): Promise<any> {
-      return this.http.put(this.url, JSON.stringify(classificationguide), this.options).toPromise()
+   put(tourguide: TourGuide): Promise<any> {
+      return this.http.put(this.url, JSON.stringify(tourguide), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
