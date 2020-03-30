@@ -100,9 +100,9 @@ export class SalesRepresentativeComponent implements OnInit {
    toCSV() {
       this.sales_representativeDataService.get().then( r => {
          const backupData = r as SalesRepresentative[];
-         let output = 'id;ruc;has_professional_degree;has_contract;has_experience;register_id\n';
+         let output = 'id;ruc;has_professional_degree;has_contract;has_experience;social_name;register_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.ruc + ';' + element.has_professional_degree + ';' + element.has_contract + ';' + element.has_experience + ';' + element.register_id + '\n';
+            output += element.id; + element.ruc + ';' + element.has_professional_degree + ';' + element.has_contract + ';' + element.has_experience + ';' + element.social_name + ';' + element.register_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

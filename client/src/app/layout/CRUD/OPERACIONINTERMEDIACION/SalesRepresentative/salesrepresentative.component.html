@@ -35,6 +35,7 @@
                <th>has_professional_degree</th>
                <th>has_contract</th>
                <th>has_experience</th>
+               <th>social_name</th>
             </tr>
          </thead>
          <tbody>
@@ -44,6 +45,7 @@
                <td>{{sales_representative.has_professional_degree}}</td>
                <td>{{sales_representative.has_contract}}</td>
                <td>{{sales_representative.has_experience}}</td>
+               <td>{{sales_representative.social_name}}</td>
             </tr>
          </tbody>
       </table>
@@ -102,6 +104,12 @@
                <label for="has_experience" class="col-4 col-form-label">has_experience</label>
                <div class="col-8">
                   <label class="switch"><input type="checkbox"id="has_experience" name="has_experience" [(ngModel)]="sales_representativeSelected.has_experience"><span class="slider round"></span></label>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="social_name" class="col-4 col-form-label">social_name</label>
+               <div class="col-8">
+                  <input type="text" class="form-control" id="social_name" name="social_name" placeholder="socialName" [(ngModel)]="sales_representativeSelected.social_name">
                </div>
             </div>
             <div class="form-group row">
