@@ -130,9 +130,9 @@ export class TuristicTransportComponent implements OnInit {
    toCSV() {
       this.turistic_transportDataService.get().then( r => {
          const backupData = r as TuristicTransport[];
-         let output = 'id;ruc;tax_payer_type_id;register_code;register_date;register_id;activity_transport_type_id;transport_type_id\n';
+         let output = 'id;ruc;tax_payer_type_id;register_code;register_date;social_name;register_id;activity_transport_type_id;transport_type_id\n';
          backupData.forEach(element => {
-            output += element.id; + element.ruc + ';' + element.tax_payer_type_id + ';' + element.register_code + ';' + element.register_date + ';' + element.register_id + ';' + element.activity_transport_type_id + ';' + element.transport_type_id + '\n';
+            output += element.id; + element.ruc + ';' + element.tax_payer_type_id + ';' + element.register_code + ';' + element.register_date + ';' + element.social_name + ';' + element.register_id + ';' + element.activity_transport_type_id + ';' + element.transport_type_id + '\n';
          });
          const blob = new Blob([output], { type: 'text/plain' });
          const fecha = new Date();

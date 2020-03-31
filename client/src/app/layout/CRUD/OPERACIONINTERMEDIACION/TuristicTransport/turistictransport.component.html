@@ -35,6 +35,7 @@
                <th>tax_payer_type_id</th>
                <th>register_code</th>
                <th>register_date</th>
+               <th>social_name</th>
             </tr>
          </thead>
          <tbody>
@@ -44,6 +45,7 @@
                <td>{{turistic_transport.tax_payer_type_id}}</td>
                <td>{{turistic_transport.register_code}}</td>
                <td>{{turistic_transport.register_date}}</td>
+               <td>{{turistic_transport.social_name}}</td>
             </tr>
          </tbody>
       </table>
@@ -102,6 +104,12 @@
                <label for="register_date" class="col-4 col-form-label">register_date</label>
                <div class="col-8">
                   <input type="date" class="form-control" id="register_date" name="register_date" placeholder="registerDate" [ngModel]="turistic_transportSelected.register_date | date:'y-MM-dd'" (ngModelChange)="turistic_transportSelected.register_date = $event">
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="social_name" class="col-4 col-form-label">social_name</label>
+               <div class="col-8">
+                  <input type="text" class="form-control" id="social_name" name="social_name" placeholder="socialName" [(ngModel)]="turistic_transportSelected.social_name">
                </div>
             </div>
             <div class="form-group row">
