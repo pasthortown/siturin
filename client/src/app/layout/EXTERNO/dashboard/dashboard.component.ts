@@ -508,17 +508,20 @@ export class DashboardComponent implements OnInit {
    this.getMaxDeclarationDate();
    this.getTramiteStates();
   }
-
-  addGuiaTurismo(modal) {
-
+  
+  addGuiaTurismo(content) {
+   this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+   }), ( r => {}));
   }
   
-  addRepresentanteVentas(modal) {
-
+  addRepresentanteVentas(content) {
+   this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+   }), ( r => {}));
   }
 
-  addCompaniaTransporte(modal) {
-
+  addCompaniaTransporte(content) {
+   this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+   }), ( r => {}));
   }
 
   refreshMaxBed(capacity: Capacity) {
