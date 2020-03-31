@@ -5615,7 +5615,7 @@
                 <i class="fas fa-sync"></i>
               </button>
             </div>
-            <input disabled type="text" class="form-control" id="ruc" maxlength="13"
+            <input type="text" class="form-control" id="ruc" maxlength="13"
               placeholder="Número de RUC" [(ngModel)]="newRepresentanteVentas.ruc" (keyup)="checkRucSalesRepresentative()"
               name="ruc" />
           </div>
@@ -5701,57 +5701,71 @@
   <div class="modal-body">
     Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Identificación</label>
-        <input type="text" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Identificación</label>
+          <input type="text" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Nombre Completo</label>
-        <input type="text" class="form-control" id="fullnameTuristicGuide" [(ngModel)]="newTuristicGuide.fullname">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Nombre Completo</label>
+          <input type="text" class="form-control" id="fullnameTuristicGuide" [(ngModel)]="newTuristicGuide.fullname">
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Clasificación</label>
-        <input type="text" class="form-control" id="classificationTuristicGuide" [(ngModel)]="newTuristicGuide.clasificacion">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Clasificación</label>
+          <input type="text" class="form-control" id="classificationTuristicGuide" [(ngModel)]="newTuristicGuide.clasificacion">
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Ámbito de Aplicación</label>
-        <input type="text" class="form-control" id="ambitoAplicacionTuristicGuide" [(ngModel)]="newTuristicGuide.ambitoAplicacion">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Ámbito de Aplicación</label>
+          <input type="text" class="form-control" id="ambitoAplicacionTuristicGuide" [(ngModel)]="newTuristicGuide.ambitoAplicacion">
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Número de Credencial</label>
-        <input type="text" class="form-control" id="credentialCodeTuristicGuide" [(ngModel)]="newTuristicGuide.credential_number">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Número de Credencial</label>
+          <input type="text" class="form-control" id="credentialCodeTuristicGuide" [(ngModel)]="newTuristicGuide.credential_number">
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Fecha de Emisión de Credencial</label>
-        <input type="text" class="form-control" id="credentialDateTuristicGuide" [(ngModel)]="newTuristicGuide.credential_date">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Fecha de Emisión de Credencial</label>
+          <input type="text" class="form-control" id="credentialDateTuristicGuide" [(ngModel)]="newTuristicGuide.credential_date">
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Provincia</label>
-        <input type="text" class="form-control" id="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia">
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Cantón</label>
-        <input type="text" class="form-control" id="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton">
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group">
-        <label for="exampleInputPassword1">Parroquia</label>
-        <input type="text" class="form-control" id="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.parroquia">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Provincia</label>
+          <input type="text" class="form-control" id="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia">
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Cantón</label>
+            <input type="text" class="form-control" id="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Parroquia</label>
+            <input type="text" class="form-control" id="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.parroquia">
+          </div>
+        </div>
       </div>
     </div>
   </div>
