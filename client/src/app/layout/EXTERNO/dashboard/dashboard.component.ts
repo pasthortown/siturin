@@ -432,7 +432,9 @@ export class DashboardComponent implements OnInit {
   cannuevaClasificacionAB = false;
 
   representanteVentasSwitch = false;
-  
+  companiaTransporteSwitch = false;
+  guiaTurismoSwitch = false;
+
   activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
@@ -507,7 +509,15 @@ export class DashboardComponent implements OnInit {
    this.getTramiteStates();
   }
 
+  addGuiaTurismo() {
+
+  }
+  
   addRepresentanteVentas() {
+
+  }
+
+  addCompaniaTransporte() {
 
   }
 

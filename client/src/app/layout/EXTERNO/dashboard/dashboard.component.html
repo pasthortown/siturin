@@ -1739,6 +1739,7 @@
                                 <th>Título Profesional</th>
                                 <th>Contrato Suscrito</th>
                                 <th>Experiencia Probada</th>
+                                <th>Opciones</th>
                               </thead>
                               <tbody>
                                 <tr>
@@ -1747,6 +1748,133 @@
                                   <td>TP</td>
                                   <td>CS</td>
                                   <td>EP</td>
+                                  <td>OP</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode !== '-') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                          <div class="col-12">
+                            <h4>
+                              <strong>Guía de Turismo</strong>
+                            </h4>
+                          </div>
+                          <small class="col-12">
+                            <div class="alert alert-info mt-2 mb-2" role="alert">
+                              <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                              <p>Registrar Guía de Turismo contratado por el establecimiento.</p>
+                            </div>
+                          </small>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label>¿Su establecimiento, tiene guía de turismo contratado?</label>
+                              <div class="col-12">
+                                <div class="onoffswitch">
+                                  <input type="checkbox" class="onoffswitch-checkbox"  id="guiaTurismoSwitch"
+                                    name="guiaTurismoSwitch" [(ngModel)]="guiaTurismoSwitch" [disabled]="!rucEstablishmentRegisterSelected.editable"/><label class="onoffswitch-label" for="guiaTurismoSwitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12" *ngIf="guiaTurismoSwitch">
+                            <table class="table table-hover mt-2">
+                              <thead>
+                                <th colspan="5">
+                                  <button type="button" title="Agregar Guía de Turismo" class="btn btn-success"
+                                      (click)="addGuiaTurismo()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-user-plus"></i>&nbsp;Agregar Guía de Turismo
+                                  </button>
+                                </th>
+                              </thead>
+                              <thead>
+                                <th>Identificación</th>
+                                <th>Nombre Completo</th>
+                                <th>Clasificación</th>
+                                <th>Ámbito de Aplicación</th>
+                                <th>Número de Credencial</th>
+                                <th>Fecha de Emisión de Credencial</th>
+                                <th>Provincia</th>
+                                <th>Cantón</th>
+                                <th>Parroquia</th>
+                                <th>Opciones</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>I</td>
+                                  <td>NC</td>
+                                  <td>C</td>
+                                  <td>AA</td>
+                                  <td>NC</td>
+                                  <td>F</td>
+                                  <td>P</td>
+                                  <td>C</td>
+                                  <td>P</td>
+                                  <td>OPC</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode !== '-') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                          <div class="col-12">
+                            <h4>
+                              <strong>Compañías de Transporte Turístico</strong>
+                            </h4>
+                          </div>
+                          <small class="col-12">
+                            <div class="alert alert-info mt-2 mb-2" role="alert">
+                              <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                              <p>Registrar Compañía de Transporte Turístico contratado por el establecimiento.</p>
+                            </div>
+                          </small>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label>¿Su establecimiento, tiene contratada compañía de transporte turístico?</label>
+                              <div class="col-12">
+                                <div class="onoffswitch">
+                                  <input type="checkbox" class="onoffswitch-checkbox"  id="companiaTransporteSwitch"
+                                    name="companiaTransporteSwitch" [(ngModel)]="companiaTransporteSwitch" [disabled]="!rucEstablishmentRegisterSelected.editable"/><label class="onoffswitch-label" for="companiaTransporteSwitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12" *ngIf="addCompaniaTransporte">
+                            <table class="table table-hover mt-2">
+                              <thead>
+                                <th colspan="7">
+                                  <button type="button" title="Agregar Compañía de Transporte" class="btn btn-success"
+                                      (click)="addCompaniaTransporte()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-plus-square"></i>&nbsp;Agregar Compañía de Transporte Turístico
+                                  </button>
+                                </th>
+                              </thead>
+                              <thead>
+                                <th>RUC</th>
+                                <th>Razón Social</th>
+                                <th>Tipo Contribuyente</th>
+                                <th>Número de Registro</th>
+                                <th>Fecha de Registro</th>
+                                <th>Tipo de Actividad</th>
+                                <th>Categoría</th>
+                                <th>Opciones</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Ruc</td>
+                                  <td>RZ</td>
+                                  <td>TC</td>
+                                  <td>NR</td>
+                                  <td>FR</td>
+                                  <td>TA</td>
+                                  <td>C</td>
+                                  <td>OP</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -4841,6 +4969,7 @@
                                 <th>Título Profesional</th>
                                 <th>Contrato Suscrito</th>
                                 <th>Experiencia Probada</th>
+                                <th>Opciones</th>
                               </thead>
                               <tbody>
                                 <tr>
@@ -4849,6 +4978,133 @@
                                   <td>TP</td>
                                   <td>CS</td>
                                   <td>EP</td>
+                                  <td>OP</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode !== '-') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                          <div class="col-12">
+                            <h4>
+                              <strong>Guía de Turismo</strong>
+                            </h4>
+                          </div>
+                          <small class="col-12">
+                            <div class="alert alert-info mt-2 mb-2" role="alert">
+                              <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                              <p>Registrar Guía de Turismo contratado por el establecimiento.</p>
+                            </div>
+                          </small>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label>¿Su establecimiento, tiene guía de turismo contratado?</label>
+                              <div class="col-12">
+                                <div class="onoffswitch">
+                                  <input type="checkbox" class="onoffswitch-checkbox"  id="guiaTurismoSwitch"
+                                    name="guiaTurismoSwitch" [(ngModel)]="guiaTurismoSwitch" [disabled]="!rucEstablishmentRegisterSelected.editable"/><label class="onoffswitch-label" for="guiaTurismoSwitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12" *ngIf="guiaTurismoSwitch">
+                            <table class="table table-hover mt-2">
+                              <thead>
+                                <th colspan="5">
+                                  <button type="button" title="Agregar Guía de Turismo" class="btn btn-success"
+                                      (click)="addGuiaTurismo()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-user-plus"></i>&nbsp;Agregar Guía de Turismo
+                                  </button>
+                                </th>
+                              </thead>
+                              <thead>
+                                <th>Identificación</th>
+                                <th>Nombre Completo</th>
+                                <th>Clasificación</th>
+                                <th>Ámbito de Aplicación</th>
+                                <th>Número de Credencial</th>
+                                <th>Fecha de Emisión de Credencial</th>
+                                <th>Provincia</th>
+                                <th>Cantón</th>
+                                <th>Parroquia</th>
+                                <th>Opciones</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>I</td>
+                                  <td>NC</td>
+                                  <td>C</td>
+                                  <td>AA</td>
+                                  <td>NC</td>
+                                  <td>F</td>
+                                  <td>P</td>
+                                  <td>C</td>
+                                  <td>P</td>
+                                  <td>OPC</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode !== '-') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                          <div class="col-12">
+                            <h4>
+                              <strong>Compañías de Transporte Turístico</strong>
+                            </h4>
+                          </div>
+                          <small class="col-12">
+                            <div class="alert alert-info mt-2 mb-2" role="alert">
+                              <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                              <p>Registrar Compañía de Transporte Turístico contratado por el establecimiento.</p>
+                            </div>
+                          </small>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label>¿Su establecimiento, tiene contratada compañía de transporte turístico?</label>
+                              <div class="col-12">
+                                <div class="onoffswitch">
+                                  <input type="checkbox" class="onoffswitch-checkbox"  id="companiaTransporteSwitch"
+                                    name="companiaTransporteSwitch" [(ngModel)]="companiaTransporteSwitch" [disabled]="!rucEstablishmentRegisterSelected.editable"/><label class="onoffswitch-label" for="companiaTransporteSwitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12" *ngIf="addCompaniaTransporte">
+                            <table class="table table-hover mt-2">
+                              <thead>
+                                <th colspan="7">
+                                  <button type="button" title="Agregar Compañía de Transporte" class="btn btn-success"
+                                      (click)="addCompaniaTransporte()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      <i class="fas fa-plus-square"></i>&nbsp;Agregar Compañía de Transporte Turístico
+                                  </button>
+                                </th>
+                              </thead>
+                              <thead>
+                                <th>RUC</th>
+                                <th>Razón Social</th>
+                                <th>Tipo Contribuyente</th>
+                                <th>Número de Registro</th>
+                                <th>Fecha de Registro</th>
+                                <th>Tipo de Actividad</th>
+                                <th>Categoría</th>
+                                <th>Opciones</th>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Ruc</td>
+                                  <td>RZ</td>
+                                  <td>TC</td>
+                                  <td>NR</td>
+                                  <td>FR</td>
+                                  <td>TA</td>
+                                  <td>C</td>
+                                  <td>OP</td>
                                 </tr>
                               </tbody>
                             </table>
