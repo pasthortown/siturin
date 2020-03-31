@@ -521,7 +521,21 @@ export class DashboardComponent implements OnInit {
   
   addRepresentanteVentas(content) {
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+      if ( response === 'Guardar click' ) {
+         this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
+         this.rucEstablishmentRegisterSelected.sales_representatives.push(this.newRepresentanteVentas);
+      }
    }), ( r => {}));
+  }
+
+  deleteRepresentanteVentas(sales_representant) {
+   const new_sales_representatives = [];
+   this.rucEstablishmentRegisterSelected.sales_representatives.forEach(element => {
+      if (element != sales_representant) {
+         new_sales_representatives.push(element);
+      }
+   });
+   this.rucEstablishmentRegisterSelected.sales_representatives = new_sales_representatives;
   }
 
   addCompaniaTransporte(content) {
@@ -4965,7 +4979,7 @@ guardarDeclaracion() {
                const DC = entidad.filas.fila.columnas.columna;
                DC.forEach(element => {
                   if (element.campo == 'razonSocial') {
-                   this.razon_social = element.valor;
+                   this.newRepresentanteVentas.social_name = element.valor;
                      datosGenerales += '<strong>Razón Social: </strong> ' + element.valor + '<br/>';
                   }
                   if (element.campo == 'email') {
@@ -4997,19 +5011,6 @@ guardarDeclaracion() {
          itemsDetalles_SRI_RUC.forEach(element => {
             if (element.campo == 'estadoContribuyente') {
                datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
-            }
-            if (element.campo == 'fechaInscripcionRuc') {
-               datosGenerales += '<strong>Fecha de Inscripción del RUC: </strong> ' + element.valor + '<br/>';
-            }
-            if (element.campo == 'fechaActualizacion') {
-               datosGenerales += '<strong>Fecha de Actualización: </strong> ' + element.valor + '<br/>';
-            }
-            if (element.campo == 'obligado') {
-               if (element.valor == 'N') {
-                  datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> NO<br/>';
-               } else {
-                  datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> SI<br/>';
-               }
             }
             if (element.campo == 'personaSociedad') {
                datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';

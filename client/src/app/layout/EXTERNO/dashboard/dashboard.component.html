@@ -1751,7 +1751,7 @@
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger">
+                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
                                       <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
@@ -4999,7 +4999,7 @@
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger">
+                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
                                       <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
@@ -5671,7 +5671,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="!(consumoRucSalesRepresentative && SRIOKSalesRepresentative)">Guardar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>
 
