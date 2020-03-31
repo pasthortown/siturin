@@ -1758,11 +1758,20 @@
                                     <span class="badge badge-danger" *ngIf="!sales_representant.has_experience">No Cumple</span>
                                   </td>
                                   <td>
-                                    <button
-                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="btn-toolbar" role="toolbar">
+                                      <div class="btn-group mr-2" role="group">
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Editar" class="btn btn-warning" (click)="editRepresentanteVentas(content_sales_representant, sales_representant)">
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                               </tbody>
@@ -1829,11 +1838,20 @@
                                   <td>{{turistic_guide.canton}}</td>
                                   <td>{{turistic_guide.parroquia}}</td>
                                   <td>
-                                    <button
-                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="btn-toolbar" role="toolbar">
+                                      <div class="btn-group mr-2" role="group">
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Editar" class="btn btn-warning" (click)="editGuiaTurismo(content_turistic_guide, turistic_guide)">
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                               </tbody>
@@ -1896,11 +1914,20 @@
                                   <td>{{transport_company.activity_transport_type_id}}</td>
                                   <td>{{transport_company.transport_type_id}}</td>
                                   <td>
-                                    <button
-                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="btn-toolbar" role="toolbar">
+                                      <div class="btn-group mr-2" role="group">
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Editar" class="btn btn-warning">
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Eliminar" class="btn btn-danger">
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                               </tbody>
@@ -5015,11 +5042,20 @@
                                     <span class="badge badge-danger" *ngIf="!sales_representant.has_experience">No Cumple</span>
                                   </td>
                                   <td>
-                                    <button
-                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="btn-toolbar" role="toolbar">
+                                      <div class="btn-group mr-2" role="group">
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Editar" class="btn btn-warning" (click)="editRepresentanteVentas(content_sales_representant, sales_representant)">
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                               </tbody>
@@ -5086,11 +5122,20 @@
                                   <td>{{turistic_guide.canton}}</td>
                                   <td>{{turistic_guide.parroquia}}</td>
                                   <td>
-                                    <button
-                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="btn-toolbar" role="toolbar">
+                                      <div class="btn-group mr-2" role="group">
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Editar" class="btn btn-warning" (click)="editGuiaTurismo(content_turistic_guide, turistic_guide)">
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                               </tbody>
@@ -5153,11 +5198,20 @@
                                   <td>{{transport_company.activity_transport_type_id}}</td>
                                   <td>{{transport_company.transport_type_id}}</td>
                                   <td>
-                                    <button
-                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger">
-                                      <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="btn-toolbar" role="toolbar">
+                                      <div class="btn-group mr-2" role="group">
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Editar" class="btn btn-warning">
+                                          <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button
+                                          [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                          type="button" title="Eliminar" class="btn btn-danger">
+                                          <i class="fas fa-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
                                   </td>
                                 </tr>
                               </tbody>

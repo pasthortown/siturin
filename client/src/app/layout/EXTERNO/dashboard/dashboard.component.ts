@@ -529,6 +529,16 @@ export class DashboardComponent implements OnInit {
    }), ( r => {}));
   }
   
+  editGuiaTurismo(content, turistic_guide) {
+   this.newTuristicGuide = turistic_guide;
+   this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+      if ( response === 'Guardar click' ) {
+         this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Guía de Turismo');
+         this.rucEstablishmentRegisterSelected.turistic_guides.push(this.newTuristicGuide);
+      }
+   }), ( r => {}));
+  }
+
   deleteGuiaTurismo(turistic_guide) {
    const new_turistic_guides = [];
    this.rucEstablishmentRegisterSelected.turistic_guides.forEach(element => {
@@ -542,6 +552,16 @@ export class DashboardComponent implements OnInit {
 
   addRepresentanteVentas(content) {
    this.newRepresentanteVentas = new SalesRepresentative();
+   this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+      if ( response === 'Guardar click' ) {
+         this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
+         this.rucEstablishmentRegisterSelected.sales_representatives.push(this.newRepresentanteVentas);
+      }
+   }), ( r => {}));
+  }
+
+  editRepresentanteVentas(content, sales_representant) {
+   this.newRepresentanteVentas = sales_representant;
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
