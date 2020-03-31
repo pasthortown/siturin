@@ -510,7 +510,7 @@ export class DashboardComponent implements OnInit {
   }
 
   addGuiaTurismo() {
-
+   
   }
   
   addRepresentanteVentas() {

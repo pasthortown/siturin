@@ -17,6 +17,9 @@ export class Register {
    tarifario_rack: any[];
    kitchen_types_on_register: any[];
    service_types_on_register: any[];
+   turistic_guides: any[];
+   transport_companies: any[];
+   sales_representatives: any[];
    constructor() {
       this.id = 0;
       this.editable = true;
@@ -26,6 +29,9 @@ export class Register {
       this.kitchen_types_on_register = [];
       this.service_types_on_register = [];
       this.capacities_on_register = [];
+      this.turistic_guides = [];
+      this.transport_companies = [];
+      this.sales_representatives = [];
       this.establishment_id = 0;
       this.autorized_complementary_capacities = false;
       this.autorized_complementary_food_capacities = false;

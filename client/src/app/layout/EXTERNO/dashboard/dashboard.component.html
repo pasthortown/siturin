@@ -1809,17 +1809,23 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>I</td>
-                                  <td>NC</td>
-                                  <td>C</td>
-                                  <td>AA</td>
-                                  <td>NC</td>
-                                  <td>F</td>
-                                  <td>P</td>
-                                  <td>C</td>
-                                  <td>P</td>
-                                  <td>OPC</td>
+                                <tr *ngFor="let turistic_guide of rucEstablishmentRegisterSelected.turistic_guides">
+                                  <td>{{turistic_guide.identification}}/td>
+                                  <td>{{turistic_guide.fullname}}/td>
+                                  <td>{{turistic_guide.guide_type_id}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.credential_number}}/td>
+                                  <td>{{turistic_guide.credential_date}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>
+                                    <button
+                                      [disabled]="!rucEstablishmentRegisterSelected.editable"
+                                      type="button" title="Eliminar" class="btn btn-danger">
+                                      <i class="fas fa-trash"></i>
+                                    </button>
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1872,14 +1878,14 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Ruc</td>
-                                  <td>RZ</td>
-                                  <td>TC</td>
-                                  <td>NR</td>
-                                  <td>FR</td>
-                                  <td>TA</td>
-                                  <td>C</td>
+                                <tr *ngFor="let transport_company of rucEstablishmentRegisterSelected.transport_companies">
+                                  <td>{{transport_company.ruc}}</td>
+                                  <td>{{transport_company.social_name}}</td>
+                                  <td>{{transport_company.tax_payer_type_id}}</td>
+                                  <td>{{transport_company.register_code}}</td>
+                                  <td>{{transport_company.register_date}}</td>
+                                  <td>{{transport_company.activity_transport_type_id}}</td>
+                                  <td>{{transport_company.transport_type_id}}</td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
@@ -5051,16 +5057,16 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>I</td>
-                                  <td>NC</td>
-                                  <td>C</td>
-                                  <td>AA</td>
-                                  <td>NC</td>
-                                  <td>F</td>
-                                  <td>P</td>
-                                  <td>C</td>
-                                  <td>P</td>
+                                <tr *ngFor="let turistic_guide of rucEstablishmentRegisterSelected.turistic_guides">
+                                  <td>{{turistic_guide.identification}}/td>
+                                  <td>{{turistic_guide.fullname}}/td>
+                                  <td>{{turistic_guide.guide_type_id}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.credential_number}}/td>
+                                  <td>{{turistic_guide.credential_date}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.ubication_id}}/td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
@@ -5120,14 +5126,14 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Ruc</td>
-                                  <td>RZ</td>
-                                  <td>TC</td>
-                                  <td>NR</td>
-                                  <td>FR</td>
-                                  <td>TA</td>
-                                  <td>C</td>
+                                <tr *ngFor="let transport_company of rucEstablishmentRegisterSelected.transport_companies">
+                                  <td>{{transport_company.ruc}}</td>
+                                  <td>{{transport_company.social_name}}</td>
+                                  <td>{{transport_company.tax_payer_type_id}}</td>
+                                  <td>{{transport_company.register_code}}</td>
+                                  <td>{{transport_company.register_date}}</td>
+                                  <td>{{transport_company.activity_transport_type_id}}</td>
+                                  <td>{{transport_company.transport_type_id}}</td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
