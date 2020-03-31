@@ -4713,6 +4713,7 @@ guardarDeclaracion() {
    this.ubicationDataService.get_filtered('-').then( zonales => {
       this.zonalesEstablishment = zonales as Ubication[];
       zonales.forEach(zonal => {
+         console.log(zonal);
          this.ubications.forEach(ubication => {
             if (ubication.father_code == zonal.code) {
                this.provinciasEstablishment.push(ubication);
