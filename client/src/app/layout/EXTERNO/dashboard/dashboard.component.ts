@@ -431,6 +431,8 @@ export class DashboardComponent implements OnInit {
   mostrarIngresoDatos = false;
   cannuevaClasificacionAB = false;
 
+  representanteVentasSwitch = false;
+  
   activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
@@ -508,7 +510,7 @@ export class DashboardComponent implements OnInit {
   addRepresentanteVentas() {
 
   }
-  
+
   refreshMaxBed(capacity: Capacity) {
    this.allowed_capacity_types.forEach(capacityType => {
       if(capacityType.id == capacity.capacity_type_id) {
