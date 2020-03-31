@@ -1742,12 +1742,12 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Ruc</td>
-                                  <td>RZ</td>
-                                  <td>TP</td>
-                                  <td>CS</td>
-                                  <td>EP</td>
+                                <tr *ngFor="let sales_representant of rucEstablishmentRegisterSelected.sales_representatives">
+                                  <td>{{sales_representant.ruc}}</td>
+                                  <td>{{sales_representant.social_name}}</td>
+                                  <td>{{sales_representant.has_professional_degree}}</td>
+                                  <td>{{sales_representant.has_contract}}</td>
+                                  <td>{{sales_representant.has_experience}}</td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
@@ -4990,12 +4990,12 @@
                                 <th>Opciones</th>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>Ruc</td>
-                                  <td>RZ</td>
-                                  <td>TP</td>
-                                  <td>CS</td>
-                                  <td>EP</td>
+                                <tr *ngFor="let sales_representant of rucEstablishmentRegisterSelected.sales_representatives">
+                                  <td>{{sales_representant.ruc}}</td>
+                                  <td>{{sales_representant.social_name}}</td>
+                                  <td>{{sales_representant.has_professional_degree}}</td>
+                                  <td>{{sales_representant.has_contract}}</td>
+                                  <td>{{sales_representant.has_experience}}</td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
