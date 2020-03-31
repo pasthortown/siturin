@@ -1745,9 +1745,18 @@
                                 <tr *ngFor="let sales_representant of rucEstablishmentRegisterSelected.sales_representatives">
                                   <td>{{sales_representant.ruc}}</td>
                                   <td>{{sales_representant.social_name}}</td>
-                                  <td>{{sales_representant.has_professional_degree}}</td>
-                                  <td>{{sales_representant.has_contract}}</td>
-                                  <td>{{sales_representant.has_experience}}</td>
+                                  <td>
+                                    <span class="badge badge-success" *ngIf="sales_representant.has_professional_degree">Cumple</span>
+                                    <span class="badge badge-danger" *ngIf="!sales_representant.has_professional_degree">No Cumple</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge badge-success" *ngIf="sales_representant.has_contract">Cumple</span>
+                                    <span class="badge badge-danger" *ngIf="!sales_representant.has_contract">No Cumple</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge badge-success" *ngIf="sales_representant.has_experience">Cumple</span>
+                                    <span class="badge badge-danger" *ngIf="!sales_representant.has_experience">No Cumple</span>
+                                  </td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
@@ -1810,19 +1819,19 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let turistic_guide of rucEstablishmentRegisterSelected.turistic_guides">
-                                  <td>{{turistic_guide.identification}}/td>
-                                  <td>{{turistic_guide.fullname}}/td>
-                                  <td>{{turistic_guide.guide_type_id}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
-                                  <td>{{turistic_guide.credential_number}}/td>
-                                  <td>{{turistic_guide.credential_date}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.identification}}</td>
+                                  <td>{{turistic_guide.fullname}}</td>
+                                  <td>{{turistic_guide.clasificacion}}</td>
+                                  <td>{{turistic_guide.ambitoAplicacion}}</td>
+                                  <td>{{turistic_guide.credential_number}}</td>
+                                  <td>{{turistic_guide.credential_date}}</td>
+                                  <td>{{turistic_guide.provincia}}</td>
+                                  <td>{{turistic_guide.canton}}</td>
+                                  <td>{{turistic_guide.parroquia}}</td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger">
+                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
                                       <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
@@ -4993,9 +5002,18 @@
                                 <tr *ngFor="let sales_representant of rucEstablishmentRegisterSelected.sales_representatives">
                                   <td>{{sales_representant.ruc}}</td>
                                   <td>{{sales_representant.social_name}}</td>
-                                  <td>{{sales_representant.has_professional_degree}}</td>
-                                  <td>{{sales_representant.has_contract}}</td>
-                                  <td>{{sales_representant.has_experience}}</td>
+                                  <td>
+                                    <span class="badge badge-success" *ngIf="sales_representant.has_professional_degree">Cumple</span>
+                                    <span class="badge badge-danger" *ngIf="!sales_representant.has_professional_degree">No Cumple</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge badge-success" *ngIf="sales_representant.has_contract">Cumple</span>
+                                    <span class="badge badge-danger" *ngIf="!sales_representant.has_contract">No Cumple</span>
+                                  </td>
+                                  <td>
+                                    <span class="badge badge-success" *ngIf="sales_representant.has_experience">Cumple</span>
+                                    <span class="badge badge-danger" *ngIf="!sales_representant.has_experience">No Cumple</span>
+                                  </td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
@@ -5058,19 +5076,19 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let turistic_guide of rucEstablishmentRegisterSelected.turistic_guides">
-                                  <td>{{turistic_guide.identification}}/td>
-                                  <td>{{turistic_guide.fullname}}/td>
-                                  <td>{{turistic_guide.guide_type_id}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
-                                  <td>{{turistic_guide.credential_number}}/td>
-                                  <td>{{turistic_guide.credential_date}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
-                                  <td>{{turistic_guide.ubication_id}}/td>
+                                  <td>{{turistic_guide.identification}}</td>
+                                  <td>{{turistic_guide.fullname}}</td>
+                                  <td>{{turistic_guide.clasificacion}}</td>
+                                  <td>{{turistic_guide.ambitoAplicacion}}</td>
+                                  <td>{{turistic_guide.credential_number}}</td>
+                                  <td>{{turistic_guide.credential_date}}</td>
+                                  <td>{{turistic_guide.provincia}}</td>
+                                  <td>{{turistic_guide.canton}}</td>
+                                  <td>{{turistic_guide.parroquia}}</td>
                                   <td>
                                     <button
                                       [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                      type="button" title="Eliminar" class="btn btn-danger">
+                                      type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
                                       <i class="fas fa-trash"></i>
                                     </button>
                                   </td>
@@ -5682,18 +5700,64 @@
   </div>
   <div class="modal-body">
     Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit
-    Cédula
-2. Nombres y Apellidos
-3. Clasificación
-4. Ámbito de Aplicación
-5. Número de Credencial
-6. Fecha emisión Credencial
-7. Provincia
-8. Cantón
-9. Parroquia
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Identificación</label>
+        <input type="text" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Nombre Completo</label>
+        <input type="text" class="form-control" id="fullnameTuristicGuide" [(ngModel)]="newTuristicGuide.fullname">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Clasificación</label>
+        <input type="text" class="form-control" id="classificationTuristicGuide" [(ngModel)]="newTuristicGuide.clasificacion">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Ámbito de Aplicación</label>
+        <input type="text" class="form-control" id="ambitoAplicacionTuristicGuide" [(ngModel)]="newTuristicGuide.ambitoAplicacion">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Número de Credencial</label>
+        <input type="text" class="form-control" id="credentialCodeTuristicGuide" [(ngModel)]="newTuristicGuide.credential_number">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Fecha de Emisión de Credencial</label>
+        <input type="text" class="form-control" id="credentialDateTuristicGuide" [(ngModel)]="newTuristicGuide.credential_date">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Provincia</label>
+        <input type="text" class="form-control" id="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Cantón</label>
+        <input type="text" class="form-control" id="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="exampleInputPassword1">Parroquia</label>
+        <input type="text" class="form-control" id="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.parroquia">
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Guardar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>
 

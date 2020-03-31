@@ -1,3 +1,4 @@
+import { TourGuide } from './../../../models/OPERACIONINTERMEDIACION/TourGuide';
 import { SalesRepresentative } from './../../../models/OPERACIONINTERMEDIACION/SalesRepresentative';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
@@ -439,6 +440,7 @@ export class DashboardComponent implements OnInit {
   guiaTurismoSwitch = false;
   rucValidatedSalesRepresentative = false;
   newRepresentanteVentas: SalesRepresentative = new SalesRepresentative();
+  newTuristicGuide: TourGuide = new TourGuide();
   activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
@@ -515,11 +517,28 @@ export class DashboardComponent implements OnInit {
   }
   
   addGuiaTurismo(content) {
+   this.newTuristicGuide = new TourGuide();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+      if ( response === 'Guardar click' ) {
+         this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Guía de Turismo');
+         this.rucEstablishmentRegisterSelected.turistic_guides.push(this.newTuristicGuide);
+      }
    }), ( r => {}));
   }
   
+  deleteGuiaTurismo(turistic_guide) {
+   const new_turistic_guides = [];
+   this.rucEstablishmentRegisterSelected.turistic_guides.forEach(element => {
+      if (element != turistic_guide) {
+         new_turistic_guides.push(element);
+      }
+   });
+   this.rucEstablishmentRegisterSelected.turistic_guides = new_turistic_guides;
+   this.toastr.successToastr('Guía de Turismo removido satisfactoriamente.', 'Guía de Turismo');
+  }
+
   addRepresentanteVentas(content) {
+   this.newRepresentanteVentas = new SalesRepresentative();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
@@ -536,6 +555,7 @@ export class DashboardComponent implements OnInit {
       }
    });
    this.rucEstablishmentRegisterSelected.sales_representatives = new_sales_representatives;
+   this.toastr.successToastr('Representante de Ventas removido satisfactoriamente.', 'Representante de Ventas');
   }
 
   addCompaniaTransporte(content) {
