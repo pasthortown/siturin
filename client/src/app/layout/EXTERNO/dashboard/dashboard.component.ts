@@ -4735,7 +4735,7 @@ guardarDeclaracion() {
 
   getProvinciasGuide(code) {
    this.provinciasGuide = [];
-   this.ubications.forEach(ubication => {
+   this.provinciasEstablishment.forEach(ubication => {
       if (code == '1') {
          if (ubication.code !== '0820') {
             this.provinciasGuide.push(ubication);
