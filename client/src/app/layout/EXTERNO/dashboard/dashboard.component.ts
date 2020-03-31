@@ -4729,6 +4729,9 @@ guardarDeclaracion() {
             }
             return 0;
          });
+         console.log(zonal);
+         console.log(this.ubications);
+         console.log(this.provinciasEstablishment);
       });
    }).catch( e => { console.log(e) });
   }
@@ -4736,7 +4739,10 @@ guardarDeclaracion() {
   getProvinciasGuide(code) {
    this.provinciasGuide = [];
    this.ubications.forEach(ubication => {
-      if (ubication.father_code == code) {
+      if (code == '1') {
+         //AQUI
+         this.provinciasGuide.push(ubication);
+      } else {
          this.provinciasGuide.push(ubication);
       }
    });
