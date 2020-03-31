@@ -445,6 +445,9 @@ export class DashboardComponent implements OnInit {
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
   rucDataSalesRepresentative = 'CONECTÁNDOSE AL SRI...';
+  provinciasGuide: Ubication[] = [];
+  cantonesGuide: Ubication[] = [];
+  parroquiasGuide: Ubication[] = [];
   
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
@@ -4710,11 +4713,10 @@ guardarDeclaracion() {
    this.ubicationDataService.get_filtered('-').then( zonales => {
       this.zonalesEstablishment = zonales as Ubication[];
       zonales.forEach(zonal => {
-         this.ubicationDataService.get_filtered(zonal.code).then( r => {
-            const provincias = r as Ubication[];
-            provincias.forEach(provincia => {
-               this.provinciasEstablishment.push(provincia);
-            });
+         this.ubications.forEach(ubication => {
+            if (ubication.father_code == zonal.code) {
+               this.provinciasEstablishment.push(ubication);
+            }
             this.provinciasEstablishment.sort(function(a, b) {
                const nameA = a.name.toLowerCase().trim();
                const nameB = b.name.toLowerCase().trim();
@@ -4726,9 +4728,18 @@ guardarDeclaracion() {
                }
                return 0;
             });
-         }).catch( e => { console.log(e) });
+         });
       });
    }).catch( e => { console.log(e) });
+  }
+
+  getProvinciasGuide(code) {
+   this.provinciasGuide = [];
+   this.ubications.forEach(ubication => {
+      if (ubication.father_code == code) {
+         this.provinciasGuide.push(ubication);
+      }
+   });
   }
 
   getCantonesEstablishment() {
@@ -4743,9 +4754,20 @@ guardarDeclaracion() {
    this.parroquiasEstablishment = [];
    this.cantonEstablishmentSelectedCode = '-';
    this.establishment_selected.ubication_id = 0;
-   this.ubicationDataService.get_filtered(this.provinciaEstablishmentSelectedCode).then( r => {
-      this.cantonesEstablishment = r as Ubication[];
-   }).catch( e => { console.log(e) });
+   this.ubications.forEach(ubication => {
+      if (ubication.father_code == this.provinciaEstablishmentSelectedCode) {
+         this.cantonesEstablishment.push(ubication);
+      }
+   });
+  }
+
+  getCantonesGuide(code) {
+   this.cantonesGuide = [];
+   this.ubications.forEach(ubication => {
+      if (ubication.father_code == code) {
+         this.cantonesGuide.push(ubication);
+      }
+   });
   }
 
   getCantonesEstablishmentRecovery() {
@@ -4792,9 +4814,11 @@ guardarDeclaracion() {
          this.establishment_selected.address_map_longitude = canton.gmap_reference_longitude;
       }
    });
-   this.ubicationDataService.get_filtered(this.cantonEstablishmentSelectedCode).then( r => {
-      this.parroquiasEstablishment = r as Ubication[];
-   }).catch( e => { console.log(e) });
+   this.ubications.forEach(ubication => {
+      if (ubication.father_code == this.cantonEstablishmentSelectedCode) {
+         this.parroquiasEstablishment.push(ubication);
+      }
+   });
   }
 
   getMaxBed(capacity: Capacity) {

@@ -5728,7 +5728,7 @@
       <div class="col-12">
         <div class="form-group">
           <label for="exampleInputPassword1">Ámbito de Aplicación</label>
-          <select class="form-control" id="ambitoAplicacionTuristicGuide" name="ambitoAplicacionTuristicGuide"
+          <select class="form-control" id="ambitoAplicacionTuristicGuide" name="ambitoAplicacionTuristicGuide" (change)="getProvinciasGuide(newTuristicGuide.ambitoAplicacion)"
             [(ngModel)]="newTuristicGuide.ambitoAplicacion" [disabled]="!rucEstablishmentRegisterSelected.editable">
             <option value="-" selected>Seleccione...</option>
             <option *ngFor="
@@ -5760,19 +5760,43 @@
       <div class="col-4">
         <div class="form-group">
           <label for="exampleInputPassword1">Provincia</label>
-          <input type="text" class="form-control" id="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia">
+          <select class="form-control" id="provinciaTuristicGuide"
+            name="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia"
+            (change)="getCantonesGuide(newTuristicGuide.provincia)" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            <option value="-" selected>Seleccione...</option>
+            <option *ngFor="
+                let provincia of provinciasGuide
+              " value="{{ provincia.code }}">
+              {{ provincia.name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="col-4">
         <div class="form-group">
           <label for="exampleInputPassword1">Cantón</label>
           <input type="text" class="form-control" id="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton">
+          <select class="form-control" id="cantonTuristicGuide" name="cantonTuristicGuide"
+            [(ngModel)]="newTuristicGuide.canton" (change)="getParroquiasEstablishment()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            <option value="-" selected>Seleccione...</option>
+            <option *ngFor="let canton of cantonesGuide" value="{{ canton.code }}">
+              {{ canton.name }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="col-4">
         <div class="form-group">
           <label for="exampleInputPassword1">Parroquia</label>
-          <input type="text" class="form-control" id="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.parroquia">
+          <select class="form-control" id="parroquiaTuristicGuide"
+            name="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.parroquia" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            <option value="0" selected>Seleccione...</option>
+            <option *ngFor="
+                let parroquia of parroquiasGuide
+              " value="{{ parroquia.id }}">
+              {{ parroquia.name }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
