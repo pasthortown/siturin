@@ -1,3 +1,4 @@
+import { SalesRepresentative } from './../../../models/OPERACIONINTERMEDIACION/SalesRepresentative';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
 import { MailerService } from './../../../services/negocio/mailer.service';
 import { DeclarationAttachmentService } from './../../../services/CRUD/FINANCIERO/declarationattachment.service';
@@ -403,8 +404,10 @@ export class DashboardComponent implements OnInit {
   continuarTarifarioRack = false;
   consumoCedulaEstablishmentContact = false;
   consumoRuc = false;
+  consumoRucSalesRepresentative = false
   consumoCedulaRepresentanteLegal = false;
   SRIOK = false;
+  SRIOKSalesRepresentative = false;
   categoryAB = 'Pendiente';
   totalPointsAviable = 0;
   REGCIVILOK = false;
@@ -434,10 +437,12 @@ export class DashboardComponent implements OnInit {
   representanteVentasSwitch = false;
   companiaTransporteSwitch = false;
   guiaTurismoSwitch = false;
-
+  rucValidatedSalesRepresentative = false;
+  newRepresentanteVentas: SalesRepresentative = new SalesRepresentative();
   activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
+  rucDataSalesRepresentative = 'CONECTÁNDOSE AL SRI...';
   
   constructor(private toastr: ToastrManager,
               private receptionRoomDataService: ReceptionRoomService,
@@ -4920,6 +4925,107 @@ guardarDeclaracion() {
   newRegisterRecord() {
    this.rucEstablishmentRegisterSelected = new Register();
    this.mostrarDataRegister = true;
+  }
+
+  checkRucSalesRepresentative() {
+   if (this.consumoRucSalesRepresentative && this.SRIOKSalesRepresentative) {
+      return;
+    }
+    this.rucDataSalesRepresentative = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
+    this.newRepresentanteVentas.ruc = this.newRepresentanteVentas.ruc.replace(/[^\d]/, '');
+    if (this.newRepresentanteVentas.ruc.length !== 13) {
+      this.rucValidatedSalesRepresentative = false;
+      this.consumoRucSalesRepresentative = false;
+      return;
+    }
+    if (!this.consumoRucSalesRepresentative) {
+      this.consumoRucSalesRepresentative = true;
+      this.rucValidatedSalesRepresentative = true;
+      this.dinardapDataService.get_RUC(this.newRepresentanteVentas.ruc).then( r => {
+         this.SRIOKSalesRepresentative = true; 
+         this.rucValidatedSalesRepresentative = true;
+         const itemsDetalles_SRI_RUC = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;
+         const itemsDetalles_SRI_RUC_COMPLETO = r.sri_ruc_completo.original.entidades.entidad;
+         this.rucDataSalesRepresentative = '';
+         let datosGenerales = '';
+         let datosRL = '';
+         let datosAE = '';
+         let datosContactoSRI = '';
+         let mostrarRL = false;
+         itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
+            if (entidad.nombre == 'Actividad Economica') {
+               const AE = entidad.filas.fila.columnas.columna;
+               AE.forEach(element => {
+                  if (element.campo == 'actividadGeneral') {
+                     datosAE += '<strong>Actividad Económica: </strong> ' + element.valor + '<br/>';
+                  }
+               });
+            }
+            if (entidad.nombre == 'Contribuyente Datos Completo') {
+               const DC = entidad.filas.fila.columnas.columna;
+               DC.forEach(element => {
+                  if (element.campo == 'razonSocial') {
+                   this.razon_social = element.valor;
+                     datosGenerales += '<strong>Razón Social: </strong> ' + element.valor + '<br/>';
+                  }
+                  if (element.campo == 'email') {
+                     if (JSON.stringify(element.valor) !== '{}') {
+                        datosContactoSRI += '<strong>Correo Electrónico - Registrado en SRI: </strong> ' + element.valor + '<br/>';
+                     }
+                  }
+                  if (element.campo == 'telefonoDomicilio') {
+                     if (JSON.stringify(element.valor) !== '{}') {
+                        datosContactoSRI += '<strong>Teléfono Domicilio - Registrado en SRI: </strong> ' + element.valor + '<br/>';
+                     }
+                  }
+               });
+            }
+            if (entidad.nombre == 'Representante Legal') {
+               const RL = entidad.filas.fila.columnas.columna;
+               RL.forEach(element => {
+                  if (element.campo == 'identificacion') {
+                     datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
+                     mostrarRL = true;
+                  }
+                  if (element.campo == 'nombre') {
+                     datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
+                     mostrarRL = true;
+                  }
+               });
+            }
+         });
+         itemsDetalles_SRI_RUC.forEach(element => {
+            if (element.campo == 'estadoContribuyente') {
+               datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
+            }
+            if (element.campo == 'fechaInscripcionRuc') {
+               datosGenerales += '<strong>Fecha de Inscripción del RUC: </strong> ' + element.valor + '<br/>';
+            }
+            if (element.campo == 'fechaActualizacion') {
+               datosGenerales += '<strong>Fecha de Actualización: </strong> ' + element.valor + '<br/>';
+            }
+            if (element.campo == 'obligado') {
+               if (element.valor == 'N') {
+                  datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> NO<br/>';
+               } else {
+                  datosGenerales += '<strong>Obligado a Llevar Contabilidad: </strong> SI<br/>';
+               }
+            }
+            if (element.campo == 'personaSociedad') {
+               datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
+            }
+            this.rucDataSalesRepresentative = datosGenerales + datosAE + datosContactoSRI;
+            if (mostrarRL) {
+               this.rucDataSalesRepresentative += datosRL;
+            }
+         });
+      }).catch( e => {
+         console.log(e);
+         this.rucDataSalesRepresentative = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
+         this.consumoRucSalesRepresentative = false;
+         this.SRIOKSalesRepresentative = false;
+      });
+   }
   }
 
   checkRuc() {

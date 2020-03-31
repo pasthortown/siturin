@@ -5581,17 +5581,93 @@
     <h3>Representante de Ventas</h3>
   </div>
   <div class="modal-body">
+    <div class="row mt-3">
+      <h4 class="col-12">
+        <strong>Registro Único de Contribuyente</strong>
+      </h4>
+    </div>
     <div class="row">
-      ruc
-      razon social
-      estado contribuyente
-      tipo contribuyente
-      actividad economica
-      correo electronico registrado SRI
-      telefono domicilio registrado sri
-      Título profesional en turismo o ramas afines, o certificación en competencias laborales en intermediación turística.
-Contrato suscrito con las agencias de viaje internacionales o duales que contengan como mínima: datos generales de los intervinientes, políticas de la agencia, condiciones de la prestación del servicio, derechos, obligaciones y responsabilidades.
-Experiencia probada de al menos tres años en agencias de servicios turísticos
+      <div class="col-12">
+        <div class="form-group">
+          <label>Número de RUC</label><span *ngIf="!rucValidatedSalesRepresentative"
+            class="ml-2 badge badge-danger">Incorrecto</span>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRucSalesRepresentative()">
+                <i class="fas fa-sync"></i>
+              </button>
+            </div>
+            <input disabled type="text" class="form-control" id="ruc" maxlength="13"
+              placeholder="Número de RUC" [(ngModel)]="newRepresentanteVentas.ruc" (keyup)="checkRucSalesRepresentative()"
+              name="ruc" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+          <label class="col-12 text-justify"><strong>Atención</strong></label><br />
+          La información presentada a continuación es proporcionada por el Servicio de Rentas Internas, esta sección tiene carácter informativo, por favor si desea
+          actualizarla debe realizar el trámite en la entidad correspondiente<br/>
+          <a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="rucValidatedSalesRepresentative">
+        <div class="form-group">
+          <label>DATOS DEL SRI</label>
+          <div class="col-12 text-justify" [innerHTML]="rucDataSalesRepresentative">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-hover mt-2">
+          <tbody>
+            <tr>
+              <td>
+                Título profesional en turismo o ramas afines, o certificación en competencias laborales en intermediación turística. <strong style="color:red;">*</strong>
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="tituloProfesional" name="tituloProfesional" [(ngModel)]="newRepresentanteVentas.has_professional_degree"/>
+                  <label class="onoffswitch-label" for="tituloProfesional">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Contrato suscrito con las agencias de viaje internacionales o duales que contengan como mínima: datos generales de los intervinientes, políticas de la agencia, condiciones de la prestación del servicio, derechos, obligaciones y responsabilidades. <strong style="color:red;">*</strong>
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="hasContract" name="hasContract" [(ngModel)]="newRepresentanteVentas.has_contract"/>
+                  <label class="onoffswitch-label" for="hasContract">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Experiencia probada de al menos tres años en agencias de servicios turísticos. <strong style="color:red;">*</strong>
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!rucEstablishmentRegisterSelected.editable" id="hasExperience" name="hasExperience" [(ngModel)]="newRepresentanteVentas.has_experience"/>
+                  <label class="onoffswitch-label" for="hasExperience">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
@@ -5604,6 +5680,7 @@ Experiencia probada de al menos tres años en agencias de servicios turísticos
     <h3>Guía de Turismo</h3>
   </div>
   <div class="modal-body">
+    Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit
     Cédula
 2. Nombres y Apellidos
 3. Clasificación
@@ -5624,6 +5701,7 @@ Experiencia probada de al menos tres años en agencias de servicios turísticos
     <h3>Compañía de Transporte Turístico</h3>
   </div>
   <div class="modal-body">
+    Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit
     1. RUC
 2. Razón Social
 3. Nombre Comercial
