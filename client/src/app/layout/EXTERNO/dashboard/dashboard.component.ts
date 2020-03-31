@@ -530,11 +530,16 @@ export class DashboardComponent implements OnInit {
   }
   
   editGuiaTurismo(content, turistic_guide) {
+   let initialData = turistic_guide;
    this.newTuristicGuide = turistic_guide;
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Guía de Turismo');
-         this.rucEstablishmentRegisterSelected.turistic_guides.push(this.newTuristicGuide);
+         this.rucEstablishmentRegisterSelected.turistic_guides.forEach(element => {
+            if (element == initialData) {
+               element = this.newTuristicGuide;
+            }
+         });
       }
    }), ( r => {}));
   }
@@ -561,11 +566,16 @@ export class DashboardComponent implements OnInit {
   }
 
   editRepresentanteVentas(content, sales_representant) {
+   let initialData = sales_representant;
    this.newRepresentanteVentas = sales_representant;
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
-         this.rucEstablishmentRegisterSelected.sales_representatives.push(this.newRepresentanteVentas);
+         this.rucEstablishmentRegisterSelected.sales_representatives.forEach(element => {
+            if (element == initialData) {
+               element = this.newTuristicGuide;
+            }
+         });
       }
    }), ( r => {}));
   }
