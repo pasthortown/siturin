@@ -1728,7 +1728,7 @@
                               <thead>
                                 <th colspan="5">
                                   <button type="button" title="Agregar Representante de Ventas" class="btn btn-success"
-                                      (click)="addRepresentanteVentas()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="addRepresentanteVentas(content_sales_representant)" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-plus-square"></i>&nbsp;Agregar Representante de Ventas
                                   </button>
                                 </th>
@@ -1791,7 +1791,7 @@
                               <thead>
                                 <th colspan="5">
                                   <button type="button" title="Agregar Guía de Turismo" class="btn btn-success"
-                                      (click)="addGuiaTurismo()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="addGuiaTurismo(content_turistic_guide)" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-plus-square"></i>&nbsp;Agregar Guía de Turismo
                                   </button>
                                 </th>
@@ -1862,7 +1862,7 @@
                               <thead>
                                 <th colspan="7">
                                   <button type="button" title="Agregar Compañía de Transporte" class="btn btn-success"
-                                      (click)="addCompaniaTransporte()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="addCompaniaTransporte(content_turistic_transport)" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-plus-square"></i>&nbsp;Agregar Compañía de Transporte Turístico
                                   </button>
                                 </th>
@@ -4976,7 +4976,7 @@
                               <thead>
                                 <th colspan="5">
                                   <button type="button" title="Agregar Representante de Ventas" class="btn btn-success"
-                                      (click)="addRepresentanteVentas()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="addRepresentanteVentas(content_sales_representant)" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-plus-square"></i>&nbsp;Agregar Representante de Ventas
                                   </button>
                                 </th>
@@ -5039,7 +5039,7 @@
                               <thead>
                                 <th colspan="5">
                                   <button type="button" title="Agregar Guía de Turismo" class="btn btn-success"
-                                      (click)="addGuiaTurismo()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="addGuiaTurismo(content_turistic_guide)" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-plus-square"></i>&nbsp;Agregar Guía de Turismo
                                   </button>
                                 </th>
@@ -5110,7 +5110,7 @@
                               <thead>
                                 <th colspan="7">
                                   <button type="button" title="Agregar Compañía de Transporte" class="btn btn-success"
-                                      (click)="addCompaniaTransporte()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                                      (click)="addCompaniaTransporte(content_turistic_transport)" [disabled]="!rucEstablishmentRegisterSelected.editable">
                                       <i class="fas fa-plus-square"></i>&nbsp;Agregar Compañía de Transporte Turístico
                                   </button>
                                 </th>
@@ -5570,6 +5570,44 @@
     <div class="row">
       <div class="col-12 text-justify" [innerHTML]="statusSelected.justification"></div>
     </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #content_sales_representant let-modal>
+  <div class="modal-header">
+    <h3>Representante de Ventas</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12 text-justify" [innerHTML]="statusSelected.justification"></div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #content_turistic_guide let-modal>
+  <div class="modal-header">
+    <h3>Guía de Turismo</h3>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<ng-template #content_turistic_transport let-modal>
+  <div class="modal-header">
+    <h3>Compañía de Transporte Turístico</h3>
+  </div>
+  <div class="modal-body">
+    
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>

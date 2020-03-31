@@ -509,15 +509,15 @@ export class DashboardComponent implements OnInit {
    this.getTramiteStates();
   }
 
-  addGuiaTurismo() {
-   
+  addGuiaTurismo(modal) {
+
   }
   
-  addRepresentanteVentas() {
+  addRepresentanteVentas(modal) {
 
   }
 
-  addCompaniaTransporte() {
+  addCompaniaTransporte(modal) {
 
   }
 
