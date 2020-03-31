@@ -4740,10 +4740,13 @@ guardarDeclaracion() {
    this.provinciasGuide = [];
    this.ubications.forEach(ubication => {
       if (code == '1') {
-         //AQUI
-         this.provinciasGuide.push(ubication);
+         if (ubication.code !== '0820') {
+            this.provinciasGuide.push(ubication);
+         }
       } else {
-         this.provinciasGuide.push(ubication);
+         if (ubication.code == '0820') {
+            this.provinciasGuide.push(ubication);
+         }
       }
    });
   }
