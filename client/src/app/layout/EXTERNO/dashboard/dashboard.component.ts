@@ -4729,9 +4729,6 @@ guardarDeclaracion() {
             }
             return 0;
          });
-         console.log(zonal);
-         console.log(this.ubications);
-         console.log(this.provinciasEstablishment);
       });
    }).catch( e => { console.log(e) });
   }
