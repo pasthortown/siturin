@@ -2416,6 +2416,7 @@ export class DashboardComponent implements OnInit {
    this.ubications = [];
    this.ubicationDataService.get().then( r => {
       this.ubications = r as Ubication[];
+      this.getZonalesEstablishment();
    }).catch( e => { console.log(e); });
   }
 
@@ -2749,7 +2750,6 @@ export class DashboardComponent implements OnInit {
    this.getTariffs();
    this.getStates();
    this.getRucNameTypes();
-   this.getZonalesEstablishment();
    this.getEstablishmentPropertyType();
    this.getLanguage();
    this.getPays();
@@ -4713,7 +4713,6 @@ guardarDeclaracion() {
    this.ubicationDataService.get_filtered('-').then( zonales => {
       this.zonalesEstablishment = zonales as Ubication[];
       zonales.forEach(zonal => {
-         console.log(zonal);
          this.ubications.forEach(ubication => {
             if (ubication.father_code == zonal.code) {
                this.provinciasEstablishment.push(ubication);
