@@ -4717,17 +4717,17 @@ guardarDeclaracion() {
             if (ubication.father_code == zonal.code) {
                this.provinciasEstablishment.push(ubication);
             }
-            this.provinciasEstablishment.sort(function(a, b) {
-               const nameA = a.name.toLowerCase().trim();
-               const nameB = b.name.toLowerCase().trim();
-               if (nameA < nameB) {
-                  return -1;
-               }
-               if (nameA > nameB) {
-                  return 1;
-               }
-               return 0;
-            });
+         });
+         this.provinciasEstablishment.sort(function(a, b) {
+            const nameA = a.name.toLowerCase().trim();
+            const nameB = b.name.toLowerCase().trim();
+            if (nameA < nameB) {
+               return -1;
+            }
+            if (nameA > nameB) {
+               return 1;
+            }
+            return 0;
          });
       });
    }).catch( e => { console.log(e) });
@@ -4817,6 +4817,15 @@ guardarDeclaracion() {
    this.ubications.forEach(ubication => {
       if (ubication.father_code == this.cantonEstablishmentSelectedCode) {
          this.parroquiasEstablishment.push(ubication);
+      }
+   });
+  }
+
+  getParroquiasGuide(code) {
+   this.parroquiasGuide = [];
+   this.ubications.forEach(ubication => {
+      if (ubication.father_code == code) {
+         this.parroquiasGuide.push(ubication);
       }
    });
   }

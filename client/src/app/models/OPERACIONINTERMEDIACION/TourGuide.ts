@@ -10,7 +10,6 @@ export class TourGuide {
    ambitoAplicacion: String;
    provincia: String;
    canton: String;
-   parroquia: String;
    clasificacion: String;
    constructor() {
       this.id = 0;
@@ -23,7 +22,6 @@ export class TourGuide {
       this.ambitoAplicacion = '';
       this.provincia = '';
       this.canton = '';
-      this.parroquia = '';
       this.clasificacion = '';
    }
 }

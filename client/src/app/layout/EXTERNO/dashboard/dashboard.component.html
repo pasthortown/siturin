@@ -5777,7 +5777,7 @@
           <label for="exampleInputPassword1">Cantón</label>
           <input type="text" class="form-control" id="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton">
           <select class="form-control" id="cantonTuristicGuide" name="cantonTuristicGuide"
-            [(ngModel)]="newTuristicGuide.canton" (change)="getParroquiasEstablishment()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            [(ngModel)]="newTuristicGuide.canton" (change)="getParroquiasGuide(newTuristicGuide.canton)" [disabled]="!rucEstablishmentRegisterSelected.editable">
             <option value="-" selected>Seleccione...</option>
             <option *ngFor="let canton of cantonesGuide" value="{{ canton.code }}">
               {{ canton.name }}
@@ -5789,7 +5789,7 @@
         <div class="form-group">
           <label for="exampleInputPassword1">Parroquia</label>
           <select class="form-control" id="parroquiaTuristicGuide"
-            name="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.parroquia" [disabled]="!rucEstablishmentRegisterSelected.editable">
+            name="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.ubication_id" [disabled]="!rucEstablishmentRegisterSelected.editable">
             <option value="0" selected>Seleccione...</option>
             <option *ngFor="
                 let parroquia of parroquiasGuide
