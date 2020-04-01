@@ -4559,6 +4559,10 @@ guardarDeclaracion() {
    }
   }
 
+  showRegisterOPInfo() {
+
+  }
+  
   showRegisterABInfo() {
    const today = new Date();
    if (this.categorySelectedCode !== '-' && !this.reclasificando) {
