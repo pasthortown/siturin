@@ -43,6 +43,7 @@ import { UserService } from 'src/app/services/profile/user.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 import { RequisiteService as RequisiteABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { RequisiteService as RequisiteOPService} from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
 import { CapacityType } from 'src/app/models/ALOJAMIENTO/CapacityType';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
 import { TariffTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/tarifftype.service';
@@ -87,6 +88,7 @@ import { ComplementaryServiceType } from 'src/app/models/ALOJAMIENTO/Complementa
 import { ComplementaryServiceTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicetype.service';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { RegisterRequisite as RegisterABRequisite } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterRequisite';
+import { RegisterRequisite as RegisterOPRequisite } from 'src/app/models/OPERACIONINTERMEDIACION/RegisterRequisite';
 import { SystemName } from 'src/app/models/BASE/SystemName';
 import { WorkerGroup } from 'src/app/models/BASE/WorkerGroup';
 import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
@@ -490,6 +492,7 @@ export class DashboardComponent implements OnInit {
               private rucDataService: RucService,
               private capacityTypeABDataService: CapacityTypeABService,
               private requisiteABDataService: RequisiteABService,
+              private requisiteOPDataService: RequisiteOPService,
               private approvalStateAttachmentDataService: ApprovalStateAttachmentService,
               private modalService: NgbModal,
               private agreementDataService: AgreementService,
@@ -4549,6 +4552,10 @@ guardarDeclaracion() {
             this.rucEstablishmentRegisterSelected.register_type_id = this.categories_registers[0].id;
          }
       }).catch( e => { console.log(e) });   
+      this.rucEstablishmentRegisterSelected.requisites = [];
+      this.getRequisitesOPByRegisterType();
+      this.rucEstablishmentRegisterSelected.editable = true;
+      this.showRegisterOPInfo();
    }
   }
 
@@ -4667,6 +4674,63 @@ guardarDeclaracion() {
    this.capacityTypeABDataService.get().then( r => {
       this.capacityTypesAB = r as any[];
    }).catch( e => { console.log(e); });
+  }
+
+  getRequisitesOPByRegisterType(requisites?: RegisterOPRequisite[]) {
+   this.rucEstablishmentRegisterSelected.requisites = [];
+   //AQUI
+   let classificationID = 0;
+   this.clasifications_registers.forEach(element => {
+      if (element.code == this.categorySelectedCode) {
+         classificationID = element.id
+      }
+   });
+   this.requisiteOPDataService.get_filtered(classificationID).then( r => {
+      // this.requisitesByRegisterType = r as any[];
+      // this.requisitesByRegisterType.forEach(element => {
+      //    const newRegisterRequisite = new RegisterABRequisite();
+      //    newRegisterRequisite.to_approve = element.to_approve;
+      //    newRegisterRequisite.score = element.score;
+      //    newRegisterRequisite.requisite_name = element.name;
+      //    newRegisterRequisite.requisite_id = element.id;
+      //    newRegisterRequisite.fullfill = true;
+      //    newRegisterRequisite.requisite_code = element.code;
+      //    newRegisterRequisite.mandatory = element.mandatory;
+      //    newRegisterRequisite.id = element.id;
+      //    newRegisterRequisite.requisite_father_code = element.father_code;
+      //    newRegisterRequisite.level = element.code.split('.').length;
+      //    newRegisterRequisite.HTMLtype = element.type;
+      //    newRegisterRequisite.fullfill = false;
+      //    if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+      //       newRegisterRequisite.value = '0';
+      //    }
+      //    if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+      //       newRegisterRequisite.value = '0';
+      //    }
+      //    if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+      //       newRegisterRequisite.value = 'false';
+      //    }
+      //    this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
+      // });
+      this.showRequisites = true;
+      // if (typeof requisites !== 'undefined') {
+      //    this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
+      //       requisites.forEach(requisite_incomming => {
+      //          if (requisite.requisite_id == requisite_incomming.requisite_id) {
+      //             requisite.value = requisite_incomming.value;
+      //             requisite.fullfill = requisite_incomming.fullfill;
+      //             requisite.id = requisite_incomming.id;
+      //             requisite.register_id = requisite_incomming.register_id;
+      //          }
+      //       });
+      //    });
+      // }
+     this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
+         const a_id = a.requisite_id;
+         const b_id = b.requisite_id;
+         return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+     });
+   }).catch( e => { console.log(e) });
   }
 
   getRequisitesABByRegisterType(requisites?: RegisterABRequisite[]) {

@@ -74,6 +74,7 @@ import { TransportTypeService } from './../../../services/CRUD/OPERACIONINTERMED
 import { GuideTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 
 import { RegisterTypeService as RegisterTypeOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
+import { RequisiteService as RequisiteOPService} from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -95,6 +96,7 @@ import { RegisterTypeService as RegisterTypeOPService } from 'src/app/services/C
     AgreementService,
     ActivityTransportTypeService,
     TransportTypeService,
+    RequisiteOPService,
     GuideTypeService,
     ApprovalStateService,
     ProcedureJustificationService,

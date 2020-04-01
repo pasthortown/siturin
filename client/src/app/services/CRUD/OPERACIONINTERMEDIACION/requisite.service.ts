@@ -37,6 +37,13 @@ export class RequisiteService {
       }).catch( error => { this.handledError(error.json());  });
    }
 
+   get_filtered(filter: number): Promise<any> {
+      return this.http.get(this.url + 'filtered?filter=' + filter.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+   
    delete(id: number): Promise<any> {
       return this.http.delete(this.url + '?id=' + id.toString(), this.options).toPromise()
       .then( r => {
