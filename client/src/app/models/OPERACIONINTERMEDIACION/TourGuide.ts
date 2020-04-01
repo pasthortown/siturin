@@ -19,9 +19,9 @@ export class TourGuide {
       this.credential_date = new Date();
       this.ubication_id = 0;
       this.guide_type_id = 0;
-      this.ambitoAplicacion = '';
-      this.provincia = '';
-      this.canton = '';
+      this.ambitoAplicacion = '-';
+      this.provincia = '-';
+      this.canton = '-';
       this.clasificacion = '';
    }
 }
