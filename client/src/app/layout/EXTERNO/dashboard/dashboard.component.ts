@@ -5096,7 +5096,6 @@ guardarDeclaracion() {
          let datosRL = '';
          let datosAE = '';
          let datosContactoSRI = '';
-         let mostrarRL = false;
          itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
             if (entidad.nombre == 'Actividad Economica') {
                const AE = entidad.filas.fila.columnas.columna;
@@ -5125,19 +5124,6 @@ guardarDeclaracion() {
                   }
                });
             }
-            if (entidad.nombre == 'Representante Legal') {
-               const RL = entidad.filas.fila.columnas.columna;
-               RL.forEach(element => {
-                  if (element.campo == 'identificacion') {
-                     datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
-                     mostrarRL = true;
-                  }
-                  if (element.campo == 'nombre') {
-                     datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
-                     mostrarRL = true;
-                  }
-               });
-            }
          });
          itemsDetalles_SRI_RUC.forEach(element => {
             if (element.campo == 'estadoContribuyente') {
@@ -5147,9 +5133,6 @@ guardarDeclaracion() {
                datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
             }
             this.rucDataSalesRepresentative = datosGenerales + datosAE + datosContactoSRI;
-            if (mostrarRL) {
-               this.rucDataSalesRepresentative += datosRL;
-            }
          });
       }).catch( e => {
          console.log(e);
@@ -5188,7 +5171,6 @@ guardarDeclaracion() {
          let datosRL = '';
          let datosAE = '';
          let datosContactoSRI = '';
-         let mostrarRL = false;
          itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
             if (entidad.nombre == 'Actividad Economica') {
                const AE = entidad.filas.fila.columnas.columna;
@@ -5217,19 +5199,6 @@ guardarDeclaracion() {
                   }
                });
             }
-            if (entidad.nombre == 'Representante Legal') {
-               const RL = entidad.filas.fila.columnas.columna;
-               RL.forEach(element => {
-                  if (element.campo == 'identificacion') {
-                     datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
-                     mostrarRL = true;
-                  }
-                  if (element.campo == 'nombre') {
-                     datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
-                     mostrarRL = true;
-                  }
-               });
-            }
          });
          itemsDetalles_SRI_RUC.forEach(element => {
             if (element.campo == 'estadoContribuyente') {
@@ -5239,9 +5208,6 @@ guardarDeclaracion() {
                datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
             }
             this.rucDataTuristicTransport = datosGenerales + datosAE + datosContactoSRI;
-            if (mostrarRL) {
-               this.rucDataTuristicTransport += datosRL;
-            }
          });
       }).catch( e => {
          console.log(e);

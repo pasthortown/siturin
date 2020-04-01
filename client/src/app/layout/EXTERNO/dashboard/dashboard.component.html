@@ -5955,7 +5955,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Guardar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="newTuristicTransport.transport_type_id == 0 || newTuristicTransport.activity_transport_type_id == 0">Guardar</button>
     <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>
