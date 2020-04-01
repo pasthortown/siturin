@@ -5753,7 +5753,7 @@
       <div class="col-12">
         <div class="form-group">
           <label for="exampleInputPassword1">Identificación</label>
-          <input type="text" maxlength="13" (input)="checkIdentificacionGuia()" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+          <input type="text" maxlength="13" (keyup)="checkIdentificacionGuia()" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
         </div>
       </div>
     </div>
@@ -5769,7 +5769,16 @@
       <div class="col-12">
         <div class="form-group">
           <label for="exampleInputPassword1">Clasificación</label>
-          <input type="text" disabled class="form-control" id="classificationTuristicGuide" [(ngModel)]="newTuristicGuide.clasificacion">
+          <select class="form-control" id="classificationTuristicGuide"
+            name="classificationTuristicGuide" [(ngModel)]="newTuristicGuide.clasificacion"
+            disabled>
+            <option value="0" selected>Seleccione...</option>
+            <option *ngFor="
+                let turistic_classification of turistic_classifications
+              " value="{{ turistic_classification.id }}">
+              {{ turistic_classification.name }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -5864,21 +5873,89 @@
     <div class="row">
       <div class="col-12">
         <div class="form-group">
-          <label for="exampleInputPassword1">RUC</label>
-          <input type="text" class="form-control" (input)="checkRucTuristicTransport()" id="rucTuristicTransport" maxlength="13" [(ngModel)]="newTuristicTransport.ruc">
+          <label>Número de RUC</label><span *ngIf="!rucValidatedTuristicTransport"
+            class="ml-2 badge badge-danger">Incorrecto</span>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRucTuristicTransport()">
+                <i class="fas fa-sync"></i>
+              </button>
+            </div>
+            <input type="text" class="form-control" id="ruc" maxlength="13"
+              placeholder="Número de RUC" [(ngModel)]="newTuristicTransport.ruc" (keyup)="checkRucTuristicTransport()"
+              name="ruc" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+          <label class="col-12 text-justify"><strong>Atención</strong></label><br />
+          La información presentada a continuación es proporcionada por el Servicio de Rentas Internas, esta sección tiene carácter informativo, por favor si desea
+          actualizarla debe realizar el trámite en la entidad correspondiente<br/>
+          <a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="rucValidatedTuristicTransport">
+        <div class="form-group">
+          <label>DATOS DEL SRI</label>
+          <div class="col-12 text-justify" [innerHTML]="rucDataTuristicTransport">
+          </div>
         </div>
       </div>
     </div>
-    1. RUC
-2. Razón Social
-3. Nombre Comercial
-4. Tipo de Contribuyente
-5. Número de Registro
-6. Fecha de Registro
-7. Tipo de Actividad
-8. Categoría
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Número de Registro</label>
+          <input type="text" class="form-control" disabled id="register_codeTuristicTransport" [(ngModel)]="newTuristicTransport.register_code">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Fecha de Registro</label>
+          <input type="date" disabled class="form-control" id="register_dateTuristicTransport" [ngModel]="newTuristicTransport.register_date | date: 'y-MM-dd'" (ngModelChange)="newTuristicTransport.register_date = $event">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Tipo de Actividad</label>
+          <select class="form-control" id="activity_transport_type_idTuristicTransport"
+            name="activity_transport_type_idTuristicTransport" [(ngModel)]="newTuristicTransport.activity_transport_type_id"
+            disabled>
+            <option value="0" selected>Seleccione...</option>
+            <option *ngFor="
+                let activity_transport_type of activity_transport_types
+              " value="{{ activity_transport_type.id }}">
+              {{ activity_transport_type.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Categoría</label>
+          <select class="form-control" id="transport_type_idTuristicTransport"
+            name="transport_type_idTuristicTransport" [(ngModel)]="newTuristicTransport.transport_type_id"
+            disabled>
+            <option value="0" selected>Seleccione...</option>
+            <option *ngFor="
+                let transport_type of transport_types
+              " value="{{ transport_type.id }}">
+              {{ transport_type.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Cerrar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')">Guardar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>

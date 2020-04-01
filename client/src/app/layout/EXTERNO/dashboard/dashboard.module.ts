@@ -69,7 +69,9 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
 import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
-import { Agreement } from 'src/app/models/BASE/Agreement';
+import { ActivityTransportTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
+import { TransportTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
+import { GuideTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 
 import { RegisterTypeService as RegisterTypeOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 
@@ -91,6 +93,9 @@ import { RegisterTypeService as RegisterTypeOPService } from 'src/app/services/C
     DinardapService,
     DeclarationItemService,
     AgreementService,
+    ActivityTransportTypeService,
+    TransportTypeService,
+    GuideTypeService,
     ApprovalStateService,
     ProcedureJustificationService,
     RegisterProcedureABService,

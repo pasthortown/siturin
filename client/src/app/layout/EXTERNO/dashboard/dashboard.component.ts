@@ -1,3 +1,9 @@
+import { ActivityTransportTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
+import { TransportTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
+import { GuideTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+import { ActivityTransportType } from './../../../models/OPERACIONINTERMEDIACION/ActivityTransportType';
+import { TransportType } from './../../../models/OPERACIONINTERMEDIACION/TransportType';
+import { GuideType } from './../../../models/OPERACIONINTERMEDIACION/GuideType';
 import { TuristicTransport } from './../../../models/OPERACIONINTERMEDIACION/TuristicTransport';
 import { TourGuide } from './../../../models/OPERACIONINTERMEDIACION/TourGuide';
 import { SalesRepresentative } from './../../../models/OPERACIONINTERMEDIACION/SalesRepresentative';
@@ -406,10 +412,12 @@ export class DashboardComponent implements OnInit {
   continuarTarifarioRack = false;
   consumoCedulaEstablishmentContact = false;
   consumoRuc = false;
-  consumoRucSalesRepresentative = false
+  consumoRucSalesRepresentative = false;
+  consumoRucTuristicTransport = false;
   consumoCedulaRepresentanteLegal = false;
   SRIOK = false;
   SRIOKSalesRepresentative = false;
+  SRIOKTuristicTransport = false;
   categoryAB = 'Pendiente';
   totalPointsAviable = 0;
   REGCIVILOK = false;
@@ -440,6 +448,7 @@ export class DashboardComponent implements OnInit {
   companiaTransporteSwitch = false;
   guiaTurismoSwitch = false;
   rucValidatedSalesRepresentative = false;
+  rucValidatedTuristicTransport = false;
   newRepresentanteVentas: SalesRepresentative = new SalesRepresentative();
   newTuristicGuide: TourGuide = new TourGuide();
   newTuristicTransport: TuristicTransport = new TuristicTransport();
@@ -447,11 +456,18 @@ export class DashboardComponent implements OnInit {
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
   rucDataSalesRepresentative = 'CONECTÁNDOSE AL SRI...';
+  rucDataTuristicTransport = 'CONECTÁNDOSE AL SRI...';
   provinciasGuide: Ubication[] = [];
   cantonesGuide: Ubication[] = [];
   parroquiasGuide: Ubication[] = [];
-  
+  turistic_classifications: GuideType[] = [];
+  transport_types: TransportType[] = [];
+  activity_transport_types: ActivityTransportType[] = [];
+
   constructor(private toastr: ToastrManager,
+              private guideTypeDataService: GuideTypeService,
+              private transportTypeDataService: TransportTypeService,
+              private activityTransportTypeDataService: ActivityTransportTypeService,
               private receptionRoomDataService: ReceptionRoomService,
               private catastroRegisterDataService: CatastroRegisterService,
               private payDataService: PayService,
@@ -2766,6 +2782,9 @@ export class DashboardComponent implements OnInit {
    this.fechasNombramiento();
    this.getRegisterTypesAB();
    this.getRegisterTypesOP();
+   this.getTransportTypes();
+   this.getActivityTransportTypes();
+   this.getGuideTypes();
    this.pays = [];
    this.consumoCedula = false;
    this.consumoCedulaEstablishmentContact = false;
@@ -2815,6 +2834,25 @@ export class DashboardComponent implements OnInit {
   getDeclarationCategories() {
    this.declarationItemCategoryDataService.get().then( r => {
      this.declarationItemsCategories = r as DeclarationItemCategory[];
+   }).catch( e => { console.log(e); });
+  }
+
+  getTransportTypes() {
+   this.transportTypeDataService.get().then( r => {
+      this.transport_types = r as TransportType[];
+   }).catch( e => { console.log(e); });
+  }
+
+  getActivityTransportTypes() {
+   this.activityTransportTypeDataService.get().then( r => {
+      this.activity_transport_types = r as ActivityTransportType[];
+   }).catch( e => { console.log(e); });
+  }
+
+  getGuideTypes() {
+   this.guideTypeDataService.get().then( r => {
+      this.turistic_classifications = r as GuideType[];
+      
    }).catch( e => { console.log(e); });
   }
 
@@ -5035,7 +5073,7 @@ guardarDeclaracion() {
   }
 
   checkRucSalesRepresentative() {
-   if (this.consumoRucSalesRepresentative && this.SRIOKSalesRepresentative) {
+    if (this.consumoRucSalesRepresentative && this.SRIOKSalesRepresentative) {
       return;
     }
     this.rucDataSalesRepresentative = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
@@ -5127,7 +5165,91 @@ guardarDeclaracion() {
   }
 
   checkRucTuristicTransport() {
-   this.newTuristicTransport.ruc = this.newTuristicTransport.ruc.replace(/[^\d]/, '');
+   if (this.consumoRucTuristicTransport && this.SRIOKTuristicTransport) {
+      return;
+    }
+    this.rucDataTuristicTransport = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
+    this.newTuristicTransport.ruc = this.newTuristicTransport.ruc.replace(/[^\d]/, '');
+    if (this.newTuristicTransport.ruc.length !== 13) {
+      this.rucValidatedTuristicTransport = false;
+      this.consumoRucTuristicTransport = false;
+      return;
+    }
+    if (!this.consumoRucTuristicTransport) {
+      this.consumoRucTuristicTransport = true;
+      this.rucValidatedTuristicTransport = true;
+      this.dinardapDataService.get_RUC(this.newTuristicTransport.ruc).then( r => {
+         this.SRIOKTuristicTransport = true; 
+         this.rucValidatedTuristicTransport = true;
+         const itemsDetalles_SRI_RUC = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;
+         const itemsDetalles_SRI_RUC_COMPLETO = r.sri_ruc_completo.original.entidades.entidad;
+         this.rucDataTuristicTransport = '';
+         let datosGenerales = '';
+         let datosRL = '';
+         let datosAE = '';
+         let datosContactoSRI = '';
+         let mostrarRL = false;
+         itemsDetalles_SRI_RUC_COMPLETO.forEach(entidad => {
+            if (entidad.nombre == 'Actividad Economica') {
+               const AE = entidad.filas.fila.columnas.columna;
+               AE.forEach(element => {
+                  if (element.campo == 'actividadGeneral') {
+                     datosAE += '<strong>Actividad Económica: </strong> ' + element.valor + '<br/>';
+                  }
+               });
+            }
+            if (entidad.nombre == 'Contribuyente Datos Completo') {
+               const DC = entidad.filas.fila.columnas.columna;
+               DC.forEach(element => {
+                  if (element.campo == 'razonSocial') {
+                   this.newTuristicTransport.social_name = element.valor;
+                     datosGenerales += '<strong>Razón Social: </strong> ' + element.valor + '<br/>';
+                  }
+                  if (element.campo == 'email') {
+                     if (JSON.stringify(element.valor) !== '{}') {
+                        datosContactoSRI += '<strong>Correo Electrónico - Registrado en SRI: </strong> ' + element.valor + '<br/>';
+                     }
+                  }
+                  if (element.campo == 'telefonoDomicilio') {
+                     if (JSON.stringify(element.valor) !== '{}') {
+                        datosContactoSRI += '<strong>Teléfono Domicilio - Registrado en SRI: </strong> ' + element.valor + '<br/>';
+                     }
+                  }
+               });
+            }
+            if (entidad.nombre == 'Representante Legal') {
+               const RL = entidad.filas.fila.columnas.columna;
+               RL.forEach(element => {
+                  if (element.campo == 'identificacion') {
+                     datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
+                     mostrarRL = true;
+                  }
+                  if (element.campo == 'nombre') {
+                     datosRL += '<strong>Nombre Representante Legal: </strong> ' + element.valor + '<br/>';
+                     mostrarRL = true;
+                  }
+               });
+            }
+         });
+         itemsDetalles_SRI_RUC.forEach(element => {
+            if (element.campo == 'estadoContribuyente') {
+               datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
+            }
+            if (element.campo == 'personaSociedad') {
+               datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
+            }
+            this.rucDataTuristicTransport = datosGenerales + datosAE + datosContactoSRI;
+            if (mostrarRL) {
+               this.rucDataTuristicTransport += datosRL;
+            }
+         });
+      }).catch( e => {
+         console.log(e);
+         this.rucDataTuristicTransport = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
+         this.consumoRucTuristicTransport = false;
+         this.SRIOKTuristicTransport = false;
+      });
+   }
   }
 
   
