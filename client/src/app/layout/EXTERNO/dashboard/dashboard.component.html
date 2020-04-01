@@ -5753,7 +5753,7 @@
       <div class="col-12">
         <div class="form-group">
           <label for="exampleInputPassword1">Identificación</label>
-          <input type="text" maxlength="13" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+          <input type="text" maxlength="13" (input)="checkIdentificacionGuia()" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
         </div>
       </div>
     </div>
@@ -5865,7 +5865,7 @@
       <div class="col-12">
         <div class="form-group">
           <label for="exampleInputPassword1">RUC</label>
-          <input type="text" class="form-control" id="rucTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+          <input type="text" class="form-control" (input)="checkRucTuristicTransport()" id="rucTuristicTransport" maxlength="13" [(ngModel)]="newTuristicTransport.ruc">
         </div>
       </div>
     </div>

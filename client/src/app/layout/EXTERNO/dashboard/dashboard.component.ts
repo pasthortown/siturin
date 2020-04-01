@@ -1,3 +1,4 @@
+import { TuristicTransport } from './../../../models/OPERACIONINTERMEDIACION/TuristicTransport';
 import { TourGuide } from './../../../models/OPERACIONINTERMEDIACION/TourGuide';
 import { SalesRepresentative } from './../../../models/OPERACIONINTERMEDIACION/SalesRepresentative';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
@@ -441,6 +442,7 @@ export class DashboardComponent implements OnInit {
   rucValidatedSalesRepresentative = false;
   newRepresentanteVentas: SalesRepresentative = new SalesRepresentative();
   newTuristicGuide: TourGuide = new TourGuide();
+  newTuristicTransport: TuristicTransport = new TuristicTransport();
   activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
@@ -592,7 +594,9 @@ export class DashboardComponent implements OnInit {
   }
 
   addCompaniaTransporte(content) {
+   this.newTuristicTransport = new TuristicTransport();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+      //aqui
    }), ( r => {}));
   }
 
@@ -5118,6 +5122,15 @@ guardarDeclaracion() {
    }
   }
 
+  checkIdentificacionGuia() {
+   this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
+  }
+
+  checkRucTuristicTransport() {
+   this.newTuristicTransport.ruc = this.newTuristicTransport.ruc.replace(/[^\d]/, '');
+  }
+
+  
   checkRuc() {
    if (this.consumoRuc && this.SRIOK) {
      return;
