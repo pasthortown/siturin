@@ -4555,12 +4555,7 @@ guardarDeclaracion() {
       this.rucEstablishmentRegisterSelected.requisites = [];
       this.getRequisitesOPByRegisterType();
       this.rucEstablishmentRegisterSelected.editable = true;
-      this.showRegisterOPInfo();
    }
-  }
-
-  showRegisterOPInfo() {
-
   }
 
   showRegisterABInfo() {
@@ -4682,7 +4677,6 @@ guardarDeclaracion() {
 
   getRequisitesOPByRegisterType(requisites?: RegisterOPRequisite[]) {
    this.rucEstablishmentRegisterSelected.requisites = [];
-   //AQUI
    let classificationID = 0;
    this.clasifications_registers.forEach(element => {
       if (element.code == this.categorySelectedCode) {
@@ -4690,51 +4684,48 @@ guardarDeclaracion() {
       }
    });
    this.requisiteOPDataService.get_filtered(classificationID).then( r => {
-      console.log(r);
-      // this.requisitesByRegisterType = r as any[];
-      // this.requisitesByRegisterType.forEach(element => {
-      //    const newRegisterRequisite = new RegisterABRequisite();
-      //    newRegisterRequisite.to_approve = element.to_approve;
-      //    newRegisterRequisite.score = element.score;
-      //    newRegisterRequisite.requisite_name = element.name;
-      //    newRegisterRequisite.requisite_id = element.id;
-      //    newRegisterRequisite.fullfill = true;
-      //    newRegisterRequisite.requisite_code = element.code;
-      //    newRegisterRequisite.mandatory = element.mandatory;
-      //    newRegisterRequisite.id = element.id;
-      //    newRegisterRequisite.requisite_father_code = element.father_code;
-      //    newRegisterRequisite.level = element.code.split('.').length;
-      //    newRegisterRequisite.HTMLtype = element.type;
-      //    newRegisterRequisite.fullfill = false;
-      //    if (newRegisterRequisite.HTMLtype == 'YES / NO') {
-      //       newRegisterRequisite.value = '0';
-      //    }
-      //    if (newRegisterRequisite.HTMLtype == 'NUMBER') {
-      //       newRegisterRequisite.value = '0';
-      //    }
-      //    if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
-      //       newRegisterRequisite.value = 'false';
-      //    }
-      //    this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
-      // });
+      this.requisitesByRegisterType = r as any[];
+      this.requisitesByRegisterType.forEach(element => {
+         const newRegisterRequisite = new RegisterOPRequisite();
+         newRegisterRequisite.requisite_name = element.name;
+         newRegisterRequisite.requisite_id = element.id;
+         newRegisterRequisite.fullfill = true;
+         newRegisterRequisite.requisite_code = element.code;
+         newRegisterRequisite.mandatory = element.mandatory;
+         newRegisterRequisite.requisite_father_code = element.father_code;
+         newRegisterRequisite.level = element.code.split('.').length;
+         newRegisterRequisite.HTMLtype = element.type;
+         newRegisterRequisite.id = element.id;
+         newRegisterRequisite.fullfill = false;
+         if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+            newRegisterRequisite.value = '0';
+         }
+         if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+            newRegisterRequisite.value = 'false';
+         }
+         this.rucEstablishmentRegisterSelected.requisites.push(newRegisterRequisite);
+      });
       this.showRequisites = true;
-      // if (typeof requisites !== 'undefined') {
-      //    this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
-      //       requisites.forEach(requisite_incomming => {
-      //          if (requisite.requisite_id == requisite_incomming.requisite_id) {
-      //             requisite.value = requisite_incomming.value;
-      //             requisite.fullfill = requisite_incomming.fullfill;
-      //             requisite.id = requisite_incomming.id;
-      //             requisite.register_id = requisite_incomming.register_id;
-      //          }
-      //       });
-      //    });
-      // }
-     this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
+      if (typeof requisites !== 'undefined') {
+         this.rucEstablishmentRegisterSelected.requisites.forEach(requisite => {
+            requisites.forEach(requisite_incomming => {
+               if (requisite.requisite_id == requisite_incomming.requisite_id) {
+                  requisite.value = requisite_incomming.value;
+                  requisite.fullfill = requisite_incomming.fullfill;
+                  requisite.id = requisite_incomming.id;
+                  requisite.register_id = requisite_incomming.register_id;
+               }
+            });
+         });
+      }
+      this.rucEstablishmentRegisterSelected.requisites.sort(function(a, b) {
          const a_id = a.requisite_id;
          const b_id = b.requisite_id;
          return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
-     });
+      });
    }).catch( e => { console.log(e) });
   }
 
