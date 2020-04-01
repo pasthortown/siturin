@@ -202,7 +202,7 @@
   </div>
 </div>
 <div class="col-12 text-center mb-3" *ngIf="!(registerApprovalFinanciero.notes.search('Devuelto: ') == 0) && (registerApprovalFinanciero.notes != '') && (digito == '0')">
-  <input type="checkbox" name="devolverFinanciero" id="devolverFinanciero" [(ngModel)]="rechazarTramiteFinanciero" (change)="rechazarCheckFinanciero()"> Rechazar y devolver traḿite
+  <input type="checkbox" name="devolverFinanciero" id="devolverFinanciero" [(ngModel)]="rechazarTramiteFinanciero"> Rechazar y devolver traḿite
 </div>
 <div class="col-12 mt-5 mb-2" *ngIf="rechazarTramiteFinanciero">
   <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
