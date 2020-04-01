@@ -4562,7 +4562,7 @@ guardarDeclaracion() {
   showRegisterOPInfo() {
 
   }
-  
+
   showRegisterABInfo() {
    const today = new Date();
    if (this.categorySelectedCode !== '-' && !this.reclasificando) {
@@ -4690,6 +4690,7 @@ guardarDeclaracion() {
       }
    });
    this.requisiteOPDataService.get_filtered(classificationID).then( r => {
+      console.log(r);
       // this.requisitesByRegisterType = r as any[];
       // this.requisitesByRegisterType.forEach(element => {
       //    const newRegisterRequisite = new RegisterABRequisite();
