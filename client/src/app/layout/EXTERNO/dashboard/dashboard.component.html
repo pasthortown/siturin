@@ -1918,12 +1918,12 @@
                                       <div class="btn-group mr-2" role="group">
                                         <button
                                           [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                          type="button" title="Editar" class="btn btn-warning">
-                                          <i class="fas fa-edit"></i>
+                                          type="button" title="Editar" class="btn btn-warning" (click)="editCompaniaTransporte(content_turistic_transport, transport_company)">
+                                          <i class="fas fa-edit" ></i>
                                         </button>
                                         <button
                                           [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                          type="button" title="Eliminar" class="btn btn-danger">
+                                          type="button" title="Eliminar" class="btn btn-danger" (click)="deleteCompaniaTransporte(transport_company)">
                                           <i class="fas fa-trash"></i>
                                         </button>
                                       </div>
@@ -5202,12 +5202,12 @@
                                       <div class="btn-group mr-2" role="group">
                                         <button
                                           [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                          type="button" title="Editar" class="btn btn-warning">
-                                          <i class="fas fa-edit"></i>
+                                          type="button" title="Editar" class="btn btn-warning" (click)="editCompaniaTransporte(content_turistic_transport, transport_company)">
+                                          <i class="fas fa-edit" ></i>
                                         </button>
                                         <button
                                           [disabled]="!rucEstablishmentRegisterSelected.editable"
-                                          type="button" title="Eliminar" class="btn btn-danger">
+                                          type="button" title="Eliminar" class="btn btn-danger" (click)="deleteCompaniaTransporte(transport_company)">
                                           <i class="fas fa-trash"></i>
                                         </button>
                                       </div>

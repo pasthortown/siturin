@@ -612,8 +612,35 @@ export class DashboardComponent implements OnInit {
   addCompaniaTransporte(content) {
    this.newTuristicTransport = new TuristicTransport();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
-      //aqui
+      this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
+      this.rucEstablishmentRegisterSelected.transport_companies.push(this.newTuristicTransport);
    }), ( r => {}));
+  }
+
+  editCompaniaTransporte(content, transport_company) {
+   let initialData = transport_company;
+   this.newTuristicTransport = transport_company;
+   this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+      if ( response === 'Guardar click' ) {
+         this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
+         this.rucEstablishmentRegisterSelected.transport_companies.forEach(element => {
+            if (element == initialData) {
+               element = this.newTuristicTransport;
+            }
+         });
+      }
+   }), ( r => {}));
+  }
+
+  deleteCompaniaTransporte(transport_company) {
+   const new_turistic_transports = [];
+   this.rucEstablishmentRegisterSelected.transport_companies.forEach(element => {
+      if (element != transport_company) {
+         new_turistic_transports.push(element);
+      }
+   });
+   this.rucEstablishmentRegisterSelected.transport_companies = new_turistic_transports;
+   this.toastr.successToastr('Compañía de Transporte removida satisfactoriamente.', 'Compañía de Transporte');
   }
 
   refreshMaxBed(capacity: Capacity) {
