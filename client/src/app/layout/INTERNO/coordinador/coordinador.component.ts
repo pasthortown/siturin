@@ -642,24 +642,24 @@ export class CoordinadorComponent implements OnInit {
          this.registerApprovalFinanciero.id_user = this.financialSelectedId;
          this.registerApprovalFinanciero.date_assigment = new Date();
          if (this.activity == 'ALOJAMIENTO') {
-         this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
-            const newRegisterState = new RegisterState();
-            newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
-            newRegisterState.register_id = this.idRegister;          
-            newRegisterState.state_id = this.stateTramiteId - 3;
-               this.registerStateDataService.post(newRegisterState).then( r1 => {
-               }).catch( e => { console.log(e); });
-         }).catch( e => { console.log(e); });
+            this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
+               const newRegisterState = new RegisterState();
+               newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+               newRegisterState.register_id = this.idRegister;          
+               newRegisterState.state_id = this.stateTramiteId - 3;
+                  this.registerStateDataService.post(newRegisterState).then( r1 => {
+                  }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
          }
          if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-         this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
-            const newRegisterState = new RegisterState();
-            newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
-            newRegisterState.register_id = this.idRegister;          
-            newRegisterState.state_id = this.stateTramiteId - 3;
-               this.registerStateABDataService.post(newRegisterState).then( r1 => {
-               }).catch( e => { console.log(e); });
-         }).catch( e => { console.log(e); });
+            this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
+               const newRegisterState = new RegisterState();
+               newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+               newRegisterState.register_id = this.idRegister;          
+               newRegisterState.state_id = this.stateTramiteId - 3;
+                  this.registerStateABDataService.post(newRegisterState).then( r1 => {
+                  }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
          }
          const today = new Date();
          let clasificacion: String = '';
