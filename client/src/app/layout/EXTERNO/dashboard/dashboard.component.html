@@ -1858,7 +1858,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode !== '-') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
+                        <div class="row mt-3" *ngIf="actividadSelected == '3' && continuarTramite && ((categorySelectedCode == '1.3' || categorySelectedCode == '1.4' || categorySelectedCode == '2.3' || categorySelectedCode == '2.4') && (rucEstablishmentRegisterSelected.register_type_id !== 0))">
                           <div class="col-12">
                             <h4>
                               <strong>Compañías de Transporte Turístico</strong>
