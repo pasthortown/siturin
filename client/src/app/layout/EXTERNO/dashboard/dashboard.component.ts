@@ -5183,16 +5183,16 @@ guardarDeclaracion() {
   }
 
   checkRucSalesRepresentative() {
-    if (this.consumoRucSalesRepresentative && this.SRIOKSalesRepresentative) {
+   this.newRepresentanteVentas.ruc = this.newRepresentanteVentas.ruc.replace(/[^\d]/, '');
+   if (this.newRepresentanteVentas.ruc.length !== 13) {
+     this.rucValidatedSalesRepresentative = false;
+     this.consumoRucSalesRepresentative = false;
+     return;
+   }
+   if (this.consumoRucSalesRepresentative && this.SRIOKSalesRepresentative) {
       return;
     }
     this.rucDataSalesRepresentative = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
-    this.newRepresentanteVentas.ruc = this.newRepresentanteVentas.ruc.replace(/[^\d]/, '');
-    if (this.newRepresentanteVentas.ruc.length !== 13) {
-      this.rucValidatedSalesRepresentative = false;
-      this.consumoRucSalesRepresentative = false;
-      return;
-    }
     if (!this.consumoRucSalesRepresentative) {
       this.consumoRucSalesRepresentative = true;
       this.rucValidatedSalesRepresentative = true;
@@ -5255,12 +5255,12 @@ guardarDeclaracion() {
 
   checkIdentificacionGuia() {
    this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
-   if (this.consumoIdentificationGuide && this.SIITOKIdentificationGuide) {
-      return;
-   }
    if (this.newTuristicGuide.identification.length !== 10) {
       this.identificationGuideValidated = false;
       this.consumoIdentificationGuide = false;
+      return;
+   }
+   if (this.consumoIdentificationGuide && this.SIITOKIdentificationGuide) {
       return;
    }
    this.siitDataService.guiaTurismo(this.newTuristicGuide.identification).then( guiaResponse => {
@@ -5282,15 +5282,15 @@ guardarDeclaracion() {
 
   checkRucTuristicTransport() {
     this.newTuristicTransport.ruc = this.newTuristicTransport.ruc.replace(/[^\d]/, '');
-    if (this.consumoRucTuristicTransport && this.SRIOKTuristicTransport) {
-      return;
-    }
-    this.rucDataTuristicTransport = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
     if (this.newTuristicTransport.ruc.length !== 13) {
       this.rucValidatedTuristicTransport = false;
       this.consumoRucTuristicTransport = false;
       return;
     }
+    if (this.consumoRucTuristicTransport && this.SRIOKTuristicTransport) {
+      return;
+    }
+    this.rucDataTuristicTransport = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
     if (!this.consumoRucTuristicTransport) {
       this.consumoRucTuristicTransport = true;
       this.rucValidatedTuristicTransport = true;
@@ -5361,10 +5361,6 @@ guardarDeclaracion() {
 
   
   checkRuc() {
-   if (this.consumoRuc && this.SRIOK) {
-     return;
-   }
-   this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
    this.ruc_registro_selected.ruc.number = this.ruc_registro_selected.ruc.number.replace(/[^\d]/, '');
    if (this.ruc_registro_selected.ruc.number.length !== 13) {
      this.rucValidated = false;
@@ -5373,6 +5369,10 @@ guardarDeclaracion() {
      this.ruc_registro_selected.ruc.tax_payer_type_id = 1;
      return;
    }
+   if (this.consumoRuc && this.SRIOK) {
+     return;
+   }
+   this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
    if (!this.consumoRuc) {
      this.consumoRuc = true;
      this.rucValidated = true;
