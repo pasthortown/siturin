@@ -23,7 +23,7 @@ export class SIITService {
       }).catch( e=> {console.log(e)});
    }
 
-   transporteTurismo(ruc: strStringing): Promise<any> {
+   transporteTurismo(ruc: String): Promise<any> {
       const data ={ruc: ruc};
       return this.http.post(this.url, JSON.stringify(data)).toPromise().then( r => {
         return r.json();
