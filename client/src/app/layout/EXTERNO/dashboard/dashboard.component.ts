@@ -5254,10 +5254,10 @@ guardarDeclaracion() {
   }
 
   checkIdentificacionGuia() {
+   this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
    if (this.consumoIdentificationGuide && this.SIITOKIdentificationGuide) {
       return;
    }
-   this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
    if (this.newTuristicGuide.identification.length !== 10) {
       this.identificationGuideValidated = false;
       this.consumoIdentificationGuide = false;
@@ -5281,11 +5281,11 @@ guardarDeclaracion() {
   }
 
   checkRucTuristicTransport() {
-   if (this.consumoRucTuristicTransport && this.SRIOKTuristicTransport) {
+    this.newTuristicTransport.ruc = this.newTuristicTransport.ruc.replace(/[^\d]/, '');
+    if (this.consumoRucTuristicTransport && this.SRIOKTuristicTransport) {
       return;
     }
     this.rucDataTuristicTransport = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
-    this.newTuristicTransport.ruc = this.newTuristicTransport.ruc.replace(/[^\d]/, '');
     if (this.newTuristicTransport.ruc.length !== 13) {
       this.rucValidatedTuristicTransport = false;
       this.consumoRucTuristicTransport = false;
