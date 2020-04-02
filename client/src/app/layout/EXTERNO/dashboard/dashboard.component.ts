@@ -455,7 +455,7 @@ export class DashboardComponent implements OnInit {
   newRepresentanteVentas: SalesRepresentative = new SalesRepresentative();
   newTuristicGuide: TourGuide = new TourGuide();
   newTuristicTransport: TuristicTransport = new TuristicTransport();
-  activateOperationIntermediation = false;
+  activateOperationIntermediation = true;
   activateAlojamiento = true;
   activateAlimentosBebidas = true;
   rucDataSalesRepresentative = 'CONECTÁNDOSE AL SRI...';
