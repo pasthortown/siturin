@@ -5738,7 +5738,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="!(consumoRucSalesRepresentative && SRIOKSalesRepresentative && newRepresentanteVentas.has_experience && newRepresentanteVentas.has_contract && newRepresentanteVentas.has_professional_degree)">Guardar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="!(newRepresentanteVentas.has_experience && newRepresentanteVentas.has_contract && newRepresentanteVentas.has_professional_degree) || !rucValidatedSalesRepresentative">Guardar</button>
     <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>
@@ -5748,7 +5748,6 @@
     <h3>Guía de Turismo</h3>
   </div>
   <div class="modal-body">
-    Traer a partir de la identificación del web service la información de SIIT sino mostrar mensaje de registrarlo en siit
     <div class="row">
       <div class="col-12">
         <div class="form-group">
@@ -5859,7 +5858,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="newTuristicGuide.ubication_id == 0 || newTuristicGuide.canton == '-' || newTuristicGuide.provincia == '-' || newTuristicGuide.ambitoAplicacion == '-'">Guardar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="newTuristicGuide.ubication_id == 0 || newTuristicGuide.canton == '-' || newTuristicGuide.provincia == '-' || newTuristicGuide.ambitoAplicacion == '-' || !identificationGuideValidated">Guardar</button>
     <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>
@@ -5869,7 +5868,6 @@
     <h3>Compañía de Transporte Turístico</h3>
   </div>
   <div class="modal-body">
-    Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit
     <div class="row">
       <div class="col-12">
         <div class="form-group">
@@ -5955,7 +5953,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="newTuristicTransport.transport_type_id == 0 || newTuristicTransport.activity_transport_type_id == 0">Guardar</button>
+    <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="newTuristicTransport.transport_type_id == 0 || newTuristicTransport.activity_transport_type_id == 0 || !rucValidatedTuristicTransport">Guardar</button>
     <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">Cancelar</button>
   </div>
 </ng-template>

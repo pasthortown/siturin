@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Router } from '@angular/router';
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
    providedIn: 'root'
 })
-export class ChatService {
+export class SIITService {
 
-   url = environment.api_chat;
+   url = environment.api_siit;
    options = new RequestOptions();
 
    constructor(private http: Http, private router: Router) {
@@ -16,11 +16,18 @@ export class ChatService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
-   enviar(decir: string): Promise<any> {
-    const data ={decir: decir};
-    return this.http.post(this.url, JSON.stringify(data)).toPromise().then( r => {
-      return r.json();
-    }).catch( e=> {console.log(e)});
+   guiaTurismo(identification: String): Promise<any> {
+      const data ={identification: identification};
+      return this.http.post(this.url, JSON.stringify(data)).toPromise().then( r => {
+         return r.json();
+      }).catch( e=> {console.log(e)});
+   }
+
+   transporteTurismo(ruc: strStringing): Promise<any> {
+      const data ={ruc: ruc};
+      return this.http.post(this.url, JSON.stringify(data)).toPromise().then( r => {
+        return r.json();
+      }).catch( e=> {console.log(e)});
    }
 
    handledError(error: any) {

@@ -1,3 +1,4 @@
+import { SIITService } from './../../../services/negocio/siit.service';
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
 import { ReceptionRoomService } from './../../../services/CRUD/ALOJAMIENTO/receptionroom.service';
@@ -92,6 +93,7 @@ import { RequisiteService as RequisiteOPService} from 'src/app/services/CRUD/OPE
     RegisterTypeOPService,
     UserService,
     DinardapService,
+    SIITService,
     DeclarationItemService,
     AgreementService,
     ActivityTransportTypeService,

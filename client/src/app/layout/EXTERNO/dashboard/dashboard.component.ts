@@ -1,3 +1,4 @@
+import { SIITService } from './../../../services/negocio/siit.service';
 import { ActivityTransportTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
 import { TransportTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 import { GuideTypeService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
@@ -465,7 +466,10 @@ export class DashboardComponent implements OnInit {
   turistic_classifications: GuideType[] = [];
   transport_types: TransportType[] = [];
   activity_transport_types: ActivityTransportType[] = [];
-
+  consumoIdentificationGuide = false;
+  SIITOKIdentificationGuide = false;
+  identificationGuideValidated = false;
+  
   constructor(private toastr: ToastrManager,
               private guideTypeDataService: GuideTypeService,
               private transportTypeDataService: TransportTypeService,
@@ -473,6 +477,7 @@ export class DashboardComponent implements OnInit {
               private receptionRoomDataService: ReceptionRoomService,
               private catastroRegisterDataService: CatastroRegisterService,
               private payDataService: PayService,
+              private siitDataService: SIITService,
               private registerABDataService: RegisterABService,
               private registerProcedureDataService: RegisterProcedureService,
               private registerProcedureABDataService: RegisterProcedureABService,
@@ -541,6 +546,8 @@ export class DashboardComponent implements OnInit {
   }
   
   addGuiaTurismo(content) {
+   this.SIITOKIdentificationGuide = false;
+   this.consumoIdentificationGuide = false;
    this.newTuristicGuide = new TourGuide();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
@@ -553,6 +560,8 @@ export class DashboardComponent implements OnInit {
   editGuiaTurismo(content, turistic_guide) {
    let initialData = turistic_guide;
    this.newTuristicGuide = turistic_guide;
+   this.SIITOKIdentificationGuide = false;
+   this.consumoIdentificationGuide = false;
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Guía de Turismo');
@@ -567,6 +576,8 @@ export class DashboardComponent implements OnInit {
 
   deleteGuiaTurismo(turistic_guide) {
    const new_turistic_guides = [];
+   this.SIITOKIdentificationGuide = false;
+   this.consumoIdentificationGuide = false;
    this.rucEstablishmentRegisterSelected.turistic_guides.forEach(element => {
       if (element != turistic_guide) {
          new_turistic_guides.push(element);
@@ -577,6 +588,8 @@ export class DashboardComponent implements OnInit {
   }
 
   addRepresentanteVentas(content) {
+   this.SRIOKSalesRepresentative = false;
+   this.consumoRucSalesRepresentative = false;
    this.newRepresentanteVentas = new SalesRepresentative();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
@@ -587,6 +600,8 @@ export class DashboardComponent implements OnInit {
   }
 
   editRepresentanteVentas(content, sales_representant) {
+   this.SRIOKSalesRepresentative = false;
+   this.consumoRucSalesRepresentative = false;
    let initialData = sales_representant;
    this.newRepresentanteVentas = sales_representant;
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
@@ -602,6 +617,8 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteRepresentanteVentas(sales_representant) {
+   this.SRIOKSalesRepresentative = false;
+   this.consumoRucSalesRepresentative = false;
    const new_sales_representatives = [];
    this.rucEstablishmentRegisterSelected.sales_representatives.forEach(element => {
       if (element != sales_representant) {
@@ -613,6 +630,8 @@ export class DashboardComponent implements OnInit {
   }
 
   addCompaniaTransporte(content) {
+   this.SRIOKTuristicTransport = false;
+   this.consumoRucTuristicTransport = false;
    this.newTuristicTransport = new TuristicTransport();
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
@@ -622,6 +641,8 @@ export class DashboardComponent implements OnInit {
 
   editCompaniaTransporte(content, transport_company) {
    let initialData = transport_company;
+   this.SRIOKTuristicTransport = false;
+   this.consumoRucTuristicTransport = false;
    this.newTuristicTransport = transport_company;
    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
       if ( response === 'Guardar click' ) {
@@ -637,6 +658,8 @@ export class DashboardComponent implements OnInit {
 
   deleteCompaniaTransporte(transport_company) {
    const new_turistic_transports = [];
+   this.SRIOKTuristicTransport = false;
+   this.consumoRucTuristicTransport = false;
    this.rucEstablishmentRegisterSelected.transport_companies.forEach(element => {
       if (element != transport_company) {
          new_turistic_transports.push(element);
@@ -5231,7 +5254,30 @@ guardarDeclaracion() {
   }
 
   checkIdentificacionGuia() {
+   if (this.consumoIdentificationGuide && this.SIITOKIdentificationGuide) {
+      return;
+   }
    this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
+   if (this.newTuristicGuide.identification.length !== 10) {
+      this.identificationGuideValidated = false;
+      this.consumoIdentificationGuide = false;
+      return;
+   }
+   this.siitDataService.guiaTurismo(this.newTuristicGuide.identification).then( guiaResponse => {
+      this.SIITOKIdentificationGuide = true;
+      this.consumoIdentificationGuide = true;
+      this.identificationGuideValidated = true;
+      Swal.fire(
+         'Guía de Turísmo no encontrado!',
+         'La identificación ingresada, no corresponde a un Guía de Turísmo registrado por el Ministerio de Turismo.',
+         'error'
+      );
+      console.log('Traer a partir de la identificación del web service la información de SIIT sino mostrar mensaje de registrarlo en siit');
+   }).catch( e => {
+      this.SIITOKIdentificationGuide = false;
+      this.consumoIdentificationGuide = false;
+      console.log(e);
+   });
   }
 
   checkRucTuristicTransport() {
@@ -5295,6 +5341,14 @@ guardarDeclaracion() {
                datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
             }
             this.rucDataTuristicTransport = datosGenerales + datosAE + datosContactoSRI;
+         });
+         this.siitDataService.transporteTurismo(this.newTuristicTransport.ruc).then( transportResponse => {
+            Swal.fire(
+               'Compañía de Transporte Turístico no encontrada!',
+               'El RUC ingresado, no corresponde a una Compañía de Transporte Turístico registrada por el Ministerio de Turismo.',
+               'error'
+            );
+            console.log('Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit');
          });
       }).catch( e => {
          console.log(e);
