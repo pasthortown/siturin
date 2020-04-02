@@ -13,5 +13,6 @@ export const environment = {
   api_operacionintermediacion: 'http://ws-siturin-operacion.turismo.gob.ec/',
   api_gad: 'http://ws-siturin-gad.turismo.gob.ec/',
   api_chat: 'http://siturin-pruebas.turismo.gob.ec:5000',
+  api_siit: 'http://ws-siturin-gad.turismo.gob.ec/',
   gmapapiKey: 'AIzaSyCGUwCcM-LKjRK4rjbBJ06_GLmX2LaYzfg',
 };
