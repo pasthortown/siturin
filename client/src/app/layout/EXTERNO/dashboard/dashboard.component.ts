@@ -1423,6 +1423,8 @@ export class DashboardComponent implements OnInit {
          registerTypesAB.forEach( element => {
             if (element.id == register_type_id ) {
                this.categorySelectedCode = element.father_code;
+               this.getServiceType();
+               this.getKitchenType();
             }
          });
       }
