@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-data',
-  templateUrl: './data.component.html',
-  styleUrls: ['./data.component.scss']
+  selector: 'app-ruc',
+  templateUrl: './ruc.component.html',
+  styleUrls: ['./ruc.component.scss']
 })
-export class DataComponent implements OnInit {
+export class RucComponent implements OnInit {
   
   constructor() {
     
