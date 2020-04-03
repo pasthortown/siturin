@@ -1,3 +1,4 @@
+import { EstablishmentComponent } from './../../CRUD/BASE/Establishment/establishment.component';
 import { DataComponent } from './../../client-data-components/data/data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -7,6 +8,6 @@ import { ClienteExternoComponent } from './cliente-externo.component';
 
 @NgModule({
   imports: [CommonModule, ClienteExternoRoutingModule],
-  declarations: [ClienteExternoComponent, DataComponent]
+  declarations: [ClienteExternoComponent, DataComponent, EstablishmentComponent]
 })
 export class ClienteExternoModule {}
