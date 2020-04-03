@@ -408,6 +408,7 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   seleccionarRegistro(row?) {
+    this.mostrarIngresoDatos = false;
     this.config_opciones = {
       actualizando: false,
       mostrarActualizar: true,
