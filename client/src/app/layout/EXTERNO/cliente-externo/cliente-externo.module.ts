@@ -16,6 +16,7 @@ import { NgModule } from '@angular/core';
 
 import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
 import { ClienteExternoComponent } from './cliente-externo.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [
