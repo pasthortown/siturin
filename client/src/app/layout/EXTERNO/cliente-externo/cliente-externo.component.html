@@ -61,16 +61,10 @@
                             <i class="fas fa-search"></i>&nbsp;Estado
                         </span>
                     </div>
-                    <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [(ngModel)]="idTramiteEstadoFilter" (change)="filterByTramiteState()">
-                        <option value="0" selected>Todos</option>
+                    <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [ngTableFiltering]="config.filtering" (change)="onChangeTable(config)">
+                        <option value="-" selected>Todos</option>
                         <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
                     </select>
-                    <div class="input-group-append" *ngIf="idTramiteEstadoFilter>0">
-                        <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [(ngModel)]="tramite" (change)="filterByTramiteState(tramite)">
-                            <option value="-" selected>Todos</option>
-                            <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
-                        </select>
-                    </div>
                 </div>
             </div>
         </div>

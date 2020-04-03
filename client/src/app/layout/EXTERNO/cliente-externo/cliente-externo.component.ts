@@ -58,7 +58,7 @@ export class ClienteExternoComponent implements OnInit {
   rows = [];
   columns = [];
   data = [];
-  idTramiteEstadoFilter = 0;
+  idTramiteEstadoFilter = '-';
   currentPageMinturRegisters = 1;
   lastPageMinturRegisters = 1;
   recordsByPageRegisterMintur = 5;
