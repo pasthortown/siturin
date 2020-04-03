@@ -1,3 +1,11 @@
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { AgmCoreModule } from '@agm/core';
+import { CKEditorModule } from 'ngx-ckeditor';
+import { NgxBarcodeModule } from 'ngx-barcode';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 import { EstablishmentListDataComponent } from './../../client-data-components/establishment-list-data/establishment-list-data.component';
 import { DeclarationDataComponent } from './../../client-data-components/declaration-data/declaration-data.component';
 import { TuristicDataComponent } from './../../client-data-components/turistic-data/turistic-data.component';
@@ -10,7 +18,18 @@ import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
 import { ClienteExternoComponent } from './cliente-externo.component';
 
 @NgModule({
-  imports: [CommonModule, ClienteExternoRoutingModule],
+  imports: [
+    CommonModule, 
+    ClienteExternoRoutingModule,
+    FormsModule,
+    NgbModule,
+    NgxBarcodeModule,
+    CKEditorModule,
+    AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
+    NgxQRCodeModule,
+    Ng2TableModule,
+    ScrollToModule.forRoot()
+  ],
   declarations: [ClienteExternoComponent, 
     EstablishmentDataComponent, 
     RucDataComponent,
