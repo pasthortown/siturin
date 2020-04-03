@@ -1,5 +1,5 @@
-import { RucComponent } from './../../CRUD/BASE/Ruc/ruc.component';
-import { EstablishmentComponent } from './../../CRUD/BASE/Establishment/establishment.component';
+import { RucDataComponent } from './../../client-data-components/ruc-data/ruc-data.component';
+import { EstablishmentDataComponent } from './../../client-data-components/establishment-data/establishment-data.component';
 import { DataComponent } from './../../client-data-components/data/data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -9,6 +9,6 @@ import { ClienteExternoComponent } from './cliente-externo.component';
 
 @NgModule({
   imports: [CommonModule, ClienteExternoRoutingModule],
-  declarations: [ClienteExternoComponent, DataComponent, EstablishmentComponent, RucComponent]
+  declarations: [ClienteExternoComponent, DataComponent, EstablishmentDataComponent, RucDataComponent]
 })
 export class ClienteExternoModule {}

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RucComponent } from './ruc.component';
+import { RucDataComponent } from './ruc-data.component';
 
-describe('RucComponent', () => {
-  let component: RucComponent;
-  let fixture: ComponentFixture<RucComponent>;
+describe('RucDataComponent', () => {
+  let component: RucDataComponent;
+  let fixture: ComponentFixture<RucDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RucComponent ]
+      declarations: [ RucDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RucComponent);
+    fixture = TestBed.createComponent(RucDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
