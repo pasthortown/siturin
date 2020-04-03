@@ -431,6 +431,7 @@ export class ClienteExternoComponent implements OnInit {
          this.mostrarRecategorizar = false; 
          this.mostrarDeclarandoUnoMil = false;
          this.mostrarActualizarCapacidadesPrecios = false;
+         this.cannuevaClasificacionAB = false;
          cambioEstado = true;
       }
       if (!cambioEstado) {
