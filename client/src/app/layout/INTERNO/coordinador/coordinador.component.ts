@@ -1769,7 +1769,7 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalFinanciero.id_user = this.financialSelectedId;
    this.registerApprovalFinanciero.date_assigment = new Date();
    this.registerApprovalFinanciero.notes = '';
-   console.log(this.stateTramiteId);
+   console.log(this.stateTramiteId - 3);
    //AQUI
    return;
    if (this.activity == 'ALOJAMIENTO') {
