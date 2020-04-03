@@ -21,6 +21,8 @@ import { environment } from 'src/environments/environment';
 import { UserService } from './../../../services/profile/user.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
 import { StateService } from './../../../services/CRUD/ALOJAMIENTO/state.service';
+import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
+import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 
 @NgModule({
   imports: [
@@ -44,6 +46,8 @@ import { StateService } from './../../../services/CRUD/ALOJAMIENTO/state.service
   ],
   providers: [UserService,
     AgreementService,
-    StateService]
+    StateService,
+    CatastroRegisterService,
+    RegisterTypeService]
 })
 export class ClienteExternoModule {}

@@ -1,3 +1,7 @@
+import { Register } from './../../../models/ALOJAMIENTO/Register';
+import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
+import { RegisterType } from './../../../models/ALOJAMIENTO/RegisterType';
 import { StateService } from './../../../services/CRUD/ALOJAMIENTO/state.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
 import { AccountRol } from './../../../models/AUTH/AccountRol';
@@ -14,6 +18,9 @@ import { State } from 'src/app/models/ALOJAMIENTO/State';
 })
 
 export class ClienteExternoComponent implements OnInit {
+
+  // VARIABLES MÓDULO ALOJAMIENTO
+  register_types: RegisterType[] = [];
 
   // DATOS DEL USUARIO
   
@@ -62,13 +69,21 @@ export class ClienteExternoComponent implements OnInit {
   currentPageMinturRegisters = 1;
   lastPageMinturRegisters = 1;
   recordsByPageRegisterMintur = 5;
-
-  estados_tramites: State[];
+  estado_tramite_selected_code: String = '1';
   
+  registers_mintur = [];
+  registerMinturSelected: any = null;
+   
+  estados_tramites: State[];
+  states: State[] = [];
+  specific_states: State[] = [];
+  estados = [];
 
   constructor( private userDataService: UserService,
                private agreementDataService: AgreementService,  
-               private stateDataService: StateService          
+               private stateDataService: StateService,
+               private register_typeDataService: RegisterTypeService,    
+               private catastroRegisterDataService: CatastroRegisterService     
   ) {}
 
   ngOnInit() {
@@ -78,7 +93,7 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   refresh() {
-
+    this.getRegisterTypes();
   }
 
   // FUNCIONES PARA TERMINOS Y CONDICIONES
@@ -111,13 +126,37 @@ export class ClienteExternoComponent implements OnInit {
 
   getTramiteStates() {
     this.estados_tramites = [];
+    this.states = [];
+    this.specific_states = [];
     this.stateDataService.get().then( r => {
+      this.states = r as State[];
        r.forEach(element => {
           if (element.father_code == '-') {
-             this.estados_tramites.push(element);
+            this.estados_tramites.push(element);
+          }
+       });
+       this.states.forEach(element => {
+          if (element.father_code == this.estado_tramite_selected_code) {
+            this.specific_states.push(element);
           }
        });
     }).catch( e => { console.log(e); });
+  }
+
+  getRegisterTypes() {
+    this.register_typeDataService.get().then( r => {
+       this.register_types = r as RegisterType[];
+       this.getRegistersMintur();
+    }).catch( e => { console.log(e); });
+  }
+
+  getRegistersMintur() {
+    this.registers_mintur = [];
+    this.registerMinturSelected = new Register();
+    this.catastroRegisterDataService.searchByRuc(this.user.ruc.toString()).then( r => {
+       this.registers_mintur = r;
+       this.buildDataTable();
+    }).catch( e => console.log(e) );
   }
 
   filterByTramiteState(tramite?: String) {
@@ -257,6 +296,118 @@ export class ClienteExternoComponent implements OnInit {
           row.selected = '';
        }
     });
+  }
+
+  buildDataTable() {
+    this.columns = [
+       {title: '', name: 'selected'},
+       {title: 'Establecimiento', name: 'comercial_name'},
+       {title: 'Fecha de Registro', name: 'as_turistic_date'},
+       {title: 'Número de Registro', name: 'register_code'},
+       {title: 'Provincia', name: 'ubication_main'},
+       {title: 'Cantón', name: 'ubication_sencond'},
+       {title: 'Parroquia', name: 'ubication_third'},
+       {title: 'Dirección', name: 'address'},
+       {title: 'Actividad', name: 'activity'},
+       {title: 'Categoría', name: 'category'},
+       {title: 'Clasificación', name: 'classification'},
+       {title: 'Estado', name: 'establishment_state'},
+    ];
+    let data = [];
+    const dataSITURIN = [];
+    const dataSIETE = [];
+    const dataOTHERS = [];
+    this.registers_mintur.forEach(item => {
+        let existe = false;
+        this.estados.forEach(element => {
+           if (element == item.establishment_state) {
+              existe = true;
+           }
+        });
+        if (!existe) {
+           this.estados.push(item.establishment_state);
+        }
+        if (item.establishment_state == '') {
+           item.establishment_state = 'ACTIVO';
+        }
+        const newItem = {
+           selected: '',
+           activity: item.activity,
+           address: item.address,
+           as_turistic_date: item.as_turistic_date,
+           category: item.category,
+           classification: item.classification,
+           comercial_name: item.comercial_name,
+           created_at: item.created_at,
+           email: item.email,
+           establishment_property_type: item.establishment_property_type,
+           establishment_ruc_code: item.establishment_ruc_code,
+           establishment_state: item.establishment_state,
+           georeference_latitude: item.georeference_latitude,
+           georeference_longitude: item.georeference_longitude,
+           id: item.id,
+           legal_representant_identification: item.legal_representant_identification,
+           legal_representant_name: item.legal_representant_name,
+           main_phone_number: item.main_phone_number,
+           max_areas: item.max_areas,
+           max_beds: item.max_beds,
+           max_capacity: item.max_capacity,
+           organization_type: item.organization_type,
+           register_code: item.register_code,
+           ruc: item.ruc,
+           ruc_state: item.ruc_state,
+           secondary_phone_number: item.secondary_phone_number,
+           system_source: item.system_source,
+           total_female: item.total_female,
+           total_male: item.total_male,
+           ubication_main: item.ubication_main,
+           ubication_sencond: item.ubication_sencond,
+           ubication_third: item.ubication_third,
+           updated_at: item.updated_at,
+           web: item.web,
+        };
+        if (newItem.system_source == 'SIETE') {
+           dataSIETE.push(newItem);
+        }
+        if (newItem.system_source == 'SITURIN') {
+           dataSITURIN.push(newItem);
+        }
+        if (newItem.system_source !== 'SITURIN' || newItem.system_source !== 'SIETE') {
+           dataOTHERS.push(newItem);
+        }
+    });
+    dataSITURIN.forEach(element => {
+      data = this.storeInData(data,element); 
+    });
+    dataSIETE.forEach(itemSIETE => {
+       let existeSITURIN = false;
+       dataSITURIN.forEach(itemSITURIN => {
+          if (itemSITURIN.establishment_ruc_code == itemSIETE.establishment_ruc_code) {
+           existeSITURIN = true;
+          }
+       });
+       if (!existeSITURIN) {
+        data = this.storeInData(data,itemSIETE);
+       }
+    });
+    dataOTHERS.forEach(itemOTHER => {
+      data = this.storeInData(data,itemOTHER);
+    });
+    this.data = data;
+    this.onChangeTable(this.config);
+  }
+  
+  storeInData(data, element) {
+    let existe = false;
+    data.forEach(e1 => {
+       if (e1 == element) {
+          existe = true;
+       }
+    });
+    if (!existe) {
+       data.push(element);
+    }
+    return data;
   }
 
   buildOpciones(row) {
