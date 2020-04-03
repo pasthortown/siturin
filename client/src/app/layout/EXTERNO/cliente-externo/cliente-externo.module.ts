@@ -1,3 +1,4 @@
+import { DataComponent } from './data/data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -6,6 +7,6 @@ import { ClienteExternoComponent } from './cliente-externo.component';
 
 @NgModule({
   imports: [CommonModule, ClienteExternoRoutingModule],
-  declarations: [ClienteExternoComponent]
+  declarations: [ClienteExternoComponent, DataComponent]
 })
 export class ClienteExternoModule {}
