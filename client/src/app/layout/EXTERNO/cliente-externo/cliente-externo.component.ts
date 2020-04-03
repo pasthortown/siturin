@@ -93,7 +93,7 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   refresh() {
-    this.getRegisterTypes();
+    
   }
 
   // FUNCIONES PARA TERMINOS Y CONDICIONES
@@ -105,6 +105,7 @@ export class ClienteExternoComponent implements OnInit {
       // Es importante tener el usuario para llenar los datos del usuario en el acuerdod e términos y condiciones.
       // Por eso, después de tener el usuario, se carga los términos y condiciones.
       this.getTerminosCondicionesAgreement();
+      this.getRegisterTypes();
     }).catch( e => console.log(e));
   }
 
