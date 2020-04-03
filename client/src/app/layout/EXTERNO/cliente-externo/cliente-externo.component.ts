@@ -1,13 +1,11 @@
 import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
-import { StateService } from './../../../services/CRUD/ALOJAMIENTO/state.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
 import { AccountRol } from './../../../models/AUTH/AccountRol';
 import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
 import { Agreement } from './../../../models/BASE/Agreement';
 import { Component, OnInit } from '@angular/core';
-import { State } from 'src/app/models/ALOJAMIENTO/State';
 
 @Component({
   selector: 'app-cliente-externo',
@@ -69,21 +67,16 @@ export class ClienteExternoComponent implements OnInit {
   registers_mintur = [];
   registerMinturSelected: any = null;
    
-  estados_tramites: State[];
-  states: State[] = [];
-  specific_states: State[] = [];
   estados = [];
 
   constructor( private userDataService: UserService,
-               private agreementDataService: AgreementService,  
-               private stateDataService: StateService,
+               private agreementDataService: AgreementService,
                private catastroRegisterDataService: CatastroRegisterService     
   ) {}
 
   ngOnInit() {
     this.refresh();
     this.getUser();
-    //this.getTramiteStates();
   }
 
   refresh() {
@@ -111,32 +104,7 @@ export class ClienteExternoComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
-  checkAgreement() {
-    if (this.terminosCondiciones) {
-       //this.getCategories();
-    }
-  }
-
   // FUNCIONES DE LA TABLA DE REGISTROS
-
-  getTramiteStates() {
-    this.estados_tramites = [];
-    this.states = [];
-    this.specific_states = [];
-    this.stateDataService.get().then( r => {
-      this.states = r as State[];
-       r.forEach(element => {
-          if (element.father_code == '-') {
-            this.estados_tramites.push(element);
-          }
-       });
-       this.states.forEach(element => {
-          if (element.father_code == this.estado_tramite_selected_code) {
-            this.specific_states.push(element);
-          }
-       });
-    }).catch( e => { console.log(e); });
-  }
 
   getRegistersMintur() {
     this.registers_mintur = [];
@@ -149,10 +117,8 @@ export class ClienteExternoComponent implements OnInit {
 
   filterByTramiteState(tramite?: String) {
     let filtroTexto: String = '';
-    this.estados_tramites.forEach(estado => {
-       if (estado.id == this.idTramiteEstadoFilter) {
-        filtroTexto = estado.name;
-       }
+    this.estados.forEach(estado => {
+       filtroTexto = estado;
     });
     if(typeof tramite !== 'undefined') {
        if (tramite == '-') {
