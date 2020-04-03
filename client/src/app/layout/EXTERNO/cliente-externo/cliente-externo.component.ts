@@ -49,19 +49,20 @@ export class ClienteExternoComponent implements OnInit {
   
   // -- OPCIONES
   
-  actualizando = false; 
-  declarandoUnoMil = false;
-  activando = false;
-  reclasificando = false;
-  recategorizando = false;
-  actualizandoCapacidadesPrecios = false;
-  mostrarActualizar = true;
-  mostrarActivar = true;
-  mostrarDarBaja = true;
-  mostrarReclasificar = true;
-  mostrarRecategorizar = true;
-  mostrarDeclarandoUnoMil = true;
-  mostrarActualizarCapacidadesPrecios = true;
+  config_opciones = {
+    actualizando: false,
+    mostrarActualizar: true,
+    declarandoUnoMil: false,
+    mostrarDeclarandoUnoMil: true,
+    activando: false,
+    mostrarActivar: true,
+    reclasificando: false,
+    mostrarReclasificar: true,
+    recategorizando: false,
+    mostrarRecategorizar: true,
+    actualizandoCapacidadesPrecios: false,
+    mostrarActualizarCapacidadesPrecios: true
+  }
    
   // VARIABLES TERMINOS Y CONDICIONES
 
@@ -347,8 +348,8 @@ export class ClienteExternoComponent implements OnInit {
     this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
     this.mostrarOpciones = false;
     this.registroNuevoEstablecimiento = false;
-    this.actualizandoCapacidadesPrecios = false;
-    this.declarandoUnoMil = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.declarandoUnoMil = false;
     this.mostrarIngresoDatos = false;
     this.registers_mintur.forEach(element => {
       if (element.id == event.row.id) {
@@ -386,8 +387,8 @@ export class ClienteExternoComponent implements OnInit {
     this.mostrarDataRegisterMintur = true;
     this.mostrarIngresoDatos = true;
     this.mostrarOpciones = false;
-    this.declarandoUnoMil = false;
-    this.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
     // ENCERAMOS REGISTRO NUEVO
     this.actividadSelected = '-';
     this.cannuevaClasificacionAB = false;
@@ -413,35 +414,32 @@ export class ClienteExternoComponent implements OnInit {
       if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ACTIVO" || 
         this.selectedRegister.establishment_state.toUpperCase().trim() == "ABIERTO" || 
         this.selectedRegister.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
-         this.mostrarActualizar = true;
-         this.mostrarActivar = false;
-         this.mostrarDarBaja = true;
-         this.mostrarReclasificar = true;
-         this.mostrarRecategorizar = true; 
-         this.mostrarDeclarandoUnoMil = true;
-         this.mostrarActualizarCapacidadesPrecios = true;
+         this.config_opciones.mostrarActualizar = true;
+         this.config_opciones.mostrarActivar = false;
+         this.config_opciones.mostrarReclasificar = true;
+         this.config_opciones.mostrarRecategorizar = true; 
+         this.config_opciones.mostrarDeclarandoUnoMil = true;
+         this.config_opciones.mostrarActualizarCapacidadesPrecios = true;
          cambioEstado = true;
       }
       if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || 
          this.selectedRegister.establishment_state.toUpperCase().trim() == "CERRADO") {
-         this.mostrarActualizar = false;
-         this.mostrarActivar = true;
-         this.mostrarDarBaja = false;
-         this.mostrarReclasificar = false;
-         this.mostrarRecategorizar = false; 
-         this.mostrarDeclarandoUnoMil = false;
-         this.mostrarActualizarCapacidadesPrecios = false;
+         this.config_opciones.mostrarActualizar = false;
+         this.config_opciones.mostrarActivar = true;
+         this.config_opciones.mostrarReclasificar = false;
+         this.config_opciones.mostrarRecategorizar = false; 
+         this.config_opciones.mostrarDeclarandoUnoMil = false;
+         this.config_opciones.mostrarActualizarCapacidadesPrecios = false;
          this.cannuevaClasificacionAB = false;
          cambioEstado = true;
       }
       if (!cambioEstado) {
-         this.mostrarActualizar = false;
-         this.mostrarActivar = false;
-         this.mostrarDarBaja = false;
-         this.mostrarReclasificar = false;
-         this.mostrarRecategorizar = false;
-         this.mostrarDeclarandoUnoMil = false;
-         this.mostrarActualizarCapacidadesPrecios = false;
+         this.config_opciones.mostrarActualizar = false;
+         this.config_opciones.mostrarActivar = false;
+         this.config_opciones.mostrarReclasificar = false;
+         this.config_opciones.mostrarRecategorizar = false;
+         this.config_opciones.mostrarDeclarandoUnoMil = false;
+         this.config_opciones.mostrarActualizarCapacidadesPrecios = false;
          return;
       }
       this.mostrarDataRegisterMintur = true;
