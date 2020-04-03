@@ -317,6 +317,7 @@ export class ClienteExternoComponent implements OnInit {
     const dataSITURIN = [];
     const dataSIETE = [];
     const dataOTHERS = [];
+    console.log(this.registers_mintur);
     this.registers_mintur.forEach(item => {
         let existe = false;
         this.estados.forEach(element => {
