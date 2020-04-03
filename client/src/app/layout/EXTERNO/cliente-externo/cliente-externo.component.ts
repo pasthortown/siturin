@@ -1,7 +1,5 @@
 import { Register } from './../../../models/ALOJAMIENTO/Register';
-import { RegisterTypeService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
-import { RegisterType } from './../../../models/ALOJAMIENTO/RegisterType';
 import { StateService } from './../../../services/CRUD/ALOJAMIENTO/state.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
 import { AccountRol } from './../../../models/AUTH/AccountRol';
@@ -18,9 +16,6 @@ import { State } from 'src/app/models/ALOJAMIENTO/State';
 })
 
 export class ClienteExternoComponent implements OnInit {
-
-  // VARIABLES MÓDULO ALOJAMIENTO
-  register_types: RegisterType[] = [];
 
   // DATOS DEL USUARIO
   
@@ -82,7 +77,6 @@ export class ClienteExternoComponent implements OnInit {
   constructor( private userDataService: UserService,
                private agreementDataService: AgreementService,  
                private stateDataService: StateService,
-               private register_typeDataService: RegisterTypeService,    
                private catastroRegisterDataService: CatastroRegisterService     
   ) {}
 
@@ -105,7 +99,7 @@ export class ClienteExternoComponent implements OnInit {
       // Es importante tener el usuario para llenar los datos del usuario en el acuerdod e términos y condiciones.
       // Por eso, después de tener el usuario, se carga los términos y condiciones.
       this.getTerminosCondicionesAgreement();
-      this.getRegisterTypes();
+      this.getRegistersMintur();
     }).catch( e => console.log(e));
   }
 
@@ -141,13 +135,6 @@ export class ClienteExternoComponent implements OnInit {
             this.specific_states.push(element);
           }
        });
-    }).catch( e => { console.log(e); });
-  }
-
-  getRegisterTypes() {
-    this.register_typeDataService.get().then( r => {
-       this.register_types = r as RegisterType[];
-       this.getRegistersMintur();
     }).catch( e => { console.log(e); });
   }
 
@@ -318,7 +305,6 @@ export class ClienteExternoComponent implements OnInit {
     const dataSITURIN = [];
     const dataSIETE = [];
     const dataOTHERS = [];
-    console.log(this.registers_mintur);
     this.registers_mintur.forEach(item => {
         let existe = false;
         this.estados.forEach(element => {
