@@ -1769,9 +1769,6 @@ export class CoordinadorComponent implements OnInit {
    this.registerApprovalFinanciero.id_user = this.financialSelectedId;
    this.registerApprovalFinanciero.date_assigment = new Date();
    this.registerApprovalFinanciero.notes = '';
-   console.log(this.stateTramiteId - 3);
-   //AQUI
-   return;
    if (this.activity == 'ALOJAMIENTO') {
       this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
          const newRegisterState = new RegisterState();
@@ -1794,7 +1791,6 @@ export class CoordinadorComponent implements OnInit {
          }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
    }
-   
    const today = new Date();
    let clasificacion: String = '';
    let categoria: String = '';
