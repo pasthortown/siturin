@@ -330,10 +330,6 @@ const routes: Routes = [
          
          //ALOJAMIENTO
          {
-            path: 'tarifario-rack',
-            loadChildren: './EXTERNO/tarifario_rack/tarifario-rack.module#TarifarioRackModule'
-         },
-         {
             path: 'register-alojamiento',
             loadChildren: './CRUD/ALOJAMIENTO/Register/register.module#RegisterModule'
          },
