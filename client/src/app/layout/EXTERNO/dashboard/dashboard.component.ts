@@ -2443,6 +2443,7 @@ export class DashboardComponent implements OnInit {
                this.mostrarRecategorizar = false; 
                this.mostrarDeclarandoUnoMil = false;
                this.mostrarActualizarCapacidadesPrecios = false;
+               this.cannuevaClasificacionAB = false;
                cambioEstado = true;
             }
             if (element.system_source == 'SITURIN') {
