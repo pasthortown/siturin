@@ -62,7 +62,7 @@
                         </span>
                     </div>
                     <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [ngTableFiltering]="config.filtering" (change)="onChangeTable(config)">
-                        <option value="-" selected>Todos</option>
+                        <option value="" selected>Todos</option>
                         <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
                     </select>
                 </div>

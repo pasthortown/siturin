@@ -58,16 +58,13 @@ export class ClienteExternoComponent implements OnInit {
   rows = [];
   columns = [];
   data = [];
-  idTramiteEstadoFilter = '-';
   currentPageMinturRegisters = 1;
   lastPageMinturRegisters = 1;
   recordsByPageRegisterMintur = 5;
-  estado_tramite_selected_code: String = '1';
-  
+  estados = [];
   registers_mintur = [];
   registerMinturSelected: any = null;
    
-  estados = [];
 
   constructor( private userDataService: UserService,
                private agreementDataService: AgreementService,
@@ -113,23 +110,6 @@ export class ClienteExternoComponent implements OnInit {
        this.registers_mintur = r;
        this.buildDataTable();
     }).catch( e => console.log(e) );
-  }
-
-  filterByTramiteState(tramite?: String) {
-    let filtroTexto: String = '';
-    this.estados.forEach(estado => {
-       filtroTexto = estado;
-    });
-    if(typeof tramite !== 'undefined') {
-       if (tramite == '-') {
-        this.config.filtering = {filterString: filtroTexto};
-       } else {
-        this.config.filtering = {filterString: filtroTexto + ' - ' + tramite};
-       }
-    } else {
-     this.config.filtering = {filterString: filtroTexto};
-    }
-    this.onChangeTable(this.config);
   }
 
   onChangeTable(config: any, page: any = {page: this.currentPageMinturRegisters, itemsPerPage: this.recordsByPageRegisterMintur}): any {
