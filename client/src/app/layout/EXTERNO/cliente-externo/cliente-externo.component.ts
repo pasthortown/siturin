@@ -377,12 +377,12 @@ export class ClienteExternoComponent implements OnInit {
 
   registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) { 
     // CONTROL DE INTERFAZ
+    this.estaEnTabla = estaEnTabla;
     if (!this.estaEnTabla) {
       this.rows.forEach(row => {
          row.selected = '';
       });
     }
-    this.estaEnTabla = estaEnTabla;
     this.mostrarDataRegisterMintur = true;
     this.mostrarIngresoDatos = true;
     this.mostrarOpciones = false;
