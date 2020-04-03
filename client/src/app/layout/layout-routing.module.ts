@@ -546,12 +546,8 @@ const routes: Routes = [
 
          // EXTERNO
          {
-            path: 'externo-registro',
-            loadChildren: './EXTERNO/registro/registro.module#RegistroModule'
-         },
-         {
-            path: 'tarifario-rack',
-            loadChildren: './EXTERNO/registro/registro.module#RegistroModule'
+            path: 'cliente-externo',
+            loadChildren: './EXTERNO/cliente-externo/cliente-externo.module#ClienteExternoModule'
          },
          {
             path: 'externo-dashboard',
