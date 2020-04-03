@@ -340,6 +340,7 @@ export class ClienteExternoComponent implements OnInit {
     this.selected_system_source = event.row.system_source;
     this.selected_category_catastro = event.row.category;
     this.selected_classification_catastro = event.row.classification;
+    this.config_opciones.mensajePorTipoTramite = '';
     this.hasRucCode = false;
     if (event.row.establishment_ruc_code !== 'NULL') {
        this.hasRucCode = true;
