@@ -25,8 +25,6 @@ export class ClienteExternoComponent implements OnInit {
   registerMinturSelected: any = null; // Portador de la información total del registro
 
   actividadSelected = '-';
-  cannuevaClasificacionAB = false;
-  nuevaClasificacionAB = false;
   register_code = '';
   establishment_selected_ruc_code_id = 'NULL';
   my_category_current = '';
@@ -46,9 +44,7 @@ export class ClienteExternoComponent implements OnInit {
   mostrarOpciones = false;
   registroNuevoEstablecimiento = false;
   mostrarIngresoDatos = false;
-  
-  // -- OPCIONES
-  
+  idCausal = 0;
   config_opciones = {
     actualizando: false,
     mostrarActualizar: true,
@@ -61,7 +57,10 @@ export class ClienteExternoComponent implements OnInit {
     recategorizando: false,
     mostrarRecategorizar: true,
     actualizandoCapacidadesPrecios: false,
-    mostrarActualizarCapacidadesPrecios: true
+    mostrarActualizarCapacidadesPrecios: true,
+    cannuevaClasificacionAB: false,
+    nuevaClasificacionAB: false,
+    mensajePorTipoTramite: ''
   }
    
   // VARIABLES TERMINOS Y CONDICIONES
@@ -327,11 +326,11 @@ export class ClienteExternoComponent implements OnInit {
   onCellClick(event) {
     if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
        this.actividadSelected = '2';
-       this.cannuevaClasificacionAB = true;
+        this.config_opciones.cannuevaClasificacionAB = true;
     }
     if (event.row.activity == 'ALOJAMIENTO') {
        this.actividadSelected = '1';
-       this.cannuevaClasificacionAB = false;
+        this.config_opciones.cannuevaClasificacionAB = false;
     }
     this.register_code = event.row.register_code;
     this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
@@ -391,7 +390,7 @@ export class ClienteExternoComponent implements OnInit {
     this.config_opciones.actualizandoCapacidadesPrecios = false;
     // ENCERAMOS REGISTRO NUEVO
     this.actividadSelected = '-';
-    this.cannuevaClasificacionAB = false;
+    this.config_opciones.cannuevaClasificacionAB = false;
     this.establishment_selected_ruc_code_id = 'NULL';
     this.my_category_current = '';
     this.my_classification_current = '';
@@ -430,7 +429,7 @@ export class ClienteExternoComponent implements OnInit {
          this.config_opciones.mostrarRecategorizar = false; 
          this.config_opciones.mostrarDeclarandoUnoMil = false;
          this.config_opciones.mostrarActualizarCapacidadesPrecios = false;
-         this.cannuevaClasificacionAB = false;
+          this.config_opciones.cannuevaClasificacionAB = false;
          cambioEstado = true;
       }
       if (!cambioEstado) {
@@ -483,5 +482,107 @@ export class ClienteExternoComponent implements OnInit {
 
   startInitialDataRegisterNew() {
 
+  }
+
+  solicitandoNuevaActualizacion() {
+    this.config_opciones.actualizando = false;
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.activando = false;
+    this.config_opciones.reclasificando = false;
+    this.config_opciones.recategorizando = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.nuevaClasificacionAB = true;
+    this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a solicitar una clasificación adicional para su establecimiento, tiene la opción de guardar la información en cualquier momento.';
+    this.mostrarIngresoDatos = true;
+    this.idCausal = 0;
+    this.estaEnTabla = false;
+    this.selected_system_source = '';
+    this.selected_category_catastro = '';
+    this.selected_classification_catastro = '';
+    this.esRegistro = true;
+    this.hasRucCode = true;
+    this.selectedRegister = null;
+  }
+
+  actualizarCapacidadesPrecios() {
+    this.config_opciones.nuevaClasificacionAB = false;
+    this.config_opciones.actualizando = false;
+    this.config_opciones.activando = false;
+    this.config_opciones.reclasificando = false;
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = true;
+    this.config_opciones.recategorizando = false;
+    this.mostrarIngresoDatos = false;
+    this.idCausal = 6;
+    if (this.actividadSelected == '2') {
+       this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y lista de precios, tiene la opción de guardar la información en cualquier momento.';
+    }
+    if (this.actividadSelected == '1') {
+       this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifario rack, tiene la opción de guardar la información en cualquier momento.';
+    } 
+  }
+
+  reactivar() {
+    this.config_opciones.actualizando = false;
+    this.config_opciones.activando = true;
+    this.config_opciones.nuevaClasificacionAB = false;
+    this.config_opciones.reclasificando = false;
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.recategorizando = false;
+    this.config_opciones.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
+    this.mostrarIngresoDatos = true;
+    this.idCausal = 7;
+  }
+ 
+  reclasificacion() {
+    this.config_opciones.actualizando = false;
+    this.config_opciones.activando = false; 
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.nuevaClasificacionAB = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.reclasificando = true;
+    this.config_opciones.recategorizando = false;
+    this.config_opciones.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
+    this.mostrarIngresoDatos = true;
+    this.idCausal = 4;
+  }
+ 
+  recategorizacion() {
+    this.config_opciones.actualizando = false;
+    this.config_opciones.nuevaClasificacionAB = false;
+    this.config_opciones.activando = false;
+    this.config_opciones.reclasificando = false;
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.recategorizando = true;
+    this.config_opciones.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
+    this.idCausal = 5;
+    this.mostrarIngresoDatos = true;
+  }
+ 
+  declararUnoMil() {
+    this.config_opciones.nuevaClasificacionAB = false;
+    this.config_opciones.actualizando = false;
+    this.config_opciones.activando = false;
+    this.config_opciones.reclasificando = false;
+    this.config_opciones.declarandoUnoMil = true;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.recategorizando = false;
+    this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar su contribución Uno por Mil, tiene la opción de guardar la información en cualquier momento.';
+    this.mostrarIngresoDatos = false;
+    this.idCausal = 6;
+  }
+
+  actualizar() {
+    this.config_opciones.actualizando = true;
+    this.config_opciones.nuevaClasificacionAB = false;
+    this.config_opciones.activando = false;
+    this.config_opciones.reclasificando = false;
+    this.config_opciones.recategorizando = false;
+    this.config_opciones.actualizandoCapacidadesPrecios = false;
+    this.config_opciones.declarandoUnoMil = false;
+    this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
+    this.mostrarIngresoDatos = true;
+    this.idCausal = 6;
   }
 }

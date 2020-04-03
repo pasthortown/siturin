@@ -137,8 +137,8 @@
     <div class="col-12">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group" role="group" *ngIf="!registrando_antiguos">
-                <button class="btn btn-sm btn-light" (click)="solicitandoNuevaActualizacion()" *ngIf="cannuevaClasificacionAB && !nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
-                <button class="btn btn-sm btn-secondary" (click)="solicitandoNuevaActualizacion()" *ngIf="cannuevaClasificacionAB && nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
+                <button class="btn btn-sm btn-light" (click)="solicitandoNuevaActualizacion()" *ngIf="config_opciones.cannuevaClasificacionAB && !config_opciones.nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
+                <button class="btn btn-sm btn-secondary" (click)="solicitandoNuevaActualizacion()" *ngIf="config_opciones.cannuevaClasificacionAB && config_opciones.nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
                 
                 <button class="btn btn-sm btn-light" (click)="actualizar()" *ngIf="!config_opciones.actualizando" [disabled]="!config_opciones.mostrarActualizar">Actualizar</button>
                 <button class="btn btn-sm btn-secondary" (click)="actualizar()" *ngIf="config_opciones.actualizando" [disabled]="!config_opciones.mostrarActualizar">Actualizar</button>
@@ -162,9 +162,9 @@
                 <button class="btn btn-sm btn-secondary" (click)="reactivar()" *ngIf="config_opciones.activando" [disabled]="!config_opciones.mostrarActivar">Reingreso</button>
             </div>
         </div>
-        <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="mensajePorTipoTramite != ''">
+        <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="config_opciones.mensajePorTipoTramite != ''">
             <label class="col-12 text-justify"><strong>Información</strong></label><br />
-            {{mensajePorTipoTramite}}
+            {{config_opciones.mensajePorTipoTramite}}
         </div>
     </div>
 </div>
