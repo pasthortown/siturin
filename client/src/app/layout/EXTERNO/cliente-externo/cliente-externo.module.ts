@@ -18,6 +18,9 @@ import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
 import { ClienteExternoComponent } from './cliente-externo.component';
 import { environment } from 'src/environments/environment';
 
+import { UserService } from './../../../services/profile/user.service';
+import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
+
 @NgModule({
   imports: [
     CommonModule, 
@@ -37,6 +40,8 @@ import { environment } from 'src/environments/environment';
     TuristicDataComponent,
     DeclarationDataComponent,
     EstablishmentListDataComponent
-  ]
+  ],
+  providers: [UserService,
+    AgreementService]
 })
 export class ClienteExternoModule {}
