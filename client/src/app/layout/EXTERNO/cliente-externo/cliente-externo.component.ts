@@ -340,7 +340,6 @@ export class ClienteExternoComponent implements OnInit {
     this.selected_system_source = event.row.system_source;
     this.selected_category_catastro = event.row.category;
     this.selected_classification_catastro = event.row.classification;
-    this.config_opciones.mensajePorTipoTramite = '';
     this.hasRucCode = false;
     if (event.row.establishment_ruc_code !== 'NULL') {
        this.hasRucCode = true;
@@ -383,7 +382,6 @@ export class ClienteExternoComponent implements OnInit {
          row.selected = '';
       });
     }
-    this.config_opciones.mensajePorTipoTramite = '';
     this.estaEnTabla = estaEnTabla;
     this.mostrarDataRegisterMintur = true;
     this.mostrarIngresoDatos = true;
@@ -410,6 +408,23 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   seleccionarRegistro(row?) {
+    this.config_opciones = {
+      actualizando: false,
+      mostrarActualizar: true,
+      declarandoUnoMil: false,
+      mostrarDeclarandoUnoMil: true,
+      activando: false,
+      mostrarActivar: true,
+      reclasificando: false,
+      mostrarReclasificar: true,
+      recategorizando: false,
+      mostrarRecategorizar: true,
+      actualizandoCapacidadesPrecios: false,
+      mostrarActualizarCapacidadesPrecios: true,
+      cannuevaClasificacionAB: false,
+      nuevaClasificacionAB: false,
+      mensajePorTipoTramite: ''
+    }
     if (typeof row != 'undefined') {
       let cambioEstado = false;
       if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ACTIVO" || 
