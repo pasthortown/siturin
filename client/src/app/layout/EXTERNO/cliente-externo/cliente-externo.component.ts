@@ -83,7 +83,7 @@ export class ClienteExternoComponent implements OnInit {
   ngOnInit() {
     this.refresh();
     this.getUser();
-    this.getTramiteStates();
+    //this.getTramiteStates();
   }
 
   refresh() {
