@@ -107,6 +107,74 @@
     </div>
 </div>
 
+<div class="row mt-3 mb-3" *ngIf="terminosCondiciones">
+    <div class="col-12">
+        <table class="table mt-2">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="onoffswitch">
+                            <input type="checkbox" class="onoffswitch-checkbox"  id="registroNuevoSwitch"
+                            name="registroNuevoSwitch" [(ngModel)]="registroNuevoEstablecimiento" (change)="registrarEstablecimientoNuevo(false, false)">
+                            <label class="onoffswitch-label" for="registroNuevoSwitch">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <strong>El trámite que deseo realizar corresponde a un establecimiento que no tiene Registro Turístico</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mt-3 mb-3" *ngIf="mostrarOpciones && !registroNuevoEstablecimiento">
+    <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+            Seleccione el trámite que desea realizar
+        </div>
+    </div>
+    <div class="col-12">
+        <h3>Opciones:</h3>
+    </div>
+    <div class="col-12">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group" role="group" *ngIf="!registrando_antiguos">
+            <button class="btn btn-sm btn-light" (click)="solicitandoNuevaActualizacion()" *ngIf="cannuevaClasificacionAB && !nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
+            <button class="btn btn-sm btn-secondary" (click)="solicitandoNuevaActualizacion()" *ngIf="cannuevaClasificacionAB && nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
+            
+            <button class="btn btn-sm btn-light" (click)="actualizar()" *ngIf="!actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
+            <button class="btn btn-sm btn-secondary" (click)="actualizar()" *ngIf="actualizando" [disabled]="!mostrarActualizar">Actualizar</button>
+            
+            <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="!actualizandoCapacidadesPrecios && registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS'" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Lista de Precios</button>
+            <button class="btn btn-sm btn-secondary" (click)="actualizarCapacidadesPrecios()" *ngIf="actualizandoCapacidadesPrecios && registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS'" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Lista de Precios</button>
+            
+            <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="!actualizandoCapacidadesPrecios && registerMinturSelected.activity == 'ALOJAMIENTO'" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Tarifario Rack</button>
+            <button class="btn btn-sm btn-secondary" (click)="actualizarCapacidadesPrecios()" *ngIf="actualizandoCapacidadesPrecios && registerMinturSelected.activity == 'ALOJAMIENTO'" [disabled]="!mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Tarifario Rack</button>
+            
+            <button class="btn btn-sm btn-light" (click)="declararUnoMil()" *ngIf="!declarandoUnoMil && (registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS' || registerMinturSelected.activity == 'ALOJAMIENTO')" [disabled]="!mostrarDeclarandoUnoMil">Declarar Contribución Uno Por Mil</button>
+            <button class="btn btn-sm btn-secondary" (click)="declararUnoMil()" *ngIf="declarandoUnoMil && (registerMinturSelected.activity == 'ALIMENTOS Y BEBIDAS' || registerMinturSelected.activity == 'ALOJAMIENTO')" [disabled]="!mostrarDeclarandoUnoMil">Declarar Contribución Uno Por Mil</button>
+            
+            <button class="btn btn-sm btn-light"  (click)="reclasificacion()" *ngIf="!reclasificando" [disabled]="!mostrarReclasificar">Reclasificación</button>
+            <button class="btn btn-sm btn-secondary"  (click)="reclasificacion()" *ngIf="reclasificando" [disabled]="!mostrarReclasificar">Reclasificación</button>
+            
+            <button class="btn btn-sm btn-light" (click)="recategorizacion()" *ngIf="!recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
+            <button class="btn btn-sm btn-secondary" (click)="recategorizacion()" *ngIf="recategorizando" [disabled]="!mostrarRecategorizar">Recategorización</button>
+            
+            <button class="btn btn-sm btn-light" (click)="reactivar()" *ngIf="!activando" [disabled]="!mostrarActivar">Reingreso</button>
+            <button class="btn btn-sm btn-secondary" (click)="reactivar()" *ngIf="activando" [disabled]="!mostrarActivar">Reingreso</button>
+            </div>
+        </div>
+        <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="mensajePorTipoTramite != ''">
+            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+            {{mensajePorTipoTramite}}
+        </div>
+    </div>
+</div>
+
 <div class="row mt-5">
     <app-ruc-data></app-ruc-data>
     <app-establishment-list-data></app-establishment-list-data>
