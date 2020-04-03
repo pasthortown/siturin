@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 
 import { UserService } from './../../../services/profile/user.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
+import { StateService } from './../../../services/CRUD/ALOJAMIENTO/state.service';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { AgreementService } from './../../../services/CRUD/BASE/agreement.servic
     EstablishmentListDataComponent
   ],
   providers: [UserService,
-    AgreementService]
+    AgreementService,
+    StateService]
 })
 export class ClienteExternoModule {}
