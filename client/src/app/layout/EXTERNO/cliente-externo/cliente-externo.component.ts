@@ -22,8 +22,11 @@ export class ClienteExternoComponent implements OnInit {
 
   // DATOS DEL REGISTRO SELECCIONADO
 
+  registerMinturSelected: any = null; // Portador de la información total del registro
+
   actividadSelected = '-';
   cannuevaClasificacionAB = false;
+  nuevaClasificacionAB = false;
   register_code = '';
   establishment_selected_ruc_code_id = 'NULL';
   my_category_current = '';
@@ -34,15 +37,32 @@ export class ClienteExternoComponent implements OnInit {
   selected_system_source = '';
   hasRucCode = false;
   register_as_turistic_Date = new Date();
+  esRegistro = false;
   
   // VARIABLES PARA EL CONTROL DE LAS ACCIONES QUE ESTÁ HACIENDO EL USUARIO
-
+  
+  mostrarDataRegisterMintur = false;
+  estaEnTabla = false;
   mostrarOpciones = false;
   registroNuevoEstablecimiento = false;
-  actualizandoCapacidadesPrecios = false;
-  declarandoUnoMil = false;
   mostrarIngresoDatos = false;
   
+  // -- OPCIONES
+  
+  actualizando = false; 
+  declarandoUnoMil = false;
+  activando = false;
+  reclasificando = false;
+  recategorizando = false;
+  actualizandoCapacidadesPrecios = false;
+  mostrarActualizar = true;
+  mostrarActivar = true;
+  mostrarDarBaja = true;
+  mostrarReclasificar = true;
+  mostrarRecategorizar = true;
+  mostrarDeclarandoUnoMil = true;
+  mostrarActualizarCapacidadesPrecios = true;
+   
   // VARIABLES TERMINOS Y CONDICIONES
 
   terminosCondicionesAgreement: Agreement = new Agreement();
@@ -63,7 +83,7 @@ export class ClienteExternoComponent implements OnInit {
   recordsByPageRegisterMintur = 5;
   estados = [];
   registers_mintur = [];
-  registerMinturSelected: any = null;
+  selectedRegister = null; // Va a contener el register mintur seleccionado a partir de los datos de la tabla.
    
 
   constructor( private userDataService: UserService,
@@ -190,47 +210,6 @@ export class ClienteExternoComponent implements OnInit {
     const end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
     return data.slice(start, end);
   }
-  
-  onCellClick(event) {
-    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
-       this.actividadSelected = '2';
-       this.cannuevaClasificacionAB = true;
-    }
-    if (event.row.activity == 'ALOJAMIENTO') {
-       this.actividadSelected = '1';
-       this.cannuevaClasificacionAB = false;
-    }
-    this.register_code = event.row.register_code;
-    this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
-    this.my_category_current = event.row.category;
-    this.my_classification_current = event.row.classification;
-    this.idCatasterID = event.row.id;
-    this.selected_system_source = event.row.system_source;
-    this.selected_category_catastro = event.row.category;
-    this.selected_classification_catastro = event.row.classification;
-    this.hasRucCode = false;
-    if (event.row.establishment_ruc_code !== 'NULL') {
-       this.hasRucCode = true;
-    }
-    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
-    this.mostrarOpciones = false;
-    this.registroNuevoEstablecimiento = false;
-    this.actualizandoCapacidadesPrecios = false;
-    this.declarandoUnoMil = false;
-    this.mostrarIngresoDatos = false;
-    this.rows.forEach(row => {
-       if (event.row == row) {
-          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-          if ((row.system_source == 'SIETE') || (row.system_source == 'SITURIN')) {
-             this.buildOpciones(row);
-          } else {
-             this.registrarEstablecimientoNuevo(true, this.hasRucCode);
-          }
-       } else {
-          row.selected = '';
-       }
-    });
-  }
 
   buildDataTable() {
     this.columns = [
@@ -344,39 +323,166 @@ export class ClienteExternoComponent implements OnInit {
     return data;
   }
 
-  buildOpciones(row) {
-    // this.estaEnTabla = true;
-    // this.mostrarOpciones = true;
-    // this.seleccionarRegistro(row);
+  onCellClick(event) {
+    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.actividadSelected = '2';
+       this.cannuevaClasificacionAB = true;
+    }
+    if (event.row.activity == 'ALOJAMIENTO') {
+       this.actividadSelected = '1';
+       this.cannuevaClasificacionAB = false;
+    }
+    this.register_code = event.row.register_code;
+    this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
+    this.my_category_current = event.row.category;
+    this.my_classification_current = event.row.classification;
+    this.idCatasterID = event.row.id;
+    this.selected_system_source = event.row.system_source;
+    this.selected_category_catastro = event.row.category;
+    this.selected_classification_catastro = event.row.classification;
+    this.hasRucCode = false;
+    if (event.row.establishment_ruc_code !== 'NULL') {
+       this.hasRucCode = true;
+    }
+    this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
+    this.mostrarOpciones = false;
+    this.registroNuevoEstablecimiento = false;
+    this.actualizandoCapacidadesPrecios = false;
+    this.declarandoUnoMil = false;
+    this.mostrarIngresoDatos = false;
+    this.registers_mintur.forEach(element => {
+      if (element.id == event.row.id) {
+         this.selectedRegister = element;
+      }
+    });
+    this.rows.forEach(row => {
+       if (event.row == row) {
+          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+          if ((row.system_source == 'SIETE') || (row.system_source == 'SITURIN')) {
+             this.buildOpciones(row);
+          } else {
+             this.registrarEstablecimientoNuevo(true, this.hasRucCode);
+          }
+       } else {
+          row.selected = '';
+       }
+    });
   }
 
-  registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
-    // this.actividadSelected = '-';
-    // this.cannuevaClasificacionAB = false;
-    // this.establishment_selected_ruc_code_id = 'NULL';
-    // this.my_category_current = '';
-    // this.my_classification_current = '';
-    // this.idCatasterID = 0;
-    // this.register_code = '';
-    // this.estaEnTabla = estaEnTabla;
-    // this.mostrarDataRegisterMintur = true;
-    // this.selected_system_source = '';
-    // this.selected_category_catastro = '';
-    // this.selected_classification_catastro = '';
-    // this.esRegistro = true;
-    // this.mostrarIngresoDatos = true;
-    // this.mostrarOpciones = false;
-    // if (!this.estaEnTabla) {
-    //    this.rows.forEach(row => {
-    //       row.selected = '';
-    //    });
-    // }
-    // this.hasRucCode = hasRucCode;
-    // this.selectedRegister = null;
-    // this.register_as_turistic_Date = new Date();
-    // this.registroNuevoEstablecimiento = false;
-    // this.declarandoUnoMil = false;
-    // this.actualizandoCapacidadesPrecios = false;
-    // this.seleccionarRegistro();
+  buildOpciones(row) {
+    this.estaEnTabla = true;
+    this.mostrarOpciones = true;
+    this.seleccionarRegistro(row);
+  }
+
+  registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) { 
+    // CONTROL DE INTERFAZ
+    if (!this.estaEnTabla) {
+      this.rows.forEach(row => {
+         row.selected = '';
+      });
+    }
+    this.estaEnTabla = estaEnTabla;
+    this.mostrarDataRegisterMintur = true;
+    this.mostrarIngresoDatos = true;
+    this.mostrarOpciones = false;
+    this.declarandoUnoMil = false;
+    this.actualizandoCapacidadesPrecios = false;
+    // ENCERAMOS REGISTRO NUEVO
+    this.actividadSelected = '-';
+    this.cannuevaClasificacionAB = false;
+    this.establishment_selected_ruc_code_id = 'NULL';
+    this.my_category_current = '';
+    this.my_classification_current = '';
+    this.selected_category_catastro = '';
+    this.selected_classification_catastro = '';
+    this.register_as_turistic_Date = new Date();
+    this.idCatasterID = 0;
+    this.register_code = '';
+    this.selected_system_source = '';
+    this.esRegistro = true;
+    this.hasRucCode = hasRucCode;
+    this.registroNuevoEstablecimiento = false;
+    this.selectedRegister = null;
+    this.seleccionarRegistro();
+  }
+
+  seleccionarRegistro(row?) {
+    if (typeof row != 'undefined') {
+      let cambioEstado = false;
+      if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ACTIVO" || 
+        this.selectedRegister.establishment_state.toUpperCase().trim() == "ABIERTO" || 
+        this.selectedRegister.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
+         this.mostrarActualizar = true;
+         this.mostrarActivar = false;
+         this.mostrarDarBaja = true;
+         this.mostrarReclasificar = true;
+         this.mostrarRecategorizar = true; 
+         this.mostrarDeclarandoUnoMil = true;
+         this.mostrarActualizarCapacidadesPrecios = true;
+         cambioEstado = true;
+      }
+      if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || 
+         this.selectedRegister.establishment_state.toUpperCase().trim() == "CERRADO") {
+         this.mostrarActualizar = false;
+         this.mostrarActivar = true;
+         this.mostrarDarBaja = false;
+         this.mostrarReclasificar = false;
+         this.mostrarRecategorizar = false; 
+         this.mostrarDeclarandoUnoMil = false;
+         this.mostrarActualizarCapacidadesPrecios = false;
+         cambioEstado = true;
+      }
+      if (!cambioEstado) {
+         this.mostrarActualizar = false;
+         this.mostrarActivar = false;
+         this.mostrarDarBaja = false;
+         this.mostrarReclasificar = false;
+         this.mostrarRecategorizar = false;
+         this.mostrarDeclarandoUnoMil = false;
+         this.mostrarActualizarCapacidadesPrecios = false;
+         return;
+      }
+      this.mostrarDataRegisterMintur = true;
+      //this.checkTramitEmitted(this.register_code);
+      if (this.selectedRegister.system_source == 'SITURIN') {
+        // cambioEstado = true;
+        // this.consultorDataService.get_register_by_code(this.register_code).then( r => {
+        //     const registerMintur = r[0];
+        //     this.selectRegisterMintur(registerMintur);
+        //     const registerState = this.getRegisterState(registerMintur.states.state_id);
+        //     this.stateTramiteId = registerMintur.states.state_id;
+        //     const estado: String = this.stateTramiteId.toString();
+        //     this.digito = estado.substring(estado.length-1, estado.length);
+        //     this.stateTramite = 0;
+        //     this.canSave = true;
+        //     if (registerState.search('Solicitud Aprobada') == 0) {
+        //        this.stateTramite = 1;
+        //        this.hasRegisterReady = true;
+        //        this.canSave = false;
+        //     }
+        //     if (registerState.search('Solicitud Rechazada') == 0) {
+        //        this.stateTramite = 2;
+        //        this.hasRegisterReady = false;
+        //        this.canSave = false;
+        //     }
+        //     if (registerState.search('Documentación Entregada') == 0) {
+        //        this.stateTramite = 3;
+        //        this.hasRegisterReady = false;
+        //        this.canSave = false;
+        //     }
+        //     this.idRegister = registerMintur.register.id;
+        //     this.getApprovalStates();
+        //  }).catch( e => { console.log(e); });
+      } else {
+         this.startInitialDataRegisterNew();
+      }
+    } else {
+       this.startInitialDataRegisterNew();
+    }
+  }
+
+  startInitialDataRegisterNew() {
+
   }
 }
