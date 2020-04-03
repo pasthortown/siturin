@@ -1,9 +1,49 @@
-<p>
-    cliente-externo works!
-</p>
+<div class="row mt-2 mb-5">
+    <h1 class="col-12 text-right">
+       Gestión de Actividades Turísticas
+    </h1>
+</div>
+<div class="row">
+    <div class="col-12">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+            <ngb-panel id="terminosCondiciones">
+                <ng-template ngbPanelTitle>
+                    <span>{{terminosCondicionesAgreement.title}}</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="col-12" [innerHTML]="terminosCondicionesAgreement.content">
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+        <div class="col-12">
+            <table class="table mt-2">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="onoffswitch">
+                                <input type="checkbox" class="onoffswitch-checkbox"  id="terminosCondicionesSwitch" (change)="checkAgreement()"
+                                    name="terminosCondicionesSwitch" [(ngModel)]="terminosCondiciones">
+                                <label class="onoffswitch-label" for="terminosCondicionesSwitch">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>He leído, entendido y por lo tanto acepto los términos y condiciones</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <app-ruc-data></app-ruc-data>
+    <app-establishment-list-data></app-establishment-list-data>
+    <app-establishment-data></app-establishment-data>
+    <app-declaration-data></app-declaration-data>
+    <app-turistic-data></app-turistic-data>
+</div>
 
-<app-ruc-data></app-ruc-data>
-<app-establishment-list-data></app-establishment-list-data>
-<app-establishment-data></app-establishment-data>
-<app-declaration-data></app-declaration-data>
-<app-turistic-data></app-turistic-data>
