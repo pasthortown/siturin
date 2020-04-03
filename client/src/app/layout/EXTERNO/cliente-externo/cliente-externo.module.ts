@@ -1,4 +1,4 @@
-import { DataComponent } from './data/data.component';
+import { DataComponent } from './../../client-data-components/data/data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
