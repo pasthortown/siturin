@@ -5,7 +5,7 @@ import { AccountRol } from './../../../models/AUTH/AccountRol';
 import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
 import { Agreement } from './../../../models/BASE/Agreement';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-cliente-externo',
@@ -14,7 +14,9 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ClienteExternoComponent implements OnInit {
-
+  @ViewChild('pasos') pasosTabSet;
+  @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
+  
   // DATOS DEL USUARIO
   
   roles: AccountRol[] = [];
@@ -39,6 +41,8 @@ export class ClienteExternoComponent implements OnInit {
   
   // VARIABLES PARA EL CONTROL DE LAS ACCIONES QUE ESTÁ HACIENDO EL USUARIO
   
+  tabActive = 'paso1';
+  tabActiveSuperior = 'tab1';
   mostrarDataRegisterMintur = false;
   estaEnTabla = false;
   mostrarOpciones = false;
@@ -501,6 +505,8 @@ export class ClienteExternoComponent implements OnInit {
 
   }
 
+  // FUNCIONES QUE CONTROLAN LA INTERFAZ
+
   solicitandoNuevaActualizacion() {
     this.config_opciones.actualizando = false;
     this.config_opciones.declarandoUnoMil = false;
@@ -601,5 +607,13 @@ export class ClienteExternoComponent implements OnInit {
     this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
     this.mostrarIngresoDatos = true;
     this.idCausal = 6;
+  }
+
+  changeTabActive(event) {
+    this.tabActive = event.nextId;
+  }
+
+  changeTabActiveSuperior(event) {
+    this.tabActiveSuperior = event.nextId;
   }
 }
