@@ -383,6 +383,7 @@ export class ClienteExternoComponent implements OnInit {
          row.selected = '';
       });
     }
+    this.config_opciones.mensajePorTipoTramite = '';
     this.estaEnTabla = estaEnTabla;
     this.mostrarDataRegisterMintur = true;
     this.mostrarIngresoDatos = true;
