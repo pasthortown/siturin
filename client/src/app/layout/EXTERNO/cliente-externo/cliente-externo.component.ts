@@ -347,7 +347,6 @@ export class ClienteExternoComponent implements OnInit {
     this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
     this.mostrarOpciones = false;
     this.registroNuevoEstablecimiento = false;
-    console.log('aqui');
     this.config_opciones.actualizandoCapacidadesPrecios = false;
     this.config_opciones.declarandoUnoMil = false;
     this.mostrarIngresoDatos = false;
@@ -403,7 +402,6 @@ export class ClienteExternoComponent implements OnInit {
     this.selected_system_source = '';
     this.esRegistro = true;
     this.hasRucCode = hasRucCode;
-    this.registroNuevoEstablecimiento = false;
     this.selectedRegister = null;
     this.seleccionarRegistro();
   }
