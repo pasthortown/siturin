@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Ruc } from 'src/app/models/BASE/Ruc';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ruc-data',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RucDataComponent implements OnInit {
   
+  @Input('ruc_number') ruc_number: String = '';
+
   constructor() {
     
   }
