@@ -1,8 +1,7 @@
-import { UserService } from 'src/app/services/profile/user.service';
 import { User } from 'src/app/models/profile/User';
 import { Agreement } from './../../../models/BASE/Agreement';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-agreement-data',
@@ -12,22 +11,14 @@ import { Component, OnInit } from '@angular/core';
 export class AgreementDataComponent implements OnInit {
   terminosCondicionesAgreement: Agreement = new Agreement();
   terminosCondiciones = false;
-  user: User = new User();
+  @Input('user') user: User = new User();
 
-  constructor(private agreementDataService: AgreementService,
-    private userDataService: UserService) {
+  constructor(private agreementDataService: AgreementService) {
     
   }
 
   ngOnInit() {
-    this.getUser(); 
-  }
-
-  getUser() {
-    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
-      this.user = r as User;
-      this.getTerminosCondicionesAgreement();
-    }).catch( e => console.log(e));
+    this.getTerminosCondicionesAgreement(); 
   }
 
   getTerminosCondicionesAgreement() {

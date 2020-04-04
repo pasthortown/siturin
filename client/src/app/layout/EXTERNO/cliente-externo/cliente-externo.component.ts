@@ -43,6 +43,7 @@ export class ClienteExternoComponent implements OnInit {
   
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
+  mostrarTerminosCondiciones = false;
   mostrarDataRegisterMintur = false;
   estaEnTabla = false;
   mostrarOpciones = false;
@@ -104,6 +105,7 @@ export class ClienteExternoComponent implements OnInit {
     this.roles = JSON.parse(sessionStorage.getItem('roles')) as AccountRol[];
     this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
       this.user = r as User;
+      this.mostrarTerminosCondiciones = true;;
       this.getRegistersMintur();
     }).catch( e => console.log(e));
   }
