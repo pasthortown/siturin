@@ -27,7 +27,8 @@ export class RegistersDataComponent implements OnInit {
   recordsByPageRegisterMintur = 5;
   estados = [];
   registers_mintur = [];
-  
+  registroNuevoEstablecimiento = false;
+
   constructor(private catastroRegisterDataService: CatastroRegisterService) {
     
   }
@@ -241,6 +242,7 @@ export class RegistersDataComponent implements OnInit {
   }
 
   onCellClick(event) {
+    this.registroNuevoEstablecimiento = false;
     this.registers_mintur.forEach(element => {
       if (element.id == event.row.id) {
          this.register_selected.register = element;
