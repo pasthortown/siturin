@@ -91,7 +91,7 @@
         </div>
     </div>
     <div class="col-4">
-        <div class="form-group" *ngIf="ruc_registro_selected.ruc.group_given.group_type_id != 0">
+        <div class="form-group" *ngIf="ruc.group_given.group_type_id != 0">
             <label>Fecha de Nombramiento*</label>
             <span *ngIf="!fechaNombramientoOK" class="ml-2 badge badge-danger">Incorrecto</span>
             <input type="date" class="form-control" [disabled]="!editable" id="assignment_date" name="assignment_date" (input)="fechasNombramiento()"
