@@ -102,7 +102,6 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   validateRegisterSelectedData(event) {
-    console.log(event);
     if (!event.isNew) {
       if (event.register.activity == 'ALOJAMIENTO') {
         this.actividadSelected = '1';
