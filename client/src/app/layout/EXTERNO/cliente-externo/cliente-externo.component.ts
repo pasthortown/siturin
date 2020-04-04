@@ -44,6 +44,7 @@ export class ClienteExternoComponent implements OnInit {
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
   mostrarTerminosCondiciones = false;
+  terminosCondiciones = false;
   mostrarDataRegisterMintur = false;
   estaEnTabla = false;
   mostrarOpciones = false;
@@ -120,7 +121,7 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   checkTerminosCondiciones(event) {
-    console.log(event);
+    this.terminosCondiciones = event;
   }
 
   onChangeTable(config: any, page: any = {page: this.currentPageMinturRegisters, itemsPerPage: this.recordsByPageRegisterMintur}): any {
