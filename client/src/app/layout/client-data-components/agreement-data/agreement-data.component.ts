@@ -13,7 +13,7 @@ export class AgreementDataComponent implements OnInit {
   terminosCondiciones = false;
 
   @Input('user') user: User = new User();
-  @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output('checkAgreement') change: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private agreementDataService: AgreementService) {
     
