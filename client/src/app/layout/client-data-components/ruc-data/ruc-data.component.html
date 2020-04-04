@@ -108,7 +108,7 @@
                     <button [disabled]="!validateNombramiento()" type="button" title="Descargar" class="btn btn-success" (click)="descargarNombramiento()">
                         <i class="fas fa-download"></i>
                     </button>
-                    <button [disabled]="!validateNombramiento()" [disabled]="!editable" type="button" title="Eliminar" class="btn btn-danger" (click)="borrarNombramiento()">
+                    <button [disabled]="!validateNombramiento() || !editable" type="button" title="Eliminar" class="btn btn-danger" (click)="borrarNombramiento()">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
