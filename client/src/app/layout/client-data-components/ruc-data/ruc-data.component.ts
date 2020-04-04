@@ -291,8 +291,10 @@ export class RucDataComponent implements OnInit {
     }
     if (new Date(this.ruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
       this.fechaNombramientoOK = false;
+      console.log('bien');
     }else {
       this.fechaNombramientoOK = true;
+      console.log('mal');
     }
     return {max: today, min: min};
   }
