@@ -125,10 +125,11 @@
         </div>
     </div>
 </div>
-<div class="col-12">
-    <div class="alert alert-danger mt-3" role="alert" *ngIf="!validateRuc()">
-        <label class="col-12 text-justify"><strong>Atención</strong><br />
-            La información proporcionada del RUC presenta errores o es incompleta.
-        </label>
+<div class="row" *ngIf="true">
+    <div class="col-12">
+        <div class="alert alert-danger mt-3" role="alert" *ngIf="!validateRuc()">
+            <label class="col-12 text-center"><strong>Atención</strong></label>
+            <p class="col-12 text-justify">La información proporcionada del RUC presenta errores o es incompleta.</p>
+        </div>
     </div>
 </div>
