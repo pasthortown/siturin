@@ -351,7 +351,6 @@ export class RucDataComponent implements OnInit {
         (this.ruc.group_given.register_code !== '') &&
         this.validateFechaNombramiento();
     }
-    console.log(toReturn);
     return toReturn;
   }
 
