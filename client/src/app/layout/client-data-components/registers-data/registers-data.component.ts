@@ -248,6 +248,7 @@ export class RegistersDataComponent implements OnInit {
          this.register_selected.register = element;
       }
     });
+    this.register_selected.isNew = true;
     this.rows.forEach(row => {
        if (event.row == row) {
           row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
@@ -257,7 +258,6 @@ export class RegistersDataComponent implements OnInit {
             this.register_selected.isNew = true;
           }
        } else {
-        this.register_selected.isNew = true;
         row.selected = '';
        }
     });
