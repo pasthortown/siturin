@@ -1,3 +1,5 @@
+import { OptionsDataComponent } from './../../client-data-components/options-data/options-data.component';
+import { AgreementDataComponent } from './../../client-data-components/agreement-data/agreement-data.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -36,6 +38,8 @@ import { RegisterService as CatastroRegisterService } from 'src/app/services/CRU
     ScrollToModule.forRoot()
   ],
   declarations: [ClienteExternoComponent, 
+    AgreementDataComponent,
+    OptionsDataComponent,
     EstablishmentDataComponent, 
     RucDataComponent,
     TuristicDataComponent,

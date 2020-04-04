@@ -465,40 +465,44 @@ export class ClienteExternoComponent implements OnInit {
       this.mostrarDataRegisterMintur = true;
       //this.checkTramitEmitted(this.register_code);
       if (this.selectedRegister.system_source == 'SITURIN') {
-        // cambioEstado = true;
-        // this.consultorDataService.get_register_by_code(this.register_code).then( r => {
-        //     const registerMintur = r[0];
-        //     this.selectRegisterMintur(registerMintur);
-        //     const registerState = this.getRegisterState(registerMintur.states.state_id);
-        //     this.stateTramiteId = registerMintur.states.state_id;
-        //     const estado: String = this.stateTramiteId.toString();
-        //     this.digito = estado.substring(estado.length-1, estado.length);
-        //     this.stateTramite = 0;
-        //     this.canSave = true;
-        //     if (registerState.search('Solicitud Aprobada') == 0) {
-        //        this.stateTramite = 1;
-        //        this.hasRegisterReady = true;
-        //        this.canSave = false;
-        //     }
-        //     if (registerState.search('Solicitud Rechazada') == 0) {
-        //        this.stateTramite = 2;
-        //        this.hasRegisterReady = false;
-        //        this.canSave = false;
-        //     }
-        //     if (registerState.search('Documentación Entregada') == 0) {
-        //        this.stateTramite = 3;
-        //        this.hasRegisterReady = false;
-        //        this.canSave = false;
-        //     }
-        //     this.idRegister = registerMintur.register.id;
-        //     this.getApprovalStates();
-        //  }).catch( e => { console.log(e); });
+        this.getRegisterSiturinData();
       } else {
          this.startInitialDataRegisterNew();
       }
     } else {
        this.startInitialDataRegisterNew();
     }
+  }
+
+  getRegisterSiturinData() {
+    // cambioEstado = true;
+    // this.consultorDataService.get_register_by_code(this.register_code).then( r => {
+    //     const registerMintur = r[0];
+    //     this.selectRegisterMintur(registerMintur);
+    //     const registerState = this.getRegisterState(registerMintur.states.state_id);
+    //     this.stateTramiteId = registerMintur.states.state_id;
+    //     const estado: String = this.stateTramiteId.toString();
+    //     this.digito = estado.substring(estado.length-1, estado.length);
+    //     this.stateTramite = 0;
+    //     this.canSave = true;
+    //     if (registerState.search('Solicitud Aprobada') == 0) {
+    //        this.stateTramite = 1;
+    //        this.hasRegisterReady = true;
+    //        this.canSave = false;
+    //     }
+    //     if (registerState.search('Solicitud Rechazada') == 0) {
+    //        this.stateTramite = 2;
+    //        this.hasRegisterReady = false;
+    //        this.canSave = false;
+    //     }
+    //     if (registerState.search('Documentación Entregada') == 0) {
+    //        this.stateTramite = 3;
+    //        this.hasRegisterReady = false;
+    //        this.canSave = false;
+    //     }
+    //     this.idRegister = registerMintur.register.id;
+    //     this.getApprovalStates();
+    //  }).catch( e => { console.log(e); });
   }
 
   startInitialDataRegisterNew() {
