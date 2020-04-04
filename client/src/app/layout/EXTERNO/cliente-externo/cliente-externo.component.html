@@ -4,7 +4,6 @@
     </h1>
 </div>
 <app-agreement-data [user]="user" *ngIf="mostrarTerminosCondiciones" (checkAgreement)="checkTerminosCondiciones($event)"></app-agreement-data>
-<app-options-data></app-options-data>
 <div class="row mt-2 mb-2" *ngIf="terminosCondiciones">
     <h3 class="col-12 text-left">
        Registros Turísticos
@@ -66,7 +65,6 @@
         </ngb-pagination>
     </div>
 </div>
-
 <div class="row mt-3 mb-3" *ngIf="terminosCondiciones">
     <div class="col-12">
         <table class="table mt-2">
@@ -90,50 +88,7 @@
         </table>
     </div>
 </div>
-<div class="row mt-3 mb-3" *ngIf="mostrarOpciones && !registroNuevoEstablecimiento">
-    <div class="col-12">
-        <div class="alert alert-info mt-2 mb-2" role="alert">
-            <label class="col-12 text-justify"><strong>Información</strong></label><br />
-            Seleccione el trámite que desea realizar
-        </div>
-    </div>
-    <div class="col-12">
-        <h3>Opciones:</h3>
-    </div>
-    <div class="col-12">
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group" role="group" *ngIf="!registrando_antiguos">
-                <button class="btn btn-sm btn-light" (click)="solicitandoNuevaActualizacion()" *ngIf="config_opciones.cannuevaClasificacionAB && !config_opciones.nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
-                <button class="btn btn-sm btn-secondary" (click)="solicitandoNuevaActualizacion()" *ngIf="config_opciones.cannuevaClasificacionAB && config_opciones.nuevaClasificacionAB">Solicitar Nueva Clasificación</button>
-                
-                <button class="btn btn-sm btn-light" (click)="actualizar()" *ngIf="!config_opciones.actualizando" [disabled]="!config_opciones.mostrarActualizar">Actualizar</button>
-                <button class="btn btn-sm btn-secondary" (click)="actualizar()" *ngIf="config_opciones.actualizando" [disabled]="!config_opciones.mostrarActualizar">Actualizar</button>
-                
-                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="!config_opciones.actualizandoCapacidadesPrecios && actividadSelected == '2'" [disabled]="!config_opciones.mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Lista de Precios</button>
-                <button class="btn btn-sm btn-secondary" (click)="actualizarCapacidadesPrecios()" *ngIf="config_opciones.actualizandoCapacidadesPrecios && actividadSelected == '2'" [disabled]="!config_opciones.mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Lista de Precios</button>
-                
-                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="!config_opciones.actualizandoCapacidadesPrecios && actividadSelected == '1'" [disabled]="!config_opciones.mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Tarifario Rack</button>
-                <button class="btn btn-sm btn-secondary" (click)="actualizarCapacidadesPrecios()" *ngIf="config_opciones.actualizandoCapacidadesPrecios && actividadSelected == '1'" [disabled]="!config_opciones.mostrarActualizarCapacidadesPrecios">Actualizar Capacidades y Tarifario Rack</button>
-                
-                <button class="btn btn-sm btn-light" (click)="declararUnoMil()" *ngIf="!config_opciones.declarandoUnoMil && (actividadSelected == '2' || actividadSelected == '1')" [disabled]="!config_opciones.mostrarDeclarandoUnoMil">Declarar Contribución Uno Por Mil</button>
-                <button class="btn btn-sm btn-secondary" (click)="declararUnoMil()" *ngIf="config_opciones.declarandoUnoMil && (actividadSelected == '2' || actividadSelected == '1')" [disabled]="!config_opciones.mostrarDeclarandoUnoMil">Declarar Contribución Uno Por Mil</button>
-                
-                <button class="btn btn-sm btn-light"  (click)="reclasificacion()" *ngIf="!config_opciones.reclasificando" [disabled]="!config_opciones.mostrarReclasificar">Reclasificación</button>
-                <button class="btn btn-sm btn-secondary"  (click)="reclasificacion()" *ngIf="config_opciones.reclasificando" [disabled]="!config_opciones.mostrarReclasificar">Reclasificación</button>
-                
-                <button class="btn btn-sm btn-light" (click)="recategorizacion()" *ngIf="!config_opciones.recategorizando" [disabled]="!config_opciones.mostrarRecategorizar">Recategorización</button>
-                <button class="btn btn-sm btn-secondary" (click)="recategorizacion()" *ngIf="config_opciones.recategorizando" [disabled]="!config_opciones.mostrarRecategorizar">Recategorización</button>
-                
-                <button class="btn btn-sm btn-light" (click)="reactivar()" *ngIf="!config_opciones.activando" [disabled]="!config_opciones.mostrarActivar">Reingreso</button>
-                <button class="btn btn-sm btn-secondary" (click)="reactivar()" *ngIf="config_opciones.activando" [disabled]="!config_opciones.mostrarActivar">Reingreso</button>
-            </div>
-        </div>
-        <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="config_opciones.mensajePorTipoTramite != ''">
-            <label class="col-12 text-justify"><strong>Información</strong></label><br />
-            {{config_opciones.mensajePorTipoTramite}}
-        </div>
-    </div>
-</div>
+<app-options-data *ngIf="mostrarOpciones && !registroNuevoEstablecimiento" [register_state]="estado_registro" [register_activity]="actividadSelected" (select_option)="changeSelectedOption($event)"></app-options-data>
 <div class="row" *ngIf="mostrarIngresoDatos || registroNuevoEstablecimiento">
     <div class="col-12 text-left">
         <h3>Datos:</h3>

@@ -1,1 +1,76 @@
-options-data dont works
+<div class="row mt-3 mb-3">
+    <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+            Seleccione el trámite que desea realizar
+        </div>
+    </div>
+    <div class="col-12">
+        <h3>Opciones:</h3>
+    </div>
+    <div class="col-12">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group" role="group">
+                <button class="btn btn-sm btn-light" (click)="solicitandoNuevaActualizacion()" *ngIf="register_activity == '2' && select_option != 'ab_new_classification' && register_state == 'ACTIVO'">
+                    Solicitar Nueva Clasificación
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="register_activity == '2' && select_option == 'ab_new_classification' && register_state == 'ACTIVO'" disabled>
+                    Solicitar Nueva Clasificación
+                </button>
+                
+                <button class="btn btn-sm btn-light" (click)="actualizar()" *ngIf="select_option != 'actualization' && register_state == 'ACTIVO'">
+                    Actualizar
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="select_option == 'actualization' && register_state == 'ACTIVO'" disabled>
+                    Actualizar
+                </button>
+                
+                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="actividadSelected == '2' && select_option != 'actualization_costs' && register_state == 'ACTIVO'">
+                    Actualizar Capacidades y Lista de Precios
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="actividadSelected == '2' && select_option == 'actualization_costs' && register_state == 'ACTIVO'" disabled>
+                    Actualizar Capacidades y Lista de Precios
+                </button>
+                
+                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="actividadSelected == '1' && select_option != 'actualization_costs' && register_state == 'ACTIVO'">
+                    Actualizar Capacidades y Tarifario Rack
+                </button>
+                <button class="btn btn-sm btn-secondary"  *ngIf="actividadSelected == '1' && select_option == 'actualization_costs' && register_state == 'ACTIVO'" disabled>
+                    Actualizar Capacidades y Tarifario Rack
+                </button>
+                
+                <button class="btn btn-sm btn-light" (click)="declararUnoMil()" *ngIf="select_option != 'tax_declaration' && register_state == 'ACTIVO'">
+                    Declarar Contribución Uno Por Mil
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="select_option == 'tax_declaration' && register_state == 'ACTIVO'" disabled>
+                    Declarar Contribución Uno Por Mil
+                </button>
+                
+                <button class="btn btn-sm btn-light"  (click)="reclasificacion()" *ngIf="select_option != 'reclassification' && register_state == 'ACTIVO'">
+                    Reclasificación
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="select_option == 'reclassification' && register_state == 'ACTIVO'" disabled>
+                    Reclasificación
+                </button>
+                
+                <button class="btn btn-sm btn-light" (click)="recategorizacion()" *ngIf="select_option != 'recategorization' && register_state == 'ACTIVO'">
+                    Recategorización
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="select_option == 'recategorization' && register_state == 'ACTIVO'" disabled>
+                    Recategorización
+                </button>
+                
+                <button class="btn btn-sm btn-light" (click)="reactivar()" *ngIf="select_option != 'activation' && register_state != 'ACTIVO'">
+                    Reingreso
+                </button>
+                <button class="btn btn-sm btn-secondary" *ngIf="select_option == 'activation' && register_state != 'ACTIVO'" disabled>
+                    Reingreso
+                </button>
+            </div>
+        </div>
+        <div class="alert alert-info mt-2 mb-2" role="alert" *ngIf="mensajePorTipoTramite != ''">
+            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+            {{mensajePorTipoTramite}}
+        </div>
+    </div>
+</div>

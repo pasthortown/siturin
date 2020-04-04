@@ -27,6 +27,9 @@ export class ClienteExternoComponent implements OnInit {
   registerMinturSelected: any = null; // Portador de la información total del registro
 
   actividadSelected = '-';
+  estado_registro = '';
+  mostrarOpciones = false;
+  
   register_code = '';
   establishment_selected_ruc_code_id = 'NULL';
   my_category_current = '';
@@ -41,33 +44,16 @@ export class ClienteExternoComponent implements OnInit {
   
   // VARIABLES PARA EL CONTROL DE LAS ACCIONES QUE ESTÁ HACIENDO EL USUARIO
   
-  tabActive = 'paso1';
-  tabActiveSuperior = 'tab1';
   mostrarTerminosCondiciones = false;
   terminosCondiciones = false;
+  
+  tabActive = 'paso1';
+  tabActiveSuperior = 'tab1';
   mostrarDataRegisterMintur = false;
   estaEnTabla = false;
-  mostrarOpciones = false;
   registroNuevoEstablecimiento = false;
   mostrarIngresoDatos = false;
   idCausal = 0;
-  config_opciones = {
-    actualizando: false,
-    mostrarActualizar: true,
-    declarandoUnoMil: false,
-    mostrarDeclarandoUnoMil: true,
-    activando: false,
-    mostrarActivar: true,
-    reclasificando: false,
-    mostrarReclasificar: true,
-    recategorizando: false,
-    mostrarRecategorizar: true,
-    actualizandoCapacidadesPrecios: false,
-    mostrarActualizarCapacidadesPrecios: true,
-    cannuevaClasificacionAB: false,
-    nuevaClasificacionAB: false,
-    mensajePorTipoTramite: ''
-  }
 
   // VARIABLES TABLA DE REGISTROS DEL USUARIO
 
@@ -122,7 +108,6 @@ export class ClienteExternoComponent implements OnInit {
 
   checkTerminosCondiciones(event) {
     this.terminosCondiciones = event;
-    console.log(this.terminosCondiciones);
   }
 
   onChangeTable(config: any, page: any = {page: this.currentPageMinturRegisters, itemsPerPage: this.recordsByPageRegisterMintur}): any {
@@ -317,13 +302,11 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   onCellClick(event) {
-    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
-       this.actividadSelected = '2';
-        this.config_opciones.cannuevaClasificacionAB = true;
-    }
     if (event.row.activity == 'ALOJAMIENTO') {
        this.actividadSelected = '1';
-        this.config_opciones.cannuevaClasificacionAB = false;
+    }
+    if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
+       this.actividadSelected = '2';
     }
     this.register_code = event.row.register_code;
     this.establishment_selected_ruc_code_id = event.row.establishment_ruc_code;
@@ -340,8 +323,6 @@ export class ClienteExternoComponent implements OnInit {
     this.register_as_turistic_Date = new Date(event.row.as_turistic_date.toString());
     this.mostrarOpciones = false;
     this.registroNuevoEstablecimiento = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
-    this.config_opciones.declarandoUnoMil = false;
     this.mostrarIngresoDatos = false;
     this.registers_mintur.forEach(element => {
       if (element.id == event.row.id) {
@@ -379,11 +360,8 @@ export class ClienteExternoComponent implements OnInit {
     this.mostrarDataRegisterMintur = true;
     this.mostrarIngresoDatos = true;
     this.mostrarOpciones = false;
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
     // ENCERAMOS REGISTRO NUEVO
     this.actividadSelected = '-';
-    this.config_opciones.cannuevaClasificacionAB = false;
     this.establishment_selected_ruc_code_id = 'NULL';
     this.my_category_current = '';
     this.my_classification_current = '';
@@ -401,55 +379,15 @@ export class ClienteExternoComponent implements OnInit {
 
   seleccionarRegistro(row?) {
     this.mostrarIngresoDatos = false;
-    this.config_opciones = {
-      actualizando: false,
-      mostrarActualizar: true,
-      declarandoUnoMil: false,
-      mostrarDeclarandoUnoMil: true,
-      activando: false,
-      mostrarActivar: true,
-      reclasificando: false,
-      mostrarReclasificar: true,
-      recategorizando: false,
-      mostrarRecategorizar: true,
-      actualizandoCapacidadesPrecios: false,
-      mostrarActualizarCapacidadesPrecios: true,
-      cannuevaClasificacionAB: false,
-      nuevaClasificacionAB: false,
-      mensajePorTipoTramite: ''
-    }
     if (typeof row != 'undefined') {
-      let cambioEstado = false;
       if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ACTIVO" || 
         this.selectedRegister.establishment_state.toUpperCase().trim() == "ABIERTO" || 
         this.selectedRegister.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS ACIVOS") {
-         this.config_opciones.mostrarActualizar = true;
-         this.config_opciones.mostrarActivar = false;
-         this.config_opciones.mostrarReclasificar = true;
-         this.config_opciones.mostrarRecategorizar = true; 
-         this.config_opciones.mostrarDeclarandoUnoMil = true;
-         this.config_opciones.mostrarActualizarCapacidadesPrecios = true;
-         cambioEstado = true;
+         this.estado_registro = 'ACTIVO';
       }
       if(this.selectedRegister.establishment_state.toUpperCase().trim() == "ESTABLECIMIENTOS NO ACTIVOS" || 
          this.selectedRegister.establishment_state.toUpperCase().trim() == "CERRADO") {
-         this.config_opciones.mostrarActualizar = false;
-         this.config_opciones.mostrarActivar = true;
-         this.config_opciones.mostrarReclasificar = false;
-         this.config_opciones.mostrarRecategorizar = false; 
-         this.config_opciones.mostrarDeclarandoUnoMil = false;
-         this.config_opciones.mostrarActualizarCapacidadesPrecios = false;
-          this.config_opciones.cannuevaClasificacionAB = false;
-         cambioEstado = true;
-      }
-      if (!cambioEstado) {
-         this.config_opciones.mostrarActualizar = false;
-         this.config_opciones.mostrarActivar = false;
-         this.config_opciones.mostrarReclasificar = false;
-         this.config_opciones.mostrarRecategorizar = false;
-         this.config_opciones.mostrarDeclarandoUnoMil = false;
-         this.config_opciones.mostrarActualizarCapacidadesPrecios = false;
-         return;
+          this.estado_registro = 'CERRADO';
       }
       this.mostrarDataRegisterMintur = true;
       //this.checkTramitEmitted(this.register_code);
@@ -498,115 +436,44 @@ export class ClienteExternoComponent implements OnInit {
 
   }
 
-  // FUNCIONES QUE CONTROLAN LA INTERFAZ
-
-  solicitandoNuevaActualizacion() {
-    this.config_opciones.actualizando = false;
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.activando = false;
-    this.config_opciones.reclasificando = false;
-    this.config_opciones.recategorizando = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
-    this.config_opciones.nuevaClasificacionAB = true;
-    this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a solicitar una clasificación adicional para su establecimiento, tiene la opción de guardar la información en cualquier momento.';
-    this.mostrarIngresoDatos = true;
-    this.idCausal = 0;
-    this.estaEnTabla = false;
-    this.selected_system_source = '';
-    this.selected_category_catastro = '';
-    this.selected_classification_catastro = '';
-    this.esRegistro = true;
-    this.hasRucCode = true;
-    this.selectedRegister = null;
-  }
-
-  actualizarCapacidadesPrecios() {
-    this.config_opciones.nuevaClasificacionAB = false;
-    this.config_opciones.actualizando = false;
-    this.config_opciones.activando = false;
-    this.config_opciones.reclasificando = false;
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = true;
-    this.config_opciones.recategorizando = false;
-    this.mostrarIngresoDatos = false;
-    this.idCausal = 6;
-    if (this.actividadSelected == '2') {
-       this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y lista de precios, tiene la opción de guardar la información en cualquier momento.';
-    }
-    if (this.actividadSelected == '1') {
-       this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifario rack, tiene la opción de guardar la información en cualquier momento.';
-    } 
-  }
-
-  reactivar() {
-    this.config_opciones.actualizando = false;
-    this.config_opciones.activando = true;
-    this.config_opciones.nuevaClasificacionAB = false;
-    this.config_opciones.reclasificando = false;
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.recategorizando = false;
-    this.config_opciones.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
-    this.mostrarIngresoDatos = true;
-    this.idCausal = 7;
-  }
- 
-  reclasificacion() {
-    this.config_opciones.actualizando = false;
-    this.config_opciones.activando = false; 
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.nuevaClasificacionAB = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
-    this.config_opciones.reclasificando = true;
-    this.config_opciones.recategorizando = false;
-    this.config_opciones.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
-    this.mostrarIngresoDatos = true;
-    this.idCausal = 4;
-  }
- 
-  recategorizacion() {
-    this.config_opciones.actualizando = false;
-    this.config_opciones.nuevaClasificacionAB = false;
-    this.config_opciones.activando = false;
-    this.config_opciones.reclasificando = false;
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
-    this.config_opciones.recategorizando = true;
-    this.config_opciones.mensajePorTipoTramite = 'Usted va a proceder a regularizar su establecimiento turístico, para lo cual deberá complementar la información que esta sección presenta, tiene la opción de guardarla en cualquier momento.';
-    this.idCausal = 5;
-    this.mostrarIngresoDatos = true;
-  }
- 
-  declararUnoMil() {
-    this.config_opciones.nuevaClasificacionAB = false;
-    this.config_opciones.actualizando = false;
-    this.config_opciones.activando = false;
-    this.config_opciones.reclasificando = false;
-    this.config_opciones.declarandoUnoMil = true;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
-    this.config_opciones.recategorizando = false;
-    this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar su contribución Uno por Mil, tiene la opción de guardar la información en cualquier momento.';
-    this.mostrarIngresoDatos = false;
-    this.idCausal = 6;
-  }
-
-  actualizar() {
-    this.config_opciones.actualizando = true;
-    this.config_opciones.nuevaClasificacionAB = false;
-    this.config_opciones.activando = false;
-    this.config_opciones.reclasificando = false;
-    this.config_opciones.recategorizando = false;
-    this.config_opciones.actualizandoCapacidadesPrecios = false;
-    this.config_opciones.declarandoUnoMil = false;
-    this.config_opciones.mensajePorTipoTramite = 'En esta sección, usted va a proceder a actualizar la información de su Registro de Turismo, tiene la opción de guardar la información en cualquier momento.';
-    this.mostrarIngresoDatos = true;
-    this.idCausal = 6;
-  }
-
   changeTabActive(event) {
     this.tabActive = event.nextId;
   }
 
   changeTabActiveSuperior(event) {
     this.tabActiveSuperior = event.nextId;
+  }
+
+  changeSelectedOption(event) {
+    this.mostrarIngresoDatos = true;
+    if (event == 'ab_new_classification') {
+      this.idCausal = 0;
+      this.estaEnTabla = false;
+      this.selected_system_source = '';
+      this.selected_category_catastro = '';
+      this.selected_classification_catastro = '';
+      this.esRegistro = true;
+      this.hasRucCode = true;
+      this.selectedRegister = null;
+    }
+    if (event == 'actualization') {
+      this.idCausal = 6;
+    }
+    if (event == 'actualization_costs') {
+      this.idCausal = 6;
+    }
+    if (event == 'tax_declaration') {
+      this.idCausal = 6;
+    }
+    if (event == 'reclassification') {
+      this.idCausal = 4;
+    }
+    if (event == 'recategorization') {
+      this.idCausal = 5;
+    }
+    if (event == 'activation') {
+      this.idCausal = 7;
+    }
+    console.log(event);
   }
 }
