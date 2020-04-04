@@ -16,9 +16,7 @@
         <ngb-tabset #pasosSuperiores (tabChange)="changeTabActiveSuperior($event)">
             <ngb-tab title="Paso I. Información de la Persona Natural / Jurídica" id="tab1">
                 <ng-template ngbTabContent>
-                    <div class="row">
-                        <app-ruc-data [ruc_number]="user.ruc"></app-ruc-data>
-                    </div>
+                    <app-ruc-data [ruc_number]="user.ruc"></app-ruc-data>
                     <div class="row mt-3">
                         <div class="col-12 text-center">
                             <button type="button" class="btn btn-success" title="Guardar Datos" (click)="guardarRUC()">
