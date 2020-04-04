@@ -13,7 +13,7 @@
                         <i class="fas fa-sync"></i>
                     </button>
                 </div>
-                <input disabled type="text" class="form-control" id="ruc" maxlength="13" placeholder="Número de RUC" [(ngModel)]="this.ruc.number" (keyup)="checkRuc()" name="ruc" />
+                <input disabled type="text" class="form-control" id="ruc" maxlength="13" placeholder="Número de RUC" [(ngModel)]="ruc.number" (keyup)="checkRuc()" name="ruc" />
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@
         <button type="button" class="btn btn-success" title="Guardar Datos" *ngIf="validateRuc()" (click)="guardarRUC()">
             <i class="fas fa-save"></i>&nbsp;Guardar Datos
         </button>
-        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" *ngIf="rucGuardadoBase" (click)="getRuc()">
+        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" *ngIf="rucGuardadoBase" (click)="getRuc(ruc.number)">
             <i class="fas fa-times"></i>&nbsp;Cancelar Cambios
         </button>
         <button type="button" class="btn btn-info ml-2" title="Siguiente" *ngIf="rucGuardadoBase" (click)="nextPage()">
