@@ -31,7 +31,6 @@ export class RucDataComponent implements OnInit {
   SRIOK = false;
   rucGuardadoBase = false;
 
-  registrarlo = false;
   guardando = false;
 
   consumoCedulaRepresentanteLegal = false;
@@ -90,9 +89,10 @@ export class RucDataComponent implements OnInit {
     if (!this.consumoRuc) {
       this.consumoRuc = true;
       this.rucValidated = true;
+      this.superciasData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose a la Superintendencia de Compañías...</strong></div>';
       this.dinardapDataService.get_super_cias(this.ruc.number).then( r => {
-         this.superciasData = '';
          if (r.companias !== 0) {
+            this.superciasData = '';
             const companias = r.companias.original.entidades.entidad;
             companias.forEach(entidad => {
                if (entidad.nombre == 'Superintendencia de Compañias Datos Companía') {
@@ -110,7 +110,11 @@ export class RucDataComponent implements OnInit {
                }
             });  
          }
-      }).catch( e => { console.log(e); });
+      }).catch( e => { 
+         console.log(e);
+         this.superciasData = '<div class="alert alert-danger" role="alert">La Superintendencia de Compañías, no respondió. Vuelva a intentarlo.</div>';
+         
+      });
       this.dinardapDataService.get_RUC(this.ruc.number).then( r => {
          this.SRIOK = true;
          const itemsDetalles_SRI_RUC = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;

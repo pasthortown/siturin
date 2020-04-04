@@ -68,7 +68,7 @@
         <div class="form-group">
           <label for="group_type_id">Número de Expediente de la Superintendencia de Companías*</label>
           <span *ngIf="ruc.group_given.register_code === ''" class="ml-2 badge badge-danger">Incorrecto</span>
-          <input type="text" [disabled]="!registrarlo || !checkRegistroSupercias()" class="form-control" min="0" id="expediente"
+          <input type="text" [disabled]="!checkRegistroSupercias()" class="form-control" min="0" id="expediente"
             name="expediente" (keyup)="checkRegistroSupercias()" placeholder="Número de Expediente de la Superintendencia de Companías" [(ngModel)]="ruc.group_given.register_code"/>
         </div>
     </div>
