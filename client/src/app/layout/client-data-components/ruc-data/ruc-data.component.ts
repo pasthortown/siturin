@@ -5,7 +5,7 @@ import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { GroupType } from 'src/app/models/BASE/GroupType';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { Ruc } from 'src/app/models/BASE/Ruc';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
 import { User } from 'src/app/models/profile/User';
 import { GroupGiven } from 'src/app/models/BASE/GroupGiven';
@@ -21,6 +21,9 @@ export class RucDataComponent implements OnInit {
   @Input('user') user: User = new User();
   @Input('editable') editable: boolean = true;
   
+  @Output('ruc_validated') ruc_validated: EventEmitter<any> = new EventEmitter<any>();
+  @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
+
   ruc: Ruc = new Ruc();
 
   rucValidated = false;
@@ -390,6 +393,7 @@ export class RucDataComponent implements OnInit {
             this.getPersonRepresentativeAttachment(this.ruc.number);
          }
          this.rucGuardadoBase = true;
+         this.ruc_validated.emit(this.ruc);
          this.checkRuc();
          this.checkIdentificationRepresentant();
       }
@@ -432,6 +436,7 @@ export class RucDataComponent implements OnInit {
          }
          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
          this.rucGuardadoBase = true;
+         this.ruc_validated.emit(this.ruc);
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -446,6 +451,7 @@ export class RucDataComponent implements OnInit {
          }
          this.toastr.successToastr('Datos actualizados satisfactoriamente.', 'Actualizar');
          this.rucGuardadoBase = true;
+         this.ruc_validated.emit(this.ruc);
       }).catch( e => {
          this.guardando = false;
          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -455,6 +461,6 @@ export class RucDataComponent implements OnInit {
   }
 
   nextPage() {
-
+   this.next_page_button_click.emit('Paso II');
   }
 }

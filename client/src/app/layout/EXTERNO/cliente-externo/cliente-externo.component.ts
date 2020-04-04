@@ -102,6 +102,14 @@ export class ClienteExternoComponent implements OnInit {
     this.opcion_seleccionada = event;
   }
 
+  ruc_validated(event) {
+    console.log(event);
+  }
+
+  next_page_button_click(event) {
+    console.log(event);
+  }
+
   validateRegisterSelectedData(event) {
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;
