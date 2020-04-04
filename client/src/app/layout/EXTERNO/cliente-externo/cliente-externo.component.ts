@@ -122,6 +122,7 @@ export class ClienteExternoComponent implements OnInit {
 
   checkTerminosCondiciones(event) {
     this.terminosCondiciones = event;
+    console.log(this.terminosCondiciones);
   }
 
   onChangeTable(config: any, page: any = {page: this.currentPageMinturRegisters, itemsPerPage: this.recordsByPageRegisterMintur}): any {
