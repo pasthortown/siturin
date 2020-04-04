@@ -243,20 +243,16 @@ export class RegistersDataComponent implements OnInit {
 
   onCellClick(event) {
     this.registroNuevoEstablecimiento = false;
+    this.register_selected.isNew = true;
     this.registers_mintur.forEach(element => {
       if (element.id == event.row.id) {
          this.register_selected.register = element;
       }
     });
-    this.register_selected.isNew = true;
     this.rows.forEach(row => {
        if (event.row == row) {
           row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
-          if ((row.system_source == 'SIETE') || (row.system_source == 'SITURIN')) {
-             this.register_selected.isNew = false;
-          } else {
-            this.register_selected.isNew = true;
-          }
+          this.register_selected.isNew = false;
        } else {
         row.selected = '';
        }
