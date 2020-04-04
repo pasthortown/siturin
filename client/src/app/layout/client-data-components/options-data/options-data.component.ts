@@ -20,9 +20,6 @@ export class OptionsDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.select_option = '';
-    this.mensajePorTipoTramite = '';
-    console.log('entre');
   }
   
   solicitandoNuevaActualizacion() {

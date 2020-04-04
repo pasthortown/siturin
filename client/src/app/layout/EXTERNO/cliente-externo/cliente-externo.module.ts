@@ -1,3 +1,4 @@
+import { RegistersDataComponent } from './../../client-data-components/registers-data/registers-data.component';
 import { OptionsDataComponent } from './../../client-data-components/options-data/options-data.component';
 import { AgreementDataComponent } from './../../client-data-components/agreement-data/agreement-data.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
@@ -40,6 +41,7 @@ import { RegisterService as CatastroRegisterService } from 'src/app/services/CRU
   declarations: [ClienteExternoComponent, 
     AgreementDataComponent,
     OptionsDataComponent,
+    RegistersDataComponent,
     EstablishmentDataComponent, 
     RucDataComponent,
     TuristicDataComponent,

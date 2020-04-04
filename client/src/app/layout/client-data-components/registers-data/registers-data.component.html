@@ -1,0 +1,84 @@
+<div class="row mt-2 mb-2">
+    <h3 class="col-12 text-left">
+       Registros Turísticos
+    </h3>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+                <button type="button" class="btn btn-primary" title="Actualizar" (click)="refresh()"><i class="fas fa-sync"></i></button>
+            </div>
+            <div class="btn-group mr-2" role="group">
+                <input *ngIf="config.filtering" placeholder="Buscar..." [ngTableFiltering]="config.filtering" class="form-control"
+                (input)="onChangeTable(config)"/>
+            </div>
+            <div class="btn-group mr-2" role="group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>&nbsp;Estado
+                        </span>
+                    </div>
+                    <select class="form-control" id="filter-tramite-estado" name="filter-tramite-estado" [ngTableFiltering]="config.filtering" (change)="onChangeTable(config)">
+                        <option value="" selected>Todos</option>
+                        <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="width: 100%; overflow-x: auto;">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <ng-table
+                [config]="config"
+                (cellClicked)="onCellClick($event)"
+                (tableChanged)="onChangeTable(config)"
+                [rows]="rows"
+                [columns]="columns">
+            </ng-table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <ngb-pagination
+            *ngIf="config.paging"
+            [(page)]="currentPageMinturRegisters"
+            [pageSize]="recordsByPageRegisterMintur"
+            [maxSize]="10"
+            [boundaryLinks]="true"
+            (pageChange)="onChangeTable(config, $event)"
+            [collectionSize]="registers_mintur.length">
+            <ng-template ngbPaginationFirst>Primera</ng-template>
+            <ng-template ngbPaginationPrevious>Anterior</ng-template>
+            <ng-template ngbPaginationNext>Siguiente</ng-template>
+            <ng-template ngbPaginationLast>Última</ng-template>
+        </ngb-pagination>
+    </div>
+</div>
+<div class="row mt-3 mb-3">
+    <div class="col-12">
+        <table class="table mt-2">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="onoffswitch">
+                            <input type="checkbox" class="onoffswitch-checkbox"  id="registroNuevoSwitch"
+                            name="registroNuevoSwitch" [(ngModel)]="registroNuevoEstablecimiento" (change)="registrarEstablecimientoNuevo(false, false)">
+                            <label class="onoffswitch-label" for="registroNuevoSwitch">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <strong>El trámite que deseo realizar corresponde a un establecimiento que no tiene Registro Turístico</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
