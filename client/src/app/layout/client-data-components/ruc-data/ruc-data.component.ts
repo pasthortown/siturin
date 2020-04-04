@@ -283,22 +283,6 @@ export class RucDataComponent implements OnInit {
     return !(this.ruc.person_representative_attachment.person_representative_attachment_file_name == '');
   }
 
-  fechasNombramiento() {
-    const today = new Date();
-    const min = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
-    if(typeof this.ruc.person_representative_attachment.assignment_date === 'undefined') {
-      return;
-    }
-    if (new Date(this.ruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
-      this.fechaNombramientoOK = false;
-      console.log('bien');
-    }else {
-      this.fechaNombramientoOK = true;
-      console.log('mal');
-    }
-    return {max: today, min: min};
-  }
-
   CodeFilePersonRepresentativeAttachment(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
@@ -336,11 +320,26 @@ export class RucDataComponent implements OnInit {
     saveAs(blob, name);
   }
 
+  validateFechaNombramiento(): boolean {
+   if (this.ruc.tax_payer_type_id > 1) {
+      const today = new Date();
+      const min = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+      if (typeof this.ruc.person_representative_attachment.assignment_date === 'undefined') {
+         return false;
+      }
+      if (new Date(this.ruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
+         return false;
+      } else {
+         return true;
+      }
+   }
+   return true;
+  }
+
   validateRuc(): Boolean {
     let validateRepresentantLegalId = true;
-    this.fechaNombramientoOK = true;
+    this.fechaNombramientoOK = this.validateFechaNombramiento();
     if(this.ruc.tax_payer_type_id > 1) {
-       this.fechasNombramiento();
        validateRepresentantLegalId = this.identificationRepresentativePersonValidated;
        const validateExpediente = (this.ruc.group_given.register_code !== '');
        return this.rucValidated &&
