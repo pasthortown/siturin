@@ -27,7 +27,7 @@ export class AgreementDataComponent implements OnInit {
     this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
       this.user = r as User;
       this.getTerminosCondicionesAgreement();
-    }).catch( e => console.log(e));
+    }).catch( e => console.log(e)); 
   }
 
   getTerminosCondicionesAgreement() {
