@@ -102,6 +102,8 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   validateRegisterSelectedData(event) {
+    this.mostrarIngresoDatos = false;
+    this.mostrarOpciones = false;
     if (!event.isNew) {
       if (event.register.activity == 'ALOJAMIENTO') {
         this.actividadSelected = '1';
@@ -136,8 +138,8 @@ export class ClienteExternoComponent implements OnInit {
     }
   }
 
-  registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) { 
-    this.mostrarOpciones = false;
+  registrarEstablecimientoNuevo(estaEnTabla, hasRucCode) {
+    this.estaEnTabla = estaEnTabla;
     this.mostrarIngresoDatos = true;
     // ENCERAMOS REGISTRO NUEVO
     this.actividadSelected = '-';
