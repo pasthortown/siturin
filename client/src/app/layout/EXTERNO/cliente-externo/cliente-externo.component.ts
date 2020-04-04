@@ -105,6 +105,9 @@ export class ClienteExternoComponent implements OnInit {
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;
     if (!event.isNew) {
+      if (event.register == null) {
+        return;
+      }
       if (event.register.activity == 'ALOJAMIENTO') {
         this.actividadSelected = '1';
       }

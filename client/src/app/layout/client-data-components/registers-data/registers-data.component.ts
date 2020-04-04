@@ -261,7 +261,7 @@ export class RegistersDataComponent implements OnInit {
   }
 
   registrarEstablecimientoNuevo() {
-    this.register_selected = {register: null, isNew: true};
+    this.register_selected = {register: null, isNew: this.registroNuevoEstablecimiento};
     this.rows.forEach(row => {
         row.selected = '';
     });
