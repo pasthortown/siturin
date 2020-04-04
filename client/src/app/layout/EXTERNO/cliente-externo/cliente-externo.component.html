@@ -3,7 +3,7 @@
        Gestión de Actividades Turísticas
     </h1>
 </div>
-<app-agreement-data [user]="user" *ngIf="mostrarTerminosCondiciones" (change)="checkTerminosCondiciones($event)"></app-agreement-data>
+<app-agreement-data [user]="user" *ngIf="mostrarTerminosCondiciones" (ngModel)="terminosCondiciones"></app-agreement-data>
 <app-options-data></app-options-data>
 <div class="row mt-2 mb-2" *ngIf="terminosCondiciones">
     <h3 class="col-12 text-left">
