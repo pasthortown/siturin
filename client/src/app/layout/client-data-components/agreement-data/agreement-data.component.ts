@@ -11,9 +11,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class AgreementDataComponent implements OnInit {
   terminosCondicionesAgreement: Agreement = new Agreement();
   terminosCondiciones = false;
-  
+
   @Input('user') user: User = new User();
-  @Output() change: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+  @Output() change: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private agreementDataService: AgreementService) {
     
