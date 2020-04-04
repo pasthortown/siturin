@@ -66,12 +66,7 @@ export class ClienteExternoComponent implements OnInit {
     nuevaClasificacionAB: false,
     mensajePorTipoTramite: ''
   }
-   
-  // VARIABLES TERMINOS Y CONDICIONES
 
-  terminosCondicionesAgreement: Agreement = new Agreement();
-  terminosCondiciones = false;
-  
   // VARIABLES TABLA DE REGISTROS DEL USUARIO
 
   config: any = {
@@ -91,7 +86,6 @@ export class ClienteExternoComponent implements OnInit {
    
 
   constructor( private userDataService: UserService,
-               private agreementDataService: AgreementService,
                private catastroRegisterDataService: CatastroRegisterService     
   ) {}
 
@@ -110,19 +104,8 @@ export class ClienteExternoComponent implements OnInit {
     this.roles = JSON.parse(sessionStorage.getItem('roles')) as AccountRol[];
     this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
       this.user = r as User;
-      // Es importante tener el usuario para llenar los datos del usuario en el acuerdod e términos y condiciones.
-      // Por eso, después de tener el usuario, se carga los términos y condiciones.
-      this.getTerminosCondicionesAgreement();
       this.getRegistersMintur();
     }).catch( e => console.log(e));
-  }
-
-  getTerminosCondicionesAgreement() {
-    this.agreementDataService.get(1).then( r => {
-       this.terminosCondicionesAgreement = r.Agreement as Agreement;
-       this.terminosCondicionesAgreement.content = this.terminosCondicionesAgreement.content.replace('##USER##', '<strong>' + this.user.name.toUpperCase() + '</strong>');
-       this.terminosCondicionesAgreement.content = this.terminosCondicionesAgreement.content.replace('##RUC##', '<strong>' + this.user.ruc + '</strong>');
-    }).catch( e => { console.log(e); });
   }
 
   // FUNCIONES DE LA TABLA DE REGISTROS

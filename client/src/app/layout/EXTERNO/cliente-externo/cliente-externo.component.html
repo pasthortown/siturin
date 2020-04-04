@@ -5,42 +5,6 @@
 </div>
 <app-agreement-data></app-agreement-data>
 <app-options-data></app-options-data>
-<div class="row">
-    <div class="col-12">
-        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-            <ngb-panel id="terminosCondiciones">
-                <ng-template ngbPanelTitle>
-                    <span>{{terminosCondicionesAgreement.title}}</span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <div class="col-12" [innerHTML]="terminosCondicionesAgreement.content">
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
-        <div class="col-12">
-            <table class="table mt-2">
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="onoffswitch">
-                                <input type="checkbox" class="onoffswitch-checkbox"  id="terminosCondicionesSwitch"
-                                    name="terminosCondicionesSwitch" [(ngModel)]="terminosCondiciones">
-                                <label class="onoffswitch-label" for="terminosCondicionesSwitch">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <strong>He leído, entendido y por lo tanto acepto los términos y condiciones</strong>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 <div class="row mt-2 mb-2" *ngIf="terminosCondiciones">
     <h3 class="col-12 text-left">
        Registros Turísticos
