@@ -108,7 +108,7 @@ export class ClienteExternoComponent implements OnInit {
       if (event.register.activity == 'ALOJAMIENTO') {
         this.actividadSelected = '1';
       }
-      if (event.row.activity == 'ALIMENTOS Y BEBIDAS') {
+      if (event.register.activity == 'ALIMENTOS Y BEBIDAS') {
         this.actividadSelected = '2';
       }
       this.register_code = event.register.register_code;
