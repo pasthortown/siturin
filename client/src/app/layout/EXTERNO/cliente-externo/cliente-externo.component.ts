@@ -21,7 +21,8 @@ export class ClienteExternoComponent implements OnInit {
 
   registerMinturSelected: Register = new Register(); // Portador de la información total del registro
   selectedRegister = null; // Va a contener el register mintur seleccionado a partir de los datos de la tabla.
-  
+  rucEstablishmentRegisterSelected = {editable: true}; // OJO
+
   register_code = '';
   establishment_selected_ruc_code_id = 'NULL';
   my_category_current = '';

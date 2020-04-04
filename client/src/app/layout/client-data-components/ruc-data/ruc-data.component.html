@@ -39,68 +39,33 @@
         </div>
     </div>
 </div>
-
-  <!-- <div class="row" [hidden]="true">
-    <div class="col-6">
-      <div class="form-group">
-        <label>Tipo de Contribuyente</label><span *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 0"
-          class="ml-2 badge badge-danger">Incorrecto</span>
-        <select disabled class="form-control" id="tax_payer_type_id" name="tax_payer_type_id" [(ngModel)]="
-              ruc_registro_selected.ruc.tax_payer_type_id
-            ">
-          <option value="0" selected>Seleccione...</option>
-          <option *ngFor="let tax_payer_type of tax_payer_types" value="{{ tax_payer_type.id }}">
-            {{ tax_payer_type.name }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group">
-        <label>Obligado a Llevar Contabilidad</label>
-        <div class="col-12">
-          <div class="onoffswitch">
-         <input type="checkbox" class="onoffswitch-checkbox"  disabled id="baised_accounting"
-              name="baised_accounting" [(ngModel)]="
-                  ruc_registro_selected.ruc.baised_accounting
-                " /><label class="onoffswitch-label" for="baised_accounting">
-               <span class="onoffswitch-inner"></span>
-               <span class="onoffswitch-switch"></span>
-         </label>
-      </div>
+<div class="row" *ngIf="ruc.tax_payer_type_id > 1">
+    <div class="col-12">
+        <div class="form-group">
+          <label for="group_type_id">Tipo de Personería Jurídica*</label>
+          <span *ngIf="!validateGroupGivenType()" class="ml-2 badge badge-danger">Incorrecto</span>
+          <select class="form-control" id="group_type_id" [disabled]="!editable" name="group_type_id"
+            [(ngModel)]="ruc.group_given.group_type_id" (change)="setGroupTypeSelected(ruc.group_given.group_type_id)">
+              <option value="0" selected>Seleccione...</option>
+              <option *ngFor="let group_type of group_types" value="{{ group_type.id }}">{{ group_type.name }}</option>
+          </select>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="row" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id > 1">
     <div class="col-12">
-      <div class="form-group">
-        <label for="group_type_id">Tipo de Personería Jurídica*</label><span
-          *ngIf="!validateGroupGivenTipe()" class="ml-2 badge badge-danger">Incorrecto</span>
-        <select class="form-control" id="group_type_id" [disabled]="!rucEstablishmentRegisterSelected.editable" name="group_type_id"
-          [(ngModel)]="ruc_registro_selected.ruc.group_given.group_type_id" (change)="
-              setGroupTypeSelected(
-                ruc_registro_selected.ruc.group_given.group_type_id
-              )
-            ">
-          <option value="0" selected>Seleccione...</option>
-          <option *ngFor="let group_type of group_types" value="{{ group_type.id }}">
-            {{ group_type.name }}
-          </option>
-        </select>
-      </div>
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+          <label class="col-12 text-justify"><strong>Atención</strong></label>
+          <p class="col-12 text-justify">
+              El número de expediente para ingresar en esta sección, se lo puede obtener en la página de la Superintendencia de Companías.
+          </p>
+          <p class="col-12 text-justify">
+              <a href="http://appscvsmovil.supercias.gob.ec/portaldedocumentos/consulta_cia_param.zul" target="_blank">
+                  Ir al Sitio Web de la Superintendencia de Companías
+              </a>
+          </p>
+        </div>
     </div>
-  </div>
-  <div class="row" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id > 1">
-    <div class="col-12">
-      <div class="alert alert-info mt-2 mb-2" role="alert">
-        <label class="col-12 text-justify"><strong>Atención</strong></label><br />
-        El número de expediente para ingresar en esta sección, se lo puede obtener en la página de la Superintendencia de Companías.<br/>
-        <a href="http://appscvsmovil.supercias.gob.ec/portaldedocumentos/consulta_cia_param.zul" target="_blank">Ir al Sitio Web de la Superintendencia de Companías</a>
-      </div>
-    </div>
-  </div>
-  <div class="row" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id > 1">
+ </div>
+  <!-- <div class="row" *ngIf="ruc_registro_selected.ruc.tax_payer_type_id > 1">
     <div class="col-12">
       <div class="form-group">
         <label for="group_type_id">Número de Expediente de la Superintendencia de Companías*</label><span

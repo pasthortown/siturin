@@ -1,3 +1,5 @@
+import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
+import { GroupType } from 'src/app/models/BASE/GroupType';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
@@ -9,7 +11,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RucDataComponent implements OnInit {  
   @Input('ruc_number') ruc_number: String = '';
-
+  @Input('editable') editable: boolean = true;
+  
   ruc: Ruc = new Ruc();
 
   rucValidated = false;
@@ -20,14 +23,30 @@ export class RucDataComponent implements OnInit {
   superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPANÍAS...';
   
   razon_social = '';
+  groupTypeSelected: GroupType = new GroupType();
 
-  constructor(private dinardapDataService: DinardapService) {
+  // CATALOGOS
+  
+  group_types: GroupType[] = [];
+
+  constructor(private dinardapDataService: DinardapService,
+              private group_typeDataService: GroupTypeService,
+              ) {
     
   }
 
   ngOnInit() {
     this.ruc = new Ruc();
     this.ruc.number = this.ruc_number;
+    this.groupTypeSelected = new GroupType();
+    this.getGroupTypes();
+  }
+
+  getGroupTypes() {
+    this.group_types = [];
+    this.group_typeDataService.get().then( r => {
+      this.group_types = r as GroupType[];
+    }).catch( e => console.log(e) );
   }
 
   checkRuc() {
@@ -162,5 +181,21 @@ export class RucDataComponent implements OnInit {
          this.SRIOK = false;
       });
     }
+  }
+
+  setGroupTypeSelected(id: number) {
+    this.groupTypeSelected = new GroupType();
+    this.group_types.forEach(element => {
+      if(element.id == id) {
+         this.groupTypeSelected = element;
+      }
+    });
+  }
+
+  validateGroupGivenType(): Boolean {
+    if (this.ruc.tax_payer_type_id > 1) {
+      return this.ruc.group_given.group_type_id !== 0;
+    }
+    return true;
   }
 }

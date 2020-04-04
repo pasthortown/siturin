@@ -25,6 +25,7 @@ import { UserService } from './../../../services/profile/user.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
+import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { DinardapService } from 'src/app/services/negocio/dinardap.service';
     AgreementService,
     DinardapService,
     CatastroRegisterService,
+    GroupTypeService
   ]
 })
 export class ClienteExternoModule {}
