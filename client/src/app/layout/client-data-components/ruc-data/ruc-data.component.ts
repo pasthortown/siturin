@@ -1,8 +1,10 @@
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { GroupType } from 'src/app/models/BASE/GroupType';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-ruc-data',
@@ -19,6 +21,15 @@ export class RucDataComponent implements OnInit {
   consumoRuc = false;
   SRIOK = false;
   
+  registrarlo = false;
+  fechaNombramientoOK = false;
+
+  consumoCedulaRepresentanteLegal = false;
+  REGCIVILREPRESENTANTELEGALOK = false;
+  identificationRepresentativePersonValidated = false;
+
+  representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
+
   rucData = 'CONECTÁNDOSE AL SRI...';
   superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPANÍAS...';
   
@@ -31,6 +42,7 @@ export class RucDataComponent implements OnInit {
 
   constructor(private dinardapDataService: DinardapService,
               private group_typeDataService: GroupTypeService,
+              private toastr: ToastrManager,
               ) {
     
   }
@@ -131,9 +143,9 @@ export class RucDataComponent implements OnInit {
                      datosRL += '<strong>Identificación Representante Legal: </strong> ' + element.valor + '<br/>';
                      if (JSON.stringify(element.valor) !== '{}') {
                         this.ruc.person_representative.identification = element.valor;
-                        // this.consumoCedulaRepresentanteLegal = false;
-                        // this.REGCIVILREPRESENTANTELEGALOK = false;
-                        // this.checkIdentificationRepresentant();
+                        this.consumoCedulaRepresentanteLegal = false;
+                        this.REGCIVILREPRESENTANTELEGALOK = false;
+                        this.checkIdentificationRepresentant();
                      }
                   }
                   if (element.campo == 'nombre') {
@@ -197,5 +209,139 @@ export class RucDataComponent implements OnInit {
       return this.ruc.group_given.group_type_id !== 0;
     }
     return true;
+  }
+
+  checkRegistroSupercias() {
+    this.ruc.group_given.register_code = this.ruc.group_given.register_code.replace(/[^\d]/, '');
+  }
+
+  checkIdentificationRepresentant() {
+    this.ruc.person_representative.identification = this.ruc.person_representative.identification.replace(/[^\d]/, '');
+    if (this.ruc.person_representative.identification.length !== 10) {
+       this.identificationRepresentativePersonValidated = true;
+       this.consumoCedulaRepresentanteLegal = true;
+       this.REGCIVILREPRESENTANTELEGALOK = true;
+    return;
+    }
+    if (this.consumoCedulaRepresentanteLegal && this.REGCIVILREPRESENTANTELEGALOK) {
+       return;
+    }
+    this.representanteCedulaData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al Registro Civil...</strong></div>';
+    if (!this.consumoCedulaRepresentanteLegal) {
+       this.identificationRepresentativePersonValidated = true;
+       this.consumoCedulaRepresentanteLegal = true;
+       this.dinardapDataService.get_cedula(this.ruc.person_representative.identification).then( r => {
+          const registros = r.original.entidades.entidad.filas.fila.columnas.columna;
+          this.representanteCedulaData = '';
+          this.ruc.owner_name = '';
+          this.REGCIVILREPRESENTANTELEGALOK = true;
+          registros.forEach(element => {
+             if (element.campo === 'cedula') {
+                if (element.valor === this.ruc.person_representative.identification) {
+                   this.toastr.successToastr('La cédula ingresada es correcta.', 'Registro Civil');
+                   this.identificationRepresentativePersonValidated = true;
+                } else {
+                   this.toastr.errorToastr('La cédula ingresada no es correcta.', 'Registro Civil');
+                   this.identificationRepresentativePersonValidated = false;
+                }
+             }
+             if (this.identificationRepresentativePersonValidated) {
+                if (element.campo === 'nombre') {
+                   this.representanteCedulaData += '<strong>Nombre: </strong> ' + element.valor + '<br/>';
+                   this.ruc.owner_name = element.valor;
+                }
+                if (element.campo === 'fechaNacimiento') {
+                   this.representanteCedulaData += '<strong>Fecha de Nacimiento: </strong> ' + element.valor + '<br/>';
+                }
+                if (element.campo === 'nacionalidad') {
+                   this.representanteCedulaData += '<strong>Nacionalidad: </strong> ' + element.valor + '<br/>';
+                }
+             }
+          });
+       }).catch( e => {
+          this.toastr.errorToastr('La cédula ingresada no es correcta.', 'Registro Civil');
+          this.representanteCedulaData = '<div class="alert alert-danger" role="alert">El Registro Civil, no respondió. Vuelva a intentarlo.</div>';
+          this.REGCIVILREPRESENTANTELEGALOK = false;
+          this.consumoCedulaRepresentanteLegal = false;
+       });
+    }
+  }
+
+  validateNombramiento(): Boolean {
+    if(this.ruc.tax_payer_type_id <= 1) {
+      return true;
+    }
+    return !(this.ruc.person_representative_attachment.person_representative_attachment_file_name == '');
+  }
+
+  fechasNombramiento() {
+    const today = new Date();
+    const min = new Date(today.getFullYear() - 5, today.getMonth(), today.getDate());
+    if(typeof this.ruc.person_representative_attachment.assignment_date === 'undefined') {
+      return;
+    }
+    if (new Date(this.ruc.person_representative_attachment.assignment_date.toString()) > today || new Date(this.ruc.person_representative_attachment.assignment_date.toString()) < min) {
+      this.fechaNombramientoOK = false;
+    }else {
+      this.fechaNombramientoOK = true;
+    }
+    return {max: today, min: min};
+  }
+
+  CodeFilePersonRepresentativeAttachment(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+       const file = event.target.files[0];
+       reader.readAsDataURL(file);
+       reader.onload = () => {
+          this.ruc.person_representative_attachment.person_representative_attachment_file_name = file.name;
+          this.ruc.person_representative_attachment.person_representative_attachment_file_type = file.type;
+          this.ruc.person_representative_attachment.person_representative_attachment_file = reader.result.toString().split(',')[1];
+       };
+    }
+  }
+
+  borrarNombramiento() {
+    this.ruc.person_representative_attachment.person_representative_attachment_file = '';
+    this.ruc.person_representative_attachment.person_representative_attachment_file_type = '';
+    this.ruc.person_representative_attachment.person_representative_attachment_file_name = '';
+  }
+
+  descargarNombramiento() {
+    this.downloadFile(
+      this.ruc.person_representative_attachment.person_representative_attachment_file,
+      this.ruc.person_representative_attachment.person_representative_attachment_file_type,
+      this.ruc.person_representative_attachment.person_representative_attachment_file_name);
+  }
+
+  downloadFile(file: any, type: any, name: any) {
+    const byteCharacters = atob(file);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: type });
+    saveAs(blob, name);
+  }
+
+  validateRuc(): Boolean {
+    let validateRepresentantLegalId = true;
+    this.fechaNombramientoOK = true;
+    if(this.ruc.tax_payer_type_id > 1) {
+       this.fechasNombramiento();
+       validateRepresentantLegalId = this.identificationRepresentativePersonValidated;
+       const validateExpediente = (this.ruc.group_given.register_code !== '');
+       return this.rucValidated &&
+        this.validateNombramiento() &&
+        this.validateGroupGivenType() &&
+        validateRepresentantLegalId &&
+        this.SRIOK &&
+        this.REGCIVILREPRESENTANTELEGALOK &&
+        validateExpediente &&
+        this.fechaNombramientoOK;
+    }
+    return this.rucValidated &&
+     this.SRIOK;
   }
 }
