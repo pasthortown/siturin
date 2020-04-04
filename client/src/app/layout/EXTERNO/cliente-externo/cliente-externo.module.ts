@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
 import { UserService } from './../../../services/profile/user.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
+import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { RegisterService as CatastroRegisterService } from 'src/app/services/CRU
   ],
   providers: [UserService,
     AgreementService,
+    DinardapService,
     CatastroRegisterService,
   ]
 })
