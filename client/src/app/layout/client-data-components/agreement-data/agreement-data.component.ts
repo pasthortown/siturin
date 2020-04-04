@@ -1,7 +1,7 @@
 import { User } from 'src/app/models/profile/User';
 import { Agreement } from './../../../models/BASE/Agreement';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-agreement-data',
@@ -11,7 +11,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AgreementDataComponent implements OnInit {
   terminosCondicionesAgreement: Agreement = new Agreement();
   terminosCondiciones = false;
+  
   @Input('user') user: User = new User();
+  @Output() change: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   constructor(private agreementDataService: AgreementService) {
     
@@ -27,5 +29,9 @@ export class AgreementDataComponent implements OnInit {
        this.terminosCondicionesAgreement.content = this.terminosCondicionesAgreement.content.replace('##USER##', '<strong>' + this.user.name.toUpperCase() + '</strong>');
        this.terminosCondicionesAgreement.content = this.terminosCondicionesAgreement.content.replace('##RUC##', '<strong>' + this.user.ruc + '</strong>');
     }).catch( e => { console.log(e); });
+  }
+
+  checkTerminosCondiciones() {
+    this.change.emit(this.terminosCondiciones);
   }
 }

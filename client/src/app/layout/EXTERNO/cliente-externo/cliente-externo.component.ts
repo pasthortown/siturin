@@ -99,8 +99,6 @@ export class ClienteExternoComponent implements OnInit {
     
   }
 
-  // FUNCIONES PARA TERMINOS Y CONDICIONES
-
   getUser() {
     this.roles = JSON.parse(sessionStorage.getItem('roles')) as AccountRol[];
     this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
@@ -119,6 +117,10 @@ export class ClienteExternoComponent implements OnInit {
        this.registers_mintur = r;
        this.buildDataTable();
     }).catch( e => console.log(e) );
+  }
+
+  checkTerminosCondiciones(event) {
+    console.log(event);
   }
 
   onChangeTable(config: any, page: any = {page: this.currentPageMinturRegisters, itemsPerPage: this.recordsByPageRegisterMintur}): any {
