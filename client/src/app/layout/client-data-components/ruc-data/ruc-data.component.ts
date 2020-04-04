@@ -26,8 +26,10 @@ export class RucDataComponent implements OnInit {
   rucValidated = false;
   consumoRuc = false;
   SRIOK = false;
-  
+  rucGuardadoBase = false;
+
   registrarlo = false;
+  guardando = false;
 
   consumoCedulaRepresentanteLegal = false;
   REGCIVILREPRESENTANTELEGALOK = false;
@@ -387,6 +389,7 @@ export class RucDataComponent implements OnInit {
          if(this.ruc.tax_payer_type_id > 1) {
             this.getPersonRepresentativeAttachment(this.ruc.number);
          }
+         this.rucGuardadoBase = true;
          this.checkRuc();
          this.checkIdentificationRepresentant();
       }
@@ -405,5 +408,53 @@ export class RucDataComponent implements OnInit {
          this.ruc.person_representative_attachment = r as PersonRepresentativeAttachment;
       }
     }).catch( e => { console.log(e); });
+  }
+
+  guardarRUC() {
+    this.rucGuardadoBase = false;
+    if (!this.validateRuc()) {
+      this.toastr.errorToastr('Existe conflicto con la información ingresada.', 'Nuevo');
+      return;
+    }
+    if(!this.SRIOK) {
+      this.toastr.errorToastr('Esperando confirmación del SRI', 'SRI');
+      return;
+    }
+    this.guardando = true;
+    this.ruc.person_representative_attachment.ruc = this.ruc.number;
+    this.ruc.contact_user_id = this.user.id;
+    if (typeof this.ruc.id === 'undefined') {
+      this.rucDataService.register_ruc(this.ruc).then( r => {
+         this.guardando = false;
+         if ( r === '0' ) {
+            this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Nuevo');
+            return;
+         }
+         this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+         this.rucGuardadoBase = true;
+      }).catch( e => {
+         this.guardando = false;
+         this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+         return;
+      });
+    } else {
+      this.rucDataService.update_ruc(this.ruc).then( r => {
+         this.guardando = false;
+         if ( r === '0' ) {
+            this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Actualizar');
+            return;
+         }
+         this.toastr.successToastr('Datos actualizados satisfactoriamente.', 'Actualizar');
+         this.rucGuardadoBase = true;
+      }).catch( e => {
+         this.guardando = false;
+         this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+         return;
+      });
+    }
+  }
+
+  nextPage() {
+
   }
 }
