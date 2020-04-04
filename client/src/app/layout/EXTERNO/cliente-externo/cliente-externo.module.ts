@@ -26,6 +26,8 @@ import { AgreementService } from './../../../services/CRUD/BASE/agreement.servic
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
+import { PersonRepresentativeAttachmentService } from './../../../services/CRUD/BASE/personrepresentativeattachment.service';
+import { RucService } from './../../../services/CRUD/BASE/ruc.service';
 
 @NgModule({
   imports: [
@@ -48,7 +50,9 @@ import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
     RucDataComponent,
     TuristicDataComponent,
     DeclarationDataComponent,
-    EstablishmentListDataComponent
+    EstablishmentListDataComponent,
+    PersonRepresentativeAttachmentService,
+    RucService
   ],
   providers: [UserService,
     AgreementService,

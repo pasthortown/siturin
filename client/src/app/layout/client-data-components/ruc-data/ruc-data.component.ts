@@ -1,3 +1,5 @@
+import { PersonRepresentativeAttachmentService } from './../../../services/CRUD/BASE/personrepresentativeattachment.service';
+import { RucService } from './../../../services/CRUD/BASE/ruc.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { GroupType } from 'src/app/models/BASE/GroupType';
@@ -5,6 +7,10 @@ import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
+import { User } from 'src/app/models/profile/User';
+import { GroupGiven } from 'src/app/models/BASE/GroupGiven';
+import { PersonRepresentative } from 'src/app/models/BASE/PersonRepresentative';
+import { PersonRepresentativeAttachment } from 'src/app/models/BASE/PersonRepresentativeAttachment';
 
 @Component({
   selector: 'app-ruc-data',
@@ -12,7 +18,7 @@ import { saveAs } from 'file-saver/FileSaver';
   styleUrls: ['./ruc-data.component.scss']
 })
 export class RucDataComponent implements OnInit {  
-  @Input('ruc_number') ruc_number: String = '';
+  @Input('user') user: User = new User();
   @Input('editable') editable: boolean = true;
   
   ruc: Ruc = new Ruc();
@@ -43,14 +49,17 @@ export class RucDataComponent implements OnInit {
   constructor(private dinardapDataService: DinardapService,
               private group_typeDataService: GroupTypeService,
               private toastr: ToastrManager,
+              private rucDataService: RucService,
+              private personRepresentativeAttachmentDataService: PersonRepresentativeAttachmentService
               ) {
     
   }
 
   ngOnInit() {
     this.ruc = new Ruc();
-    this.ruc.number = this.ruc_number;
+    this.ruc.number = this.user.ruc;
     this.groupTypeSelected = new GroupType();
+    this.getRuc(this.ruc.number);
     this.getGroupTypes();
   }
 
@@ -343,5 +352,62 @@ export class RucDataComponent implements OnInit {
     }
     return this.rucValidated &&
      this.SRIOK;
+  }
+
+  getRuc(number: String) {
+    this.rucDataService.get_filtered(number).then( r => {
+      if ( typeof r.Ruc === 'undefined') {
+         this.ruc = new Ruc();
+         this.ruc.establishments = [];
+         this.ruc.number = number;
+         this.ruc.contact_user = new User();
+         this.ruc.group_given = new GroupGiven();
+         this.ruc.person_representative = new PersonRepresentative();
+         this.ruc.tax_payer_type_id = 0;
+         this.ruc.contact_user_id = 0;
+         this.ruc.person_representative.identification = this.user.identification;
+         this.checkIdentificationRepresentant();
+         this.checkRuc();
+      } else {
+         this.ruc = r.Ruc as Ruc;
+         this.ruc.establishments = [];
+         this.ruc.contact_user = r.contact_user as User;
+         if (r.group_given == '0') {
+            this.ruc.group_given = new GroupGiven();
+         } else {
+            this.ruc.group_given = r.group_given as GroupGiven;
+            this.group_types = [];
+            this.group_typeDataService.get().then( r => {
+               this.group_types = r as GroupType[];
+               this.setGroupTypeSelected(this.ruc.group_given.group_type_id);
+            }).catch( e => console.log(e) );
+         }
+         if (r.person_representative == '0') {
+            this.ruc.person_representative = new PersonRepresentative();
+         } else {
+            this.ruc.person_representative = r.person_representative as PersonRepresentative;
+         }
+         this.ruc.person_representative_attachment = new PersonRepresentativeAttachment();
+         if(this.ruc.tax_payer_type_id > 1) {
+            this.getPersonRepresentativeAttachment(this.ruc.number);
+         }
+         this.checkRuc();
+         this.checkIdentificationRepresentant();
+      }
+    }).catch( e => { console.log(e); });
+  }
+
+  getPersonRepresentativeAttachment(ruc_number: String) {
+    if (this.ruc.tax_payer_type_id <= 1) {
+      this.ruc.person_representative_attachment = new PersonRepresentativeAttachment();
+      return;
+    }
+    this.personRepresentativeAttachmentDataService.get_filtered(ruc_number).then( r => {
+      if(r == '0'){
+         this.ruc.person_representative_attachment = new PersonRepresentativeAttachment();
+      }else {
+         this.ruc.person_representative_attachment = r as PersonRepresentativeAttachment;
+      }
+    }).catch( e => { console.log(e); });
   }
 }
