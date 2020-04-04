@@ -28,7 +28,6 @@ export class RucDataComponent implements OnInit {
   SRIOK = false;
   
   registrarlo = false;
-  fechaNombramientoOK = false;
 
   consumoCedulaRepresentanteLegal = false;
   REGCIVILREPRESENTANTELEGALOK = false;
@@ -108,8 +107,7 @@ export class RucDataComponent implements OnInit {
          }
       }).catch( e => { console.log(e); });
       this.dinardapDataService.get_RUC(this.ruc.number).then( r => {
-         this.SRIOK = true; 
-         this.rucValidated = true;
+         this.SRIOK = true;
          const itemsDetalles_SRI_RUC = r.sri_ruc.original.entidades.entidad.filas.fila.columnas.columna;
          const itemsDetalles_SRI_RUC_COMPLETO = r.sri_ruc_completo.original.entidades.entidad;
          this.rucData = '';
@@ -336,23 +334,20 @@ export class RucDataComponent implements OnInit {
    return true;
   }
 
-  validateRuc(): Boolean {
-    let validateRepresentantLegalId = true;
-    this.fechaNombramientoOK = this.validateFechaNombramiento();
+  validateRuc(): boolean {
+    let toReturn = this.rucValidated && this.SRIOK;
     if(this.ruc.tax_payer_type_id > 1) {
-       validateRepresentantLegalId = this.identificationRepresentativePersonValidated;
-       const validateExpediente = (this.ruc.group_given.register_code !== '');
-       return this.rucValidated &&
+      toReturn = this.rucValidated &&
         this.validateNombramiento() &&
         this.validateGroupGivenType() &&
-        validateRepresentantLegalId &&
+        this.identificationRepresentativePersonValidated &&
         this.SRIOK &&
         this.REGCIVILREPRESENTANTELEGALOK &&
-        validateExpediente &&
-        this.fechaNombramientoOK;
+        (this.ruc.group_given.register_code !== '') &&
+        this.validateFechaNombramiento();
     }
-    return this.rucValidated &&
-     this.SRIOK;
+    console.log(toReturn);
+    return toReturn;
   }
 
   getRuc(number: String) {
