@@ -50,15 +50,15 @@ import { RucService } from './../../../services/CRUD/BASE/ruc.service';
     RucDataComponent,
     TuristicDataComponent,
     DeclarationDataComponent,
-    EstablishmentListDataComponent,
-    PersonRepresentativeAttachmentService,
-    RucService
+    EstablishmentListDataComponent
   ],
   providers: [UserService,
     AgreementService,
     DinardapService,
     CatastroRegisterService,
-    GroupTypeService
+    GroupTypeService,
+    PersonRepresentativeAttachmentService,
+    RucService
   ]
 })
 export class ClienteExternoModule {}
