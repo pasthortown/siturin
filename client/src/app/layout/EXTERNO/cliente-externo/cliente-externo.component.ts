@@ -1,3 +1,4 @@
+import { RegistroDataCarrier } from 'src/app/models/negocio/RegistroDataCarrier';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
@@ -10,16 +11,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 
 export class ClienteExternoComponent implements OnInit {
-  @ViewChild('pasos') pasosTabSet;
   @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
+  @ViewChild('pasos') pasosTabSet;
   
   // DATOS DEL USUARIO
   
   user: User = new User();
 
   // DATOS DEL REGISTRO SELECCIONADO
+  
+  ruc_registro_selected: RegistroDataCarrier = new RegistroDataCarrier();
 
   registerMinturSelected: Register = new Register(); // Portador de la información total del registro
+   
   selectedRegister = null; // Va a contener el register mintur seleccionado a partir de los datos de la tabla.
   rucEstablishmentRegisterSelected = {editable: true}; // OJO
 
@@ -103,11 +107,14 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   ruc_validated(event) {
-    console.log(event);
+    this.ruc_registro_selected.ruc = event as Ruc;
+    console.log(this.ruc_registro_selected);
   }
 
   next_page_button_click(event) {
-    console.log(event);
+    if (event == 'Paso II') {
+      this.pasosSuperioresTabSet.select('pasoII');
+    }
   }
 
   validateRegisterSelectedData(event) {

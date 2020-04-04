@@ -14,12 +14,12 @@
     </div>
     <div class="col-12">
         <ngb-tabset #pasosSuperiores (tabChange)="changeTabActiveSuperior($event)">
-            <ngb-tab title="Paso I. Información de la Persona Natural / Jurídica" id="tab1">
+            <ngb-tab title="Paso I. Información de la Persona Natural / Jurídica" id="pasoI">
                 <ng-template ngbTabContent>
                     <app-ruc-data [user]="user" [editable]="rucEstablishmentRegisterSelected.editable" (ruc_validated)="ruc_validated($event)" (next_page_button_click)="next_page_button_click($event)"></app-ruc-data>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab title="Paso II. Información del Establecimiento" id="tab2">
+            <ngb-tab title="Paso II. Información del Establecimiento" id="pasoII">
                 <ng-template ngbTabContent>
                     <div class="row">
                         <app-establishment-list-data></app-establishment-list-data>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="pasosSuperiores.select('tab1')">
+                                        <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="pasosSuperiores.select('pasoI')">
                                             <i class="fas fa-arrow-left"></i>&nbsp;Anterior
                                         </button>
                                         <button type="button" class="btn btn-success" title="Guardar Datos" (click)="guardarEstablecimiento()">
