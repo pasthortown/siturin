@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-establishment-list-data',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./establishment-list-data.component.scss']
 })
 export class EstablishmentListDataComponent implements OnInit {
+  @Input('ruc_number') ruc_number: String = '';
+  @Input('ruc_code_id') ruc_code_id: String = '';
   
   constructor() {
     

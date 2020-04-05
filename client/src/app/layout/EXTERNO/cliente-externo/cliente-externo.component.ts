@@ -22,7 +22,6 @@ export class ClienteExternoComponent implements OnInit {
   // DATOS DEL REGISTRO SELECCIONADO
   
   ruc_registro_selected: RegistroDataCarrier = new RegistroDataCarrier();
-
   registerMinturSelected: Register = new Register(); // Portador de la información total del registro
    
   selectedRegister = null; // Va a contener el register mintur seleccionado a partir de los datos de la tabla.
@@ -130,6 +129,8 @@ export class ClienteExternoComponent implements OnInit {
       if (event.register.activity == 'ALIMENTOS Y BEBIDAS') {
         this.actividadSelected = '2';
       }
+      this.registerMinturSelected = event.register;
+      console.log(this.registerMinturSelected);
       this.register_code = event.register.register_code;
       this.establishment_selected_ruc_code_id = event.register.establishment_ruc_code;
       this.my_category_current = event.register.category;
