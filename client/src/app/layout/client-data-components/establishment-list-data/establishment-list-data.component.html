@@ -45,33 +45,32 @@
         </div>
     </div>
 </div>
-  <!-- <div style="width: 100%; overflow-x: auto;" *ngIf="!establecimientos_pendiente">
-      <div class="row">
-          <div class="col-12 mt-2">
-             <ng-table
-                [config]="config"
+<div style="width: 100%; overflow-x: auto;" *ngIf="!establecimientos_pendiente">
+    <div class="row">
+        <div class="col-12 mt-2">
+            <ng-table [config]="config"
                 (cellClicked)="onCellClickEstablishment($event)"
                 (tableChanged)="onChangeTableEstablishment(config)"
                 [rows]="rowsEstablishment"
                 [columns]="columnsEstablishment">
-              </ng-table>
-          </div>
+            </ng-table>
         </div>
-  </div>
-  <div class="row" *ngIf="!establecimientos_pendiente">
-    <div class="col-12">
-      <ngb-pagination
-        *ngIf="config.paging"
-        [(page)]="currentPageEstablishment"
-        [pageSize]="recordsByPageEstablishment"
-        [maxSize]="10"
-        [boundaryLinks]="true"
-        (pageChange)="onChangeTableEstablishment(config, $event)"
-        [collectionSize]="dataEstablishment.length">
-        <ng-template ngbPaginationFirst>Primera</ng-template>
-        <ng-template ngbPaginationPrevious>Anterior</ng-template>
-        <ng-template ngbPaginationNext>Siguiente</ng-template>
-        <ng-template ngbPaginationLast>Última</ng-template>
-      </ngb-pagination>
     </div>
-  </div> -->
+</div>
+<div class="row" *ngIf="!establecimientos_pendiente">
+    <div class="col-12">
+        <ngb-pagination
+            *ngIf="config.paging"
+            [(page)]="currentPageEstablishment"
+            [pageSize]="recordsByPageEstablishment"
+            [maxSize]="10"
+            [boundaryLinks]="true"
+            (pageChange)="onChangeTableEstablishment(config, $event)"
+            [collectionSize]="dataEstablishment.length">
+            <ng-template ngbPaginationFirst>Primera</ng-template>
+            <ng-template ngbPaginationPrevious>Anterior</ng-template>
+            <ng-template ngbPaginationNext>Siguiente</ng-template>
+            <ng-template ngbPaginationLast>Última</ng-template>
+        </ngb-pagination>
+    </div>
+</div>
