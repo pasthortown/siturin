@@ -1,12 +1,9 @@
-import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
-import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
-import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { DinardapService } from './../../../services/negocio/dinardap.service';
 import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
 import { Establishment } from './../../../models/BASE/Establishment';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,6 +14,8 @@ import Swal from 'sweetalert2';
 export class EstablishmentListDataComponent implements OnInit {
   @Input('ruc_number') ruc_number: String = '';
   @Input('ruc_code_id') ruc_code_id: String = '';
+  
+  @Output('establishment_selected') change: EventEmitter<any> = new EventEmitter<any>();
   
   establishment_selected: Establishment = new Establishment();
   establishments: Establishment[] = [];
@@ -43,42 +42,16 @@ export class EstablishmentListDataComponent implements OnInit {
   constructor(private establishmentDataService: EstablishmentService,
     private dinardapDataService: DinardapService,
     private catastroRegisterDataService: CatastroRegisterService,
-    private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
-    private register_type_alimentosBebidas_DataService: RegisterTypeAlojamientoService,
-    private register_type_operacionIntermediacion_DataService: RegisterTypeAlojamientoService,
     private toastr: ToastrManager) {
     
   }
 
   ngOnInit() {
-    this.getRegisterTypes();
     this.refresh();
   }
 
   refresh() {
     this.getRegistersMintur();
-  }
-
-  getRegisterTypes() {
-    this.register_types = [];
-    this.register_type_alojamiento_DataService.get().then( r => {
-      const response = r as any[];
-      response.forEach(element => {
-        this.register_types.push(element);
-      });
-    }).catch( e => { console.log(e); });
-    this.register_type_alimentosBebidas_DataService.get().then( r => {
-      const response = r as any[];
-      response.forEach(element => {
-        this.register_types.push(element);
-      });
-    }).catch( e => { console.log(e); });
-    this.register_type_operacionIntermediacion_DataService.get().then( r => {
-      const response = r as any[];
-      response.forEach(element => {
-        this.register_types.push(element);
-      });
-    }).catch( e => { console.log(e); });
   }
 
   getRegistersMintur() {
@@ -170,16 +143,9 @@ export class EstablishmentListDataComponent implements OnInit {
     ];
     const data = [];
     this.establishments.forEach(item => {
-      if (this.ruc_code_id !== 'NULL') {
-        if (Number(item.ruc_code_id) == Number(this.ruc_code_id)) {
-          data.push({
-            selected: '',
-            code: item.ruc_code_id,
-            address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
-            name: item.commercially_known_name,
-            sri_state: item.sri_state,
-          });
-        }
+      let agregar = false;
+      if ((this.ruc_code_id !== 'NULL') && (Number(item.ruc_code_id) == Number(this.ruc_code_id))) {
+        agregar = true;
       } else {
         let tieneRegistro = false;
         this.registers_mintur.forEach( elem => {
@@ -188,19 +154,22 @@ export class EstablishmentListDataComponent implements OnInit {
           }
         });
         if (!tieneRegistro) {
-          data.push({
-            selected: '',
-            code: item.ruc_code_id,
-            address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
-            name: item.commercially_known_name,
-            sri_state: item.sri_state,
-          });
+          agregar = true;
         }
+      }
+      if (agregar) {
+        data.push({
+          selected: '',
+          code: item.ruc_code_id,
+          address: item.address_main_street + ' ' + item.address_number + ' ' + item.address_secondary_street,
+          name: item.commercially_known_name,
+          sri_state: item.sri_state,
+        });
       }
     });
     if (data.length == 0) {
        Swal.fire(
-          'No dispone de establecimientos adicionales.',
+          'No dispone de establecimientos sin registro de turismo.',
           'El sistema ha validado que todos los establecimientos de su RUC cuentan con registro de turismo.',
           'error'
        );
@@ -303,12 +272,12 @@ export class EstablishmentListDataComponent implements OnInit {
        this.mostrarMensajeNoNombreComercial = true;
        return;
     }  else {
-       this.validateNombreComercial();
        this.mostrarMensajeNoNombreComercial = false;
     }
     this.establishments.forEach(element => {
        if (element.ruc_code_id == event.row.code) {
           this.establishment_selected = element;
+          this.change.emit(this.establishment_selected);
        }
     }); 
     this.rowsEstablishment.forEach(row => {
@@ -318,48 +287,5 @@ export class EstablishmentListDataComponent implements OnInit {
           row.selected = '';
        }
     });
-  }
-
-  validateNombreComercial() {
-    let toReturn = true;
-      const textoAValidar = this.establishment_selected.commercially_known_name.toUpperCase();
-      if(this.establishment_selected.commercially_known_name.length < 1) {
-          toReturn = false;
-          this.establishmentComercialNameValidated = toReturn;
-          return;
-      }
-      let errorEnNombreDetectado = false;
-      this.register_types.forEach(register_type => {
-         const nombre = register_type.name.toUpperCase();
-         if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
-          errorEnNombreDetectado = true;
-          toReturn = false;
-         }
-      });
-      const palabrasNoPermitidas = ['hotel',
-      'hostal',
-      'residencia',
-      'residencial',
-      'hacienda turística',
-      'hacienda turistica',
-      'hostería',
-      'hosteria',
-      'pensión',
-      'pension',
-      'albergue',
-      'lodge',
-      'motel',
-      'campamento',
-      'refugio',
-      'resort '];
-      let errorEnNombreDetectadoListaPalabras = false;
-      palabrasNoPermitidas.forEach(palabraNoPermitida => {
-         const nombre = palabraNoPermitida.toUpperCase();
-         if (textoAValidar.search(nombre) !== -1 && !errorEnNombreDetectadoListaPalabras) {
-          errorEnNombreDetectadoListaPalabras = true;
-          toReturn = false;
-         }
-      });
-      this.establishmentComercialNameValidated = toReturn;
   }
 }

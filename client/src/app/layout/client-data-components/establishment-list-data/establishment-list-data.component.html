@@ -57,7 +57,7 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="!establecimientos_pendiente">
+<div class="row mb-2" *ngIf="!establecimientos_pendiente">
     <div class="col-12">
         <ngb-pagination
             *ngIf="config.paging"
@@ -72,5 +72,13 @@
             <ng-template ngbPaginationNext>Siguiente</ng-template>
             <ng-template ngbPaginationLast>Última</ng-template>
         </ngb-pagination>
-    </div>
+    </div>    
+</div>
+<div class="row mb-2">
+    <small class="col-12" *ngIf="mostrarMensajeNoNombreComercial">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Información</strong></label><br />
+            <p class="col-12 text-justify">Estimado usuario, el sistema ha detectado que el nombre comercial del establecimiento seleccionado no se encuentra registrado en el SRI. Para registrarlo diríjase al sitio oficial del SRI.&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a></p>
+        </div>
+    </small>
 </div>

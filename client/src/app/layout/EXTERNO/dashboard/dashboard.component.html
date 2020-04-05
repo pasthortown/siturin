@@ -2390,6 +2390,12 @@
                   </ngb-pagination>
                 </div>
               </div>
+              <small class="col-12" *ngIf="mostrarMensajeNoNombreComercial">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                  <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                  <p>Estimado usuario, el sistema ha detectado que el nombre comercial del establecimiento seleccionado no se encuentra registrado en el SRI. Para registrarlo diríjase al sitio oficial del SRI.</p>&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
+                </div>
+              </small>
               <ngb-tabset *ngIf="establishment_selected.ruc_code_id !== '-'" #pasosDeclarandoUnoMil (tabChange)="changeTabActiveDeclarandoUnoMil($event)">
                   <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1" #paso1>
                     <ng-template ngbTabContent>
@@ -3515,6 +3521,12 @@
                   </ngb-pagination>
                 </div>
               </div>
+              <small class="col-12" *ngIf="mostrarMensajeNoNombreComercial">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                  <label class="col-12 text-justify"><strong>Información</strong></label><br />
+                  <p>Estimado usuario, el sistema ha detectado que el nombre comercial del establecimiento seleccionado no se encuentra registrado en el SRI. Para registrarlo diríjase al sitio oficial del SRI.</p>&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
+                </div>
+              </small>
               <ngb-tabset *ngIf="establishment_selected.ruc_code_id !== '-'" #pasos (tabChange)="changeTabActive($event)">
                   <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1" #paso1>
                     <ng-template ngbTabContent>
