@@ -1,1 +1,82 @@
-establishment list works
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="getEstablishmentsOnRuc(1)">
+                <i class="fas fa-sync"></i>
+            </button>
+            </div>
+            <h4>&nbsp;Listado de Establecimientos Inscritos en el RUC*</h4>
+        </div>
+    </div>
+    <div class="col-12">
+      <div class="alert alert-info mt-2 mb-2" role="alert">
+        <label class="col-12 text-justify"><strong>Atención</strong></label><br />
+        A continuación se detalla el listado de los establecimientos que se encuentran vinculados a su RUC, por favor para iniciar el proceso dar click en el establecimiento que desea tramitar.
+      </div>
+    </div>
+</div>
+  <!-- <div class="row" *ngIf="establecimientos_pendiente">
+    <div class="col-12">
+      <div class="progress mb-3">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div>
+      </div>
+      <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
+    </div>
+  </div>
+  <div class="row mt-2" *ngIf="!establecimientos_pendiente">
+    <div class="col-12">
+      <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+          <button type="button" class="btn btn-primary" title="Actualizar" (click)="
+            getEstablishmentsOnRuc(currentPageEstablishment)
+            ">
+            <i class="fas fa-sync"></i>
+          </button>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button type="button" class="input-group-text btn btn-success" title="Buscar" (click)="
+            onChangeTableEstablishment(config)
+              ">
+              <span class="fas fa-search"></span>
+            </button>
+          </div>
+          <input *ngIf="config.filtering" placeholder="Buscar..."
+            [ngTableFiltering]="config.filtering"
+            class="form-control"
+            (input)="onChangeTableEstablishment(config)"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width: 100%; overflow-x: auto;" *ngIf="!establecimientos_pendiente">
+      <div class="row">
+          <div class="col-12 mt-2">
+             <ng-table
+                [config]="config"
+                (cellClicked)="onCellClickEstablishment($event)"
+                (tableChanged)="onChangeTableEstablishment(config)"
+                [rows]="rowsEstablishment"
+                [columns]="columnsEstablishment">
+              </ng-table>
+          </div>
+        </div>
+  </div>
+  <div class="row" *ngIf="!establecimientos_pendiente">
+    <div class="col-12">
+      <ngb-pagination
+        *ngIf="config.paging"
+        [(page)]="currentPageEstablishment"
+        [pageSize]="recordsByPageEstablishment"
+        [maxSize]="10"
+        [boundaryLinks]="true"
+        (pageChange)="onChangeTableEstablishment(config, $event)"
+        [collectionSize]="dataEstablishment.length">
+        <ng-template ngbPaginationFirst>Primera</ng-template>
+        <ng-template ngbPaginationPrevious>Anterior</ng-template>
+        <ng-template ngbPaginationNext>Siguiente</ng-template>
+        <ng-template ngbPaginationLast>Última</ng-template>
+      </ngb-pagination>
+    </div>
+  </div> -->
