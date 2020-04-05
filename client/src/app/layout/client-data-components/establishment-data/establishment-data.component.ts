@@ -1,3 +1,4 @@
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
@@ -23,10 +24,11 @@ export class EstablishmentDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
 
   register_types = [];
-
+  ubications: Ubication[] = [];
   establishmentComercialNameValidated = false;
   franchiseChainNameValidated = false;
   urlwebEstablishmentValidated = false;
+  addressEstablishmentValidated = false;
 
   selectedNameType: RucNameType = new RucNameType();
   ruc_name_types: RucNameType[] = [];
@@ -48,16 +50,89 @@ export class EstablishmentDataComponent implements OnInit {
     private establishment_property_typeDataService: EstablishmentPropertyTypeService,
     private register_type_operacionIntermediacion_DataService: RegisterTypeOperacionIntermedacion,
     private establishmentPictureDataService: EstablishmentPictureService,
-    private rucNameTypeDataService: RucNameTypeService) {
+    private rucNameTypeDataService: RucNameTypeService,
+    private ubicationDataService: UbicationService) {
     
   }
 
   ngOnInit() {
-    this.refreshTotalWorkers();
     this.getRegisterTypes();
+    this.getUbications();
+    this.refreshTotalWorkers();
     this.getEstablishmentPropertyType();
     this.getRucNameTypes();
     this.getEstablishmentPicture();
+  }
+
+  getUbications() {
+    this.ubications = [];
+    this.ubicationDataService.get().then( r => {
+       this.ubications = r as Ubication[];
+       this.getZonalesEstablishment();
+    }).catch( e => { console.log(e); });
+  }
+
+  getZonalesEstablishment() {
+    this.zonalesEstablishment = [];
+    this.provinciasEstablishment = [];
+    this.zonalEstablishmentSelectedCode = '-';
+    this.provinciaEstablishmentSelectedCode = '-';
+    this.ubications.forEach( element => {
+      if (element.father_code == '-') {
+        this.zonalesEstablishment.push(element);
+      }
+    });
+    this.zonalesEstablishment.forEach(zonal => {
+      this.ubications.forEach(ubication => {
+        if (ubication.father_code == zonal.code) {
+          this.provinciasEstablishment.push(ubication);
+       }
+      });
+    });
+    this.provinciasEstablishment.sort(function(a, b) {
+      const nameA = a.name.toLowerCase().trim();
+      const nameB = b.name.toLowerCase().trim();
+      if (nameA < nameB) {
+         return -1;
+      }
+      if (nameA > nameB) {
+         return 1;
+      }
+      return 0;
+    });
+  }
+
+  getCantonesEstablishment() {
+    this.cantonesEstablishment = [];
+    this.cantonEstablishmentSelectedCode = '-';
+    this.provinciasEstablishment.forEach(provincia => {
+       if (provincia.code == this.provinciaEstablishmentSelectedCode){
+          this.zonalEstablishmentSelectedCode = provincia.father_code.toString();
+          this.establishment.address_map_latitude = provincia.gmap_reference_latitude;
+          this.establishment.address_map_longitude = provincia.gmap_reference_longitude;
+       }
+    });
+    this.ubications.forEach(ubication => {
+       if (ubication.father_code == this.provinciaEstablishmentSelectedCode) {
+          this.cantonesEstablishment.push(ubication);
+       }
+    });
+  }
+
+  getParroquiasEstablishment() {
+    this.parroquiasEstablishment = [];
+    this.establishment.ubication_id = 0;
+    this.cantonesEstablishment.forEach(canton => {
+       if(canton.code == this.cantonEstablishmentSelectedCode){
+          this.establishment.address_map_latitude = canton.gmap_reference_latitude;
+          this.establishment.address_map_longitude = canton.gmap_reference_longitude;
+       }
+    });
+    this.ubications.forEach(ubication => {
+       if (ubication.father_code == this.cantonEstablishmentSelectedCode) {
+          this.parroquiasEstablishment.push(ubication);
+       }
+    });
   }
 
   getEstablishmentPicture() {
@@ -189,6 +264,15 @@ export class EstablishmentDataComponent implements OnInit {
     this.fotoFachadaInput.nativeElement.click();
   }
 
+  checkEstablishmentAddress(): Boolean {
+    if(this.establishment.address_main_street === '' || this.establishment.address_number === '' || this.establishment.address_secondary_street === '') {
+       this.addressEstablishmentValidated = false;
+       return false;
+    }
+    this.addressEstablishmentValidated = true;
+    return true;
+  }
+
   CodificarArchivo(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
@@ -202,6 +286,11 @@ export class EstablishmentDataComponent implements OnInit {
     }
   }
 
+  address_mapEventEstablishment(event) {
+    this.establishment.address_map_latitude = event.coords.lat;
+    this.establishment.address_map_longitude = event.coords.lng;
+  }
+
   refreshTotalWorkers() {
     this.total_workers = 0;
     this.establishment.workers_on_establishment.forEach(element => {
@@ -212,6 +301,11 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   updateGmap() {
-    
+    this.parroquiasEstablishment.forEach(parroquia => {
+       if (parroquia.id == this.establishment.ubication_id) {
+          this.establishment.address_map_latitude = parroquia.gmap_reference_latitude;
+          this.establishment.address_map_longitude = parroquia.gmap_reference_longitude;
+       }
+    });
   }
 }

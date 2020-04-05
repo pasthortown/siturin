@@ -191,76 +191,58 @@
         </div>
     </div>
 </div>
-          <!-- <div class="row mt-2" *ngIf="establishmentComercialNameValidated">
-            <label class="col-12"><strong>Dirección*</strong></label><span *ngIf="!addressEstablishmentValidated"
-            class="ml-2 badge badge-danger">Incorrecto</span>
-          </div>
-          <div class="row mt-2" *ngIf="establishmentComercialNameValidated">
-            <div class="col-4">
-                <div class="form-group">
-                    <label>Calle Principal</label><span *ngIf="establishment.address_main_street === ''"
-                    class="ml-2 badge badge-danger">Incorrecto</span>
-                    <input type="text" class="form-control" id="addressMain" name="addressMain"
-                      (keyup)="checkEstablishmentAddress()" [disabled]="!editable"
-                      placeholder="Calle Principal"
-                      [(ngModel)]="establishment.address_main_street" />
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label>Numeración</label><span *ngIf="establishment.address_number === ''"
-                    class="ml-2 badge badge-danger">Incorrecto</span>
-                    <input type="text" class="form-control" id="addressNumber" name="addressNumber"
-                      (keyup)="checkEstablishmentAddress()" [disabled]="!editable"
-                      placeholder="Numeración"
-                      [(ngModel)]="establishment.address_number" />
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label>Calle Intersección</label><span *ngIf="establishment.address_secondary_street === ''"
-                    class="ml-2 badge badge-danger">Incorrecto</span>
-                    <input type="text" class="form-control" id="addressSecondary" name="addressSecondary"
-                      (keyup)="checkEstablishmentAddress()" [disabled]="!editable"
-                      placeholder="Calle Intersección"
-                      [(ngModel)]="establishment.address_secondary_street" />
-                </div>
-            </div>
-          </div>
-          <div class="form-group" *ngIf="establishmentComercialNameValidated">
-            <label>Referencia de Ubicación* - ¿Como llegar?</label><span
-              *ngIf="establishment.address_reference == ''"
-              class="ml-2 badge badge-danger">Incorrecto</span>
-            <ck-editor id="address_reference" *ngIf="true" name="address_reference" skin="moono-lisa"
-              [(ngModel)]="establishment.address_reference"></ck-editor>
-          </div>
-          <div class="form-group" *ngIf="establishmentComercialNameValidated">
+<div class="row mt-2" *ngIf="establishmentComercialNameValidated">
+    <div class="col-12">
+        <label><strong>Dirección*</strong></label>
+        <span *ngIf="!addressEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label>Calle Principal</label>
+            <span *ngIf="establishment.address_main_street === ''" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" class="form-control" id="addressMain" name="addressMain" (input)="checkEstablishmentAddress()" [disabled]="!editable" placeholder="Calle Principal" [(ngModel)]="establishment.address_main_street" />
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label>Numeración</label>
+            <span *ngIf="establishment.address_number === ''" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" class="form-control" id="addressNumber" name="addressNumber" (input)="checkEstablishmentAddress()" [disabled]="!editable" placeholder="Numeración" [(ngModel)]="establishment.address_number" />
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label>Calle Intersección</label>
+            <span *ngIf="establishment.address_secondary_street === ''" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" class="form-control" id="addressSecondary" name="addressSecondary" (keyup)="checkEstablishmentAddress()" [disabled]="!editable" placeholder="Calle Intersección" [(ngModel)]="establishment.address_secondary_street" />
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group" *ngIf="establishmentComercialNameValidated">
+            <label>Referencia de Ubicación* - ¿Como llegar?</label>
+            <span *ngIf="establishment.address_reference == ''" class="ml-2 badge badge-danger">Incorrecto</span>
+            <ck-editor id="address_reference" *ngIf="true" name="address_reference" skin="moono-lisa" [(ngModel)]="establishment.address_reference"></ck-editor>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group" *ngIf="establishmentComercialNameValidated">
             <label>Ubicar el establecimiento en el mapa*</label>
-            <agm-map class="col-12" *ngIf="editable" style="height: 400px;" [latitude]="
-                establishment.address_map_latitude * 1
-              " [gestureHandling]="'cooperative'" [scrollwheel]="null"  [longitude]="
-                establishment.address_map_longitude * 1
-              " [zoom]="15" (mapClick)="address_mapEventEstablishment($event)">
-              <agm-marker [latitude]="
-                  establishment.address_map_latitude * 1
-                " [longitude]="
-                  establishment.address_map_longitude * 1
-                " [markerDraggable]="true" (dragEnd)="address_mapEventEstablishment($event)"
-                [animation]="'DROP'"></agm-marker>
+            <agm-map class="col-12" *ngIf="editable" style="height: 400px;" 
+            [latitude]="establishment.address_map_latitude * 1" [longitude]="establishment.address_map_longitude * 1"
+            [gestureHandling]="'cooperative'" [scrollwheel]="null" [zoom]="15" (mapClick)="address_mapEventEstablishment($event)">
+                <agm-marker [latitude]="establishment.address_map_latitude * 1" 
+                [longitude]="establishment.address_map_longitude * 1" [markerDraggable]="true" 
+                (dragEnd)="address_mapEventEstablishment($event)" [animation]="'DROP'"></agm-marker>
             </agm-map>
-            <agm-map class="col-12" *ngIf="!editable" style="height: 400px;" [latitude]="
-                establishment.address_map_latitude * 1
-              " [gestureHandling]="'cooperative'" [scrollwheel]="null"  [longitude]="
-                establishment.address_map_longitude * 1
-              " [zoom]="15">
-              <agm-marker [latitude]="
-                  establishment.address_map_latitude * 1
-                " [longitude]="
-                  establishment.address_map_longitude * 1
-                "
-                [animation]="'DROP'"></agm-marker>
+            <agm-map class="col-12" *ngIf="!editable" style="height: 400px;" 
+            [latitude]="establishment.address_map_latitude * 1" [longitude]="establishment.address_map_longitude * 1"
+            [gestureHandling]="'cooperative'" [scrollwheel]="null"  [zoom]="15">
+                <agm-marker [latitude]="establishment.address_map_latitude * 1" 
+                [longitude]="establishment.address_map_longitude * 1" [animation]="'DROP'"></agm-marker>
             </agm-map>
-          </div> -->
+        </div>
+    </div>
+</div>
 
 
 
