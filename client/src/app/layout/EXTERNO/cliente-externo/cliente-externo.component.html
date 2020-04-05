@@ -25,68 +25,17 @@
                     <ngb-tabset #pasos (tabChange)="changeTabActive($event)" *ngIf="mostrarPasosInferiores">
                         <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1" #paso1>
                             <ng-template ngbTabContent>
-                                <div class="row">
-                                    <app-establishment-data></app-establishment-data>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="pasosSuperiores.select('pasoI')">
-                                            <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-                                        </button>
-                                        <button type="button" class="btn btn-success" title="Guardar Datos" (click)="guardarEstablecimiento()">
-                                            <i class="fas fa-save"></i>&nbsp;Guardar Datos
-                                        </button>
-                                        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
-                                            refresh()
-                                            ">
-                                            <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
-                                        </button>
-                                        <button type="button" class="btn btn-info ml-2" title="Siguiente" (click)="pasos.select('paso2')">
-                                            <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
-                                        </button>
-                                    </div>
-                                </div>
+                                <app-establishment-data></app-establishment-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2">
                             <ng-template ngbTabContent>
-                                <div class="row">
-                                    <app-declaration-data></app-declaration-data>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="pasos.select('paso1')">
-                                            <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-                                        </button>
-                                        <button type="button" class="btn btn-info ml-2" title="Siguiente" (click)="pasos.select('paso3')">
-                                            <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
-                                        </button>
-                                    </div>
-                                </div>
+                                <app-declaration-data></app-declaration-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3">
                             <ng-template ngbTabContent>
-                                <div class="row">
-                                    <app-turistic-data></app-turistic-data>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <button type="button" class="btn btn-info mr-2" title="Anterior"
-                                          (click)="pasos.select('paso2')">
-                                          <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-                                        </button>
-                                        <button type="button" class="btn btn-success" title="Enviar Solicitud"
-                                          (click)="guardarRegistro()">
-                                          <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
-                                        </button>
-                                        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
-                                            refresh()
-                                          ">
-                                          <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
-                                        </button>
-                                    </div>
-                                </div>
+                                <app-turistic-data></app-turistic-data>
                             </ng-template>
                         </ngb-tab> 
                     </ngb-tabset>  
@@ -95,4 +44,3 @@
         </ngb-tabset>
     </div>
 </div>
-
