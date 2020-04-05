@@ -50,7 +50,7 @@
                                 </div>
                             </ng-template>
                         </ngb-tab> 
-                        <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2">
+                        <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2" *ngIf="ruc_registro_selected.ruc.id != 0">
                             <ng-template ngbTabContent>
                                 <div class="row">
                                     <app-declaration-data></app-declaration-data>

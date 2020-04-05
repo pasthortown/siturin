@@ -1,3 +1,4 @@
+import { Ruc } from './../../../models/DINARDAP/Ruc';
 import { RegistroDataCarrier } from 'src/app/models/negocio/RegistroDataCarrier';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { User } from './../../../models/profile/User';
@@ -107,8 +108,7 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   ruc_validated(event) {
-    this.ruc_registro_selected.ruc = event as Ruc;
-    console.log(this.ruc_registro_selected);
+    this.ruc_registro_selected.ruc = event;
   }
 
   next_page_button_click(event) {
