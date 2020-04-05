@@ -144,8 +144,10 @@ export class EstablishmentListDataComponent implements OnInit {
     const data = [];
     this.establishments.forEach(item => {
       let agregar = false;
-      if ((this.ruc_code_id !== 'NULL') && (Number(item.ruc_code_id) == Number(this.ruc_code_id))) {
-        agregar = true;
+      if (this.ruc_code_id !== 'NULL') { 
+        if (Number(item.ruc_code_id) == Number(this.ruc_code_id)) {
+          agregar = true;
+        }
       } else {
         let tieneRegistro = false;
         this.registers_mintur.forEach( elem => {
