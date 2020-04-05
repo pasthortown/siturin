@@ -14,6 +14,7 @@ export class EstablishmentListDataComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+   console.log(this.ruc_code_id);
+   console.log(this.ruc_number);
   }
 }
