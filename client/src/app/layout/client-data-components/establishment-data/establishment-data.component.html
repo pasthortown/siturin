@@ -10,7 +10,7 @@
             <span *ngIf="!validateNombreComercial()" class="ml-2 badge badge-danger">Incorrecto</span>
             <input type="text" disabled class="form-control" id="commercially_known_name"
             name="commercially_known_name" placeholder="Nombre Comercial" [(ngModel)]="establishment.commercially_known_name"/>
-            <small class="col-12" *ngIf="!true">
+            <small class="col-12" *ngIf="!establishmentComercialNameValidated">
                 <div class="alert alert-info mt-2 mb-2" role="alert">
                     <label class="col-12 text-justify"><strong>Información</strong></label>
                     <p>Estimado usuario, el sistema ha detectado que su nombre comercial o contiene alguno de 
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="true">
+<div class="row" *ngIf="establishmentComercialNameValidated">
     <div class="col-3">
         <div class="form-group">
             <label>Tipo de Establecimiento</label>
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>    
-<div class="row" *ngIf="true">
+<div class="row" *ngIf="establishmentComercialNameValidated">
     <div class="col-12">
         <div class="form-group">
             <label>Fotografía de la Fachada del Establecimiento*</label>
@@ -87,7 +87,7 @@
         <input [hidden]="true" #fotoFachadaInput type="file" (change)="CodificarArchivo($event)" accept="image/*" />
     </div>
 </div>
-<div class="row mt-5" *ngIf="true">
+<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
     <div class="col-12 text-left">
         <h4><strong>Personal del Establecimiento:</strong></h4>
     </div>
@@ -138,7 +138,7 @@
         </table>                
     </div>
 </div>
-<div class="row mt-5" *ngIf="true">
+<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
     <div class="col-12 text-left">
         <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
     </div>
@@ -191,7 +191,7 @@
         </div>
     </div>
 </div>
-<div class="row mt-2" *ngIf="true">
+<div class="row mt-2" *ngIf="establishmentComercialNameValidated">
     <div class="col-12">
         <label><strong>Dirección*</strong></label>
         <span *ngIf="!addressEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
@@ -214,18 +214,18 @@
         <div class="form-group">
             <label>Calle Intersección</label>
             <span *ngIf="establishment.address_secondary_street === ''" class="ml-2 badge badge-danger">Incorrecto</span>
-            <input type="text" class="form-control" id="addressSecondary" name="addressSecondary" (keyup)="checkEstablishmentAddress()" [disabled]="!editable" placeholder="Calle Intersección" [(ngModel)]="establishment.address_secondary_street" />
+            <input type="text" class="form-control" id="addressSecondary" name="addressSecondary" (input)="checkEstablishmentAddress()" [disabled]="!editable" placeholder="Calle Intersección" [(ngModel)]="establishment.address_secondary_street" />
         </div>
     </div>
     <div class="col-12">
-        <div class="form-group" *ngIf="true">
+        <div class="form-group" *ngIf="establishmentComercialNameValidated">
             <label>Referencia de Ubicación* - ¿Como llegar?</label>
             <span *ngIf="establishment.address_reference == ''" class="ml-2 badge badge-danger">Incorrecto</span>
             <ck-editor id="address_reference" *ngIf="true" name="address_reference" skin="moono-lisa" [(ngModel)]="establishment.address_reference"></ck-editor>
         </div>
     </div>
     <div class="col-12">
-        <div class="form-group" *ngIf="true">
+        <div class="form-group" *ngIf="establishmentComercialNameValidated">
             <label>Ubicar el establecimiento en el mapa*</label>
             <agm-map class="col-12" *ngIf="editable" style="height: 400px;" 
             [latitude]="establishment.address_map_latitude * 1" [longitude]="establishment.address_map_longitude * 1"
@@ -243,237 +243,123 @@
         </div>
     </div>
 </div>
-
-
-
-
-          <!-- <div class="row mt-5" *ngIf="true">
-            <div class="col-12 text-left">
-              <h4><strong>Certificaciones:</strong></h4>
+<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+    <div class="col-12 text-left">
+        <h4><strong>Certificaciones:</strong></h4>
+    </div>
+    <div class="col-12">
+        <small class="col-12">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+              <label class="col-12 text-justify"><strong>Información</strong></label>
+              <p class="col-12 text-justify">Si usted dispone de algún tipo de certificado que no se encuentra listado a continuación, puede comunicarse con el Ministerio de Turismo para proceder a solicitar su inclusión.</p>
             </div>
-          </div>
-          <div class="col-12" *ngIf="true">
-            <small class="col-12">
-              <div class="alert alert-info mt-2 mb-2" role="alert">
-                <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                <p>Si usted dispone de algún tipo de certificado que no se encuentra listado a continuación, puede comunicarse con el Ministerio de Turismo para proceder a solicitar su inclusión.</p>
-              </div>
-            </small>  
-          </div>
-          <div class="form-group row" *ngIf="true">
-            <div class="col-12">
-              <table class="table table-hover mt-2">
-                <thead>
-                  <th>
-                    Seleccionado
-                    <button type="button" title="Agregar" class="btn btn-success ml-2"
-                      (click)="addEstablishmentCertification()">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
-                  </th>
-                  <th>
+        </small>  
+    </div>
+    <div class="col-12">
+        <table class="table table-hover mt-2">
+            <thead>
+                <th>
+                  Seleccionado
+                  <button type="button" title="Agregar" class="btn btn-success ml-2" (click)="addEstablishmentCertification()">
+                    <i class="fas fa-plus-circle"></i>
+                  </button>
+                </th>
+                <th>
                     Categoría de Certificado
-                  </th>
-                  <th>
+                </th>
+                <th>
                     Tipo de Certificado
-                  </th>
-                  <th *ngIf="false">
-                    Adjunto
-                  </th>
-                  <th>
+                </th>
+                <th>
                     Opciones
-                  </th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="
-                      let establishment_certification of establishment.establishment_certifications_on_establishment
-                    " (click)="
-                      selectEstablishmentCertification(
-                        establishment_certification
-                      )
-                    ">
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let establishment_certification of establishment.establishment_certifications_on_establishment"
+                (click)="selectEstablishmentCertification(establishment_certification)">
                     <td class="text-right">
-                      <span *ngIf="
-                          establishment_certifications_establishmentSelected ===
-                          establishment_certification
-                        " class="far fa-hand-point-right"></span>
+                        <span *ngIf="establishment_certifications_establishmentSelected === establishment_certification" class="far fa-hand-point-right"></span>
                     </td>
                     <td>
-                      <select class="form-control" id="certificate_type_id" name="certificate_type_id"
-                        [(ngModel)]="
-                          establishment_certification.establishment_certification_type_fatherCode
-                        " [disabled]="!editable" (change)="
-                          getEstablishmentCertificationTypesSpecific(establishment_certification)
-                        ">
-                        <option value="-" selected>Seleccione...</option>
-                        <option *ngFor="
-                            let establishment_certification_type of establishment_certification_types_categories
-                          " value="{{
-                            establishment_certification_type.code
-                          }}">
-                          {{
-                            establishment_certification_type.name
-                          }}
-                        </option>
-                      </select>
+                        <select class="form-control" id="certificate_type_id" name="certificate_type_id" [(ngModel)]="establishment_certification.establishment_certification_type_fatherCode" [disabled]="!editable" (change)="getEstablishmentCertificationTypesSpecific(establishment_certification)">
+                            <option value="-" selected>Seleccione...</option>
+                            <option *ngFor="let establishment_certification_type of establishment_certification_types_categories" value="{{establishment_certification_type.code}}">
+                              {{establishment_certification_type.name}}
+                            </option>
+                        </select>
                     </td>
                     <td>
-                      <select class="form-control" id="certificate_type_id" name="certificate_type_id"
-                        [(ngModel)]="
-                          establishment_certification.establishment_certification_type_id
-                        " [disabled]="!editable">
-                        <option value="0" selected>Seleccione...</option>
-                        <option *ngFor="
-                            let establishment_certification_type of establishment_certification.establishment_certification_type_specifics
-                          " value="{{
-                            establishment_certification_type.id
-                          }}">
-                          {{
-                            establishment_certification_type.name
-                          }}
-                        </option>
-                      </select>
+                        <select class="form-control" id="certificate_type_id" name="certificate_type_id" [(ngModel)]="establishment_certification.establishment_certification_type_id" [disabled]="!editable">
+                            <option value="0" selected>Seleccione...</option>
+                            <option *ngFor="let establishment_certification_type of establishment_certification.establishment_certification_type_specifics" value="{{establishment_certification_type.id}}">
+                              {{establishment_certification_type.name}}
+                            </option>
+                        </select>
                     </td>
-                    <td *ngIf="false">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <button
-                            [disabled]="establishment_certification.establishment_certification_attachment.establishment_certification_attachment_file == ''"
-                            type="button" title="Descargar Certificado" class="btn btn-primary" (click)="
-                                  downloadEstablishmentCertification(
-                                    establishment_certification
-                                  )
-                                ">
-                            <i class="fas fa-download"></i>
-                          </button>
-                          <button
-                            [disabled]="establishment_certification.establishment_certification_attachment.establishment_certification_attachment_file == '' || !editable"
-                            type="button" title="Eliminar" class="btn btn-danger"
-                            (click)="borrarCertificado(establishment_certification)">
+                    <td>
+                        <button type="button" title="Eliminar" class="btn btn-danger" [disabled]="!editable" (click)="removeEstablishmentCertification(establishment_certification)">
                             <i class="fas fa-trash"></i>
-                          </button>
-                        </div>
-                        <input type="file" [disabled]="!editable" class="form-control" (change)="
-                              CodificarArchivoEstablishmentCertification(
-                                $event,
-                                establishment_certification
-                              )
-                            " accept="application/pdf" />
-                      </div>
-                      <small class="col-12">
-                        <div class="alert alert-info mt-2 mb-2" role="alert">
-                          <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                          <p>Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
-                        </div>
-                      </small>
+                        </button>
                     </td>
-                    <td>
-                      <button type="button" title="Eliminar" class="btn btn-danger" [disabled]="!editable" (click)="
-                          removeEstablishmentCertification(
-                            establishment_certification
-                          )
-                        ">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="row mt-3" *ngIf="true">
-              <h4 class="col-12"><strong>Persona de Contacto en el Establecimiento</strong></h4>
-              <div class="col-12">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label>Cédula de Identidad*</label><span
-                        *ngIf="!identificationContactEstablishmentValidated"
-                        class="ml-2 badge badge-danger">Incorrecto</span>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                          <button type="button" class="btn btn-primary" title="Consultar con Registro Civil"
-                            (click)="checkCedulaEstablishment()">
-                            <i class="fas fa-sync"></i>
-                          </button>
-                        </div>
-                        <input type="text" class="form-control" id="cedula" maxlength="10"
-                          placeholder="Cédula de Identidad" [disabled]="!editable" (keyup)="checkCedulaEstablishment()" [(ngModel)]="
-                            establishment.contact_user
-                              .identification
-                          " name="cedula" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12" *ngIf="identificationContactEstablishmentValidated">
-                    <div class="form-group">
-                      <label>DATOS DE LA CÉDULA</label>
-                      <div class="col-12 text-justify" [innerHTML]="cedulaEstablishmentContactData">
-                      </div>
-                    </div>
-                  </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mt-3" *ngIf="establishmentComercialNameValidated">
+    <h4 class="col-12"><strong>Persona de Contacto en el Establecimiento</strong></h4>
+    <div class="col-12">
+        <div class="form-group">
+            <label>Cédula de Identidad*</label>
+            <span *ngIf="!identificationContactEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" title="Consultar con Registro Civil" (click)="checkCedulaEstablishment()">
+                        <i class="fas fa-sync"></i>
+                    </button>
                 </div>
-                <div class="row mt-2">
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label>Número de Teléfono Principal*</label><span
-                        *ngIf="!mainPhoneContactEstablishmentValidated"
-                        class="ml-2 badge badge-danger">Incorrecto</span>
-                      <input type="text" class="form-control" [disabled]="!editable" id="mainRucPhoneNumber" maxlength="10"
-                        placeholder="Número de Teléfono Principal Ej: 0999999999"
-                        (keyup)="checkTelefonoPrincipalContactoEstablecimiento()" [(ngModel)]="
-                          establishment.contact_user.main_phone_number
-                        " name="mainRucPhoneNumber" />
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                      <label>Número de Teléfono Secundario</label><span
-                        *ngIf="!secondaryPhoneContactEstablishmentValidated"
-                        class="ml-2 badge badge-danger">Incorrecto</span>
-                      <input type="text" class="form-control" [disabled]="!editable" id="secondaryRucPhone" maxlength="10"
-                        (keyup)="checkTelefonoSecundarioContactoEstablecimiento()"
-                        placeholder="Número de Teléfono Secundario Ej: 0299999999" [(ngModel)]="
-                          establishment.contact_user.secondary_phone_number
-                        " name="secondaryRucPhone" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label>Correo Electrónico*</label><span *ngIf="!emailContactEstablishmentValidated"
-                        class="ml-2 badge badge-danger">Incorrecto</span>
-                      <input type="email" class="form-control" [disabled]="!editable" id="email" maxlength="255"
-                        (input)="checkEmailContactEstablishment()" placeholder="Correo Electrónico"
-                        [(ngModel)]="establishment.contact_user.email" name="email" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <input type="text" class="form-control" id="cedula" maxlength="10" placeholder="Cédula de Identidad" [disabled]="!editable" (input)="checkCedulaEstablishment()" [(ngModel)]="establishment.contact_user.identification" name="cedula" />
             </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="row mt-3">
+    <div class="col-12" *ngIf="identificationContactEstablishmentValidated">
+        <div class="form-group">
+            <label>DATOS DE LA CÉDULA</label>
+            <div class="col-12 text-justify" [innerHTML]="cedulaEstablishmentContactData"></div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label>Número de Teléfono Principal*</label>
+            <span *ngIf="!mainPhoneContactEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" class="form-control" [disabled]="!editable" id="mainRucPhoneNumber" maxlength="10" placeholder="Número de Teléfono Principal Ej: 0999999999" (input)="checkTelefonoPrincipalContactoEstablecimiento()" [(ngModel)]="establishment.contact_user.main_phone_number" name="mainRucPhoneNumber" />
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label>Número de Teléfono Secundario</label>
+            <span *ngIf="!secondaryPhoneContactEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" class="form-control" [disabled]="!editable" id="secondaryRucPhone" maxlength="10" (input)="checkTelefonoSecundarioContactoEstablecimiento()" placeholder="Número de Teléfono Secundario Ej: 0299999999" [(ngModel)]="establishment.contact_user.secondary_phone_number" name="secondaryRucPhone" />
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label>Correo Electrónico*</label>
+            <span *ngIf="!emailContactEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="email" class="form-control" [disabled]="!editable" id="email" maxlength="255" (input)="checkEmailContactEstablishment()" placeholder="Correo Electrónico" [(ngModel)]="establishment.contact_user.email" name="email" />
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
     <div class="col-12 text-center">
-      <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
-        (click)="pasosSuperioresActualizandoCapacidadesPrecios.select('tab1')">
-        <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-      </button>
-      <button type="button" [disabled]="guardando" class="btn btn-success" *ngIf="validateEstablecimiento() && editable"
-        title="Guardar Datos" (click)="guardarEstablecimiento()">
-        <i class="fas fa-save"></i>&nbsp;Guardar Datos
-      </button>
-      <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
-          refresh()
-        ">
-        <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
-      </button>
-      <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
-      (click)="pasosActualizandoCapacidadesPrecios.select('paso2')">
-        <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
-      </button>
+        <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="previewPage()">
+            <i class="fas fa-arrow-left"></i>&nbsp;Anterior
+        </button>
+        <button type="button" [disabled]="guardando" class="btn btn-success" *ngIf="validateEstablecimiento() && editable" title="Guardar Datos" (click)="guardarEstablecimiento()">
+            <i class="fas fa-save"></i>&nbsp;Guardar Datos
+        </button>
+        <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente" (click)="nextPage()">
+            <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
+        </button>
     </div>
-  </div> -->
+</div>

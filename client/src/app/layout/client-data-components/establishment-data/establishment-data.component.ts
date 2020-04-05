@@ -1,3 +1,8 @@
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { DinardapService } from './../../../services/negocio/dinardap.service';
+import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
+import { EstablishmentCertificationType } from './../../../models/BASE/EstablishmentCertificationType';
+import { EstablishmentCertification } from './../../../models/BASE/EstablishmentCertification';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
@@ -25,43 +30,92 @@ export class EstablishmentDataComponent implements OnInit {
 
   register_types = [];
   ubications: Ubication[] = [];
+  establishment_certification_types_categories: EstablishmentCertificationType[] = [];
+  establishment_certification_types: EstablishmentCertificationType[] = [];
+
   establishmentComercialNameValidated = false;
   franchiseChainNameValidated = false;
   urlwebEstablishmentValidated = false;
   addressEstablishmentValidated = false;
+  identificationContactEstablishmentValidated = false;
+  mainPhoneContactEstablishmentValidated = false;
+  secondaryPhoneContactEstablishmentValidated = false;
+  emailContactEstablishmentValidated = false;
+  consumoCedulaEstablishmentContact = false;
+  REGCIVILOKEstablishment = false;
 
   selectedNameType: RucNameType = new RucNameType();
   ruc_name_types: RucNameType[] = [];
   establishment_property_types:EstablishmentPropertyType[] = [];
   establishment_selected_picture: EstablishmentPicture = new EstablishmentPicture();
   total_workers = 0;
-  
+  establishment_certifications_establishmentSelected: EstablishmentCertification = new EstablishmentCertification();
+
   zonalEstablishmentSelectedCode = '-';
   provinciaEstablishmentSelectedCode = '-';
   cantonEstablishmentSelectedCode = '-';
+  cedulaEstablishmentContactData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
 
   zonalesEstablishment: Ubication[] = []; 
   provinciasEstablishment: Ubication[] = []; 
   cantonesEstablishment: Ubication[] = []; 
   parroquiasEstablishment: Ubication[] = []; 
 
-  constructor(private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
+  constructor(private toastr: ToastrManager,
+    private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
     private register_type_alimentosBebidas_DataService: RegisterTypeAlimentosBebidas,
     private establishment_property_typeDataService: EstablishmentPropertyTypeService,
+    private dinardapDataService: DinardapService,
     private register_type_operacionIntermediacion_DataService: RegisterTypeOperacionIntermedacion,
     private establishmentPictureDataService: EstablishmentPictureService,
     private rucNameTypeDataService: RucNameTypeService,
+    private establishment_certification_typeDataService: EstablishmentCertificationTypeService,
     private ubicationDataService: UbicationService) {
     
   }
 
   ngOnInit() {
-    this.getRegisterTypes();
-    this.getUbications();
+    this.loadCatalogos();
+    this.refresh();
+  }
+
+  refresh() {
     this.refreshTotalWorkers();
-    this.getEstablishmentPropertyType();
     this.getRucNameTypes();
     this.getEstablishmentPicture();
+  }
+
+  loadCatalogos() {
+    this.getRegisterTypes();
+    this.getUbications();
+    this.getCertificationTypes();
+    this.getEstablishmentPropertyType();
+  }
+
+  getCertificationTypes() {
+    this.establishment_certification_types = [];
+    this.establishment_certification_typeDataService.get().then( r => {
+      this.establishment_certification_types = r as EstablishmentCertificationType[]; 
+      this.getEstablishmentCertificationTypesCategories();
+    }).catch( e => { console.log(e); });
+  }
+
+  getEstablishmentCertificationTypesSpecific(establishment_certification: EstablishmentCertification) {
+    establishment_certification.establishment_certification_type_specifics = [];
+    this.establishment_certification_types.forEach(element => {
+      if (element.father_code == establishment_certification.establishment_certification_type_fatherCode) {
+        establishment_certification.establishment_certification_type_specifics.push(element); 
+      }
+    });
+  }
+
+  getEstablishmentCertificationTypesCategories() {
+    this.establishment_certification_types_categories = [];
+    this.establishment_certification_types.forEach(element => {
+      if (element.father_code == '-') {
+        this.establishment_certification_types_categories.push(element);
+      }
+    });
   }
 
   getUbications() {
@@ -307,5 +361,117 @@ export class EstablishmentDataComponent implements OnInit {
           this.establishment.address_map_longitude = parroquia.gmap_reference_longitude;
        }
     });
+  }
+
+  addEstablishmentCertification() {
+    const newEstablishmentCertification = new EstablishmentCertification();
+    this.establishment.establishment_certifications_on_establishment.push(newEstablishmentCertification);
+  }
+
+  selectEstablishmentCertification(establishment_certification: EstablishmentCertification) {
+    this.establishment_certifications_establishmentSelected = establishment_certification;
+  }
+
+  removeEstablishmentCertification(establishmentCertification: EstablishmentCertification) {
+    const newEstablishmentCertifications: EstablishmentCertification[] = [];
+    this.establishment.establishment_certifications_on_establishment.forEach(element => {
+       if (element !== establishmentCertification) {
+          newEstablishmentCertifications.push(element);
+       }
+    });
+    this.establishment.establishment_certifications_on_establishment = newEstablishmentCertifications;
+  }
+
+  checkCedulaEstablishment() {
+    this.establishment.contact_user.identification = this.establishment.contact_user.identification.replace(/[^\d]/, '');
+    if (this.establishment.contact_user.identification.length !== 10) {
+       this.identificationContactEstablishmentValidated = false;
+       this.consumoCedulaEstablishmentContact = false;
+       return;
+    }
+    if (this.consumoCedulaEstablishmentContact && this.REGCIVILOKEstablishment) {
+       return;
+    }
+    this.cedulaEstablishmentContactData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al Registro Civil...</strong></div>';
+    if (!this.consumoCedulaEstablishmentContact) {
+       this.identificationContactEstablishmentValidated = true;
+       this.consumoCedulaEstablishmentContact = true;
+       this.dinardapDataService.get_cedula(this.establishment.contact_user.identification).then( r => {
+          const registros = r.original.entidades.entidad.filas.fila.columnas.columna;
+          this.cedulaEstablishmentContactData = '';
+          this.REGCIVILOKEstablishment = true;
+          registros.forEach(element => {
+             if (element.campo === 'cedula') {
+                if (element.valor === this.establishment.contact_user.identification) {
+                   this.toastr.successToastr('La cédula ingresada es correcta.', 'Registro Civil');
+                   this.identificationContactEstablishmentValidated = true;
+                } else {
+                   this.toastr.errorToastr('La cédula ingresada no es correcta.', 'Registro Civil');
+                   this.identificationContactEstablishmentValidated = false;
+                }
+             }
+             if (this.identificationContactEstablishmentValidated) {
+                if (element.campo === 'nombre') {
+                   this.cedulaEstablishmentContactData += '<strong>Nombre: </strong> ' + element.valor + '<br/>';
+                   this.establishment.contact_user.name = element.valor;
+                }
+                if (element.campo === 'nacionalidad') {
+                   this.cedulaEstablishmentContactData += '<strong>Nacionalidad: </strong> ' + element.valor + '<br/>';
+                }
+             }
+          });
+       }).catch( e => {
+          this.toastr.errorToastr('La cédula ingresada no es correcta.', 'Registro Civil');
+          this.cedulaEstablishmentContactData = '<div class="alert alert-danger" role="alert">El Registro Civil, no respondió. Vuelva a intentarlo.</div>';
+          this.REGCIVILOKEstablishment = false;
+          this.consumoCedulaEstablishmentContact = false;
+       });
+    }
+  }
+
+  checkTelefonoPrincipalContactoEstablecimiento(): Boolean {
+    this.establishment.contact_user.main_phone_number = this.establishment.contact_user.main_phone_number.replace(/[^\d]/, '');
+    if (this.establishment.contact_user.main_phone_number.length < 9) {
+       this.mainPhoneContactEstablishmentValidated = false;
+       return false;
+    }
+    this.mainPhoneContactEstablishmentValidated = true;
+    return true;
+  }
+
+  checkTelefonoSecundarioContactoEstablecimiento(): Boolean {
+    this.establishment.contact_user.secondary_phone_number = this.establishment.contact_user.secondary_phone_number.replace(/[^\d]/, '');
+    if (this.establishment.contact_user.secondary_phone_number.length > 0 && this.establishment.contact_user.secondary_phone_number.length < 9) {
+       this.secondaryPhoneContactEstablishmentValidated = false;
+       return false;
+    }
+    this.secondaryPhoneContactEstablishmentValidated = true;
+    return true;
+  }
+
+  checkEmailContactEstablishment(): Boolean {
+    const isOk = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.establishment.contact_user.email.toString());
+    this.emailContactEstablishmentValidated = isOk;
+    return this.emailContactEstablishmentValidated;
+  }
+
+  validateEstablecimiento(): Boolean {
+    if (!((this.establishment.ruc_code_id !== '-') &&
+    (this.establishment.ruc_name_type_id !== 0) &&
+    this.establishmentComercialNameValidated  &&
+    (this.establishment.establishment_property_type_id !== 0) &&
+    this.urlwebEstablishmentValidated &&
+    (this.establishment.ubication_id !== 0) &&
+    this.addressEstablishmentValidated &&
+    (this.establishment.address_reference !== '') &&
+    this.identificationContactEstablishmentValidated &&
+    this.mainPhoneContactEstablishmentValidated &&
+    this.secondaryPhoneContactEstablishmentValidated &&
+    this.emailContactEstablishmentValidated &&
+    this.REGCIVILOKEstablishment
+    )) {
+       return false;
+    }
+    return true;
   }
 }

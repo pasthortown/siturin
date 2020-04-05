@@ -36,6 +36,7 @@ import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.servi
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     RucNameTypeService,
     EstablishmentPictureService,
     UbicationService,
-    EstablishmentPropertyTypeService
+    EstablishmentPropertyTypeService,
+    EstablishmentCertificationTypeService
   ]
 })
 export class ClienteExternoModule {}
