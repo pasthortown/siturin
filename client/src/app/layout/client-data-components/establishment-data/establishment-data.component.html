@@ -69,28 +69,25 @@
             <input type="text" class="form-control" id="url_web" name="url_web" (input)="checkURLWeb()" placeholder="Ejemplo: www.google.com" [disabled]="!editable" [(ngModel)]="establishment.url_web"/>
         </div>
     </div>
+</div>    
+<div class="row" *ngIf="establishmentComercialNameValidated">
+    <div class="col-12">
+        <div class="form-group">
+            <label>Fotografía de la Fachada del Establecimiento*</label>
+            <span *ngIf="establishment_selected_picture.establishment_picture_file === ''" class="ml-2 badge badge-danger">Incorrecto</span>
+        </div>
+    </div>
+    <div class="col-12 text-center">
+        <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file !== ''" [src]="'data:' + establishment_selected_picture.establishment_picture_file_type + ';base64,' + establishment_selected_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
+    </div>
+    <div class="col-12 text-center">
+        <button type="button" class="btn btn-primary" (click)="subirFotoFachada()">
+            Subir Fotografía
+        </button>
+        <input [hidden]="true" #fotoFachadaInput type="file" (change)="CodificarArchivo($event)" accept="image/*" />
+    </div>
 </div>
-          
-          
-          <!-- <div class="row" *ngIf="establishmentComercialNameValidated">
-            <div class="col-12">
-              <div class="form-group">
-                <label>Fotografía de la Fachada del Establecimiento*</label><span *ngIf="establishment_picture.establishment_picture_file === ''"
-                class="ml-2 badge badge-danger">Incorrecto</span>
-              </div>
-            </div>
-            <div class="col-12 text-center">
-              <img class="rounded mb-2" *ngIf="establishment_picture.establishment_picture_file !== ''" [src]="'data:' + establishment_picture.establishment_picture_file_type + ';base64,' + establishment_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
-            </div>
-            <div class="col-12 text-center">
-              <button type="button" class="btn btn-primary" (click)="subirFotoFachada()">
-                Subir Fotografía
-              </button>
-              <input [hidden]="true" #fotoFachadaInput type="file" (change)="CodificarArchivo($event)"
-                accept="image/*" />
-            </div>
-          </div>
-          <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+          <!-- <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
             <div class="col-12 text-left">
               <h4><strong>Personal del Establecimiento:</strong></h4>
             </div>
