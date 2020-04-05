@@ -130,7 +130,6 @@ export class ClienteExternoComponent implements OnInit {
         this.actividadSelected = '2';
       }
       this.registerMinturSelected = event.register;
-      console.log(this.registerMinturSelected);
       this.register_code = event.register.register_code;
       this.establishment_selected_ruc_code_id = event.register.establishment_ruc_code;
       this.my_category_current = event.register.category;
