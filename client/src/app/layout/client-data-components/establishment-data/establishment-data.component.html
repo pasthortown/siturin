@@ -3,72 +3,62 @@
         <h4><strong>Datos Generales del Establecimiento:</strong></h4>
     </div>
 </div>
-      <!-- <div class="row">
-        <div class="col-12">
-          <div class="row">
-              <div class="col-12">
-                <div class="form-group">
-                  <label>Nombre Comercial*</label><span *ngIf="!establishmentComercialNameValidated"
-                    class="ml-2 badge badge-danger">Incorrecto</span>
-                  <input type="text" disabled class="form-control"  (input)="validateNombreComercial()" id="commercially_known_name"
-                    name="commercially_known_name"
-                    placeholder="Nombre Comercial" [(ngModel)]="
-                      establishment_selected.commercially_known_name
-                    "/>
-                    <small class="col-12" *ngIf="!establishmentComercialNameValidated && !mostrarMensajeNoNombreComercial">
-                      <div class="alert alert-info mt-2 mb-2" role="alert">
-                        <label class="col-12 text-justify"><strong>Información</strong></label><br />
-                        <p>Estimado usuario, el sistema ha detectado que su nombre comercial o contiene alguno de 
-                          los siguientes términos/frases listadas en el documento PDF adjunto <a href="assets/documents/nombrecomercial.pdf" download="Palabras no Admitidas en Nombre Comercial.pdf" title="Descargar Listado - Palabras no Admitidas"><i class="far fa-file-pdf"></i></a>; por lo que de acuerdo al 
-                          artículo 63 del Reglamento General a la Ley de Turismo, “Uso de denominación.-
-                          Ningún establecimiento podrá usar denominación, razón social o nombre comercial y 
-                          clasificación o categoría distintas a las que constan en el registro. El incumplimiento de 
-                          esta disposición se sancionará según lo que está establecido en la Ley de Turismo y los 
-                          procedimientos establecidos en este reglamento y en las normas de procedimiento que 
-                          fueren aplicables”; solicitamos ingrese nuevamente su Nombre Comercial con estas 
-                          consideraciones.</p>&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a>
-                      </div>
-                    </small>
+<div class="row">
+    <div class="col-12">
+        <div class="form-group">
+            <label>Nombre Comercial*</label>
+            <span *ngIf="!establishmentComercialNameValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" disabled class="form-control" id="commercially_known_name"
+            name="commercially_known_name" placeholder="Nombre Comercial" [(ngModel)]="establishment.commercially_known_name"/>
+            <small class="col-12" *ngIf="!establishmentComercialNameValidated && !mostrarMensajeNoNombreComercial">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                    <label class="col-12 text-justify"><strong>Información</strong></label>
+                    <p>Estimado usuario, el sistema ha detectado que su nombre comercial o contiene alguno de 
+                        los siguientes términos/frases listadas en el documento PDF adjunto <a href="assets/documents/nombrecomercial.pdf" download="Palabras no Admitidas en Nombre Comercial.pdf" title="Descargar Listado - Palabras no Admitidas"><i class="far fa-file-pdf"></i></a>; por lo que de acuerdo al 
+                        artículo 63 del Reglamento General a la Ley de Turismo, “Uso de denominación.-
+                        Ningún establecimiento podrá usar denominación, razón social o nombre comercial y 
+                        clasificación o categoría distintas a las que constan en el registro. El incumplimiento de 
+                        esta disposición se sancionará según lo que está establecido en la Ley de Turismo y los 
+                        procedimientos establecidos en este reglamento y en las normas de procedimiento que 
+                        fueren aplicables”; solicitamos ingrese nuevamente su Nombre Comercial con estas 
+                        consideraciones.&nbsp;<a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a></p>
                 </div>
-              </div>
-            </div>
-          <div class="row" *ngIf="establishmentComercialNameValidated">
-            <div class="col-3">
-              <div class="form-group">
-                <label>Tipo de Establecimiento</label><span
-                  *ngIf="establishment_selected.ruc_name_type_id == 0"
-                  class="ml-2 badge badge-danger">Incorrecto</span><span class="badge badge-info ml-2" style="cursor: pointer;" *ngIf="selectedNameType.id > 1" placement="right" ngbPopover="{{selectedNameType.description}}" popoverTitle="{{selectedNameType.name}}"><i class="fas fa-question-circle"></i></span>
-                <select class="form-control" id="comercial_name_type_id" name="comercial_name_type_id"
-                  [(ngModel)]="establishment_selected.ruc_name_type_id" (change)="getNameTypeInfo()" [disabled]="!rucEstablishmentRegisterSelected.editable">
-                  <option value="0" selected>Seleccione...</option>
-                  <option *ngFor="
-                  let ruc_name_type of ruc_name_types
-                " value="{{ ruc_name_type.id }}">
-                    {{ ruc_name_type.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-9" *ngIf="establishment_selected.ruc_name_type_id > 1">
-              <div class="form-group">
-                <label>Nombre de la Franquicia o Cadena*</label><span *ngIf="!franchiseChainNameValidated"
-                  class="ml-2 badge badge-danger">Incorrecto</span>
-                <input type="text" class="form-control" id="franchise_chain_name"
-                  name="franchise_chain_name" (keyup)="validateNombreFranquiciaCadena()"
-                  placeholder="Nombre de la Franquicia o Cadena" [(ngModel)]="
-                    establishment_selected.franchise_chain_name
-                  " [disabled]="!rucEstablishmentRegisterSelected.editable"/>
-              </div>
-            </div>
-          </div>
-          <div class="form-group" *ngIf="establishmentComercialNameValidated">
+            </small>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="establishmentComercialNameValidated">
+    <div class="col-3">
+        <div class="form-group">
+            <label>Tipo de Establecimiento</label>
+            <span *ngIf="establishment.ruc_name_type_id == 0" class="ml-2 badge badge-danger">Incorrecto</span>
+            <span class="badge badge-info ml-2" style="cursor: pointer;" *ngIf="selectedNameType.id > 1" placement="right" ngbPopover="{{selectedNameType.description}}" popoverTitle="{{selectedNameType.name}}">
+                <i class="fas fa-question-circle"></i>
+            </span>
+            <select class="form-control" id="comercial_name_type_id" name="comercial_name_type_id"
+                [(ngModel)]="establishment.ruc_name_type_id" (change)="getNameTypeInfo()" [disabled]="!editable">
+                <option value="0" selected>Seleccione...</option>
+                <option *ngFor="let ruc_name_type of ruc_name_types" value="{{ ruc_name_type.id }}">{{ ruc_name_type.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-9" *ngIf="establishment.ruc_name_type_id > 1">
+        <div class="form-group">
+            <label>Nombre de la Franquicia o Cadena*</label>
+            <span *ngIf="!franchiseChainNameValidated" class="ml-2 badge badge-danger">Incorrecto</span>
+            <input type="text" class="form-control" id="franchise_chain_name" name="franchise_chain_name" (keyup)="validateNombreFranquiciaCadena()"
+            placeholder="Nombre de la Franquicia o Cadena" [(ngModel)]="establishment.franchise_chain_name" [disabled]="!editable"/>
+        </div>
+    </div>
+</div>
+          <!-- <div class="form-group" *ngIf="establishmentComercialNameValidated">
             <label>Su local es*</label><span *ngIf="
-                establishment_selected.establishment_property_type_id == 0
+                establishment.establishment_property_type_id == 0
               " class="ml-2 badge badge-danger">Incorrecto</span>
             <select class="form-control" id="establishment_property_type_id"
               name="establishment_property_type_id" [(ngModel)]="
-                establishment_selected.establishment_property_type_id
-              " [disabled]="!rucEstablishmentRegisterSelected.editable">
+                establishment.establishment_property_type_id
+              " [disabled]="!editable">
               <option value="0" selected>Seleccione...</option>
               <option *ngFor="
                   let establishment_property_type of establishment_property_types
@@ -81,17 +71,17 @@
             <label>Dirección URL de la Página WEB</label><span *ngIf="!urlwebEstablishmentValidated"
               class="ml-2 badge badge-danger">Incorrecto</span>
             <input type="text" class="form-control" id="url_web" name="url_web" (keyup)="checkURLWeb()"
-              placeholder="Ejemplo: www.google.com" [disabled]="!rucEstablishmentRegisterSelected.editable" [(ngModel)]="establishment_selected.url_web" />
+              placeholder="Ejemplo: www.google.com" [disabled]="!editable" [(ngModel)]="establishment.url_web" />
           </div>
           <div class="row" *ngIf="establishmentComercialNameValidated">
             <div class="col-12">
               <div class="form-group">
-                <label>Fotografía de la Fachada del Establecimiento*</label><span *ngIf="establishment_selected_picture.establishment_picture_file === ''"
+                <label>Fotografía de la Fachada del Establecimiento*</label><span *ngIf="establishment_picture.establishment_picture_file === ''"
                 class="ml-2 badge badge-danger">Incorrecto</span>
               </div>
             </div>
             <div class="col-12 text-center">
-              <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file !== ''" [src]="'data:' + establishment_selected_picture.establishment_picture_file_type + ';base64,' + establishment_selected_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
+              <img class="rounded mb-2" *ngIf="establishment_picture.establishment_picture_file !== ''" [src]="'data:' + establishment_picture.establishment_picture_file_type + ';base64,' + establishment_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
             </div>
             <div class="col-12 text-center">
               <button type="button" class="btn btn-primary" (click)="subirFotoFachada()">
@@ -128,7 +118,7 @@
                       </th>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let worker of establishment_selected.workers_on_establishment">
+                      <tr *ngFor="let worker of establishment.workers_on_establishment">
                         <td>
                           {{worker.gender_name}}
                         </td>
@@ -138,7 +128,7 @@
                         </td>
                         <td>
                           <input type="number" class="form-control" min="0" id="worker-count"
-                            name="worker-count" [disabled]="!rucEstablishmentRegisterSelected.editable" placeholder="Cantidad" [(ngModel)]="worker.count" (input)="refreshTotalWorkers()"/>
+                            name="worker-count" [disabled]="!editable" placeholder="Cantidad" [(ngModel)]="worker.count" (input)="refreshTotalWorkers()"/>
                         </td>
                       </tr>
                     </tbody>
@@ -180,7 +170,7 @@
                 <label>Provincia*</label>
                 <select class="form-control" id="provincia_establishment_id"
                   name="provincia_establishment_id" [(ngModel)]="provinciaEstablishmentSelectedCode"
-                  (change)="getCantonesEstablishment()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                  (change)="getCantonesEstablishment()" [disabled]="!editable">
                   <option value="-" selected>Seleccione...</option>
                   <option *ngFor="
                       let provincia of provinciasEstablishment
@@ -194,7 +184,7 @@
               <div class="form-group">
                 <label>Cantón*</label>
                 <select class="form-control" id="canton_establishment_id" name="canton_establishment_id"
-                  [(ngModel)]="cantonEstablishmentSelectedCode" (change)="getParroquiasEstablishment()" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                  [(ngModel)]="cantonEstablishmentSelectedCode" (change)="getParroquiasEstablishment()" [disabled]="!editable">
                   <option value="-" selected>Seleccione...</option>
                   <option *ngFor="let canton of cantonesEstablishment" value="{{ canton.code }}">
                     {{ canton.name }}
@@ -214,10 +204,10 @@
             </div>
             <div class="col-4">
               <div class="form-group">
-                <label>Parroquia*</label><span *ngIf="establishment_selected.ubication_id == 0"
+                <label>Parroquia*</label><span *ngIf="establishment.ubication_id == 0"
                   class="ml-2 badge badge-danger">Incorrecto</span>
                 <select class="form-control" id="parroquia_establishment_id"
-                  name="parroquia_establishment_id" (change)="updateGmap()" [(ngModel)]="establishment_selected.ubication_id" [disabled]="!rucEstablishmentRegisterSelected.editable">
+                  name="parroquia_establishment_id" (change)="updateGmap()" [(ngModel)]="establishment.ubication_id" [disabled]="!editable">
                   <option value="0" selected>Seleccione...</option>
                   <option *ngFor="
                       let parroquia of parroquiasEstablishment
@@ -235,65 +225,65 @@
           <div class="row mt-2" *ngIf="establishmentComercialNameValidated">
             <div class="col-4">
                 <div class="form-group">
-                    <label>Calle Principal</label><span *ngIf="establishment_selected.address_main_street === ''"
+                    <label>Calle Principal</label><span *ngIf="establishment.address_main_street === ''"
                     class="ml-2 badge badge-danger">Incorrecto</span>
                     <input type="text" class="form-control" id="addressMain" name="addressMain"
-                      (keyup)="checkEstablishmentAddress()" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                      (keyup)="checkEstablishmentAddress()" [disabled]="!editable"
                       placeholder="Calle Principal"
-                      [(ngModel)]="establishment_selected.address_main_street" />
+                      [(ngModel)]="establishment.address_main_street" />
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label>Numeración</label><span *ngIf="establishment_selected.address_number === ''"
+                    <label>Numeración</label><span *ngIf="establishment.address_number === ''"
                     class="ml-2 badge badge-danger">Incorrecto</span>
                     <input type="text" class="form-control" id="addressNumber" name="addressNumber"
-                      (keyup)="checkEstablishmentAddress()" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                      (keyup)="checkEstablishmentAddress()" [disabled]="!editable"
                       placeholder="Numeración"
-                      [(ngModel)]="establishment_selected.address_number" />
+                      [(ngModel)]="establishment.address_number" />
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label>Calle Intersección</label><span *ngIf="establishment_selected.address_secondary_street === ''"
+                    <label>Calle Intersección</label><span *ngIf="establishment.address_secondary_street === ''"
                     class="ml-2 badge badge-danger">Incorrecto</span>
                     <input type="text" class="form-control" id="addressSecondary" name="addressSecondary"
-                      (keyup)="checkEstablishmentAddress()" [disabled]="!rucEstablishmentRegisterSelected.editable"
+                      (keyup)="checkEstablishmentAddress()" [disabled]="!editable"
                       placeholder="Calle Intersección"
-                      [(ngModel)]="establishment_selected.address_secondary_street" />
+                      [(ngModel)]="establishment.address_secondary_street" />
                 </div>
             </div>
           </div>
           <div class="form-group" *ngIf="establishmentComercialNameValidated">
             <label>Referencia de Ubicación* - ¿Como llegar?</label><span
-              *ngIf="establishment_selected.address_reference == ''"
+              *ngIf="establishment.address_reference == ''"
               class="ml-2 badge badge-danger">Incorrecto</span>
             <ck-editor id="address_reference" *ngIf="true" name="address_reference" skin="moono-lisa"
-              [(ngModel)]="establishment_selected.address_reference"></ck-editor>
+              [(ngModel)]="establishment.address_reference"></ck-editor>
           </div>
           <div class="form-group" *ngIf="establishmentComercialNameValidated">
             <label>Ubicar el establecimiento en el mapa*</label>
-            <agm-map class="col-12" *ngIf="rucEstablishmentRegisterSelected.editable" style="height: 400px;" [latitude]="
-                establishment_selected.address_map_latitude * 1
+            <agm-map class="col-12" *ngIf="editable" style="height: 400px;" [latitude]="
+                establishment.address_map_latitude * 1
               " [gestureHandling]="'cooperative'" [scrollwheel]="null"  [longitude]="
-                establishment_selected.address_map_longitude * 1
+                establishment.address_map_longitude * 1
               " [zoom]="15" (mapClick)="address_mapEventEstablishment($event)">
               <agm-marker [latitude]="
-                  establishment_selected.address_map_latitude * 1
+                  establishment.address_map_latitude * 1
                 " [longitude]="
-                  establishment_selected.address_map_longitude * 1
+                  establishment.address_map_longitude * 1
                 " [markerDraggable]="true" (dragEnd)="address_mapEventEstablishment($event)"
                 [animation]="'DROP'"></agm-marker>
             </agm-map>
-            <agm-map class="col-12" *ngIf="!rucEstablishmentRegisterSelected.editable" style="height: 400px;" [latitude]="
-                establishment_selected.address_map_latitude * 1
+            <agm-map class="col-12" *ngIf="!editable" style="height: 400px;" [latitude]="
+                establishment.address_map_latitude * 1
               " [gestureHandling]="'cooperative'" [scrollwheel]="null"  [longitude]="
-                establishment_selected.address_map_longitude * 1
+                establishment.address_map_longitude * 1
               " [zoom]="15">
               <agm-marker [latitude]="
-                  establishment_selected.address_map_latitude * 1
+                  establishment.address_map_latitude * 1
                 " [longitude]="
-                  establishment_selected.address_map_longitude * 1
+                  establishment.address_map_longitude * 1
                 "
                 [animation]="'DROP'"></agm-marker>
             </agm-map>
@@ -337,7 +327,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="
-                      let establishment_certification of establishment_selected.establishment_certifications_on_establishment
+                      let establishment_certification of establishment.establishment_certifications_on_establishment
                     " (click)="
                       selectEstablishmentCertification(
                         establishment_certification
@@ -353,7 +343,7 @@
                       <select class="form-control" id="certificate_type_id" name="certificate_type_id"
                         [(ngModel)]="
                           establishment_certification.establishment_certification_type_fatherCode
-                        " [disabled]="!rucEstablishmentRegisterSelected.editable" (change)="
+                        " [disabled]="!editable" (change)="
                           getEstablishmentCertificationTypesSpecific(establishment_certification)
                         ">
                         <option value="-" selected>Seleccione...</option>
@@ -372,7 +362,7 @@
                       <select class="form-control" id="certificate_type_id" name="certificate_type_id"
                         [(ngModel)]="
                           establishment_certification.establishment_certification_type_id
-                        " [disabled]="!rucEstablishmentRegisterSelected.editable">
+                        " [disabled]="!editable">
                         <option value="0" selected>Seleccione...</option>
                         <option *ngFor="
                             let establishment_certification_type of establishment_certification.establishment_certification_type_specifics
@@ -398,13 +388,13 @@
                             <i class="fas fa-download"></i>
                           </button>
                           <button
-                            [disabled]="establishment_certification.establishment_certification_attachment.establishment_certification_attachment_file == '' || !rucEstablishmentRegisterSelected.editable"
+                            [disabled]="establishment_certification.establishment_certification_attachment.establishment_certification_attachment_file == '' || !editable"
                             type="button" title="Eliminar" class="btn btn-danger"
                             (click)="borrarCertificado(establishment_certification)">
                             <i class="fas fa-trash"></i>
                           </button>
                         </div>
-                        <input type="file" [disabled]="!rucEstablishmentRegisterSelected.editable" class="form-control" (change)="
+                        <input type="file" [disabled]="!editable" class="form-control" (change)="
                               CodificarArchivoEstablishmentCertification(
                                 $event,
                                 establishment_certification
@@ -419,7 +409,7 @@
                       </small>
                     </td>
                     <td>
-                      <button type="button" title="Eliminar" class="btn btn-danger" [disabled]="!rucEstablishmentRegisterSelected.editable" (click)="
+                      <button type="button" title="Eliminar" class="btn btn-danger" [disabled]="!editable" (click)="
                           removeEstablishmentCertification(
                             establishment_certification
                           )
@@ -449,8 +439,8 @@
                           </button>
                         </div>
                         <input type="text" class="form-control" id="cedula" maxlength="10"
-                          placeholder="Cédula de Identidad" [disabled]="!rucEstablishmentRegisterSelected.editable" (keyup)="checkCedulaEstablishment()" [(ngModel)]="
-                            establishment_selected.contact_user
+                          placeholder="Cédula de Identidad" [disabled]="!editable" (keyup)="checkCedulaEstablishment()" [(ngModel)]="
+                            establishment.contact_user
                               .identification
                           " name="cedula" />
                       </div>
@@ -470,10 +460,10 @@
                       <label>Número de Teléfono Principal*</label><span
                         *ngIf="!mainPhoneContactEstablishmentValidated"
                         class="ml-2 badge badge-danger">Incorrecto</span>
-                      <input type="text" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" id="mainRucPhoneNumber" maxlength="10"
+                      <input type="text" class="form-control" [disabled]="!editable" id="mainRucPhoneNumber" maxlength="10"
                         placeholder="Número de Teléfono Principal Ej: 0999999999"
                         (keyup)="checkTelefonoPrincipalContactoEstablecimiento()" [(ngModel)]="
-                          establishment_selected.contact_user.main_phone_number
+                          establishment.contact_user.main_phone_number
                         " name="mainRucPhoneNumber" />
                     </div>
                   </div>
@@ -482,10 +472,10 @@
                       <label>Número de Teléfono Secundario</label><span
                         *ngIf="!secondaryPhoneContactEstablishmentValidated"
                         class="ml-2 badge badge-danger">Incorrecto</span>
-                      <input type="text" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" id="secondaryRucPhone" maxlength="10"
+                      <input type="text" class="form-control" [disabled]="!editable" id="secondaryRucPhone" maxlength="10"
                         (keyup)="checkTelefonoSecundarioContactoEstablecimiento()"
                         placeholder="Número de Teléfono Secundario Ej: 0299999999" [(ngModel)]="
-                          establishment_selected.contact_user.secondary_phone_number
+                          establishment.contact_user.secondary_phone_number
                         " name="secondaryRucPhone" />
                     </div>
                   </div>
@@ -495,25 +485,25 @@
                     <div class="form-group">
                       <label>Correo Electrónico*</label><span *ngIf="!emailContactEstablishmentValidated"
                         class="ml-2 badge badge-danger">Incorrecto</span>
-                      <input type="email" class="form-control" [disabled]="!rucEstablishmentRegisterSelected.editable" id="email" maxlength="255"
+                      <input type="email" class="form-control" [disabled]="!editable" id="email" maxlength="255"
                         (input)="checkEmailContactEstablishment()" placeholder="Correo Electrónico"
-                        [(ngModel)]="establishment_selected.contact_user.email" name="email" />
+                        [(ngModel)]="establishment.contact_user.email" name="email" />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-        </!-->
+        </div>
       </div>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-12 text-center">
-      <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
+      <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
         (click)="pasosSuperioresActualizandoCapacidadesPrecios.select('tab1')">
         <i class="fas fa-arrow-left"></i>&nbsp;Anterior
       </button>
-      <button type="button" [disabled]="guardando" class="btn btn-success" *ngIf="validateEstablecimiento() && rucEstablishmentRegisterSelected.editable"
+      <button type="button" [disabled]="guardando" class="btn btn-success" *ngIf="validateEstablecimiento() && editable"
         title="Guardar Datos" (click)="guardarEstablecimiento()">
         <i class="fas fa-save"></i>&nbsp;Guardar Datos
       </button>
@@ -522,7 +512,7 @@
         ">
         <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
       </button>
-      <button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
+      <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
       (click)="pasosActualizandoCapacidadesPrecios.select('paso2')">
         <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
       </button>

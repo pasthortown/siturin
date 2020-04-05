@@ -17,6 +17,8 @@ export class ClienteExternoComponent implements OnInit {
   
   // DATOS DEL USUARIO
   
+  isEditable = true;
+
   user: User = new User();
 
   data_selected = {
