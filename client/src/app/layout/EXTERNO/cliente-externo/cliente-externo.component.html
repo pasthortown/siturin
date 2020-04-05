@@ -19,7 +19,7 @@
                     <app-ruc-data [user]="user" [editable]="rucEstablishmentRegisterSelected.editable" (ruc_validated)="ruc_validated($event)" (next_page_button_click)="next_page_button_click($event)"></app-ruc-data>
                 </ng-template>
             </ngb-tab>
-            <ngb-tab title="Paso II. Información del Establecimiento" id="pasoII">
+            <ngb-tab title="Paso II. Información del Establecimiento" id="pasoII" *ngIf="ruc_registro_selected.ruc.id != 0">
                 <ng-template ngbTabContent>
                     <div class="row">
                         <app-establishment-list-data></app-establishment-list-data>
@@ -50,7 +50,7 @@
                                 </div>
                             </ng-template>
                         </ngb-tab> 
-                        <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2" *ngIf="ruc_registro_selected.ruc.id != 0">
+                        <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2">
                             <ng-template ngbTabContent>
                                 <div class="row">
                                     <app-declaration-data></app-declaration-data>
