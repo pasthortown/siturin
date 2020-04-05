@@ -33,6 +33,7 @@ import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../.
 import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
+import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 
 @NgModule({
   imports: [
@@ -68,7 +69,8 @@ import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.servi
     RegisterTypeAlojamientoService,
     RegisterTypeAlimentosBebidas,
     RegisterTypeOperacionIntermedacion,
-    RucNameTypeService
+    RucNameTypeService,
+    EstablishmentPropertyTypeService
   ]
 })
 export class ClienteExternoModule {}

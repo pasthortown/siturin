@@ -1,9 +1,11 @@
+import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
 import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
 import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
 import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { Establishment } from 'src/app/models/BASE/Establishment';
+import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -19,12 +21,15 @@ export class EstablishmentDataComponent implements OnInit {
 
   establishmentComercialNameValidated = false;
   franchiseChainNameValidated = false;
+  urlwebEstablishmentValidated = false;
 
   selectedNameType: RucNameType = new RucNameType();
   ruc_name_types: RucNameType[] = [];
+  establishment_property_types:EstablishmentPropertyType[] = [];
 
   constructor(private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
     private register_type_alimentosBebidas_DataService: RegisterTypeAlimentosBebidas,
+    private establishment_property_typeDataService: EstablishmentPropertyTypeService,
     private register_type_operacionIntermediacion_DataService: RegisterTypeOperacionIntermedacion,
     private rucNameTypeDataService: RucNameTypeService) {
     
@@ -32,7 +37,15 @@ export class EstablishmentDataComponent implements OnInit {
 
   ngOnInit() {
     this.getRegisterTypes();
+    this.getEstablishmentPropertyType();
     this.getRucNameTypes();
+  }
+
+  getEstablishmentPropertyType() {
+    this.establishment_property_types = [];
+    this.establishment_property_typeDataService.get().then( r => {
+       this.establishment_property_types = r as EstablishmentPropertyType[];
+    }).catch( e => console.log(e) );
   }
 
   getRucNameTypes() {
@@ -135,5 +148,15 @@ export class EstablishmentDataComponent implements OnInit {
        }
     });
     this.franchiseChainNameValidated = toReturn;
+  }
+
+  checkURLWeb(): boolean {
+    const isOk = /^(ftp|https?):\/\/+(www\.)?[a-z0-9\-\.]{2,}\.[a-z]{2}$/.test(this.establishment_selected.url_web.toString());
+    const isOk2 = /^(www\.)?[a-z0-9\-\.]{2,}\.[a-z]{2}$/.test(this.establishment_selected.url_web.toString());
+    const isOk3 = /^(ftp|https?):\/\/+(www\.)?[a-z0-9\-\.]{2,}\.[a-z]{3}$/.test(this.establishment_selected.url_web.toString());
+    const isOk4 = /^(www\.)?[a-z0-9\-\.]{3,}\.[a-z]{2}$/.test(this.establishment_selected.url_web.toString());
+    const isOk5 = /^(www\.)?[a-z0-9\-\.]{3,}\.[a-z]{3}$/.test(this.establishment_selected.url_web.toString());
+    this.urlwebEstablishmentValidated = isOk || isOk2 || isOk3 || isOk4 || isOk5 || (this.establishment_selected.url_web == '');
+    return this.urlwebEstablishmentValidated;
   }
 }
