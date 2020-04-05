@@ -18,41 +18,34 @@
         </div>
     </div>
 </div>
-  <!-- <div class="row" *ngIf="establecimientos_pendiente">
+<div class="row" *ngIf="establecimientos_pendiente">
     <div class="col-12">
-      <div class="progress mb-3">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div>
-      </div>
-      <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
+        <div class="progress mb-3">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning col-12">Espere...</div>
+        </div>
+        <div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>
     </div>
-  </div>
-  <div class="row mt-2" *ngIf="!establecimientos_pendiente">
+</div>
+<div class="row mt-2" *ngIf="!establecimientos_pendiente">
     <div class="col-12">
-      <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group mr-2" role="group">
-          <button type="button" class="btn btn-primary" title="Actualizar" (click)="
-            getEstablishmentsOnRuc(currentPageEstablishment)
-            ">
-            <i class="fas fa-sync"></i>
-          </button>
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+                <button type="button" class="btn btn-primary" title="Actualizar" (click)="getEstablishmentsOnRuc(currentPageEstablishment)">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button type="button" class="input-group-text btn btn-success" title="Buscar" (click)="onChangeTableEstablishment(config)">
+                        <span class="fas fa-search"></span>
+                    </button>
+                </div>
+                <input *ngIf="config.filtering" placeholder="Buscar..." [ngTableFiltering]="config.filtering" class="form-control" (input)="onChangeTableEstablishment(config)"/>
+            </div>
         </div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <button type="button" class="input-group-text btn btn-success" title="Buscar" (click)="
-            onChangeTableEstablishment(config)
-              ">
-              <span class="fas fa-search"></span>
-            </button>
-          </div>
-          <input *ngIf="config.filtering" placeholder="Buscar..."
-            [ngTableFiltering]="config.filtering"
-            class="form-control"
-            (input)="onChangeTableEstablishment(config)"/>
-        </div>
-      </div>
     </div>
-  </div>
-  <div style="width: 100%; overflow-x: auto;" *ngIf="!establecimientos_pendiente">
+</div>
+  <!-- <div style="width: 100%; overflow-x: auto;" *ngIf="!establecimientos_pendiente">
       <div class="row">
           <div class="col-12 mt-2">
              <ng-table
