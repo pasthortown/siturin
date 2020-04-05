@@ -1,3 +1,7 @@
+import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { DinardapService } from './../../../services/negocio/dinardap.service';
 import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
 import { Establishment } from './../../../models/BASE/Establishment';
@@ -18,6 +22,8 @@ export class EstablishmentListDataComponent implements OnInit {
   establishments: Establishment[] = [];
 
   establecimientos_pendiente = false;
+  mostrarMensajeNoNombreComercial = false;
+  establishmentComercialNameValidated = false;
 
   config: any = {
     paging: true,
@@ -32,19 +38,47 @@ export class EstablishmentListDataComponent implements OnInit {
   dataEstablishment = [];
 
   registers_mintur = [];
-
+  register_types = [];
+  
   constructor(private establishmentDataService: EstablishmentService,
     private dinardapDataService: DinardapService,
-    private catastroRegisterDataService: CatastroRegisterService) {
+    private catastroRegisterDataService: CatastroRegisterService,
+    private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
+    private register_type_alimentosBebidas_DataService: RegisterTypeAlojamientoService,
+    private register_type_operacionIntermediacion_DataService: RegisterTypeAlojamientoService,
+    private toastr: ToastrManager) {
     
   }
 
   ngOnInit() {
+    this.getRegisterTypes();
     this.refresh();
   }
 
   refresh() {
     this.getRegistersMintur();
+  }
+
+  getRegisterTypes() {
+    this.register_types = [];
+    this.register_type_alojamiento_DataService.get().then( r => {
+      const response = r as any[];
+      response.forEach(element => {
+        this.register_types.push(element);
+      });
+    }).catch( e => { console.log(e); });
+    this.register_type_alimentosBebidas_DataService.get().then( r => {
+      const response = r as any[];
+      response.forEach(element => {
+        this.register_types.push(element);
+      });
+    }).catch( e => { console.log(e); });
+    this.register_type_operacionIntermediacion_DataService.get().then( r => {
+      const response = r as any[];
+      response.forEach(element => {
+        this.register_types.push(element);
+      });
+    }).catch( e => { console.log(e); });
   }
 
   getRegistersMintur() {
@@ -261,5 +295,71 @@ export class EstablishmentListDataComponent implements OnInit {
     const start = (page.page - 1) * page.itemsPerPage;
     const end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
     return data.slice(start, end);
+  }
+
+  onCellClickEstablishment(event) {
+    if (event.row.name == ''){
+       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
+       this.mostrarMensajeNoNombreComercial = true;
+       return;
+    }  else {
+       this.validateNombreComercial();
+       this.mostrarMensajeNoNombreComercial = false;
+    }
+    this.establishments.forEach(element => {
+       if (element.ruc_code_id == event.row.code) {
+          this.establishment_selected = element;
+       }
+    }); 
+    this.rowsEstablishment.forEach(row => {
+       if (row == event.row) {
+          row.selected = '<div class="col-12 text-right"><span class="far fa-hand-point-right"></span></div>';
+       } else {
+          row.selected = '';
+       }
+    });
+  }
+
+  validateNombreComercial() {
+    let toReturn = true;
+      const textoAValidar = this.establishment_selected.commercially_known_name.toUpperCase();
+      if(this.establishment_selected.commercially_known_name.length < 1) {
+          toReturn = false;
+          this.establishmentComercialNameValidated = toReturn;
+          return;
+      }
+      let errorEnNombreDetectado = false;
+      this.register_types.forEach(register_type => {
+         const nombre = register_type.name.toUpperCase();
+         if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
+          errorEnNombreDetectado = true;
+          toReturn = false;
+         }
+      });
+      const palabrasNoPermitidas = ['hotel',
+      'hostal',
+      'residencia',
+      'residencial',
+      'hacienda turística',
+      'hacienda turistica',
+      'hostería',
+      'hosteria',
+      'pensión',
+      'pension',
+      'albergue',
+      'lodge',
+      'motel',
+      'campamento',
+      'refugio',
+      'resort '];
+      let errorEnNombreDetectadoListaPalabras = false;
+      palabrasNoPermitidas.forEach(palabraNoPermitida => {
+         const nombre = palabraNoPermitida.toUpperCase();
+         if (textoAValidar.search(nombre) !== -1 && !errorEnNombreDetectadoListaPalabras) {
+          errorEnNombreDetectadoListaPalabras = true;
+          toReturn = false;
+         }
+      });
+      this.establishmentComercialNameValidated = toReturn;
   }
 }

@@ -29,6 +29,9 @@ import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { PersonRepresentativeAttachmentService } from './../../../services/CRUD/BASE/personrepresentativeattachment.service';
 import { RucService } from './../../../services/CRUD/BASE/ruc.service';
 import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
+import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 
 @NgModule({
   imports: [
@@ -60,7 +63,10 @@ import { EstablishmentService } from './../../../services/CRUD/BASE/establishmen
     GroupTypeService,
     PersonRepresentativeAttachmentService,
     RucService,
-    EstablishmentService
+    EstablishmentService,
+    RegisterTypeAlojamientoService,
+    RegisterTypeAlimentosBebidas,
+    RegisterTypeOperacionIntermedacion,
   ]
 })
 export class ClienteExternoModule {}
