@@ -31,7 +31,6 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.establishment);
     this.getRegisterTypes();
     this.getRucNameTypes();
   }
@@ -44,7 +43,6 @@ export class EstablishmentDataComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
-   
   getRegisterTypes() {
     this.register_types = [];
     this.register_type_alojamiento_DataService.get().then( r => {
@@ -52,38 +50,35 @@ export class EstablishmentDataComponent implements OnInit {
       response.forEach(element => {
         this.register_types.push(element);
       });
-      this.validateNombreComercial();
     }).catch( e => { console.log(e); });
     this.register_type_alimentosBebidas_DataService.get().then( r => {
       const response = r as any[];
       response.forEach(element => {
         this.register_types.push(element);
       });
-      this.validateNombreComercial();
     }).catch( e => { console.log(e); });
     this.register_type_operacionIntermediacion_DataService.get().then( r => {
       const response = r as any[];
       response.forEach(element => {
         this.register_types.push(element);
       });
-      this.validateNombreComercial();
     }).catch( e => { console.log(e); });
   }
 
-  validateNombreComercial() {
+  validateNombreComercial(): boolean {
     let toReturn = true;
     const textoAValidar = this.establishment.commercially_known_name.toUpperCase();
     if(this.establishment.commercially_known_name.length < 1) {
         toReturn = false;
         this.establishmentComercialNameValidated = toReturn;
-        return;
+        return toReturn;
     }
     let errorEnNombreDetectado = false;
     this.register_types.forEach(register_type => {
         const nombre = register_type.name.toUpperCase();
-        if (textoAValidar.search(nombre + ' ') !== -1 && !errorEnNombreDetectado) {
-        errorEnNombreDetectado = true;
-        toReturn = false;
+        if ((textoAValidar.search(nombre + ' ') !== -1) && !errorEnNombreDetectado) {
+          errorEnNombreDetectado = true;
+          toReturn = false;
         }
     });
     const palabrasNoPermitidas = ['hotel',
@@ -110,7 +105,7 @@ export class EstablishmentDataComponent implements OnInit {
         toReturn = false;
         }
     });
-    this.establishmentComercialNameValidated = toReturn;
+    return toReturn;
   }
 
   getNameTypeInfo() {
