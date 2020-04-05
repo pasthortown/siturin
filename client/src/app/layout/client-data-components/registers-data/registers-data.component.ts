@@ -12,8 +12,8 @@ export class RegistersDataComponent implements OnInit {
   
   @Input('user') user: User = new User();
   @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
-  
-  register_selected: any = {register: null, isNew: true};
+
+  register_selected: any = {register: null, isNew: false};
   
   config: any = {
     paging: true,
@@ -43,6 +43,15 @@ export class RegistersDataComponent implements OnInit {
     this.registroNuevoEstablecimiento = false;
     this.register_selected = {register: null, isNew: this.registroNuevoEstablecimiento};
     this.change.emit(this.register_selected);
+    this.rows = [];
+    this.columns = [];
+    this.data = [];
+    this.currentPageMinturRegisters = 1;
+    this.lastPageMinturRegisters = 1;
+    this.recordsByPageRegisterMintur = 5;
+    this.estados = [];
+    this.registers_mintur = [];
+    this.config.filtering = {filterString: ''};
     this.getRegistersMintur();
   }
 
