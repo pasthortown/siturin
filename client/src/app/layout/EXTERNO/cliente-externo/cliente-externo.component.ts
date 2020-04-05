@@ -97,8 +97,10 @@ export class ClienteExternoComponent implements OnInit {
           this.estado_registro = 'CERRADO';
       }
       this.data_selected.register = event.register;
+      this.mostrarOpciones = true;
     } else {
       this.data_selected.register = new Register();
+      this.mostrarIngresoDatos = true;
     }
   }
 
