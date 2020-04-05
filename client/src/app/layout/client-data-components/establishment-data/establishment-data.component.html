@@ -138,79 +138,60 @@
         </table>                
     </div>
 </div>
-          <!-- <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
-            <div class="col-12 text-left">
-              <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
-            </div>
-          </div>
-          <div class="row mt-2" *ngIf="establishmentComercialNameValidated">
-            <label class="col-12"><strong>Ubicación</strong></label>
-            <div class="col-3" [hidden]="true">
-              <div class="form-group">
-                <label>Zonal</label>
-                <select class="form-control" disabled id="zonal_establishment_id"
-                  name="zonal_establishment_id" [(ngModel)]="zonalEstablishmentSelectedCode">
-                  <option value="-" selected>Seleccione...</option>
-                  <option *ngFor="let zonal of zonalesEstablishment" value="{{ zonal.code }}">
-                    {{ zonal.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <label>Provincia*</label>
-                <select class="form-control" id="provincia_establishment_id"
-                  name="provincia_establishment_id" [(ngModel)]="provinciaEstablishmentSelectedCode"
-                  (change)="getCantonesEstablishment()" [disabled]="!editable">
-                  <option value="-" selected>Seleccione...</option>
-                  <option *ngFor="
-                      let provincia of provinciasEstablishment
-                    " value="{{ provincia.code }}">
-                    {{ provincia.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <label>Cantón*</label>
-                <select class="form-control" id="canton_establishment_id" name="canton_establishment_id"
-                  [(ngModel)]="cantonEstablishmentSelectedCode" (change)="getParroquiasEstablishment()" [disabled]="!editable">
-                  <option value="-" selected>Seleccione...</option>
-                  <option *ngFor="let canton of cantonesEstablishment" value="{{ canton.code }}">
-                    {{ canton.name }}
-                  </option>
-                </select>
-                <small *ngIf="cantonEstablishmentSelectedCode == '021701'">
-                  <div class="alert alert-info mt-2 mb-2" role="alert">
-                    <label class="col-12 text-justify"><strong>Importante:</strong></label><br />
+<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+    <div class="col-12 text-left">
+        <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
+    </div>
+    <label class="col-12 mt-2"><strong>Ubicación</strong></label>
+    <div class="col-3" [hidden]="true">
+        <div class="form-group">
+            <label>Zonal</label>
+            <select class="form-control" disabled id="zonal_establishment_id" name="zonal_establishment_id" [(ngModel)]="zonalEstablishmentSelectedCode">
+                <option value="-" selected>Seleccione...</option>
+                <option *ngFor="let zonal of zonalesEstablishment" value="{{ zonal.code }}">{{ zonal.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label>Provincia*</label>
+            <select class="form-control" id="provincia_establishment_id" name="provincia_establishment_id" [(ngModel)]="provinciaEstablishmentSelectedCode" (change)="getCantonesEstablishment()" [disabled]="!editable">
+                <option value="-" selected>Seleccione...</option>
+                <option *ngFor="let provincia of provinciasEstablishment" value="{{ provincia.code }}">{{ provincia.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label>Cantón*</label>
+            <select class="form-control" id="canton_establishment_id" name="canton_establishment_id" [(ngModel)]="cantonEstablishmentSelectedCode" (change)="getParroquiasEstablishment()" [disabled]="!editable">
+                <option value="-" selected>Seleccione...</option>
+                <option *ngFor="let canton of cantonesEstablishment" value="{{ canton.code }}">{{ canton.name }}</option>
+            </select>
+            <small *ngIf="cantonEstablishmentSelectedCode == '021701'">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                    <label class="col-12 text-justify"><strong>Importante:</strong></label>
                     <p class="col-12 text-justify">Estimado Usuario, si su establecimiento se encuentra ubicado en el cantón Quito, por favor acérquese a las oficinas de "Quito Turismo" para solicitar su Certificado de Registro Turístico</p>
                     <p class="col-12 text-justify"><strong>Dirección: </strong>Parque Bicentenario, terminales del antiguo Aeropuerto de Quito<br/>
                     <strong>Horario de Atención: </strong>Lunes a Viernes de 08:30 a 17:00<br/>
                     <strong>Teléfono: </strong><a href="tel:022993300">(02) 2993 300</a> extensiones 1003 y 1035<br/>
                     <strong>Correo electrónico: </strong><a href="mailto:info@quito-turismo.gob.ec">info@quito-turismo.gob.ec</a></p>
-                  </div>
-                </small>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <label>Parroquia*</label><span *ngIf="establishment.ubication_id == 0"
-                  class="ml-2 badge badge-danger">Incorrecto</span>
-                <select class="form-control" id="parroquia_establishment_id"
-                  name="parroquia_establishment_id" (change)="updateGmap()" [(ngModel)]="establishment.ubication_id" [disabled]="!editable">
-                  <option value="0" selected>Seleccione...</option>
-                  <option *ngFor="
-                      let parroquia of parroquiasEstablishment
-                    " value="{{ parroquia.id }}">
-                    {{ parroquia.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row mt-2" *ngIf="establishmentComercialNameValidated">
+                </div>
+            </small>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group">
+            <label>Parroquia*</label>
+            <span *ngIf="establishment.ubication_id == 0" class="ml-2 badge badge-danger">Incorrecto</span>
+            <select class="form-control" id="parroquia_establishment_id" name="parroquia_establishment_id" (change)="updateGmap()" [(ngModel)]="establishment.ubication_id" [disabled]="!editable">
+                <option value="0" selected>Seleccione...</option>
+                <option *ngFor="let parroquia of parroquiasEstablishment" value="{{ parroquia.id }}">{{ parroquia.name }}</option>
+            </select>
+        </div>
+    </div>
+</div>
+          <!-- <div class="row mt-2" *ngIf="establishmentComercialNameValidated">
             <label class="col-12"><strong>Dirección*</strong></label><span *ngIf="!addressEstablishmentValidated"
             class="ml-2 badge badge-danger">Incorrecto</span>
           </div>
@@ -279,8 +260,12 @@
                 "
                 [animation]="'DROP'"></agm-marker>
             </agm-map>
-          </div>
-          <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+          </div> -->
+
+
+
+
+          <!-- <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
             <div class="col-12 text-left">
               <h4><strong>Certificaciones:</strong></h4>
             </div>

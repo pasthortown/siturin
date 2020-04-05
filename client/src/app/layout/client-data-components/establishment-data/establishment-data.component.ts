@@ -1,3 +1,4 @@
+import { Ubication } from 'src/app/models/BASE/Ubication';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
@@ -32,6 +33,15 @@ export class EstablishmentDataComponent implements OnInit {
   establishment_property_types:EstablishmentPropertyType[] = [];
   establishment_selected_picture: EstablishmentPicture = new EstablishmentPicture();
   total_workers = 0;
+  
+  zonalEstablishmentSelectedCode = '-';
+  provinciaEstablishmentSelectedCode = '-';
+  cantonEstablishmentSelectedCode = '-';
+
+  zonalesEstablishment: Ubication[] = []; 
+  provinciasEstablishment: Ubication[] = []; 
+  cantonesEstablishment: Ubication[] = []; 
+  parroquiasEstablishment: Ubication[] = []; 
 
   constructor(private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
     private register_type_alimentosBebidas_DataService: RegisterTypeAlimentosBebidas,
@@ -47,6 +57,13 @@ export class EstablishmentDataComponent implements OnInit {
     this.getRegisterTypes();
     this.getEstablishmentPropertyType();
     this.getRucNameTypes();
+    this.getEstablishmentPicture();
+  }
+
+  getEstablishmentPicture() {
+    this.establishmentPictureDataService.get_by_establishment_id(this.establishment.id).then( r => {
+      this.establishment_selected_picture = r as EstablishmentPicture;
+    }).catch( e => { console.log(e); });
   }
 
   getEstablishmentPropertyType() {
@@ -192,5 +209,9 @@ export class EstablishmentDataComponent implements OnInit {
           this.total_workers += element.count;
        }
     });
+  }
+
+  updateGmap() {
+    
   }
 }
