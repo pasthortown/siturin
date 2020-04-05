@@ -31,8 +31,9 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.getRegisterTypes();
-   this.getRucNameTypes();
+    console.log(this.establishment);
+    this.getRegisterTypes();
+    this.getRucNameTypes();
   }
 
   getRucNameTypes() {
