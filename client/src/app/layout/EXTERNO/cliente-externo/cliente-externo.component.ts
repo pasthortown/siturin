@@ -1,3 +1,5 @@
+import { Establishment } from './../../../models/BASE/Establishment';
+import { Ruc } from './../../../models/BASE/Ruc';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
@@ -18,9 +20,9 @@ export class ClienteExternoComponent implements OnInit {
   user: User = new User();
 
   data_selected = {
-    register: null,
-    ruc: null,
-    establishment: null,
+    register: new Register(),
+    ruc: new Ruc(),
+    establishment: new Establishment(),
   }
 
   // VARIABLES PARA EL CONTROL DE LA INTERFAZ DE USUARIO
