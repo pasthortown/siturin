@@ -87,62 +87,58 @@
         <input [hidden]="true" #fotoFachadaInput type="file" (change)="CodificarArchivo($event)" accept="image/*" />
     </div>
 </div>
+<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+    <div class="col-12 text-left">
+        <h4><strong>Personal del Establecimiento:</strong></h4>
+    </div>
+    <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Atención</strong></label>
+            <p class="col-12 text-justify">Verifíque que los valores ingresados sean números enteros.</p>
+        </div>
+    </div>
+    <div class="col-12">
+        <table class="table table-hover mt-2">
+            <thead>
+                <th>
+                    Género
+                </th>
+                <th>
+                    Grupo
+                </th>
+                <th>
+                    Cantidad
+                </th>
+            </thead>
+          <tbody>
+            <tr *ngFor="let worker of establishment.workers_on_establishment">
+                <td>
+                    {{worker.gender_name}}
+                </td>
+                <td>
+                    <strong *ngIf="worker.is_max">{{worker.worker_group_name}}</strong>
+                    <label *ngIf="!worker.is_max">{{worker.worker_group_name}}</label>
+                </td>
+              <td>
+                  <input type="number" class="form-control" min="0" id="worker-count"
+                    name="worker-count" [disabled]="!editable" placeholder="Cantidad" [(ngModel)]="worker.count" (input)="refreshTotalWorkers()"/>
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+              <th>
+              </th>
+              <th>
+                  TOTAL DE TRABAJADORES DEL ESTABLECIMIENTO
+              </th>
+              <th>
+                  {{total_workers}}
+              </th>
+          </thead>
+        </table>                
+    </div>
+</div>
           <!-- <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
-            <div class="col-12 text-left">
-              <h4><strong>Personal del Establecimiento:</strong></h4>
-            </div>
-          </div>
-            <div class="form-group row" *ngIf="establishmentComercialNameValidated">
-              <div class="col-12">
-                <div class="alert alert-info mt-2 mb-2" role="alert">
-                  <label class="col-12 text-justify"><strong>Atención</strong></label><br />
-                  Verifíque que los valores ingresados sean números enteros.
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <table class="table table-hover mt-2">
-                    <thead>
-                      <th>
-                        Género
-                      </th>
-                      <th>
-                        Grupo
-                      </th>
-                      <th>
-                        Cantidad
-                      </th>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let worker of establishment.workers_on_establishment">
-                        <td>
-                          {{worker.gender_name}}
-                        </td>
-                        <td>
-                          <strong *ngIf="worker.is_max">{{worker.worker_group_name}}</strong>
-                          <label *ngIf="!worker.is_max">{{worker.worker_group_name}}</label>
-                        </td>
-                        <td>
-                          <input type="number" class="form-control" min="0" id="worker-count"
-                            name="worker-count" [disabled]="!editable" placeholder="Cantidad" [(ngModel)]="worker.count" (input)="refreshTotalWorkers()"/>
-                        </td>
-                      </tr>
-                    </tbody>
-                    <thead>
-                      <th>
-                      </th>
-                      <th>
-                        TOTAL DE TRABAJADORES DEL ESTABLECIMIENTO
-                      </th>
-                      <th>
-                        {{total_workers}}
-                      </th>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-            </div>
-          <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
             <div class="col-12 text-left">
               <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
             </div>

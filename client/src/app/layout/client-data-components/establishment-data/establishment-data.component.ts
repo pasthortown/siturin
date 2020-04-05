@@ -31,6 +31,7 @@ export class EstablishmentDataComponent implements OnInit {
   ruc_name_types: RucNameType[] = [];
   establishment_property_types:EstablishmentPropertyType[] = [];
   establishment_selected_picture: EstablishmentPicture = new EstablishmentPicture();
+  total_workers = 0;
 
   constructor(private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
     private register_type_alimentosBebidas_DataService: RegisterTypeAlimentosBebidas,
@@ -42,6 +43,7 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshTotalWorkers();
     this.getRegisterTypes();
     this.getEstablishmentPropertyType();
     this.getRucNameTypes();
@@ -181,5 +183,14 @@ export class EstablishmentDataComponent implements OnInit {
        this.establishment_selected_picture.establishment_picture_file = reader.result.toString().split(',')[1];
      };
     }
+  }
+
+  refreshTotalWorkers() {
+    this.total_workers = 0;
+    this.establishment.workers_on_establishment.forEach(element => {
+       if (element.is_max) {
+          this.total_workers += element.count;
+       }
+    });
   }
 }
