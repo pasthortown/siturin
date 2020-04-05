@@ -10,7 +10,7 @@
             <span *ngIf="!validateNombreComercial()" class="ml-2 badge badge-danger">Incorrecto</span>
             <input type="text" disabled class="form-control" id="commercially_known_name"
             name="commercially_known_name" placeholder="Nombre Comercial" [(ngModel)]="establishment.commercially_known_name"/>
-            <small class="col-12" *ngIf="!establishmentComercialNameValidated">
+            <small class="col-12" *ngIf="!true">
                 <div class="alert alert-info mt-2 mb-2" role="alert">
                     <label class="col-12 text-justify"><strong>Información</strong></label>
                     <p>Estimado usuario, el sistema ha detectado que su nombre comercial o contiene alguno de 
@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="establishmentComercialNameValidated">
+<div class="row" *ngIf="true">
     <div class="col-3">
         <div class="form-group">
             <label>Tipo de Establecimiento</label>
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>    
-<div class="row" *ngIf="establishmentComercialNameValidated">
+<div class="row" *ngIf="true">
     <div class="col-12">
         <div class="form-group">
             <label>Fotografía de la Fachada del Establecimiento*</label>
@@ -87,7 +87,7 @@
         <input [hidden]="true" #fotoFachadaInput type="file" (change)="CodificarArchivo($event)" accept="image/*" />
     </div>
 </div>
-<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+<div class="row mt-5" *ngIf="true">
     <div class="col-12 text-left">
         <h4><strong>Personal del Establecimiento:</strong></h4>
     </div>
@@ -138,7 +138,7 @@
         </table>                
     </div>
 </div>
-<div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+<div class="row mt-5" *ngIf="true">
     <div class="col-12 text-left">
         <h4><strong>Datos de Ubicación del Establecimiento:</strong></h4>
     </div>
@@ -191,7 +191,7 @@
         </div>
     </div>
 </div>
-<div class="row mt-2" *ngIf="establishmentComercialNameValidated">
+<div class="row mt-2" *ngIf="true">
     <div class="col-12">
         <label><strong>Dirección*</strong></label>
         <span *ngIf="!addressEstablishmentValidated" class="ml-2 badge badge-danger">Incorrecto</span>
@@ -218,14 +218,14 @@
         </div>
     </div>
     <div class="col-12">
-        <div class="form-group" *ngIf="establishmentComercialNameValidated">
+        <div class="form-group" *ngIf="true">
             <label>Referencia de Ubicación* - ¿Como llegar?</label>
             <span *ngIf="establishment.address_reference == ''" class="ml-2 badge badge-danger">Incorrecto</span>
             <ck-editor id="address_reference" *ngIf="true" name="address_reference" skin="moono-lisa" [(ngModel)]="establishment.address_reference"></ck-editor>
         </div>
     </div>
     <div class="col-12">
-        <div class="form-group" *ngIf="establishmentComercialNameValidated">
+        <div class="form-group" *ngIf="true">
             <label>Ubicar el establecimiento en el mapa*</label>
             <agm-map class="col-12" *ngIf="editable" style="height: 400px;" 
             [latitude]="establishment.address_map_latitude * 1" [longitude]="establishment.address_map_longitude * 1"
@@ -247,12 +247,12 @@
 
 
 
-          <!-- <div class="row mt-5" *ngIf="establishmentComercialNameValidated">
+          <!-- <div class="row mt-5" *ngIf="true">
             <div class="col-12 text-left">
               <h4><strong>Certificaciones:</strong></h4>
             </div>
           </div>
-          <div class="col-12" *ngIf="establishmentComercialNameValidated">
+          <div class="col-12" *ngIf="true">
             <small class="col-12">
               <div class="alert alert-info mt-2 mb-2" role="alert">
                 <label class="col-12 text-justify"><strong>Información</strong></label><br />
@@ -260,7 +260,7 @@
               </div>
             </small>  
           </div>
-          <div class="form-group row" *ngIf="establishmentComercialNameValidated">
+          <div class="form-group row" *ngIf="true">
             <div class="col-12">
               <table class="table table-hover mt-2">
                 <thead>
@@ -381,7 +381,7 @@
               </table>
             </div>
           </div>
-          <div class="row mt-3" *ngIf="establishmentComercialNameValidated">
+          <div class="row mt-3" *ngIf="true">
               <h4 class="col-12"><strong>Persona de Contacto en el Establecimiento</strong></h4>
               <div class="col-12">
                 <div class="row">
