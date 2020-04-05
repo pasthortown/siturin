@@ -105,6 +105,7 @@ export class EstablishmentDataComponent implements OnInit {
         toReturn = false;
         }
     });
+    this.establishmentComercialNameValidated = toReturn;
     return toReturn;
   }
 
