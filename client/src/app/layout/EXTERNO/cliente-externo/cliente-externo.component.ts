@@ -34,6 +34,7 @@ export class ClienteExternoComponent implements OnInit {
   mostrarTerminosCondiciones = false;
   terminosCondiciones = false;
   mostrarIngresoDatos = false;
+  mostrarPasosInferiores = false;
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
   
@@ -65,6 +66,7 @@ export class ClienteExternoComponent implements OnInit {
 
   establishmentSelected(event) {
     this.data_selected.establishment = event;
+    this.mostrarPasosInferiores = true;
   }
 
   next_page_button_click(event) {

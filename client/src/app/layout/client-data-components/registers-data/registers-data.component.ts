@@ -12,6 +12,7 @@ export class RegistersDataComponent implements OnInit {
   
   @Input('user') user: User = new User();
   @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
+  
   register_selected: any = {register: null, isNew: true};
   
   config: any = {
@@ -27,6 +28,7 @@ export class RegistersDataComponent implements OnInit {
   recordsByPageRegisterMintur = 5;
   estados = [];
   registers_mintur = [];
+
   registroNuevoEstablecimiento = false;
 
   constructor(private catastroRegisterDataService: CatastroRegisterService) {
@@ -38,6 +40,9 @@ export class RegistersDataComponent implements OnInit {
   }
 
   refresh() {
+    this.registroNuevoEstablecimiento = false;
+    this.register_selected = {register: null, isNew: this.registroNuevoEstablecimiento};
+    this.change.emit(this.register_selected);
     this.getRegistersMintur();
   }
 
