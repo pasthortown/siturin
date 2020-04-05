@@ -119,8 +119,8 @@ export class EstablishmentDataComponent implements OnInit {
 
   validateNombreFranquiciaCadena() {
     let toReturn = true;
-    const textoAValidar = this.establishment.commercially_known_name.toUpperCase();
-    if(this.establishment.commercially_known_name.length < 1) {
+    const textoAValidar = this.establishment.franchise_chain_name.toUpperCase();
+    if(this.establishment.franchise_chain_name.length < 1) {
         toReturn = false;
         this.franchiseChainNameValidated = toReturn;
         return;
