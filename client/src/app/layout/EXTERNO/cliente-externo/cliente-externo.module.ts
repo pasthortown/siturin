@@ -28,6 +28,7 @@ import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { PersonRepresentativeAttachmentService } from './../../../services/CRUD/BASE/personrepresentativeattachment.service';
 import { RucService } from './../../../services/CRUD/BASE/ruc.service';
+import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { RucService } from './../../../services/CRUD/BASE/ruc.service';
     CatastroRegisterService,
     GroupTypeService,
     PersonRepresentativeAttachmentService,
-    RucService
+    RucService,
+    EstablishmentService
   ]
 })
 export class ClienteExternoModule {}
