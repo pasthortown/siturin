@@ -106,6 +106,7 @@ export class EstablishmentDataComponent implements OnInit {
         }
     });
     this.establishmentComercialNameValidated = toReturn;
+    this.validateNombreFranquiciaCadena();
     return toReturn;
   }
 
