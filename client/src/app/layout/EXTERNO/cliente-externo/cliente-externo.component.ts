@@ -89,10 +89,10 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   establishment_validated(event) {
-    this.mostrarDeclarations = event.showNext;
     if (event.showNext) {
       this.data_selected.establishment_validated = event.establishment;
     }
+    this.mostrarDeclarations = event.showNext;
   }
 
   change_page_button_click(event) {
