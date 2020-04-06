@@ -92,8 +92,11 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.establishment.id = this.establishment_id;
     this.loadCatalogos();
+    this.refresh();
+  }
+
+  ngOnChanges() {
     this.refresh();
   }
 
@@ -107,6 +110,7 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   refresh() {
+    this.establishment.id = this.establishment_id;
     this.initDataEstablishment(this.establishment);
   }
 

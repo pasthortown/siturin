@@ -20,6 +20,16 @@ export class OptionsDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refresh();
+  }
+
+  ngOnChanges() {
+    this.refresh();
+  }
+  
+  refresh() {    
+    this.select_option = '';
+    this.mensajePorTipoTramite = '';
   }
   
   solicitandoNuevaActualizacion() {
