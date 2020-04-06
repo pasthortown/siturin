@@ -74,11 +74,11 @@
     <div class="col-12">
         <div class="form-group">
             <label>Fotografía de la Fachada del Establecimiento*</label>
-            <span *ngIf="establishment_selected_picture.establishment_picture_file_name == ''" class="ml-2 badge badge-danger">Incorrecto</span>
+            <span *ngIf="establishment_selected_picture.establishment_picture_file_name == '' && typeof establishment_selected_picture.establishment_picture_file_name != 'undefined'" class="ml-2 badge badge-danger">Incorrecto</span>
         </div>
     </div>
     <div class="col-12 text-center">
-        <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file_name !== ''" [src]="'data:' + establishment_selected_picture.establishment_picture_file_type + ';base64,' + establishment_selected_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
+        <img class="rounded mb-2" *ngIf="establishment_selected_picture.establishment_picture_file_name !== ''  && typeof establishment_selected_picture.establishment_picture_file_name != 'undefined'" [src]="'data:' + establishment_selected_picture.establishment_picture_file_type + ';base64,' + establishment_selected_picture.establishment_picture_file" height="400px" width="600px" (click)="subirFotoFachada()" />
     </div>
     <div class="col-12 text-center">
         <button type="button" class="btn btn-primary" (click)="subirFotoFachada()">
