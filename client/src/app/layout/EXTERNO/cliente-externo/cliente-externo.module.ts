@@ -51,7 +51,7 @@ import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.se
     AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
     NgxQRCodeModule,
     Ng2TableModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
     ClienteExternoRoutingModule,
   ],
   declarations: [ClienteExternoComponent, 
