@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RegistersDataComponent } from './../../client-data-components/registers-data/registers-data.component';
-import { OptionsDataComponent } from './../../client-data-components/options-data/options-data.component';
-import { AgreementDataComponent } from './../../client-data-components/agreement-data/agreement-data.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -11,15 +8,19 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+
+import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
+import { ClienteExternoComponent } from './cliente-externo.component';
+import { environment } from 'src/environments/environment';
+
 import { EstablishmentListDataComponent } from './../../client-data-components/establishment-list-data/establishment-list-data.component';
 import { DeclarationDataComponent } from './../../client-data-components/declaration-data/declaration-data.component';
 import { TuristicDataComponent } from './../../client-data-components/turistic-data/turistic-data.component';
 import { RucDataComponent } from './../../client-data-components/ruc-data/ruc-data.component';
 import { EstablishmentDataComponent } from './../../client-data-components/establishment-data/establishment-data.component';
-
-import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
-import { ClienteExternoComponent } from './cliente-externo.component';
-import { environment } from 'src/environments/environment';
+import { RegistersDataComponent } from './../../client-data-components/registers-data/registers-data.component';
+import { OptionsDataComponent } from './../../client-data-components/options-data/options-data.component';
+import { AgreementDataComponent } from './../../client-data-components/agreement-data/agreement-data.component';
 
 import { UserService } from './../../../services/profile/user.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
@@ -43,7 +44,6 @@ import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.se
 @NgModule({
   imports: [
     CommonModule, 
-    ClienteExternoRoutingModule,
     FormsModule,
     NgbModule,
     NgxBarcodeModule,
@@ -52,6 +52,7 @@ import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.se
     NgxQRCodeModule,
     Ng2TableModule,
     ScrollToModule.forRoot()
+    ClienteExternoRoutingModule,
   ],
   declarations: [ClienteExternoComponent, 
     AgreementDataComponent,
