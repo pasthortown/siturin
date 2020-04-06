@@ -44,6 +44,7 @@ export class ClienteExternoComponent implements OnInit {
   mostrarIngresoDatos = false;
   mostrarPasosInferiores = false;
   mostrarDeclarations = false;
+  mostrarInformacionTuristica = false;
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
   

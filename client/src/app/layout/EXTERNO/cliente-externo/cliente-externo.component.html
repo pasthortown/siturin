@@ -33,7 +33,7 @@
                                 <app-declaration-data></app-declaration-data>
                             </ng-template>
                         </ngb-tab> 
-                        <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3">
+                        <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3" *ngIf="mostrarInformacionTuristica">
                             <ng-template ngbTabContent>
                                 <app-turistic-data></app-turistic-data>
                             </ng-template>
