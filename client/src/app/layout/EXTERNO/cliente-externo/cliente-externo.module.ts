@@ -41,6 +41,7 @@ import { EstablishmentCertificationTypeService } from './../../../services/CRUD/
 import { GenderService } from './../../../services/CRUD/BASE/gender.service';
 import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
+import { EstablishmentCertificationAttachmentService } from './../../../services/CRUD/BASE/establishmentcertificationattachment.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -82,6 +83,7 @@ import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/est
     EstablishmentPictureService,
     EstablishmentCertificationTypeService,
     EstablishmentPropertyTypeService,
+    EstablishmentCertificationAttachmentService,
     UbicationService
   ]
 })
