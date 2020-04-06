@@ -39,6 +39,7 @@ export class ClienteExternoComponent implements OnInit {
   terminosCondiciones = false;
   mostrarIngresoDatos = false;
   mostrarPasosInferiores = false;
+  mostrarDeclarations = false;
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
   
@@ -74,7 +75,7 @@ export class ClienteExternoComponent implements OnInit {
     if (this.data_selected.is_new_register) {
       establishment_selected.as_turistic_register_date = null;
     } else {
-      establishment_selected.as_turistic_register_date = new Date();
+      establishment_selected.as_turistic_register_date = new Date(this.data_selectedregister.as_turistic_date);
     }
     this.data_selected.establishment = establishment_selected;
     this.data_selected.is_new_register
@@ -83,17 +84,16 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   establishment_validated(event) {
+    this.mostrarDeclarations = event.showNext;
     if (event.showNext) {
       this.data_selected.establishment_validated = event.establishment;
-
-      // this.establishment.as_turistic_register_date = null;
+      
     // if (this.estaEnTabla) {
     //    if (this.selected_establishment_state == '') {
     //       this.selected_establishment_state = 'ACTIVO';
     //    }
     //    this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment.ruc_code_id, this.selected_establishment_state).then( resp_cat => {
     //    }).catch(e => { console.log(e); });
-    //    this.establishment.as_turistic_register_date = new Date(this.register_as_turistic_Date.toString());
     // }
     
     }
