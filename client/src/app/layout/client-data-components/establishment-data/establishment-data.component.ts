@@ -118,7 +118,6 @@ export class EstablishmentDataComponent implements OnInit {
       this.establishment = new Establishment();
       this.loadEstablishmentRowData();
       this.establishment_selected_picture = new EstablishmentPicture();
-      console.log(this.establishment_selected_picture);
       this.buildWorkerGroups();
       this.cedulaEstablishmentContactData = '';
       this.provinciaEstablishmentSelectedCode = '-';
