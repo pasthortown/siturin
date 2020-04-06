@@ -79,8 +79,8 @@ import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.se
     RucNameTypeService,
     EstablishmentPictureService,
     UbicationService,
+    EstablishmentCertificationTypeService,
     EstablishmentPropertyTypeService,
-    EstablishmentCertificationTypeService
   ]
 })
 export class ClienteExternoModule {}
