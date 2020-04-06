@@ -64,6 +64,7 @@ export class ClienteExternoComponent implements OnInit {
 
   ruc_validated(event) {
     this.data_selected.ruc = event;
+    this.mostrarPasosInferiores = false;
   }
 
   establishmentSelected(event) {
@@ -79,6 +80,11 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   validateRegisterSelectedData(event) {
+    this.data_selected = {
+      register: new Register(),
+      ruc: new Ruc(),
+      establishment: new Establishment(),
+    }
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;
     if (!event.isNew) {
@@ -106,7 +112,6 @@ export class ClienteExternoComponent implements OnInit {
       this.data_selected.register = event.register;
       this.mostrarOpciones = true;
     } else {
-      this.data_selected.register = new Register();
       this.mostrarIngresoDatos = true;
     }
   }
