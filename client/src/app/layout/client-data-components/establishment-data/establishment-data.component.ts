@@ -22,7 +22,7 @@ import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../
 import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { EstablishmentPicture } from 'src/app/models/BASE/EstablishmentPicture';
 import { EstablishmentCertificationAttachment } from 'src/app/models/BASE/EstablishmentCertificationAttachment';
@@ -37,6 +37,11 @@ export class EstablishmentDataComponent implements OnInit {
   @Input('establishment') establishment_incomming: Establishment = new Establishment();
   @Input('establishment_row_data') establishment_row_data: any = null;
   @Input('editable') editable: boolean = true;
+
+  @Output('establishment_validated') establishment_validated: EventEmitter<any> = new EventEmitter<any>();
+  @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
+  @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
+
 
   establishment: Establishment = new Establishment();
   register_types = [];
@@ -633,5 +638,17 @@ export class EstablishmentDataComponent implements OnInit {
        return false;
     }
     return true;
+  }
+
+  previewPage() {
+   this.preview_page_button_click.emit('Paso I');
+  }
+
+  nextPage() {
+    this.next_page_button_click.emit('Paso 2');
+  }
+
+  guardarEstablecimiento() {
+
   }
 }

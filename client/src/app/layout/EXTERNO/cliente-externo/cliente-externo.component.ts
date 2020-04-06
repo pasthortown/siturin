@@ -73,9 +73,21 @@ export class ClienteExternoComponent implements OnInit {
     this.mostrarPasosInferiores = event.showData;
   }
 
-  next_page_button_click(event) {
+  change_page_button_click(event) {
+    if (event == 'Paso I') {
+      this.pasosSuperioresTabSet.select('pasoI');
+    }
     if (event == 'Paso II') {
       this.pasosSuperioresTabSet.select('pasoII');
+    }
+    if (event == 'Paso 1') {
+      this.pasosTabSet.select('paso1');
+    }
+    if (event == 'Paso 2') {
+      this.pasosTabSet.select('paso2');
+    }
+    if (event == 'Paso 3') {
+      this.pasosTabSet.select('paso3');
     }
   }
 
