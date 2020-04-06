@@ -44,9 +44,6 @@ import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 
-import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
-import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
-import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { RegisterService as RegisterAlojamientoService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterAlimentosBebidasService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { RegisterService as RegisterOperacionIntermediacionService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
@@ -98,9 +95,6 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
     EstablishmentPropertyTypeService,
     EstablishmentCertificationAttachmentService,
     UbicationService,
-    RegisterTypeAlojamientoService,
-    RegisterTypeAlimentosBebidas,
-    RegisterTypeOperacionIntermedacion,
     RegisterAlojamientoService,
     RegisterAlimentosBebidasService,
     RegisterOperacionIntermediacionService

@@ -1,3 +1,4 @@
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { Ruc } from './../../../models/BASE/Ruc';
 import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
 import { Language } from './../../../models/BASE/Language';
@@ -18,9 +19,6 @@ import { Ubication } from 'src/app/models/BASE/Ubication';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { RucNameType } from 'src/app/models/BASE/RucNameType';
-import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
-import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
-import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentPropertyType';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
@@ -85,11 +83,9 @@ export class EstablishmentDataComponent implements OnInit {
   parroquiasEstablishment: Ubication[] = []; 
 
   constructor(private toastr: ToastrManager,
-    private register_type_alojamiento_DataService: RegisterTypeAlojamientoService,
-    private register_type_alimentosBebidas_DataService: RegisterTypeAlimentosBebidas,
+    private consultorDataService: ConsultorService,
     private establishment_property_typeDataService: EstablishmentPropertyTypeService,
     private dinardapDataService: DinardapService,
-    private register_type_operacionIntermediacion_DataService: RegisterTypeOperacionIntermedacion,
     private establishmentPictureDataService: EstablishmentPictureService,
     private rucNameTypeDataService: RucNameTypeService,
     private genderDataService: GenderService,
@@ -383,25 +379,9 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   getRegisterTypes() {
-    // INFLUYE ACTIVIDADES
     this.register_types = [];
-    this.register_type_alojamiento_DataService.get().then( r => {
-      const response = r as any[];
-      response.forEach(element => {
-        this.register_types.push(element);
-      });
-    }).catch( e => { console.log(e); });
-    this.register_type_alimentosBebidas_DataService.get().then( r => {
-      const response = r as any[];
-      response.forEach(element => {
-        this.register_types.push(element);
-      });
-    }).catch( e => { console.log(e); });
-    this.register_type_operacionIntermediacion_DataService.get().then( r => {
-      const response = r as any[];
-      response.forEach(element => {
-        this.register_types.push(element);
-      });
+    this.consultorDataService.get_all_register_types().then( r => {
+      this.register_types = r as any[];
     }).catch( e => { console.log(e); });
   }
 
