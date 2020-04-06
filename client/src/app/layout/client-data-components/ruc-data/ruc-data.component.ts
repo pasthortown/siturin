@@ -40,7 +40,7 @@ export class RucDataComponent implements OnInit {
   representanteCedulaData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
 
   rucData = 'CONECTÁNDOSE AL SRI...';
-  superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPANÍAS...';
+  superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPAÑÍAS...';
   
   razon_social = '';
   groupTypeSelected: GroupType = new GroupType();
@@ -89,13 +89,13 @@ export class RucDataComponent implements OnInit {
     if (!this.consumoRuc) {
       this.consumoRuc = true;
       this.rucValidated = true;
-      this.superciasData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose a la Superintendencia de Companías...</strong></div>';
+      this.superciasData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose a la Superintendencia de Compañías...</strong></div>';
       this.dinardapDataService.get_super_cias(this.ruc.number).then( r => {
          if (r.companias !== 0) {
             this.superciasData = '';
             const companias = r.companias.original.entidades.entidad;
             companias.forEach(entidad => {
-               if (entidad.nombre == 'Superintendencia de Companias Datos Companía') {
+               if (entidad.nombre == 'Superintendencia de Compañias Datos Companía') {
                   entidad.filas.fila.columnas.columna.forEach(element => {
                      if (element.campo == 'expediente') {
                         this.superciasData += '<strong>Número de Expediente: </strong> ' + element.valor + '<br/>';
@@ -112,7 +112,7 @@ export class RucDataComponent implements OnInit {
          }
       }).catch( e => { 
          console.log(e);
-         this.superciasData = '<div class="alert alert-danger" role="alert">La Superintendencia de Companías, no respondió. Vuelva a intentarlo.</div>';
+         this.superciasData = '<div class="alert alert-danger" role="alert">La Superintendencia de Compañías, no respondió. Vuelva a intentarlo.</div>';
          
       });
       this.dinardapDataService.get_RUC(this.ruc.number).then( r => {
