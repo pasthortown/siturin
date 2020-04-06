@@ -47,7 +47,6 @@ export class EstablishmentListDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.ruc_code_id);
     this.refresh();
   }
 
@@ -145,7 +144,7 @@ export class EstablishmentListDataComponent implements OnInit {
     const data = [];
     this.establishments.forEach(item => {
       let agregar = false;
-      if (this.ruc_code_id !== 'NULL') { 
+      if (typeof this.ruc_code_id !== 'undefined') { 
         if (Number(item.ruc_code_id) == Number(this.ruc_code_id)) {
           agregar = true;
         }
