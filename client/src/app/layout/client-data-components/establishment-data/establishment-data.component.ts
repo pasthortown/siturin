@@ -111,6 +111,7 @@ export class EstablishmentDataComponent implements OnInit {
 
   refresh() {
     this.establishment.id = this.establishment_id;
+    console.log(this.establishment);
     this.initDataEstablishment(this.establishment);
   }
 

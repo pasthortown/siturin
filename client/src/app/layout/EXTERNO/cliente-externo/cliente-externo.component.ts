@@ -87,6 +87,7 @@ export class ClienteExternoComponent implements OnInit {
     }
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;
+    this.mostrarPasosInferiores = false;
     if (!event.isNew) {
       if (event.register == null) {
         return;
