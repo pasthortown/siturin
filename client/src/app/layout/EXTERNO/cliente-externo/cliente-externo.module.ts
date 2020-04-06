@@ -70,6 +70,7 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
     OptionsDataComponent,
     RegistersDataComponent,
     EstablishmentDataComponent, 
+    DeclarationDataComponent,
     RucDataComponent,
     TuristicDataComponent,
     PayListDataComponent,
