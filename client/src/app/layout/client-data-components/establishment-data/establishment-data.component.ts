@@ -110,7 +110,6 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log(this.establishment_incomming);
     this.initDataEstablishment();
   }
 
@@ -128,6 +127,11 @@ export class EstablishmentDataComponent implements OnInit {
       this.getRucNameTypes();
       this.getEstablishmentPicture();
       this.checkEstablishmentAddress();
+      this.checkURLWeb();
+      this.checkCedulaEstablishment();
+      this.checkTelefonoPrincipalContactoEstablecimiento();
+      this.checkTelefonoSecundarioContactoEstablecimiento();
+      this.checkEmailContactEstablishment();
       return;
     }
     this.establishmentDataService.get_filtered(this.establishment_incomming.id).then( r => {
