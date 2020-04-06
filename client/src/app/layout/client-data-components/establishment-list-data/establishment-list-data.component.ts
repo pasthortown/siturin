@@ -50,6 +50,10 @@ export class EstablishmentListDataComponent implements OnInit {
     this.refresh();
   }
 
+  ngOnChanges() {
+    this.refresh();
+  }
+
   refresh() {
     this.getRegistersMintur();
   }
