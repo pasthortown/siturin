@@ -34,8 +34,8 @@ import { EstablishmentCertificationAttachment } from 'src/app/models/BASE/Establ
 })
 export class EstablishmentDataComponent implements OnInit {
   @ViewChild('fotoFachadaInput') fotoFachadaInput;
-
-  @Input('establishment_id') establishment_id: number = 0; 
+  @Input('establishment') establishment_incomming: Establishment = new Establishment();
+  @Input('establishment_row_data') establishment_row_data: any = null;
   @Input('editable') editable: boolean = true;
 
   establishment: Establishment = new Establishment();
@@ -110,17 +110,17 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   refresh() {
-    this.establishment.id = this.establishment_id;
-    console.log(this.establishment);
-    this.initDataEstablishment(this.establishment);
+    console.log(this.establishment_incomming);
+    this.initDataEstablishment();
   }
 
-  initDataEstablishment(establishment: Establishment) {
-    if(establishment.id == 0) {
+  initDataEstablishment() {
+    if(this.establishment_incomming.id == 0) {
       this.establishment = new Establishment();
+      this.loadEstablishmentRowData();
       this.establishment_selected_picture = new EstablishmentPicture();
       this.buildWorkerGroups();
-      this.cedulaEstablishmentContactData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
+      this.cedulaEstablishmentContactData = '';
       this.provinciaEstablishmentSelectedCode = '-';
       this.provinciaEstablishmentSelectedCode = '-';
       this.cantonEstablishmentSelectedCode = '-';
@@ -130,11 +130,12 @@ export class EstablishmentDataComponent implements OnInit {
       this.checkEstablishmentAddress();
       return;
     }
-    this.establishmentDataService.get_filtered(establishment.id).then( r => {
+    this.establishmentDataService.get_filtered(this.establishment_incomming.id).then( r => {
       this.establishment = r.establishment as Establishment;
       this.establishment.contact_user = r.contact_user as User;
       this.establishment.workers_on_establishment = r.workers_on_establishment as Worker[];
       this.establishment.languages_on_establishment = r.languages_on_establishment as Language[];
+      this.loadEstablishmentRowData();
       this.recoverUbication();
       this.checkEstablishmentAddress();
       this.checkURLWeb();
@@ -174,9 +175,15 @@ export class EstablishmentDataComponent implements OnInit {
           }).catch( e => { console.log(e); });
       });
     }).catch( e => { console.log(e); });
-    this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
+    this.establishmentPictureDataService.get_by_establishment_id(this.establishment.id).then( r => {
        this.establishment_selected_picture = r as EstablishmentPicture;
     }).catch( e => { console.log(e); });
+  }
+
+  loadEstablishmentRowData() {
+    this.establishment.commercially_known_name = this.establishment_incomming.commercially_known_name;
+    this.establishment.ruc_code_id = this.establishment_incomming.ruc_code_id;
+    this.establishment.sri_state = this.establishment_incomming.sri_state;
   }
 
   getGenders() {

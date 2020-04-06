@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/profile/User';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { DinardapService } from './../../../services/negocio/dinardap.service';
 import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
@@ -288,6 +289,9 @@ export class EstablishmentListDataComponent implements OnInit {
             this.toastr.errorToastr('El sistema ha detectado que el establecimiento seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
             this.change.emit({establishment: new Establishment(), showData: false});
             return;
+          }
+          if (this.establishment_selected.id !== 0) {
+            this.establishment_selected.contact_user = new User();
           }
           this.change.emit({establishment: this.establishment_selected, showData: true});
        }
