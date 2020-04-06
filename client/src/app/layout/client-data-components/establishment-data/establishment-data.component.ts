@@ -621,7 +621,7 @@ export class EstablishmentDataComponent implements OnInit {
 
   validateEstablecimiento(): Boolean {
     if (!((this.establishment.ruc_code_id !== '-') &&
-    (this.cantonEstablishmentSelectedCode == '021701') &&
+    (this.cantonEstablishmentSelectedCode !== '021701') &&
     (this.establishment.ruc_name_type_id !== 0) &&
     this.establishmentComercialNameValidated  &&
     (this.establishment.establishment_property_type_id !== 0) &&
