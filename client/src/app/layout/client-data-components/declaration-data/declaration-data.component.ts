@@ -64,6 +64,7 @@ export class DeclarationDataComponent implements OnInit {
 
   loadCatalogos() {
     this.getDeclarationCategories();
+    this.getDeclarationItems();
   }
 
   refresh() {
