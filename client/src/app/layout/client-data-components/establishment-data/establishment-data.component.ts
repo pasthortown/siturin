@@ -146,7 +146,6 @@ export class EstablishmentDataComponent implements OnInit {
     this.establishmentDataService.get_filtered(this.establishment_incomming.id).then( r => {
       this.establishment = r.establishment as Establishment;
       this.establishment.contact_user = r.contact_user as User;
-      this.establishment.workers_on_establishment = r.workers_on_establishment as Worker[];
       this.establishment.languages_on_establishment = r.languages_on_establishment as Language[];
       this.loadEstablishmentRowData();
       this.recoverUbication();
@@ -160,6 +159,7 @@ export class EstablishmentDataComponent implements OnInit {
       this.validateNombreFranquiciaCadena();
       this.checkEmailContactEstablishment();
       this.buildWorkerGroups();
+      this.establishment.workers_on_establishment = r.workers_on_establishment as Worker[];
       this.establishment.workers_on_establishment.forEach(worker => {
           this.genders.forEach(gender => {
             if(gender.id == worker.gender_id) {
