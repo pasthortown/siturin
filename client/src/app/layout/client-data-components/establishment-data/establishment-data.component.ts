@@ -638,9 +638,9 @@ export class EstablishmentDataComponent implements OnInit {
        return false;
     }
     if (!this.hasValidated) {
-      if (establishment.id != 0) {
+      if (this.establishment.id != 0) {
         this.hasValidated = true;
-        this.establishment_validated.emit({establishment: establishment, showNext: true});
+        this.establishment_validated.emit({establishment: this.establishment, showNext: true});
       }
     }
     return true;
@@ -706,7 +706,6 @@ export class EstablishmentDataComponent implements OnInit {
           this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Nuevo');
           return;
        }
-       this.establishment_declarations_selected.id = r.id;
        this.establishment_selected_picture.establishment_id = r.id;
        if (typeof this.establishment_selected_picture.id === 'undefined' || this.establishment_selected_picture.id == 0) {
           this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r_picture => {
@@ -726,5 +725,29 @@ export class EstablishmentDataComponent implements OnInit {
        this.establishment_validated.emit({establishment: new Establishment(), showNext: false});
        this.toastr.errorToastr('Existe conflicto con la información ingresada.', 'Nuevo');
     });
-   }
+  }
+
+  validateWorkers(): Boolean {
+    let toreturn = true;
+    this.genders.forEach(gender => {
+       let max = 0;
+       this.establishment.workers_on_establishment.forEach(worker => {
+          if (worker.gender_name == gender.name) {
+             this.worker_groups.forEach(workergroup => {
+                if (workergroup.id == worker.worker_group_id) {
+                   if (workergroup.is_max) {
+                      max = worker.count;
+                   }
+                }
+             });
+          }
+       });
+       this.establishment.workers_on_establishment.forEach(worker => {
+          if(worker.gender_name == gender.name && worker.count > max) {
+             toreturn = false;
+          }
+       });
+    });
+    return toreturn;
+  }
 }
