@@ -51,6 +51,8 @@ export class EstablishmentDataComponent implements OnInit {
   establishment_certification_types_categories: EstablishmentCertificationType[] = [];
   establishment_certification_types: EstablishmentCertificationType[] = [];
 
+  hasValidated = false;
+  guardando = false;
   establishmentComercialNameValidated = false;
   franchiseChainNameValidated = false;
   urlwebEstablishmentValidated = false;
@@ -179,9 +181,6 @@ export class EstablishmentDataComponent implements OnInit {
                 this.getEstablishmentCertificationTypesSpecific(establishment_certification_on_establishment);
             }
           });
-          this.establishmentCertificationAttachmentDataService.get(establishment_certification_on_establishment.establishment_certification_attachment_id).then( r_attachment => {
-            establishment_certification_on_establishment.establishment_certification_attachment = r_attachment.EstablishmentCertificationAttachment as EstablishmentCertificationAttachment;
-          }).catch( e => { console.log(e); });
       });
     }).catch( e => { console.log(e); });
     this.establishmentPictureDataService.get_by_establishment_id(this.establishment.id).then( r => {
@@ -622,6 +621,7 @@ export class EstablishmentDataComponent implements OnInit {
 
   validateEstablecimiento(): Boolean {
     if (!((this.establishment.ruc_code_id !== '-') &&
+    (this.cantonEstablishmentSelectedCode == '021701') &&
     (this.establishment.ruc_name_type_id !== 0) &&
     this.establishmentComercialNameValidated  &&
     (this.establishment.establishment_property_type_id !== 0) &&
@@ -637,6 +637,12 @@ export class EstablishmentDataComponent implements OnInit {
     )) {
        return false;
     }
+    if (!this.hasValidated) {
+      if (establishment.id != 0) {
+        this.hasValidated = true;
+        this.establishment_validated.emit({establishment: establishment, showNext: true});
+      }
+    }
     return true;
   }
 
@@ -649,6 +655,76 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   guardarEstablecimiento() {
-
-  }
+    if (this.cantonEstablishmentSelectedCode == '021701') {
+       this.toastr.errorToastr('Estimado Usuario, para solicitar el Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Nuevo');
+       return;
+    }
+    if (!this.validateWorkers()) {
+       this.toastr.errorToastr('Existe conflicto con la información ingresada referente a los Trabajadores en el Establecimiento.', 'Nuevo');
+       return;
+    }
+    if (!this.validateEstablecimiento()) {
+       this.toastr.errorToastr('Existe conflicto con la información ingresada.', 'Nuevo');
+       return;
+    }
+    if(!this.REGCIVILOKEstablishment) {
+       this.toastr.errorToastr('Esperando confirmación del Registro Civil', 'Registro Civil');
+       return;
+    }
+    if(this.establishment_selected_picture.establishment_picture_file === '') {
+       this.toastr.errorToastr('Debe cargar la fotografía de la fachada del establecimiento', 'Fotografía de Fachada del Establecimiento');
+       return;
+    }
+    if(!this.mainPhoneContactEstablishmentValidated) {
+       this.toastr.errorToastr('Existe conflicto con la información del contacto del establecimiento', 'Información');
+       return;
+    }
+    if(!this.secondaryPhoneContactEstablishmentValidated) {
+       this.toastr.errorToastr('Existe conflicto con la información del contacto del establecimiento', 'Información');
+       return;
+    }
+    if (!this.emailContactEstablishmentValidated) {
+      this.toastr.errorToastr('Existe conflicto con la información del contacto del establecimiento', 'Información');
+      return;
+    }
+    this.guardando = true;
+    if (this.establishment.ruc_name_type_id <= 1 ) {
+       this.establishment.franchise_chain_name = '';
+    } else {
+       if (this.establishment.franchise_chain_name == '') {
+          this.toastr.errorToastr('Escriba el nombre de la Franquicia o Cadena', 'Nuevo');
+          return;
+       }
+       if (!this.franchiseChainNameValidated) {
+          this.toastr.errorToastr('El nombre de la Franquicia o Cadena es Incorrecto', 'Nuevo');
+          return;
+       }
+    }
+    this.establishmentDataService.register_establishment_data(this.establishment).then( r => {
+       this.guardando = false;
+       if ( r === '0' ) {
+          this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Nuevo');
+          return;
+       }
+       this.establishment_declarations_selected.id = r.id;
+       this.establishment_selected_picture.establishment_id = r.id;
+       if (typeof this.establishment_selected_picture.id === 'undefined' || this.establishment_selected_picture.id = 0) {
+          this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r_picture => {
+             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+             this.establishment_validated.emit({establishment: this.establishment, showNext: true});
+             this.hasValidated = true;
+          }).catch( e => console.log(e) );
+       } else {
+          this.establishmentPictureDataService.put(this.establishment_selected_picture).then( r_picture => {
+             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+             this.establishment_validated.emit({establishment: this.establishment, showNext: true});
+             this.hasValidated = true;
+          }).catch( e => console.log(e) );
+       }
+    }).catch( e => {
+       this.guardando = false;
+       this.establishment_validated.emit({establishment: new Establishment(), showNext: false});
+       this.toastr.errorToastr('Existe conflicto con la información ingresada.', 'Nuevo');
+    });
+   }
 }

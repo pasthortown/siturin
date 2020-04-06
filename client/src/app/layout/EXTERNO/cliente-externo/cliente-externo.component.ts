@@ -23,8 +23,10 @@ export class ClienteExternoComponent implements OnInit {
 
   data_selected = {
     register: new Register(),
+    is_new_register: true,
     ruc: new Ruc(),
     establishment: new Establishment(),
+    establishment_validated: new Establishment(),
   }
 
   // VARIABLES PARA EL CONTROL DE LA INTERFAZ DE USUARIO
@@ -68,9 +70,33 @@ export class ClienteExternoComponent implements OnInit {
   }
 
   establishmentSelected(event) {
-    //this.establishment_selected.as_turistic_register_date = new Date(this.register_as_turistic_Date.toString());
-    this.data_selected.establishment = event.establishment;
+    const establishment_selected = event.establishment;
+    if (this.data_selected.is_new_register) {
+      establishment_selected.as_turistic_register_date = null;
+    } else {
+      establishment_selected.as_turistic_register_date = new Date();
+    }
+    this.data_selected.establishment = establishment_selected;
+    this.data_selected.is_new_register
     this.mostrarPasosInferiores = event.showData;
+    console.log(this.data_selected);
+  }
+
+  establishment_validated(event) {
+    if (event.showNext) {
+      this.data_selected.establishment_validated = event.establishment;
+
+      // this.establishment.as_turistic_register_date = null;
+    // if (this.estaEnTabla) {
+    //    if (this.selected_establishment_state == '') {
+    //       this.selected_establishment_state = 'ACTIVO';
+    //    }
+    //    this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment.ruc_code_id, this.selected_establishment_state).then( resp_cat => {
+    //    }).catch(e => { console.log(e); });
+    //    this.establishment.as_turistic_register_date = new Date(this.register_as_turistic_Date.toString());
+    // }
+    
+    }
   }
 
   change_page_button_click(event) {
@@ -94,8 +120,10 @@ export class ClienteExternoComponent implements OnInit {
   validateRegisterSelectedData(event) {
     this.data_selected = {
       register: new Register(),
+      is_new_register: true,
       ruc: new Ruc(),
       establishment: new Establishment(),
+      establishment_validated: new Establishment(),
     }
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;
@@ -104,6 +132,7 @@ export class ClienteExternoComponent implements OnInit {
       if (event.register == null) {
         return;
       }
+      this.data_selected.is_new_register = false;
       if (event.register.activity == 'ALOJAMIENTO') {
         this.actividadSelected = '1';
       }
