@@ -29,17 +29,15 @@
         </div>
     </div>
 </div>
-<div style="width: 100%; overflow-x: auto;">
-    <div class="row">
-        <div class="col-12 mt-2">
-            <ng-table
-                [config]="config"
-                (cellClicked)="onCellClick($event)"
-                (tableChanged)="onChangeTable(config)"
-                [rows]="rows"
-                [columns]="columns">
-            </ng-table>
-        </div>
+<div class="row">
+    <div class="col-12 mt-2" style="overflow-x: auto;">
+        <ng-table
+            [config]="config"
+            (cellClicked)="onCellClick($event)"
+            (tableChanged)="onChangeTable(config)"
+            [rows]="rows"
+            [columns]="columns">
+        </ng-table>
     </div>
 </div>
 <div class="row">

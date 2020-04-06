@@ -22,6 +22,7 @@ import { EstablishmentDataComponent } from './../../client-data-components/estab
 import { RegistersDataComponent } from './../../client-data-components/registers-data/registers-data.component';
 import { OptionsDataComponent } from './../../client-data-components/options-data/options-data.component';
 import { AgreementDataComponent } from './../../client-data-components/agreement-data/agreement-data.component';
+import { PayListDataComponent } from './../../client-data-components/pay-list-data/pay-list-data.component';
 
 import { UserService } from './../../../services/profile/user.service';
 import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
@@ -31,9 +32,6 @@ import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
 import { PersonRepresentativeAttachmentService } from './../../../services/CRUD/BASE/personrepresentativeattachment.service';
 import { RucService } from './../../../services/CRUD/BASE/ruc.service';
 import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
-import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
-import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
-import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
@@ -42,6 +40,18 @@ import { GenderService } from './../../../services/CRUD/BASE/gender.service';
 import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { EstablishmentCertificationAttachmentService } from './../../../services/CRUD/BASE/establishmentcertificationattachment.service';
+import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
+import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
+import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
+
+import { RegisterTypeService as RegisterTypeAlojamientoService } from './../../../services/CRUD/ALOJAMIENTO/registertype.service';
+import { RegisterTypeService as RegisterTypeAlimentosBebidas } from './../../../services/CRUD/ALIMENTOSBEBIDAS/registertype.service';
+import { RegisterTypeService as RegisterTypeOperacionIntermedacion } from './../../../services/CRUD/OPERACIONINTERMEDIACION/registertype.service';
+import { RegisterService as RegisterAlojamientoService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { RegisterService as RegisterAlimentosBebidasService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService as RegisterOperacionIntermediacionService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
+import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
+import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -62,7 +72,7 @@ import { EstablishmentCertificationAttachmentService } from './../../../services
     EstablishmentDataComponent, 
     RucDataComponent,
     TuristicDataComponent,
-    DeclarationDataComponent,
+    PayListDataComponent,
     EstablishmentListDataComponent
   ],
   providers: [
@@ -73,18 +83,26 @@ import { EstablishmentCertificationAttachmentService } from './../../../services
     GroupTypeService,
     PersonRepresentativeAttachmentService,
     RucService,
+    DeclarationService,
+    DeclarationAttachmentService,
+    DeclarationItemCategoryService,
+    DeclarationItemService,
+    PayService,
     EstablishmentService,
     GenderService,
     WorkerGroupService,
-    RegisterTypeAlojamientoService,
-    RegisterTypeAlimentosBebidas,
-    RegisterTypeOperacionIntermedacion,
     RucNameTypeService,
     EstablishmentPictureService,
     EstablishmentCertificationTypeService,
     EstablishmentPropertyTypeService,
     EstablishmentCertificationAttachmentService,
-    UbicationService
+    UbicationService,
+    RegisterTypeAlojamientoService,
+    RegisterTypeAlimentosBebidas,
+    RegisterTypeOperacionIntermedacion,
+    RegisterAlojamientoService,
+    RegisterAlimentosBebidasService,
+    RegisterOperacionIntermediacionService
   ]
 })
 export class ClienteExternoModule {}

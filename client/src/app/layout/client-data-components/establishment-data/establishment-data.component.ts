@@ -374,6 +374,7 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   getRegisterTypes() {
+    // INFLUYE ACTIVIDADES
     this.register_types = [];
     this.register_type_alojamiento_DataService.get().then( r => {
       const response = r as any[];

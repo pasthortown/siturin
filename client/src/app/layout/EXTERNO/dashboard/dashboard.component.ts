@@ -213,11 +213,11 @@ export class DashboardComponent implements OnInit {
    listasPrecios: FoodDrinkAttachment[] = [];
    tarifarioResponse: Tariff[] = [];
    tarifarioRack = {cabecera: [], valores: []};
-   currentPagePays = 1;
    balance: DeclarationAttachment = new DeclarationAttachment();
+   selectedRegister = null;
+   currentPagePays = 1;
    lastPagePays = 1;
    recordsByPagePays = 5;
-   selectedRegister = null;
    rowsPays = [];
    columnsPays = [];
    dataPays = [];
@@ -4966,7 +4966,7 @@ guardarDeclaracion() {
       this.cantonesEstablishment = r as Ubication[];
    }).catch( e => { console.log(e) });
   }
-
+ 
   calcTotalPartials() {
    this.declarationItemsToShow.forEach(group => {
       group.Category.total = 0;
