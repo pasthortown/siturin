@@ -31,7 +31,7 @@
                         <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2" *ngIf="mostrarDeclarations">
                             <ng-template ngbTabContent>
                                 <app-pay-list-data [ruc_number]="user.ruc"></app-pay-list-data>
-                                <app-declaration-data [ruc]="data_selected.ruc" [isNewRegister]="data_selected.is_new_register" [establishment]="data_selected.establishment"></app-declaration-data>
+                                <app-declaration-data [ruc]="data_selected.ruc" [is_new_register]="data_selected.is_new_register" [establishment]="data_selected.establishment"></app-declaration-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3" *ngIf="mostrarInformacionTuristica">
