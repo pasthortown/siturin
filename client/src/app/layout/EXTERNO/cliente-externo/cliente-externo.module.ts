@@ -80,9 +80,9 @@ import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/est
     RegisterTypeOperacionIntermedacion,
     RucNameTypeService,
     EstablishmentPictureService,
-    UbicationService,
     EstablishmentCertificationTypeService,
-    EstablishmentPropertyTypeService
+    EstablishmentPropertyTypeService,
+    UbicationService
   ]
 })
 export class ClienteExternoModule {}
