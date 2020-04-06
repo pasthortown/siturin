@@ -33,6 +33,8 @@ export class DeclarationDataComponent implements OnInit {
   canAddNewDeclaration = true;
   mostrarDataDeclaration = false;
   guardando = false;
+  canSiguiente = false;
+
   balance: DeclarationAttachment = new DeclarationAttachment();
 
   declaration_selected: Declaration = new Declaration();
@@ -123,7 +125,8 @@ export class DeclarationDataComponent implements OnInit {
       //   this.blockByTramit(myTramits);
       // }).catch( e => { console.log(e); });
       if (this.declarations.length > 0) {
-        this.canContinue.emit(true);
+        this.canSiguiente = true;
+        this.canContinue.emit(this.canSiguiente);
       }
     }).catch( e => { console.log(e); });
   }

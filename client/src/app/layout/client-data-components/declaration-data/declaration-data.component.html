@@ -160,7 +160,7 @@
         <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
             <i class="fas fa-times"></i>&nbsp;Cancelar Cambios
         </button>
-        <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente" *nfIf="declaraciones.lenght > 0" (click)="nextPage()">
+        <button *ngIf="canSiguiente" type="button" class="btn btn-info ml-2" title="Siguiente" (click)="nextPage()">
             <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
         </button>
     </div>

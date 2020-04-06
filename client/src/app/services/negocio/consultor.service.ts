@@ -17,12 +17,19 @@ export class ConsultorService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
-   // get_all_register_types(): Promise<any> {
-   //    return this.http.get(this.url + 'register_by_code?code=' + code, this.options).toPromise()
-   //    .then( r => {
-   //       return r.json();
-   //    }).catch( error => { this.handledError(error.json());  });
-   // }
+   get_all_register_types(): Promise<any> {
+      return this.http.get(this.url + 'register_by_code?code=' + code, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
+   get_all_last_tramit_states(): Promise<any> {
+      return this.http.get(this.url + 'register_by_code?code=' + code, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
 
    get_registers(filterIdLocation: number): Promise<any> {
       const data = {'filterIdLocation': filterIdLocation};

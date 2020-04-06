@@ -53,6 +53,7 @@ export class EstablishmentDataComponent implements OnInit {
   establishment_certification_types_categories: EstablishmentCertificationType[] = [];
   establishment_certification_types: EstablishmentCertificationType[] = [];
 
+  canSiguiente = false;
   hasValidated = false;
   guardando = false;
   establishmentComercialNameValidated = false;
@@ -146,6 +147,7 @@ export class EstablishmentDataComponent implements OnInit {
       return;
     }
     this.establishmentDataService.get_filtered(this.establishment_incomming.id).then( r => {
+      this.canSiguiente = true;
       this.establishment = r.establishment as Establishment;
       this.establishment.contact_user = r.contact_user as User;
       this.establishment.languages_on_establishment = r.languages_on_establishment as Language[];
@@ -710,6 +712,7 @@ export class EstablishmentDataComponent implements OnInit {
     }
     this.establishmentDataService.register_establishment_data(this.establishment).then( r => {
        this.guardando = false;
+       this.canSiguiente = true;
        if ( r === '0' ) {
           this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Nuevo');
           return;
