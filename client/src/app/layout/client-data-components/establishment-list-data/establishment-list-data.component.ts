@@ -274,20 +274,22 @@ export class EstablishmentListDataComponent implements OnInit {
 
   onCellClickEstablishment(event) {
     if (event.row.name == ''){
-       this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
-       this.mostrarMensajeNoNombreComercial = true;
-       return;
-    }  else {
-       this.mostrarMensajeNoNombreComercial = false;
+      this.toastr.errorToastr('El establecimiento seleccionado, no tiene nombre comercial. Acérquese al SRI para registrar el nombre comercial del establecimiento.', 'Datos - SRI');
+      this.mostrarMensajeNoNombreComercial = true;
+      this.change.emit({establishment: new Establishment(), showData: false});
+      return;
+    } else {
+      this.mostrarMensajeNoNombreComercial = false;
     }
     this.establishments.forEach(element => {
        if (element.ruc_code_id == event.row.code) {
           this.establishment_selected = element;
           if (element.sri_state == 'CERRADO') {
             this.toastr.errorToastr('El sistema ha detectado que el establecimiento seleccionado, en el SRI está en estado CERRADO.', 'Estado de Establecimiento');
+            this.change.emit({establishment: new Establishment(), showData: false});
             return;
           }
-          this.change.emit(this.establishment_selected);
+          this.change.emit({establishment: this.establishment_selected, showData: true});
        }
     }); 
     this.rowsEstablishment.forEach(row => {

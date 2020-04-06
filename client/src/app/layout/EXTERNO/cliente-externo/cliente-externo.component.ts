@@ -69,8 +69,8 @@ export class ClienteExternoComponent implements OnInit {
 
   establishmentSelected(event) {
     //this.establishment_selected.as_turistic_register_date = new Date(this.register_as_turistic_Date.toString());
-    this.data_selected.establishment = event;
-    this.mostrarPasosInferiores = true;
+    this.data_selected.establishment = event.establishment;
+    this.mostrarPasosInferiores = event.showData;
   }
 
   next_page_button_click(event) {
