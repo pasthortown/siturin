@@ -142,12 +142,6 @@
 </div>
 <div class="row mt-3" *ngIf="mostrarDataDeclaration">
     <div class="col-12">
-        <div class="alert alert-warning mt-2 mb-2" role="alert">
-            <label class="col-12 text-justify"><strong>Declaración Juramentada</strong></label>
-            <p class="col-12 text-justify"></p>Declaro, bajo juramento, que los datos consignados en el presente formulario reflejan la realidad y autorizo al Ministerio de Turismo a verificar el contenido de esta declaración en cualquier momento, al tiempo que me sujeto, a las sanciones previstas en la ley en caso de falsedad o perjurio.
-        </div>
-    </div>
-    <div class="col-12">
         <div class="alert alert-info mt-2 mb-2" role="alert">
             <label class="col-12 text-justify"><strong>Atención</strong></label>
             <p class="col-12 text-justify">Estimado Usuario, en base a su declaración, en los próximos días le notificaremos a su correo electrónico el valor a cancelar por la Contribución Uno por Mil, una vez que el Técnico Financiero del Ministerio de Turismo valide la información 	ingresada a través del presente formulario.
@@ -155,26 +149,19 @@
         </div>
     </div>
 </div>
-    
-<!-- <div class="col-12 text-center">
-  <button [disabled]="guardando || !declaration_selected.editable" type="button" class="btn btn-success"
-    title="Guardar Datos" (click)="guardarDeclaracion()">
-    <i class="fas fa-paper-plane"></i>&nbsp;Guardar Datos
-  </button>
-  <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="
-      refresh()
-    ">
-    <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
-  </button>
+<div class="row mt-3">
+    <div class="col-12 text-center">
+        <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="previewPage()">
+            <i class="fas fa-arrow-left"></i>&nbsp;Anterior
+        </button>
+        <button type="button" [disabled]="guardando" class="btn btn-success" title="Guardar Datos"  *ngIf="mostrarDataDeclaration" (click)="saveDeclaration()">
+            <i class="fas fa-save"></i>&nbsp;Guardar Declaración
+        </button>
+        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
+            <i class="fas fa-times"></i>&nbsp;Cancelar Cambios
+        </button>
+        <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente" (click)="nextPage()">
+            <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
+        </button>
+    </div>
 </div>
-</div>
-<div class="col-12 text-center">
-<button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info mr-2" title="Anterior"
-  (click)="pasos.select('paso1')">
-  <i class="fas fa-arrow-left"></i>&nbsp;Anterior
-</button>
-<button *ngIf="establishment_selected.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente"
-(click)="pasos.select('paso3')">
-  <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
-</button>
-</div> -->

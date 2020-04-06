@@ -1,3 +1,4 @@
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
@@ -12,7 +13,7 @@ import { DeclarationAttachment } from 'src/app/models/FINANCIERO/DeclarationAtta
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { Declaration } from 'src/app/models/FINANCIERO/Declaration';
 import { Ruc } from 'src/app/models/BASE/Ruc';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
@@ -25,6 +26,9 @@ export class DeclarationDataComponent implements OnInit {
   @Input('establishment') establishment: Establishment = new Establishment();
   @Input('is_new_register') is_new_register: boolean = false;
   
+  @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
+  @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
+
   canAddNewDeclaration = true;
   mostrarDataDeclaration = false;
   guardando = false;
@@ -42,7 +46,8 @@ export class DeclarationDataComponent implements OnInit {
 
   totalunoxmil = 0;
 
-  constructor(private declarationDataService: DeclarationService,
+  constructor(private toastr: ToastrManager,
+    private declarationDataService: DeclarationService,
     private registerAlimentosBebidasDataService: RegisterAlimentosBebidasService,
     private registerAlojamientoDataService: RegisterAlojamientoService,
     private registerOperacionIntermediacionDataService: RegisterOperacionIntermediacionService,
@@ -249,5 +254,115 @@ export class DeclarationDataComponent implements OnInit {
        this.balance.declaration_attachment_file_name = file.name;
      };
     }
+  }
+
+  previewPage() {
+    this.preview_page_button_click.emit('Paso 1');
+  }
+
+  nextPage() {
+    this.next_page_button_click.emit('Paso 3');
+  }
+
+  validateDeclaration(): boolean {
+    if (this.totalunoxmil <= 0) {
+      return false;
+    }
+    return true;
+  }
+
+  saveDeclaration() {
+    let minim_year_declaration = 0;
+    if (this.establishment.as_turistic_register_date !== null && typeof this.establishment.as_turistic_register_date != 'undefined') {
+       const as_turistic_register_date = new Date(this.establishment.as_turistic_register_date.toString());
+       minim_year_declaration = as_turistic_register_date.getFullYear();   
+    }
+    if (this.declaration_selected.year < minim_year_declaration) {
+       this.toastr.errorToastr('Existe inconsistencia con el año de la declaración.', 'Declaración');
+       return;
+    }
+    if (this.balance.declaration_attachment_file_name.length > 40) {
+       this.toastr.errorToastr('El nombre del archivo adjunto es demasiado largo.', 'Declaración');
+       return;
+    }
+    if (!this.validateDeclaration()) {
+       this.toastr.errorToastr('La información ingresada es incorrecta.', 'Declaración');
+       return;
+    }
+    if (this.balance.declaration_attachment_file == ''){
+       if (this.ruc.tax_payer_type_id == 2) {
+          this.toastr.errorToastr('Adjunte el balance individual del establecimiento, suscrito por el representante legal.', 'Declaración');
+       } else {
+          this.toastr.errorToastr('Adjunte el inventario valorado del establecimiento, suscrito por el propietario.', 'Declaración');
+       }
+       return;
+    }
+    let previamente_declarado = false;
+    this.declarations.forEach(declaration => {
+       if (declaration.year == this.declaration_selected.year) {
+          previamente_declarado = true;
+       }
+    });
+    if (previamente_declarado) {
+       this.toastr.errorToastr('Usted ya ha declarado previamente el año seleccionado.', 'Declaración');
+       return;
+    }
+    this.guardando = true;
+    this.declaration_selected.declaration_item_values_on_declaration = [];
+    this.declarationItemsToShow.forEach(element => {
+       element.items.forEach(item => {
+          this.declaration_selected.declaration_item_values_on_declaration.push(item.valueItem);
+       });
+    });
+    this.declaration_selected.establishment_id = this.establishment.id;
+    this.declarationDataService.register_data(this.declaration_selected).then( r => {
+       if ( r === '0' ) {
+          this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+          return;
+       }
+       const declarationSaved = r as Declaration;
+      //  let my_register_state = new RegisterState();
+      //  this.my_registers.forEach(my_register => {
+      //     if (my_register.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
+      //       my_register_state = my_register.status_register as RegisterState;
+      //     }
+      //  });
+      //  if (my_register_state.id !== 0) {
+      //     const textoEstado = my_register_state.state_id.toString();
+      //     const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
+      //     if (digitoEstado == '8') {
+      //        my_register_state.justification = 'Declaración ' + declarationSaved.year.toString() + 'Emitida';
+      //        my_register_state.state_id = my_register_state.state_id - 1;
+      //        this.registerStateDataService.post(my_register_state).then( resp => {
+      //        }).catch( e => { console.log(e); });
+      //     }
+      //  }
+       this.balance.declaration_id = declarationSaved.id;
+       if (this.balance.id == 0) {
+          this.declarationAttachmentDataService.post(this.balance).then( r1 => {
+             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+             this.mostrarDataDeclaration = false;
+             this.guardando = false;
+             this.refresh();
+          }).catch( e => {
+             console.log(e);
+             this.guardando = false;
+          });
+       } else {
+          this.declarationAttachmentDataService.put(this.balance).then( r1 => {
+             this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Declaración');
+             this.mostrarDataDeclaration = false;
+             this.guardando = false;
+             this.refresh();
+          }).catch( e => { 
+             console.log(e);
+             this.guardando = false;
+          });
+       }
+    }).catch( e => {
+       this.guardando = false;
+       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
+       return;
+    });
   }
 }

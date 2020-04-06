@@ -358,6 +358,9 @@
         <button type="button" [disabled]="guardando" class="btn btn-success" *ngIf="validateEstablecimiento() && editable" title="Guardar Datos" (click)="guardarEstablecimiento()">
             <i class="fas fa-save"></i>&nbsp;Guardar Datos
         </button>
+        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
+            <i class="fas fa-times"></i>&nbsp;Cancelar Cambios
+        </button>
         <button *ngIf="establishment.id !== 0" type="button" class="btn btn-info ml-2" title="Siguiente" (click)="nextPage()">
             <i class="fas fa-arrow-right"></i>&nbsp;Siguiente
         </button>
