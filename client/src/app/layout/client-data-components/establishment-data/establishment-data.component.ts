@@ -110,14 +110,16 @@ export class EstablishmentDataComponent implements OnInit {
   loadCatalogos() {
     this.getRegisterTypes();
     this.getEstablishmentPropertyType();
-    this.getGenders();
-    this.getWorkerGroups();
     this.getUbications();
     this.getCertificationTypes();
   }
 
+  loadData() {
+    this.getWorkerGroups();
+  }
+
   refresh() {
-    this.initDataEstablishment();
+    this.loadData();    
   }
 
   initDataEstablishment() {
@@ -206,6 +208,7 @@ export class EstablishmentDataComponent implements OnInit {
     this.genders = [];
     this.genderDataService.get().then( r => {
        this.genders = r as Gender[];
+       this.initDataEstablishment();
     }).catch( e => console.log(e) );
   }
 
@@ -236,6 +239,7 @@ export class EstablishmentDataComponent implements OnInit {
     this.worker_groups = [];
     this.workerGroupDataService.get().then( r => {
        this.worker_groups = r as WorkerGroup[];
+       this.getGenders();
     }).catch( e => console.log(e) ); 
   }
 
