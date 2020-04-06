@@ -64,7 +64,8 @@ import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/est
     DeclarationDataComponent,
     EstablishmentListDataComponent
   ],
-  providers: [UserService,
+  providers: [
+    UserService,
     AgreementService,
     DinardapService,
     CatastroRegisterService,
@@ -81,7 +82,7 @@ import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/est
     EstablishmentPictureService,
     UbicationService,
     EstablishmentCertificationTypeService,
-    EstablishmentPropertyTypeService,
+    EstablishmentPropertyTypeService
   ]
 })
 export class ClienteExternoModule {}
