@@ -25,7 +25,7 @@
                     <ngb-tabset #pasos (tabChange)="changeTabActive($event)" *ngIf="mostrarPasosInferiores">
                         <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1" #paso1>
                             <ng-template ngbTabContent>
-                                <app-establishment-data [editable]="isEditable" [establishment]="data_selected.establishment"></app-establishment-data>
+                                <app-establishment-data [editable]="isEditable" [establishment_id]="data_selected.establishment.id"></app-establishment-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2">

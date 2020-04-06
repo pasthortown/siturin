@@ -35,9 +35,10 @@ import { EstablishmentCertificationAttachment } from 'src/app/models/BASE/Establ
 export class EstablishmentDataComponent implements OnInit {
   @ViewChild('fotoFachadaInput') fotoFachadaInput;
 
-  @Input('establishment') establishment: Establishment = new Establishment();
+  @Input('establishment_id') establishment_id: number = 0; 
   @Input('editable') editable: boolean = true;
 
+  establishment: Establishment = new Establishment();
   register_types = [];
   genders: Gender[] = [];
   worker_groups: WorkerGroup[] = [];
@@ -91,6 +92,7 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.establishment.id = this.establishment_id;
     this.loadCatalogos();
     this.refresh();
   }
