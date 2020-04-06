@@ -111,10 +111,10 @@ export class DeclarationDataComponent implements OnInit {
         const myTramits = response_last_tramit_state as any[];
         this.blockByTramit(myTramits);
       }).catch( e => { console.log(e); });
-      this.registerOperacionIntermediacionDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
-        const myTramits = response_last_tramit_state as any[];
-        this.blockByTramit(myTramits);
-      }).catch( e => { console.log(e); });
+      // this.registerOperacionIntermediacionDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
+      //   const myTramits = response_last_tramit_state as any[];
+      //   this.blockByTramit(myTramits);
+      // }).catch( e => { console.log(e); });
     }).catch( e => { console.log(e); });
   }
 
