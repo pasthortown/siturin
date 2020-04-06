@@ -18,14 +18,21 @@ export class ConsultorService {
    }
 
    get_all_register_types(): Promise<any> {
-      return this.http.get(this.url + 'register_by_code?code=' + code, this.options).toPromise()
+      return this.http.get(this.url + 'get_all_register_types', this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json());  });
    }
 
-   get_all_last_tramit_states(): Promise<any> {
-      return this.http.get(this.url + 'register_by_code?code=' + code, this.options).toPromise()
+   get_all_last_tramit_states(ruc: String): Promise<any> {
+      return this.http.get(this.url + 'get_all_last_tramit_states?ruc=' + ruc, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
+   get_bitacora(ruc: String): Promise<any> {
+      return this.http.get(this.url + 'get_bitacora?ruc=' + ruc, this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json());  });

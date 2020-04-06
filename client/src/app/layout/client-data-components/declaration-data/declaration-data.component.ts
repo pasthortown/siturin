@@ -131,6 +131,11 @@ export class DeclarationDataComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
+  refreshDeclarationInfo() {
+    this.calcTotalPartials();
+    this.calcularUnoxMil();
+  }
+
   blockByTramit(myTramits: any[]) {
     myTramits.forEach(element => {
       element.forEach(e1 => {
