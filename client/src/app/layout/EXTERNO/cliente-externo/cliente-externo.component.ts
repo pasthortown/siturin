@@ -1,6 +1,7 @@
 import { Establishment } from './../../../models/BASE/Establishment';
 import { Ruc } from './../../../models/BASE/Ruc';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
+import { Register as RegisterCatastro} from './../../../models/CATASTRO/Register';
 import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -24,11 +25,12 @@ export class ClienteExternoComponent implements OnInit {
   user: User = new User();
 
   data_selected = {
-    register: new Register(),
+    register: new RegisterCatastro(),
     is_new_register: true,
     ruc: new Ruc(),
     establishment: new Establishment(),
     establishment_validated: new Establishment(),
+    register_selected: new Register() 
   }
 
   // VARIABLES PARA EL CONTROL DE LA INTERFAZ DE USUARIO
@@ -80,7 +82,7 @@ export class ClienteExternoComponent implements OnInit {
     } else {
       this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id, establishment_selected.sri_state).then( resp_cat => {
       }).catch(e => { console.log(e); });
-      establishment_selected.as_turistic_register_date = new Date(this.data_selectedregister.as_turistic_date);
+      establishment_selected.as_turistic_register_date = new Date(this.data_selected.register.as_turistic_date);
     }
     this.data_selected.establishment = establishment_selected;
     this.mostrarPasosInferiores = event.showData;
@@ -113,11 +115,12 @@ export class ClienteExternoComponent implements OnInit {
 
   validateRegisterSelectedData(event) {
     this.data_selected = {
-      register: new Register(),
+      register: new RegisterCatastro(),
       is_new_register: true,
       ruc: new Ruc(),
       establishment: new Establishment(),
       establishment_validated: new Establishment(),
+      register_selected: new Register() 
     }
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;

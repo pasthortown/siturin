@@ -1,4 +1,4 @@
-import { Register } from './../../../models/ALOJAMIENTO/Register';
+import { Register } from './../../../models/CATASTRO/Register';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { User } from 'src/app/models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
