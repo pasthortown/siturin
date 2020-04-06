@@ -28,7 +28,8 @@ export class DeclarationDataComponent implements OnInit {
   
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
   @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
-
+  @Output('canContinue') canContinue: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
   canAddNewDeclaration = true;
   mostrarDataDeclaration = false;
   guardando = false;
@@ -121,6 +122,9 @@ export class DeclarationDataComponent implements OnInit {
       //   const myTramits = response_last_tramit_state as any[];
       //   this.blockByTramit(myTramits);
       // }).catch( e => { console.log(e); });
+      if (this.declarations.length > 0) {
+        this.canContinue.emit(true);
+      }
     }).catch( e => { console.log(e); });
   }
 

@@ -1,3 +1,4 @@
+import { Ruc } from './../../../models/BASE/Ruc';
 import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
 import { Language } from './../../../models/BASE/Language';
 import { GenderService } from './../../../services/CRUD/BASE/gender.service';
@@ -35,6 +36,7 @@ import { EstablishmentCertificationAttachment } from 'src/app/models/BASE/Establ
 export class EstablishmentDataComponent implements OnInit {
   @ViewChild('fotoFachadaInput') fotoFachadaInput;
   @Input('establishment') establishment_incomming: Establishment = new Establishment();
+  @Input('ruc') ruc: Ruc = new Ruc();
   @Input('establishment_row_data') establishment_row_data: any = null;
   @Input('editable') editable: boolean = true;
 
@@ -202,6 +204,7 @@ export class EstablishmentDataComponent implements OnInit {
     this.establishment.commercially_known_name = this.establishment_incomming.commercially_known_name;
     this.establishment.ruc_code_id = this.establishment_incomming.ruc_code_id;
     this.establishment.sri_state = this.establishment_incomming.sri_state;
+    this.establishment.ruc_id = this.ruc.id;
   }
 
   getGenders() {
