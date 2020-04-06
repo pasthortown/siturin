@@ -1,4 +1,4 @@
-import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
+//import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
 import { Language } from './../../../models/BASE/Language';
 import { GenderService } from './../../../services/CRUD/BASE/gender.service';
 import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
@@ -85,7 +85,7 @@ export class EstablishmentDataComponent implements OnInit {
     private workerGroupDataService: WorkerGroupService,          
     private establishmentDataService: EstablishmentService,
     private establishmentCertificationAttachmentDataService: EstablishmentCertificationAttachmentService,
-    private establishment_certification_typeDataService: EstablishmentCertificationTypeService,
+    //private establishment_certification_typeDataService: EstablishmentCertificationTypeService,
     private ubicationDataService: UbicationService) {
     
   }
@@ -227,10 +227,10 @@ export class EstablishmentDataComponent implements OnInit {
 
   getCertificationTypes() {
     this.establishment_certification_types = [];
-    this.establishment_certification_typeDataService.get().then( r => {
-      this.establishment_certification_types = r as EstablishmentCertificationType[]; 
-      this.getEstablishmentCertificationTypesCategories();
-    }).catch( e => { console.log(e); });
+    // this.establishment_certification_typeDataService.get().then( r => {
+    //   this.establishment_certification_types = r as EstablishmentCertificationType[]; 
+    //   this.getEstablishmentCertificationTypesCategories();
+    // }).catch( e => { console.log(e); });
   }
 
   getEstablishmentCertificationTypesSpecific(establishment_certification: EstablishmentCertification) {
