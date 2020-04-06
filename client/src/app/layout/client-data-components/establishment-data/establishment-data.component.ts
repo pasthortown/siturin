@@ -184,6 +184,14 @@ export class EstablishmentDataComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
+  validateFotoFachada(): boolean {
+    if (this.establishment_selected_picture.establishment_picture_file == '' ||
+        typeof this.establishment_selected_picture.establishment_picture_file == 'undefined') {
+          return false;
+    }
+    return true;
+  }
+
   loadEstablishmentRowData() {
     this.establishment.commercially_known_name = this.establishment_incomming.commercially_known_name;
     this.establishment.ruc_code_id = this.establishment_incomming.ruc_code_id;
