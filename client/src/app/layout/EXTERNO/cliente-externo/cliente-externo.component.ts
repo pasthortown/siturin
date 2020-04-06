@@ -5,6 +5,8 @@ import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
+
 @Component({
   selector: 'app-cliente-externo',
   templateUrl: './cliente-externo.component.html',
@@ -43,7 +45,8 @@ export class ClienteExternoComponent implements OnInit {
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
   
-  constructor( private userDataService: UserService) {}
+  constructor( private userDataService: UserService, 
+    private catastroRegisterDataService: CatastroRegisterService) {}
 
   ngOnInit() {
     this.getUser();
@@ -75,27 +78,18 @@ export class ClienteExternoComponent implements OnInit {
     if (this.data_selected.is_new_register) {
       establishment_selected.as_turistic_register_date = null;
     } else {
+      this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id, establishment_selected.sri_state).then( resp_cat => {
+      }).catch(e => { console.log(e); });
       establishment_selected.as_turistic_register_date = new Date(this.data_selectedregister.as_turistic_date);
     }
     this.data_selected.establishment = establishment_selected;
-    this.data_selected.is_new_register
     this.mostrarPasosInferiores = event.showData;
-    console.log(this.data_selected);
   }
 
   establishment_validated(event) {
     this.mostrarDeclarations = event.showNext;
     if (event.showNext) {
       this.data_selected.establishment_validated = event.establishment;
-      
-    // if (this.estaEnTabla) {
-    //    if (this.selected_establishment_state == '') {
-    //       this.selected_establishment_state = 'ACTIVO';
-    //    }
-    //    this.catastroRegisterDataService.update_ruc_code_id(this.idCatasterID, this.establishment.ruc_code_id, this.selected_establishment_state).then( resp_cat => {
-    //    }).catch(e => { console.log(e); });
-    // }
-    
     }
   }
 
