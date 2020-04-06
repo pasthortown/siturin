@@ -43,8 +43,7 @@ import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.se
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 
 @NgModule({
-  imports: [
-    CommonModule, 
+  imports: [CommonModule, 
     FormsModule,
     NgbModule,
     NgxBarcodeModule,
