@@ -37,6 +37,8 @@ import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/est
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
+import { GenderService } from './../../../services/CRUD/BASE/gender.service';
+import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
 
 @NgModule({
   imports: [
@@ -69,6 +71,8 @@ import { EstablishmentCertificationTypeService } from './../../../services/CRUD/
     PersonRepresentativeAttachmentService,
     RucService,
     EstablishmentService,
+    GenderService,
+    WorkerGroupService,
     RegisterTypeAlojamientoService,
     RegisterTypeAlimentosBebidas,
     RegisterTypeOperacionIntermedacion,

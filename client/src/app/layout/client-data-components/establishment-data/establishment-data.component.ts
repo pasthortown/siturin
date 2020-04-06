@@ -1,3 +1,12 @@
+import { Language } from './../../../models/BASE/Language';
+import { GenderService } from './../../../services/CRUD/BASE/gender.service';
+import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
+import { EstablishmentCertificationAttachmentService } from './../../../services/CRUD/BASE/establishmentcertificationattachment.service';
+import { WorkerGroup } from './../../../models/BASE/WorkerGroup';
+import { Gender } from './../../../models/BASE/Gender';
+import { Worker } from './../../../models/BASE/Worker';
+import { User } from './../../../models/profile/User';
+import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { DinardapService } from './../../../services/negocio/dinardap.service';
 import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
@@ -16,6 +25,7 @@ import { EstablishmentPropertyType } from 'src/app/models/BASE/EstablishmentProp
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { EstablishmentPicture } from 'src/app/models/BASE/EstablishmentPicture';
+import { EstablishmentCertificationAttachment } from 'src/app/models/BASE/EstablishmentCertificationAttachment';
 
 @Component({
   selector: 'app-establishment-data',
@@ -29,6 +39,8 @@ export class EstablishmentDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
 
   register_types = [];
+  genders: Gender[] = [];
+  worker_groups: WorkerGroup[] = [];
   ubications: Ubication[] = [];
   establishment_certification_types_categories: EstablishmentCertificationType[] = [];
   establishment_certification_types: EstablishmentCertificationType[] = [];
@@ -69,6 +81,10 @@ export class EstablishmentDataComponent implements OnInit {
     private register_type_operacionIntermediacion_DataService: RegisterTypeOperacionIntermedacion,
     private establishmentPictureDataService: EstablishmentPictureService,
     private rucNameTypeDataService: RucNameTypeService,
+    private genderDataService: GenderService,
+    private workerGroupDataService: WorkerGroupService,          
+    private establishmentDataService: EstablishmentService,
+    private establishmentCertificationAttachmentDataService: EstablishmentCertificationAttachmentService,
     private establishment_certification_typeDataService: EstablishmentCertificationTypeService,
     private ubicationDataService: UbicationService) {
     
@@ -79,17 +95,134 @@ export class EstablishmentDataComponent implements OnInit {
     this.refresh();
   }
 
-  refresh() {
-    this.refreshTotalWorkers();
-    this.getRucNameTypes();
-    this.getEstablishmentPicture();
-  }
-
   loadCatalogos() {
     this.getRegisterTypes();
+    this.getEstablishmentPropertyType();
+    this.getGenders();
+    this.getWorkerGroups();
     this.getUbications();
     this.getCertificationTypes();
-    this.getEstablishmentPropertyType();
+  }
+
+  refresh() {
+    this.initDataEstablishment(this.establishment);
+  }
+
+  initDataEstablishment(establishment: Establishment) {
+    if(establishment.id == 0) {
+      this.establishment = new Establishment();
+      this.establishment_selected_picture = new EstablishmentPicture();
+      this.buildWorkerGroups();
+      this.cedulaEstablishmentContactData = 'CONECTÁNDOSE AL REGISTRO CIVIL...';
+      this.provinciaEstablishmentSelectedCode = '-';
+      this.provinciaEstablishmentSelectedCode = '-';
+      this.cantonEstablishmentSelectedCode = '-';
+      this.refreshTotalWorkers();
+      this.getRucNameTypes();
+      this.getEstablishmentPicture();
+      this.checkEstablishmentAddress();
+      return;
+    }
+    this.establishmentDataService.get_filtered(establishment.id).then( r => {
+      this.establishment = r.establishment as Establishment;
+      this.recoverUbication();
+      this.checkEstablishmentAddress();
+      this.checkURLWeb();
+      this.getRucNameTypes();
+      this.getEstablishmentPicture();
+      this.establishment.contact_user = r.contact_user as User;
+      this.checkCedulaEstablishment();
+      this.checkTelefonoPrincipalContactoEstablecimiento();
+      this.checkTelefonoSecundarioContactoEstablecimiento();
+      this.validateNombreFranquiciaCadena();
+      this.checkEmailContactEstablishment();
+      this.buildWorkerGroups();
+      this.establishment.workers_on_establishment = r.workers_on_establishment as Worker[];
+      this.establishment.workers_on_establishment.forEach(worker => {
+          this.genders.forEach(gender => {
+            if(gender.id == worker.gender_id) {
+                worker.gender_name = gender.name;
+            }
+          });
+          this.worker_groups.forEach(worker_group => {
+            if(worker_group.id == worker.worker_group_id) {
+                worker.worker_group_name = worker_group.name;
+                worker.is_max = worker_group.is_max;
+            }
+          });
+      });
+      this.refreshTotalWorkers();
+      this.establishment.languages_on_establishment = r.languages_on_establishment as Language[];
+      this.establishment.establishment_certifications_on_establishment = r.establishment_certifications_on_establishment as EstablishmentCertification[];
+      this.establishment.establishment_certifications_on_establishment.forEach(establishment_certification_on_establishment => {
+          establishment_certification_on_establishment.establishment_certification_attachment = new EstablishmentCertificationAttachment();
+          this.establishment_certification_types.forEach(establishment_certification_type => {
+            if (establishment_certification_on_establishment.establishment_certification_type_id == establishment_certification_type.id) {
+                establishment_certification_on_establishment.establishment_certification_type_fatherCode = establishment_certification_type.father_code.toString();
+                this.getEstablishmentCertificationTypesSpecific(establishment_certification_on_establishment);
+            }
+          });
+          this.establishmentCertificationAttachmentDataService.get(establishment_certification_on_establishment.establishment_certification_attachment_id).then( r_attachment => {
+            establishment_certification_on_establishment.establishment_certification_attachment = r_attachment.EstablishmentCertificationAttachment as EstablishmentCertificationAttachment;
+          }).catch( e => { console.log(e); });
+      });
+    }).catch( e => { console.log(e); });
+    this.establishmentPictureDataService.get_by_establishment_id(establishment.id).then( r => {
+       this.establishment_selected_picture = r as EstablishmentPicture;
+    }).catch( e => { console.log(e); });
+  }
+
+  getGenders() {
+    this.genders = [];
+    this.genderDataService.get().then( r => {
+       this.genders = r as Gender[];
+    }).catch( e => console.log(e) );
+  }
+
+  recoverUbication() {
+    this.ubicationDataService.getByIdLower(this.establishment.ubication_id).then( r => {
+      this.zonalEstablishmentSelectedCode = r.zonal.code;
+      this.provinciaEstablishmentSelectedCode = r.provincia.code;
+      this.cantonEstablishmentSelectedCode = r.canton.code;
+      this.establishment.ubication_id = r.parroquia.id;
+      this.getCantonesEstablishmentRecovery();
+      this.getParroquiasEstablishmentRecovery();
+    }).catch( e => { console.log(e); });
+  }
+
+  getCantonesEstablishmentRecovery() {
+    this.ubicationDataService.get_filtered(this.provinciaEstablishmentSelectedCode).then( r => {
+       this.cantonesEstablishment = r as Ubication[];
+    }).catch( e => { console.log(e) });
+  }
+
+  getParroquiasEstablishmentRecovery() {
+    this.ubicationDataService.get_filtered(this.cantonEstablishmentSelectedCode).then( r => {
+       this.parroquiasEstablishment = r as Ubication[];
+    }).catch( e => { console.log(e) });
+  }
+
+  getWorkerGroups() {
+    this.worker_groups = [];
+    this.workerGroupDataService.get().then( r => {
+       this.worker_groups = r as WorkerGroup[];
+    }).catch( e => console.log(e) ); 
+  }
+
+  buildWorkerGroups() {
+    this.establishment.workers_on_establishment = [];
+    this.genders.forEach(gender => {
+       this.worker_groups.forEach(worker_group => {
+          const newWorker = new Worker();
+          newWorker.worker_group_id = worker_group.id;
+          newWorker.worker_group_name = worker_group.name;
+          newWorker.gender_id = gender.id;
+          newWorker.gender_name = gender.name;
+          newWorker.count = 0;
+          newWorker.is_max = worker_group.is_max;
+          this.establishment.workers_on_establishment.push(newWorker);
+       });
+    });
   }
 
   getCertificationTypes() {
@@ -278,6 +411,7 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   getNameTypeInfo() {
+    this.selectedNameType = new RucNameType();
     this.ruc_name_types.forEach(element => {
        if (element.id == this.establishment.ruc_name_type_id) {
           this.selectedNameType = element;
