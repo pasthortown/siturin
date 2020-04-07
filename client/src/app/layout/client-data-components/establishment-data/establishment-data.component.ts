@@ -127,7 +127,7 @@ export class EstablishmentDataComponent implements OnInit {
       this.establishment_selected_picture = new EstablishmentPicture();
       this.buildWorkerGroups();
       this.cedulaEstablishmentContactData = '';
-      this.provinciaEstablishmentSelectedCode = '-';
+      this.zonalEstablishmentSelectedCode = '-';
       this.provinciaEstablishmentSelectedCode = '-';
       this.cantonEstablishmentSelectedCode = '-';
       this.refreshTotalWorkers();
@@ -296,8 +296,6 @@ export class EstablishmentDataComponent implements OnInit {
   getZonalesEstablishment() {
     this.zonalesEstablishment = [];
     this.provinciasEstablishment = [];
-    this.zonalEstablishmentSelectedCode = '-';
-    this.provinciaEstablishmentSelectedCode = '-';
     this.ubications.forEach( element => {
       if (element.father_code == '-') {
         this.zonalesEstablishment.push(element);
