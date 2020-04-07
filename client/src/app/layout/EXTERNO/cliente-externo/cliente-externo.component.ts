@@ -160,6 +160,7 @@ export class ClienteExternoComponent implements OnInit {
       }
       this.data_selected.register = event.register;
       this.data_selected.register_selected.code = this.data_selected.register.register_code;
+      console.log(this.data_selected.register);
       this.mostrarOpciones = true;
     } else {
       this.mostrarIngresoDatos = true;
