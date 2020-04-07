@@ -140,6 +140,7 @@ export class ClienteExternoComponent implements OnInit {
         return;
       }
       this.data_selected.is_new_register = false;
+      this.data_selected.register_selected.code = this.data_selected.register.register_code;
       if (event.register.activity == 'ALOJAMIENTO') {
         this.data_selected.register_selected.activity_id = 1;
       }
