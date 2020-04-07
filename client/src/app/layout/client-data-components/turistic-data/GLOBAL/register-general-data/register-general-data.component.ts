@@ -174,7 +174,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     return false;
   }
 
-  buildCatalogFromArray(sourceArray: RegisterType[], destinyArray: RegisterType[], father_code: string) {
+  buildCatalogFromArray(sourceArray: RegisterType[], destinyArray: RegisterType[], father_code: String) {
     sourceArray.forEach(element => {
       if (element.father_code == father_code) {
         destinyArray.push(element);
@@ -219,7 +219,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_operacion_intermediacion;
     }
-    this.buildCatalogFromArray(sourceArray, this.categories_registers, this.regionSelectedCode);
+    this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
   }
 
   classificationsEnable(): boolean {
