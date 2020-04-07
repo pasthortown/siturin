@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-data',
-  templateUrl: './data.component.html',
-  styleUrls: ['./data.component.scss']
+  selector: 'app-adventure-data',
+  templateUrl: './adventure-data.component.html',
+  styleUrls: ['./adventure-data.component.scss']
 })
-export class DataComponent implements OnInit {
+export class AdventureDataComponent implements OnInit {
   
   constructor() {
     
