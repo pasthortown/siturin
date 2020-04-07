@@ -64,9 +64,11 @@ export class RegisterGeneralDataComponent implements OnInit {
   refresh() {
     this.activity_id_incomming = this.register.activity_id;
     if (!this.is_new_register) {
-
+      console.log(this.register);
+      // ESTA EN LA TABLA
     } else {
-      
+      // O TIENE UNA SOLICITUD ENVIADA
+      // O ES COMPLETAMENTE IGUAL A LA ESTATUA SOBRE EL PANECILLO O SEA VIRGEN
     }
     // this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
     // this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
