@@ -2,27 +2,27 @@
     <h4 class="col-12">
       <strong>Cumplimiento de Requisitos del Establecimiento</strong>
     </h4>
-    <div class="col-4" *ngIf="register.code != 'PENDIENTE'">
+    <div class="col-4" *ngIf="register.code != 'PENDIENTE' && mostrarNumeroRegistro">
         <div class="form-group">
             <label>Código de Seguridad QR</label>
             <ngx-qrcode [qrc-element-type]="'url'" [qrc-value]="register.code" qrc-class="aclass" qrc-errorCorrectionLevel="L">
             </ngx-qrcode>
         </div>
     </div>
-    <div class="col-8" *ngIf="register.code != 'PENDIENTE'">
+    <div class="col-8" *ngIf="register.code != 'PENDIENTE' && mostrarNumeroRegistro">
         <div class="form-group">
             <label>Código de Barras</label>
             <ngx-barcode [bc-value]="register.code" [bc-display-value]="true">
             </ngx-barcode>
         </div>
     </div>
-    <div class="col-6" *ngIf="register.code != 'PENDIENTE'">
+    <div class="col-6" *ngIf="register.code != 'PENDIENTE' && mostrarNumeroRegistro">
         <div class="form-group">
             <label for="code">Número de Registro</label>
             <input disabled type="text" class="form-control" id="code" name="code" placeholder="Número de Registro" [(ngModel)]="register.code"/>
         </div>
     </div>
-    <div class="col-6" *ngIf="register.code != 'PENDIENTE'">
+    <div class="col-6" *ngIf="register.code != 'PENDIENTE' && mostrarNumeroRegistro">
         <div class="form-group">
             <label>Fecha de Registro</label>
             <input disabled type="date" *ngIf="establishment.as_turistic_register_date != null" class="form-control" id="registerDate" name="registerDate" placeholder="Fecha de Registro" [ngModel]="establishment.as_turistic_register_date | date: 'y-MM-dd'" (ngModelChange)="establishment.as_turistic_register_date = $event"/>

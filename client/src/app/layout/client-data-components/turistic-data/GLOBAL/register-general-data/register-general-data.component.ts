@@ -19,7 +19,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
   @Input('is_new_register') is_new_register: boolean = true;
 
-  @Input('registers_by_ruc') registers_by_ruc: any[] = [];
+  @Input('registers_on_establishment') registers_on_establishment: any[] = [];
 
   @Input('activate_alojamiento') activate_alojamiento: boolean = true;
   @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;
@@ -45,6 +45,9 @@ export class RegisterGeneralDataComponent implements OnInit {
   canAlimentosBebidas = false;
   canOperacionIntermediacion = false;
 
+  mostrarNumeroRegistro = false;
+  tiene_solicitud_enviada = false;
+
   constructor(private consultorDataService: ConsultorService) {
     
   }
@@ -63,15 +66,39 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   refresh() {
+    // ESTA INACTIVADO
+    if (this.register.state_on_catastro == 'CERRADO') {
+      this.mostrarNumeroRegistro = false;
+      this.activity_id_incomming = 0;
+      return;
+    }
+    // NO ESTA INACTIVADO
     this.activity_id_incomming = this.register.activity_id;
+    // IDENTIFICAR CUAL ES LA ULTIMA SOLICITUD
+    this.registers_on_establishment.forEach(element => {
+      console.log(element);
+    });
+    // ESTA EN LA TABLA Y TIENE SOLICITUD DE INACTIVACIÓN
+
     if (!this.is_new_register) {
-      // ESTA EN LA TABLA
       if (this.register.system_source == 'SITURIN' || this.register.system_source == 'SIETE') {
-        this.getDataFromIncommingInfo();      
+        this.getDataFromIncommingInfo();
+        // ESTA QUE LE DIERON CLICK ES LA ULTIMA SOLICITUD
       }
     } else {
-      // O TIENE UNA SOLICITUD ENVIADA
-      // O ES COMPLETAMENTE IGUAL A LA ESTATUA SOBRE EL PANECILLO O SEA VIRGEN
+      // ES NUEVITO
+      if (this.registers_on_establishment.length == 0) {
+        this.mostrarNumeroRegistro = false;
+        this.activity_id_incomming = 0;
+        this.tiene_solicitud_enviada = false;
+      } else {
+        this.tiene_solicitud_enviada = true;
+        this.activity_id_incomming = 1; //ID DE LA ACTIVIDAD DE LA ULTIMA SOLICITUD;
+        // SI ES ALOJAMIENTO TRAER LA INFORMACION
+        // SI ES ALIMENTOS Y BEBIDAS SEGUIR CON NUESTRAS VIDAS Y TRAER INFORMACION CUANDO SELECCIONE LA CLASIFICACION
+        // SI ES OPERACION INTERMEDIACION TRAER A INFORMACION
+        console.log(this.registers_on_establishment);
+      }
     }
     // this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
     // this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
@@ -145,7 +172,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   actividadTuristicaEnable(): boolean {
-    if (this.activity_id_incomming == 0) {
+    if (this.activity_id_incomming == 0 && !this.tiene_solicitud_enviada) {
       this.canAlojamiento = true;
       this.canAlimentosBebidas = true;
       this.canOperacionIntermediacion = true;
@@ -165,14 +192,14 @@ export class RegisterGeneralDataComponent implements OnInit {
       this.canAlimentosBebidas = false;
       this.canOperacionIntermediacion = true;
     }
-    if (this.opcion_seleccionada == 'activation') {
+    if (this.opcion_seleccionada == 'activation'  && !this.tiene_solicitud_enviada) {
       this.canAlojamiento = true;
       this.canAlimentosBebidas = true;
       this.canOperacionIntermediacion = true;
     }
     if ((this.opcion_seleccionada == 'activation' || 
         this.opcion_seleccionada == 'registro') &&
-        this.editable == true) {
+        this.editable == true  && !this.tiene_solicitud_enviada) {
         return  true;
     }
     return false;
