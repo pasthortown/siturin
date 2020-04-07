@@ -30,7 +30,7 @@ export class ClienteExternoComponent implements OnInit {
 
   user: User = new User();
   registers_by_ruc: any[] = [];
-  
+
   data_selected = {
     register: new RegisterCatastro(),
     is_new_register: true,
@@ -99,7 +99,7 @@ export class ClienteExternoComponent implements OnInit {
     if (this.data_selected.is_new_register) {
       establishment_selected.as_turistic_register_date = null;
     } else {
-      this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id, establishment_selected.sri_state).then( resp_cat => {
+      this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id).then( resp_cat => {
       }).catch(e => { console.log(e); });
       establishment_selected.as_turistic_register_date = new Date(this.data_selected.register.as_turistic_date);
     }
