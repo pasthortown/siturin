@@ -15,6 +15,7 @@ export class TuristicDataComponent implements OnInit {
   @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   @Input('editable') editable: boolean = true;
   @Input('registers_by_ruc') registers_by_ruc: any[] = [];
+  @Input('is_new_register') is_new_register: boolean = true;
   
   @Input('activate_alojamiento') activate_alojamiento: boolean = true;
   @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;

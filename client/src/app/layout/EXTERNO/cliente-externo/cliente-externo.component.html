@@ -42,7 +42,7 @@
                         </ngb-tab> 
                         <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3" *ngIf="mostrarInformacionTuristica">
                             <ng-template ngbTabContent>
-                                <app-turistic-data [registers_by_ruc]="registers_by_ruc" [ruc]="data_selected.ruc" [establishment]="data_selected.establishment_validated" [register]="data_selected.register_selected" [opcion_seleccionada]="opcion_seleccionada" [editable]="isEditable" [activate_alojamiento]="activate_alojamiento" [activate_alimentos_bebidas]="activate_alimentos_bebidas" [activate_operacion_intermediacion]="activate_operacion_intermediacion"></app-turistic-data>
+                                <app-turistic-data [is_new_register]="data_selected.is_new_register" [registers_by_ruc]="registers_by_ruc" [ruc]="data_selected.ruc" [establishment]="data_selected.establishment_validated" [register]="data_selected.register_selected" [opcion_seleccionada]="opcion_seleccionada" [editable]="isEditable" [activate_alojamiento]="activate_alojamiento" [activate_alimentos_bebidas]="activate_alimentos_bebidas" [activate_operacion_intermediacion]="activate_operacion_intermediacion"></app-turistic-data>
                             </ng-template>
                         </ngb-tab> 
                     </ngb-tabset>  

@@ -16,6 +16,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   @Input('register') register: Register = new Register();
   @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   @Input('editable') editable: boolean = true;
+  @Input('is_new_register') is_new_register: boolean = true;
 
   @Input('registers_by_ruc') registers_by_ruc: any[] = [];
 
@@ -62,12 +63,15 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   refresh() {
     this.activity_id_incomming = this.register.activity_id;
-    console.log(this.registers_by_ruc);
+    if (!this.is_new_register) {
+
+    } else {
+      
+    }
     // this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
     // this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
     // this.data_selected.register_selected.category_incomming = this.data_selected.register.category;
     // this.data_selected.register_selected.state_on_catastro = this.data_selected.register.ruc_state;
-
   }
 
   getRegisterTypes() {
@@ -127,6 +131,11 @@ export class RegisterGeneralDataComponent implements OnInit {
     if (this.activity_id_incomming == 3) {
       this.canAlojamiento = false;
       this.canAlimentosBebidas = false;
+      this.canOperacionIntermediacion = true;
+    }
+    if (this.opcion_seleccionada == 'activation') {
+      this.canAlojamiento = true;
+      this.canAlimentosBebidas = true;
       this.canOperacionIntermediacion = true;
     }
     if ((this.opcion_seleccionada == 'activation' || 
