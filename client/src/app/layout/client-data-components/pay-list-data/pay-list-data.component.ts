@@ -83,7 +83,7 @@ export class PayListDataComponent implements OnInit {
            payDate = '';
         } else {
           const pay_date = new Date(item.pay_date.toString());
-           payDate = pay_date.toDateString();
+           payDate = pay_date.toLocaleDateString();
         }
         data.push({
            code: item.code,
