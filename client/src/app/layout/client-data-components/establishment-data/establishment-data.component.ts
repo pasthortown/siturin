@@ -617,8 +617,7 @@ export class EstablishmentDataComponent implements OnInit {
       this.establishmentComercialNameValidated  &&
       (this.establishment.ubication_id !== 0) &&
       this.addressEstablishmentValidated &&
-      (this.establishment.address_reference !== '') &&
-      )) {
+      (this.establishment.address_reference !== ''))) {
          return false;
       }
       if (!this.hasValidated) {
