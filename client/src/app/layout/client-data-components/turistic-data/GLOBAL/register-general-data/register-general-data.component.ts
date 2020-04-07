@@ -84,6 +84,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     register_types_array.forEach(element => {
       if (element.name == this.register.classification_incomming) {
         this.classificationSelectedCode = element.code;
+        console.log(this.classificationSelectedCode);
         this.getCategories();
       }
       if (element.name == this.register.category_incomming) {
