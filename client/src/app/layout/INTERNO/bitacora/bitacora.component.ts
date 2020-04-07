@@ -1,3 +1,4 @@
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/profile/User';
@@ -6,10 +7,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import Swal from 'sweetalert2';
 import { RegisterTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/registertype.service';
-import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
-import { RegisterService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { UserService } from 'src/app/services/profile/user.service';
-import { RegisterStateService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
@@ -30,9 +28,7 @@ export class BitacoraComponent implements OnInit {
   SRIOK = false;
   razon_social = '';
   states: State[] = [];
-  bitacoraAlojamiento: any[] = [];
   registers_selected: any[] = [];
-  bitacoraAlimentosBebidas: any[] = [];
   mostrarEstablecimientos = false;
   registersAlojamiento: any[] = [];
   registersAlimentosBebidas: any[] = [];
@@ -63,9 +59,8 @@ export class BitacoraComponent implements OnInit {
   states_to_show: any[] = [];
 
   constructor(private dinardapDataService: DinardapService,
-    private registerABDataService: RegisterABService,
+    private consultorDataService: ConsultorService,
     private ubicationDataService: UbicationService,
-    private registerDataService: RegisterService,
     private stateDataService: StateService,
     private register_typeDataService: RegisterTypeService,
     private register_typeABDataService: RegisterTypeABService
@@ -304,33 +299,15 @@ export class BitacoraComponent implements OnInit {
   }
 
   buscarBitacora() {
-    this.bitacoraAlojamiento = [];
-    this.bitacoraAlimentosBebidas = [];
-    this.registerDataService.bitacora_states(this.ruc.number).then( r => {
+    this.consultorDataService.get_bitacora(this.ruc.number).then( r => {
       const resp = r as any[];
-      resp.forEach(element => {
-        this.bitacoraAlojamiento.push(element);
-      });
-      this.registerABDataService.bitacora_states(this.ruc.number).then( r => {
-        const resp = r as any[];
-        resp.forEach(element => {
-          this.bitacoraAlimentosBebidas.push(element);
-        });
-        this.mostrarEstablecimientos = true;
-        this.buildBitacora();
-      }).catch( e => { console.log(e);});
+      this.mostrarEstablecimientos = true;
+      this.buildBitacora(resp);
     }).catch( e => { console.log(e);});
   }
 
-  buildBitacora() {
+  buildBitacora(myData: any[]) {
     this.bitacora = [];
-    let myData = [];
-    this.bitacoraAlimentosBebidas.forEach( e => {
-      myData.push({data: e, activity: 'ALIMENTOS Y BEBIDAS'});
-    });
-    this.bitacoraAlojamiento.forEach( e => {
-      myData.push({data: e, activity: 'ALOJAMIENTO'});
-    });
     this.establishments = [];
     myData.forEach( bitElement => {
       let existe = false;
@@ -345,7 +322,6 @@ export class BitacoraComponent implements OnInit {
         }
       }
     });
-
     this.establishments.forEach(establishment => {
       let bitacoraItem = {establishment: establishment, registers: []};
       myData.forEach( bitElement => {
