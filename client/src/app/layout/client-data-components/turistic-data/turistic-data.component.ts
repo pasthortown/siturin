@@ -21,7 +21,7 @@ export class TuristicDataComponent implements OnInit {
   @Input('activate_operacion_intermediacion') activate_operacion_intermediacion: boolean = true;
 
   establishment_registers = [];
-
+  
   constructor() {
     
   }
@@ -40,7 +40,7 @@ export class TuristicDataComponent implements OnInit {
 
   filter_registers_by_ruc() {
     this.registers_by_ruc.forEach(element => {
-      if (element.establishment.id == this.establishment.id) {
+      if (element.activity_id == this.register.activity_id && element.establishment.id == this.establishment.id) {
         this.establishment_registers.push(element);
       }  
     });
