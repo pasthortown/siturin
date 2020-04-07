@@ -1,3 +1,4 @@
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
@@ -5,9 +6,6 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
 import { DeclarationItem } from './../../../models/FINANCIERO/DeclarationItem';
 import { DeclarationItemCategory } from 'src/app/models/FINANCIERO/DeclarationItemCategory';
 import { DeclarationItemValue } from 'src/app/models/FINANCIERO/DeclarationItemValue';
-import { RegisterService as RegisterAlojamientoService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
-import { RegisterService as RegisterAlimentosBebidasService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
-import { RegisterService as RegisterOperacionIntermediacionService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { DeclarationAttachment } from 'src/app/models/FINANCIERO/DeclarationAttachment';
 import { Establishment } from 'src/app/models/BASE/Establishment';
@@ -50,10 +48,8 @@ export class DeclarationDataComponent implements OnInit {
   totalunoxmil = 0;
 
   constructor(private toastr: ToastrManager,
+    private consultorDataService: ConsultorService,
     private declarationDataService: DeclarationService,
-    private registerAlimentosBebidasDataService: RegisterAlimentosBebidasService,
-    private registerAlojamientoDataService: RegisterAlojamientoService,
-    private registerOperacionIntermediacionDataService: RegisterOperacionIntermediacionService,
     private declarationAttachmentDataService: DeclarationAttachmentService,
     private declarationItemDataService: DeclarationItemService,
     private declarationItemCategoryDataService: DeclarationItemCategoryService,
@@ -110,20 +106,10 @@ export class DeclarationDataComponent implements OnInit {
       });
       this.declarations = my_declaration_response;
       this.my_tramits = [];
-      // INFLUYE ACTIVIDADES
-      this.registerAlimentosBebidasDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
-        const myTramits = response_last_tramit_state as any[];
-        this.blockByTramit(myTramits);
-        
-      }).catch( e => { console.log(e); });
-      this.registerAlojamientoDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
+      this.consultorDataService.get_all_last_tramit_states(this.ruc.number).then(response_last_tramit_state => {
         const myTramits = response_last_tramit_state as any[];
         this.blockByTramit(myTramits);
       }).catch( e => { console.log(e); });
-      // this.registerOperacionIntermediacionDataService.last_tramit_state(this.ruc.number).then(response_last_tramit_state => {
-      //   const myTramits = response_last_tramit_state as any[];
-      //   this.blockByTramit(myTramits);
-      // }).catch( e => { console.log(e); });
       if (this.declarations.length > 0) {
         this.canSiguiente = true;
         this.canContinue.emit(this.canSiguiente);

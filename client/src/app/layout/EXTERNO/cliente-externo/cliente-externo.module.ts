@@ -44,10 +44,6 @@ import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
-
-import { RegisterService as RegisterAlojamientoService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
-import { RegisterService as RegisterAlimentosBebidasService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
-import { RegisterService as RegisterOperacionIntermediacionService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 
@@ -96,10 +92,7 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
     EstablishmentCertificationTypeService,
     EstablishmentPropertyTypeService,
     EstablishmentCertificationAttachmentService,
-    UbicationService,
-    RegisterAlojamientoService,
-    RegisterAlimentosBebidasService,
-    RegisterOperacionIntermediacionService
+    UbicationService
   ]
 })
 export class ClienteExternoModule {}
