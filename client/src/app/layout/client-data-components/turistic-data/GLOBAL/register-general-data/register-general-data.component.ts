@@ -25,6 +25,7 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   regionSelectedCode = '-';
   classificationSelectedCode = '-';
+  activity_id_incomming = 0;
 
   register_types: any[] = [];
 
@@ -58,7 +59,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   refresh() {
-
+    this.activity_id_incomming = this.register.activity_id;
   }
 
   getRegisterTypes() {
@@ -100,22 +101,22 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   actividadTuristicaEnable(): boolean {
-    if (this.register.activity_id == 0) {
+    if (this.activity_id_incomming == 0) {
       this.canAlojamiento = true;
       this.canAlimentosBebidas = true;
       this.canOperacionIntermediacion = true;
     }
-    if (this.register.activity_id == 1) {
+    if (this.activity_id_incomming == 1) {
       this.canAlojamiento = true;
       this.canAlimentosBebidas = false;
       this.canOperacionIntermediacion = false;
     }
-    if (this.register.activity_id == 2) {
+    if (this.activity_id_incomming == 2) {
       this.canAlojamiento = false;
       this.canAlimentosBebidas = true;
       this.canOperacionIntermediacion = false;
     }
-    if (this.register.activity_id == 3) {
+    if (this.activity_id_incomming == 3) {
       this.canAlojamiento = false;
       this.canAlimentosBebidas = false;
       this.canOperacionIntermediacion = true;
@@ -130,24 +131,24 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   getClasifications() {
     this.clasifications_registers = [];
-    if (this.register.activity_id == 0) {
+    if (this.activity_id_incomming == 0) {
       return;
     }
-    if (this.register.activity_id == 1) {
+    if (this.activity_id_incomming == 1) {
       this.register_types_alojamiento.forEach(element => {
         if (element.father_code == this.regionSelectedCode) {
           this.clasifications_registers.push(element);
         }
       });
     }
-    if (this.register.activity_id == 2) {
+    if (this.activity_id_incomming == 2) {
       this.register_types_alimentos_bebidas.forEach(element => {
         if (element.father_code == this.regionSelectedCode) {
           this.clasifications_registers.push(element);
         }
       });
     }
-    if (this.register.activity_id == 3) {
+    if (this.activity_id_incomming == 3) {
       this.register_types_operacion_intermediacion.forEach(element => {
         if (element.father_code == this.regionSelectedCode) {
           this.clasifications_registers.push(element);
@@ -170,24 +171,24 @@ export class RegisterGeneralDataComponent implements OnInit {
   getCategories() {
     this.notificar();
     this.categories_registers = [];
-    if (this.register.activity_id == 0) {
+    if (this.activity_id_incomming == 0) {
       return;
     }
-    if (this.register.activity_id == 1) {
+    if (this.activity_id_incomming == 1) {
       this.register_types_alojamiento.forEach(element => {
         if (element.father_code == this.classificationSelectedCode) {
           this.categories_registers.push(element);
         }
       });
     }
-    if (this.register.activity_id == 2) {
+    if (this.activity_id_incomming == 2) {
       this.register_types_alimentos_bebidas.forEach(element => {
         if (element.father_code == this.classificationSelectedCode) {
           this.categories_registers.push(element);
         }
       });
     }
-    if (this.register.activity_id == 3) {
+    if (this.activity_id_incomming == 3) {
       this.register_types_operacion_intermediacion.forEach(element => {
         if (element.father_code == this.classificationSelectedCode) {
           this.categories_registers.push(element);
@@ -197,8 +198,8 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   categoryEnable(): boolean {
-    if (this.register.activity_id == 2 ||
-        this.register.activity_id == 3
+    if (this.activity_id_incomming == 2 ||
+        this.activity_id_incomming == 3
       ) {
         return false;
     }
