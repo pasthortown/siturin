@@ -39,7 +39,6 @@ import { EstablishmentCertificationTypeService } from './../../../services/CRUD/
 import { GenderService } from './../../../services/CRUD/BASE/gender.service';
 import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
-import { EstablishmentCertificationAttachmentService } from './../../../services/CRUD/BASE/establishmentcertificationattachment.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/declarationattachment.service';
@@ -98,7 +97,6 @@ import { AdventureDataComponent } from './../../client-data-components/turistic-
     EstablishmentPictureService,
     EstablishmentCertificationTypeService,
     EstablishmentPropertyTypeService,
-    EstablishmentCertificationAttachmentService,
     UbicationService
   ]
 })

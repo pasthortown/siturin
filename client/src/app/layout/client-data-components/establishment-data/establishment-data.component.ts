@@ -4,7 +4,6 @@ import { EstablishmentCertificationTypeService } from './../../../services/CRUD/
 import { Language } from './../../../models/BASE/Language';
 import { GenderService } from './../../../services/CRUD/BASE/gender.service';
 import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
-import { EstablishmentCertificationAttachmentService } from './../../../services/CRUD/BASE/establishmentcertificationattachment.service';
 import { WorkerGroup } from './../../../models/BASE/WorkerGroup';
 import { Gender } from './../../../models/BASE/Gender';
 import { Worker } from './../../../models/BASE/Worker';
@@ -92,7 +91,6 @@ export class EstablishmentDataComponent implements OnInit {
     private genderDataService: GenderService,
     private workerGroupDataService: WorkerGroupService,          
     private establishmentDataService: EstablishmentService,
-    private establishmentCertificationAttachmentDataService: EstablishmentCertificationAttachmentService,
     private establishment_certification_typeDataService: EstablishmentCertificationTypeService,
     private ubicationDataService: UbicationService) {
     
@@ -382,7 +380,11 @@ export class EstablishmentDataComponent implements OnInit {
   getRegisterTypes() {
     this.register_types = [];
     this.consultorDataService.get_all_register_types().then( r => {
-      this.register_types = r as any[];
+      // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3}
+      const response = r as any[];
+      response.forEach(element => {
+        this.register_types.push(element.register_type);  
+      });
     }).catch( e => { console.log(e); });
   }
 

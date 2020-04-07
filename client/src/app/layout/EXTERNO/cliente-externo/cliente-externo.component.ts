@@ -22,6 +22,10 @@ export class ClienteExternoComponent implements OnInit {
   
   isEditable = true;
 
+  activate_alojamiento = true;
+  activate_alimentos_bebidas = true;
+  activate_operacion_intermediacion = true;
+
   user: User = new User();
 
   data_selected = {
@@ -35,10 +39,9 @@ export class ClienteExternoComponent implements OnInit {
 
   // VARIABLES PARA EL CONTROL DE LA INTERFAZ DE USUARIO
   
-  actividadSelected = '-';
+  opcion_seleccionada = '';
   estado_registro = '';
   mostrarOpciones = false;
-  opcion_seleccionada = '';
   mostrarTerminosCondiciones = false;
   terminosCondiciones = false;
   mostrarIngresoDatos = false;
@@ -136,13 +139,13 @@ export class ClienteExternoComponent implements OnInit {
       }
       this.data_selected.is_new_register = false;
       if (event.register.activity == 'ALOJAMIENTO') {
-        this.actividadSelected = '1';
+        this.data_selected.register_selected.activity_id = 1;
       }
       if (event.register.activity == 'ALIMENTOS Y BEBIDAS') {
-        this.actividadSelected = '2';
+        this.data_selected.register_selected.activity_id = 2;
       }
       if (event.register.activity == 'OPERACIÓN E INTERMEDIACIÓN') {
-        this.actividadSelected = '3';
+        this.data_selected.register_selected.activity_id = 3;
       }
       if(event.register.establishment_state.toUpperCase().trim() == "ACTIVO" || 
         event.register.establishment_state.toUpperCase().trim() == "ABIERTO" || 

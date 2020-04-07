@@ -1,5 +1,6 @@
 export class Register {
    id: number;
+   activity_id: number;
    code: String;
    autorized_complementary_capacities: Boolean;
    autorized_complementary_food_capacities: Boolean;
@@ -22,6 +23,7 @@ export class Register {
    sales_representatives: any[];
    constructor() {
       this.id = 0;
+      this.activity_id = 0;
       this.editable = true;
       this.tarifario_rack = [];
       this.complementary_service_types_on_register = [];
