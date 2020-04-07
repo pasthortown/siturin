@@ -39,7 +39,7 @@ export class ClienteExternoComponent implements OnInit {
 
   // VARIABLES PARA EL CONTROL DE LA INTERFAZ DE USUARIO
   
-  opcion_seleccionada = '';
+  opcion_seleccionada = 'Registro';
   estado_registro = '';
   mostrarOpciones = false;
   mostrarTerminosCondiciones = false;
@@ -132,6 +132,7 @@ export class ClienteExternoComponent implements OnInit {
     }
     this.mostrarIngresoDatos = false;
     this.mostrarOpciones = false;
+    this.opcion_seleccionada = 'Registro';
     this.mostrarPasosInferiores = false;
     if (!event.isNew) {
       if (event.register == null) {
