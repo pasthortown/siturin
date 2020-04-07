@@ -37,6 +37,7 @@ export class EstablishmentDataComponent implements OnInit {
   @Input('ruc') ruc: Ruc = new Ruc();
   @Input('establishment_row_data') establishment_row_data: any = null;
   @Input('editable') editable: boolean = true;
+  @Input('min_data') min_data: boolean = false;
 
   @Output('establishment_validated') establishment_validated: EventEmitter<any> = new EventEmitter<any>();
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
@@ -610,30 +611,49 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   validateEstablecimiento(): Boolean {
-    if (!((this.establishment.ruc_code_id !== '-') &&
-    (this.cantonEstablishmentSelectedCode !== '021701') &&
-    (this.establishment.ruc_name_type_id !== 0) &&
-    this.establishmentComercialNameValidated  &&
-    (this.establishment.establishment_property_type_id !== 0) &&
-    this.urlwebEstablishmentValidated &&
-    (this.establishment.ubication_id !== 0) &&
-    this.addressEstablishmentValidated &&
-    (this.establishment.address_reference !== '') &&
-    this.identificationContactEstablishmentValidated &&
-    this.mainPhoneContactEstablishmentValidated &&
-    this.secondaryPhoneContactEstablishmentValidated &&
-    this.emailContactEstablishmentValidated &&
-    this.REGCIVILOKEstablishment
-    )) {
-       return false;
-    }
-    if (!this.hasValidated) {
-      if (this.establishment.id != 0) {
-        this.hasValidated = true;
-        this.establishment_validated.emit({establishment: this.establishment, showNext: true});
+    if (this.min_data) {
+      if (!((this.establishment.ruc_code_id !== '-') &&
+      (this.cantonEstablishmentSelectedCode !== '021701') &&
+      this.establishmentComercialNameValidated  &&
+      (this.establishment.ubication_id !== 0) &&
+      this.addressEstablishmentValidated &&
+      (this.establishment.address_reference !== '') &&
+      )) {
+         return false;
       }
+      if (!this.hasValidated) {
+        if (this.establishment.id != 0) {
+          this.hasValidated = true;
+          this.establishment_validated.emit({establishment: this.establishment, showNext: true});
+        }
+      }
+      return true;
+    } else {
+      if (!((this.establishment.ruc_code_id !== '-') &&
+      (this.cantonEstablishmentSelectedCode !== '021701') &&
+      (this.establishment.ruc_name_type_id !== 0) &&
+      this.establishmentComercialNameValidated  &&
+      (this.establishment.establishment_property_type_id !== 0) &&
+      this.urlwebEstablishmentValidated &&
+      (this.establishment.ubication_id !== 0) &&
+      this.addressEstablishmentValidated &&
+      (this.establishment.address_reference !== '') &&
+      this.identificationContactEstablishmentValidated &&
+      this.mainPhoneContactEstablishmentValidated &&
+      this.secondaryPhoneContactEstablishmentValidated &&
+      this.emailContactEstablishmentValidated &&
+      this.REGCIVILOKEstablishment
+      )) {
+        return false;
+      }
+      if (!this.hasValidated) {
+        if (this.establishment.id != 0) {
+          this.hasValidated = true;
+          this.establishment_validated.emit({establishment: this.establishment, showNext: true});
+        }
+      }
+      return true;
     }
-    return true;
   }
 
   previewPage() {
@@ -644,7 +664,35 @@ export class EstablishmentDataComponent implements OnInit {
     this.next_page_button_click.emit('Paso 2');
   }
 
+  guardarEstablecimientoMinimo() {
+    if (this.cantonEstablishmentSelectedCode == '021701') {
+      this.toastr.errorToastr('Estimado Usuario, para solicitar el Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Nuevo');
+      return;
+    }
+    if (!this.validateEstablecimiento()) {
+       this.toastr.errorToastr('Existe conflicto con la información ingresada.', 'Nuevo');
+       return;
+    }
+    this.guardando = true;
+    this.canSiguiente = false;
+    this.establishmentDataService.register_min_establishment(this.establishment).then(resp_est => {
+      this.guardando = false;
+      this.canSiguiente = true;
+      this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+      this.establishment_validated.emit({establishment: this.establishment, showNext: true});
+      this.hasValidated = true;
+    }).catch( e => { console.log(e); });
+  }
+
   guardarEstablecimiento() {
+    if (this.min_data) {
+      this.guardarEstablecimientoMinimo();
+    } else {
+      this.guardarEstablecimientoCompleto();
+    }
+  }
+  
+  guardarEstablecimientoCompleto() {
     if (this.cantonEstablishmentSelectedCode == '021701') {
        this.toastr.errorToastr('Estimado Usuario, para solicitar el Certificado de Registro de Turismo de establecimientos ubicados en el Cantón Quito, por favor acercarse a las oficinas de "Quito Turismo"', 'Nuevo');
        return;
@@ -678,6 +726,7 @@ export class EstablishmentDataComponent implements OnInit {
       return;
     }
     this.guardando = true;
+    this.canSiguiente = false;
     if (this.establishment.ruc_name_type_id <= 1 ) {
        this.establishment.franchise_chain_name = '';
     } else {
