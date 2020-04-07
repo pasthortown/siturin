@@ -24,6 +24,7 @@ export class DeclarationDataComponent implements OnInit {
   @Input('ruc') ruc: Ruc = new Ruc();
   @Input('establishment') establishment: Establishment = new Establishment();
   @Input('is_new_register') is_new_register: boolean = false;
+  @Input('editable') editable: boolean = true;
   
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
   @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
