@@ -25,6 +25,7 @@ export class DeclarationDataComponent implements OnInit {
   @Input('establishment') establishment: Establishment = new Establishment();
   @Input('is_new_register') is_new_register: boolean = false;
   @Input('editable') editable: boolean = true;
+  @Input('registers_by_ruc') registers_by_ruc: any[] = [];
   
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
   @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
@@ -46,7 +47,6 @@ export class DeclarationDataComponent implements OnInit {
 
   declarationItemsToShow = [];
   my_tramits = [];
-  my_registers = [];
 
   totalunoxmil = 0;
 
@@ -77,14 +77,7 @@ export class DeclarationDataComponent implements OnInit {
   refresh() {
     this.declaration_selected = new Declaration();
     this.mostrarDataDeclaration = false;
-    this.getMyRegisters();
     this.getDeclarationsByEstablishment();
-  }
-
-  getMyRegisters() {
-    this.consultorDataService.get_registers_by_ruc(this.ruc.number).then( r => {
-       this.my_registers = r;
-    }).catch( e => { console.log(e); });
   }
 
   getDeclarationCategories() {
@@ -332,7 +325,7 @@ export class DeclarationDataComponent implements OnInit {
        let my_register_data = {state: new RegisterState(),
                                activity_id: ''
                               };
-       this.my_registers.forEach(my_register => {
+       this.registers_by_ruc.forEach(my_register => {
         const textoEstado = my_register.status_register.state_id.toString();
         const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
         if ((my_register.establishment.ruc_code_id == this.establishment.ruc_code_id) && digitoEstado == '8') {

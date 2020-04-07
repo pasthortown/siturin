@@ -22,6 +22,10 @@ export class Register {
    transport_companies: any[];
    sales_representatives: any[];
    provincia_code: String;
+   category_incomming: String;
+   classification_incomming: String;
+   system_source: String;
+   state_on_catastro: String;
    constructor() {
       this.id = 0;
       this.activity_id = 0;
@@ -46,5 +50,9 @@ export class Register {
       this.status = 4;
       this.code = 'PENDIENTE';
       this.provincia_code = '';
+      this.category_incomming = '';
+      this.classification_incomming = '';
+      this.system_source = '';
+      this.state_on_catastro = '';
    }
 }

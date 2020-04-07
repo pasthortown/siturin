@@ -14,6 +14,7 @@ export class TuristicDataComponent implements OnInit {
   @Input('register') register: Register = new Register();
   @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   @Input('editable') editable: boolean = true;
+  @Input('registers_by_ruc') registers_by_ruc: any[] = [];
   
   @Input('activate_alojamiento') activate_alojamiento: boolean = true;
   @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;
@@ -24,7 +25,15 @@ export class TuristicDataComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+    this.refresh();
+  }
+
+  ngOnChanges() {
+    this.refresh();
+  }
+
+  refresh() {
+
   }
 
   register_general_data_selection_complete(event) {

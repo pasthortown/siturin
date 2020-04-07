@@ -6,7 +6,9 @@ import { User } from './../../../models/profile/User';
 import { UserService } from './../../../services/profile/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { ConsultorService } from './../../../services/negocio/consultor.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
+
 
 @Component({
   selector: 'app-cliente-externo',
@@ -27,7 +29,8 @@ export class ClienteExternoComponent implements OnInit {
   activate_operacion_intermediacion = true;
 
   user: User = new User();
-
+  registers_by_ruc: any[] = [];
+  
   data_selected = {
     register: new RegisterCatastro(),
     is_new_register: true,
@@ -52,7 +55,8 @@ export class ClienteExternoComponent implements OnInit {
   tabActiveSuperior = 'tab1';
   
   constructor( private userDataService: UserService, 
-    private catastroRegisterDataService: CatastroRegisterService) {}
+    private catastroRegisterDataService: CatastroRegisterService,
+    private consultorDataService: ConsultorService) {}
 
   ngOnInit() {
     this.getUser();
@@ -62,7 +66,14 @@ export class ClienteExternoComponent implements OnInit {
     this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
       this.user = r as User;
       this.mostrarTerminosCondiciones = true;
+      this.getRegistersByRuc();
     }).catch( e => console.log(e));
+  }
+
+  getRegistersByRuc() {
+    this.consultorDataService.get_registers_by_ruc(this.user.ruc).then( r => {
+      this.registers_by_ruc = r as any[];
+    }).catch( e => { console.log(e); });
   }
 
   checkTerminosCondiciones(event) {
@@ -160,7 +171,10 @@ export class ClienteExternoComponent implements OnInit {
       }
       this.data_selected.register = event.register;
       this.data_selected.register_selected.code = this.data_selected.register.register_code;
-      console.log(this.data_selected.register);
+      this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
+      this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
+      this.data_selected.register_selected.category_incomming = this.data_selected.register.category;
+      this.data_selected.register_selected.state_on_catastro = this.data_selected.register.ruc_state;
       this.mostrarOpciones = true;
     } else {
       this.mostrarIngresoDatos = true;
