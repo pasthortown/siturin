@@ -64,10 +64,10 @@
         </small>
     </div>
     <div class="col-3">
-        <div class="form-group">
+        <div class="form-group" [hidden]="!classificationsEnable()">
             <label>Clasificación</label>
             <span *ngIf="classificationSelectedCode == '-'" class="ml-2 badge badge-danger">Incorrecto</span>
-            <select class="form-control" id="register_type_id" name="register_type_id" (change)="getCategories()" [(ngModel)]="classificationSelectedCode" [disabled]="!classificationsEnable()">
+            <select class="form-control" id="register_type_id" name="register_type_id" (change)="getCategories()" [(ngModel)]="classificationSelectedCode">
                 <option value="-" selected>Seleccione...</option>
                 <option *ngFor="let register_type of clasifications_registers" value="{{ register_type.code }}">
                     {{ register_type.name }}
