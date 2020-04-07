@@ -21,6 +21,7 @@ export class Register {
    turistic_guides: any[];
    transport_companies: any[];
    sales_representatives: any[];
+   provincia_code: String;
    constructor() {
       this.id = 0;
       this.activity_id = 0;
@@ -44,5 +45,6 @@ export class Register {
       this.total_beds = 0;
       this.status = 4;
       this.code = 'PENDIENTE';
+      this.provincia_code = '';
    }
 }

@@ -99,7 +99,7 @@ export class ClienteExternoComponent implements OnInit {
   establishment_validated(event) {
     if (event.showNext) {
       this.data_selected.establishment_validated = event.establishment;
-      console.log(this.data_selected);
+      this.data_selected.register_selected.provincia_code = this.data_selected.establishment_validated.provincia_code;
     }
     this.mostrarDeclarations = event.showNext;
   }

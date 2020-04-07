@@ -91,6 +91,11 @@ export class RegisterGeneralDataComponent implements OnInit {
       if (element.father_code == '-') {
         this.regiones.push(element);
       }
+      if (this.register.provincia_code == '0820') {
+        this.regionSelectedCode = '2';
+      } else {
+        this.regionSelectedCode = '1';
+      }
     });
   }
 
