@@ -2,7 +2,7 @@
     <h4 class="col-12">
       <strong>Cumplimiento de Requisitos del Establecimiento</strong>
     </h4>
-    <div class="col-4">
+    <div class="col-4" *ngIf="register.code != 'PENDIENTE'">
         <div class="form-group">
             <label>Código de Seguridad QR</label>
             <ngx-qrcode [qrc-element-type]="'url'" [qrc-value]="register.code" qrc-class="aclass" qrc-errorCorrectionLevel="L">
