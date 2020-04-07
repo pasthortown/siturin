@@ -1,3 +1,6 @@
+import { RegisterGeneralDataComponent } from './../../client-data-components/register-general-data/register-general-data.component';
+import { AdventureDataComponent } from './../../client-data-components/adventure-data/adventure-data.component';
+import { RequisitesDataComponent } from './../../client-data-components/requisites-data/requisites-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -65,6 +68,9 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
     RegistersDataComponent,
     EstablishmentDataComponent, 
     DeclarationDataComponent,
+    RequisitesDataComponent,
+    AdventureDataComponent,
+    RegisterGeneralDataComponent,
     RucDataComponent,
     TuristicDataComponent,
     PayListDataComponent,
