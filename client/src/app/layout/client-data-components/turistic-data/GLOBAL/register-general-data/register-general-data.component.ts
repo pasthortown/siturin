@@ -131,24 +131,24 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   getClasifications() {
     this.clasifications_registers = [];
-    if (this.activity_id_incomming == 0) {
+    if (this.register.activity_id == 0) {
       return;
     }
-    if (this.activity_id_incomming == 1) {
+    if (this.register.activity_id == 1) {
       this.register_types_alojamiento.forEach(element => {
         if (element.father_code == this.regionSelectedCode) {
           this.clasifications_registers.push(element);
         }
       });
     }
-    if (this.activity_id_incomming == 2) {
+    if (this.register.activity_id == 2) {
       this.register_types_alimentos_bebidas.forEach(element => {
         if (element.father_code == this.regionSelectedCode) {
           this.clasifications_registers.push(element);
         }
       });
     }
-    if (this.activity_id_incomming == 3) {
+    if (this.register.activity_id == 3) {
       this.register_types_operacion_intermediacion.forEach(element => {
         if (element.father_code == this.regionSelectedCode) {
           this.clasifications_registers.push(element);
@@ -171,24 +171,24 @@ export class RegisterGeneralDataComponent implements OnInit {
   getCategories() {
     this.notificar();
     this.categories_registers = [];
-    if (this.activity_id_incomming == 0) {
+    if (this.register.activity_id == 0) {
       return;
     }
-    if (this.activity_id_incomming == 1) {
+    if (this.register.activity_id == 1) {
       this.register_types_alojamiento.forEach(element => {
         if (element.father_code == this.classificationSelectedCode) {
           this.categories_registers.push(element);
         }
       });
     }
-    if (this.activity_id_incomming == 2) {
+    if (this.register.activity_id == 2) {
       this.register_types_alimentos_bebidas.forEach(element => {
         if (element.father_code == this.classificationSelectedCode) {
           this.categories_registers.push(element);
         }
       });
     }
-    if (this.activity_id_incomming == 3) {
+    if (this.register.activity_id == 3) {
       this.register_types_operacion_intermediacion.forEach(element => {
         if (element.father_code == this.classificationSelectedCode) {
           this.categories_registers.push(element);
@@ -198,8 +198,8 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   categoryEnable(): boolean {
-    if (this.activity_id_incomming == 2 ||
-        this.activity_id_incomming == 3
+    if (this.register.activity_id == 2 ||
+        this.register.activity_id == 3
       ) {
         return false;
     }
