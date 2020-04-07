@@ -1,3 +1,4 @@
+import { RegisterState } from './../../../models/ALOJAMIENTO/RegisterState';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
@@ -44,6 +45,7 @@ export class DeclarationDataComponent implements OnInit {
 
   declarationItemsToShow = [];
   my_tramits = [];
+  my_registers = [];
 
   totalunoxmil = 0;
 
@@ -74,7 +76,14 @@ export class DeclarationDataComponent implements OnInit {
   refresh() {
     this.declaration_selected = new Declaration();
     this.mostrarDataDeclaration = false;
+    this.getMyRegisters();
     this.getDeclarationsByEstablishment();
+  }
+
+  getMyRegisters() {
+    this.consultorDataService.get_registers_by_ruc(this.ruc.number).then( r => {
+       this.my_registers = r;
+    }).catch( e => { console.log(e); });
   }
 
   getDeclarationCategories() {
@@ -319,22 +328,22 @@ export class DeclarationDataComponent implements OnInit {
           return;
        }
        const declarationSaved = r as Declaration;
-      //  let my_register_state = new RegisterState();
-      //  this.my_registers.forEach(my_register => {
-      //     if (my_register.establishment.ruc_code_id == this.establishment_selected.ruc_code_id) {
-      //       my_register_state = my_register.status_register as RegisterState;
-      //     }
-      //  });
-      //  if (my_register_state.id !== 0) {
-      //     const textoEstado = my_register_state.state_id.toString();
-      //     const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
-      //     if (digitoEstado == '8') {
-      //        my_register_state.justification = 'Declaración ' + declarationSaved.year.toString() + 'Emitida';
-      //        my_register_state.state_id = my_register_state.state_id - 1;
-      //        this.registerStateDataService.post(my_register_state).then( resp => {
-      //        }).catch( e => { console.log(e); });
-      //     }
-      //  }
+       let my_register_data = {state: new RegisterState(),
+                               activity_id: ''
+                              };
+       this.my_registers.forEach(my_register => {
+        const textoEstado = my_register.status_register.state_id.toString();
+        const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
+        if ((my_register.establishment.ruc_code_id == this.establishment.ruc_code_id) && digitoEstado == '8') {
+          my_register_data.state = my_register.status_register as RegisterState;
+          my_register_data.state.justification = 'Declaración ' + declarationSaved.year.toString() + 'Emitida';
+          my_register_data.state.state_id = my_register_data.state.state_id - 1;
+          my_register_data.state.register_id = my_register.register.id;
+          my_register_data.activity_id = my_register.activity_id;
+          this.consultorDataService.post_new_state(my_register_data).then( resp => {
+          }).catch( e => { console.log(e); });
+        }
+       });
        this.balance.declaration_id = declarationSaved.id;
        if (this.balance.id == 0) {
           this.declarationAttachmentDataService.post(this.balance).then( r1 => {

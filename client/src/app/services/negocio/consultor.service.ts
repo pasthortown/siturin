@@ -17,6 +17,20 @@ export class ConsultorService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
+   post_new_state(data: any): Promise<any> {
+      return this.http.post(this.url + 'post_new_state', JSON.stringify(data), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
+   get_registers_by_ruc(ruc: String): Promise<any> {
+      return this.http.get(this.url + 'get_registers_by_ruc?ruc=' + ruc, this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+
    get_all_register_types(): Promise<any> {
       return this.http.get(this.url + 'get_all_register_types', this.options).toPromise()
       .then( r => {
