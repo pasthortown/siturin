@@ -82,13 +82,14 @@ export class RegisterGeneralDataComponent implements OnInit {
   searchDataInRegisterTypeArray(register_types_array: RegisterType[]) {
     this.getClasifications();
     register_types_array.forEach(element => {
-      if (element.name == this.register.classification_incomming) {
+      if ((element.name == this.register.classification_incomming) && element.father_code == this.regionSelectedCode) {
         this.classificationSelectedCode = element.code;
-        console.log(this.classificationSelectedCode);
         this.getCategories();
-      }
-      if (element.name == this.register.category_incomming) {
-        this.register.register_type_id = element.id;
+        this.categories_registers.forEach(category => {
+          if (category.name == this.register.category_incomming) {
+            this.register.register_type_id = category.id;
+          }
+        });
       }
     });
   }
