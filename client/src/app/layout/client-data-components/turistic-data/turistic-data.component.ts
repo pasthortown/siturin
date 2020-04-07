@@ -1,4 +1,4 @@
-import { Register } from './../../../models/ALIMENTOSBEBIDAS/Register';
+import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../models/BASE/Establishment';
 import { Ruc } from './../../../models/DINARDAP/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
@@ -20,6 +20,8 @@ export class TuristicDataComponent implements OnInit {
   @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;
   @Input('activate_operacion_intermediacion') activate_operacion_intermediacion: boolean = true;
 
+  establishment_registers = [];
+  
   constructor() {
     
   }
@@ -33,7 +35,15 @@ export class TuristicDataComponent implements OnInit {
   }
 
   refresh() {
+    this.filter_registers_by_ruc();
+  }
 
+  filter_registers_by_ruc() {
+    this.registers_by_ruc.forEach(element => {
+      if (element.activity_id == this.register.activity_id && element.establishment.id == this.establishment.id) {
+        this.establishment_registers.push(element);
+      }  
+    });
   }
 
   register_general_data_selection_complete(event) {

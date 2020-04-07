@@ -62,9 +62,6 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   refresh() {
     this.activity_id_incomming = this.register.activity_id;
-    // this.registers_by_ruc.forEach(element => {
-      
-    // });
     console.log(this.registers_by_ruc);
     // this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
     // this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
