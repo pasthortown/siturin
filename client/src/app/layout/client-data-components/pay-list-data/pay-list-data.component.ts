@@ -82,7 +82,8 @@ export class PayListDataComponent implements OnInit {
         if (item.pay_date == null || typeof item.pay_date == 'undefined') {
            payDate = '';
         } else {
-           payDate = item.pay_date.toString();
+          const pay_date = new Date(item.pay_date.toString());
+           payDate = pay_date.toDateString();
         }
         data.push({
            code: item.code,
