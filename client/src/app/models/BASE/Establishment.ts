@@ -31,6 +31,7 @@ export class Establishment {
    establishment_certifications_on_establishment: EstablishmentCertification[];
    ruc_name_type_id: number;
    sri_state: String;
+   provincia_code: String;
    constructor() {
       this.id = 0;
       this.ruc_id = 0;
@@ -45,6 +46,7 @@ export class Establishment {
       this.ruc_code_id = '-';
       this.establishment_property_type_id = 0;
       this.address_reference = '';
+      this.provincia_code = '';
       this.address_main_street = '';
       this.address_secondary_street = '';
       this.address_number = '';

@@ -623,6 +623,7 @@ export class EstablishmentDataComponent implements OnInit {
       if (!this.hasValidated) {
         if (this.establishment.id != 0) {
           this.hasValidated = true;
+          this.establishment.provincia_code = this.provinciaEstablishmentSelectedCode;
           this.establishment_validated.emit({establishment: this.establishment, showNext: true});
         }
       }
@@ -648,6 +649,7 @@ export class EstablishmentDataComponent implements OnInit {
       if (!this.hasValidated) {
         if (this.establishment.id != 0) {
           this.hasValidated = true;
+          this.establishment.provincia_code = this.provinciaEstablishmentSelectedCode;
           this.establishment_validated.emit({establishment: this.establishment, showNext: true});
         }
       }
@@ -678,6 +680,7 @@ export class EstablishmentDataComponent implements OnInit {
       this.guardando = false;
       this.canSiguiente = true;
       this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+      this.establishment.provincia_code = this.provinciaEstablishmentSelectedCode;
       this.establishment_validated.emit({establishment: this.establishment, showNext: true});
       this.hasValidated = true;
     }).catch( e => { console.log(e); });
@@ -749,12 +752,14 @@ export class EstablishmentDataComponent implements OnInit {
        if (typeof this.establishment_selected_picture.id === 'undefined' || this.establishment_selected_picture.id == 0) {
           this.establishmentPictureDataService.post(this.establishment_selected_picture).then( r_picture => {
              this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+             this.establishment.provincia_code = this.provinciaEstablishmentSelectedCode;
              this.establishment_validated.emit({establishment: this.establishment, showNext: true});
              this.hasValidated = true;
           }).catch( e => console.log(e) );
        } else {
           this.establishmentPictureDataService.put(this.establishment_selected_picture).then( r_picture => {
              this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Nuevo');
+             this.establishment.provincia_code = this.provinciaEstablishmentSelectedCode;
              this.establishment_validated.emit({establishment: this.establishment, showNext: true});
              this.hasValidated = true;
           }).catch( e => console.log(e) );
