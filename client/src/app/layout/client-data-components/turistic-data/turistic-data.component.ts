@@ -40,7 +40,7 @@ export class TuristicDataComponent implements OnInit {
 
   filter_registers_by_ruc() {
     this.registers_by_ruc.forEach(element => {
-      if (element.activity_id == this.register.activity_id && element.establishment.id == this.establishment.id) {
+      if (element.establishment.id == this.establishment.id) {
         this.establishment_registers.push(element);
       }  
     });
