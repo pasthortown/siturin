@@ -80,9 +80,11 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   searchDataInRegisterTypeArray(register_types_array: RegisterType[]) {
+    this.getClasifications();
     register_types_array.forEach(element => {
       if (element.name == this.register.classification_incomming) {
         this.classificationSelectedCode = element.code;
+        this.getCategories();
       }
       if (element.name == this.register.category_incomming) {
         this.register.register_type_id = element.id;
