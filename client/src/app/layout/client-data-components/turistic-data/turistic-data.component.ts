@@ -43,11 +43,71 @@ export class TuristicDataComponent implements OnInit {
     const registros_establecimientos_validos = []; //REGISTROS QUE TIENE EL ESTABLECIMIENTO O ACTIVOS O EN SOLICITUD
     const registros_establecimiento = []; // TODOS LOS REGISTROS
     this.establishment_registers = [];
+    this.registers_by_ruc = [
+      {register: {
+        created_at: '2019-01-10',
+        register_type_id: 1
+      }},
+      {register: {
+        created_at: '2019-02-10',
+        register_type_id: 1
+      }},
+      {register: {
+        created_at: '2019-03-10',
+        register_type_id: 1
+      }},
+      {register: {
+        created_at: '2019-01-10',
+        register_type_id: 3
+      }},
+      {register: {
+        created_at: '2019-09-10',
+        register_type_id: 3
+      }},
+      {register: {
+        created_at: '2019-03-10',
+        register_type_id: 3
+      }},
+      {register: {
+        created_at: '2019-08-10',
+        register_type_id: 2
+      }},
+      {register: {
+        created_at: '2019-05-10',
+        register_type_id: 2
+      }},
+      {register: {
+        created_at: '2019-06-10',
+        register_type_id: 2
+      }},
+      {register: {
+        created_at: '2019-07-10',
+        register_type_id: 2
+      }},
+    ];
     this.registers_by_ruc.forEach(element => {
       if (element.establishment.id == this.establishment.id) {
-        this.establishment_registers.push(element);
+        registros_establecimiento.push(element);
       }  
     });
+    registros_establecimiento.forEach(e1 => {
+      let encontrado_por_tipo = false;
+      registros_establecimientos_validos.forEach(e2 => {
+        if (e1.register.register_type_id == e2.register.register_type_id) {
+          const fecha_e1 = new Date(e1.register.created_at.toString());
+          const fecha_e2 = new Date(e2.register.created_at.toString());
+          encontrado_por_tipo = true;
+          if (fecha_e1 > fecha_e2) {
+            e2 = e1;
+          }
+        }
+      });
+      if (!encontrado_por_tipo) {
+        registros_establecimientos_validos.push(e1);
+      }
+    });
+    this.establishment_registers = registros_establecimientos_validos;
+    console.log(this.establishment_registers);
   }
 
   register_selected(event) {
