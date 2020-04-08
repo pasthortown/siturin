@@ -236,19 +236,20 @@ export class TuristicDataComponent implements OnInit {
                   this.register = element.register;
                   this.register.activity_id = this.activity_id_from_registers_actives;
                   pendiente_encontrado = true;
-                  console.log('encontrado');
                 }
               }
             });
-            this.establishment_registers.forEach(element => {
-              if (element.register.code !== 'PENDIENTE' || element.register.code !== '') {
-                if (element.activity_id == this.activity_id_from_registers_actives) {
-                  this.register = element.register;
-                  this.register.activity_id = element.activity_id;
-                  console.log('mal');
+            if (!pendiente_encontrado) {
+              this.establishment_registers.forEach(element => {
+                if (element.register.code !== 'PENDIENTE' || element.register.code !== '') {
+                  if (element.activity_id == this.activity_id_from_registers_actives) {
+                    this.register = element.register;
+                    this.register.activity_id = element.activity_id;
+                    console.log('mal');
+                  }
                 }
-              }
-            });
+              });
+            }
             console.log(this.register);
         } else {
           this.register.activity_id = this.activity_id_from_registers_actives;
