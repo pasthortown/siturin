@@ -122,7 +122,7 @@
                         </small>
                     </td>
                 </tr>
-                <tr *ngIf="rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46">
+                <tr *ngIf="register.register_type_id == 47 || register.register_type_id == 46">
                     <td>
                         <label>Título de Propiedad del Inmueble o Poder Notarizado*</label>
                         <span *ngIf="tituloPropiedad.property_title_attachment_file === ''" class="ml-2 badge badge-danger">Incorrecto</span>
@@ -147,7 +147,7 @@
                         </small>
                     </td>
                 </tr>
-                <tr *ngIf="rucEstablishmentRegisterSelected.register_type_id == 47 || rucEstablishmentRegisterSelected.register_type_id == 46">
+                <tr *ngIf="register.register_type_id == 47 || register.register_type_id == 46">
                     <td>
                         <label>Autorización por Asamblea de Condóminos</label>
                     </td>
