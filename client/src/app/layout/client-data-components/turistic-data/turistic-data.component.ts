@@ -105,17 +105,17 @@ export class TuristicDataComponent implements OnInit {
   validateInitialData() {
     const hasActives = this.hasActiveRegisters();
     if (!this.is_new_register) {
-      // if (this.register.state_on_catastro == 'CERRADO') {
-      //     if (!hasActives) {
-      //       this.register.activity_id = 0;
-      //     } else {
-      //       this.register.activity_id = this.activity_id_from_registers_actives;
-      //     }
-      // } else {
+      if (this.register.state_on_catastro == 'CERRADO') {
+          if (!hasActives) {
+            this.register.activity_id = 0;
+          } else {
+            this.register.activity_id = this.activity_id_from_registers_actives;
+          }
+      } else {
         if (!(this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN')) {
           this.register.register_type_id = 0;
         }
-      //}
+      }
     } else {
       if (!hasActives) {
         this.register.activity_id = 0;
@@ -124,7 +124,7 @@ export class TuristicDataComponent implements OnInit {
       }
     }
   }
-
+  
   /* 
     searchForRegister(register_types_array: RegisterType[], activity_id: number) {
       let register_found = null;

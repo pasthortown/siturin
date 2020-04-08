@@ -70,8 +70,12 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.classificationSelectedCode = '-';
     this.register.register_type_id = 0;
     this.hasActiveRegisters();
-    if (this.register.system_source == 'SITURIN' || this.register.system_source == 'SIETE') {
-       this.getDataToShowFromIncommingInfo();
+    if (this.register.system_source == 'SITURIN') {
+      this.mostrarNumeroRegistro = true;
+      this.getDataToShowFromIncommingInfo();
+    }
+    if (this.register.system_source == 'SIETE') {
+      this.getDataToShowFromIncommingInfo();
     }
     if (this.activity_id_incomming != 0) {
       this.getClasifications();
