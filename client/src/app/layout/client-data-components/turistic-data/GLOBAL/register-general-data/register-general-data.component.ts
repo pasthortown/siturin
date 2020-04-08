@@ -182,7 +182,6 @@ export class RegisterGeneralDataComponent implements OnInit {
         if (element.id < 1000) {
           if (this.register.activity_id == 1) {
             if (element.id !== 46 && element.id !== 47) {
-              console.log('entre');
               destinyArray.push(element);
             }
           } else {
