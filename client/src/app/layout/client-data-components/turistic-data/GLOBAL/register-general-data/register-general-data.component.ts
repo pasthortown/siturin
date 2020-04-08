@@ -56,7 +56,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadCatalogos();
+    this.refresh();
   }
 
   ngOnChanges() {
@@ -70,14 +70,12 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activate_alojamiento = this.modules_activation.activate_alojamiento;
     this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
-    console.log(this.register_types);
-    console.log(this.register_types_alojamiento);
-    
     this.getRegiones();
     this.refresh();
   }
 
   refresh() {
+    this.loadCatalogos();
     this.activity_id_incomming = this.register.activity_id;
     this.mostrarNumeroRegistro = false;
     this.tiene_solicitud_enviada = false;
