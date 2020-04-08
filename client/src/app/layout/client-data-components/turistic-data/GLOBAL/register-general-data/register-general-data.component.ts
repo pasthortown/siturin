@@ -78,7 +78,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.mostrarNumeroRegistro = false;
     this.tiene_solicitud_enviada = false;
     this.classificationSelectedCode = '-';
-    this.register.register_type_id = 0;
     this.getRegiones();
     this.hasActiveRegisters();
     if (this.register.system_source == 'SITURIN' && this.opcion_seleccionada != 'activation') {
