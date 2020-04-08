@@ -11,9 +11,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class RegisterGeneralDataComponent implements OnInit {
   @Input('ruc') ruc: Ruc = new Ruc();
+  @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   @Input('establishment') establishment: Establishment = new Establishment();
   @Input('register') register: Register = new Register();
-  @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   @Input('editable') editable: boolean = true;
   @Input('is_new_register') is_new_register: boolean = true;
 
@@ -25,14 +25,14 @@ export class RegisterGeneralDataComponent implements OnInit {
     activate_operacion_intermediacion: false
   };
 
-  @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
-
   @Input('register_types_block') register_types_block = {
     register_types_alojamiento: [],
     register_types_alimentos_bebidas: [],
     register_types_operacion_intermediacion: []
   };
 
+  @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
+  
   regionSelectedCode = '-';
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;

@@ -50,6 +50,8 @@ import { RegisterGeneralDataComponent } from './../../client-data-components/tur
 import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';
 import { AdventureDataComponent } from './../../client-data-components/turistic-data/GLOBAL/adventure-data/adventure-data.component';
 
+import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
+
 @NgModule({
   imports: [CommonModule, 
     FormsModule,
@@ -83,6 +85,7 @@ import { AdventureDataComponent } from './../../client-data-components/turistic-
     DinardapService,
     CatastroRegisterService,
     GroupTypeService,
+    LanguageService,
     PersonRepresentativeAttachmentService,
     RucService,
     DeclarationService,

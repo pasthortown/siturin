@@ -298,4 +298,8 @@ export class TuristicDataComponent implements OnInit {
     });
     return classification_code;
   }
+
+  requisites_finis_fill(event) {
+    console.log(event);
+  }
 }
