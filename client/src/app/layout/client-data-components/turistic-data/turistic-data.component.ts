@@ -114,7 +114,15 @@ export class TuristicDataComponent implements OnInit {
           }
         }
       });
-      this.establishment_registers.push(last_register_by_type);
+      let existe = false;
+      this.establishment_registers.forEach(element => {
+        if (element == last_register_by_type) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        this.establishment_registers.push(last_register_by_type);
+      }
     });
     console.log(this.establishment_registers);
   }
