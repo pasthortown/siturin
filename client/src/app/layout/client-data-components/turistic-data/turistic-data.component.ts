@@ -52,6 +52,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   refresh() {
+    console.log('cambio');
     this.filter_registers_by_ruc();
     this.validateInitialData();
     this.getRegisterTypes();
