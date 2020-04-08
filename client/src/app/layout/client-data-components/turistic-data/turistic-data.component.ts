@@ -168,6 +168,8 @@ export class TuristicDataComponent implements OnInit {
         this.establishment_registers.push(last_register_by_id);
       }
     });
+    console.log(this.establishment_registers);
+    console.log(this.registers_by_ruc);
   }
 
   hasActiveRegisters(): boolean {
