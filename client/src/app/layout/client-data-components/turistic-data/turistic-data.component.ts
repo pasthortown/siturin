@@ -124,14 +124,8 @@ export class TuristicDataComponent implements OnInit {
       }
     }
   }
+  
   /* 
-
-    
-    
-    refresh() {
-      
-    }
-
     searchForRegister(register_types_array: RegisterType[], activity_id: number) {
       let register_found = null;
       this.registers_on_establishment.forEach(element => {
