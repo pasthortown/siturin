@@ -1,3 +1,4 @@
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { RegisterType } from './../../../../../models/ALOJAMIENTO/RegisterType';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../../../models/BASE/Establishment';
@@ -25,18 +26,21 @@ export class RegisterGeneralDataComponent implements OnInit {
     activate_operacion_intermediacion: false
   };
 
-  @Input('register_types') register_types: any = null;
-
   @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
 
   regionSelectedCode = '-';
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;
 
-  register_types_alojamiento: RegisterType[] = [];
-  register_types_alimentos_bebidas: RegisterType[] = [];
-  register_types_operacion_intermediacion: RegisterType[] = [];
   
+  register_types = [];
+
+  register_types_block = {
+    register_types_alojamiento: [],
+    register_types_alimentos_bebidas: [],
+    register_types_operacion_intermediacion: []
+  };
+
   activate_alojamiento = false;
   activate_alimentos_bebidas = false;
   activate_operacion_intermediacion = false;
@@ -52,11 +56,11 @@ export class RegisterGeneralDataComponent implements OnInit {
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
 
-  constructor() {
+  constructor(private consultorDataService: ConsultorService) {
   }
 
   ngOnInit() {
-    this.refresh();
+    this.loadCatalogos();
   }
 
   ngOnChanges() {
@@ -64,18 +68,40 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   loadCatalogos() {
-    this.register_types_alojamiento = this.register_types.register_types_alojamiento;
-    this.register_types_alimentos_bebidas = this.register_types.register_types_alojamiento;
-    this.register_types_operacion_intermediacion = this.register_types.register_types_alojamiento;
     this.activate_alojamiento = this.modules_activation.activate_alojamiento;
     this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
+    this.getRegisterTypes();
     this.getRegiones();
     this.refresh();
   }
 
+  getRegisterTypes() {
+    this.register_types = [];
+    const register_types_alojamiento = [];
+    const register_types_alimentos_bebidas = [];
+    const register_types_operacion_intermediacion = [];
+    this.consultorDataService.get_all_register_types().then( r => {
+      // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3} 
+      this.register_types = r as any[];
+      this.register_types.forEach(element => {
+        if (element.activity_id == 1) {
+          register_types_alojamiento.push(element.register_type);
+        }
+        if (element.activity_id == 2) {
+          register_types_alimentos_bebidas.push(element.register_type);
+        }
+        if (element.activity_id == 3) {
+          register_types_operacion_intermediacion.push(element.register_type);
+        }
+      });
+      this.register_types_block.register_types_alojamiento = register_types_alojamiento;
+      this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
+      this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+    }).catch( e => { console.log(e); });
+  }
+
   refresh() {
-    this.loadCatalogos();
     this.activity_id_incomming = this.register.activity_id;
     this.mostrarNumeroRegistro = false;
     this.tiene_solicitud_enviada = false;
@@ -108,25 +134,25 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   getDataToShowFromRegisterType() {
     if (this.activity_id_incomming == 1) {
-      this.searchDataInRegisterTypeArray(this.register_types_alojamiento, this.register.register_type_id);
+      this.searchDataInRegisterTypeArray(this.register_types_block.register_types_alojamiento, this.register.register_type_id);
     }
     if (this.activity_id_incomming == 2) {
-      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas, this.register.register_type_id);
+      this.searchDataInRegisterTypeArray(this.register_types_block.register_types_alimentos_bebidas, this.register.register_type_id);
     }
     if (this.activity_id_incomming == 3) {
-      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion, this.register.register_type_id);
+      this.searchDataInRegisterTypeArray(this.register_types_block.register_types_operacion_intermediacion, this.register.register_type_id);
     }
   }
 
   getDataToShowFromIncommingInfo() {
     if (this.activity_id_incomming == 1) {
-      this.searchDataInRegisterTypeArray(this.register_types_alojamiento);
+      this.searchDataInRegisterTypeArray(this.register_types_block.register_types_alojamiento);
     }
     if (this.activity_id_incomming == 2) {
-      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas);
+      this.searchDataInRegisterTypeArray(this.register_types_block.register_types_alimentos_bebidas);
     }
     if (this.activity_id_incomming == 3) {
-      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion);
+      this.searchDataInRegisterTypeArray(this.register_types_block.register_types_operacion_intermediacion);
     }
   }
 
@@ -156,7 +182,7 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   getRegiones() {
     this.regiones = [];
-    this.register_types_alojamiento.forEach(element => {
+    this.register_types_block.register_types_alojamiento.forEach(element => {
       if (element.father_code == '-') {
         this.regiones.push(element);
       }
@@ -191,13 +217,13 @@ export class RegisterGeneralDataComponent implements OnInit {
       return;
     }
     if (this.register.activity_id == 1) {
-      sourceArray = this.register_types_alojamiento;
+      sourceArray = this.register_types_block.register_types_alojamiento;
     }
     if (this.register.activity_id == 2) {
-      sourceArray = this.register_types_alimentos_bebidas;
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
     }
     if (this.register.activity_id == 3) {
-      sourceArray = this.register_types_operacion_intermediacion;
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
     this.buildCatalogFromArray(sourceArray, this.clasifications_registers, this.regionSelectedCode);
   }
@@ -212,14 +238,14 @@ export class RegisterGeneralDataComponent implements OnInit {
       return;
     }
     if (this.register.activity_id == 1) {
-      sourceArray = this.register_types_alojamiento;
+      sourceArray = this.register_types_block.register_types_alojamiento;
     }
     if (this.register.activity_id == 2) {
-      sourceArray = this.register_types_alimentos_bebidas;
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
       this.notificar();
     }
     if (this.register.activity_id == 3) {
-      sourceArray = this.register_types_operacion_intermediacion;
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
       this.notificar();
     }
     this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
