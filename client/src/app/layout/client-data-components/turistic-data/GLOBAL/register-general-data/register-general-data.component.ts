@@ -70,7 +70,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.classificationSelectedCode = '-';
     this.register.register_type_id = 0;
     this.hasActiveRegisters();
-    if (this.register.system_source == 'SITURIN') {
+    if (this.register.system_source == 'SITURIN' && this.opcion_seleccionada != 'activation') {
       this.mostrarNumeroRegistro = true;
       this.getDataToShowFromIncommingInfo();
     }
