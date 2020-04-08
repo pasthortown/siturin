@@ -1,3 +1,6 @@
+import { AuthorizationAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { PropertyTitleAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
+import { FloorAuthorizationCertificateService } from './../../../../../services/CRUD/BASE/floorauthorizationcertificate.service';
 import { RegisterRequisite } from './../../../../../models/ALOJAMIENTO/RegisterRequisite';
 import { LanguageService } from './../../../../../services/CRUD/BASE/language.service';
 import { AuthorizationAttachment } from './../../../../../models/ALOJAMIENTO/AuthorizationAttachment';
@@ -48,12 +51,16 @@ export class RequisitesDataComponent implements OnInit {
    
 
   constructor(private toastr: ToastrManager,
-    private languageDataService: LanguageService) {
+    private languageDataService: LanguageService,
+    private floorAuthorizationCertificateDataService: FloorAuthorizationCertificateService,
+    private propertyTitleAttachmentDataService: PropertyTitleAttachmentService,
+    private authorizationAttachmentDataService: AuthorizationAttachmentService) {
     
   }
 
   ngOnInit() {
     this.loadCategoriesAB();
+    this.getLanguages();
   }
 
   ngOnChanges() {
@@ -73,6 +80,40 @@ export class RequisitesDataComponent implements OnInit {
       }
     });
     this.refresh();
+  }
+
+  getCertificadoUsoSuelo() {
+    if (this.register.id == 0) {
+      return;
+    }
+    this.floorAuthorizationCertificateDataService.get_by_register_id(this.register.id).then( r => {
+       this.certificadoUsoSuelo = r as FloorAuthorizationCertificate;
+    }).catch( e => { console.log(e); });
+  }
+
+  getTituloPropiedad() {
+    if (this.register.id == 0) {
+      return;
+    }
+    this.propertyTitleAttachmentDataService.get_by_register_id(this.register.id).then( r => {
+      this.tituloPropiedad = r as PropertyTitleAttachment;
+    }).catch( e => { console.log(e); });
+  }
+
+  getAutorizacionCondominos() {
+    if (this.register.id == 0) {
+      return;
+    }
+    this.authorizationAttachmentDataService.get_by_register_id(v).then( r => {
+      this.autorizacionCondomino = r as AuthorizationAttachment;
+    }).catch( e => { console.log(e); });
+  }
+ 
+  getLanguages() {
+    this.languages = [];
+    this.languageDataService.get().then( r => {
+       this.languages = r as Language[];
+    }).catch( e => console.log(e) );
   }
 
   changeFullfill(register_requisite: RegisterRequisite) {

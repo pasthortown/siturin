@@ -45,6 +45,9 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
+import { AuthorizationAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { PropertyTitleAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
+import { FloorAuthorizationCertificateService } from './../../../../../services/CRUD/BASE/floorauthorizationcertificate.service';
 
 import { RegisterGeneralDataComponent } from './../../client-data-components/turistic-data/GLOBAL/register-general-data/register-general-data.component';
 import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';
@@ -81,6 +84,9 @@ import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
   providers: [
     UserService,
     AgreementService,
+    AuthorizationAttachmentService,
+    PropertyTitleAttachmentService,
+    FloorAuthorizationCertificateService,
     ConsultorService,
     DinardapService,
     CatastroRegisterService,
