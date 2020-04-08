@@ -180,8 +180,11 @@ export class RegisterGeneralDataComponent implements OnInit {
     sourceArray.forEach(element => {
       if (element.father_code == father_code) {
         if (element.id < 1000) {
-          if ((this.register.activity_id == 1) && !(element.id == 46 || element.id == 47)) {
-            destinyArray.push(element);
+          if (this.register.activity_id == 1) {
+            if (element.id !== 46 && element.id !== 47) {
+              console.log('entre');
+              destinyArray.push(element);
+            }
           } else {
             destinyArray.push(element);
           }
