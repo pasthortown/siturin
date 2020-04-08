@@ -118,6 +118,7 @@ export class TuristicDataComponent implements OnInit {
         }
       }  
     });
+    console.log(this.registers_by_ruc);
     register_codes_aviable.forEach(reg_code => {
       let last_register_by_code = null;
       registros_establecimiento.forEach(element => {

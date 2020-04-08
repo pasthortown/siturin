@@ -73,7 +73,6 @@ export class ClienteExternoComponent implements OnInit {
   getRegistersByRuc() {
     this.consultorDataService.get_registers_by_ruc(this.user.ruc).then( r => {
       this.registers_by_ruc = r as any[];
-      console.log(this.registers_by_ruc);
     }).catch( e => { console.log(e); });
   }
 
