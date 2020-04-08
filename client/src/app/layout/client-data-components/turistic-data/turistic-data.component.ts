@@ -45,7 +45,6 @@ export class TuristicDataComponent implements OnInit {
     this.establishment_registers = [];
     this.registers_by_ruc.forEach(element => {
       if (element.establishment.id == this.establishment.id) {
-        console.log(element);
         registros_establecimiento.push(element);
         let existe = false;
         register_codes_aviable.forEach(reg_code => {

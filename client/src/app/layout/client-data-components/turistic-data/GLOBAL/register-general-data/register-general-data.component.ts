@@ -122,24 +122,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     return toReturn;
   }
 
-  getDataToShowFromRegister(register_to_show) {
-    this.register = register_to_show;
-    this.register.activity_id = this.ultimo_registro.activity_id;
-    this.register.classification_selected_code = this.classificationSelectedCode;
-    this.register.region_selected_code = this.regionSelectedCode;
-    this.register_selected.emit(this.register);
-    this.getClasifications();
-    if (this.ultimo_registro.activity_id == 1) {
-      this.searchDataInRegisterTypeArray(this.register_types_alojamiento, this.ultimo_registro.register.register_type_id);
-    }
-    if (this.ultimo_registro.activity_id == 2) {
-      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas, this.ultimo_registro.register.register_type_id);
-    }
-    if (this.ultimo_registro.activity_id == 3) {
-      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion, this.ultimo_registro.register.register_type_id);
-    }
-  }
-
   getDataToShowFromIncommingInfo() {
     if (this.activity_id_incomming == 1) {
       this.searchDataInRegisterTypeArray(this.register_types_alojamiento);
