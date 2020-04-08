@@ -92,8 +92,10 @@ export class RegisterGeneralDataComponent implements OnInit {
             if (element.register.register_type_id == this.register.register_type_id) {
               this.register = element.register;
               this.register.activity_id = element.activity_id;
+              console.log('entre');
             }
           });
+          console.log(this.registers_on_establishment);
           this.changeCategory();
         } else {
           this.register.activity_id = this.activity_id_incomming;
