@@ -96,6 +96,7 @@ export class RegisterGeneralDataComponent implements OnInit {
       this.register_types_block.register_types_alojamiento = register_types_alojamiento;
       this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
       this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+      console.log(this.register_types_block);
       this.refresh();
     }).catch( e => { console.log(e); });
   }
