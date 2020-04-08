@@ -249,9 +249,11 @@ export class RegisterGeneralDataComponent implements OnInit {
     }
     if (this.register.activity_id == 2) {
       sourceArray = this.register_types_alimentos_bebidas;
+      this.register_selected.emit(this.register);
     }
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_operacion_intermediacion;
+      this.register_selected.emit(this.register);
     }
     this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
   }
