@@ -257,9 +257,6 @@ export class TuristicDataComponent implements OnInit {
   }
   
   classification_category_selected(event) {
-    //DADO QUE ES CLASE B BUSCAR EN BASE A LA SELECCION EL REGISTRO QUE LO MUESTRA
-    console.log(event);
-    console.log(this.establishment_registers);
     let sourceArray = [];
     if (this.register.activity_id == 1) {
       sourceArray = this.register_types_block.register_types_alojamiento;
@@ -270,7 +267,7 @@ export class TuristicDataComponent implements OnInit {
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
-    this.searchForRegister(sourceArray, this.register.activity_id, this.register.classification_selected_code, this.register.region_selected_code);
+    this.searchForRegister(sourceArray, this.register.activity_id, event.register_classification, event.register_region_code);
     console.log(this.register_validated);
   }
 
