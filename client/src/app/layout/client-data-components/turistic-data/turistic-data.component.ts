@@ -89,6 +89,10 @@ export class TuristicDataComponent implements OnInit {
 
   classification_category_selected(event) {
     console.log(event);
+    console.log(this.establishment_registers);
+    // this.establishment_registers.forEach(element => {
+    //   if (element.register.register_type == )
+    // });
   }
 
   hasActiveRegisters(): boolean {
