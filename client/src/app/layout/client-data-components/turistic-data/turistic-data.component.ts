@@ -302,4 +302,9 @@ export class TuristicDataComponent implements OnInit {
   requisites_finis_fill(event) {
     console.log(event);
   }
+
+  languaje_add_on_establishment($vent) {
+    console.log(this.establishment.languages_on_establishment);
+    console.log(event);
+  }
 }

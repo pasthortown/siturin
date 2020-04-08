@@ -26,6 +26,7 @@ export class RequisitesDataComponent implements OnInit {
   @Input('requisites') requisites: any[] = [];
 
   @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
+  @Output('languaje_add') languaje_add: EventEmitter<any> = new EventEmitter<any>();
   
   @Input('register_types_block') register_types_block = {
     register_types_alojamiento: [],
@@ -202,6 +203,7 @@ export class RequisitesDataComponent implements OnInit {
           if (!existe) {
              this.establishment.languages_on_establishment.push(language);
              this.languages_establishmentSelectedId = 0;
+             this.languaje_add.emit(this.establishment.languages_on_establishment);
           } else {
              this.toastr.errorToastr('El lenguaje ya se encuentra agregado.', 'Error');
           }
