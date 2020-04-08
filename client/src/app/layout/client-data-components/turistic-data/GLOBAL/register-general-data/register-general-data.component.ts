@@ -1,4 +1,3 @@
-import { ConsultorService } from './../../../../../services/negocio/consultor.service';
 import { RegisterType } from './../../../../../models/ALOJAMIENTO/RegisterType';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../../../models/BASE/Establishment';
@@ -20,9 +19,13 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   @Input('registers_on_establishment') registers_on_establishment: any[] = [];
 
-  @Input('activate_alojamiento') activate_alojamiento: boolean = true;
-  @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;
-  @Input('activate_operacion_intermediacion') activate_operacion_intermediacion: boolean = true;
+  @Input('modules_activation') modules_activation: any = {
+    activate_alojamiento: false,
+    activate_alimentos_bebidas: false,
+    activate_operacion_intermediacion: false
+  };
+
+  @Input('register_types') register_types: any = null;
 
   @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -30,12 +33,14 @@ export class RegisterGeneralDataComponent implements OnInit {
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;
 
-  register_types: any[] = [];
-
   register_types_alojamiento: RegisterType[] = [];
   register_types_alimentos_bebidas: RegisterType[] = [];
   register_types_operacion_intermediacion: RegisterType[] = [];
   
+  activate_alojamiento = false;
+  activate_alimentos_bebidas = false;
+  activate_operacion_intermediacion = false;
+
   regiones: RegisterType[] = [];
   clasifications_registers: RegisterType[] = [];
   categories_registers: RegisterType[] = [];
@@ -47,8 +52,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
 
-  constructor(private consultorDataService: ConsultorService) {
-    
+  constructor() {
   }
 
   ngOnInit() {
@@ -60,7 +64,14 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   loadCatalogos() {
-    this.getRegisterTypes();
+    this.register_types_alojamiento = this.register_types.register_types_alojamiento;
+    this.register_types_alimentos_bebidas = this.register_types.register_types_alojamiento;
+    this.register_types_operacion_intermediacion = this.register_types.register_types_alojamiento;
+    this.activate_alojamiento = this.modules_activation.activate_alojamiento;
+    this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
+    this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
+    this.getRegiones();
+    this.refresh();
   }
 
   refresh() {
@@ -142,30 +153,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     }
   }
 
-  getRegisterTypes() {
-    this.register_types = [];
-    this.register_types_alojamiento = [];
-    this.register_types_alimentos_bebidas = [];
-    this.register_types_operacion_intermediacion = [];
-    this.consultorDataService.get_all_register_types().then( r => {
-      // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3} 
-      this.register_types = r as any[];
-      this.register_types.forEach(element => {
-        if (element.activity_id == 1) {
-          this.register_types_alojamiento.push(element.register_type);
-        }
-        if (element.activity_id == 2) {
-          this.register_types_alimentos_bebidas.push(element.register_type);
-        }
-        if (element.activity_id == 3) {
-          this.register_types_operacion_intermediacion.push(element.register_type);
-        }
-      });
-      this.getRegiones();
-      this.refresh();
-    }).catch( e => { console.log(e); });
-  }
-
   getRegiones() {
     this.regiones = [];
     this.register_types_alojamiento.forEach(element => {
@@ -237,16 +224,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
   }
 
-  getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
-    let classification_code: String = '';
-    register_types_array.forEach(element => {
-      if (element.id == register_type_id) {
-        classification_code = element.father_code;
-      }
-    });
-    return classification_code;
-  }
-
   classificationsEnable(): boolean {
     if (this.opcion_seleccionada == 'activation' || 
         this.opcion_seleccionada == 'reclassification' || 
@@ -311,9 +288,10 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   notificar() {
-    let data_output = { register_type_id: this.register.register_type_id,
-                        register_classification: this.classificationSelectedCode,
-                        register_region_code: this.regionSelectedCode
+    let data_output = { 
+      register_type_id: this.register.register_type_id,
+      register_classification: this.classificationSelectedCode,
+      register_region_code: this.regionSelectedCode
     };
     this.finish_selected.emit(data_output);
   }
