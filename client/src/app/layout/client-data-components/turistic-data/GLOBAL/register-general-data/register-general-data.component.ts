@@ -76,6 +76,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     if (!this.is_new_register) {
       console.log('entre');
       if (this.register.state_on_catastro == 'CERRADO') {
+        console.log('mal');
           if (!hasActives) {
             this.activity_id_incomming = 0;
             this.register.activity_id = 0;
@@ -85,7 +86,9 @@ export class RegisterGeneralDataComponent implements OnInit {
             this.getClasifications();
           }
       } else {
+        console.log('bien');
         if (this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN') {
+          console.log('excelente');
           this.getDataToShowFromIncommingInfo();
           this.mostrarNumeroRegistro = true;
           this.registers_on_establishment.forEach(element => {
@@ -96,6 +99,7 @@ export class RegisterGeneralDataComponent implements OnInit {
           });
           this.changeCategory();
         } else {
+          console.log('pesimo');
           this.register.activity_id = this.activity_id_incomming;
           this.getClasifications();
         }
