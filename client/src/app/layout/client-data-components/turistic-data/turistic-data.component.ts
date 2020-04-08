@@ -225,11 +225,14 @@ export class TuristicDataComponent implements OnInit {
         }
       }
     } else {
+      console.log('bien');
       if (!hasActives) {
         this.register.activity_id = 0;
       } else {
+        console.log('excelente');
         if (this.activity_id_from_registers_actives == 1 ||
-          this.activity_id_from_registers_actives == 3) {
+          this.activity_id_from_registers_actives == 3) {      
+            console.log('perfecto');
             let pendiente_encontrado = false;
             this.establishment_registers.forEach(element => {
               if (element.register.code == 'PENDIENTE' || element.register.code == '') {
