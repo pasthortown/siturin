@@ -70,6 +70,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   refresh() {
+    this.activity_id_incomming = this.register.activity_id;
     this.mostrarNumeroRegistro = false;
     this.tiene_solicitud_enviada = false;
     const hasActives = this.hasActiveRegisters();
