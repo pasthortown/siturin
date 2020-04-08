@@ -1,4 +1,3 @@
-import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { RegisterType } from './../../../../../models/ALOJAMIENTO/RegisterType';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../../../models/BASE/Establishment';
@@ -28,18 +27,18 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
 
+  @Input('register_types_block') register_types_block = {
+    register_types_alojamiento: [],
+    register_types_alimentos_bebidas: [],
+    register_types_operacion_intermediacion: []
+  };
+
   regionSelectedCode = '-';
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;
 
   
   register_types = [];
-
-  register_types_block = {
-    register_types_alojamiento: [],
-    register_types_alimentos_bebidas: [],
-    register_types_operacion_intermediacion: []
-  };
 
   activate_alojamiento = false;
   activate_alimentos_bebidas = false;
@@ -56,7 +55,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
 
-  constructor(private consultorDataService: ConsultorService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -71,34 +70,8 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activate_alojamiento = this.modules_activation.activate_alojamiento;
     this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
-    this.getRegisterTypes();
-  }
-
-  getRegisterTypes() {
-    this.register_types = [];
-    const register_types_alojamiento = [];
-    const register_types_alimentos_bebidas = [];
-    const register_types_operacion_intermediacion = [];
-    this.consultorDataService.get_all_register_types().then( r => {
-      // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3} 
-      this.register_types = r as any[];
-      this.register_types.forEach(element => {
-        if (element.activity_id == 1) {
-          register_types_alojamiento.push(element.register_type);
-        }
-        if (element.activity_id == 2) {
-          register_types_alimentos_bebidas.push(element.register_type);
-        }
-        if (element.activity_id == 3) {
-          register_types_operacion_intermediacion.push(element.register_type);
-        }
-      });
-      this.register_types_block.register_types_alojamiento = register_types_alojamiento;
-      this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
-      this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
-      this.getRegiones();
-      this.refresh();
-    }).catch( e => { console.log(e); });
+    this.getRegiones();
+    this.refresh();
   }
 
   refresh() {

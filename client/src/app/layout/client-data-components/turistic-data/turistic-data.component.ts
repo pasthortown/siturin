@@ -17,10 +17,12 @@ export class TuristicDataComponent implements OnInit {
   @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   @Input('editable') editable: boolean = true;
   @Input('registers_by_ruc') registers_by_ruc: any[] = [];
-  @Input('is_new_register') is_new_register: boolean = true;
-  
+  @Input('is_new_register') is_new_register: boolean = true;  
+
+  activity_id_from_registers_actives = 0;
 
   register_validated: Register = new Register();
+
   modules_activation: any = {
     activate_alojamiento: true,
     activate_alimentos_bebidas: true,
@@ -29,8 +31,6 @@ export class TuristicDataComponent implements OnInit {
 
   establishment_registers = [];
   
-  activity_id_from_registers_actives = 0;
-
   register_types_block = {
     register_types_alojamiento: [],
     register_types_alimentos_bebidas: [],
@@ -44,7 +44,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refresh();
+    this.getRegisterTypes();
   }
 
   ngOnChanges() {
@@ -52,10 +52,8 @@ export class TuristicDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log('cambio');
-    this.filter_registers_by_ruc();
+    this.get_registers_on_establishment(); // Obtiene los Registros asociados al establecimiento
     this.validateInitialData();
-    this.getRegisterTypes();
   }
 
   getRegisterTypes() {
@@ -80,10 +78,11 @@ export class TuristicDataComponent implements OnInit {
       this.register_types_block.register_types_alojamiento = register_types_alojamiento;
       this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
       this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+      this.refresh();
     }).catch( e => { console.log(e); });
   }
 
-  filter_registers_by_ruc() {
+  get_registers_on_establishment() {
     const registros_establecimiento = [];
     const register_codes_aviable = [];
     this.establishment_registers = [];
@@ -128,23 +127,6 @@ export class TuristicDataComponent implements OnInit {
     });
   }
 
-  classification_category_selected(event) {
-    console.log(event);
-    console.log(this.establishment_registers);
-    let sourceArray = [];
-    if (this.register.activity_id == 1) {
-      sourceArray = this.register_types_block.register_types_alojamiento;
-    }
-    if (this.register.activity_id == 2) {
-      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
-    }
-    if (this.register.activity_id == 3) {
-      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
-    }
-    this.searchForRegister(sourceArray, this.register.activity_id, this.register.classification_selected_code, this.register.region_selected_code);
-    console.log(this.register_validated);
-  }
-
   hasActiveRegisters(): boolean {
     let toReturn = false;
     this.establishment_registers.forEach(element => {
@@ -179,6 +161,24 @@ export class TuristicDataComponent implements OnInit {
     }
   }
   
+  classification_category_selected(event) {
+    //aqui
+    console.log(event);
+    console.log(this.establishment_registers);
+    let sourceArray = [];
+    if (this.register.activity_id == 1) {
+      sourceArray = this.register_types_block.register_types_alojamiento;
+    }
+    if (this.register.activity_id == 2) {
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
+    }
+    if (this.register.activity_id == 3) {
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
+    }
+    this.searchForRegister(sourceArray, this.register.activity_id, this.register.classification_selected_code, this.register.region_selected_code);
+    console.log(this.register_validated);
+  }
+
   searchForRegister(register_types_array: RegisterType[], activity_id: number, classificationSelectedCode: String, regionSelectedCode: String) {
     let register_found = null;
     this.establishment_registers.forEach(element => {
