@@ -311,7 +311,8 @@ export class RegisterGeneralDataComponent implements OnInit {
       ) {
         return false;
     }
-    if (this.opcion_seleccionada == 'activation' || 
+    if (this.opcion_seleccionada == 'reclassification' || 
+        this.opcion_seleccionada == 'activation' || 
         this.opcion_seleccionada == 'recategorization' || 
         this.opcion_seleccionada == 'registro') {
         return  true;
