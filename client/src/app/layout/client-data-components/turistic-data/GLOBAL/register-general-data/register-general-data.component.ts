@@ -180,7 +180,11 @@ export class RegisterGeneralDataComponent implements OnInit {
     sourceArray.forEach(element => {
       if (element.father_code == father_code) {
         if (element.id < 1000) {
-          destinyArray.push(element);
+          if ((this.activity_id_incomming == 1) && !(element.id == 46 || element.id == 47)) {
+            destinyArray.push(element);
+          } else {
+            destinyArray.push(element);
+          }
         }
       }
     });
