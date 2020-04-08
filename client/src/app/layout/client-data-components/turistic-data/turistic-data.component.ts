@@ -56,7 +56,7 @@ export class TuristicDataComponent implements OnInit {
         created_at: '2019-03-10',
         register_type_id: 1
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-01-10',
         register_type_id: 3
       }},
@@ -72,7 +72,7 @@ export class TuristicDataComponent implements OnInit {
         created_at: '2019-08-10',
         register_type_id: 2
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-05-10',
         register_type_id: 2
       }},
