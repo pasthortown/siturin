@@ -32,6 +32,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;
 
+  
   register_types = [];
 
   register_types_block = {
@@ -71,7 +72,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
     this.getRegisterTypes();
-    this.getRegiones();
   }
 
   getRegisterTypes() {
@@ -96,6 +96,7 @@ export class RegisterGeneralDataComponent implements OnInit {
       this.register_types_block.register_types_alojamiento = register_types_alojamiento;
       this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
       this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+      this.getRegiones();
       this.refresh();
     }).catch( e => { console.log(e); });
   }
@@ -224,7 +225,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
-    console.log(sourceArray);
     this.buildCatalogFromArray(sourceArray, this.clasifications_registers, this.regionSelectedCode);
   }
 
