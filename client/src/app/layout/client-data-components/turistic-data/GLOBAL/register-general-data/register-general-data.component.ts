@@ -77,6 +77,7 @@ export class RegisterGeneralDataComponent implements OnInit {
       if (this.register.state_on_catastro == 'CERRADO') {
           if (!hasActives) {
             this.activity_id_incomming = 0;
+            this.register.activity_id = 0;
           } else {
             this.tiene_solicitud_enviada = true;
             this.activity_id_incomming = this.activity_id_from_registers_actives;
