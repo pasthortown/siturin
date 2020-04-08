@@ -98,6 +98,7 @@ export class TuristicDataComponent implements OnInit {
           const fecha_e2 = new Date(e2.register.created_at.toString());
           encontrado_por_tipo = true;
           if (fecha_e1.getTime() > fecha_e2.getTime()) {
+            console.log({fecha_e1: fecha_e1, fecha_e2: fecha_e2})
             e2 = e1;
           }
         }
