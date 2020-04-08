@@ -93,7 +93,7 @@ export class TuristicDataComponent implements OnInit {
     const id_register_pendientes = [];
     this.registers_by_ruc.forEach(element => {
       if (element.establishment.id == this.establishment.id) {
-        if (element.register.code == 'PENDIENTE') {
+        if (element.register.code == 'PENDIENTE' || element.register.code == '') {
           solicitudes_pendientes.push(element);
           let existe = false;
           id_register_pendientes.forEach(reg_id => {
@@ -231,7 +231,7 @@ export class TuristicDataComponent implements OnInit {
           this.activity_id_from_registers_actives == 3) {
             let pendiente_encontrado = false;
             this.establishment_registers.forEach(element => {
-              if (element.register.code == 'PENDIENTE') {
+              if (element.register.code == 'PENDIENTE' || element.register.code == '') {
                 if (element.activity_id == this.activity_id_from_registers_actives) {
                   this.register = element.register;
                   this.register.activity_id = element.activity_id;
@@ -240,7 +240,7 @@ export class TuristicDataComponent implements OnInit {
               }
             });
             this.establishment_registers.forEach(element => {
-              if (element.register.code !== 'PENDIENTE') {
+              if (element.register.code !== 'PENDIENTE' || element.register.code == '') {
                 if (element.activity_id == this.activity_id_from_registers_actives) {
                   this.register = element.register;
                   this.register.activity_id = element.activity_id;
