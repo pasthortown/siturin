@@ -24,20 +24,20 @@ import { OptionsDataComponent } from './../../client-data-components/options-dat
 import { AgreementDataComponent } from './../../client-data-components/agreement-data/agreement-data.component';
 import { PayListDataComponent } from './../../client-data-components/pay-list-data/pay-list-data.component';
 
-import { UserService } from './../../../services/profile/user.service';
-import { AgreementService } from './../../../services/CRUD/BASE/agreement.service';
+import { UserService } from 'src/app/services/profile/user.service';
+import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { GroupTypeService } from 'src/app/services/CRUD/BASE/grouptype.service';
-import { PersonRepresentativeAttachmentService } from './../../../services/CRUD/BASE/personrepresentativeattachment.service';
-import { RucService } from './../../../services/CRUD/BASE/ruc.service';
-import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
+import { PersonRepresentativeAttachmentService } from 'src/app/services/CRUD/BASE/personrepresentativeattachment.service';
+import { RucService } from 'src/app/services/CRUD/BASE/ruc.service';
+import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
 import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
 import { EstablishmentPictureService } from 'src/app/services/CRUD/BASE/establishmentpicture.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
-import { EstablishmentCertificationTypeService } from './../../../services/CRUD/BASE/establishmentcertificationtype.service';
-import { GenderService } from './../../../services/CRUD/BASE/gender.service';
-import { WorkerGroupService } from './../../../services/CRUD/BASE/workergroup.service';
+import { EstablishmentCertificationTypeService } from 'src/app/services/CRUD/BASE/establishmentcertificationtype.service';
+import { GenderService } from 'src/app/services/CRUD/BASE/gender.service';
+import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
 import { EstablishmentPropertyTypeService } from 'src/app/services/CRUD/BASE/establishmentpropertytype.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
@@ -45,9 +45,9 @@ import { DeclarationAttachmentService } from 'src/app/services/CRUD/FINANCIERO/d
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
-import { AuthorizationAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/authorizationattachment.service';
-import { PropertyTitleAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
-import { FloorAuthorizationCertificateService } from './../../../../../services/CRUD/BASE/floorauthorizationcertificate.service';
+import { FloorAuthorizationCertificateService } from 'src/app/services/CRUD/BASE/floorauthorizationcertificate.service';
+import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
+import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
 
 import { RegisterGeneralDataComponent } from './../../client-data-components/turistic-data/GLOBAL/register-general-data/register-general-data.component';
 import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';

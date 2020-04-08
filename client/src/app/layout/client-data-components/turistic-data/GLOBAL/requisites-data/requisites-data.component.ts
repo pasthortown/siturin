@@ -1,6 +1,6 @@
-import { AuthorizationAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/authorizationattachment.service';
-import { PropertyTitleAttachmentService } from './../../../../../services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { FloorAuthorizationCertificateService } from './../../../../../services/CRUD/BASE/floorauthorizationcertificate.service';
+import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
+import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
 import { RegisterRequisite } from './../../../../../models/ALOJAMIENTO/RegisterRequisite';
 import { LanguageService } from './../../../../../services/CRUD/BASE/language.service';
 import { AuthorizationAttachment } from './../../../../../models/ALOJAMIENTO/AuthorizationAttachment';
