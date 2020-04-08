@@ -253,13 +253,39 @@ export class RegisterGeneralDataComponent implements OnInit {
     }
     if (this.register.activity_id == 2) {
       sourceArray = this.register_types_alimentos_bebidas;
-      this.register_selected.emit(this.register);
+      this.searchForRegister(this.register_types_operacion_intermediacion, this.register.activity_id);
     }
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_operacion_intermediacion;
-      this.register_selected.emit(this.register);
+      this.searchForRegister(this.register_types_operacion_intermediacion, this.register.activity_id);
     }
     this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
+  }
+
+  searchForRegister(register_types_array: RegisterType[], activity_id: number) {
+    let register_found = null;
+    this.registers_on_establishment.forEach(element => {
+      if (element.activity_id == activity_id) {
+        if (this.classificationSelectedCode == this.getClassificationFromRegisterType(register_types_array, element.register.register_type_id)) {
+          register_found = element;
+        }
+      }
+    });
+    if (register_found != null) {
+      this.register = register_found.register;
+      this.register.activity_id = activity_id;
+    }
+    this.register_selected.emit(this.register);
+  }
+
+  getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
+    let classification_code: String = '';
+    register_types_array.forEach(element => {
+      if (element.id == register_type_id) {
+        classification_code = element.father_code;
+      }
+    });
+    return classification_code;
   }
 
   classificationsEnable(): boolean {
