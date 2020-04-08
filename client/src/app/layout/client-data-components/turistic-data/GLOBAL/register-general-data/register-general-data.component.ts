@@ -70,7 +70,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activate_alojamiento = this.modules_activation.activate_alojamiento;
     this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
-    this.getRegiones();
     this.refresh();
   }
 
@@ -80,6 +79,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.tiene_solicitud_enviada = false;
     this.classificationSelectedCode = '-';
     this.register.register_type_id = 0;
+    this.getRegiones();
     this.hasActiveRegisters();
     if (this.register.system_source == 'SITURIN' && this.opcion_seleccionada != 'activation') {
       this.mostrarNumeroRegistro = true;

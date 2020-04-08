@@ -183,6 +183,10 @@ export class ClienteExternoComponent implements OnInit {
     }
   }
 
+  salir_turistic_information() {
+    this.pasosTabSet.select('paso2');
+  }
+
   changeTabActive(event) {
     this.tabActive = event.nextId;
   }

@@ -4,6 +4,7 @@ import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../models/BASE/Establishment';
 import { Ruc } from './../../../models/DINARDAP/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-turistic-data',
@@ -18,6 +19,8 @@ export class TuristicDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
   @Input('registers_by_ruc') registers_by_ruc: any[] = [];
   @Input('is_new_register') is_new_register: boolean = true;  
+
+  @Output('salir_forced') salir_forced: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   activity_id_from_registers_actives = 0;
 
@@ -86,17 +89,32 @@ export class TuristicDataComponent implements OnInit {
     const registros_establecimiento = [];
     const register_codes_aviable = [];
     this.establishment_registers = [];
+    const solicitudes_pendientes = [];
+    const id_register_pendientes = [];
     this.registers_by_ruc.forEach(element => {
       if (element.establishment.id == this.establishment.id) {
-        registros_establecimiento.push(element);
-        let existe = false;
-        register_codes_aviable.forEach(reg_code => {
-          if (reg_code == element.register.code) {
-            existe = false;
+        if (element.register.code == 'PENDIENTE') {
+          solicitudes_pendientes.push(element);
+          let existe = false;
+          id_register_pendientes.forEach(reg_id => {
+            if (reg_id == element.register.id) {
+              existe = true;
+            }
+          });
+          if (!existe) {
+            id_register_pendientes.push(element.register.id);
           }
-        });
-        if (!existe) {
-          register_codes_aviable.push(element.register.code);
+        } else {
+          registros_establecimiento.push(element);
+          let existe = false;
+          register_codes_aviable.forEach(reg_code => {
+            if (reg_code == element.register.code) {
+              existe = true;
+            }
+          });
+          if (!existe) {
+            register_codes_aviable.push(element.register.code);
+          }
         }
       }  
     });
@@ -125,6 +143,31 @@ export class TuristicDataComponent implements OnInit {
         this.establishment_registers.push(last_register_by_code);
       }
     });
+    id_register_pendientes.forEach(reg_id => {
+      let last_register_by_id = null;
+      solicitudes_pendientes.forEach(element => {
+        if (element.register.id == reg_id) {
+          if (last_register_by_id == null) {
+            last_register_by_id = element;
+          } else {
+            const fecha_e1 = new Date(last_register_by_id.register.created_at.toString());
+            const fecha_e2 = new Date(element.register.created_at.toString());
+            if (fecha_e2.getTime() > fecha_e1.getTime()) {
+              last_register_by_id = element;
+            }
+          }
+        }
+      });
+      let existe = false;
+      this.establishment_registers.forEach(element => {
+        if (element == last_register_by_id) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        this.establishment_registers.push(last_register_by_id);
+      }
+    });
   }
 
   hasActiveRegisters(): boolean {
@@ -133,6 +176,31 @@ export class TuristicDataComponent implements OnInit {
       if (element.register.register_type_id < 1000) {
         toReturn = true;
         this.activity_id_from_registers_actives = element.activity_id;
+      } else {
+        const textoEstado = element.status_register.state_id.toString();
+        const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
+        if (digitoEstado == 3) {
+          // INACTIVACION RECHAZADA
+        } else {
+          if (digitoEstado == 9) {
+            // INACTIVACION APROBADA
+          } else {
+            Swal.fire({
+              title: 'Solicitud de Inactivación en Curso',
+              text: 'El sistema, ha detectado que usted tiene una solicitud de Inactivación en Proceso para éste establecimiento. Por favor espere que la solicitud sea atendia, para realizar nuevas solicitudes.',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: 'De acuerdo',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.value) {
+                this.salir_forced.emit(true);
+              } else {
+                this.salir_forced.emit(true);
+              }
+            });
+          }
+        }
       }
     });
     return toReturn;
@@ -156,13 +224,23 @@ export class TuristicDataComponent implements OnInit {
       if (!hasActives) {
         this.register.activity_id = 0;
       } else {
-        this.register.activity_id = this.activity_id_from_registers_actives;
+        if (this.activity_id_from_registers_actives == 1 ||
+          this.activity_id_from_registers_actives == 3) {
+            this.establishment_registers.forEach(element => {
+              if (element.activity_id == this.activity_id_from_registers_actives) {
+                this.register = element.register;
+                this.register.activity_id = element.activity_id;
+              }
+            });
+        } else {
+          this.register.activity_id = this.activity_id_from_registers_actives;
+        }
       }
     }
   }
   
   classification_category_selected(event) {
-    //aqui
+    //DADO QUE ES CLASE B BUSCAR EN BASE A LA SELECCION EL REGISTRO QUE LO MUESTRA
     console.log(event);
     console.log(this.establishment_registers);
     let sourceArray = [];
