@@ -76,7 +76,6 @@ export class RegisterGeneralDataComponent implements OnInit {
   refresh() {
     this.activity_id_incomming = this.register.activity_id;
     this.mostrarNumeroRegistro = false;
-    this.tiene_solicitud_enviada = false;
     this.classificationSelectedCode = '-';
     this.getRegiones();
     this.hasActiveRegisters();
@@ -96,6 +95,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   hasActiveRegisters() {
+    this.tiene_solicitud_enviada = false;
     this.registers_on_establishment.forEach(element => {
       if (element.register.register_type_id < 1000) {
         this.tiene_solicitud_enviada = true;
