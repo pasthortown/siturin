@@ -24,16 +24,12 @@ export class RegisterGeneralDataComponent implements OnInit {
   @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;
   @Input('activate_operacion_intermediacion') activate_operacion_intermediacion: boolean = true;
 
-  @Output('register_selected') register_selected: EventEmitter<Register> = new EventEmitter<Register>();
+  @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
 
   regionSelectedCode = '-';
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;
 
-  ultimo_registro = null;
-  textoEstadoUltimaSolicitud = '';
-  digitoEstadoUltimaSolicitud = '';
-  
   register_types: any[] = [];
 
   register_types_alojamiento: RegisterType[] = [];
@@ -50,8 +46,6 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
-
-  activity_id_from_registers_actives = 0;
 
   constructor(private consultorDataService: ConsultorService) {
     
@@ -73,53 +67,39 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activity_id_incomming = this.register.activity_id;
     this.mostrarNumeroRegistro = false;
     this.tiene_solicitud_enviada = false;
-    const hasActives = this.hasActiveRegisters();
-    if (!this.is_new_register) {
-      if (this.register.state_on_catastro == 'CERRADO') {
-          if (!hasActives) {
-            this.activity_id_incomming = 0;
-            this.register.activity_id = 0;
-          } else {
-            this.tiene_solicitud_enviada = true;
-            this.activity_id_incomming = this.activity_id_from_registers_actives;
-            this.getClasifications();
-          }
-      } else {
-        if (this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN') {
-          this.getDataToShowFromIncommingInfo();
-          this.mostrarNumeroRegistro = true;
-          this.registers_on_establishment.forEach(element => {
-            if (element.register.register_type_id == this.register.register_type_id) {
-              this.register = element.register;
-              this.register.activity_id = element.activity_id;
-            }
-          });
-          this.changeCategory();
-        } else {
-          this.register.activity_id = this.activity_id_incomming;
-          this.getClasifications();
-        }
-      }
-    } else {
-      if (!hasActives) {
-        this.activity_id_incomming = 0;
-      } else {
-        this.activity_id_incomming = this.activity_id_from_registers_actives;
-        this.tiene_solicitud_enviada = true;
-        this.getClasifications();
-      }
+    this.classificationSelectedCode = '-';
+    this.register.register_type_id = 0;
+    this.hasActiveRegisters();
+    if (this.register.system_source == 'SITURIN' || this.register.system_source == 'SIETE') {
+       this.getDataToShowFromIncommingInfo();
+    }
+    if (this.activity_id_incomming != 0) {
+      this.getClasifications();
+    }
+    if (this.register.register_type_id != 0) {
+      this.getDataToShowFromRegisterType();
     }
   }
 
-  hasActiveRegisters(): boolean {
-    let toReturn = false;
+  hasActiveRegisters() {
     this.registers_on_establishment.forEach(element => {
       if (element.register.register_type_id < 1000) {
-        toReturn = true;
-        this.activity_id_from_registers_actives = element.activity_id;
+        this.tiene_solicitud_enviada = true;
+        this.activity_id_incomming = element.activity_id;
       }
     });
-    return toReturn;
+  }
+
+  getDataToShowFromRegisterType() {
+    if (this.activity_id_incomming == 1) {
+      this.searchDataInRegisterTypeArray(this.register_types_alojamiento, this.register.register_type_id);
+    }
+    if (this.activity_id_incomming == 2) {
+      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas, this.register.register_type_id);
+    }
+    if (this.activity_id_incomming == 3) {
+      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion, this.register.register_type_id);
+    }
   }
 
   getDataToShowFromIncommingInfo() {
@@ -238,31 +218,13 @@ export class RegisterGeneralDataComponent implements OnInit {
     }
     if (this.register.activity_id == 2) {
       sourceArray = this.register_types_alimentos_bebidas;
-      this.searchForRegister(this.register_types_operacion_intermediacion, this.register.activity_id);
+      this.notificar();
     }
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_operacion_intermediacion;
-      this.searchForRegister(this.register_types_operacion_intermediacion, this.register.activity_id);
+      this.notificar();
     }
     this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
-  }
-
-  searchForRegister(register_types_array: RegisterType[], activity_id: number) {
-    let register_found = null;
-    this.registers_on_establishment.forEach(element => {
-      if (element.activity_id == activity_id) {
-        if (this.classificationSelectedCode == this.getClassificationFromRegisterType(register_types_array, element.register.register_type_id)) {
-          register_found = element;
-        }
-      }
-    });
-    if (register_found != null) {
-      this.register = register_found.register;
-      this.register.activity_id = activity_id;
-    }
-    this.register.classification_selected_code = this.classificationSelectedCode;
-    this.register.region_selected_code = this.regionSelectedCode;
-    this.register_selected.emit(this.register);
   }
 
   getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
@@ -335,8 +297,14 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   changeCategory() {
-    this.register.classification_selected_code = this.classificationSelectedCode;
-    this.register.region_selected_code = this.regionSelectedCode;
-    this.register_selected.emit(this.register);
+    this.notificar();
+  }
+
+  notificar() {
+    let data_output = { register_type_id: this.register.register_type_id,
+                        register_classification: this.classificationSelectedCode,
+                        register_region_code: this.regionSelectedCode
+    };
+    this.finish_selected.emit(data_output);
   }
 }

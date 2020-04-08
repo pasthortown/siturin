@@ -23,6 +23,8 @@ export class TuristicDataComponent implements OnInit {
 
   establishment_registers = [];
   
+  activity_id_from_registers_actives = 0;
+
   constructor() {
     
   }
@@ -37,6 +39,7 @@ export class TuristicDataComponent implements OnInit {
 
   refresh() {
     this.filter_registers_by_ruc();
+    this.validateInitialData();
   }
 
   filter_registers_by_ruc() {
@@ -84,7 +87,67 @@ export class TuristicDataComponent implements OnInit {
     });
   }
 
-  register_selected(event) {
+  classification_category_selected(event) {
     console.log(event);
   }
+
+  hasActiveRegisters(): boolean {
+    let toReturn = false;
+    this.establishment_registers.forEach(element => {
+      if (element.register.register_type_id < 1000) {
+        toReturn = true;
+        this.activity_id_from_registers_actives = element.activity_id;
+      }
+    });
+    return toReturn;
+  }
+
+  validateInitialData() {
+    const hasActives = this.hasActiveRegisters();
+    if (!this.is_new_register) {
+      if (this.register.state_on_catastro == 'CERRADO') {
+          if (!hasActives) {
+            this.register.activity_id = 0;
+          } else {
+            this.register.activity_id = this.activity_id_from_registers_actives;
+          }
+      } else {
+        if (!(this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN')) {
+          this.register.register_type_id = 0;
+        }
+      }
+    } else {
+      if (!hasActives) {
+        this.register.activity_id = 0;
+      } else {
+        this.register.activity_id = this.activity_id_from_registers_actives;
+      }
+    }
+  }
+  /* 
+
+    
+    
+    refresh() {
+      
+    }
+
+    searchForRegister(register_types_array: RegisterType[], activity_id: number) {
+      let register_found = null;
+      this.registers_on_establishment.forEach(element => {
+        if (element.activity_id == activity_id) {
+          if (this.classificationSelectedCode == this.getClassificationFromRegisterType(register_types_array, element.register.register_type_id)) {
+            register_found = element;
+          }
+        }
+      });
+      if (register_found != null) {
+        this.register = register_found.register;
+        this.register.activity_id = activity_id;
+      }
+      this.register.classification_selected_code = this.classificationSelectedCode;
+      this.register.region_selected_code = this.regionSelectedCode;
+      this.register_selected.emit(this.register);
+    }
+  */
 }
