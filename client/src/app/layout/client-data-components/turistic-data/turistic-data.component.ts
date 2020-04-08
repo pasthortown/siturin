@@ -40,8 +40,8 @@ export class TuristicDataComponent implements OnInit {
   }
 
   filter_registers_by_ruc() {
-    const registros_establecimientos_validos = []; //REGISTROS QUE TIENE EL ESTABLECIMIENTO O ACTIVOS O EN SOLICITUD
     const registros_establecimiento = []; // TODOS LOS REGISTROS
+    const register_types_aviable = [];
     this.establishment_registers = [];
     this.registers_by_ruc = [
       {establishment: {id:1}, register: {
@@ -88,26 +88,34 @@ export class TuristicDataComponent implements OnInit {
     this.registers_by_ruc.forEach(element => {
       if (element.establishment.id == 1) {
         registros_establecimiento.push(element);
+        let existe = false;
+        register_types_aviable.forEach(reg_type => {
+          if (reg_type == element.register.register_type_id) {
+            existe = false;
+          }
+        });
+        if (!existe) {
+          register_types_aviable.push(element.register.register_type_id);
+        }
       }  
     });
-    registros_establecimiento.forEach(e1 => {
-      let encontrado_por_tipo = false;
-      registros_establecimientos_validos.forEach(e2 => {
-        if (e1.register.register_type_id == e2.register.register_type_id) {
-          const fecha_e1 = new Date(e1.register.created_at.toString());
-          const fecha_e2 = new Date(e2.register.created_at.toString());
-          console.log({fecha_e1: fecha_e1, fecha_e2: fecha_e2, fecha_e1_mayor: fecha_e1.getTime() > fecha_e2.getTime()})
-          encontrado_por_tipo = true;
-          if (fecha_e1.getTime() > fecha_e2.getTime()) {
-            e2 = e1;
+    register_types_aviable.forEach(reg_type => {
+      let last_register_by_type = null;
+      registros_establecimiento.forEach(element => {
+        if (element.register.register_type_id == reg_type) {
+          if (last_register_by_type == null) {
+            last_register_by_type = element;
+          } else {
+            const fecha_e1 = new Date(last_register_by_type.register.created_at.toString());
+            const fecha_e2 = new Date(element.register.created_at.toString());
+            if (fecha_e2.getTime() > fecha_e1.getTime()) {
+              last_register_by_type = element;
+            }
           }
         }
       });
-      if (!encontrado_por_tipo) {
-        registros_establecimientos_validos.push(e1);
-      }
+      this.establishment_registers.push(last_register_by_type);
     });
-    this.establishment_registers = registros_establecimientos_validos;
     console.log(this.establishment_registers);
   }
 
