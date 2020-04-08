@@ -125,6 +125,8 @@ export class RegisterGeneralDataComponent implements OnInit {
   getDataToShowFromRegister(register_to_show) {
     this.register = register_to_show;
     this.register.activity_id = this.ultimo_registro.activity_id;
+    this.register.classification_selected_code = this.classificationSelectedCode;
+    this.register.region_selected_code = this.regionSelectedCode;
     this.register_selected.emit(this.register);
     this.getClasifications();
     if (this.ultimo_registro.activity_id == 1) {
@@ -276,6 +278,8 @@ export class RegisterGeneralDataComponent implements OnInit {
       this.register = register_found.register;
       this.register.activity_id = activity_id;
     }
+    this.register.classification_selected_code = this.classificationSelectedCode;
+    this.register.region_selected_code = this.regionSelectedCode;
     this.register_selected.emit(this.register);
   }
 
@@ -349,6 +353,8 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   changeCategory() {
+    this.register.classification_selected_code = this.classificationSelectedCode;
+    this.register.region_selected_code = this.regionSelectedCode;
     this.register_selected.emit(this.register);
   }
 }

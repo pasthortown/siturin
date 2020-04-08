@@ -26,6 +26,8 @@ export class Register {
    classification_incomming: String;
    system_source: String;
    state_on_catastro: String;
+   classification_selected_code: String;
+   region_selected_code: String;
    constructor() {
       this.id = 0;
       this.activity_id = 0;
