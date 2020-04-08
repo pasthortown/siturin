@@ -40,6 +40,8 @@ export class TuristicDataComponent implements OnInit {
   }
 
   filter_registers_by_ruc() {
+    const registros_establecimientos_validos = []; //REGISTROS QUE TIENE EL ESTABLECIMIENTO O ACTIVOS O EN SOLICITUD
+    const registros_establecimiento = []; // TODOS LOS REGISTROS
     this.establishment_registers = [];
     this.registers_by_ruc.forEach(element => {
       if (element.establishment.id == this.establishment.id) {
@@ -48,7 +50,7 @@ export class TuristicDataComponent implements OnInit {
     });
   }
 
-  register_general_data_selection_complete(event) {
+  register_selected(event) {
     console.log(event);
   }
 }

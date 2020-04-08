@@ -174,7 +174,7 @@ export class ClienteExternoComponent implements OnInit {
       this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
       this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
       this.data_selected.register_selected.category_incomming = this.data_selected.register.category;
-      this.data_selected.register_selected.state_on_catastro = this.data_selected.register.ruc_state;
+      this.data_selected.register_selected.state_on_catastro = this.data_selected.register.establishment_state;
       this.mostrarOpciones = true;
     } else {
       this.mostrarIngresoDatos = true;

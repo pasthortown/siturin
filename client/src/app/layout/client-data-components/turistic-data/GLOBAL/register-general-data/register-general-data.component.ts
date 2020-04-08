@@ -25,12 +25,16 @@ export class RegisterGeneralDataComponent implements OnInit {
   @Input('activate_alimentos_bebidas') activate_alimentos_bebidas: boolean = true;
   @Input('activate_operacion_intermediacion') activate_operacion_intermediacion: boolean = true;
 
-  @Output('selection_complete') selection_complete: EventEmitter<any> = new EventEmitter<any>();
+  @Output('register_selected') register_selected: EventEmitter<Register> = new EventEmitter<Register>();
 
   regionSelectedCode = '-';
   classificationSelectedCode: String = '-';
   activity_id_incomming = 0;
 
+  ultimo_registro = null;
+  textoEstadoUltimaSolicitud = '';
+  digitoEstadoUltimaSolicitud = '';
+  
   register_types: any[] = [];
 
   register_types_alojamiento: RegisterType[] = [];
@@ -47,6 +51,7 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
+
 
   constructor(private consultorDataService: ConsultorService) {
     
@@ -66,59 +71,118 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   refresh() {
-    // ESTA INACTIVADO
-    if (this.register.state_on_catastro == 'CERRADO') {
-      this.mostrarNumeroRegistro = false;
-      this.activity_id_incomming = 0;
-      return;
-    }
-    // NO ESTA INACTIVADO
-    this.activity_id_incomming = this.register.activity_id;
-    // IDENTIFICAR CUAL ES LA ULTIMA SOLICITUD
-    this.registers_on_establishment.forEach(element => {
-      console.log(element);
-    });
-    // ESTA EN LA TABLA Y TIENE SOLICITUD DE INACTIVACIÓN
-
-    if (!this.is_new_register) {
-      if (this.register.system_source == 'SITURIN' || this.register.system_source == 'SIETE') {
-        this.getDataFromIncommingInfo();
-        // ESTA QUE LE DIERON CLICK ES LA ULTIMA SOLICITUD
-      }
-    } else {
-      // ES NUEVITO
-      if (this.registers_on_establishment.length == 0) {
-        this.mostrarNumeroRegistro = false;
-        this.activity_id_incomming = 0;
-        this.tiene_solicitud_enviada = false;
+    this.getUltimaSolicitud();
+    this.mostrarNumeroRegistro = false;
+    this.tiene_solicitud_enviada = false;
+    this.register.editable = true;
+    if (this.ultimo_registro != null) {
+      if (this.textoEstadoUltimaSolicitud == '59') {
+        if (this.activity_id_incomming == 1 || this.activity_id_incomming == 3) {
+          this.activity_id_incomming = 0;
+          return;
+        } else {
+          //if ()
+          this.activity_id_incomming = 2;
+        }
       } else {
         this.tiene_solicitud_enviada = true;
-        this.activity_id_incomming = 1; //ID DE LA ACTIVIDAD DE LA ULTIMA SOLICITUD;
-        // SI ES ALOJAMIENTO TRAER LA INFORMACION
-        // SI ES ALIMENTOS Y BEBIDAS SEGUIR CON NUESTRAS VIDAS Y TRAER INFORMACION CUANDO SELECCIONE LA CLASIFICACION
-        // SI ES OPERACION INTERMEDIACION TRAER A INFORMACION
-        console.log(this.registers_on_establishment);
+        this.activity_id_incomming = this.ultimo_registro.activity_id;
+        this.register.activity_id = this.ultimo_registro.activity_id;
+        if (this.activity_id_incomming == 1 || this.activity_id_incomming == 3) {
+          this.getDataFromLastRegister();
+          if (this.digitoEstadoUltimaSolicitud != '9') {
+            this.register.editable = false;
+          }
+          this.register_selected.emit(this.register);
+          return;
+        }
+      }
+    } else {
+      if (this.is_new_register) {
+        this.activity_id_incomming = 0;
+        return;
       }
     }
-    // this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
-    // this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;
-    // this.data_selected.register_selected.category_incomming = this.data_selected.register.category;
-    // this.data_selected.register_selected.state_on_catastro = this.data_selected.register.ruc_state;
+
+    // SON ALIMENTOS Y BEBIDAS (CUANDO SELECCIONE LA CLASIFICACION DEBO TRAER EL REGISTRO Y RETORNARLE SI LO TUVIESEN SINO RETORNO NUNEVO REGISTRO)
+
+    if (!this.is_new_register) {
+      if (this.register.system_source == 'SIETE') {
+        this.getDataFromIncommingInfo();
+        this.mostrarNumeroRegistro = true;
+        if (this.activity_id_incomming == 1 || this.activity_id_incomming == 3) {
+          
+          return;
+        } else {
+          this.activity_id_incomming = 2;
+        }
+         // PUEDE SER UN AB 
+         // REGISTRO SIETE SIN SOLICITUD ENVIADA
+      }
+      this.register.activity_id = this.activity_id_incomming;
+      this.mostrarNumeroRegistro = false;
+    }
   }
 
-  searchDataInRegisterTypeArray(register_types_array: RegisterType[]) {
-    this.getClasifications();
-    register_types_array.forEach(element => {
-      if ((element.name == this.register.classification_incomming) && element.father_code == this.regionSelectedCode) {
-        this.classificationSelectedCode = element.code;
-        this.getCategories();
-        this.categories_registers.forEach(category => {
-          if (category.name == this.register.category_incomming) {
-            this.register.register_type_id = category.id;
+  getUltimaSolicitud() {
+    this.registers_on_establishment.forEach(element => {
+      const textoEstado = element.status_register.state_id.toString();
+      const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length); 
+      if (this.ultimo_registro == null) {
+        if (digitoEstado != '3'){
+          this.ultimo_registro = element;
+        }
+      } else {
+        if (digitoEstado != '3'){
+          const fechaUltimoRegistro = new Date(this.ultimo_registro.register.created_at.toString());
+          const fechaElementActual = new Date(element.register.created_at.toString());
+          if (fechaElementActual > fechaUltimoRegistro) {
+            this.ultimo_registro = element;
           }
-        });
+        }
       }
     });
+    this.textoEstadoUltimaSolicitud = this.ultimo_registro.status_register.state_id.toString();
+    this.digitoEstadoUltimaSolicitud = this.textoEstadoUltimaSolicitud.substring(this.textoEstadoUltimaSolicitud.length-1, this.textoEstadoUltimaSolicitud.length);
+  }
+
+  searchDataInRegisterTypeArray(register_types_array: RegisterType[], register_type_id?: number) {
+    if (typeof register_type_id == 'undefined') {
+      this.getClasifications();
+      register_types_array.forEach(element => {
+        if ((element.name == this.register.classification_incomming) && element.father_code == this.regionSelectedCode) {
+          this.classificationSelectedCode = element.code;
+          this.getCategories();
+          this.categories_registers.forEach(category => {
+            if (category.name == this.register.category_incomming) {
+              this.register.register_type_id = category.id;
+            }
+          });
+        }
+      });
+    } else {
+      register_types_array.forEach(element => {
+        if (element.id == register_type_id) {
+          this.classificationSelectedCode = element.father_code;
+          this.getCategories();
+        }
+      });
+    }
+  }
+
+  getDataFromLastRegister() {
+    this.register = this.ultimo_registro.register;
+    this.register.activity_id = this.ultimo_registro.activity_id;
+    this.getClasifications();
+    if (this.ultimo_registro.activity_id == 1) {
+      this.searchDataInRegisterTypeArray(this.register_types_alojamiento, this.ultimo_registro.register.register_type_id);
+    }
+    if (this.ultimo_registro.activity_id == 2) {
+      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas, this.ultimo_registro.register.register_type_id);
+    }
+    if (this.ultimo_registro.activity_id == 3) {
+      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion, this.ultimo_registro.register.register_type_id);
+    }
   }
 
   getDataFromIncommingInfo() {
@@ -171,6 +235,79 @@ export class RegisterGeneralDataComponent implements OnInit {
     });
   }
 
+  buildCatalogFromArray(sourceArray: RegisterType[], destinyArray: RegisterType[], father_code: String) {
+    sourceArray.forEach(element => {
+      if (element.father_code == father_code) {
+        if (element.id < 1000) {
+          destinyArray.push(element);
+        }
+      }
+    });
+  }
+
+  getClasifications() {
+    this.clasifications_registers = [];
+    let sourceArray = [];
+    if (this.register.activity_id == 0) {
+      return;
+    }
+    if (this.register.activity_id == 1) {
+      sourceArray = this.register_types_alojamiento;
+    }
+    if (this.register.activity_id == 2) {
+      sourceArray = this.register_types_alimentos_bebidas;
+    }
+    if (this.register.activity_id == 3) {
+      sourceArray = this.register_types_operacion_intermediacion;
+    }
+    this.buildCatalogFromArray(sourceArray, this.clasifications_registers, this.regionSelectedCode);
+  }
+
+  getCategories() {
+    this.categories_registers = [];
+    let sourceArray = [];
+    if (this.register.activity_id == 0) {
+      return;
+    }
+    if (this.register.activity_id == 0) {
+      return;
+    }
+    if (this.register.activity_id == 1) {
+      sourceArray = this.register_types_alojamiento;
+    }
+    if (this.register.activity_id == 2) {
+      sourceArray = this.register_types_alimentos_bebidas;
+    }
+    if (this.register.activity_id == 3) {
+      sourceArray = this.register_types_operacion_intermediacion;
+    }
+    this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
+  }
+
+  classificationsEnable(): boolean {
+    if (this.opcion_seleccionada == 'activation' || 
+        this.opcion_seleccionada == 'reclassification' || 
+        this.opcion_seleccionada == 'ab_new_classification' ||
+        this.opcion_seleccionada == 'registro') {
+        return  true;
+    }
+    return false;
+  }
+
+  categoryEnable(): boolean {
+    if (this.register.activity_id == 2 ||
+        this.register.activity_id == 3
+      ) {
+        return false;
+    }
+    if (this.opcion_seleccionada == 'activation' || 
+        this.opcion_seleccionada == 'recategorization' || 
+        this.opcion_seleccionada == 'registro') {
+        return  true;
+    }
+    return false;
+  }
+
   actividadTuristicaEnable(): boolean {
     if (this.activity_id_incomming == 0 && !this.tiene_solicitud_enviada) {
       this.canAlojamiento = true;
@@ -199,96 +336,13 @@ export class RegisterGeneralDataComponent implements OnInit {
     }
     if ((this.opcion_seleccionada == 'activation' || 
         this.opcion_seleccionada == 'registro') &&
-        this.editable == true  && !this.tiene_solicitud_enviada) {
-        return  true;
-    }
-    return false;
-  }
-
-  buildCatalogFromArray(sourceArray: RegisterType[], destinyArray: RegisterType[], father_code: String) {
-    sourceArray.forEach(element => {
-      if (element.father_code == father_code) {
-        destinyArray.push(element);
-      }
-    });
-  }
-
-  getClasifications() {
-    this.clasifications_registers = [];
-    let sourceArray = [];
-    if (this.register.activity_id == 0) {
-      return;
-    }
-    if (this.register.activity_id == 1) {
-      sourceArray = this.register_types_alojamiento;
-    }
-    if (this.register.activity_id == 2) {
-      sourceArray = this.register_types_alimentos_bebidas;
-    }
-    if (this.register.activity_id == 3) {
-      sourceArray = this.register_types_operacion_intermediacion;
-    }
-    this.buildCatalogFromArray(sourceArray, this.clasifications_registers, this.regionSelectedCode);
-  }
-
-  getCategories() {
-    this.notificar();
-    this.categories_registers = [];
-    let sourceArray = [];
-    if (this.register.activity_id == 0) {
-      return;
-    }
-    if (this.register.activity_id == 0) {
-      return;
-    }
-    if (this.register.activity_id == 1) {
-      sourceArray = this.register_types_alojamiento;
-    }
-    if (this.register.activity_id == 2) {
-      sourceArray = this.register_types_alimentos_bebidas;
-    }
-    if (this.register.activity_id == 3) {
-      sourceArray = this.register_types_operacion_intermediacion;
-    }
-    this.buildCatalogFromArray(sourceArray, this.categories_registers, this.classificationSelectedCode);
-  }
-
-  classificationsEnable(): boolean {
-    if ((this.opcion_seleccionada == 'activation' || 
-        this.opcion_seleccionada == 'reclassification' || 
-        this.opcion_seleccionada == 'ab_new_classification' ||
-        this.opcion_seleccionada == 'registro') &&
-        this.editable == true) {
-        return  true;
-    }
-    return false;
-  }
-
-  categoryEnable(): boolean {
-    if (this.register.activity_id == 2 ||
-        this.register.activity_id == 3
-      ) {
-        return false;
-    }
-    if ((this.opcion_seleccionada == 'activation' || 
-        this.opcion_seleccionada == 'recategorization' || 
-        this.opcion_seleccionada == 'registro') &&
-        this.editable == true) {
+        !this.tiene_solicitud_enviada) {
         return  true;
     }
     return false;
   }
 
   changeCategory() {
-    this.notificar();
-  }
-
-  notificar() {
-    const data_output = {
-      activity_id: this.register.activity_id,
-      classification: this.classificationSelectedCode,
-      category: this.register.register_type_id
-    }
-    this.selection_complete.emit(data_output);
+    this.register_selected.emit(this.register);
   }
 }
