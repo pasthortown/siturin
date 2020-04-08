@@ -74,6 +74,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.tiene_solicitud_enviada = false;
     const hasActives = this.hasActiveRegisters();
     if (!this.is_new_register) {
+      console.log('entre');
       if (this.register.state_on_catastro == 'CERRADO') {
           if (!hasActives) {
             this.activity_id_incomming = 0;
@@ -151,7 +152,6 @@ export class RegisterGeneralDataComponent implements OnInit {
 
   searchDataInRegisterTypeArray(register_types_array: RegisterType[], register_type_id?: number) {
     if (typeof register_type_id == 'undefined') {
-      console.log('entre');
       this.getClasifications();
       register_types_array.forEach(element => {
         if ((element.name == this.register.classification_incomming) && element.father_code == this.regionSelectedCode) {
