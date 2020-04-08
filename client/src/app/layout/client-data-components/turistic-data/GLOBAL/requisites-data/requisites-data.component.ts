@@ -8,7 +8,7 @@ import { PropertyTitleAttachment } from './../../../../../models/ALOJAMIENTO/Pro
 import { FloorAuthorizationCertificate } from './../../../../../models/BASE/FloorAuthorizationCertificate';
 import { Establishment } from './../../../../../models/BASE/Establishment';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Language } from 'src/app/models/BASE/Language';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
@@ -24,9 +24,6 @@ export class RequisitesDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
   @Input('is_new_register') is_new_register: boolean = true;
   @Input('requisites') requisites: any[] = [];
-
-  @Output('finish_selected') finish_selected: EventEmitter<any> = new EventEmitter<any>();
-  @Output('languaje_add') languaje_add: EventEmitter<any> = new EventEmitter<any>();
   
   @Input('register_types_block') register_types_block = {
     register_types_alojamiento: [],
@@ -203,7 +200,6 @@ export class RequisitesDataComponent implements OnInit {
           if (!existe) {
              this.establishment.languages_on_establishment.push(language);
              this.languages_establishmentSelectedId = 0;
-             this.languaje_add.emit(this.establishment.languages_on_establishment);
           } else {
              this.toastr.errorToastr('El lenguaje ya se encuentra agregado.', 'Error');
           }
