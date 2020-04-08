@@ -210,7 +210,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   validateInitialData() {
-    console.log('entre');
     const hasActives = this.hasActiveRegisters();
     if (!this.is_new_register) {
       if (this.register.state_on_catastro == 'CERRADO') {
@@ -225,32 +224,32 @@ export class TuristicDataComponent implements OnInit {
         }
       }
     } else {
-      console.log('bien');
       if (!hasActives) {
         this.register.activity_id = 0;
       } else {
-        console.log('excelente');
         if (this.activity_id_from_registers_actives == 1 ||
-          this.activity_id_from_registers_actives == 3) {      
-            console.log('perfecto');
+          this.activity_id_from_registers_actives == 3) {
             let pendiente_encontrado = false;
             this.establishment_registers.forEach(element => {
               if (element.register.code == 'PENDIENTE' || element.register.code == '') {
+                console.log('encontrado');
                 if (element.activity_id == this.activity_id_from_registers_actives) {
                   this.register = element.register;
-                  this.register.activity_id = element.activity_id;
+                  this.register.activity_id = this.activity_id_from_registers_actives;
                   pendiente_encontrado = true;
                 }
               }
             });
             this.establishment_registers.forEach(element => {
-              if (element.register.code !== 'PENDIENTE' || element.register.code == '') {
+              if (element.register.code !== 'PENDIENTE' || element.register.code !== '') {
+                console.log('mal');
                 if (element.activity_id == this.activity_id_from_registers_actives) {
                   this.register = element.register;
                   this.register.activity_id = element.activity_id;
                 }
               }
             });
+            console.log(this.register);
         } else {
           this.register.activity_id = this.activity_id_from_registers_actives;
         }
