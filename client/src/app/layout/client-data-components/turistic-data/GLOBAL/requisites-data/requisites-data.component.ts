@@ -169,7 +169,7 @@ export class RequisitesDataComponent implements OnInit {
     this.languages_establishmentSelectedId = language.id;
   }
 
-  downloadFloorCertificationdownloadFloorCertification() {
+  downloadFloorCertification() {
     this.downloadFile(
       this.certificadoUsoSuelo.floor_authorization_certificate_file,
       this.certificadoUsoSuelo.floor_authorization_certificate_file_type,
