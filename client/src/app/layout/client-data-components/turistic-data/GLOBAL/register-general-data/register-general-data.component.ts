@@ -80,6 +80,7 @@ export class RegisterGeneralDataComponent implements OnInit {
           } else {
             this.tiene_solicitud_enviada = true;
             this.activity_id_incomming = this.activity_id_from_registers_actives;
+            this.getClasifications();
           }
       } else {
         if (this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN') {
@@ -94,6 +95,7 @@ export class RegisterGeneralDataComponent implements OnInit {
           this.changeCategory();
         } else {
           this.register.activity_id = this.activity_id_incomming;
+          this.getClasifications();
         }
       }
     } else {
@@ -102,6 +104,7 @@ export class RegisterGeneralDataComponent implements OnInit {
       } else {
         this.activity_id_incomming = this.activity_id_from_registers_actives;
         this.tiene_solicitud_enviada = true;
+        this.getClasifications();
       }
     }
   }
