@@ -51,6 +51,8 @@ export class RegisterGeneralDataComponent implements OnInit {
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
 
+  activity_id_from_registers_actives = 0;
+
   constructor(private consultorDataService: ConsultorService) {
     
   }
@@ -68,7 +70,51 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log(this.registers_on_establishment);
+    this.mostrarNumeroRegistro = false;
+    this.tiene_solicitud_enviada = false;
+    const hasActives = this.hasActiveRegisters();
+    if (!this.is_new_register) {
+      if (this.register.state_on_catastro == 'CERRADO') {
+          if (!hasActives) {
+            this.activity_id_incomming = 0;
+          } else {
+            this.tiene_solicitud_enviada = true;
+            this.activity_id_incomming = this.activity_id_from_registers_actives;
+          }
+      } else {
+        if (this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN') {
+          this.getDataToShowFromIncommingInfo();
+          this.mostrarNumeroRegistro = true;
+          this.registers_on_establishment.forEach(element => {
+            if (element.register.register_type_id == this.register.register_type_id) {
+              this.register = element.register;
+              this.register.activity_id = element.activity_id;
+            }
+          });
+          this.changeCategory();
+        } else {
+          this.register.activity_id = this.activity_id_incomming;
+        }
+      }
+    } else {
+      if (!hasActives) {
+        this.activity_id_incomming = 0;
+      } else {
+        this.activity_id_incomming = this.activity_id_from_registers_actives;
+        this.tiene_solicitud_enviada = true;
+      }
+    }
+  }
+
+  hasActiveRegisters(): boolean {
+    let toReturn = false;
+    this.registers_on_establishment.forEach(element => {
+      if (element.register.register_type_id < 1000) {
+        toReturn = true;
+        this.activity_id_from_registers_actives = element.activity_id;
+      }
+    });
+    return toReturn;
   }
 
   getDataToShowFromRegister(register_to_show) {
