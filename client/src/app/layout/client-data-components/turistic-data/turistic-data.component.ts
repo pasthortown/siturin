@@ -40,53 +40,11 @@ export class TuristicDataComponent implements OnInit {
   }
 
   filter_registers_by_ruc() {
-    const registros_establecimiento = []; // TODOS LOS REGISTROS
+    const registros_establecimiento = [];
     const register_types_aviable = [];
     this.establishment_registers = [];
-    this.registers_by_ruc = [
-      {establishment: {id:1}, register: {
-        created_at: '2019-01-10',
-        register_type_id: 1
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-02-10',
-        register_type_id: 1
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-03-10',
-        register_type_id: 1
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-01-10',
-        register_type_id: 3
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-09-10',
-        register_type_id: 3
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-03-10',
-        register_type_id: 3
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-08-10',
-        register_type_id: 2
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-05-10',
-        register_type_id: 2
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-06-10',
-        register_type_id: 2
-      }},
-      {establishment: {id:1}, register: {
-        created_at: '2019-07-10',
-        register_type_id: 2
-      }},
-    ];
     this.registers_by_ruc.forEach(element => {
-      if (element.establishment.id == 1) {
+      if (element.establishment.id == this.establishment.id) {
         registros_establecimiento.push(element);
         let existe = false;
         register_types_aviable.forEach(reg_type => {
@@ -124,7 +82,6 @@ export class TuristicDataComponent implements OnInit {
         this.establishment_registers.push(last_register_by_type);
       }
     });
-    console.log(this.establishment_registers);
   }
 
   register_selected(event) {

@@ -1,4 +1,3 @@
-import { RegisterType } from './../../../../../models/ALIMENTOSBEBIDAS/RegisterType';
 import { ConsultorService } from './../../../../../services/negocio/consultor.service';
 import { RegisterType } from './../../../../../models/ALOJAMIENTO/RegisterType';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
@@ -52,14 +51,12 @@ export class RegisterGeneralDataComponent implements OnInit {
   mostrarNumeroRegistro = false;
   tiene_solicitud_enviada = false;
 
-
   constructor(private consultorDataService: ConsultorService) {
     
   }
 
   ngOnInit() {
     this.loadCatalogos();
-    this.refresh();
   }
 
   ngOnChanges() {
@@ -71,79 +68,35 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   refresh() {
-    this.getUltimaSolicitud();
-    this.mostrarNumeroRegistro = false;
-    this.tiene_solicitud_enviada = false;
-    this.register.editable = true;
-    if (this.ultimo_registro != null) {
-      if (this.textoEstadoUltimaSolicitud == '59') {
-        if (this.activity_id_incomming == 1 || this.activity_id_incomming == 3) {
-          this.activity_id_incomming = 0;
-          return;
-        } else {
-          //if ()
-          this.activity_id_incomming = 2;
-        }
-      } else {
-        this.tiene_solicitud_enviada = true;
-        this.activity_id_incomming = this.ultimo_registro.activity_id;
-        this.register.activity_id = this.ultimo_registro.activity_id;
-        if (this.activity_id_incomming == 1 || this.activity_id_incomming == 3) {
-          this.getDataFromLastRegister();
-          if (this.digitoEstadoUltimaSolicitud != '9') {
-            this.register.editable = false;
-          }
-          this.register_selected.emit(this.register);
-          return;
-        }
-      }
-    } else {
-      if (this.is_new_register) {
-        this.activity_id_incomming = 0;
-        return;
-      }
+    console.log(this.registers_on_establishment);
+  }
+
+  getDataToShowFromRegister(register_to_show) {
+    this.register = register_to_show;
+    this.register.activity_id = this.ultimo_registro.activity_id;
+    this.register_selected.emit(this.register);
+    this.getClasifications();
+    if (this.ultimo_registro.activity_id == 1) {
+      this.searchDataInRegisterTypeArray(this.register_types_alojamiento, this.ultimo_registro.register.register_type_id);
     }
-
-    // SON ALIMENTOS Y BEBIDAS (CUANDO SELECCIONE LA CLASIFICACION DEBO TRAER EL REGISTRO Y RETORNARLE SI LO TUVIESEN SINO RETORNO NUNEVO REGISTRO)
-
-    if (!this.is_new_register) {
-      if (this.register.system_source == 'SIETE') {
-        this.getDataFromIncommingInfo();
-        this.mostrarNumeroRegistro = true;
-        if (this.activity_id_incomming == 1 || this.activity_id_incomming == 3) {
-          
-          return;
-        } else {
-          this.activity_id_incomming = 2;
-        }
-         // PUEDE SER UN AB 
-         // REGISTRO SIETE SIN SOLICITUD ENVIADA
-      }
-      this.register.activity_id = this.activity_id_incomming;
-      this.mostrarNumeroRegistro = false;
+    if (this.ultimo_registro.activity_id == 2) {
+      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas, this.ultimo_registro.register.register_type_id);
+    }
+    if (this.ultimo_registro.activity_id == 3) {
+      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion, this.ultimo_registro.register.register_type_id);
     }
   }
 
-  getUltimaSolicitud() {
-    this.registers_on_establishment.forEach(element => {
-      const textoEstado = element.status_register.state_id.toString();
-      const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length); 
-      if (this.ultimo_registro == null) {
-        if (digitoEstado != '3'){
-          this.ultimo_registro = element;
-        }
-      } else {
-        if (digitoEstado != '3'){
-          const fechaUltimoRegistro = new Date(this.ultimo_registro.register.created_at.toString());
-          const fechaElementActual = new Date(element.register.created_at.toString());
-          if (fechaElementActual > fechaUltimoRegistro) {
-            this.ultimo_registro = element;
-          }
-        }
-      }
-    });
-    this.textoEstadoUltimaSolicitud = this.ultimo_registro.status_register.state_id.toString();
-    this.digitoEstadoUltimaSolicitud = this.textoEstadoUltimaSolicitud.substring(this.textoEstadoUltimaSolicitud.length-1, this.textoEstadoUltimaSolicitud.length);
+  getDataToShowFromIncommingInfo() {
+    if (this.activity_id_incomming == 1) {
+      this.searchDataInRegisterTypeArray(this.register_types_alojamiento);
+    }
+    if (this.activity_id_incomming == 2) {
+      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas);
+    }
+    if (this.activity_id_incomming == 3) {
+      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion);
+    }
   }
 
   searchDataInRegisterTypeArray(register_types_array: RegisterType[], register_type_id?: number) {
@@ -167,33 +120,6 @@ export class RegisterGeneralDataComponent implements OnInit {
           this.getCategories();
         }
       });
-    }
-  }
-
-  getDataFromLastRegister() {
-    this.register = this.ultimo_registro.register;
-    this.register.activity_id = this.ultimo_registro.activity_id;
-    this.getClasifications();
-    if (this.ultimo_registro.activity_id == 1) {
-      this.searchDataInRegisterTypeArray(this.register_types_alojamiento, this.ultimo_registro.register.register_type_id);
-    }
-    if (this.ultimo_registro.activity_id == 2) {
-      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas, this.ultimo_registro.register.register_type_id);
-    }
-    if (this.ultimo_registro.activity_id == 3) {
-      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion, this.ultimo_registro.register.register_type_id);
-    }
-  }
-
-  getDataFromIncommingInfo() {
-    if (this.activity_id_incomming == 1) {
-      this.searchDataInRegisterTypeArray(this.register_types_alojamiento);
-    }
-    if (this.activity_id_incomming == 2) {
-      this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas);
-    }
-    if (this.activity_id_incomming == 3) {
-      this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion);
     }
   }
 
