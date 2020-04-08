@@ -105,6 +105,7 @@ export class ClienteExternoComponent implements OnInit {
     }
     this.data_selected.establishment = establishment_selected;
     this.mostrarPasosInferiores = event.showData;
+    console.log("cambio Establishment Selected");
   }
 
   establishment_validated(event) {
