@@ -107,7 +107,7 @@ export class RequisitesDataComponent implements OnInit {
     if (this.register.id == 0) {
       return;
     }
-    this.authorizationAttachmentDataService.get_by_register_id(v).then( r => {
+    this.authorizationAttachmentDataService.get_by_register_id(this.register.id).then( r => {
       this.autorizacionCondomino = r as AuthorizationAttachment;
     }).catch( e => { console.log(e); });
   }
