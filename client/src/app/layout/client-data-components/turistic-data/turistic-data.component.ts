@@ -44,15 +44,15 @@ export class TuristicDataComponent implements OnInit {
     const registros_establecimiento = []; // TODOS LOS REGISTROS
     this.establishment_registers = [];
     this.registers_by_ruc = [
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-01-10',
         register_type_id: 1
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-02-10',
         register_type_id: 1
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-03-10',
         register_type_id: 1
       }},
@@ -60,15 +60,15 @@ export class TuristicDataComponent implements OnInit {
         created_at: '2019-01-10',
         register_type_id: 3
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-09-10',
         register_type_id: 3
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-03-10',
         register_type_id: 3
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-08-10',
         register_type_id: 2
       }},
@@ -76,17 +76,17 @@ export class TuristicDataComponent implements OnInit {
         created_at: '2019-05-10',
         register_type_id: 2
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-06-10',
         register_type_id: 2
       }},
-      {register: {
+      {establishment: {id:1}, register: {
         created_at: '2019-07-10',
         register_type_id: 2
       }},
     ];
     this.registers_by_ruc.forEach(element => {
-      if (element.establishment.id == this.establishment.id) {
+      if (element.establishment.id == 1) {
         registros_establecimiento.push(element);
       }  
     });
