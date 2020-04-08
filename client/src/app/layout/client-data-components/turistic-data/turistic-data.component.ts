@@ -179,6 +179,7 @@ export class TuristicDataComponent implements OnInit {
       } else {
         const textoEstado = element.status_register.state_id.toString();
         const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
+        toReturn = true;
         if (digitoEstado == 3) {
           // INACTIVACION RECHAZADA
         } else {
@@ -226,10 +227,22 @@ export class TuristicDataComponent implements OnInit {
       } else {
         if (this.activity_id_from_registers_actives == 1 ||
           this.activity_id_from_registers_actives == 3) {
+            let pendiente_encontrado = false;
             this.establishment_registers.forEach(element => {
-              if (element.activity_id == this.activity_id_from_registers_actives) {
-                this.register = element.register;
-                this.register.activity_id = element.activity_id;
+              if (element.register.code == 'PENDIENTE') {
+                if (element.activity_id == this.activity_id_from_registers_actives) {
+                  this.register = element.register;
+                  this.register.activity_id = element.activity_id;
+                  pendiente_encontrado = true;
+                }
+              }
+            });
+            this.establishment_registers.forEach(element => {
+              if (element.register.code !== 'PENDIENTE') {
+                if (element.activity_id == this.activity_id_from_registers_actives) {
+                  this.register = element.register;
+                  this.register.activity_id = element.activity_id;
+                }
               }
             });
         } else {
