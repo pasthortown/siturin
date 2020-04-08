@@ -31,13 +31,13 @@ export class TuristicDataComponent implements OnInit {
   
   activity_id_from_registers_actives = 0;
 
-  register_types_block: any = null;
+  register_types_block = {
+    register_types_alojamiento: [],
+    register_types_alimentos_bebidas: [],
+    register_types_operacion_intermediacion: []
+  };
 
   register_types: any[] = [];
-
-  register_types_alojamiento: RegisterType[] = [];
-  register_types_alimentos_bebidas: RegisterType[] = [];
-  register_types_operacion_intermediacion: RegisterType[] = [];
 
   constructor(private consultorDataService: ConsultorService) {
     
@@ -59,28 +59,26 @@ export class TuristicDataComponent implements OnInit {
 
   getRegisterTypes() {
     this.register_types = [];
-    this.register_types_alojamiento = [];
-    this.register_types_alimentos_bebidas = [];
-    this.register_types_operacion_intermediacion = [];
+    const register_types_alojamiento = [];
+    const register_types_alimentos_bebidas = [];
+    const register_types_operacion_intermediacion = [];
     this.consultorDataService.get_all_register_types().then( r => {
       // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3} 
       this.register_types = r as any[];
       this.register_types.forEach(element => {
         if (element.activity_id == 1) {
-          this.register_types_alojamiento.push(element.register_type);
+          register_types_alojamiento.push(element.register_type);
         }
         if (element.activity_id == 2) {
-          this.register_types_alimentos_bebidas.push(element.register_type);
+          register_types_alimentos_bebidas.push(element.register_type);
         }
         if (element.activity_id == 3) {
-          this.register_types_operacion_intermediacion.push(element.register_type);
+          register_types_operacion_intermediacion.push(element.register_type);
         }
       });
-      this.register_types_block = {
-        register_types_alojamiento: this.register_types_alojamiento,
-        register_types_alimentos_bebidas: this.register_types_alimentos_bebidas,
-        register_types_operacion_intermediacion: this.register_types_operacion_intermediacion
-      };
+      this.register_types_block.register_types_alojamiento = register_types_alojamiento;
+      this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
+      this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
     }).catch( e => { console.log(e); });
   }
 
@@ -134,13 +132,13 @@ export class TuristicDataComponent implements OnInit {
     console.log(this.establishment_registers);
     let sourceArray = [];
     if (this.register.activity_id == 1) {
-      sourceArray = this.register_types_alojamiento;
+      sourceArray = this.register_types_block.register_types_alojamiento;
     }
     if (this.register.activity_id == 2) {
-      sourceArray = this.register_types_alimentos_bebidas;
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
     }
     if (this.register.activity_id == 3) {
-      sourceArray = this.register_types_operacion_intermediacion;
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
     this.searchForRegister(sourceArray, this.register.activity_id, this.register.classification_selected_code, this.register.region_selected_code);
     console.log(this.register_validated);
