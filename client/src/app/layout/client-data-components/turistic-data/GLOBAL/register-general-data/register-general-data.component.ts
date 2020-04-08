@@ -139,24 +139,19 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   getDataToShowFromIncommingInfo() {
-    console.log(this.activity_id_incomming);
     if (this.activity_id_incomming == 1) {
-      console.log('entre');
       this.searchDataInRegisterTypeArray(this.register_types_alojamiento);
     }
     if (this.activity_id_incomming == 2) {
-      console.log('mal');
       this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas);
     }
     if (this.activity_id_incomming == 3) {
-      console.log('pesimo');
       this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion);
     }
   }
 
   searchDataInRegisterTypeArray(register_types_array: RegisterType[], register_type_id?: number) {
     if (typeof register_type_id == 'undefined') {
-      console.log('excelente');
       this.getClasifications();
       register_types_array.forEach(element => {
         if ((element.name == this.register.classification_incomming) && element.father_code == this.regionSelectedCode) {
@@ -170,7 +165,6 @@ export class RegisterGeneralDataComponent implements OnInit {
         }
       });
     } else {
-      console.log('orrible');
       register_types_array.forEach(element => {
         if (element.id == register_type_id) {
           this.classificationSelectedCode = element.father_code;
