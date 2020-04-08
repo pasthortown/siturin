@@ -3,7 +3,7 @@ import { RegisterType } from './../../../models/ALIMENTOSBEBIDAS/RegisterType';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../models/BASE/Establishment';
 import { Ruc } from './../../../models/DINARDAP/Ruc';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
