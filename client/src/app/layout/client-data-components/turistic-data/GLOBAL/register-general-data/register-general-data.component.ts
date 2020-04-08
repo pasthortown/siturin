@@ -72,7 +72,6 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
     this.getRegisterTypes();
     this.getRegiones();
-    this.refresh();
   }
 
   getRegisterTypes() {
