@@ -76,9 +76,11 @@ export class TuristicDataComponent implements OnInit {
           register_types_operacion_intermediacion.push(element.register_type);
         }
       });
-      this.register_types_block.register_types_alojamiento = register_types_alojamiento;
-      this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
-      this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+      this.register_types_block = {
+        register_types_alojamiento: register_types_alojamiento,
+        register_types_alimentos_bebidas: register_types_alimentos_bebidas,
+        register_types_operacion_intermediacion: register_types_operacion_intermediacion
+      };
     }).catch( e => { console.log(e); });
   }
 
