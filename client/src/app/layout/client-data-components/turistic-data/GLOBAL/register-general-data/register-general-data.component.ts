@@ -74,9 +74,7 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.tiene_solicitud_enviada = false;
     const hasActives = this.hasActiveRegisters();
     if (!this.is_new_register) {
-      console.log('entre');
       if (this.register.state_on_catastro == 'CERRADO') {
-        console.log('mal');
           if (!hasActives) {
             this.activity_id_incomming = 0;
             this.register.activity_id = 0;
@@ -86,9 +84,7 @@ export class RegisterGeneralDataComponent implements OnInit {
             this.getClasifications();
           }
       } else {
-        console.log('bien');
         if (this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN') {
-          console.log('excelente');
           this.getDataToShowFromIncommingInfo();
           this.mostrarNumeroRegistro = true;
           this.registers_on_establishment.forEach(element => {
@@ -99,7 +95,6 @@ export class RegisterGeneralDataComponent implements OnInit {
           });
           this.changeCategory();
         } else {
-          console.log('pesimo');
           this.register.activity_id = this.activity_id_incomming;
           this.getClasifications();
         }
@@ -143,19 +138,24 @@ export class RegisterGeneralDataComponent implements OnInit {
   }
 
   getDataToShowFromIncommingInfo() {
+    console.log(this.activity_id_incomming);
     if (this.activity_id_incomming == 1) {
+      console.log('entre');
       this.searchDataInRegisterTypeArray(this.register_types_alojamiento);
     }
     if (this.activity_id_incomming == 2) {
+      console.log('mal');
       this.searchDataInRegisterTypeArray(this.register_types_alimentos_bebidas);
     }
     if (this.activity_id_incomming == 3) {
+      console.log('pesimo');
       this.searchDataInRegisterTypeArray(this.register_types_operacion_intermediacion);
     }
   }
 
   searchDataInRegisterTypeArray(register_types_array: RegisterType[], register_type_id?: number) {
     if (typeof register_type_id == 'undefined') {
+      console.log('excelente');
       this.getClasifications();
       register_types_array.forEach(element => {
         if ((element.name == this.register.classification_incomming) && element.father_code == this.regionSelectedCode) {
@@ -169,6 +169,7 @@ export class RegisterGeneralDataComponent implements OnInit {
         }
       });
     } else {
+      console.log('orrible');
       register_types_array.forEach(element => {
         if (element.id == register_type_id) {
           this.classificationSelectedCode = element.father_code;
