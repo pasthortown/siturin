@@ -210,6 +210,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   validateInitialData() {
+    console.log('entre');
     const hasActives = this.hasActiveRegisters();
     if (!this.is_new_register) {
       if (this.register.state_on_catastro == 'CERRADO') {
