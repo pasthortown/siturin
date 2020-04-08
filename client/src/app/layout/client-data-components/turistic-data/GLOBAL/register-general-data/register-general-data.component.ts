@@ -70,6 +70,9 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.activate_alojamiento = this.modules_activation.activate_alojamiento;
     this.activate_alimentos_bebidas = this.modules_activation.activate_alojamiento;
     this.activate_operacion_intermediacion = this.modules_activation.activate_alojamiento;
+    console.log(this.register_types);
+    console.log(this.register_types_alojamiento);
+    
     this.getRegiones();
     this.refresh();
   }
