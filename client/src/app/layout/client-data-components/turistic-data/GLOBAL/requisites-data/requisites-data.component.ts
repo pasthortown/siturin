@@ -69,6 +69,9 @@ export class RequisitesDataComponent implements OnInit {
 
   refresh() {
     this.actividadSelected = this.register.activity_id;
+    this.getCertificadoUsoSuelo();
+    this.getTituloPropiedad();
+    this.getAutorizacionCondominos();
   }
 
   loadCategoriesAB() {
