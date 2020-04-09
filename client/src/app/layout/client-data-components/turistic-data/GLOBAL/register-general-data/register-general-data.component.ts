@@ -182,7 +182,10 @@ export class RegisterGeneralDataComponent implements OnInit {
     });
   }
 
-  getClasifications() {
+  getClasifications(reset?: boolean) {
+    if (typeof reset != 'undefined') {
+      this.classificationSelectedCode = '-';  
+    }
     this.clasifications_registers = [];
     let sourceArray = [];
     if (this.register.activity_id == 0) {
@@ -200,7 +203,10 @@ export class RegisterGeneralDataComponent implements OnInit {
     this.buildCatalogFromArray(sourceArray, this.clasifications_registers, this.regionSelectedCode);
   }
 
-  getCategories() {
+  getCategories(reset?: boolean) {
+    if (typeof reset != 'undefined') {
+      this.register.register_type_id = 0;  
+    }
     this.categories_registers = [];
     let sourceArray = [];
     if (this.register.activity_id == 0) {
