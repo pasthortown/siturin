@@ -300,7 +300,8 @@ export class RegisterGeneralDataComponent implements OnInit {
     let data_output = { 
       register_type_id: this.register.register_type_id,
       register_classification: this.classificationSelectedCode,
-      register_region_code: this.regionSelectedCode
+      register_region_code: this.regionSelectedCode,
+      activity_id: this.register.activity_id
     };
     this.finish_selected.emit(data_output);
   }

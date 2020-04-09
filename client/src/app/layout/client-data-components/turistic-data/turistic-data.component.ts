@@ -283,18 +283,19 @@ export class TuristicDataComponent implements OnInit {
   
   classification_category_selected(event) {
     let sourceArray = [];
-    if (this.register.activity_id == 1) {
+    if (event.activity_id == 1) {
       sourceArray = this.register_types_block.register_types_alojamiento;
     }
-    if (this.register.activity_id == 2) {
+    if (event.activity_id == 2) {
       sourceArray = this.register_types_block.register_types_alimentos_bebidas;
     }
-    if (this.register.activity_id == 3) {
+    if (event.activity_id == 3) {
       sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
     this.classificationSelectedCode = event.register_classification;
     this.register_validated.register_type_id = event.register_type_id;
-    this.searchForRegister(sourceArray, this.register.activity_id, event.register_classification, event.register_region_code);
+    this.register_validated.activity_id = event.activity_id;
+    this.searchForRegister(sourceArray, event.activity_id, event.register_classification, event.register_region_code);
   }
 
   searchForRegister(register_types_array: RegisterType[], activity_id: number, classificationSelectedCode: String, regionSelectedCode: String) {
