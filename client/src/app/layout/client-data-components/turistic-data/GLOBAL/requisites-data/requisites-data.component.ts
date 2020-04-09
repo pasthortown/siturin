@@ -68,7 +68,9 @@ export class RequisitesDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log(this.register);
+    if (this.register.activity_id == 2) {
+      this.calcTotalPoints();
+    }
     this.getCertificadoUsoSuelo();
     this.getTituloPropiedad();
     this.getAutorizacionCondominos();
