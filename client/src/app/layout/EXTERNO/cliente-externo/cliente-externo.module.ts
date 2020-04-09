@@ -1,3 +1,5 @@
+import { CapacidadesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/capacidades-al-data/capacidades-al-data.component';
+import { ComplementaryServicesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/complementary-services-al-data/complementary-services-al-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -66,6 +68,7 @@ import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIM
 import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
+import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicefoodtype.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -93,7 +96,9 @@ import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servi
     AdventureDataComponent,
     RequisitesDataComponent,
     PrestacionesABDataComponent,
-    CapcidadesABDataComponent
+    CapcidadesABDataComponent,
+    ComplementaryServicesALDataComponent,
+    CapacidadesALDataComponent
   ],
   providers: [
     UserService,
@@ -102,6 +107,7 @@ import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servi
     PropertyTitleAttachmentService,
     FloorAuthorizationCertificateService,
     ConsultorService,
+    ComplementaryServiceFoodTypeService,
     ComplementaryServiceTypeService,
     DinardapService,
     CatastroRegisterService,

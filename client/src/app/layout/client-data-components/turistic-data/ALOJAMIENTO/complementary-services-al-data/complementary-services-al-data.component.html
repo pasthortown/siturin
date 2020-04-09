@@ -1,0 +1,60 @@
+<div class="row" *ngIf="register.register_type_id !== 47 || register.register_type_id !== 46">
+    <div class="col-12">
+        <label><strong>Servicios Complementarios</strong></label>
+    </div>
+    <div class="form-group">
+        <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
+        <div class="col-12">
+            <div class="onoffswitch">
+                <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities" name="autorized_complementary_services_capacities" [(ngModel)]="register.autorized_complementary_food_capacities" [disabled]="!editable"/>
+                <label class="onoffswitch-label" for="autorized_complementary_services_capacities">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="register.autorized_complementary_food_capacities">
+    <div class="col-12">
+        <table class="table table-hover mt-2">
+            <thead>
+                <th>
+                    <button type="button" title="Agregar" class="btn btn-success ml-2" (click)="addComplementaryFoodService()" [disabled]="!editable">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                </th>
+                <th>Clasificación</th>
+                <th>Cantidad de Mesas</th>
+                <th>Cantidad de Plazas</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                <tr (click)="selectComplementaryFoodService(complementaryServiceFood)" *ngFor="let complementaryServiceFood of register.complementary_service_foods_on_register">
+                    <td class="text-right">
+                        <span *ngIf="complementaryServiceFood.complementary_service_food_type_id == 0" class="ml-2 badge badge-danger">Incorrecto</span>
+                    </td>
+                    <td>
+                        <select class="form-control" id="complementary_service_food_id" name="complementary_service_food_id" [(ngModel)]="complementaryServiceFood.complementary_service_food_type_id" [disabled]="!editable">
+                            <option value="0" selected>Seleccione...</option>
+                            <option *ngFor="let complementary_food_service_type of complementaryServiceFoodTypes" value="{{ complementary_food_service_type.id }}">
+                                {{ complementary_food_service_type.name }}
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" min="0" id="mesas" name="mesas" placeholder="Cantidad de Mesas" [(ngModel)]="complementaryServiceFood.quantity_tables" (input)="complementaryServiceFood.quantity_chairs = complementaryServiceFood.quantity_tables * 4" [disabled]="!editable"/>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" min="0" id="sillas" name="sillas" placeholder="Cantidad de Plazas" [disabled]="!editable" [(ngModel)]="complementaryServiceFood.quantity_chairs"/>
+                    </td>
+                    <td>
+                        <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeComplementaryFoodService(complementaryServiceFood)" [disabled]="!editable">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

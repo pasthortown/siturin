@@ -9,6 +9,11 @@
     [editable]="editable" 
     [modules_activation]="modules_activation">
 </app-register-general-data>
+<app-capacidades-al-data *ngIf="register_validated.activity_id == 1"></app-capacidades-al-data>
+<app-complementary-services-al-data *ngIf="register_validated.activity_id == 1"
+    [register]="register_validated"
+    [editable]="editable">
+</app-complementary-services-al-data>
 <app-capcidades-ab-data *ngIf="register_validated.activity_id == 2" 
     [register]="register_validated"
     [editable]="editable">
