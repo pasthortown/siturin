@@ -2,7 +2,7 @@
     <h4 class="col-12">
         <strong>Normativa</strong>&nbsp;
     </h4>
-    <div class="col-12" *ngIf="actividadSelected == 2 && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
+    <div class="col-12" *ngIf="register.activity_id == 2 && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
         <div class="alert alert-info" role="alert">
             <label class="col-12 text-justify"><strong>Información:</strong></label>
             <p class="col-12 text-justify">La sumatoria total de puntos (respuestas SI), seleccionado es <strong>{{totalAbPointsSelected}}</strong> de un total de <strong>{{totalAviable}}</strong> puntos. Con lo cual el puntaje de categorización obtenido es: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>.<br/>La categoría obtenida es: <strong>{{categoryAB}}</strong></p>
@@ -21,7 +21,7 @@
             <tbody>
                 <tr *ngFor="let register_requisite of requisites">
                     <td>
-                        <label *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' && register_requisite.HTMLtype !== 'GRUPO 1' && register_requisite.HTMLtype !== 'GRUPO 2' && register_requisite.HTMLtype !== 'GRUPO 3' && register_requisite.HTMLtype !== 'GRUPO 4' && register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="actividadSelected == 2 && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
+                        <label *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' && register_requisite.HTMLtype !== 'GRUPO 1' && register_requisite.HTMLtype !== 'GRUPO 2' && register_requisite.HTMLtype !== 'GRUPO 3' && register_requisite.HTMLtype !== 'GRUPO 4' && register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="register.activity_id == 2 && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
                         <h5><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></h5>
                         <h6><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></h6>
                         <strong *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
@@ -174,7 +174,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-12" *ngIf="actividadSelected == 2 && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
+    <div class="col-12" *ngIf="register.activity_id == 2 && (categoryAB !== 'Categoría única') && (categoryAB !== 'Pendiente')">
         <div class="alert alert-info" role="alert">
             <label class="col-12 text-justify"><strong>Información:</strong></label>
             <p class="col-12 text-justify">La sumatoria total de puntos (respuestas SI), seleccionado es <strong>{{totalAbPointsSelected}}</strong> de un total de <strong>{{totalAviable}}</strong> puntos. Con lo cual el puntaje de categorización obtenido es: <strong>{{totalABPuntosShown | number : '1.2-2'}}</strong>.<br/>La categoría obtenida es: <strong>{{categoryAB}}</strong></p>

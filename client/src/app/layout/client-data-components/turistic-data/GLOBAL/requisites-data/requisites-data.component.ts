@@ -34,7 +34,7 @@ export class RequisitesDataComponent implements OnInit {
   @Output('property_title') property_title: EventEmitter<any> = new EventEmitter<any>();
   @Output('floor_authorization_certificate') floor_authorization_certificate: EventEmitter<any> = new EventEmitter<any>();
 
-  actividadSelected = 0;
+  register.activity_id = 0;
   categoryAB = 'Pendiente';
   categories_registers_AB = [];
 
@@ -69,7 +69,6 @@ export class RequisitesDataComponent implements OnInit {
   }
 
   refresh() {
-    this.actividadSelected = this.register.activity_id;
     this.getCertificadoUsoSuelo();
     this.getTituloPropiedad();
     this.getAutorizacionCondominos();
@@ -129,7 +128,7 @@ export class RequisitesDataComponent implements OnInit {
     } else {
       register_requisite.value = 'false';
     }
-    if (this.actividadSelected == 2) {
+    if (this.register.activity_id == 2) {
       this.calcTotalPoints();
     }
   }

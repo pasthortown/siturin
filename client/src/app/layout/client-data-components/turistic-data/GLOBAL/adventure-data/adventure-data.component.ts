@@ -13,7 +13,6 @@ export class AdventureDataComponent implements OnInit {
   @Input('register') register: Register = new Register();
   @Input('editable') editable: boolean = true;
   
-  actividadSelected = 0;
   complementary_service_types_all: ComplementaryServiceType[] = [];
   complementary_service_types: ComplementaryServiceType[] = [];
   complementary_service_types_categories: ComplementaryServiceType[] = [];
@@ -34,7 +33,7 @@ export class AdventureDataComponent implements OnInit {
   }
 
   refresh() {
-    this.actividadSelected = this.register.activity_id;
+    
   }
 
   loadCatalogos() {

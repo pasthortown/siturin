@@ -1,4 +1,4 @@
-<div class="row mt-3" *ngIf="!(actividadSelected == '1' && (register.register_type_id == 47 || register.register_type_id == 46))">
+<div class="row mt-3" *ngIf="!(register.activity_id == '1' && (register.register_type_id == 47 || register.register_type_id == 46))">
     <h4 class="col-12">
         <strong>Modalidades de Turismo de Aventura</strong>
     </h4>
@@ -10,8 +10,8 @@
     </small>
     <div class="col-12">
         <div class="form-group">
-            <label *ngIf="actividadSelected == 1 || actividadSelected == 2">¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
-            <label *ngIf="actividadSelected == 3">¿Su establecimiento oferta alguna modalidad de turismo de aventura?</label>
+            <label *ngIf="register.activity_id == 1 || register.activity_id == 2">¿Su establecimiento oferta alguna modalidad de turismo de aventura, dentro de sus linderos?</label>
+            <label *ngIf="register.activity_id == 3">¿Su establecimiento oferta alguna modalidad de turismo de aventura?</label>
             <div class="col-12">
                 <div class="onoffswitch">
                     <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_adventure_capacities" name="autorized_complementary_adventure_capacities" [(ngModel)]="register.autorized_complementary_capacities" [disabled]="!editable"/>
