@@ -9,12 +9,11 @@
     [editable]="editable" 
     [modules_activation]="modules_activation">
 </app-register-general-data>
-<app-adventure-data></app-adventure-data>
+<app-adventure-data [register]="register_validated" [editable]="editable"></app-adventure-data>
 <app-requisites-data (authorization_condominos)="authorization_condominos($event)" 
     (property_title)="property_title($event)" 
     (floor_authorization_certificate)="floor_authorization_certificate($event)" 
-    [register_types_block]="register_types_block" 
-    [is_new_register]="is_new_register" 
+    [register_types_block]="register_types_block"
     [establishment]="establishment" 
     [register]="register_validated" 
     [editable]="editable" 

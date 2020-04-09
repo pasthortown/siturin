@@ -22,7 +22,6 @@ export class RequisitesDataComponent implements OnInit {
   @Input('establishment') establishment: Establishment = new Establishment();
   @Input('register') register: Register = new Register();
   @Input('editable') editable: boolean = true;
-  @Input('is_new_register') is_new_register: boolean = true;
   @Input('requisites') requisites: any[] = [];
   
   @Input('register_types_block') register_types_block = {
