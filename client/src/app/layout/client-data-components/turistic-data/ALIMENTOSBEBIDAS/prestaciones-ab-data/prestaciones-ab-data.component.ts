@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Register } from './../../../../../models/ALOJAMIENTO/Register';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-prestaciones-ab-data',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prestaciones-ab-data.component.scss']
 })
 export class PrestacionesABDataComponent implements OnInit {
+  @Input('register') register: Register = new Register();
+  @Input('editable') editable: boolean = true;
   
   constructor() {
     
