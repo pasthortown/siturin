@@ -339,7 +339,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   showRegisterData() {
-    console.log(this.register_validated);
     if (this.register_validated.id == 0) {
       this.startRequisitesByRegisterType();  
     } else {
@@ -365,6 +364,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   dataRegisterRecived() {
+    console.log(this.register_data_from_BDD);
     this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
   }
 
