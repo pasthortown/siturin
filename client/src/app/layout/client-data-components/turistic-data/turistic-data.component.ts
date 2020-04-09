@@ -288,7 +288,6 @@ export class TuristicDataComponent implements OnInit {
     this.classificationSelectedCode = event.register_classification;
     this.register_validated.register_type_id = event.register_type_id;
     this.searchForRegister(sourceArray, this.register.activity_id, event.register_classification, event.register_region_code);
-    this.showRegisterRequisites();
   }
 
   searchForRegister(register_types_array: RegisterType[], activity_id: number, classificationSelectedCode: String, regionSelectedCode: String) {
@@ -307,6 +306,7 @@ export class TuristicDataComponent implements OnInit {
     }
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
+    this.showRegisterRequisites();
   }
 
   getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
