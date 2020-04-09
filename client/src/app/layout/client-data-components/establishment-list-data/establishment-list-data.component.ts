@@ -57,6 +57,7 @@ export class EstablishmentListDataComponent implements OnInit {
 
   refresh() {
     this.getRegistersMintur();
+    this.change.emit({establishment: new Establishment(), showData: false});
   }
 
   getRegistersMintur() {
