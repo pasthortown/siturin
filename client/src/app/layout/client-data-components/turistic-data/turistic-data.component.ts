@@ -1,3 +1,6 @@
+import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
 import { RegisterRequisite } from './../../../models/ALIMENTOSBEBIDAS/RegisterRequisite';
 import { RequisiteService as RequisiteOPService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
 import { RequisiteService as RequisiteALService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
@@ -32,6 +35,7 @@ export class TuristicDataComponent implements OnInit {
   activity_id_from_registers_actives = 0;
 
   register_validated: Register = new Register();
+  register_data_from_BDD: any = null;
 
   modules_activation: any = {
     activate_alojamiento: true,
@@ -62,7 +66,10 @@ export class TuristicDataComponent implements OnInit {
   constructor(private consultorDataService: ConsultorService,
     private requisite_operacion_intermediacion_data_service: RequisiteOPService,
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
-    private requisite_alojamiento_data_service: RequisiteALService) {
+    private requisite_alojamiento_data_service: RequisiteALService,
+    private register_operacion_intermediacion_data_service: RegisterOPService,
+    private register_alimentos_bebidas_data_service: RegisterABService,
+    private register_alojamiento_data_service: RegisterALService) {
     
   }
 
@@ -306,7 +313,7 @@ export class TuristicDataComponent implements OnInit {
     }
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
-    this.showRegisterRequisites();
+    this.showRegisterData();
   }
 
   getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
@@ -331,12 +338,33 @@ export class TuristicDataComponent implements OnInit {
     this.attachments.floor_authorization_certificate = event;
   }
 
-  showRegisterRequisites() {
+  showRegisterData() {
     if (this.register_validated.id == 0) {
       this.getRequisitesByRegisterType();  
     } else {
-      this.getRequisitesByRegisterType();
+      if (this.register_validated.activity_id == 1) {
+        this.register_alojamiento_data_service.get_register_data(this.register_validated.id).then( r => {
+          this.register_data_from_BDD = r;
+          this.dataRegisterRecived();
+        }).catch( e => { console.log(e); });
+      }
+      if (this.register_validated.activity_id == 2) {
+        this.register_alimentos_bebidas_data_service.get_register_data(this.register_validated.id).then( r => {
+          this.register_data_from_BDD = r;
+          this.dataRegisterRecived();
+        }).catch( e => { console.log(e); });
+      }
+      if (this.register_validated.activity_id == 3) {
+        this.register_operacion_intermediacion_data_service.get_register_data(this.register_validated.id).then( r => {
+          this.register_data_from_BDD = r;
+          this.dataRegisterRecived();
+        }).catch( e => { console.log(e); });
+      }
     }
+  }
+
+  dataRegisterRecived() {
+    this.getRequisitesByRegisterType(this.register_data_from_BDD.requisites);
   }
 
   getRequisitesByRegisterType(requisites_incommming?: RegisterRequisite[]) {
