@@ -1,7 +1,7 @@
 import { RegisterRequisite } from './../../../models/ALIMENTOSBEBIDAS/RegisterRequisite';
 import { RequisiteService as RequisiteOPService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
-import { RequisiteService as RequisiteALService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
-import { RequisiteService as RequisiteABService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteALService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { AuthorizationAttachment } from './../../../models/ALOJAMIENTO/AuthorizationAttachment';
 import { PropertyTitleAttachment } from './../../../models/ALOJAMIENTO/PropertyTitleAttachment';
 import { FloorAuthorizationCertificate } from './../../../models/BASE/FloorAuthorizationCertificate';
