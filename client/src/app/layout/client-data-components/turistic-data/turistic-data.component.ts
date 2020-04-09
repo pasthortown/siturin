@@ -365,7 +365,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   dataRegisterRecived() {
-    console.log('super');
     this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
   }
 
@@ -413,7 +412,6 @@ export class TuristicDataComponent implements OnInit {
         }
       }).catch( e => { console.log(e) });
     }
-    console.log(this.requisites);
   }
 
   organize_requisites(requisitesByRegisterType: any[], requisites_incommming?: RegisterRequisite[]) {
