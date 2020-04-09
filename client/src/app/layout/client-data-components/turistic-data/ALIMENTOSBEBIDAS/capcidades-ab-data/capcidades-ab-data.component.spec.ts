@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CapacidadesDataComponent } from './capacidades-data.component';
+import { CapcidadesABDataComponent } from './capcidades-ab-data.component';
 
-describe('CapacidadesDataComponent', () => {
-  let component: CapacidadesDataComponent;
-  let fixture: ComponentFixture<CapacidadesDataComponent>;
+describe('CapcidadesABDataComponent', () => {
+  let component: CapcidadesABDataComponent;
+  let fixture: ComponentFixture<CapcidadesABDataComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CapacidadesDataComponent ]
+      declarations: [ CapcidadesABDataComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CapacidadesDataComponent);
+    fixture = TestBed.createComponent(CapcidadesABDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
