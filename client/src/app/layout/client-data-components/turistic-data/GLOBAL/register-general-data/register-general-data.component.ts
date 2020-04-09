@@ -211,6 +211,9 @@ export class RegisterGeneralDataComponent implements OnInit {
     }
     if (this.register.activity_id == 1) {
       sourceArray = this.register_types_block.register_types_alojamiento;
+      if (this.register.register_type_id != 0) {
+        this.notificar();
+      }
     }
     if (this.register.activity_id == 2) {
       sourceArray = this.register_types_block.register_types_alimentos_bebidas;
