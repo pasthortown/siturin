@@ -294,7 +294,6 @@ export class TuristicDataComponent implements OnInit {
     }
     this.classificationSelectedCode = event.register_classification;
     this.register_validated.register_type_id = event.register_type_id;
-    this.register_validated.activity_id = event.activity_id;
     this.searchForRegister(sourceArray, event.activity_id, event.register_classification, event.register_region_code);
   }
 
@@ -419,15 +418,17 @@ export class TuristicDataComponent implements OnInit {
   organize_requisites(requisitesByRegisterType: any[], requisites_incommming?: RegisterRequisite[]) {
     requisitesByRegisterType.forEach(element => {
       const newRegisterRequisite = new RegisterRequisite();
+      newRegisterRequisite.to_approve = element.to_approve;
+      newRegisterRequisite.score = element.score;
       newRegisterRequisite.requisite_name = element.name;
       newRegisterRequisite.requisite_id = element.id;
       newRegisterRequisite.fullfill = true;
       newRegisterRequisite.requisite_code = element.code;
       newRegisterRequisite.mandatory = element.mandatory;
+      newRegisterRequisite.id = element.id;
       newRegisterRequisite.requisite_father_code = element.father_code;
       newRegisterRequisite.level = element.code.split('.').length;
       newRegisterRequisite.HTMLtype = element.type;
-      newRegisterRequisite.id = element.id;
       newRegisterRequisite.fullfill = false;
       if (newRegisterRequisite.HTMLtype == 'YES / NO') {
         newRegisterRequisite.value = '0';
