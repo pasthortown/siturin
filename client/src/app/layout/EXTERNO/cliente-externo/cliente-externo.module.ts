@@ -64,6 +64,8 @@ import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
+import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
+import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -105,6 +107,8 @@ import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPER
     CatastroRegisterService,
     GroupTypeService,
     LanguageService,
+    KitchenTypeService,
+    ServiceTypeService,
     PersonRepresentativeAttachmentService,
     RucService,
     DeclarationService,
