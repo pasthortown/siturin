@@ -340,7 +340,7 @@ export class TuristicDataComponent implements OnInit {
 
   showRegisterData() {
     if (this.register_validated.id == 0) {
-      this.getRequisitesByRegisterType();  
+      this.startRequisitesByRegisterType();  
     } else {
       if (this.register_validated.activity_id == 1) {
         this.register_alojamiento_data_service.get_register_data(this.register_validated.id).then( r => {
@@ -364,10 +364,10 @@ export class TuristicDataComponent implements OnInit {
   }
 
   dataRegisterRecived() {
-    this.getRequisitesByRegisterType(this.register_data_from_BDD.requisites);
+    this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
   }
 
-  getRequisitesByRegisterType(requisites_incommming?: RegisterRequisite[]) {
+  startRequisitesByRegisterType(requisites_incommming?: RegisterRequisite[]) {
     this.requisites = [];
     let filter = 0;
     this.showRequisites = false;
