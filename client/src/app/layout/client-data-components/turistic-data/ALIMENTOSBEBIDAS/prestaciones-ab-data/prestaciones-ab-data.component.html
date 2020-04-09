@@ -1,1 +1,98 @@
-prestaciones-ab-data dont works
+<div class="row mt-3" *ngIf="classification_selected_code == '1.1' || classification_selected_code == '1.2' || classification_selected_code == '1.3' || classification_selected_code == '2.1' || classification_selected_code == '2.2' || classification_selected_code == '2.3'">
+    <h4 class="col-12">
+        <strong>Tipo de Servicio</strong>
+        <span *ngIf="register.service_types_on_register === []" class="ml-2 badge badge-danger">Incorrecto</span>
+    </h4>
+    <small class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Información</strong></label>
+            <p class="col-12 text-justify">Registre los tipos de servicio que ofrece su establecimiento.</p>
+        </div>
+    </small>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="input-group" *ngIf="editable">
+                    <div class="input-group-prepend">
+                        <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeServiceType()" [disabled]="!editable">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button type="button" title="Agregar" class="btn btn-success" (click)="addServiceType()" [disabled]="!editable">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                    <select class="form-control" id="service_type_registerSelectedId" name="service_type" [(ngModel)]="service_type_registerSelectedId" [disabled]="!editable">
+                        <option value="0" selected>Seleccione...</option>
+                        <option *ngFor="let service_type of service_types " value="{{ service_type.id }}">
+                            {{ service_type.description }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-8">
+                <table class="table table-hover mt-2">
+                    <tbody>
+                        <tr *ngFor="let service_type of register.service_types_on_register" (click)="selectServiceType(service_type)">
+                            <td class="text-right">
+                                <span *ngIf="service_type_registerSelectedId === service_type.id" class="far fa-hand-point-right"></span>
+                            </td>
+                            <td>
+                                {{ service_type.description }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3" *ngIf="classification_selected_code == '1.1' || classification_selected_code == '1.2' || classification_selected_code == '1.3' || classification_selected_code == '1.5' || classification_selected_code == '1.7' || classification_selected_code == '2.1' || classification_selected_code == '2.2' || classification_selected_code == '2.3' || classification_selected_code == '2.5' || classification_selected_code == '2.7'">
+    <h4 class="col-12">
+        <strong>Tipo de Cocina</strong>
+        <span *ngIf="register.kitchen_types_on_register === []" class="ml-2 badge badge-danger">Incorrecto</span>
+    </h4>
+    <small class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Información</strong></label>
+            <p class="col-12 text-justify">Si requiere la adición de un tipo de cocina en el listado, comuníquese con el Ministerio de Turismo.</>
+        </div>
+    </small>
+    <div class="col-12">
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="input-group" *ngIf="editable">
+                    <div class="input-group-prepend">
+                        <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeKitchenType()" [disabled]="!editable">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button type="button" title="Agregar" class="btn btn-success" (click)="addKitchenType()" [disabled]="!editable">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                    <select class="form-control" id="kitchen_type_registerSelectedId" name="kitchen_type" [(ngModel)]="kitchen_type_registerSelectedId" [disabled]="!editable">
+                        <option value="0" selected>Seleccione...</option>
+                        <option *ngFor="let kitchen_type of kitchen_types" value="{{ kitchen_type.id }}">
+                            {{ kitchen_type.description }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-8">
+                <table class="table table-hover mt-2">
+                    <tbody>
+                        <tr *ngFor="let kitchen_type of register.kitchen_types_on_register" (click)="selectKitchenType(kitchen_type)">
+                            <td class="text-right">
+                                <span *ngIf="kitchen_type_registerSelectedId === kitchen_type.id" class="far fa-hand-point-right"></span>
+                            </td>
+                            <td>
+                                {{ kitchen_type.description }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
