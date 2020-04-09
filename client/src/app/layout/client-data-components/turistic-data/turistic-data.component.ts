@@ -306,11 +306,11 @@ export class TuristicDataComponent implements OnInit {
         }
       }
     });
-    this.register_validated.activity_id = activity_id;
     if (register_found != null) {
       this.register_validated = register_found.register;
       this.register.register_type_id = register_found.register.register_type_id;
     }
+    this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
     this.showRegisterData();
@@ -341,10 +341,8 @@ export class TuristicDataComponent implements OnInit {
   showRegisterData() {
     console.log(this.register_validated);
     if (this.register_validated.id == 0) {
-      console.log('bien');
       this.startRequisitesByRegisterType();  
     } else {
-      console.log('muy bien');
       if (this.register_validated.activity_id == 1) {
         this.register_alojamiento_data_service.get_register_data(this.register_validated.id).then( r => {
           this.register_data_from_BDD = r;
