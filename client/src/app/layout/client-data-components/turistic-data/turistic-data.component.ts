@@ -383,6 +383,7 @@ export class TuristicDataComponent implements OnInit {
         }
       }).catch( e => { console.log(e) });
     }
+    console.log(this.requisites);
   }
 
   organize_requisites(requisitesByRegisterType: any[], requisites_incommming?: RegisterRequisite[]) {
