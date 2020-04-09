@@ -58,6 +58,9 @@ import { RequisiteService as RequisiteALService } from './../../../services/CRUD
 import { RequisiteService as RequisiteABService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
 
 import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
+import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -113,6 +116,9 @@ import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
     RequisiteOPService,
     RequisiteALService,
     RequisiteABService,
+    RegisterALService,
+    RegisterABService,
+    RegisterOPService,
     UbicationService
   ]
 })
