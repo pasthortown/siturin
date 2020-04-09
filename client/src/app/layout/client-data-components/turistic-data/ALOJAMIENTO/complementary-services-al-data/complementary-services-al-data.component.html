@@ -2,15 +2,17 @@
     <div class="col-12">
         <label><strong>Servicios Complementarios</strong></label>
     </div>
-    <div class="form-group">
-        <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
-        <div class="col-12">
-            <div class="onoffswitch">
-                <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities" name="autorized_complementary_services_capacities" [(ngModel)]="register.autorized_complementary_food_capacities" [disabled]="!editable"/>
-                <label class="onoffswitch-label" for="autorized_complementary_services_capacities">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
+    <div class="col-12">
+        <div class="form-group">
+            <label>¿Su establecimiento cuenta con algún servicio de Alimentos y Bebidas complementario de alojamiento?</label>
+            <div class="col-12">
+                <div class="onoffswitch">
+                    <input type="checkbox" class="onoffswitch-checkbox"  id="autorized_complementary_services_capacities" name="autorized_complementary_services_capacities" [(ngModel)]="register.autorized_complementary_food_capacities" [disabled]="!editable"/>
+                    <label class="onoffswitch-label" for="autorized_complementary_services_capacities">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
