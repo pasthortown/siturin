@@ -1,3 +1,5 @@
+import { CapacidadesDataComponent } from './../../client-data-components/turistic-data/ALIMENTOSBEBIDAS/capacidades-data/capacidades-data.component';
+import { TipoPrestacionesDataComponent } from './../../client-data-components/turistic-data/ALIMENTOSBEBIDAS/tipo-prestaciones-data/tipo-prestaciones-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -87,7 +89,9 @@ import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPER
     EstablishmentListDataComponent,
     RegisterGeneralDataComponent,
     AdventureDataComponent,
-    RequisitesDataComponent
+    RequisitesDataComponent,
+    TipoPrestacionesDataComponent,
+    CapacidadesDataComponent
   ],
   providers: [
     UserService,
