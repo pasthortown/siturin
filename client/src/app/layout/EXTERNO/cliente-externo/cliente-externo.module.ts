@@ -48,14 +48,15 @@ import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declara
 import { FloorAuthorizationCertificateService } from 'src/app/services/CRUD/BASE/floorauthorizationcertificate.service';
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { ComplementaryServiceTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicetype.service';
 
 import { RegisterGeneralDataComponent } from './../../client-data-components/turistic-data/GLOBAL/register-general-data/register-general-data.component';
 import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';
 import { AdventureDataComponent } from './../../client-data-components/turistic-data/GLOBAL/adventure-data/adventure-data.component';
 
-import { RequisiteService as RequisiteOPService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
-import { RequisiteService as RequisiteALService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
-import { RequisiteService as RequisiteABService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
+import { RequisiteService as RequisiteALService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { RequisiteService as RequisiteABService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
 
 import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
@@ -95,6 +96,7 @@ import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPER
     PropertyTitleAttachmentService,
     FloorAuthorizationCertificateService,
     ConsultorService,
+    ComplementaryServiceTypeService,
     DinardapService,
     CatastroRegisterService,
     GroupTypeService,
