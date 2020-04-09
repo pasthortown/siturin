@@ -460,4 +460,8 @@ export class TuristicDataComponent implements OnInit {
       return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
     });
   }
+
+  category_change_requisites(event) {
+    this.register.register_type_id = event;
+  }
 }

@@ -33,6 +33,7 @@ export class RequisitesDataComponent implements OnInit {
   @Output('authorization_condominos') authorization_condominos: EventEmitter<any> = new EventEmitter<any>();
   @Output('property_title') property_title: EventEmitter<any> = new EventEmitter<any>();
   @Output('floor_authorization_certificate') floor_authorization_certificate: EventEmitter<any> = new EventEmitter<any>();
+  @Output('category_change_requisites') category_change_requisites: EventEmitter<number> = new EventEmitter<number>();
 
   categoryAB = 'Pendiente';
   categories_registers_AB = [];
@@ -165,6 +166,7 @@ export class RequisitesDataComponent implements OnInit {
        if (category.min_points*1 <= this.totalABPuntosShown*1) {
           this.categoryAB = category.name;
           this.register.register_type_id = category.id;
+          this.category_change_requisites.emit(category.id);
        }
     });
   }
