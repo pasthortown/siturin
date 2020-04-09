@@ -34,7 +34,6 @@ export class RequisitesDataComponent implements OnInit {
   @Output('property_title') property_title: EventEmitter<any> = new EventEmitter<any>();
   @Output('floor_authorization_certificate') floor_authorization_certificate: EventEmitter<any> = new EventEmitter<any>();
 
-  register.activity_id = 0;
   categoryAB = 'Pendiente';
   categories_registers_AB = [];
 
