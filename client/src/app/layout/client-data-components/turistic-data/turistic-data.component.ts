@@ -365,6 +365,7 @@ export class TuristicDataComponent implements OnInit {
 
   dataRegisterRecived() {
     console.log(this.register_data_from_BDD);
+    this.register_validated.complementary_service_types_on_register = this.register_data_from_BDD.complementary_service_types_on_register; 
     this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
   }
 
