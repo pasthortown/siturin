@@ -1,3 +1,13 @@
+import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
+import { RegisterRequisite } from './../../../models/ALIMENTOSBEBIDAS/RegisterRequisite';
+import { RequisiteService as RequisiteOPService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
+import { RequisiteService as RequisiteALService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteABService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { AuthorizationAttachment } from './../../../models/ALOJAMIENTO/AuthorizationAttachment';
+import { PropertyTitleAttachment } from './../../../models/ALOJAMIENTO/PropertyTitleAttachment';
+import { FloorAuthorizationCertificate } from './../../../models/BASE/FloorAuthorizationCertificate';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { RegisterType } from './../../../models/ALIMENTOSBEBIDAS/RegisterType';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
@@ -25,6 +35,7 @@ export class TuristicDataComponent implements OnInit {
   activity_id_from_registers_actives = 0;
 
   register_validated: Register = new Register();
+  register_data_from_BDD: any = null;
 
   modules_activation: any = {
     activate_alojamiento: true,
@@ -33,7 +44,8 @@ export class TuristicDataComponent implements OnInit {
   };
 
   establishment_registers = [];
-  
+  requisites = [];
+
   register_types_block = {
     register_types_alojamiento: [],
     register_types_alimentos_bebidas: [],
@@ -42,7 +54,22 @@ export class TuristicDataComponent implements OnInit {
 
   register_types: any[] = [];
 
-  constructor(private consultorDataService: ConsultorService) {
+  attachments = {
+    authorization_condominos: new AuthorizationAttachment(),
+    property_title: new PropertyTitleAttachment(),
+    floor_authorization_certificate: new FloorAuthorizationCertificate()
+  }
+
+  showRequisites = false;
+  classificationSelectedCode = '';;
+
+  constructor(private consultorDataService: ConsultorService,
+    private requisite_operacion_intermediacion_data_service: RequisiteOPService,
+    private requisite_alimentos_bebidas_data_service: RequisiteABService,
+    private requisite_alojamiento_data_service: RequisiteALService,
+    private register_operacion_intermediacion_data_service: RegisterOPService,
+    private register_alimentos_bebidas_data_service: RegisterABService,
+    private register_alojamiento_data_service: RegisterALService) {
     
   }
 
@@ -243,12 +270,10 @@ export class TuristicDataComponent implements OnInit {
                   if (element.activity_id == this.activity_id_from_registers_actives) {
                     this.register = element.register;
                     this.register.activity_id = element.activity_id;
-                    console.log('mal');
                   }
                 }
               });
             }
-            console.log(this.register);
         } else {
           this.register.activity_id = this.activity_id_from_registers_actives;
         }
@@ -267,8 +292,9 @@ export class TuristicDataComponent implements OnInit {
     if (this.register.activity_id == 3) {
       sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
+    this.classificationSelectedCode = event.register_classification;
+    this.register_validated.register_type_id = event.register_type_id;
     this.searchForRegister(sourceArray, this.register.activity_id, event.register_classification, event.register_region_code);
-    console.log(this.register_validated);
   }
 
   searchForRegister(register_types_array: RegisterType[], activity_id: number, classificationSelectedCode: String, regionSelectedCode: String) {
@@ -280,13 +306,14 @@ export class TuristicDataComponent implements OnInit {
         }
       }
     });
-    this.register_validated.activity_id = activity_id;
     if (register_found != null) {
       this.register_validated = register_found.register;
       this.register.register_type_id = register_found.register.register_type_id;
     }
+    this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
+    this.showRegisterData();
   }
 
   getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
@@ -299,7 +326,135 @@ export class TuristicDataComponent implements OnInit {
     return classification_code;
   }
 
-  requisites_finis_fill(event) {
-    console.log(event);
+  authorization_condominos(event) {
+    this.attachments.authorization_condominos = event;
+  }
+
+  property_title(event) {
+    this.attachments.property_title = event;
+  }
+
+  floor_authorization_certificate(event) {
+    this.attachments.floor_authorization_certificate = event;
+  }
+
+  showRegisterData() {
+    if (this.register_validated.id == 0) {
+      this.startRequisitesByRegisterType();  
+    } else {
+      if (this.register_validated.activity_id == 1) {
+        this.register_alojamiento_data_service.get_register_data(this.register_validated.id).then( r => {
+          this.register_data_from_BDD = r;
+          this.dataRegisterRecived();
+        }).catch( e => { console.log(e); });
+      }
+      if (this.register_validated.activity_id == 2) {
+        this.register_alimentos_bebidas_data_service.get_register_data(this.register_validated.id).then( r => {
+          this.register_data_from_BDD = r;
+          this.dataRegisterRecived();
+        }).catch( e => { console.log(e); });
+      }
+      if (this.register_validated.activity_id == 3) {
+        this.register_operacion_intermediacion_data_service.get_register_data(this.register_validated.id).then( r => {
+          this.register_data_from_BDD = r;
+          this.dataRegisterRecived();
+        }).catch( e => { console.log(e); });
+      }
+    }
+  }
+
+  dataRegisterRecived() {
+    console.log(this.register_data_from_BDD);
+    this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
+  }
+
+  startRequisitesByRegisterType(requisites_incommming?: RegisterRequisite[]) {
+    this.requisites = [];
+    let filter = 0;
+    this.showRequisites = false;
+    if (this.register_validated.activity_id == 1) {
+      this.requisite_alojamiento_data_service.get_filtered(this.register_validated.register_type_id).then( r => {
+        const requisitesByRegisterType = r as any[];
+        if (typeof requisites_incommming !== 'undefined') {
+          this.organize_requisites(requisitesByRegisterType, requisites_incommming);
+        } else {
+          this.organize_requisites(requisitesByRegisterType);
+        }
+      }).catch( e => { console.log(e) });
+    }
+    if (this.register_validated.activity_id == 2) {
+      this.register_types_block.register_types_alimentos_bebidas.forEach(element => {
+        if (element.code == this.classificationSelectedCode) {
+          filter = element.id
+        }
+      });
+      this.requisite_alimentos_bebidas_data_service.get_filtered(filter).then( r => {
+        const requisitesByRegisterType = r as any[];
+        if (typeof requisites_incommming !== 'undefined') {
+          this.organize_requisites(requisitesByRegisterType, requisites_incommming);
+        } else {
+          this.organize_requisites(requisitesByRegisterType);
+        }
+      }).catch( e => { console.log(e) }); 
+    }
+    if (this.register_validated.activity_id == 3) {
+      this.register_types_block.register_types_operacion_intermediacion.forEach(element => {
+        if (element.code == this.classificationSelectedCode) {
+          filter = element.id
+        }
+      });
+      this.requisite_operacion_intermediacion_data_service.get_filtered(filter).then( r => {
+        const requisitesByRegisterType = r as any[];
+        if (typeof requisites_incommming !== 'undefined') {
+          this.organize_requisites(requisitesByRegisterType, requisites_incommming);
+        } else {
+          this.organize_requisites(requisitesByRegisterType);
+        }
+      }).catch( e => { console.log(e) });
+    }
+  }
+
+  organize_requisites(requisitesByRegisterType: any[], requisites_incommming?: RegisterRequisite[]) {
+    requisitesByRegisterType.forEach(element => {
+      const newRegisterRequisite = new RegisterRequisite();
+      newRegisterRequisite.requisite_name = element.name;
+      newRegisterRequisite.requisite_id = element.id;
+      newRegisterRequisite.fullfill = true;
+      newRegisterRequisite.requisite_code = element.code;
+      newRegisterRequisite.mandatory = element.mandatory;
+      newRegisterRequisite.requisite_father_code = element.father_code;
+      newRegisterRequisite.level = element.code.split('.').length;
+      newRegisterRequisite.HTMLtype = element.type;
+      newRegisterRequisite.id = element.id;
+      newRegisterRequisite.fullfill = false;
+      if (newRegisterRequisite.HTMLtype == 'YES / NO') {
+        newRegisterRequisite.value = '0';
+      }
+      if (newRegisterRequisite.HTMLtype == 'NUMBER') {
+        newRegisterRequisite.value = '0';
+      }
+      if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
+        newRegisterRequisite.value = 'false';
+      }
+      this.requisites.push(newRegisterRequisite);
+    });
+    this.showRequisites = true;
+    if (typeof requisites_incommming !== 'undefined') {
+      this.requisites.forEach(requisite => {
+        requisites_incommming.forEach(requisite_incomming => {
+          if (requisite.requisite_id == requisite_incomming.requisite_id) {
+            requisite.value = requisite_incomming.value;
+            requisite.fullfill = requisite_incomming.fullfill;
+            requisite.id = requisite_incomming.id;
+            requisite.register_id = requisite_incomming.register_id;
+          }
+        });
+      });
+    }  
+    this.requisites.sort(function(a, b) {
+      const a_id = a.requisite_id;
+      const b_id = b.requisite_id;
+      return a_id > b_id ? 1 : a_id < b_id ? -1 : 0;
+    });
   }
 }

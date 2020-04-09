@@ -8,7 +8,7 @@ import { PropertyTitleAttachment } from './../../../../../models/ALOJAMIENTO/Pro
 import { FloorAuthorizationCertificate } from './../../../../../models/BASE/FloorAuthorizationCertificate';
 import { Establishment } from './../../../../../models/BASE/Establishment';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Language } from 'src/app/models/BASE/Language';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { saveAs } from 'file-saver/FileSaver';
@@ -30,6 +30,10 @@ export class RequisitesDataComponent implements OnInit {
     register_types_alimentos_bebidas: [],
     register_types_operacion_intermediacion: []
   };
+
+  @Output('authorization_condominos') authorization_condominos: EventEmitter<any> = new EventEmitter<any>();
+  @Output('property_title') property_title: EventEmitter<any> = new EventEmitter<any>();
+  @Output('floor_authorization_certificate') floor_authorization_certificate: EventEmitter<any> = new EventEmitter<any>();
 
   actividadSelected = 0;
   categoryAB = 'Pendiente';
@@ -89,6 +93,7 @@ export class RequisitesDataComponent implements OnInit {
     }
     this.floorAuthorizationCertificateDataService.get_by_register_id(this.register.id).then( r => {
        this.certificadoUsoSuelo = r as FloorAuthorizationCertificate;
+       this.floor_authorization_certificate.emit(this.certificadoUsoSuelo);
     }).catch( e => { console.log(e); });
   }
 
@@ -98,6 +103,7 @@ export class RequisitesDataComponent implements OnInit {
     }
     this.propertyTitleAttachmentDataService.get_by_register_id(this.register.id).then( r => {
       this.tituloPropiedad = r as PropertyTitleAttachment;
+      this.property_title.emit(this.tituloPropiedad);
     }).catch( e => { console.log(e); });
   }
 
@@ -107,6 +113,7 @@ export class RequisitesDataComponent implements OnInit {
     }
     this.authorizationAttachmentDataService.get_by_register_id(this.register.id).then( r => {
       this.autorizacionCondomino = r as AuthorizationAttachment;
+      this.authorization_condominos.emit(this.autorizacionCondomino);
     }).catch( e => { console.log(e); });
   }
  
@@ -234,14 +241,17 @@ export class RequisitesDataComponent implements OnInit {
 
   borrarFloorCertificado() {
     this.certificadoUsoSuelo = new FloorAuthorizationCertificate();
+    this.floor_authorization_certificate.emit(this.certificadoUsoSuelo);
   }
  
   borrarPropertyTitle() {
     this.tituloPropiedad = new PropertyTitleAttachment();
+    this.property_title.emit(this.tituloPropiedad);
   }
 
   borrarAutorizacionCondominio() {
     this.autorizacionCondomino = new AuthorizationAttachment();
+    this.authorization_condominos.emit(this.autorizacionCondomino);
   }
 
   CodificarArchivoFloorCertification(event) {
@@ -253,6 +263,7 @@ export class RequisitesDataComponent implements OnInit {
       this.certificadoUsoSuelo.floor_authorization_certificate_file = reader.result.toString().split(',')[1];
       this.certificadoUsoSuelo.floor_authorization_certificate_file_type = file.type;
       this.certificadoUsoSuelo.floor_authorization_certificate_file_name = file.name;
+      this.floor_authorization_certificate.emit(this.certificadoUsoSuelo);
      };
     }
   }
@@ -266,6 +277,7 @@ export class RequisitesDataComponent implements OnInit {
        this.tituloPropiedad.property_title_attachment_file = reader.result.toString().split(',')[1];
        this.tituloPropiedad.property_title_attachment_file_type = file.type;
        this.tituloPropiedad.property_title_attachment_file_name = file.name;
+       this.property_title.emit(this.tituloPropiedad);
      };
     }
   }
@@ -279,6 +291,7 @@ export class RequisitesDataComponent implements OnInit {
        this.autorizacionCondomino.authorization_attachment_file = reader.result.toString().split(',')[1];
        this.autorizacionCondomino.authorization_attachment_file_type = file.type;
        this.autorizacionCondomino.authorization_attachment_file_name = file.name;
+       this.authorization_condominos.emit(this.autorizacionCondomino);
      };
     }
   }

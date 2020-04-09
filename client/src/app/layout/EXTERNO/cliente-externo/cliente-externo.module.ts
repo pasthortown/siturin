@@ -53,7 +53,14 @@ import { RegisterGeneralDataComponent } from './../../client-data-components/tur
 import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';
 import { AdventureDataComponent } from './../../client-data-components/turistic-data/GLOBAL/adventure-data/adventure-data.component';
 
+import { RequisiteService as RequisiteOPService } from './../../../services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
+import { RequisiteService as RequisiteALService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { RequisiteService as RequisiteABService } from './../../../services/CRUD/ALOJAMIENTO/requisite.service';
+
 import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
+import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -106,6 +113,12 @@ import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
     EstablishmentPictureService,
     EstablishmentCertificationTypeService,
     EstablishmentPropertyTypeService,
+    RequisiteOPService,
+    RequisiteALService,
+    RequisiteABService,
+    RegisterALService,
+    RegisterABService,
+    RegisterOPService,
     UbicationService
   ]
 })

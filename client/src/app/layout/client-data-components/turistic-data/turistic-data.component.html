@@ -1,3 +1,22 @@
-<app-register-general-data (finish_selected)="classification_category_selected($event)" [register_types_block]="register_types_block" [is_new_register]="is_new_register" [registers_on_establishment]="establishment_registers" [ruc]="ruc" [establishment]="establishment" [register]="register" [opcion_seleccionada]="opcion_seleccionada" [editable]="editable" [modules_activation]="modules_activation"></app-register-general-data>
+<app-register-general-data (finish_selected)="classification_category_selected($event)" 
+    [register_types_block]="register_types_block" 
+    [is_new_register]="is_new_register" 
+    [registers_on_establishment]="establishment_registers" 
+    [ruc]="ruc" 
+    [establishment]="establishment" 
+    [register]="register" 
+    [opcion_seleccionada]="opcion_seleccionada" 
+    [editable]="editable" 
+    [modules_activation]="modules_activation">
+</app-register-general-data>
 <app-adventure-data></app-adventure-data>
-<app-requisites-data [register_types_block]="register_types_block" [is_new_register]="is_new_register" [establishment]="establishment" [register]="register" [editable]="editable" [requisites]="requisites"></app-requisites-data>
+<app-requisites-data (authorization_condominos)="authorization_condominos($event)" 
+    (property_title)="property_title($event)" 
+    (floor_authorization_certificate)="floor_authorization_certificate($event)" 
+    [register_types_block]="register_types_block" 
+    [is_new_register]="is_new_register" 
+    [establishment]="establishment" 
+    [register]="register_validated" 
+    [editable]="editable" 
+    [requisites]="requisites" *ngIf="showRequisites">
+</app-requisites-data>
