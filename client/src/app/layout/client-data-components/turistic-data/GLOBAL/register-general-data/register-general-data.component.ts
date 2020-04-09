@@ -185,6 +185,7 @@ export class RegisterGeneralDataComponent implements OnInit {
   getClasifications(reset?: boolean) {
     if (typeof reset != 'undefined') {
       this.classificationSelectedCode = '-';  
+      this.register.register_type_id = 0;
     }
     this.clasifications_registers = [];
     let sourceArray = [];
