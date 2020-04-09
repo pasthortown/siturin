@@ -68,6 +68,7 @@ export class RequisitesDataComponent implements OnInit {
   }
 
   refresh() {
+    console.log(this.register);
     this.getCertificadoUsoSuelo();
     this.getTituloPropiedad();
     this.getAutorizacionCondominos();
