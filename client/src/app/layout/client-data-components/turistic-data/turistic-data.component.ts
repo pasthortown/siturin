@@ -1,3 +1,5 @@
+import { TariffType } from './../../../models/ALOJAMIENTO/TariffType';
+import { TariffTypeService } from './../../../services/CRUD/ALOJAMIENTO/tarifftype.service';
 import { Tariff } from './../../../models/ALOJAMIENTO/Tariff';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
@@ -38,6 +40,7 @@ export class TuristicDataComponent implements OnInit {
   register_validated: Register = new Register();
   register_data_from_BDD: any = null;
   tarifarioRack = {cabecera: [], valores: []};
+  tarifas: any[] = [];
 
   modules_activation: any = {
     activate_alojamiento: true,
@@ -66,6 +69,7 @@ export class TuristicDataComponent implements OnInit {
   classificationSelectedCode = '';;
 
   constructor(private consultorDataService: ConsultorService,
+    private tariffTypeDataService: TariffTypeService,
     private requisite_operacion_intermediacion_data_service: RequisiteOPService,
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
     private requisite_alojamiento_data_service: RequisiteALService,
@@ -322,6 +326,9 @@ export class TuristicDataComponent implements OnInit {
     } else {
       this.register_validated = new Register();
     }
+    if (activity_id == 1) {
+      this.initTarifarioRack();
+    }
     this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
@@ -385,8 +392,32 @@ export class TuristicDataComponent implements OnInit {
     this.register_validated.sales_representatives = this.register_data_from_BDD.sales_representatives;
     this.register_validated.turistic_guides = this.register_data_from_BDD.turistic_guides;
     this.register_validated.transport_companies = this.register_data_from_BDD.transport_companies;
-    this.getTarifarioRack(this.register_validated.id);
     this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
+  }
+
+  initTarifarioRack() {
+    this.tarifas = [];
+    this.tarifarioRack = {cabecera: [{valor:'Tipo de Habitación', padre: '', hijo: ''}], valores: []};
+    this.tariffTypeDataService.get().then( r => {
+      const result = r as TariffType[];
+      result.forEach(father => {
+        if(father.father_code == '-'){
+          const tariff_father: TariffType = father;
+          const tariff_child: TariffType[] = [];
+          result.forEach(child => {
+            if(child.father_code == father.code) {
+              child.is_reference = father.is_reference;
+              tariff_child.push(child);
+              this.tarifarioRack.cabecera.push({valor:'Tarifa por ' + tariff_father.name + ' en ' + child.name, padre:tariff_father.name, hijo: child.name});
+            }
+          });
+          this.tarifas.push({father: tariff_father, childs: tariff_child});
+        }
+      });
+      if (this.register_validated.id != 0) {
+        this.getTarifarioRack(this.register_validated.id);
+      }
+    }).catch( e => { console.log(e); });
   }
 
   getTarifarioRack(register_id: number) {

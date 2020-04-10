@@ -1,5 +1,3 @@
-import { TariffTypeService } from './../../../../../services/CRUD/ALOJAMIENTO/tarifftype.service';
-import { TariffType } from './../../../../../models/ALOJAMIENTO/TariffType';
 import { Tariff } from './../../../../../models/ALOJAMIENTO/Tariff';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 import { CapacityType } from './../../../../../models/ALOJAMIENTO/CapacityType';
@@ -21,7 +19,8 @@ export class CapacidadesALDataComponent implements OnInit {
   @Input('is_new_register') is_new_register: boolean = true;
   @Input('can_declare_next_year_capacities') can_declare_next_year_capacities: boolean = true;
   @Input('tarifario_rack') tarifarioRack: any = {cabecera: [], valores: []};
-
+  @Input('tarifas') tarifas: any[] = [];
+  
   currentYear = 0;
   selected_year = 2019;
   years = [];
@@ -36,9 +35,8 @@ export class CapacidadesALDataComponent implements OnInit {
   
   continuarTarifarioRack = false;
   tariffsToShow = {cabecera: [], valores: []};
-  tarifas: any[] = [];
 
-  constructor(private capacityTypeDataService: CapacityTypeService, private tariffTypeDataService: TariffTypeService) {
+  constructor(private capacityTypeDataService: CapacityTypeService) {
     
   }
 
@@ -59,35 +57,12 @@ export class CapacidadesALDataComponent implements OnInit {
 
   loadCatalogos() {
    this.getCapacityTypes();
-   this.getTariffs();
   }
 
   getCapacityTypes() {
     this.allowed_capacity_types = [];
     this.capacityTypeDataService.get_filtered_by_register_type(this.register.register_type_id).then( r => {
       this.allowed_capacity_types = r as CapacityType[];
-    }).catch( e => { console.log(e); });
-  }
-
-  getTariffs() {
-    this.tarifas = [];
-    this.tarifarioRack = {cabecera: [{valor:'Tipo de Habitación', padre: '', hijo: ''}], valores: []};
-    this.tariffTypeDataService.get().then( r => {
-      const result = r as TariffType[];
-      result.forEach(father => {
-        if(father.father_code == '-'){
-          const tariff_father: TariffType = father;
-          const tariff_child: TariffType[] = [];
-          result.forEach(child => {
-            if(child.father_code == father.code) {
-              child.is_reference = father.is_reference;
-              tariff_child.push(child);
-              this.tarifarioRack.cabecera.push({valor:'Tarifa por ' + tariff_father.name + ' en ' + child.name, padre:tariff_father.name, hijo: child.name});
-            }
-          });
-          this.tarifas.push({father: tariff_father, childs: tariff_child});
-        }
-      });
     }).catch( e => { console.log(e); });
   }
 
