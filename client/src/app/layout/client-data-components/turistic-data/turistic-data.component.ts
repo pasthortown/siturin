@@ -65,6 +65,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   showRequisites = false;
+  display_register_data = false;
   classificationSelectedCode = '';;
 
   constructor(private consultorDataService: ConsultorService,
@@ -331,6 +332,9 @@ export class TuristicDataComponent implements OnInit {
     this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
+    if (register_found == null) {
+      this.display_register_data = true;
+    }
     this.showRegisterData();
   }
 
@@ -489,6 +493,7 @@ export class TuristicDataComponent implements OnInit {
       this.requisites.push(newRegisterRequisite);
     });
     this.showRequisites = true;
+    this.display_register_data = true;
     if (typeof requisites_incommming !== 'undefined') {
       this.requisites.forEach(requisite => {
         requisites_incommming.forEach(requisite_incomming => {
