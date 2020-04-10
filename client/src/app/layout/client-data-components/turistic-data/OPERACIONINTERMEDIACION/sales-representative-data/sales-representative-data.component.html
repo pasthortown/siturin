@@ -1,0 +1,178 @@
+<div class="row mt-3" *ngIf="categorySelectedCode == '1.2' || categorySelectedCode == '1.4' || categorySelectedCode == '2.2' || categorySelectedCode == '2.4'">
+    <div class="col-12">
+        <h4>
+            <strong>Representante de Ventas</strong>
+        </h4>
+    </div>
+    <small class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Información</strong></label>
+            <p class="col-12 text-justify">Registrar Representante de Ventas contratado por el establecimiento.</p>
+        </div>
+    </small>
+    <div class="col-12">
+        <div class="form-group">
+            <label>Declaro que el establecimiento, al momento del envío de la solicitud, ha contratado Representante de Ventas</label>
+            <div class="col-12">
+                <div class="onoffswitch">
+                    <input type="checkbox" class="onoffswitch-checkbox"  id="representanteVentasSwitch" name="representanteVentasSwitch" [(ngModel)]="representanteVentasSwitch" [disabled]="!ediable"/>
+                    <label class="onoffswitch-label" for="representanteVentasSwitch">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" *ngIf="representanteVentasSwitch">
+        <table class="table table-hover mt-2">
+            <thead>
+                <th colspan="5">
+                    <button type="button" title="Agregar Representante de Ventas" class="btn btn-success" (click)="addRepresentanteVentas(content_sales_representant)" [disabled]="!ediable">
+                        <i class="fas fa-plus-square"></i>&nbsp;Agregar Representante de Ventas
+                    </button>
+                </th>
+            </thead>
+            <thead>
+                <th>RUC</th>
+                <th>Razón Social</th>
+                <th>Título Profesional</th>
+                <th>Contrato Suscrito</th>
+                <th>Experiencia Probada</th>
+                <th>Opciones</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sales_representant of register.sales_representatives">
+                    <td>{{sales_representant.ruc}}</td>
+                    <td>{{sales_representant.social_name}}</td>
+                    <td>
+                        <span class="badge badge-success" *ngIf="sales_representant.has_professional_degree">Cumple</span>
+                        <span class="badge badge-danger" *ngIf="!sales_representant.has_professional_degree">No Cumple</span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success" *ngIf="sales_representant.has_contract">Cumple</span>
+                        <span class="badge badge-danger" *ngIf="!sales_representant.has_contract">No Cumple</span>
+                    </td>
+                    <td>
+                        <span class="badge badge-success" *ngIf="sales_representant.has_experience">Cumple</span>
+                        <span class="badge badge-danger" *ngIf="!sales_representant.has_experience">No Cumple</span>
+                    </td>
+                    <td>
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group mr-2" role="group">
+                                <button [disabled]="!ediable" type="button" title="Editar" class="btn btn-warning" (click)="editRepresentanteVentas(content_sales_representant, sales_representant)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button [disabled]="!ediable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template #content_sales_representant let-modal>
+    <div class="modal-header">
+        <h3>Representante de Ventas</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Número de RUC</label>
+                    <span *ngIf="!rucValidatedSalesRepresentative" class="ml-2 badge badge-danger">Incorrecto</span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRucSalesRepresentative()">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control" id="ruc" maxlength="13" placeholder="Número de RUC" [(ngModel)]="newRepresentanteVentas.ruc" (keyup)="checkRucSalesRepresentative()" name="ruc" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                    <label class="col-12 text-justify"><strong>Atención</strong></label>
+                    <p class="col-12 text-justify">La información presentada a continuación es proporcionada por el Servicio de Rentas Internas, esta sección tiene carácter informativo, por favor si desea actualizarla debe realizar el trámite en la entidad correspondiente</p>
+                    <p class="col-12 text-justify"><a href="https://srienlinea.sri.gob.ec/" target="_blank">Ir al Sitio Web del SRI</a></p>
+                </div>
+            </div>
+            <div class="col-12" *ngIf="rucValidatedSalesRepresentative">
+                <div class="form-group">
+                    <label>DATOS DEL SRI</label>
+                    <div class="col-12 text-justify" [innerHTML]="rucDataSalesRepresentative"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                    <label class="col-12 text-justify"><strong>Atención</strong></label>
+                    <p class="text-justify col-12">Art. 23 del Reglamento de Operación e Intermediación Turística.- La agencia de viajes internacional o dual que haya contratado a un representante de ventas deberá contar con el expediente que contenga todos los requisitos descritos en este artículo, de no cumplir con esta disposición se aplicarán las sanciones establecidas en la Ley de Turismo.</p>
+                </div>
+            </div>
+        </div>
+      <div class="row">
+            <div class="col-12">
+                <table class="table table-hover mt-2">
+                    <tbody>
+                        <tr>
+                            <td>
+                                Título profesional en turismo o ramas afines, o certificación en competencias laborales en intermediación turística. <strong style="color:red;">*</strong>
+                            </td>
+                            <td>
+                                <div class="onoffswitch">
+                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!ediable" id="tituloProfesional" name="tituloProfesional" [(ngModel)]="newRepresentanteVentas.has_professional_degree"/>
+                                    <label class="onoffswitch-label" for="tituloProfesional">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Contrato suscrito con las agencias de viaje internacionales o duales que contengan como mínima: datos generales de los intervinientes, políticas de la agencia, condiciones de la prestación del servicio, derechos, obligaciones y responsabilidades. <strong style="color:red;">*</strong>
+                            </td>
+                            <td>
+                                <div class="onoffswitch">
+                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!ediable" id="hasContract" name="hasContract" [(ngModel)]="newRepresentanteVentas.has_contract"/>
+                                    <label class="onoffswitch-label" for="hasContract">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Experiencia probada de al menos tres años en agencias de servicios turísticos. <strong style="color:red;">*</strong>
+                            </td>
+                            <td>
+                                <div class="onoffswitch">
+                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!ediable" id="hasExperience" name="hasExperience" [(ngModel)]="newRepresentanteVentas.has_experience"/>
+                                    <label class="onoffswitch-label" for="hasExperience">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Guardar click')" [disabled]="!(newRepresentanteVentas.has_experience && newRepresentanteVentas.has_contract && newRepresentanteVentas.has_professional_degree) || !rucValidatedSalesRepresentative">
+            Guardar
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Cancelar click')">
+            Cancelar
+        </button>
+    </div>
+</ng-template>

@@ -1,3 +1,6 @@
+import { SalesRepresentativeDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/sales-representative-data/sales-representative-data.component';
+import { TourGuideDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/tour-guide-data/tour-guide-data.component';
+import { TuristicTransportDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/turistic-transport-data/turistic-transport-data.component';
 import { CapacidadesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/capacidades-al-data/capacidades-al-data.component';
 import { ComplementaryServicesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/complementary-services-al-data/complementary-services-al-data.component';
 import { CommonModule } from '@angular/common';
@@ -98,7 +101,10 @@ import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJA
     PrestacionesABDataComponent,
     CapcidadesABDataComponent,
     ComplementaryServicesALDataComponent,
-    CapacidadesALDataComponent
+    CapacidadesALDataComponent,
+    TuristicTransportDataComponent,
+    TourGuideDataComponent,
+    SalesRepresentativeDataComponent
   ],
   providers: [
     UserService,
