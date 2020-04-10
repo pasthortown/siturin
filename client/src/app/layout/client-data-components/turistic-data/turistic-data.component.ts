@@ -1,6 +1,5 @@
 import { TariffType } from './../../../models/ALOJAMIENTO/TariffType';
 import { TariffTypeService } from './../../../services/CRUD/ALOJAMIENTO/tarifftype.service';
-import { Tariff } from './../../../models/ALOJAMIENTO/Tariff';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
@@ -414,33 +413,6 @@ export class TuristicDataComponent implements OnInit {
           this.tarifas.push({father: tariff_father, childs: tariff_child});
         }
       });
-      if (this.register_validated.id != 0) {
-        this.getTarifarioRack(this.register_validated.id);
-      }
-    }).catch( e => { console.log(e); });
-  }
-
-  getTarifarioRack(register_id: number) {
-    this.register_alojamiento_data_service.get_tarifario(register_id).then( r => {
-      let tarifarioResponse = r as Tariff[];
-      let max_year = 0;
-      tarifarioResponse.forEach(element => {
-         if(element.year > max_year){
-            max_year = element.year;
-         }
-      });
-      this.tarifarioRack.valores.forEach(element => {
-         element.tariffs.forEach(tariffRack => {
-            const tariff = tariffRack.tariff;
-            tarifarioResponse.forEach(tariffResponse => {
-               if(tariffResponse.tariff_type_id == tariff.tariff_type_id && tariffResponse.year == max_year && tariffResponse.capacity_type_id == tariff.capacity_type_id) {
-                  tariffRack.tariff.price = tariffResponse.price;
-                  tariffRack.tariff.year = tariffResponse.year;
-               }
-            });
-         });
-      });
-      console.log(this.tarifarioRack);
     }).catch( e => { console.log(e); });
   }
 

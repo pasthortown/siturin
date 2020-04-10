@@ -1,3 +1,4 @@
+import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { Tariff } from './../../../../../models/ALOJAMIENTO/Tariff';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 import { CapacityType } from './../../../../../models/ALOJAMIENTO/CapacityType';
@@ -36,7 +37,7 @@ export class CapacidadesALDataComponent implements OnInit {
   continuarTarifarioRack = false;
   tariffsToShow = {cabecera: [], valores: []};
 
-  constructor(private capacityTypeDataService: CapacityTypeService) {
+  constructor(private register_alojamiento_data_service: RegisterALService, private capacityTypeDataService: CapacityTypeService) {
     
   }
 
@@ -53,8 +54,34 @@ export class CapacidadesALDataComponent implements OnInit {
     const today = new Date();
     this.currentYear = today.getFullYear();
     this.getYears();
+    if (this.register.id != 0) {
+      this.getTarifarioRack(this.register.id);
+    }
   }
 
+  getTarifarioRack(register_id: number) {
+    this.register_alojamiento_data_service.get_tarifario(register_id).then( r => {
+      let tarifarioResponse = r as Tariff[];
+      let max_year = 0;
+      tarifarioResponse.forEach(element => {
+        if(element.year > max_year){
+           max_year = element.year;
+        }
+      });
+      this.tarifarioRack.valores.forEach(element => {
+        element.tariffs.forEach(tariffRack => {
+          const tariff = tariffRack.tariff;
+          tarifarioResponse.forEach(tariffResponse => {
+            if(tariffResponse.tariff_type_id == tariff.tariff_type_id && tariffResponse.year == max_year && tariffResponse.capacity_type_id == tariff.capacity_type_id) {
+              tariffRack.tariff.price = tariffResponse.price;
+              tariffRack.tariff.year = tariffResponse.year;
+            }
+          });
+        });
+      });
+    }).catch( e => { console.log(e); });
+  }
+ 
   loadCatalogos() {
    this.getCapacityTypes();
   }
