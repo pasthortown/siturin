@@ -52,11 +52,13 @@ export class CapcidadesABDataComponent implements OnInit {
 
   getYears() {
     this.years = [];
-    if (this.register.capacities_on_register.length = 0) {
+    if (this.register.capacities_on_register.length == 0) {
       const newCapacity = new Capacity();
       newCapacity.year = this.currentYear;
       this.register.capacities_on_register.push(newCapacity);
     }
+    console.log(this.register);
+    console.log(this.register.capacities_on_register);
     this.register.capacities_on_register.forEach( capacity => {
       console.log(capacity);
       let existe = false;
