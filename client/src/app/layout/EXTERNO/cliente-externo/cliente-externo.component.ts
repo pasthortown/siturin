@@ -172,6 +172,7 @@ export class ClienteExternoComponent implements OnInit {
           this.estado_registro = 'CERRADO';
       }
       this.data_selected.register = event.register;
+      console.log(event.register);
       this.data_selected.register_selected.code = this.data_selected.register.register_code;
       this.data_selected.register_selected.system_source = this.data_selected.register.system_source;
       this.data_selected.register_selected.classification_incomming = this.data_selected.register.classification;

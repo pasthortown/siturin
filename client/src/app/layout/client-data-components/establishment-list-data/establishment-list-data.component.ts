@@ -48,6 +48,7 @@ export class EstablishmentListDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.ruc_code_id);
     this.refresh();
   }
 
