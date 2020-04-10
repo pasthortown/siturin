@@ -76,6 +76,7 @@ export class CapcidadesABDataComponent implements OnInit {
       const b_value = b.value;
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
     });
+    console.log(this.years);
     if (this.is_new_register) {
       this.selected_year = this.currentYear;
     } else {
@@ -103,7 +104,6 @@ export class CapcidadesABDataComponent implements OnInit {
         this.listasPrecios.forEach(lista_precios => {
           if (lista_precios.year == this.selected_year) {
             this.listaPrecios == lista_precios;
-            console.log('excelente');
           }
         });
       });
