@@ -14,6 +14,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
 import { ClienteExternoComponent } from './cliente-externo.component';
@@ -73,6 +74,10 @@ import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitch
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicefoodtype.service';
 
+import { ActivityTransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
+import { TransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
+import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+
 @NgModule({
   imports: [CommonModule, 
     FormsModule,
@@ -107,6 +112,7 @@ import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJA
     SalesRepresentativeDataComponent
   ],
   providers: [
+    NgbModal,
     UserService,
     AgreementService,
     AuthorizationAttachmentService,
@@ -141,7 +147,10 @@ import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJA
     RegisterALService,
     RegisterABService,
     RegisterOPService,
-    UbicationService
+    UbicationService,
+    ActivityTransportTypeService,
+    TransportTypeService,
+    GuideTypeService
   ]
 })
 export class ClienteExternoModule {}

@@ -294,6 +294,7 @@ export class EstablishmentDataComponent implements OnInit {
   }
 
   getZonalesEstablishment() {
+    // UBICACION: Zonal->Provincia->Canton->Parroquia
     this.zonalesEstablishment = [];
     this.provinciasEstablishment = [];
     this.ubications.forEach( element => {

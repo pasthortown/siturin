@@ -10,16 +10,18 @@
     [modules_activation]="modules_activation">
 </app-register-general-data>
 <app-sales-representative-data *ngIf="register_validated.activity_id == 3"
-    [register]="register_validated"
-    [editable]="editable">
-</app-sales-representative-data *ngIf="register_validated.activity_id == 3"
+    [classification_selected_code]="classificationSelectedCode"
     [register]="register_validated"
     [editable]="editable">
 <app-tour-guide-data *ngIf="register_validated.activity_id == 3"
+    [register_types_block]="register_types_block" 
     [register]="register_validated"
     [editable]="editable">
 </app-tour-guide-data>
-<app-turistic-transport-data>
+<app-turistic-transport-data *ngIf="register_validated.activity_id == 3"
+    [classification_selected_code]="classificationSelectedCode"
+    [register]="register_validated"
+    [editable]="editable">
 </app-turistic-transport-data>
 <app-capacidades-al-data *ngIf="register_validated.activity_id == 1"></app-capacidades-al-data>
 <app-complementary-services-al-data *ngIf="register_validated.activity_id == 1"
