@@ -57,6 +57,7 @@ export class CapcidadesABDataComponent implements OnInit {
       newCapacity.year = this.currentYear;
       this.register.capacities_on_register.push(newCapacity);
     }
+    console.log(this.register);
     this.register.capacities_on_register.forEach( capacity => {
       let existe = false;
       this.years.forEach(year => {
