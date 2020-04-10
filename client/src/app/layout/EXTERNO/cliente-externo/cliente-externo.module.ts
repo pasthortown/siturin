@@ -1,3 +1,4 @@
+import { SIITService } from './../../../services/negocio/siit.service';
 import { SalesRepresentativeDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/sales-representative-data/sales-representative-data.component';
 import { TourGuideDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/tour-guide-data/tour-guide-data.component';
 import { TuristicTransportDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/turistic-transport-data/turistic-transport-data.component';
@@ -150,7 +151,8 @@ import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/
     UbicationService,
     ActivityTransportTypeService,
     TransportTypeService,
-    GuideTypeService
+    GuideTypeService,
+    SIITService
   ]
 })
 export class ClienteExternoModule {}

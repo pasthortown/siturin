@@ -1,7 +1,7 @@
 import { SIITService } from './../../../../../services/negocio/siit.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
-import { GuideTypeService } from './../../../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { GuideType } from './../../../../../models/OPERACIONINTERMEDIACION/GuideType';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
