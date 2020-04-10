@@ -47,8 +47,41 @@ export class CapcidadesABDataComponent implements OnInit {
     }
     const today = new Date();
     this.currentYear = today.getFullYear();
-    console.log(this.register);
     this.getYears();
+  }
+
+  getYears() {
+    this.years = [];
+    if (this.register.capacities_on_register == []) {
+      const newCapacity = new Capacity();
+      newCapacity.year = this.currentYear;
+      this.register.capacities_on_register.push(newCapacity);
+    }
+    this.register.capacities_on_register.forEach( capacity => {
+      let existe = false;
+      this.years.forEach(year => {
+        if (year.value == capacity.year) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        let newYear = capacity.year;
+        if (newYear != null) {
+          this.years.push({value: newYear});
+        }
+      }
+    });
+    this.years.sort(function(a, b) {
+      const a_value = a.value;
+      const b_value = b.value;
+      return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
+    });
+    if (this.is_new_register) {
+      this.selected_year = this.currentYear;
+    } else {
+      this.selected_year = this.getLastYearDeclared();
+    }
+    this.getListasPrecios();
   }
 
   getListasPrecios() {
@@ -67,6 +100,11 @@ export class CapcidadesABDataComponent implements OnInit {
           newListaPrecios.year = year.value;
           this.listasPrecios.push(newListaPrecios);
         }
+        this.listasPrecios.forEach(lista_precios => {
+          if (lista_precios.year == this.selected_year) {
+            this.listaPrecios == lista_precios;
+          }
+        });
       });
     }).catch( e => { console.log(e); });
   }
@@ -125,35 +163,6 @@ export class CapcidadesABDataComponent implements OnInit {
       }
     });
     return lastYearDeclared;
-  }
-
-  getYears() {
-    this.years = [{value: this.currentYear}];
-    this.register.capacities_on_register.forEach( capacity => {
-      let existe = false;
-      this.years.forEach(year => {
-        if (year.value == capacity.year) {
-          existe = true;
-        }
-      });
-      if (!existe) {
-        let newYear = capacity.year;
-        if (newYear != null) {
-          this.years.push({value: newYear});
-        }
-      }
-    });
-    this.years.sort(function(a, b) {
-      const a_value = a.value;
-      const b_value = b.value;
-      return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
-    });
-    if (this.is_new_register) {
-      this.selected_year = this.currentYear;
-    } else {
-      this.selected_year = this.getLastYearDeclared();
-    }
-    this.getListasPrecios();
   }
 
   validateListaPrecios(): boolean {
