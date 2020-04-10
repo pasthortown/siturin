@@ -315,11 +315,7 @@ export class TuristicDataComponent implements OnInit {
       this.register_validated.complementary_service_foods_on_register = [];
       this.register_validated.capacities_on_register = [];
     } else {
-      this.register_validated.complementary_service_types_on_register = []; 
-      this.register_validated.service_types_on_register = [];
-      this.register_validated.kitchen_types_on_register = [];
-      this.register_validated.complementary_service_foods_on_register = [];
-      this.register_validated.capacities_on_register = [];
+      this.register_validated = new Register();
     }
     this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
