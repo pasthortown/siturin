@@ -127,7 +127,7 @@
             <div class="col-12">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Ámbito de Aplicación</label>
-                    <select class="form-control" disabled id="ambitoAplicacionTuristicGuide" name="ambitoAplicacionTuristicGuide" (change)="getProvinciasGuide(newTuristicGuide.ambitoAplicacion)" [(ngModel)]="newTuristicGuide.ambitoAplicacion" [disabled]="!ediable">
+                    <select class="form-control" disabled id="ambitoAplicacionTuristicGuide" name="ambitoAplicacionTuristicGuide" (change)="getProvinciasGuide(newTuristicGuide.ambitoAplicacion)" [(ngModel)]="newTuristicGuide.ambitoAplicacion">
                         <option value="-" selected>Seleccione...</option>
                         <option *ngFor="let register_type of regiones" value="{{ register_type.code }}">
                             {{ register_type.name }}
