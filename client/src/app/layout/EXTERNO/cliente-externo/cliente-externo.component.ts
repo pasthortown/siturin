@@ -115,8 +115,6 @@ export class ClienteExternoComponent implements OnInit {
       this.mostrarPasosInferiores = event.showData;
       this.mostrarDeclarations = false;
       this.mostrarInformacionTuristica = false;
-    } else {
-      this.resetEstablishmentList = true;
     }
   }
 

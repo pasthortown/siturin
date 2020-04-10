@@ -15,7 +15,6 @@ import Swal from 'sweetalert2';
 export class EstablishmentListDataComponent implements OnInit {
   @Input('ruc_number') ruc_number: String = '';
   @Input('ruc_code_id') ruc_code_id: String = '';
-  @Input('reset_establishment_list') reset_establishment_list: boolean = false;
   
   @Output('establishment_selected') change: EventEmitter<any> = new EventEmitter<any>();
   
