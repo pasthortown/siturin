@@ -26,7 +26,7 @@
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
-                        <input type="file" class="form-control" *ngIf="selected_year_id >= currentYear" [disabled]="!editable" (change)="CodificarArchivoListaPrecios($event)" accept="application/pdf" />
+                        <input type="file" class="form-control" [disabled]="!editable || !(selected_year_id >= currentYear)" (change)="CodificarArchivoListaPrecios($event)" accept="application/pdf" />
                     </div>
                     <small class="col-12">
                         <div class="alert alert-info mt-2 mb-2" role="alert">
