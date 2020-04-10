@@ -44,6 +44,7 @@ export class CapcidadesABDataComponent implements OnInit {
   refresh() {
     const today = new Date();
     this.currentYear = today.getFullYear();
+    console.log(this.register);
     this.getYears();
   }
 
