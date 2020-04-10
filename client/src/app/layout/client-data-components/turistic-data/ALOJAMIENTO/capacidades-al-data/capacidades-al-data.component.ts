@@ -20,6 +20,7 @@ export class CapacidadesALDataComponent implements OnInit {
   @Input('register_types') register_types: RegisterType[] = [];
   @Input('is_new_register') is_new_register: boolean = true;
   @Input('can_declare_next_year_capacities') can_declare_next_year_capacities: boolean = true;
+  @Input('tarifario_rack') tarifarioRack: any = {cabecera: [], valores: []};
 
   currentYear = 0;
   selected_year = 2019;
@@ -34,7 +35,6 @@ export class CapacidadesALDataComponent implements OnInit {
   allowed_capacity_types: CapacityType[] = []; 
   
   continuarTarifarioRack = false;
-  tarifarioRack = {cabecera: [], valores: []};
   tariffsToShow = {cabecera: [], valores: []};
   tarifas: any[] = [];
 

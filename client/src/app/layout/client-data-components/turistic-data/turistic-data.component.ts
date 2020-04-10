@@ -1,3 +1,4 @@
+import { Tariff } from './../../../models/ALOJAMIENTO/Tariff';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
@@ -36,6 +37,7 @@ export class TuristicDataComponent implements OnInit {
 
   register_validated: Register = new Register();
   register_data_from_BDD: any = null;
+  tarifarioRack = {cabecera: [], valores: []};
 
   modules_activation: any = {
     activate_alojamiento: true,
@@ -383,7 +385,31 @@ export class TuristicDataComponent implements OnInit {
     this.register_validated.sales_representatives = this.register_data_from_BDD.sales_representatives;
     this.register_validated.turistic_guides = this.register_data_from_BDD.turistic_guides;
     this.register_validated.transport_companies = this.register_data_from_BDD.transport_companies;
+    this.getTarifarioRack(this.register_validated.id);
     this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
+  }
+
+  getTarifarioRack(register_id: number) {
+    this.register_alojamiento_data_service.get_tarifario(register_id).then( r => {
+      let tarifarioResponse = r as Tariff[];
+      let max_year = 0;
+      tarifarioResponse.forEach(element => {
+         if(element.year > max_year){
+            max_year = element.year;
+         }
+      });
+      this.tarifarioRack.valores.forEach(element => {
+         element.tariffs.forEach(tariffRack => {
+            const tariff = tariffRack.tariff;
+            tarifarioResponse.forEach(tariffResponse => {
+               if(tariffResponse.tariff_type_id == tariff.tariff_type_id && tariffResponse.year == max_year && tariffResponse.capacity_type_id == tariff.capacity_type_id) {
+                  tariffRack.tariff.price = tariffResponse.price;
+                  tariffRack.tariff.year = tariffResponse.year;
+               }
+            });
+         });
+      });
+    }).catch( e => { console.log(e); });
   }
 
   startRequisitesByRegisterType(requisites_incommming?: RegisterRequisite[]) {
