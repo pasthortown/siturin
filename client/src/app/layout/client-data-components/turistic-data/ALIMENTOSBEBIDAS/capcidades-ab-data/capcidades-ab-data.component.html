@@ -1,1 +1,50 @@
-capcidades-ab-data dont works
+<div class="row mt-3">
+    <h4 class="col-12">
+        <strong>Lista de Precios</strong>
+    </h4>
+    <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Atención</strong></label>
+            <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
+            <p class="col-12 text-justify">- Agregar un documento (PDF) donde se detalle el Nombre Comercial, Calle Principal, Calle Intersección, Impuestos cobrados en concordancia con la clasificación del establecimiento y el año de vigencia de la lista de precios; misma que, deberá contar con el precio final (incluido impuestos), de cada uno de los alimentos y/o bebidas que ofrece el establecimiento. Y su firma de responsabilidad.</p>
+        </div>
+    </div>
+    <div class="col-12">
+        <table class="table table-hover mt-2">
+            <tr>
+                <td>
+                    <label>Lista de Precios*</label>
+                    <span *ngIf="listaPrecios.food_drink_attachment_file === ''" class="ml-2 badge badge-danger">Incorrecto</span>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button [disabled]="listaPrecios.food_drink_attachment_file === ''" type="button" title="Descargar Lista de Precios" class="btn btn-primary" (click)="downloadListaPrecios()">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button [disabled]="selected_year_id < currentYear || listaPrecios.food_drink_attachment_file === '' || !editable" type="button" title="Eliminar" class="btn btn-danger" (click)="borrarListaPrecios()">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <input type="file" class="form-control" *ngIf="selected_year_id >= currentYear" [disabled]="!editable" (change)="CodificarArchivoListaPrecios($event)" accept="application/pdf" />
+                    </div>
+                    <small class="col-12">
+                        <div class="alert alert-info mt-2 mb-2" role="alert">
+                            <label class="col-12 text-justify"><strong>Información</strong></label>
+                            <p class="col-12 text-justify">Verifique que el nombre del archivo que está cargando sea de longitud menor a 25 caracteres</p>
+                        </div>
+                    </small>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Atención</strong></label>
+            <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
+            <p class="col-12 text-justify">- Para registrar las tarifas en esta tipología de habitación, es necesario que su establecimiento cuente con la declaración de dichas habitaciones, por favor revise las "Capacidades del establecimiento" que se encuentran en la sección anterior.</p>
+            <p class="col-12 text-justify">- Registrar la tarifa de habitación por noche incluyendo IVA.</p>
+            <p class="col-12 text-justify">- Por ley, todos los establecimientos de alojamiento prestadores de servicios al turismo y registrados ante el Ministerio de Turismo deben declarar las tarifas rack hasta el 01 de diciembre de cada año y exhibirlo en el año de vigencia.</p>
+        </div>
+    </div>
+</div>

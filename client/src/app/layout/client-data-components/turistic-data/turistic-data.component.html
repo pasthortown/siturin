@@ -31,6 +31,8 @@
 </app-complementary-services-al-data>
 <app-capcidades-ab-data *ngIf="register_validated.activity_id == 2" 
     [register]="register_validated"
+    [register_types]="register_types_block.register_types_alimentos_bebidas"
+    [classification_selected_code]="classificationSelectedCode"
     [editable]="editable">
 </app-capcidades-ab-data>
 <app-prestaciones-ab-data *ngIf="register_validated.activity_id == 2" 

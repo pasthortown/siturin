@@ -1,9 +1,3 @@
-import { SIITService } from './../../../services/negocio/siit.service';
-import { SalesRepresentativeDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/sales-representative-data/sales-representative-data.component';
-import { TourGuideDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/tour-guide-data/tour-guide-data.component';
-import { TuristicTransportDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/turistic-transport-data/turistic-transport-data.component';
-import { CapacidadesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/capacidades-al-data/capacidades-al-data.component';
-import { ComplementaryServicesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/complementary-services-al-data/complementary-services-al-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +26,14 @@ import { AgreementDataComponent } from './../../client-data-components/agreement
 import { PayListDataComponent } from './../../client-data-components/pay-list-data/pay-list-data.component';
 import { CapcidadesABDataComponent } from './../../client-data-components/turistic-data/ALIMENTOSBEBIDAS/capcidades-ab-data/capcidades-ab-data.component';
 import { PrestacionesABDataComponent } from './../../client-data-components/turistic-data/ALIMENTOSBEBIDAS/prestaciones-ab-data/prestaciones-ab-data.component';
+import { RegisterGeneralDataComponent } from './../../client-data-components/turistic-data/GLOBAL/register-general-data/register-general-data.component';
+import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';
+import { AdventureDataComponent } from './../../client-data-components/turistic-data/GLOBAL/adventure-data/adventure-data.component';
+import { SalesRepresentativeDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/sales-representative-data/sales-representative-data.component';
+import { TourGuideDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/tour-guide-data/tour-guide-data.component';
+import { TuristicTransportDataComponent } from './../../client-data-components/turistic-data/OPERACIONINTERMEDIACION/turistic-transport-data/turistic-transport-data.component';
+import { CapacidadesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/capacidades-al-data/capacidades-al-data.component';
+import { ComplementaryServicesALDataComponent } from './../../client-data-components/turistic-data/ALOJAMIENTO/complementary-services-al-data/complementary-services-al-data.component';
 
 import { UserService } from 'src/app/services/profile/user.service';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
@@ -59,10 +61,6 @@ import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENT
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
 import { ComplementaryServiceTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicetype.service';
 
-import { RegisterGeneralDataComponent } from './../../client-data-components/turistic-data/GLOBAL/register-general-data/register-general-data.component';
-import { RequisitesDataComponent } from './../../client-data-components/turistic-data/GLOBAL/requisites-data/requisites-data.component';
-import { AdventureDataComponent } from './../../client-data-components/turistic-data/GLOBAL/adventure-data/adventure-data.component';
-
 import { RequisiteService as RequisiteOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
 import { RequisiteService as RequisiteALService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RequisiteService as RequisiteABService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
@@ -78,6 +76,8 @@ import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJA
 import { ActivityTransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
 import { TransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+import { SIITService } from 'src/app/services/negocio/siit.service';
+import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -137,6 +137,7 @@ import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/
     PayService,
     EstablishmentService,
     GenderService,
+    FoodDrinkAttachmentService,
     WorkerGroupService,
     RucNameTypeService,
     EstablishmentPictureService,
