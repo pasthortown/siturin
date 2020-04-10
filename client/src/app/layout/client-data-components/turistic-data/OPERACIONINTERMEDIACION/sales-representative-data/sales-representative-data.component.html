@@ -13,6 +13,7 @@
     <div class="col-12">
         <div class="form-group">
             <label>Declaro que el establecimiento, al momento del envío de la solicitud, ha contratado Representante de Ventas</label>
+            <input type="checkbox" id="p1" name="p1" [disabled]="!ediable"/>
             <div class="col-12">
                 <div class="onoffswitch">
                     <input type="checkbox" class="onoffswitch-checkbox"  id="representanteVentasSwitch" name="representanteVentasSwitch" [(ngModel)]="representanteVentasSwitch" [disabled]="!ediable"/>

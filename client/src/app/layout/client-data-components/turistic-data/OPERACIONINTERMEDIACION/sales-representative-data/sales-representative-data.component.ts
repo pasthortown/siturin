@@ -41,7 +41,6 @@ export class SalesRepresentativeDataComponent implements OnInit {
 
   refresh() {
     this.loadCatalogos();
-    console.log(this.editable);
   }
 
   loadCatalogos() {
