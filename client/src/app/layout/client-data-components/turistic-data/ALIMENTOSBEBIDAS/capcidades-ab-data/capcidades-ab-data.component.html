@@ -18,7 +18,7 @@
     <div class="col-12" *ngIf="!validateListaPrecios()">
         <div class="alert alert-danger mt-2 mb-2" role="alert">
             <label class="col-12 text-justify"><strong>Atención</strong></label>
-            <p class="col-12 text-justify">Existe al menos un año declarado, donde no se ha adjuntado el documento (PDF) correspondiente a la lista de precios. <strong style="color:red;" *ngFor="let year_error of years_error">{{year_error}}&nbsp;</strong></p>
+            <p class="col-12 text-justify">Existe al menos un año en la lista, donde no se ha adjuntado el documento (PDF) correspondiente a la lista de precios. <strong style="color:red;" *ngFor="let year_error of years_error">{{year_error}}&nbsp;</strong></p>
         </div>
     </div>
     <div class="col-12">
