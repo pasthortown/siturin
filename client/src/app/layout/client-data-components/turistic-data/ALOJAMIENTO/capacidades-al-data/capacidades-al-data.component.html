@@ -36,7 +36,7 @@
         <table class="table table-hover mt-2">
             <thead>
                 <th>
-                    <button type="button" title="Agregar" *ngIf="selected_year >= currentYear" class="btn btn-success ml-2" (click)="addCapacity()" [disabled]="!editable">
+                    <button type="button" title="Agregar" *ngIf="selected_year >= currentYear" class="btn btn-success ml-2" (click)="addCapacity()" [disabled]="!editable || continuarTarifarioRack">
                         <i class="fas fa-plus-circle"></i>
                     </button>
                 </th>
@@ -52,7 +52,7 @@
                         <span *ngIf="capacity.capacity_type_id == 0 || capacity.quantity == 0" class="ml-2 badge badge-danger">Incorrecto</span>
                     </td>
                     <td>
-                        <select class="form-control" id="capacity_type_id" name="capacity_type_id" [(ngModel)]="capacity.capacity_type_id" (change)="refreshMaxBed(capacity)" [disabled]="selected_year < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !editable))">
+                        <select class="form-control" id="capacity_type_id" name="capacity_type_id" [(ngModel)]="capacity.capacity_type_id" (change)="refreshMaxBed(capacity)" [disabled]="selected_year < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !editable)) || continuarTarifarioRack">
                             <option value="0" selected>Seleccione...</option>
                             <option *ngFor="let capacity_type of allowed_capacity_types" value="{{ capacity_type.id }}">
                                 {{ capacity_type.name }}
@@ -60,16 +60,16 @@
                         </select>
                     </td>
                     <td>
-                        <input type="number" class="form-control" min="0" max="9999" id="count_space" name="count_space" (input)="calcSpaces(capacity)" placeholder="Cantidad" [(ngModel)]="capacity.quantity" [disabled]="selected_year < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !editable))"/>
+                        <input type="number" class="form-control" min="0" max="9999" id="count_space" name="count_space" (input)="calcSpaces(capacity)" placeholder="Cantidad" [(ngModel)]="capacity.quantity" [disabled]="selected_year < currentYear || (!capacity.isNewCapacity && (!canEditCapacity || !editable)) || continuarTarifarioRack"/>
                     </td>
                     <td>
-                        <input type="number" class="form-control" min="0" max="9999" id="count_camas" name="count_camas" (input)="calcSpaces(capacity)" placeholder="Cantidad de Camas" [(ngModel)]="capacity.max_beds" [disabled]="continuarTarifarioRack || (selected_year < currentYear) || !capacity.isNewCapacity || canEditCapacity || !editable || !capacity.editable_beds"/>
+                        <input type="number" class="form-control" min="0" max="9999" id="count_camas" name="count_camas" (input)="calcSpaces(capacity)" placeholder="Cantidad de Camas" [(ngModel)]="capacity.max_beds" [disabled]="continuarTarifarioRack || (selected_year < currentYear) || !capacity.isNewCapacity || canEditCapacity || !editable || !capacity.editable_beds || continuarTarifarioRack"/>
                     </td>
                     <td>
-                        <input type="number" class="form-control" min="0" max="9999" id="count_plazas" name="count_plazas" (input)="calcSpaces(capacity)" placeholder="Cantidad de Plazas" [(ngModel)]="capacity.max_spaces" [disabled]="continuarTarifarioRack || (selected_year < currentYear) || !capacity.isNewCapacity || canEditCapacity || !editable || !capacity.editable_spaces"/>
+                        <input type="number" class="form-control" min="0" max="9999" id="count_plazas" name="count_plazas" (input)="calcSpaces(capacity)" placeholder="Cantidad de Plazas" [(ngModel)]="capacity.max_spaces" [disabled]="continuarTarifarioRack || (selected_year < currentYear) || !capacity.isNewCapacity || canEditCapacity || !editable || !capacity.editable_spaces || continuarTarifarioRack"/>
                     </td>
                     <td>
-                        <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeCapacity(capacity)" [disabled]="!editable">
+                        <button type="button" title="Eliminar" class="btn btn-danger" (click)="removeCapacity(capacity)" [disabled]="!editable || continuarTarifarioRack">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
