@@ -288,6 +288,7 @@ export class TuristicDataComponent implements OnInit {
   }
   
   classification_category_selected(event) {
+    this.display_register_data = false;
     let sourceArray = [];
     if (event.activity_id == 1) {
       sourceArray = this.register_types_block.register_types_alojamiento;
