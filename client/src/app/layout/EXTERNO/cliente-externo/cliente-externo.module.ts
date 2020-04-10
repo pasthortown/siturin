@@ -78,6 +78,7 @@ import { TransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIAC
 import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 import { SIITService } from 'src/app/services/negocio/siit.service';
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -126,6 +127,7 @@ import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBID
     CatastroRegisterService,
     GroupTypeService,
     LanguageService,
+    CapacityTypeService,
     KitchenTypeService,
     ServiceTypeService,
     PersonRepresentativeAttachmentService,

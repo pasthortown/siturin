@@ -24,7 +24,13 @@
     [register]="register_validated"
     [editable]="editable">
 </app-turistic-transport-data>
-<app-capacidades-al-data *ngIf="register_validated.activity_id == 1"></app-capacidades-al-data>
+<app-capacidades-al-data *ngIf="register_validated.activity_id == 1"
+    [register]="register_validated"
+    [register_types]="register_types_block.register_types_alojamiento"
+    [classification_selected_code]="classificationSelectedCode"
+    [editable]="editable" 
+    [is_new_register]="is_new_register">
+</app-capacidades-al-data>
 <app-complementary-services-al-data *ngIf="register_validated.activity_id == 1"
     [register]="register_validated"
     [editable]="editable">
