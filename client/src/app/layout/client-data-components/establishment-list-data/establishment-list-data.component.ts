@@ -141,6 +141,7 @@ export class EstablishmentListDataComponent implements OnInit {
 
   buildDataTableEstablishment() {
     console.log(this.establishments);
+    console.log(this.ruc_code_id);
     this.columnsEstablishment = [
       {title: '', name: 'selected'},
       {title: 'Número de Establecimiento', name: 'code'},
