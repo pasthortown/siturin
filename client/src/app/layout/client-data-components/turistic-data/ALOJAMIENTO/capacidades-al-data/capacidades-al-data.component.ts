@@ -237,7 +237,7 @@ export class CapacidadesALDataComponent implements OnInit {
     });
   }
 
-  calcSpaces(cap) {
+  calcSpaces(cap?) {
 
   }
 }
