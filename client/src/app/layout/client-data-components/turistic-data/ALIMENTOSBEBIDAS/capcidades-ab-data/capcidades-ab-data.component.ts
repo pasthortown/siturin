@@ -57,8 +57,8 @@ export class CapcidadesABDataComponent implements OnInit {
       newCapacity.year = this.currentYear;
       this.register.capacities_on_register.push(newCapacity);
     }
-    console.log(this.register);
     this.register.capacities_on_register.forEach( capacity => {
+      console.log(capacity);
       let existe = false;
       this.years.forEach(year => {
         if (year.value == capacity.year) {
@@ -66,10 +66,7 @@ export class CapcidadesABDataComponent implements OnInit {
         }
       });
       if (!existe) {
-        let newYear = capacity.year;
-        if (newYear != null) {
-          this.years.push({value: newYear});
-        }
+        this.years.push({value: capacity.year});
       }
     });
     this.years.sort(function(a, b) {
