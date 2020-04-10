@@ -140,6 +140,7 @@ export class EstablishmentListDataComponent implements OnInit {
   }
 
   buildDataTableEstablishment() {
+    console.log(this.establishments);
     this.columnsEstablishment = [
       {title: '', name: 'selected'},
       {title: 'Número de Establecimiento', name: 'code'},
