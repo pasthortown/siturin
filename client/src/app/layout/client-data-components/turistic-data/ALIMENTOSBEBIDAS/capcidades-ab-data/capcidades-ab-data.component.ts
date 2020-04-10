@@ -54,10 +54,7 @@ export class CapcidadesABDataComponent implements OnInit {
       newCapacity.year = this.currentYear;
       this.register.capacities_on_register.push(newCapacity);
     }
-    console.log(this.register);
-    console.log(this.register.capacities_on_register);
     this.register.capacities_on_register.forEach( capacity => {
-      console.log(capacity);
       let existe = false;
       this.years.forEach(year => {
         if (year.value == capacity.year) {
@@ -78,8 +75,6 @@ export class CapcidadesABDataComponent implements OnInit {
     } else {
       this.selected_year = this.getLastYearDeclared();
     }
-    console.log(this.years);
-    console.log(this.selected_year);
     this.getListasPrecios();
   }
 
