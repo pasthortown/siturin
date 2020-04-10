@@ -15,7 +15,7 @@
             <label>Declaro que el establecimiento, al momento del envío de la solicitud, ha firmado un contrato con una Compañía de Transporte Turístico</label>
             <div class="col-12">
                 <div class="onoffswitch">
-                    <input type="checkbox" class="onoffswitch-checkbox"  id="companiaTransporteSwitch" name="companiaTransporteSwitch" [disabled]="!ediable"/>
+                    <input type="checkbox" class="onoffswitch-checkbox"  id="companiaTransporteSwitch" name="companiaTransporteSwitch" [(ngModel)]="companiaTransporteSwitch" [disabled]="!ediable"/>
                     <label class="onoffswitch-label" for="companiaTransporteSwitch">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
@@ -24,7 +24,8 @@
             </div>
         </div>
     </div>
-    <div class="col-12" *ngIf="companiaTransporteSwitch">
+</div>
+    <!-- <div class="col-12" *ngIf="companiaTransporteSwitch">
         <table class="table table-hover mt-2">
             <thead>
                 <th colspan="7">
@@ -155,4 +156,4 @@
             Cancelar
         </button>
     </div>
-</ng-template>
+</ng-template> -->
