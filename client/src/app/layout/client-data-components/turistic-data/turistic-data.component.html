@@ -13,6 +13,7 @@
     [classification_selected_code]="classificationSelectedCode"
     [register]="register_validated"
     [editable]="editable">
+</app-sales-representative-data>
 <app-tour-guide-data *ngIf="register_validated.activity_id == 3"
     [register_types_block]="register_types_block" 
     [register]="register_validated"
@@ -40,7 +41,8 @@
 </app-prestaciones-ab-data>
 <app-adventure-data [register]="register_validated"
     [editable]="editable" 
-    *ngIf="register_validated.activity_id != 0"></app-adventure-data>
+    *ngIf="register_validated.activity_id != 0">
+</app-adventure-data>
 <app-requisites-data (authorization_condominos)="authorization_condominos($event)" 
     (property_title)="property_title($event)" 
     (floor_authorization_certificate)="floor_authorization_certificate($event)" 
