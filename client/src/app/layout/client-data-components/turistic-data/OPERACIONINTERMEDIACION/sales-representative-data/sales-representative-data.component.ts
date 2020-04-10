@@ -51,6 +51,7 @@ export class SalesRepresentativeDataComponent implements OnInit {
     this.SRIOKSalesRepresentative = false;
     this.consumoRucSalesRepresentative = false;
     this.newRepresentanteVentas = new SalesRepresentative();
+    this.rucValidatedSalesRepresentative = false;
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
           this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
@@ -64,12 +65,14 @@ export class SalesRepresentativeDataComponent implements OnInit {
     this.consumoRucSalesRepresentative = false;
     let initialData = sales_representant;
     this.newRepresentanteVentas = sales_representant;
+    this.rucValidatedSalesRepresentative = false;
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
           this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Representante de Ventas');
           this.register.sales_representatives.forEach(element => {
              if (element == initialData) {
                 element = this.newRepresentanteVentas;
+                this.checkRucSalesRepresentative();
              }
           });
        }

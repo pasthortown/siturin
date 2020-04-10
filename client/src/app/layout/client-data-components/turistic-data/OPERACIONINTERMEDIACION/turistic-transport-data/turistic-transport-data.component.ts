@@ -76,6 +76,7 @@ export class TuristicTransportDataComponent implements OnInit {
     this.SRIOKTuristicTransport = false;
     this.consumoRucTuristicTransport = false;
     this.newTuristicTransport = new TuristicTransport();
+    this.rucValidatedTuristicTransport = false;
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
        this.register.transport_companies.push(this.newTuristicTransport);
@@ -87,6 +88,7 @@ export class TuristicTransportDataComponent implements OnInit {
     this.SRIOKTuristicTransport = false;
     this.consumoRucTuristicTransport = false;
     this.newTuristicTransport = transport_company;
+    this.rucValidatedTuristicTransport = false;
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
           this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
