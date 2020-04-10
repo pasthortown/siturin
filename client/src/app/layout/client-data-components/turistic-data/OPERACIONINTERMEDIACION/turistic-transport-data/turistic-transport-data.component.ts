@@ -89,6 +89,7 @@ export class TuristicTransportDataComponent implements OnInit {
     this.consumoRucTuristicTransport = false;
     this.newTuristicTransport = transport_company;
     this.rucValidatedTuristicTransport = false;
+    this.checkRucTuristicTransport();
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
           this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
