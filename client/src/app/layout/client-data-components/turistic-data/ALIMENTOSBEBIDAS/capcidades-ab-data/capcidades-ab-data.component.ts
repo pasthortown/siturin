@@ -111,7 +111,9 @@ export class CapcidadesABDataComponent implements OnInit {
   }
  
   borrarListaPrecios() {
-    this.listaPrecios = new FoodDrinkAttachment();
+    this.listaPrecios.food_drink_attachment_file = '';
+    this.listaPrecios.food_drink_attachment_file_type = '';
+    this.listaPrecios.food_drink_attachment_file_name = '';
   }
 
   downloadFile(file: any, type: any, name: any) {
