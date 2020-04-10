@@ -4,7 +4,7 @@ import { ActivityTransportTypeService } from './../../../../../services/CRUD/OPE
 import { TransportTypeService } from './../../../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 import { ActivityTransportType } from './../../../../../models/OPERACIONINTERMEDIACION/ActivityTransportType';
 import { TransportType } from './../../../../../models/OPERACIONINTERMEDIACION/TransportType';
-//import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TuristicTransport } from './../../../../../models/OPERACIONINTERMEDIACION/TuristicTransport';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Register } from 'src/app/models/ALOJAMIENTO/Register';
@@ -35,7 +35,7 @@ export class TuristicTransportDataComponent implements OnInit {
   activity_transport_types: ActivityTransportType[] = [];
 
   constructor(private toastr: ToastrManager, 
-    //private modalService: NgbModal,
+    private modalService: NgbModal,
     private transportTypeDataService: TransportTypeService,
     private dinardapDataService: DinardapService,
     private siitDataService: SIITService,
@@ -76,10 +76,10 @@ export class TuristicTransportDataComponent implements OnInit {
     this.SRIOKTuristicTransport = false;
     this.consumoRucTuristicTransport = false;
     this.newTuristicTransport = new TuristicTransport();
-    // this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
-    //    this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
-    //    this.register.transport_companies.push(this.newTuristicTransport);
-    // }), ( r => {}));
+    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+       this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
+       this.register.transport_companies.push(this.newTuristicTransport);
+    }), ( r => {}));
   }
  
   editCompaniaTransporte(content, transport_company) {
@@ -87,16 +87,16 @@ export class TuristicTransportDataComponent implements OnInit {
     this.SRIOKTuristicTransport = false;
     this.consumoRucTuristicTransport = false;
     this.newTuristicTransport = transport_company;
-    // this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
-    //    if ( response === 'Guardar click' ) {
-    //       this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
-    //       this.register.transport_companies.forEach(element => {
-    //          if (element == initialData) {
-    //             element = this.newTuristicTransport;
-    //          }
-    //       });
-    //    }
-    // }), ( r => {}));
+    this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
+       if ( response === 'Guardar click' ) {
+          this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Compañía de Transporte');
+          this.register.transport_companies.forEach(element => {
+             if (element == initialData) {
+                element = this.newTuristicTransport;
+             }
+          });
+       }
+    }), ( r => {}));
   }
  
   deleteCompaniaTransporte(transport_company) {
