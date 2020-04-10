@@ -79,6 +79,7 @@ export class CapacidadesALDataComponent implements OnInit {
           });
         });
       });
+      this.calcSpaces();
     }).catch( e => { console.log(e); });
   }
  
