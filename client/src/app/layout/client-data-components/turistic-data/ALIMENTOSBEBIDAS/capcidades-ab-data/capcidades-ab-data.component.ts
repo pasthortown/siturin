@@ -161,6 +161,7 @@ export class CapcidadesABDataComponent implements OnInit {
 
   validateListaPrecios(): boolean {
     let toReturn = true;
+    this.years_error = [];
     this.listasPrecios.forEach(lista_precios => {
       if (lista_precios.food_drink_attachment_file == '') {
         this.years_error.push(lista_precios.year);
