@@ -78,3 +78,60 @@
         </table>
     </div>
 </div>
+<div class="row mt-3" *ngIf="tarifarioRack.valores.length > 0">
+    <h4 class="col-12">
+        <strong>Tarifario RACK</strong>
+    </h4>
+    <div class="col-12">
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <label class="col-12 text-justify"><strong>Atención</strong></label>
+            <p class="col-12 text-justify">Estimado Usuario, antes de continuar recuerde lo siguiente:</p>
+            <p class="col-12 text-justify">- Para registrar las tarifas en esta tipología de habitación, es necesario que su establecimiento cuente con la declaración de dichas habitaciones, por favor revise las "Capacidades del establecimiento" que se encuentran en la sección anterior.</p>
+            <p class="col-12 text-justify">- Registrar la tarifa de habitación por noche incluyendo IVA.</p>
+            <p class="col-12 text-justify">- Por ley, todos los establecimientos de alojamiento prestadores de servicios al turismo y registrados ante el Ministerio de Turismo deben declarar las tarifas rack hasta el 01 de diciembre de cada año y exhibirlo en el año de vigencia.</p>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group mt-3">
+            <label class="col-12"><strong>Continuar con el ingreso del Tarifario Rack.</strong></label>
+            <div class="onoffswitch">
+                <input type="checkbox" class="onoffswitch-checkbox"  id="tarifRackswitch" (change)="continuarIngresoTarifarioRack()" name="tarifRackswitch" [(ngModel)]="continuarTarifarioRack">
+                <label class="onoffswitch-label" for="tarifRackswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3" *ngIf="continuarTarifarioRack">
+    <div class="col-12">
+        <table class="table table-hover mt-2">
+            <thead>
+                <th *ngFor="let tariff of tariffsToShow.cabecera" class="col-12 text-center">
+                    {{tariff.valor}}
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tariffRack of tariffsToShow.valores">
+                    <td>
+                        <select class="form-control" id="capacity_type_id" name="capacity_type_id" [(ngModel)]="tariffRack.idTipoCapacidad" [disabled]="true">
+                            <option value="0" selected>Seleccione...</option>
+                            <option *ngFor=" let capacity_type of allowed_capacity_types" value="{{ capacity_type.id }}">
+                                {{ capacity_type.name }}
+                            </option>
+                        </select>
+                    </td>
+                    <td *ngFor="let tariff of tariffRack.tariffs">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">USD</span>
+                            </div>
+                            <input type="number" class="form-control" min="0" step="0.01" id="low_capacity_room_price" name="low_capacity_room_price" [(ngModel)]="tariff.tariff.price" placeholder="Precio" (input)="checkValuesTariffs()" [disabled]="selected_year < currentYear || (!tariff.tariff.isNewTariff && selected_year == currentYear) || (!tariff.isReference && tariff.plazasHabitacion !== 999)"/>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

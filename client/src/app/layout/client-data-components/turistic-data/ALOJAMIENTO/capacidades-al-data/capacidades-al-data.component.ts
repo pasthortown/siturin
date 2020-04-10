@@ -1,3 +1,4 @@
+import { Tariff } from './../../../../../models/ALOJAMIENTO/Tariff';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 import { CapacityType } from './../../../../../models/ALOJAMIENTO/CapacityType';
 import { Capacity } from './../../../../../models/ALOJAMIENTO/Capacity';
@@ -29,6 +30,12 @@ export class CapacidadesALDataComponent implements OnInit {
   capacitySelected: Capacity = new Capacity();
 
   allowed_capacity_types: CapacityType[] = []; 
+
+  
+  continuarTarifarioRack = false;
+  tarifarioRack = {cabecera: [], valores: []};
+  tariffsToShow = {cabecera: [], valores: []};
+  tarifas: any[] = [];
 
   constructor(private capacityTypeDataService: CapacityTypeService) {
     
@@ -237,7 +244,155 @@ export class CapacidadesALDataComponent implements OnInit {
     });
   }
 
-  calcSpaces(cap?) {
+  continuarIngresoTarifarioRack() {
+    this.register.capacities_on_register.forEach(c => {
+      this.calcSpaces(c);
+    });
+  }
 
+  checkValuesTariffs() {
+    this.tarifarioRack.valores.forEach(valor => {
+      valor.tariffs.forEach(tariff => {
+         if (!tariff.isReference) {
+          valor.tariffs.forEach(tariff2 => {
+             if( tariff !== tariff2) {
+                if (tariff.nombreDivision == tariff2.nombreDivision && tariff.plazasHabitacion !== 999) {
+                   tariff.tariff.price = this.rounded(tariff2.tariff.price / tariff2.plazasHabitacion);
+                }
+             }
+          });
+         }
+      });
+    });
+  }
+
+  rounded(numero: number): number {
+    const toround = numero * 100;
+    return Math.round(toround)/100;
+  }
+
+  calcSpaces(capacity?) {
+    this.getYears();
+    if(typeof capacity !== 'undefined') {
+      this.allowed_capacity_types.forEach(capacityType => {
+         if (capacityType.id == capacity.capacity_type_id) {
+            if (!capacityType.editable_spaces) {
+               capacity.max_spaces = capacityType.spaces * capacity.quantity;
+            }
+            if (capacity.max_beds > capacityType.bed_quantity){
+               capacity.max_beds = capacityType.bed_quantity;
+            }
+            if (capacity.max_beds == 0) {
+               capacity.max_beds = 1;
+            }
+         }
+      });
+    }
+    const lastValuesTariffs = {cabecera: [], valores: []};
+    this.tarifarioRack.cabecera.forEach(c=> {
+      lastValuesTariffs.cabecera.push(c);
+    });
+    this.tarifarioRack.valores.forEach(v=> {
+      lastValuesTariffs.valores.push(v);
+    });
+    this.register.total_spaces = 0;
+    this.register.total_habitations = 0;
+    this.register.total_beds = 0;
+    if (this.tarifarioRack.valores.length == this.register.capacities_on_register.length) {
+      for (let i = 0; i<this.register.capacities_on_register.length ; i++) {
+         this.tarifarioRack.valores[i].idTipoCapacidad = this.register.capacities_on_register[i].capacity_type_id;
+      }
+    } else {
+      this.tarifarioRack.valores = [];
+      this.register.capacities_on_register.forEach(c1 => {
+         const childs = [];
+         let idTipoCapacidad = c1.capacity_type_id;
+         let editable = false;
+         if (this.modificadoCapacidades) {
+            editable = true;
+         }
+         this.tarifas.forEach(tariffType => {
+            tariffType.childs.forEach(tariffTypeChild => {
+               const es_referencia = tariffType.father.is_reference;
+               let plazasHabitacion = 0;
+               this.allowed_capacity_types.forEach(capacityType => {
+                  if (capacityType.id == idTipoCapacidad) {
+                     plazasHabitacion = capacityType.spaces;
+                  }
+               });
+               let nombreDivision = '';
+               nombreDivision = tariffTypeChild.name;
+               const tariff = new Tariff();
+               tariff.tariff_type_id = tariffTypeChild.id;
+               tariff.price = 0;
+               tariff.year = this.selected_year;
+               lastValuesTariffs.valores.forEach(tariffValue => {
+                  if (tariffValue.idTipoCapacidad == idTipoCapacidad) {
+                     tariffValue.tariffs.forEach(t1 => {
+                        if (t1.tariff.tariff_type_id == tariff.tariff_type_id) {
+                           tariff.price = t1.tariff.price;
+                           tariff.year = t1.tariff.year;
+                        }
+                     });
+                  }
+               });
+               tariff.capacity_type_id = c1.capacity_type_id;
+               tariff.isNewTariff = c1.isNewCapacity;
+               let newChild = {nombreDivision: nombreDivision, tariff: tariff, isReference: es_referencia, plazasHabitacion: plazasHabitacion};
+               childs.push(newChild);
+            });
+         });
+         const topush = {idTipoCapacidad: idTipoCapacidad, tariffs: childs, editable: editable};
+         let ya_existe_capacidad = false;
+         this.tarifarioRack.valores.forEach(el_t_r => {
+            if (el_t_r.idTipoCapacidad == idTipoCapacidad) {
+               ya_existe_capacidad = true;
+            }
+         });
+         if (!ya_existe_capacidad) {
+            this.tarifarioRack.valores.push(topush);
+         }
+      });
+    }
+    this.register.capacities_on_register.forEach(c2 => {
+      this.allowed_capacity_types.forEach(capacityType => {
+         if (capacityType.id == c2.capacity_type_id) {
+            c2.editable_beds = capacityType.editable_beds;
+            c2.editable_spaces = capacityType.editable_spaces;
+         }
+      });
+      this.register.total_spaces += c2.max_spaces;
+      this.register.total_habitations += c2.quantity;
+      this.register.total_beds += (c2.max_beds * c2.quantity);
+    });
+    this.updateTariffToShow();
+  }
+
+  updateTariffToShow() {
+    this.tariffsToShow.cabecera = [];
+    this.tariffsToShow.valores = [];
+    this.tarifarioRack.cabecera.forEach(c=> {
+      this.tariffsToShow.cabecera.push(c);
+    });
+    this.tarifarioRack.valores.forEach(v=> {
+      let insertar = false;
+      v.tariffs.forEach(v1 => {
+         if (v1.tariff.year == this.selected_year) {
+            insertar = true;
+         }
+      });
+      if (insertar) {
+         this.tariffsToShow.valores.push(v);
+      }
+    });   
+    this.tariffsToShow.valores.forEach(tariffRack => {
+      this.allowed_capacity_types.forEach(cap => {
+         if (cap.id == tariffRack.idTipoCapacidad) {
+            tariffRack.tariffs.forEach(tariff => {
+               tariff.plazasHabitacion = cap.spaces;
+            });
+         }
+      });
+    });
   }
 }
