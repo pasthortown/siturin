@@ -25,7 +25,7 @@ export class CapcidadesABDataComponent implements OnInit {
   
   currentYear = 0;
   selected_year = 2019;
-  years: any[] = [];
+  years = [];
 
   years_error = [];
 
@@ -42,9 +42,6 @@ export class CapcidadesABDataComponent implements OnInit {
   }
 
   refresh() {
-    if (typeof this.register.capacities_on_register == 'undefined') {
-      this.register.capacities_on_register = [];
-    }
     const today = new Date();
     this.currentYear = today.getFullYear();
     this.getYears();

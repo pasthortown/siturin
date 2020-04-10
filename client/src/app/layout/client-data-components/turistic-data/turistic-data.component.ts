@@ -308,6 +308,11 @@ export class TuristicDataComponent implements OnInit {
     });
     if (register_found != null) {
       this.register_validated = register_found.register;
+      this.register_validated.complementary_service_types_on_register = []; 
+      this.register_validated.service_types_on_register = [];
+      this.register_validated.kitchen_types_on_register = [];
+      this.register_validated.complementary_service_foods_on_register = [];
+      this.register_validated.capacities_on_register = [];
       this.register.register_type_id = register_found.register.register_type_id;
     }
     this.register_validated.activity_id = activity_id;
