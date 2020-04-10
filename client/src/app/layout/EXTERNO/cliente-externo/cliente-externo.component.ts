@@ -31,6 +31,8 @@ export class ClienteExternoComponent implements OnInit {
   user: User = new User();
   registers_by_ruc: any[] = [];
 
+  resetEstablishmentList = false;
+
   data_selected = {
     register: new RegisterCatastro(),
     is_new_register: true,
@@ -96,17 +98,26 @@ export class ClienteExternoComponent implements OnInit {
 
   establishmentSelected(event) {
     const establishment_selected = event.establishment;
+    let canContinue = false;
     if (this.data_selected.is_new_register) {
       establishment_selected.as_turistic_register_date = null;
+      canContinue = true;
     } else {
-      this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id).then( resp_cat => {
-      }).catch(e => { console.log(e); });
-      establishment_selected.as_turistic_register_date = new Date(this.data_selected.register.as_turistic_date);
+      if (establishment_selected.ruc_code_id != '-' && establishment_selected.ruc_code_id != '0' ) {
+        this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id).then( resp_cat => {
+        }).catch(e => { console.log(e); });  
+        establishment_selected.as_turistic_register_date = new Date(this.data_selected.register.as_turistic_date);
+        canContinue = true;
+      }
     }
-    this.data_selected.establishment = establishment_selected;
-    this.mostrarPasosInferiores = event.showData;
-    this.mostrarDeclarations = false;
-    this.mostrarInformacionTuristica = false;
+    if (canContinue) {
+      this.data_selected.establishment = establishment_selected;
+      this.mostrarPasosInferiores = event.showData;
+      this.mostrarDeclarations = false;
+      this.mostrarInformacionTuristica = false;
+    } else {
+      this.resetEstablishmentList = true;
+    }
   }
 
   establishment_validated(event) {
