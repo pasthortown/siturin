@@ -35,16 +35,18 @@ export class Register {
       this.tarifario_rack = [];
       this.complementary_service_types_on_register = [];
       this.complementary_service_foods_on_register = [];
+      this.capacities_on_register = [];
+      this.requisites = [];
+      //ALIMENTOS BEBIDAS
       this.kitchen_types_on_register = [];
       this.service_types_on_register = [];
-      this.capacities_on_register = [];
+      //OPERACION INTERMEDIACION
       this.turistic_guides = [];
       this.transport_companies = [];
       this.sales_representatives = [];
       this.establishment_id = 0;
       this.autorized_complementary_capacities = false;
       this.autorized_complementary_food_capacities = false;
-      this.requisites = [];
       this.register_type_id = 0;
       this.total_spaces = 0;
       this.total_habitations = 0;
