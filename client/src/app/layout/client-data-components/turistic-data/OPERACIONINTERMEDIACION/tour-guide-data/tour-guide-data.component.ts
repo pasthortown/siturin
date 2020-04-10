@@ -1,3 +1,4 @@
+import { SIITService } from './../../../../../services/negocio/siit.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { GuideTypeService } from './../../../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
@@ -8,6 +9,7 @@ import { TourGuide } from './../../../../../models/OPERACIONINTERMEDIACION/TourG
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Register } from 'src/app/models/ALOJAMIENTO/Register';
 import { Component, OnInit, Input } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tour-guide-data',
@@ -27,6 +29,7 @@ export class TourGuideDataComponent implements OnInit {
   guiaTurismoSwitch = false;
   newTuristicGuide: TourGuide = new TourGuide();
 
+  identificationGuideValidated = false;
   SIITOKIdentificationGuide = false;
   consumoIdentificationGuide = false;
 
@@ -40,10 +43,11 @@ export class TourGuideDataComponent implements OnInit {
   provinciasGuide: Ubication[] = [];
   cantonesGuide: Ubication[] = [];
   parroquiasGuide: Ubication[] = [];
-  
+
   constructor(private toastr: ToastrManager,
     private modalService: NgbModal,
     private guideTypeDataService: GuideTypeService,
+    private siitDataService: SIITService,
     private ubicationDataService: UbicationService) {
     
   }
@@ -191,6 +195,33 @@ export class TourGuideDataComponent implements OnInit {
        if (ubication.father_code == code) {
           this.parroquiasGuide.push(ubication);
        }
+    });
+  }
+
+  checkIdentificacionGuia() {
+    this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
+    if (this.newTuristicGuide.identification.length !== 10) {
+       this.identificationGuideValidated = false;
+       this.consumoIdentificationGuide = false;
+       return;
+    }
+    if (this.consumoIdentificationGuide && this.SIITOKIdentificationGuide) {
+       return;
+    }
+    this.siitDataService.guiaTurismo(this.newTuristicGuide.identification).then( guiaResponse => {
+       this.SIITOKIdentificationGuide = true;
+       this.consumoIdentificationGuide = true;
+       this.identificationGuideValidated = true;
+       Swal.fire(
+          'Guía de Turísmo no encontrado!',
+          'La identificación ingresada, no corresponde a un Guía de Turísmo registrado por el Ministerio de Turismo.',
+          'error'
+       );
+       console.log('Traer a partir de la identificación del web service la información de SIIT sino mostrar mensaje de registrarlo en siit');
+    }).catch( e => {
+       this.SIITOKIdentificationGuide = false;
+       this.consumoIdentificationGuide = false;
+       console.log(e);
     });
   }
 }
