@@ -15,7 +15,7 @@
             <label>Declaro que el establecimiento, al momento del envío de la solicitud, ha contratado Representante de Ventas</label>
             <div class="col-12">
                 <div class="onoffswitch">
-                    <input type="checkbox" class="onoffswitch-checkbox"  id="representanteVentasSwitch" name="representanteVentasSwitch" [(ngModel)]="representanteVentasSwitch" [disabled]="!ediable"/>
+                    <input type="checkbox" class="onoffswitch-checkbox"  id="representanteVentasSwitch" name="representanteVentasSwitch" [(ngModel)]="representanteVentasSwitch" [disabled]="!editable"/>
                     <label class="onoffswitch-label" for="representanteVentasSwitch">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
@@ -28,7 +28,7 @@
         <table class="table table-hover mt-2">
             <thead>
                 <th colspan="5">
-                    <button type="button" title="Agregar Representante de Ventas" class="btn btn-success" (click)="addRepresentanteVentas(content_sales_representant)" [disabled]="!ediable">
+                    <button type="button" title="Agregar Representante de Ventas" class="btn btn-success" (click)="addRepresentanteVentas(content_sales_representant)" [disabled]="!editable">
                         <i class="fas fa-plus-square"></i>&nbsp;Agregar Representante de Ventas
                     </button>
                 </th>
@@ -60,10 +60,10 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group mr-2" role="group">
-                                <button [disabled]="!ediable" type="button" title="Editar" class="btn btn-warning" (click)="editRepresentanteVentas(content_sales_representant, sales_representant)">
+                                <button [disabled]="!editable" type="button" title="Editar" class="btn btn-warning" (click)="editRepresentanteVentas(content_sales_representant, sales_representant)">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button [disabled]="!ediable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
+                                <button [disabled]="!editable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteRepresentanteVentas(sales_representant)">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -126,7 +126,7 @@
                             </td>
                             <td>
                                 <div class="onoffswitch">
-                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!ediable" id="tituloProfesional" name="tituloProfesional" [(ngModel)]="newRepresentanteVentas.has_professional_degree"/>
+                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!editable" id="tituloProfesional" name="tituloProfesional" [(ngModel)]="newRepresentanteVentas.has_professional_degree"/>
                                     <label class="onoffswitch-label" for="tituloProfesional">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -140,7 +140,7 @@
                             </td>
                             <td>
                                 <div class="onoffswitch">
-                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!ediable" id="hasContract" name="hasContract" [(ngModel)]="newRepresentanteVentas.has_contract"/>
+                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!editable" id="hasContract" name="hasContract" [(ngModel)]="newRepresentanteVentas.has_contract"/>
                                     <label class="onoffswitch-label" for="hasContract">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>
@@ -154,7 +154,7 @@
                             </td>
                             <td>
                                 <div class="onoffswitch">
-                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!ediable" id="hasExperience" name="hasExperience" [(ngModel)]="newRepresentanteVentas.has_experience"/>
+                                    <input type="checkbox" class="onoffswitch-checkbox" [disabled]="!editable" id="hasExperience" name="hasExperience" [(ngModel)]="newRepresentanteVentas.has_experience"/>
                                     <label class="onoffswitch-label" for="hasExperience">
                                         <span class="onoffswitch-inner"></span>
                                         <span class="onoffswitch-switch"></span>

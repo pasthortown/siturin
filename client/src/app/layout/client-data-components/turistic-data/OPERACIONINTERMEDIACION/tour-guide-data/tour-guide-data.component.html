@@ -15,7 +15,7 @@
             <label>Declaro que el establecimiento, al momento del envío de la solicitud, ha contratado Guías de Turismo</label>
             <div class="col-12">
                 <div class="onoffswitch">
-                    <input type="checkbox" class="onoffswitch-checkbox"  id="guiaTurismoSwitch" name="guiaTurismoSwitch" [(ngModel)]="guiaTurismoSwitch" [disabled]="!ediable"/>
+                    <input type="checkbox" class="onoffswitch-checkbox"  id="guiaTurismoSwitch" name="guiaTurismoSwitch" [(ngModel)]="guiaTurismoSwitch" [disabled]="!editable"/>
                     <label class="onoffswitch-label" for="guiaTurismoSwitch">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
@@ -28,7 +28,7 @@
         <table class="table table-hover mt-2">
             <thead>
                 <th colspan="5">
-                    <button type="button" title="Agregar Guía de Turismo" class="btn btn-success" (click)="addGuiaTurismo(content_turistic_guide)" [disabled]="!ediable">
+                    <button type="button" title="Agregar Guía de Turismo" class="btn btn-success" (click)="addGuiaTurismo(content_turistic_guide)" [disabled]="!editable">
                         <i class="fas fa-plus-square"></i>&nbsp;Agregar Guía de Turismo
                     </button>
                 </th>
@@ -59,10 +59,10 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group mr-2" role="group">
-                                <button [disabled]="!ediable" type="button" title="Editar" class="btn btn-warning" (click)="editGuiaTurismo(content_turistic_guide, turistic_guide)">
+                                <button [disabled]="!editable" type="button" title="Editar" class="btn btn-warning" (click)="editGuiaTurismo(content_turistic_guide, turistic_guide)">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button [disabled]="!ediable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
+                                <button [disabled]="!editable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteGuiaTurismo(turistic_guide)">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -140,7 +140,7 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Provincia</label>
-                    <select class="form-control" id="provinciaTuristicGuide" name="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia" (change)="getCantonesGuide(newTuristicGuide.provincia)" [disabled]="!ediable">
+                    <select class="form-control" id="provinciaTuristicGuide" name="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia" (change)="getCantonesGuide(newTuristicGuide.provincia)" [disabled]="!editable">
                         <option value="-" selected>Seleccione...</option>
                         <option *ngFor="let provincia of provinciasGuide" value="{{ provincia.code }}">
                             {{ provincia.name }}
@@ -151,7 +151,7 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Cantón</label>
-                    <select class="form-control" id="cantonTuristicGuide" name="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton" (change)="getParroquiasGuide(newTuristicGuide.canton)" [disabled]="!ediable">
+                    <select class="form-control" id="cantonTuristicGuide" name="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton" (change)="getParroquiasGuide(newTuristicGuide.canton)" [disabled]="!editable">
                         <option value="-" selected>Seleccione...</option>
                         <option *ngFor="let canton of cantonesGuide" value="{{ canton.code }}">
                             {{ canton.name }}
@@ -162,7 +162,7 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="exampleInputPassword1">Parroquia</label>
-                    <select class="form-control" id="parroquiaTuristicGuide" name="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.ubication_id" [disabled]="!ediable">
+                    <select class="form-control" id="parroquiaTuristicGuide" name="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.ubication_id" [disabled]="!editable">
                         <option value="0" selected>Seleccione...</option>
                         <option *ngFor="let parroquia of parroquiasGuide" value="{{ parroquia.id }}">
                             {{ parroquia.name }}

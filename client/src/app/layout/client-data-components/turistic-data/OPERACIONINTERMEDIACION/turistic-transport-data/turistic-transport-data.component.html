@@ -15,7 +15,7 @@
             <label>Declaro que el establecimiento, al momento del envío de la solicitud, ha firmado un contrato con una Compañía de Transporte Turístico</label>
             <div class="col-12">
                 <div class="onoffswitch">
-                    <input type="checkbox" class="onoffswitch-checkbox"  id="companiaTransporteSwitch" name="companiaTransporteSwitch" [(ngModel)]="companiaTransporteSwitch" [disabled]="!ediable"/>
+                    <input type="checkbox" class="onoffswitch-checkbox"  id="companiaTransporteSwitch" name="companiaTransporteSwitch" [(ngModel)]="companiaTransporteSwitch" [disabled]="!editable"/>
                     <label class="onoffswitch-label" for="companiaTransporteSwitch">
                         <span class="onoffswitch-inner"></span>
                         <span class="onoffswitch-switch"></span>
@@ -28,7 +28,7 @@
         <table class="table table-hover mt-2">
             <thead>
                 <th colspan="7">
-                    <button type="button" title="Agregar Compañía de Transporte" class="btn btn-success" (click)="addCompaniaTransporte(content_turistic_transport)" [disabled]="!ediable">
+                    <button type="button" title="Agregar Compañía de Transporte" class="btn btn-success" (click)="addCompaniaTransporte(content_turistic_transport)" [disabled]="!editable">
                         <i class="fas fa-plus-square"></i>&nbsp;Agregar Compañía de Transporte Turístico
                     </button>
                 </th>
@@ -55,10 +55,10 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group mr-2" role="group">
-                                <button [disabled]="!ediable" type="button" title="Editar" class="btn btn-warning" (click)="editCompaniaTransporte(content_turistic_transport, transport_company)">
+                                <button [disabled]="!editable" type="button" title="Editar" class="btn btn-warning" (click)="editCompaniaTransporte(content_turistic_transport, transport_company)">
                                     <i class="fas fa-edit" ></i>
                                 </button>
-                                <button [disabled]="!ediable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteCompaniaTransporte(transport_company)">
+                                <button [disabled]="!editable" type="button" title="Eliminar" class="btn btn-danger" (click)="deleteCompaniaTransporte(transport_company)">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>

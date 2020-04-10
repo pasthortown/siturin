@@ -15,7 +15,7 @@ export class SalesRepresentativeDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
   @Input('classification_selected_code') classification_selected_code: string = '';
   
-  representanteVentasSwitch = true;
+  representanteVentasSwitch = false;
   newRepresentanteVentas: SalesRepresentative = new SalesRepresentative();
 
   SRIOKSalesRepresentative = false;
