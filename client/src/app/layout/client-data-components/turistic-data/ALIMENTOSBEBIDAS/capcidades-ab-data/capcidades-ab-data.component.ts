@@ -1,7 +1,8 @@
-import { FoodDrinkAttachmentService } from './../../../../../services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FoodDrinkAttachment } from './../../../../../models/ALIMENTOSBEBIDAS/FoodDrinkAttachment';
+import { Capacity } from './../../../../../models/ALIMENTOSBEBIDAS/Capacity';
+import { FoodDrinkAttachmentService } from './../../../../../services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
-import { Component, OnInit, Input } from '@angular/core';
 import { RegisterType } from './../../../../../models/ALOJAMIENTO/RegisterType';
 import { saveAs } from 'file-saver/FileSaver';
 
@@ -15,20 +16,24 @@ export class CapcidadesABDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
   @Input('classification_selected_code') classification_selected_code: string = '';
   @Input('register_types') register_types: RegisterType[] = [];
-  
+  @Input('is_new_register') is_new_register: boolean = true;
+
+  @Output('lista_precios') lista_precios: EventEmitter<any> = new EventEmitter<any>();
+
   listaPrecios: FoodDrinkAttachment = new FoodDrinkAttachment();
   listasPrecios: FoodDrinkAttachment[] = [];
   
   currentYear = 0;
-  selected_year_id = 2019;
+  selected_year = 2019;
   years: any[] = [];
+
+  years_error = [];
 
   constructor(private foodDrinkAttachmentDataService: FoodDrinkAttachmentService) {
     
   }
 
   ngOnInit() {
-    this.loadCatalogos();
     this.refresh();
   }
 
@@ -39,22 +44,26 @@ export class CapcidadesABDataComponent implements OnInit {
   refresh() {
     const today = new Date();
     this.currentYear = today.getFullYear();
-    this.getListaPrecios();
+    this.getYears();
   }
 
-  loadCatalogos() {
-
-  }
-
-  getListaPrecios() {
+  getListasPrecios() {
     this.foodDrinkAttachmentDataService.get_by_register_id(this.register.id).then( r => {
-       this.listasPrecios = r as FoodDrinkAttachment[];
-       if (this.listasPrecios.length > 0) {
-          this.listaPrecios = r[0];
-          //POR AÑO
-       } else {
-          this.listaPrecios = new FoodDrinkAttachment();
-       }
+      this.listasPrecios = r as FoodDrinkAttachment[];
+      this.years.forEach(year => {
+        let lista_precios_encontrada = false;
+        this.listasPrecios.forEach(lista_precios => {
+          if (lista_precios.year == year.value) {
+            lista_precios_encontrada = true;
+          }
+        });
+        if (!lista_precios_encontrada) {
+          const newListaPrecios = new FoodDrinkAttachment();
+          newListaPrecios.date = new Date();
+          newListaPrecios.year = year.value;
+          this.listasPrecios.push(newListaPrecios);
+        }
+      });
     }).catch( e => { console.log(e); });
   }
  
@@ -91,7 +100,66 @@ export class CapcidadesABDataComponent implements OnInit {
         this.listaPrecios.food_drink_attachment_file_name = file.name;
         this.listaPrecios.type = 'Lista Precios';
         this.listaPrecios.date = new Date();
+        this.lista_precios.emit(this.listasPrecios);
       };
     }
+  }
+
+  selectCapacityByYear() {
+    this.listasPrecios.forEach(element => {
+      if (element.year == this.selected_year) {
+         this.listaPrecios = element;
+      }
+    });
+  }
+
+  getLastYearDeclared(): number {
+    let lastYearDeclared = 2019;
+    this.register.capacities_on_register.forEach( capacity => {
+      if (capacity.year > lastYearDeclared){
+        lastYearDeclared = capacity.year;
+      }
+    });
+    return lastYearDeclared;
+  }
+
+  getYears() {
+    this.years = [{value: this.currentYear}];
+    this.register.capacities_on_register.forEach( capacity => {
+      let existe = false;
+      this.years.forEach(year => {
+        if (year.value == capacity.year) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        let newYear = capacity.year;
+        if (newYear != null) {
+          this.years.push({value: newYear});
+        }
+      }
+    });
+    this.years.sort(function(a, b) {
+      const a_value = a.value;
+      const b_value = b.value;
+      return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
+    });
+    if (this.is_new_register) {
+      this.selected_year = this.currentYear;
+    } else {
+      this.selected_year = this.getLastYearDeclared();
+    }
+    this.getListasPrecios();
+  }
+
+  validateListaPrecios(): boolean {
+    let toReturn = true;
+    this.listasPrecios.forEach(lista_precios => {
+      if (lista_precios.food_drink_attachment_file == '') {
+        this.years_error.push(lista_precios.year);
+        toReturn = false;
+      }
+    });
+    return toReturn;
   }
 }

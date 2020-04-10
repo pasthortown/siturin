@@ -18,7 +18,6 @@ export class PrestacionesABDataComponent implements OnInit {
   @Input('classification_selected_code') classification_selected_code: string = '';
   @Input('register_types') register_types: RegisterType[] = [];
   
-  
   service_types: ServiceType[] = [];
   kitchen_types: KitchenType[] = [];
   

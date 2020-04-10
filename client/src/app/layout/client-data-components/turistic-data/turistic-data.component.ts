@@ -467,4 +467,8 @@ export class TuristicDataComponent implements OnInit {
   category_change_requisites(event) {
     this.register.register_type_id = event;
   }
+
+  lista_precios_ab(event) {
+    console.log(event);
+  }
 }

@@ -33,7 +33,9 @@
     [register]="register_validated"
     [register_types]="register_types_block.register_types_alimentos_bebidas"
     [classification_selected_code]="classificationSelectedCode"
-    [editable]="editable">
+    [editable]="editable" 
+    [is_new_register]="is_new_register"
+    (lista_precios)="lista_precios_ab($event)">
 </app-capcidades-ab-data>
 <app-prestaciones-ab-data *ngIf="register_validated.activity_id == 2" 
     [register]="register_validated"
