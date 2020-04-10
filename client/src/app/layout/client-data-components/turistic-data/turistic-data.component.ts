@@ -440,6 +440,7 @@ export class TuristicDataComponent implements OnInit {
             });
          });
       });
+      console.log(this.tarifarioRack);
     }).catch( e => { console.log(e); });
   }
 
