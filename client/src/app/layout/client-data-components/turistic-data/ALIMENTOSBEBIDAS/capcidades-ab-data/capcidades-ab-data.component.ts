@@ -76,12 +76,13 @@ export class CapcidadesABDataComponent implements OnInit {
       const b_value = b.value;
       return a_value > b_value ? 1 : a_value < b_value ? -1 : 0;
     });
-    console.log(this.years);
     if (this.is_new_register) {
       this.selected_year = this.currentYear;
     } else {
       this.selected_year = this.getLastYearDeclared();
     }
+    console.log(this.years);
+    console.log(this.selected_year);
     this.getListasPrecios();
   }
 
