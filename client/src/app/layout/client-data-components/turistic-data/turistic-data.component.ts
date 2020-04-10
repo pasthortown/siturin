@@ -314,6 +314,9 @@ export class TuristicDataComponent implements OnInit {
       this.register_validated.kitchen_types_on_register = [];
       this.register_validated.complementary_service_foods_on_register = [];
       this.register_validated.capacities_on_register = [];
+      this.register_validated.sales_representatives = [];
+      this.register_validated.turistic_guides = [];
+      this.register_validated.transport_companies = [];
     } else {
       this.register_validated = new Register();
     }
@@ -377,6 +380,9 @@ export class TuristicDataComponent implements OnInit {
     this.register_validated.kitchen_types_on_register = this.register_data_from_BDD.kitchen_types;
     this.register_validated.complementary_service_foods_on_register = this.register_data_from_BDD.complementary_service_foods_on_register;
     this.register_validated.capacities_on_register = this.register_data_from_BDD.capacities_on_register;
+    this.register_validated.sales_representatives = this.register_data_from_BDD.sales_representatives;
+    this.register_validated.turistic_guides = this.register_data_from_BDD.turistic_guides;
+    this.register_validated.transport_companies = this.register_data_from_BDD.transport_companies;
     this.startRequisitesByRegisterType(this.register_data_from_BDD.requisites);
   }
 
