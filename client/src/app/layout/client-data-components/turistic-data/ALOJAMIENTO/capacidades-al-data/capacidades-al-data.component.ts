@@ -1,3 +1,5 @@
+import { TariffTypeService } from './../../../../../services/CRUD/ALOJAMIENTO/tarifftype.service';
+import { TariffType } from './../../../../../models/ALOJAMIENTO/TariffType';
 import { Tariff } from './../../../../../models/ALOJAMIENTO/Tariff';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 import { CapacityType } from './../../../../../models/ALOJAMIENTO/CapacityType';
@@ -30,14 +32,13 @@ export class CapacidadesALDataComponent implements OnInit {
   capacitySelected: Capacity = new Capacity();
 
   allowed_capacity_types: CapacityType[] = []; 
-
   
   continuarTarifarioRack = false;
   tarifarioRack = {cabecera: [], valores: []};
   tariffsToShow = {cabecera: [], valores: []};
   tarifas: any[] = [];
 
-  constructor(private capacityTypeDataService: CapacityTypeService) {
+  constructor(private capacityTypeDataService: CapacityTypeService, private tariffTypeDataService: TariffTypeService) {
     
   }
 
@@ -58,12 +59,35 @@ export class CapacidadesALDataComponent implements OnInit {
 
   loadCatalogos() {
    this.getCapacityTypes();
+   this.getTariffs();
   }
 
   getCapacityTypes() {
     this.allowed_capacity_types = [];
     this.capacityTypeDataService.get_filtered_by_register_type(this.register.register_type_id).then( r => {
       this.allowed_capacity_types = r as CapacityType[];
+    }).catch( e => { console.log(e); });
+  }
+
+  getTariffs() {
+    this.tarifas = [];
+    this.tarifarioRack = {cabecera: [{valor:'Tipo de Habitación', padre: '', hijo: ''}], valores: []};
+    this.tariffTypeDataService.get().then( r => {
+      const result = r as TariffType[];
+      result.forEach(father => {
+        if(father.father_code == '-'){
+          const tariff_father: TariffType = father;
+          const tariff_child: TariffType[] = [];
+          result.forEach(child => {
+            if(child.father_code == father.code) {
+              child.is_reference = father.is_reference;
+              tariff_child.push(child);
+              this.tarifarioRack.cabecera.push({valor:'Tarifa por ' + tariff_father.name + ' en ' + child.name, padre:tariff_father.name, hijo: child.name});
+            }
+          });
+          this.tarifas.push({father: tariff_father, childs: tariff_child});
+        }
+      });
     }).catch( e => { console.log(e); });
   }
 
@@ -122,6 +146,7 @@ export class CapacidadesALDataComponent implements OnInit {
           this.capacitiesToShow.push(c1);
        }
     });
+    this.calcSpaces();
   }
 
   getLastYearDeclared(): number {
@@ -177,6 +202,18 @@ export class CapacidadesALDataComponent implements OnInit {
     return true;
   }
 
+  validateTarifarioRackIngresado(): Boolean {
+    let aprueba = true;
+    this.tariffsToShow.valores.forEach( tariffRack => {
+      tariffRack.tariffs.forEach( tariff => {
+         if (tariff.tariff.price == 0) {
+            aprueba = false;
+         }
+      });
+    });
+    return aprueba;
+  }
+
   addCapacity() {
     const newCapacity = new Capacity();
     newCapacity.editable = true;
@@ -187,7 +224,6 @@ export class CapacidadesALDataComponent implements OnInit {
     this.register.capacities_on_register.push(newCapacity);
     this.capacitiesToShow = this.register.capacities_on_register;
     this.yearCapacity();
-    this.calcSpaces();
   }
 
   selectCapacity(capacity: Capacity) {

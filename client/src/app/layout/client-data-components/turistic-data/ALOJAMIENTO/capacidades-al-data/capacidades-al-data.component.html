@@ -81,6 +81,7 @@
 <div class="row mt-3" *ngIf="tarifarioRack.valores.length > 0">
     <h4 class="col-12">
         <strong>Tarifario RACK</strong>
+        <span class="badge badge-danger" *ngIf="!validateTarifarioRackIngresado()">Incorrecto</span>
     </h4>
     <div class="col-12">
         <div class="alert alert-info mt-2 mb-2" role="alert">

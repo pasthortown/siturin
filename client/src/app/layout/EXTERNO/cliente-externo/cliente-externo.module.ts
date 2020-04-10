@@ -79,6 +79,7 @@ import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/
 import { SIITService } from 'src/app/services/negocio/siit.service';
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
+import { TariffTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/tarifftype.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -119,6 +120,7 @@ import { CapacityTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/capacityt
     AgreementService,
     AuthorizationAttachmentService,
     PropertyTitleAttachmentService,
+    TariffTypeService,
     FloorAuthorizationCertificateService,
     ConsultorService,
     ComplementaryServiceFoodTypeService,
