@@ -39,6 +39,7 @@ export class CapcidadesABDataComponent implements OnInit {
   refresh() {
     const today = new Date();
     this.currentYear = today.getFullYear();
+    this.getListaPrecios();
   }
 
   loadCatalogos() {
