@@ -149,6 +149,8 @@ export class CapacidadesALDataComponent implements OnInit {
           this.capacitiesToShow.push(c1);
        }
     });
+    console.log(this.register);
+    console.log(this.register.capacities_on_register);
     this.calcSpaces();
   }
 
