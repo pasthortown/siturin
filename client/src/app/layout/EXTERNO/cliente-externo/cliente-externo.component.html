@@ -42,7 +42,7 @@
                         </ngb-tab> 
                         <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3" *ngIf="mostrarInformacionTuristica && opcion_seleccionada != 'tax_declaration'">
                             <ng-template ngbTabContent>
-                                <app-turistic-data (salir_forced)="salir_turistic_information()" [is_new_register]="data_selected.is_new_register" [registers_by_ruc]="registers_by_ruc" [ruc]="data_selected.ruc" [establishment]="data_selected.establishment_validated" [register]="data_selected.register_selected" [opcion_seleccionada]="opcion_seleccionada" [editable]="isEditable"></app-turistic-data>
+                                <app-turistic-data (preview_page_button_click)="change_page_button_click($event)" (salir_forced)="salir_turistic_information()" [is_new_register]="data_selected.is_new_register" [registers_by_ruc]="registers_by_ruc" [ruc]="data_selected.ruc" [establishment]="data_selected.establishment_validated" [register]="data_selected.register_selected" [opcion_seleccionada]="opcion_seleccionada" [editable]="isEditable"></app-turistic-data>
                             </ng-template>
                         </ngb-tab> 
                     </ngb-tabset>  

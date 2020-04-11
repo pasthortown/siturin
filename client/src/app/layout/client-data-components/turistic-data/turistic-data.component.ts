@@ -33,7 +33,8 @@ export class TuristicDataComponent implements OnInit {
   @Input('is_new_register') is_new_register: boolean = true;  
 
   @Output('salir_forced') salir_forced: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
+  
   activity_id_from_registers_actives = 0;
 
   register_validated: Register = new Register();
@@ -41,14 +42,16 @@ export class TuristicDataComponent implements OnInit {
   tarifarioRack = {cabecera: [], valores: []};
   tarifas: any[] = [];
 
+  listasPrecios: any[] = [];
+
   modules_activation: any = {
     activate_alojamiento: true,
     activate_alimentos_bebidas: true,
     activate_operacion_intermediacion: true
   };
 
-  establishment_registers = [];
-  requisites = [];
+  establishment_registers: any[] = [];
+  requisites: any[] = [];
 
   register_types_block = {
     register_types_alojamiento: [],
@@ -333,6 +336,7 @@ export class TuristicDataComponent implements OnInit {
     this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
+    this.register_validated.establishment_id = this.establishment.id;
     if (register_found == null) {
       this.display_register_data = true;
     }
@@ -347,18 +351,6 @@ export class TuristicDataComponent implements OnInit {
       }
     });
     return classification_code;
-  }
-
-  authorization_condominos(event) {
-    this.attachments.authorization_condominos = event;
-  }
-
-  property_title(event) {
-    this.attachments.property_title = event;
-  }
-
-  floor_authorization_certificate(event) {
-    this.attachments.floor_authorization_certificate = event;
   }
 
   showRegisterData() {
@@ -518,7 +510,73 @@ export class TuristicDataComponent implements OnInit {
     this.register.register_type_id = event;
   }
 
+  previewPage() {
+    this.preview_page_button_click.emit('Paso 2');
+  }
+
+  validateRegisterDataToSave(): boolean {
+    return true;
+  }
+
   lista_precios_ab(event) {
-    console.log(event);
+    this.listasPrecios = event;
+  }
+
+  authorization_condominos(event) {
+    this.attachments.authorization_condominos = event;
+  }
+
+  property_title(event) {
+    this.attachments.property_title = event;
+  }
+
+  floor_authorization_certificate(event) {
+    this.attachments.floor_authorization_certificate = event;
+  }
+
+  guardarRegistro() {
+    Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de enviar la solicitud al Ministerio de Turismo? Tome en cuenta que una vez enviada la solicitud, la información no podrá ser modificada; y ésta, será verificada mediante inspección.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        console.log(this.register_validated.capacities_on_register);
+        console.log(this.register_validated);
+        if (this.register_validated.activity_id == 1) {
+          this.saveAlojamiento();
+        }  
+        if (this.register_validated.activity_id == 2) {
+          this.saveAlimentosBebidas();
+        }
+        if (this.register_validated.activity_id == 3) {
+          this.saveOperacionIntermediacion();
+        }
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+      }
+    });
+  }
+
+  saveAlojamiento() {
+    console.log('alojamiento');
+  }
+
+  saveAlimentosBebidas() {
+    console.log('alimentos');
+  }
+
+  saveOperacionIntermediacion() {
+    console.log('operacion');
   }
 }
