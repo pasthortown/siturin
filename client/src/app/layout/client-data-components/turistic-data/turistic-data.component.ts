@@ -545,8 +545,6 @@ export class TuristicDataComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        console.log(this.register_validated.capacities_on_register);
-        console.log(this.register_validated);
         if (this.register_validated.activity_id == 1) {
           this.saveAlojamiento();
         }  
@@ -569,6 +567,9 @@ export class TuristicDataComponent implements OnInit {
   }
 
   saveAlojamiento() {
+    console.log(this.tarifarioRack);
+    console.log(this.attachments);
+    console.log(this.establishment);
     console.log('alojamiento');
   }
 
