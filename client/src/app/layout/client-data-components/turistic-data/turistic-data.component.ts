@@ -379,7 +379,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   dataRegisterRecived() {
-    console.log(this.register_data_from_BDD);
     this.register_validated.complementary_service_types_on_register = this.register_data_from_BDD.complementary_service_types_on_register; 
     this.register_validated.service_types_on_register = this.register_data_from_BDD.service_types;
     this.register_validated.kitchen_types_on_register = this.register_data_from_BDD.kitchen_types;
@@ -574,10 +573,16 @@ export class TuristicDataComponent implements OnInit {
   }
 
   saveAlimentosBebidas() {
+    console.log(this.register_validated);
+    console.log(this.attachments);
+    console.log(this.establishment);
     console.log('alimentos');
   }
 
   saveOperacionIntermediacion() {
+    console.log(this.register_validated);
+    console.log(this.attachments);
+    console.log(this.establishment);
     console.log('operacion');
   }
 }
