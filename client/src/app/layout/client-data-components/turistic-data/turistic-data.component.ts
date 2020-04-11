@@ -566,6 +566,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   saveAlojamiento() {
+    console.log(this.register_validated);
     console.log(this.tarifarioRack);
     console.log(this.attachments);
     console.log(this.establishment);
