@@ -72,10 +72,10 @@
         <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="previewPage()">
             <i class="fas fa-arrow-left"></i>&nbsp;Anterior
         </button>
-        <button [disabled]="guardando"  *ngIf="editable && register_validated.editable" type="button" class="btn btn-success" title="Enviar Solicitud" (click)="guardarRegistro()">
+        <button [disabled]="guardando"  *ngIf="register_validated.register_type_id != 0 && editable && register_validated.editable" type="button" class="btn btn-success" title="Enviar Solicitud" (click)="guardarRegistro()">
             <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
         </button>
-        <button type="button" *ngIf="editable && register_validated.editable" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
+        <button type="button" *ngIf="register_validated.register_type_id != 0 && editable && register_validated.editable" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
             <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
         </button>
     </div>
