@@ -200,8 +200,8 @@ export class RucDataComponent implements OnInit {
             if (this.ruc.tax_payer_type_id != 1) {
                this.rucData += datosRL;
             }
+            this.ruc_validated.emit(this.ruc);
          });
-         this.ruc_validated.emit(this.ruc);
       }).catch( e => {
          console.log(e);
          this.rucData = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
