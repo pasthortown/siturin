@@ -12,36 +12,36 @@
 <app-sales-representative-data *ngIf="register_validated.activity_id == 3 && display_register_data"
     [classification_selected_code]="classificationSelectedCode"
     [register]="register_validated"
-    [editable]="editable">
+    [editable]="editable && register_validated.editable">
 </app-sales-representative-data>
 <app-tour-guide-data *ngIf="register_validated.activity_id == 3 && display_register_data"
     [register_types_block]="register_types_block" 
     [register]="register_validated"
-    [editable]="editable">
+    [editable]="editable && register_validated.editable">
 </app-tour-guide-data>
 <app-turistic-transport-data *ngIf="register_validated.activity_id == 3 && display_register_data"
     [classification_selected_code]="classificationSelectedCode"
     [register]="register_validated"
-    [editable]="editable">
+    [editable]="editable && register_validated.editable">
 </app-turistic-transport-data>
 <app-capacidades-al-data *ngIf="register_validated.activity_id == 1 && display_register_data"
     [register]="register_validated"
     [register_types]="register_types_block.register_types_alojamiento"
     [classification_selected_code]="classificationSelectedCode"
-    [editable]="editable" 
+    [editable]="editable && register_validated.editable" 
     [tarifario_rack]="tarifarioRack"
     [tarifas]="tarifas"
     [is_new_register]="is_new_register">
 </app-capacidades-al-data>
 <app-complementary-services-al-data *ngIf="register_validated.activity_id == 1 && display_register_data"
     [register]="register_validated"
-    [editable]="editable">
+    [editable]="editable && register_validated.editable">
 </app-complementary-services-al-data>
 <app-capcidades-ab-data *ngIf="register_validated.activity_id == 2 && display_register_data" 
     [register]="register_validated"
     [register_types]="register_types_block.register_types_alimentos_bebidas"
     [classification_selected_code]="classificationSelectedCode"
-    [editable]="editable" 
+    [editable]="editable && register_validated.editable" 
     [is_new_register]="is_new_register"
     (lista_precios)="lista_precios_ab($event)">
 </app-capcidades-ab-data>
@@ -49,10 +49,10 @@
     [register]="register_validated"
     [register_types]="register_types_block.register_types_alimentos_bebidas"
     [classification_selected_code]="classificationSelectedCode"
-    [editable]="editable">
+    [editable]="editable && register_validated.editable">
 </app-prestaciones-ab-data>
 <app-adventure-data [register]="register_validated"
-    [editable]="editable" 
+    [editable]="editable && register_validated.editable" 
     *ngIf="register_validated.activity_id != 0 && display_register_data">
 </app-adventure-data>
 <app-requisites-data (authorization_condominos)="authorization_condominos($event)" 
@@ -62,7 +62,7 @@
     [register_types_block]="register_types_block"
     [establishment]="establishment" 
     [register]="register_validated" 
-    [editable]="editable" 
+    [editable]="editable && register_validated.editable" 
     [opcion_seleccionada]="opcion_seleccionada" 
     [requisites]="requisites" *ngIf="showRequisites">
 </app-requisites-data>
@@ -71,10 +71,10 @@
         <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="previewPage()">
             <i class="fas fa-arrow-left"></i>&nbsp;Anterior
         </button>
-        <button [disabled]="guardando" type="button" class="btn btn-success" title="Enviar Solicitud" (click)="guardarRegistro()">
+        <button [disabled]="guardando"  *ngIf="editable && register_validated.editable" type="button" class="btn btn-success" title="Enviar Solicitud" (click)="guardarRegistro()">
             <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
         </button>
-        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
+        <button type="button" *ngIf="editable && register_validated.editable" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
             <i class="fas fa-trash"></i>&nbsp;Cancelar Cambios
         </button>
     </div>

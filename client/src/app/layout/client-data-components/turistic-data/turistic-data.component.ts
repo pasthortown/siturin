@@ -198,11 +198,11 @@ export class TuristicDataComponent implements OnInit {
     this.registers_by_ruc.forEach(element => {
       const textoEstado = element.status_register.state_id.toString();
       const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
-      // if (digitoEstado == 3 || digitoEstado == 9) {
-      //   element.register.editable = true;
-      // } else {
-      //   element.register.editable = false;
-      // }
+      if (digitoEstado == 3 || digitoEstado == 9) {
+        element.register.editable = true;
+      } else {
+        element.register.editable = false;
+      }
       if (element.establishment.id == this.establishment.id) {
         if (element.register.code == 'PENDIENTE' || element.register.code == '') {
           solicitudes_pendientes.push(element);

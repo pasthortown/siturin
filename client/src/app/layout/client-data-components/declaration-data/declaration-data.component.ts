@@ -26,6 +26,7 @@ export class DeclarationDataComponent implements OnInit {
   @Input('is_new_register') is_new_register: boolean = false;
   @Input('editable') editable: boolean = true;
   @Input('registers_by_ruc') registers_by_ruc: any[] = [];
+  @Input('opcion_seleccionada') opcion_seleccionada: String = '';
   
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
   @Output('next_page_button_click') next_page_button_click: EventEmitter<string> = new EventEmitter<string>();
