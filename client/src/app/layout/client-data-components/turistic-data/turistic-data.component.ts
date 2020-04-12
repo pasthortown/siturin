@@ -1109,7 +1109,7 @@ export class TuristicDataComponent implements OnInit {
     this.register_validated.tarifario_rack = tariffs;
     let tipo_tramite = this.getTipoTramite();
     this.register_alojamiento_data_service.register_register_data(this.register_validated).then( r => {
-      this.attachments.floor_authorization_certificate = r.id;
+      this.attachments.floor_authorization_certificate.register_id = r.id;
       if (this.register_validated.register_type_id == 47 || 
         this.register_validated.register_type_id == 46) {
         this.attachments.authorization_condominos.register_id = r.id;
