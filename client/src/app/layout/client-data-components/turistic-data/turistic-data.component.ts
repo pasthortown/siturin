@@ -23,6 +23,7 @@ import { Ruc } from './../../../models/DINARDAP/Ruc';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 
 @Component({
   selector: 'app-turistic-data',
@@ -47,6 +48,8 @@ export class TuristicDataComponent implements OnInit {
   register_data_from_BDD: any = null;
   tarifarioRack = {cabecera: [], valores: []};
   tarifas: any[] = [];
+
+  capacity_types_alimentos_bebidas = [];
 
   procedureJustification = new ProcedureJustification();
 
@@ -92,6 +95,7 @@ export class TuristicDataComponent implements OnInit {
   constructor(private toastr: ToastrManager,
     private consultorDataService: ConsultorService,
     private tariffTypeDataService: TariffTypeService,
+    private capacityTypeABDataService: CapacityTypeABService,
     private ubicationDataService: UbicationService,
     private requisite_operacion_intermediacion_data_service: RequisiteOPService,
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
@@ -103,8 +107,20 @@ export class TuristicDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUbications();
+    this.loadCatalogos();
     this.getRegisterTypes();
+  }
+
+  loadCatalogos() {
+    this.getUbications();
+    this.getCapacityTypes();
+  }
+  
+  getCapacityTypes() {
+    this.capacity_types_alimentos_bebidas = [];
+    this.capacityTypeABDataService.get().then( r => {
+       this.capacity_types_alimentos_bebidas = r as any[];
+    }).catch( e => { console.log(e); });
   }
 
   ngOnChanges() {
@@ -817,10 +833,14 @@ export class TuristicDataComponent implements OnInit {
     if (!this.validateAlojamientoData()) {
       return;
     }
+    this.guardando = true;
+    let tipo_tramite = this.getTipoTramite();
+    const today = new Date();
+    const actividad = 'ALOJAMIENTO';
+    const ubicationData = this.getUbicationData();
     return;
     this.languageDataService.save_languajes(this.establishment.id, this.establishment.languages_on_establishment).then( r => {
     }).catch( e => { console.log(e); });
-    this.guardando = true;
     const tariffs: Tariff[] = [];
     this.tarifarioRack.valores.forEach(tarifRackValor => {
       const idTipoCapacidad = tarifRackValor.idTipoCapacidad;
@@ -830,10 +850,7 @@ export class TuristicDataComponent implements OnInit {
       });
     });  
     this.register_validated.tarifario_rack = tariffs;
-    let tipo_tramite = this.getTipoTramite();
-    const today = new Date();
-    const actividad = 'ALOJAMIENTO';
-    const ubicationData = this.getUbicationData();
+    
   //  this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
   //     this.certificadoUsoSuelo.register_id = r.id;
   //     if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
@@ -978,7 +995,12 @@ export class TuristicDataComponent implements OnInit {
       this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
       toReturn = false;
     }
-
+    if (!this.validateReclassificationRecategorization()) {
+      toReturn = false;
+    }
+    if (!this.validateRequisites()) {
+      toReturn = false;
+    }
     return toReturn;
   }
 
@@ -1000,71 +1022,22 @@ export class TuristicDataComponent implements OnInit {
     if (!this.validateAlimentosBebidasData()) {
       return;
     }
+    this.guardando = true;
+    let tipo_tramite = this.getTipoTramite();
+    const today = new Date();
+    const actividad = 'ALIMENTOS Y BEBIDAS';
+    const ubicationData = this.getUbicationData();
+    this.capacity_types_alimentos_bebidas.forEach(element => {
+      if (element.register_type_id == this.register_validated.register_type_id) {
+        this.register_validated.capacities_on_register.forEach(capacidad => {
+          capacidad.capacity_type_id = element.id; 
+        });
+      }
+    });
     return;
-    
    
-   
-   
-  //  this.capacityTypesAB.forEach(element => {
-  //     if (element.register_type_id == this.rucEstablishmentRegisterSelected.register_type_id) {
-  //        this.rucEstablishmentRegisterSelected.capacities_on_register[0].capacity_type_id = element.id;
-  //     }
-  //  });
-  //  if (this.reclasificando) {
-  //     let newClassification = '';
-  //     this.clasifications_registers.forEach(element => {
-  //        if (element.code == this.categorySelectedCode) {
-  //           newClassification = element.name.toString();
-  //        }
-  //     });
-  //     if (this.selected_classification_catastro.toUpperCase() == newClassification.toUpperCase()) {
-  //        this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
-  //        return;
-  //     }
-  //  }
-  //  if (this.recategorizando) {
-  //     let newCategory = '';
-  //     this.categories_registers.forEach(element => {
-  //        if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-  //           newCategory = element.name.toString();
-  //        }
-  //     });
-  //     if (this.selected_category_catastro.toUpperCase() == newCategory.toUpperCase()) {
-  //        this.toastr.errorToastr('Debe seleccionar una Categoría diferente a la que ya posee.', 'RECATEGORIZACIÓN');
-  //        return;
-  //     }
-  //  }
-  //  if (!(this.actualizando || this.inactivando || this.actualizandoCapacidadesPrecios)) {
-  //     let mostradoError = false;
-  //     this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
-  //        if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
-  //           element.value = 'true';
-  //        }
-  //        let esgrupo = false;
-  //        if (element.HTMLtype == "GRUPO 0" || element.HTMLtype == "GRUPO 1" || element.HTMLtype == "GRUPO 2" || element.HTMLtype == "GRUPO 3" || element.HTMLtype == "GRUPO 4" || element.HTMLtype == "GRUPO 5" || element.HTMLtype == "GRUPO 6") {
-  //           esgrupo = true;
-  //        }
-  //        if (!mostradoError && !esgrupo && element.mandatory && (element.value == 'false' || element.value == '0')) {
-  //           this.toastr.errorToastr('La repuesta seleccionada en los requisitos obligatorios no corresponde a la admitida para la categoría seleccionada.', 'Normativa');
-  //           mostradoError = true;
-  //        }
-  //     });
-  //     if (mostradoError) {
-  //        return;
-  //     }
-  //     this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
 
-  //     }).catch( e => { console.log(e); });
-  //  }
-  //  this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
-  //  this.rucEstablishmentRegisterSelected.id = 0;
-
-  //   this.guardando = true;
-  //   let tipo_tramite = this.getTipoTramite();
-  //   const today = new Date();
-  //   const actividad = 'ALIMENTOS Y BEBIDAS';
-  //   const ubicationData = this.getUbicationData();
-
+  
   //  this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
   //     this.certificadoUsoSuelo.register_id = r.id;
   //     this.guardarCertificadoUsoSuelos();

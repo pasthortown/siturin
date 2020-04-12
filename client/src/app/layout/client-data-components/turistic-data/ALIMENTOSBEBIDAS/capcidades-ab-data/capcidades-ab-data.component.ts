@@ -34,6 +34,7 @@ export class CapcidadesABDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCapacityTypes();
     this.refresh();
   }
 
