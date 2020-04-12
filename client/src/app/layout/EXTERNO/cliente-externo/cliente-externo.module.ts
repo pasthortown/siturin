@@ -84,6 +84,11 @@ import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/C
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { MailerService } from 'src/app/services/negocio/mailer.service';
 
+import { RegisterProcedureService as RegisterProcedureABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+
+
 @NgModule({
   imports: [CommonModule, 
     FormsModule,
@@ -149,6 +154,9 @@ import { MailerService } from 'src/app/services/negocio/mailer.service';
     GenderService,
     FoodDrinkAttachmentService,
     WorkerGroupService,
+    RegisterProcedureABService,
+    RegisterProcedureALService,
+    RegisterProcedureOPService,
     RucNameTypeService,
     EstablishmentPictureService,
     EstablishmentCertificationTypeService,

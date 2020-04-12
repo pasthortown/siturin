@@ -938,6 +938,10 @@ export class TuristicDataComponent implements OnInit {
     return toReturn;
   }
 
+  validateOperacionIntermediacionData(): boolean {
+    return true;
+  }
+
   validateCapacidades(): boolean {
     let toReturn = true;
     this.register_validated.capacities_on_register.forEach(element => {
@@ -1146,8 +1150,19 @@ export class TuristicDataComponent implements OnInit {
 
   saveOperacionIntermediacion() {
     console.log(this.register_validated);
-    console.log(this.attachments);
-    console.log(this.establishment);
-    console.log('operacion');
+    if (!this.validateOperacionIntermediacionData()) {
+      return;
+    }
+    return;
+    this.guardando = true;
+    this.register_operacion_intermediacion_data_service.register_register_data(this.register_validated).then( r => {
+      this.attachments.floor_authorization_certificate.register_id = r.id;
+      this.guardarCertificadoUsoSuelos();
+      this.saveProcedure(r.id);  
+      this.buildTemplatePDF();
+    }).catch( e => {
+      this.guardando = false;
+      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+    });
   }
 }
