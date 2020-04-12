@@ -952,8 +952,7 @@ export class TuristicDataComponent implements OnInit {
     return toReturn;
   }
 
-  buildTemplatePDF() {
-    let tipo_tramite = this.getTipoTramite();
+  buildTemplatePDF(tipo_tramite) {
     const today = new Date();
     let actividad = '';
     let source_array = [];
@@ -1106,6 +1105,7 @@ export class TuristicDataComponent implements OnInit {
       });
     });  
     this.register_validated.tarifario_rack = tariffs;
+    let tipo_tramite = this.getTipoTramite();
     this.register_alojamiento_data_service.register_register_data(this.register_validated).then( r => {
       this.attachments.floor_authorization_certificate = r.id;
       if (this.register_validated.register_type_id == 47 || 
@@ -1117,7 +1117,7 @@ export class TuristicDataComponent implements OnInit {
       }
       this.guardarCertificadoUsoSuelos();
       this.saveProcedure(r.id);
-      this.buildTemplatePDF();
+      this.buildTemplatePDF(tipo_tramite);
     }).catch( e => {
       this.guardando = false;
       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
@@ -1136,12 +1136,13 @@ export class TuristicDataComponent implements OnInit {
         });
       }
     });
+    let tipo_tramite = this.getTipoTramite();
     this.register_alimentos_bebidas_data_service.register_register_data(this.register_validated).then( r => {
       this.attachments.floor_authorization_certificate.register_id = r.id;
       this.guardarCertificadoUsoSuelos();
       this.guardarListasPrecios(r.id);   
       this.saveProcedure(r.id);  
-      this.buildTemplatePDF();
+      this.buildTemplatePDF(tipo_tramite);
     }).catch( e => {
       this.guardando = false;
       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
