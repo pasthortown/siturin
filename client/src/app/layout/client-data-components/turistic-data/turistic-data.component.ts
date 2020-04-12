@@ -1,3 +1,4 @@
+import { ProcedureJustification } from './../../../models/ALIMENTOSBEBIDAS/ProcedureJustification';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
 import { LanguageService } from './../../../services/CRUD/BASE/language.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -44,6 +45,8 @@ export class TuristicDataComponent implements OnInit {
   register_data_from_BDD: any = null;
   tarifarioRack = {cabecera: [], valores: []};
   tarifas: any[] = [];
+
+  procedureJustification = new ProcedureJustification();
 
   register_type_data_selected  = { 
     register_type_id: 0,
@@ -701,29 +704,63 @@ export class TuristicDataComponent implements OnInit {
   }
   
   validateAlojamientoData(): boolean {
+    let toReturn = true;
     if (!this.validateTarifarioRackIngresado()){
       this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
-      return false;
+      toReturn = false;
     }
     if (!this.validateHabitaciones()) {
       this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
-      return false;
+      toReturn = false;
     }
     if (this.attachments.property_title.property_title_attachment_file === '' && (this.register_validated.register_type_id == 47 || this.register_validated.register_type_id == 46)){
       this.toastr.errorToastr('Debe cargar el título de propiedad de su establecimiento.', 'Nuevo');
-      return false;
+      toReturn = false;
     }
     if (!this.validateReclassificationRecategorization()) {
-      return false;
+      toReturn = false;
     }
     if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
       this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
-      return false;
+      toReturn = false;
     }
     if (!this.validateRequisites()) {
-      return false;
+      toReturn = false;
     }
-    return true;
+    return toReturn;
+  }
+
+  getTipoTramite(): string {
+    let tipo_tramite = 'Registro';
+    this.procedureJustification.justification = "Registro";
+    this.register_validated.status = 11;
+    this.procedureJustification.procedure_id = 6;
+    if (this.opcion_seleccionada == 'actualization'){
+      tipo_tramite = 'Actualización';
+      this.procedureJustification.justification = "Actualización";
+      this.register_validated.status = 41;
+      this.procedureJustification.procedure_id = 4;
+    }
+    if (this.opcion_seleccionada == 'activation'){
+      tipo_tramite = 'Reingreso';
+      this.procedureJustification.justification = "Reingreso";
+      this.procedureJustification.procedure_id = 1;
+      this.register_validated.status = 61;
+    }
+    if (this.opcion_seleccionada == 'reclassification'){
+      tipo_tramite = 'Reclasificación';
+      this.register_validated.status = 21;
+      this.procedureJustification.procedure_id = 2;
+      this.procedureJustification.justification = "Reclasificación";
+    }
+    if (this.opcion_seleccionada == 'recategorization'){
+      tipo_tramite = 'Recategorización';
+      this.register_validated.status = 31;
+      this.procedureJustification.procedure_id = 3;
+      this.procedureJustification.justification = "Recategorización";
+    }
+    tipo_tramite = tipo_tramite.toUpperCase();
+    return tipo_tramite;
   }
 
   saveAlojamiento() {
@@ -748,7 +785,7 @@ export class TuristicDataComponent implements OnInit {
       });
     });  
     this.register_validated.tarifario_rack = tariffs;
-
+    let tipo_tramite = this.getTipoTramite();
     // let tipo_tramite = 'Registro';
     // this.procedureJustification.justification = "Registro";
     // this.rucEstablishmentRegisterSelected.status = 11;
@@ -789,6 +826,7 @@ export class TuristicDataComponent implements OnInit {
   //     this.procedureJustification.justification = "Recategorización";
   //  }
   //  tipo_tramite = tipo_tramite.toUpperCase();
+
   //  const today = new Date();
   //     const actividad = 'ALOJAMIENTO';
   //     let provincia = new Ubication();
