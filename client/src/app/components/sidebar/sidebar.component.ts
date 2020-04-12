@@ -82,7 +82,7 @@ export class SidebarComponent implements OnInit {
   }
 
   refreshUser(): Boolean {
-    if ( this.profile_picture.id == 0 ) {
+    if ( this.profile_picture.id == null ) {
       this.profileImg = 'assets/images/accounts.png';
     } else {
       this.profileImg = 'data:' + this.profile_picture.file_type + ';base64,' + this.profile_picture.file;
