@@ -46,10 +46,10 @@ export class OptionsDataComponent implements OnInit {
 
   actualizarCapacidadesPrecios() {
     this.select_option = 'actualization_costs';
-    if (this.register_activity == '1') {
+    if (this.register_activity == 1) {
        this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y tatifario rack, tiene la opción de guardar la información en cualquier momento.';
     } 
-    if (this.register_activity == '2') {
+    if (this.register_activity == 2) {
        this.mensajePorTipoTramite = 'En esta sección, usted va a proceder a declarar y actualizar la información de sus capacidades y lista de precios, tiene la opción de guardar la información en cualquier momento.';
     }
     this.change.emit(this.select_option);
