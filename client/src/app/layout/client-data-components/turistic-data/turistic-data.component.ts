@@ -1103,6 +1103,9 @@ export class TuristicDataComponent implements OnInit {
          tariffs.push(tariff.tariff);
       });
     });  
+    this.register_validated.capacities_on_register.forEach(capacity => {
+      capacity.beds_on_capacity = [];
+    });
     this.register_validated.tarifario_rack = tariffs;
     let tipo_tramite = this.getTipoTramite();
     this.register_alojamiento_data_service.register_register_data(this.register_validated).then( r => {
