@@ -56,6 +56,16 @@ export class TuristicDataComponent implements OnInit {
   @Output('salir_forced') salir_forced: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
   
+  enable_classifications_ab = {
+    canRestaurante: true,
+    canCafeteria: true,
+    canBar: true,
+    canDiscoteca: true,
+    canCatering: true,
+    canEstablecimientoMovil: true,
+    canPlazaComida: true
+  }
+
   activity_id_from_registers_actives = 0;
 
   register_validated: Register = new Register();
@@ -153,7 +163,66 @@ export class TuristicDataComponent implements OnInit {
 
   refresh() {
     this.get_registers_on_establishment(); // Obtiene los Registros asociados al establecimiento
+    this.build_enable_classifications();
     this.validateInitialData();
+  }
+
+  build_enable_classifications() {
+    this.enable_classifications_ab = {
+      canRestaurante: true,
+      canCafeteria: true,
+      canBar: true,
+      canDiscoteca: true,
+      canCatering: true,
+      canEstablecimientoMovil: true,
+      canPlazaComida: true
+    }
+    this.establishment_registers.forEach(element => {
+      let classification = this.getClassificationFromRegisterType(this.register_types_block.register_types_alimentos_bebidas, element.register.register_type_id);
+      //Cafeteria
+      if (classification == '1.1' || classification == '2.1') {
+        this.enable_classifications_ab.canEstablecimientoMovil = false;
+        this.enable_classifications_ab.canPlazaComida = false;
+      }
+      //Restaurante
+      if (classification == '1.3' || classification == '2.3') {
+        this.enable_classifications_ab.canEstablecimientoMovil = false;
+        this.enable_classifications_ab.canPlazaComida = false;
+      }
+      //Bar
+      if (classification == '1.2' || classification == '2.2') {
+        this.enable_classifications_ab.canEstablecimientoMovil = false;
+        this.enable_classifications_ab.canPlazaComida = false;
+      }
+      //Discoteca
+      if (classification == '1.4' || classification == '2.4') {
+        this.enable_classifications_ab.canEstablecimientoMovil = false;
+        this.enable_classifications_ab.canPlazaComida = false;
+      }
+      //EstablecimientoMovil
+      if (classification == '1.5' || classification == '2.5') {
+        this.enable_classifications_ab.canRestaurante = false;
+        this.enable_classifications_ab.canCafeteria = false;
+        this.enable_classifications_ab.canBar = false;
+        this.enable_classifications_ab.canDiscoteca = false;
+        this.enable_classifications_ab.canCatering = false;
+        this.enable_classifications_ab.canPlazaComida = false;
+      }
+      //PlazaComida
+      if (classification == '1.6' || classification == '2.6') {
+        this.enable_classifications_ab.canRestaurante = false;
+        this.enable_classifications_ab.canCafeteria = false;
+        this.enable_classifications_ab.canBar = false;
+        this.enable_classifications_ab.canDiscoteca = false;
+        this.enable_classifications_ab.canCatering = false;
+        this.enable_classifications_ab.canEstablecimientoMovil = false;
+      }
+      //Catering
+      if (classification == '1.7' || classification == '2.7') {
+        this.enable_classifications_ab.canEstablecimientoMovil = false;
+        this.enable_classifications_ab.canPlazaComida = false;
+      }
+    });
   }
 
   getUbications() {
