@@ -196,6 +196,7 @@ export class TuristicDataComponent implements OnInit {
     const solicitudes_pendientes = [];
     const id_register_pendientes = [];
     this.registers_by_ruc.forEach(element => {
+      console.log(element);
       if (element.establishment.id == this.establishment.id) {
         if (element.register.code == 'PENDIENTE' || element.register.code == '') {
           solicitudes_pendientes.push(element);
