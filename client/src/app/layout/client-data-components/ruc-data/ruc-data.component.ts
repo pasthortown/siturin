@@ -201,6 +201,7 @@ export class RucDataComponent implements OnInit {
                this.rucData += datosRL;
             }
          });
+         this.ruc_validated.emit(this.ruc);
       }).catch( e => {
          console.log(e);
          this.rucData = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
@@ -395,7 +396,6 @@ export class RucDataComponent implements OnInit {
             this.getPersonRepresentativeAttachment(this.ruc.number);
          }
          this.rucGuardadoBase = true;
-         this.ruc_validated.emit(this.ruc);
          this.checkRuc();
          this.checkIdentificationRepresentant();
       }
