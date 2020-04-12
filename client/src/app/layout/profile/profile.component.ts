@@ -147,8 +147,11 @@ export class ProfileComponent implements OnInit {
 
   actualizarFoto() {
     this.profilePictureDataService.put(this.profilePicture).then( r => {
-      sessionStorage.setItem('profilePicture', JSON.stringify(this.profilePicture));
-      this.profileImg = 'data:' + r.file_type + ';base64,' + r.file;
+      Swal.fire({
+        title: 'Foto de Perfil Guardada',
+        text: 'Los cambios serán visualizados, la próxima vez que inice sesión.',
+        type: 'success',
+      });
     }).catch( e => console.log(e) );
   }
 
