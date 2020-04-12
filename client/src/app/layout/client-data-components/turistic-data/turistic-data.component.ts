@@ -1,3 +1,4 @@
+import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
 import { LanguageService } from './../../../services/CRUD/BASE/language.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { TariffType } from './../../../models/ALOJAMIENTO/TariffType';
@@ -80,6 +81,8 @@ export class TuristicDataComponent implements OnInit {
   display_register_data = false;
   classificationSelectedCode = '';;
 
+  guardando = false;
+
   constructor(private toastr: ToastrManager,
     private consultorDataService: ConsultorService,
     private tariffTypeDataService: TariffTypeService,
@@ -90,7 +93,6 @@ export class TuristicDataComponent implements OnInit {
     private register_operacion_intermediacion_data_service: RegisterOPService,
     private register_alimentos_bebidas_data_service: RegisterABService,
     private register_alojamiento_data_service: RegisterALService) {
-    
   }
 
   ngOnInit() {
@@ -712,7 +714,7 @@ export class TuristicDataComponent implements OnInit {
       this.toastr.errorToastr('Debe cargar el título de propiedad de su establecimiento.', 'Nuevo');
       return false;
     }
-    if (!this.validateReclassificationRecategorization) {
+    if (!this.validateReclassificationRecategorization()) {
       return false;
     }
     if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
@@ -736,22 +738,22 @@ export class TuristicDataComponent implements OnInit {
     }
     this.languageDataService.save_languajes(this.establishment.id, this.establishment.languages_on_establishment).then( r => {
     }).catch( e => { console.log(e); });
-  //  this.guardando = true;
-  //  const tariffs: Tariff[] = [];
-  //  this.tarifarioRack.valores.forEach(tarifRackValor => {
-  //     const idTipoCapacidad = tarifRackValor.idTipoCapacidad;
-  //     tarifRackValor.tariffs.forEach(tariff => {
-  //        tariff.tariff.capacity_type_id = idTipoCapacidad;
-  //        tariffs.push(tariff.tariff);
-  //     });
-  //  });  
-  //  this.rucEstablishmentRegisterSelected.tarifario_rack = tariffs;
-  //  this.rucEstablishmentRegisterSelected.code = this.register_code;
-  //  let tipo_tramite = 'Registro';
-  //  this.procedureJustification.justification = "Registro";
-  //  this.rucEstablishmentRegisterSelected.status = 11;
-  //  this.procedureJustification.procedure_id = 6;
-  //  this.idCausal = 0;
+    this.guardando = true;
+    const tariffs: Tariff[] = [];
+    this.tarifarioRack.valores.forEach(tarifRackValor => {
+      const idTipoCapacidad = tarifRackValor.idTipoCapacidad;
+      tarifRackValor.tariffs.forEach(tariff => {
+         tariff.tariff.capacity_type_id = idTipoCapacidad;
+         tariffs.push(tariff.tariff);
+      });
+    });  
+    this.register_validated.tarifario_rack = tariffs;
+
+    // let tipo_tramite = 'Registro';
+    // this.procedureJustification.justification = "Registro";
+    // this.rucEstablishmentRegisterSelected.status = 11;
+    // this.procedureJustification.procedure_id = 6;
+    // this.idCausal = 0;
   //  if (this.actualizando){
   //     tipo_tramite = 'Actualización';
   //     this.procedureJustification.justification = "Actualización";
