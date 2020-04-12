@@ -663,7 +663,6 @@ export class TuristicDataComponent implements OnInit {
       }
     }
     if (this.opcion_seleccionada == 'recategorization') {
-      console.log(this.register.category_incomming);
       let newCategory = '';
       sourceArray.forEach(element => {
          if (element.id == this.register_validated.register_type_id) {
@@ -736,6 +735,7 @@ export class TuristicDataComponent implements OnInit {
     if (!this.validateAlojamientoData()) {
       return;
     }
+    return;
     this.languageDataService.save_languajes(this.establishment.id, this.establishment.languages_on_establishment).then( r => {
     }).catch( e => { console.log(e); });
     this.guardando = true;
