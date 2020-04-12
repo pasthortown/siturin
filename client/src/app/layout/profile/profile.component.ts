@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProfilePicture } from './../../models/profile/ProfilePicture';
 import { ProfilePictureService } from './../../services/profile/profilepicture.service';
 import { UserService } from './../../services/profile/user.service';
@@ -29,11 +30,13 @@ export class ProfileComponent implements OnInit {
   passwordCaracteresNumericos: Boolean = false;
   passwordCaracteresUpper: Boolean = false;
   passwordCaracteresLower: Boolean = false;
+  actualizando_clave = false;
 
   @ViewChild('fotoInput') fotoInput;
 
   constructor(
     private toastr: ToastrManager,
+    private router: Router,
     private authDataServise: AuthService,
     private profilePictureDataService: ProfilePictureService,
     private userDataService: UserService) {
@@ -117,47 +120,57 @@ export class ProfileComponent implements OnInit {
     const userData = { id: this.user.id, name: this.user.name };
     sessionStorage.setItem('user', JSON.stringify(userData));
     this.userDataService.put(this.user).then( r => {
-      this.guardarFoto();
+      this.actualizando_clave = false;
       if (this.cambiandoClaves && this.clavesCoinciden && !this.validatePassword()) {
+        this.actualizando_clave = true;
         this.actualizarClave();
-      } else {
-        Swal.fire({
-          title: 'Datos Guardados',
-          text: 'Datos guardados satisfactoriamente.',
-          type: 'success',
-        });
+      } 
+      if (!this.actualizando_clave) {
+        this.guardarFoto();
       }
     }).catch ( e => console.log(e));
   }
 
   guardarFoto() {
+    let actualizando_foto = true;
     if ( this.profileImg === 'assets/images/accounts.png' ) {
-      return;
+      actualizando_foto = false;
     }
-    if (this.profilePicture.id === 0 ) {
-      this.profilePictureDataService.post(this.profilePicture).then( r => {
-        this.profileImg = 'data:' + r.file_type + ';base64,' + r.file;
-        this.profilePicture.id = r.id;
-        sessionStorage.setItem('profilePicture', JSON.stringify(this.profilePicture));
-      }).catch( e => console.log(e) );
+    if (actualizando_foto) {
+      if (this.profilePicture.id === 0 ) {
+        this.profilePictureDataService.post(this.profilePicture).then( r => {
+          this.finCambios();
+        }).catch( e => console.log(e) );
+      } else {
+        this.actualizarFoto();
+      }
     } else {
-      this.actualizarFoto();
+      this.finCambios();
     }
   }
 
   actualizarFoto() {
     this.profilePictureDataService.put(this.profilePicture).then( r => {
-      window.location.reload();
+      this.finCambios();
     }).catch( e => console.log(e) );
+  }
+
+  finCambios() {
+    Swal.fire({
+      title: 'Datos Guardados',
+      text: 'Datos guardados satisfactoriamente.',
+      type: 'success',
+      showCancelButton: false,
+      confirmButtonText: 'De acuerdo',
+      reverseButtons: true
+    }).then((result) => {
+      this.router.navigate(['/login']);
+    });
   }
 
   actualizarClave() {
     this.authDataServise.password_change(this.clave).then( r => {
-      Swal.fire({
-        title: 'Datos Guardados',
-        text: 'Datos guardados satisfactoriamente. Cierre sesión y utilice su nueva contraseña.',
-        type: 'success',
-      });
+      this.guardarFoto();
     }).catch( e => {
       console.log(e);
     });
