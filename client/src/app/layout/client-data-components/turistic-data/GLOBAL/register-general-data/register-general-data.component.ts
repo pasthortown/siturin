@@ -184,43 +184,44 @@ export class RegisterGeneralDataComponent implements OnInit {
               destinyArray.push(element);
             }
           } else {
-            destinyArray.push(element);
-          }
-          if (this.register.activity_id == 2) {
-            if (this.enable_classifications_ab.canCafeteria) {
-              if (element.code == '1.1' || element.code == '2.1') {
-                destinyArray.push(element);
+            if (this.register.activity_id == 2) {
+              if (this.enable_classifications_ab.canCafeteria) {
+                if (element.code == '1.1' || element.code == '2.1') {
+                  destinyArray.push(element);
+                }
               }
-            }
-            if (this.enable_classifications_ab.canBar) {
-              if (element.code == '1.2' || element.code == '2.2') {
-                destinyArray.push(element);
+              if (this.enable_classifications_ab.canBar) {
+                if (element.code == '1.2' || element.code == '2.2') {
+                  destinyArray.push(element);
+                }
               }
-            }
-            if (this.enable_classifications_ab.canRestaurante) {
-              if (element.code == '1.3' || element.code == '2.3') {
-                destinyArray.push(element);
+              if (this.enable_classifications_ab.canRestaurante) {
+                if (element.code == '1.3' || element.code == '2.3') {
+                  destinyArray.push(element);
+                }
               }
-            }
-            if (this.enable_classifications_ab.canDiscoteca) {
-              if (element.code == '1.4' || element.code == '2.4') {
-                destinyArray.push(element);
+              if (this.enable_classifications_ab.canDiscoteca) {
+                if (element.code == '1.4' || element.code == '2.4') {
+                  destinyArray.push(element);
+                }
               }
-            }
-            if (this.enable_classifications_ab.canEstablecimientoMovil) {
-              if (element.code == '1.5' || element.code == '2.5') {
-                destinyArray.push(element);
+              if (this.enable_classifications_ab.canEstablecimientoMovil) {
+                if (element.code == '1.5' || element.code == '2.5') {
+                  destinyArray.push(element);
+                }
               }
-            }
-            if (this.enable_classifications_ab.canPlazaComida) {
-              if (element.code == '1.6' || element.code == '2.6') {
-                destinyArray.push(element);
+              if (this.enable_classifications_ab.canPlazaComida) {
+                if (element.code == '1.6' || element.code == '2.6') {
+                  destinyArray.push(element);
+                }
               }
-            }
-            if (this.enable_classifications_ab.canCatering) {
-              if (element.code == '1.7' || element.code == '2.7') {
-                destinyArray.push(element);
+              if (this.enable_classifications_ab.canCatering) {
+                if (element.code == '1.7' || element.code == '2.7') {
+                  destinyArray.push(element);
+                }
               }
+            } else {
+              destinyArray.push(element);
             }
           }
         }
