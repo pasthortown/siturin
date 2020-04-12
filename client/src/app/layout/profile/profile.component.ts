@@ -43,7 +43,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
-    this.getProfilePicture();
   }
 
   getUser() {
@@ -54,18 +53,16 @@ export class ProfileComponent implements OnInit {
       } else {
         this.cuentaInterna = false;
       }
+      this.getProfilePicture();
       this.checkTelefonoPrincipal();
       this.checkTelefonoSecundario();
     }).catch( e => console.log(e));
   }
 
   getProfilePicture() {
-    if ( JSON.parse(sessionStorage.getItem('profilePicture')) !== null ) {
-      this.profilePicture = JSON.parse(sessionStorage.getItem('profilePicture')) as ProfilePicture;
-      this.profileImg = 'data:' + this.profilePicture.file_type + ';base64,' + this.profilePicture.file;
-    } else {
-      this.profilePicture.id = 0;
-    }
+    this.profilePictureDataService.get(this.user.id).then( r2 => {
+      this.profilePicture = r2 as ProfilePicture;
+    }).catch( e => { console.log(e); });
   }
 
   validateAddress(): Boolean {

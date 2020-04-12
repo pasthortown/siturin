@@ -16,12 +16,8 @@ export class ProfilePictureService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
-   get(token?): Promise<any> {
-      if ( typeof token !== 'undefined') {
-         this.options.headers = new Headers();
-         this.options.headers.append('api_token', token);
-      }
-      return this.http.get(this.url, this.options).toPromise()
+   get(user_id: number): Promise<any> {
+      return this.http.get(this.url + '?user_id=' + user_id.toString(), this.options).toPromise()
       .then( r => {
          return r.json();
       }).catch( error => { this.handledError(error.json()); });
