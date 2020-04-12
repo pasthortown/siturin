@@ -319,6 +319,7 @@ export class TuristicDataComponent implements OnInit {
       }
     });
     if (register_found != null) {
+      console.log('bien');
       this.register_validated = register_found.register;
       this.register.register_type_id = register_found.register.register_type_id;
       this.register_validated.complementary_service_types_on_register = []; 
@@ -330,6 +331,7 @@ export class TuristicDataComponent implements OnInit {
       this.register_validated.turistic_guides = [];
       this.register_validated.transport_companies = [];
     } else {
+      console.log('mal');
       this.register_validated = new Register();
     }
     if (activity_id == 1) {
