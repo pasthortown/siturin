@@ -31,6 +31,10 @@ export class NavbarComponent implements OnInit {
     this.pushRightClass = 'push-right';
   }
 
+  ngOnChanges() {
+    this.refreshUser();
+  }
+
   isToggled(): boolean {
     const dom: Element = document.querySelector('body');
     return dom.classList.contains(this.pushRightClass);

@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
   isGestorPag: Boolean = false;
   isExternal: Boolean = false;
   isCoordinadorZonal: Boolean = false;
-  
+
   @Input('profile_picture') profile_picture = new ProfilePicture();
   @Input('user') user = new User();
 
@@ -52,6 +52,10 @@ export class SidebarComponent implements OnInit {
     this.showMenu = '';
     this.pushRightClass = 'push-right';
     this.checkRols();
+  }
+
+  ngOnChanges() {
+    this.refreshUser();
   }
 
   eventCalled() {
