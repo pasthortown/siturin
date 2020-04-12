@@ -448,7 +448,6 @@ export class TuristicDataComponent implements OnInit {
     }
     this.classificationSelectedCode = event.register_classification;
     this.register_validated.register_type_id = event.register_type_id;
-    this.register.register_type_id = event.register_type_id;
     this.register_type_data_selected  = { 
       register_type_id: event.register_type_id,
       register_classification: event.register_classification,
