@@ -16,6 +16,7 @@ export class Ruc {
    tax_payer_type_id: number;
    contact_user: User;
    owner_name: String;
+   razon_social: String;
    establishments: Establishment[];
    establishmentsSRI: EstablishmentOnRuc[];
    constructor() {
@@ -29,6 +30,7 @@ export class Ruc {
       this.contact_user = new User();
       this.number = '';
       this.owner_name = '';
+      this.razon_social = '';
       this.baised_accounting = false;
    }
 }

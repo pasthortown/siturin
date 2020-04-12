@@ -81,6 +81,8 @@ import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBID
 import { CapacityTypeService as CapacityTypeALService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
 import { TariffTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/tarifftype.service';
 import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -122,6 +124,8 @@ import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/C
     AuthorizationAttachmentService,
     PropertyTitleAttachmentService,
     TariffTypeService,
+    ExporterService,
+    MailerService,
     FloorAuthorizationCertificateService,
     ConsultorService,
     ComplementaryServiceFoodTypeService,

@@ -1,3 +1,8 @@
+import { Router } from '@angular/router';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
+import { RegisterProcedure } from 'src/app/models/ALOJAMIENTO/RegisterProcedure';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { User } from './../../../models/profile/User';
 import { FoodDrinkAttachmentService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { AuthorizationAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/authorizationattachment.service';
 import { PropertyTitleAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
@@ -9,6 +14,9 @@ import { LanguageService } from './../../../services/CRUD/BASE/language.service'
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { TariffType } from './../../../models/ALOJAMIENTO/TariffType';
 import { TariffTypeService } from './../../../services/CRUD/ALOJAMIENTO/tarifftype.service';
+import { RegisterProcedureService as RegisterProcedureABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
 import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
@@ -23,11 +31,12 @@ import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { RegisterType } from './../../../models/ALIMENTOSBEBIDAS/RegisterType';
 import { Register } from './../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../models/BASE/Establishment';
-import { Ruc } from './../../../models/DINARDAP/Ruc';
+import { Ruc } from './../../../models/BASE/Ruc';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-turistic-data',
@@ -35,6 +44,7 @@ import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/C
   styleUrls: ['./turistic-data.component.scss']
 })
 export class TuristicDataComponent implements OnInit {
+  @Input('user') user: User = new User();
   @Input('ruc') ruc: Ruc = new Ruc();
   @Input('establishment') establishment: Establishment = new Establishment();
   @Input('register') register: Register = new Register();
@@ -97,10 +107,15 @@ export class TuristicDataComponent implements OnInit {
   guardando = false;
 
   constructor(private toastr: ToastrManager,
+    private router: Router,
     private consultorDataService: ConsultorService,
     private tariffTypeDataService: TariffTypeService,
     private capacityTypeABDataService: CapacityTypeABService,
     private ubicationDataService: UbicationService,
+    private registerProcedureABDataService: RegisterProcedureABService,
+    private registerProcedureALDataService: RegisterProcedureALService,
+    private registerProcedureOPDataService: RegisterProcedureOPService,
+    private mailerDataService: MailerService,
     private requisite_operacion_intermediacion_data_service: RequisiteOPService,
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
     private requisite_alojamiento_data_service: RequisiteALService,
@@ -108,6 +123,7 @@ export class TuristicDataComponent implements OnInit {
     private register_operacion_intermediacion_data_service: RegisterOPService,
     private register_alimentos_bebidas_data_service: RegisterABService,
     private foodDrinkAttachmentDataService: FoodDrinkAttachmentService,
+    private exporterDataService: ExporterService,
     private floorAuthorizationCertificateDataService: FloorAuthorizationCertificateService,
     private propertyTitleAttachmentDataService: PropertyTitleAttachmentService,
     private authorizationAttachmentDataService: AuthorizationAttachmentService,
@@ -771,17 +787,17 @@ export class TuristicDataComponent implements OnInit {
     this.procedureJustification.justification = "Registro";
     this.register_validated.status = 11;
     this.procedureJustification.procedure_id = 6;
-    if (this.opcion_seleccionada == 'actualization'){
-      tipo_tramite = 'Actualización';
-      this.procedureJustification.justification = "Actualización";
-      this.register_validated.status = 41;
-      this.procedureJustification.procedure_id = 4;
-    }
     if (this.opcion_seleccionada == 'activation'){
       tipo_tramite = 'Reingreso';
       this.procedureJustification.justification = "Reingreso";
       this.procedureJustification.procedure_id = 1;
       this.register_validated.status = 61;
+    }
+    if (this.opcion_seleccionada == 'actualization'){
+      tipo_tramite = 'Actualización';
+      this.procedureJustification.justification = "Actualización";
+      this.register_validated.status = 41;
+      this.procedureJustification.procedure_id = 4;
     }
     if (this.opcion_seleccionada == 'reclassification'){
       tipo_tramite = 'Reclasificación';
@@ -797,6 +813,34 @@ export class TuristicDataComponent implements OnInit {
     }
     tipo_tramite = tipo_tramite.toUpperCase();
     return tipo_tramite;
+  }
+
+  saveProcedure(register_id: number) {
+    let newRegisterProcedure = new RegisterProcedure();
+    newRegisterProcedure.procedure_justification_id = 11;
+    if (this.opcion_seleccionada == 'actualization'){
+      newRegisterProcedure.procedure_justification_id = 10;
+    }
+    if (this.opcion_seleccionada == 'reclassification'){
+      newRegisterProcedure.procedure_justification_id = 9;
+    }
+    if (this.opcion_seleccionada == 'recategorization'){
+      newRegisterProcedure.procedure_justification_id = 8;
+    }
+    newRegisterProcedure.register_id = register_id;
+    newRegisterProcedure.date = new Date();
+    if (this.register_validated.activity_id == 1) {
+      this.registerProcedureALDataService.post(newRegisterProcedure).then( regProc => { 
+      }).catch( e => { console.log(e); });     
+    }
+    if (this.register_validated.activity_id == 2) {
+      this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
+      }).catch( e => { console.log(e); });     
+    }
+    if (this.register_validated.activity_id == 3) {
+      this.registerProcedureOPDataService.post(newRegisterProcedure).then( regProc => { 
+      }).catch( e => { console.log(e); });     
+    }
   }
 
   getUbicationData(): any {
@@ -905,7 +949,96 @@ export class TuristicDataComponent implements OnInit {
   }
 
   buildTemplatePDF() {
+    let tipo_tramite = this.getTipoTramite();
+    const today = new Date();
+    let actividad = '';
+    let source_array = [];
+    if (this.register_validated.activity_id == 1) {
+      actividad = 'ALOJAMIENTO';
+      source_array = this.register_types_block.register_types_alojamiento;
+    }
+    if (this.register_validated.activity_id == 2) {
+      actividad = 'ALIMENTOS Y BEBIDAS';
+      source_array = this.register_types_block.register_types_alimentos_bebidas;
+    }
+    if (this.register_validated.activity_id == 3) {
+      actividad = 'OPERACIÓN INTERMEDIACIÓN';
+      source_array = this.register_types_block.register_types_operacion_intermediacion;
+    }
+    const ubicationData = this.getUbicationData();
+    let clasificacion = '';
+    source_array.forEach(element => {
+      if (element.code == this.classificationSelectedCode) {
+        clasificacion = element.name.toString();
+      }
+    });
+    let categoria = '';
+    source_array.forEach(element => {
+      if (element.id == this.register_validated.register_type_id) {
+        categoria = element.name.toString();
+      }
+    });
+    let qr_value = 'MT-' + ubicationData.iniciales_cordinacion_zonal + '-' + this.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    const params = [{tipo_tramite: tipo_tramite},
+      {fecha: today.toLocaleDateString().toUpperCase()},
+      {representante_legal: this.user.name.toUpperCase()},
+      {nombre_comercial: this.establishment.commercially_known_name.toUpperCase()},
+      {ruc: this.ruc.number},
+      {razon_social: this.ruc.razon_social},
+      {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+      {actividad: actividad},
+      {clasificacion: clasificacion.toUpperCase()},
+      {categoria: categoria.toUpperCase()},
+      {provincia: ubicationData.provincia.name.toUpperCase()},
+      {canton: ubicationData.canton.name.toUpperCase()},
+      {parroquia: ubicationData.parroquia.name.toUpperCase()},
+      {calle_principal: this.establishment.address_main_street.toUpperCase()},
+      {numeracion: this.establishment.address_number.toUpperCase()},
+      {calle_secundaria: this.establishment.address_secondary_street.toUpperCase()}
+    ];
+    this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
+      const pdfBase64 = r_exporter;
+      const byteCharacters = atob(r_exporter);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+         byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf'});
+      saveAs(blob, qr_value + '.pdf');
+      this.buildMail(actividad, tipo_tramite, today, clasificacion, categoria, ubicationData, pdfBase64);
+    }).catch( e => {
+      this.guardando = false;
+      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+    });
+  }
 
+  buildMail(actividad, tipo_tramite, today, clasificacion, categoria, ubicationData, pdfBase64) {
+    const information = {
+      para: this.user.name,
+      tramite: tipo_tramite,
+      ruc: this.user.ruc,
+      nombreComercial: this.establishment.commercially_known_name,
+      fechaSolicitud: today.toLocaleString(),
+      actividad: actividad,
+      clasificacion: clasificacion,
+      categoria: categoria,
+      razon_social: this.ruc.razon_social,
+      tipoSolicitud: tipo_tramite,
+      provincia: ubicationData.provincia.name.toUpperCase(),
+      canton: ubicationData.canton.name.toUpperCase(),
+      parroquia: ubicationData.parroquia.name.toUpperCase(),
+      callePrincipal: this.establishment.address_main_street,
+      calleInterseccion: this.establishment.address_secondary_street,
+      numeracion: this.establishment.address_number,
+      thisYear: today.getFullYear(),
+      pdfBase64: pdfBase64,
+    };
+    this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r_mailer => {
+      this.guardando = false;
+      this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
+      this.router.navigate(['/main']);
+    }).catch( e => { console.log(e); });
   }
 
   guardarCertificadoUsoSuelos() {
@@ -954,19 +1087,10 @@ export class TuristicDataComponent implements OnInit {
   }
 
   saveAlojamiento() {
-    console.log(this.register_validated);
-    console.log(this.tarifarioRack);
-    console.log(this.attachments);
-    console.log(this.establishment);
-    console.log('alojamiento');
     if (!this.validateAlojamientoData()) {
       return;
     }
     this.guardando = true;
-    let tipo_tramite = this.getTipoTramite();
-    const today = new Date();
-    const actividad = 'ALOJAMIENTO';
-    const ubicationData = this.getUbicationData();
     this.languageDataService.save_languajes(this.establishment.id, this.establishment.languages_on_establishment).then( r => {
     }).catch( e => { console.log(e); });
     const tariffs: Tariff[] = [];
@@ -978,111 +1102,29 @@ export class TuristicDataComponent implements OnInit {
       });
     });  
     this.register_validated.tarifario_rack = tariffs;
-    return;
     this.register_alojamiento_data_service.register_register_data(this.register_validated).then( r => {
       this.attachments.floor_authorization_certificate = r.id;
       if (this.register_validated.register_type_id == 47 || 
         this.register_validated.register_type_id == 46) {
-         this.attachments.authorization_condominos.register_id = r.id;
-         this.attachments.property_title.register_id = r.id;
-         this.guardarTituloPropiedad();
-         this.guardarAutorizacionCondominos();
+        this.attachments.authorization_condominos.register_id = r.id;
+        this.attachments.property_title.register_id = r.id;
+        this.guardarTituloPropiedad();
+        this.guardarAutorizacionCondominos();
       }
       this.guardarCertificadoUsoSuelos();
-  //     let clasificacion = '';
-  //     this.clasifications_registers.forEach(element => {
-  //        if (element.code == this.categorySelectedCode) {
-  //           clasificacion = element.name.toString();
-  //        }
-  //     });
-  //     let categoria = '';
-  //     this.categories_registers.forEach(element => {
-  //        if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-  //           categoria = element.name.toString();
-  //        }
-  //     });
-  //     let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-  //     const params = [{tipo_tramite: tipo_tramite},
-  //        {fecha: today.toLocaleDateString().toUpperCase()},
-  //        {representante_legal: this.user.name.toUpperCase()},
-  //        {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
-  //        {ruc: this.ruc_registro_selected.ruc.number},
-  //        {razon_social: this.razon_social},
-  //        {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
-  //        {actividad: actividad},
-  //        {clasificacion: clasificacion.toUpperCase()},
-  //        {categoria: categoria.toUpperCase()},
-  //        {provincia: provincia.name.toUpperCase()},
-  //        {canton: canton.name.toUpperCase()},
-  //        {parroquia: parroquia.name.toUpperCase()},
-  //        {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
-  //        {numeracion: this.establishment_selected.address_number.toUpperCase()},
-  //        {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
-  //     this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
-  //        let pdfBase64 = r_exporter;
-  //        const byteCharacters = atob(r_exporter);
-  //        const byteNumbers = new Array(byteCharacters.length);
-  //        for (let i = 0; i < byteCharacters.length; i++) {
-  //           byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //        }
-  //        const byteArray = new Uint8Array(byteNumbers);
-  //        const blob = new Blob([byteArray], { type: 'application/pdf'});
-  //        if (this.idCausal !== 0) {
-  //           let newRegisterProcedure = new RegisterProcedure();
-  //           newRegisterProcedure.procedure_justification_id = this.idCausal;
-  //           newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
-  //           newRegisterProcedure.date = new Date();
-  //           this.registerProcedureDataService.post(newRegisterProcedure).then( regProc => { 
-  //           }).catch( e => { console.log(e); });   
-  //        }
-  //        saveAs(blob, qr_value + '.pdf');
-  //        const information = {
-  //           para: this.user.name,
-  //           tramite: tipo_tramite,
-  //           ruc: this.user.ruc,
-  //           nombreComercial: this.establishment_selected.commercially_known_name,
-  //           fechaSolicitud: today.toLocaleString(),
-  //           actividad: 'Alojamiento Turístico',
-  //           clasificacion: clasificacion,
-  //           categoria: categoria,
-  //           razon_social: this.razon_social,
-  //           tipoSolicitud: tipo_tramite,
-  //           provincia: provincia.name.toUpperCase(),
-  //           canton: canton.name.toUpperCase(),
-  //           parroquia: parroquia.name.toUpperCase(),
-  //           callePrincipal: this.establishment_selected.address_main_street,
-  //           calleInterseccion: this.establishment_selected.address_secondary_street,
-  //           numeracion: this.establishment_selected.address_number,
-  //           thisYear: today.getFullYear(),
-  //           pdfBase64: pdfBase64,
-  //        };
-  //        this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r_mailer => {
-  //           this.guardando = false;
-  //           this.refresh();
-  //           this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
-  //           this.router.navigate(['/main']);
-  //        }).catch( e => { console.log(e); });
-  //     }).catch( e => { console.log(e); });
-  //  }).catch( e => {
-  //     this.guardando = false;
-  //     this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
-  //     return;
+      this.saveProcedure(r.id);
+      this.buildTemplatePDF();
+    }).catch( e => {
+      this.guardando = false;
+      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
     });
   }
 
   saveAlimentosBebidas() {
-    console.log(this.register_validated);
-    console.log(this.attachments);
-    console.log(this.establishment);
-    console.log('alimentos');
     if (!this.validateAlimentosBebidasData()) {
       return;
     }
     this.guardando = true;
-    let tipo_tramite = this.getTipoTramite();
-    const today = new Date();
-    const actividad = 'ALIMENTOS Y BEBIDAS';
-    const ubicationData = this.getUbicationData();
     this.capacity_types_alimentos_bebidas.forEach(element => {
       if (element.register_type_id == this.register_validated.register_type_id) {
         this.register_validated.capacities_on_register.forEach(capacidad => {
@@ -1090,92 +1132,16 @@ export class TuristicDataComponent implements OnInit {
         });
       }
     });
-    return;
-   this.register_alimentos_bebidas_data_service.register_register_data(this.register_validated).then( r => {
-     this.attachments.floor_authorization_certificate.register_id = r.id;
-     this.guardarCertificadoUsoSuelos();
-     this.guardarListasPrecios(r.id);
-  //     let clasificacion = '';
-  //     this.clasifications_registers.forEach(element => {
-  //        if (element.code == this.categorySelectedCode) {
-  //           clasificacion = element.name.toString();
-  //        }
-  //     });
-  //     let categoria = '';
-  //     this.categories_registers.forEach(element => {
-  //        if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-  //           categoria = element.name.toString();
-  //        }
-  //     });
-  //     const zonalName = zonal.name.split(' ');
-  //     iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
-  //     let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-  //     const params = [{tipo_tramite: tipo_tramite},
-  //        {fecha: today.toLocaleDateString().toUpperCase()},
-  //        {representante_legal: this.user.name.toUpperCase()},
-  //        {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
-  //        {ruc: this.ruc_registro_selected.ruc.number},
-  //        {razon_social: this.razon_social},
-  //        {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
-  //        {actividad: actividad},
-  //        {clasificacion: clasificacion.toUpperCase()},
-  //        {categoria: categoria.toUpperCase()},
-  //        {provincia: provincia.name.toUpperCase()},
-  //        {canton: canton.name.toUpperCase()},
-  //        {parroquia: parroquia.name.toUpperCase()},
-  //        {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
-  //        {numeracion: this.establishment_selected.address_number.toUpperCase()},
-  //        {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
-  //     this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
-  //        let pdfBase64 = r_exporter;
-  //        const byteCharacters = atob(r_exporter);
-  //        const byteNumbers = new Array(byteCharacters.length);
-  //        for (let i = 0; i < byteCharacters.length; i++) {
-  //           byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //        }
-  //        const byteArray = new Uint8Array(byteNumbers);
-  //        const blob = new Blob([byteArray], { type: 'application/pdf'});
-  //        if (this.idCausal !== 0) {
-  //           let newRegisterProcedure = new RegisterProcedure();
-  //           newRegisterProcedure.procedure_justification_id = this.idCausal;
-  //           newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
-  //           newRegisterProcedure.date = new Date();
-  //           this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
-  //           }).catch( e => { console.log(e); });   
-  //        }
-  //        saveAs(blob, qr_value + '.pdf');
-  //        const information = {
-  //           para: this.user.name,
-  //           tramite: tipo_tramite,
-  //           ruc: this.user.ruc,
-  //           nombreComercial: this.establishment_selected.commercially_known_name,
-  //           fechaSolicitud: today.toLocaleString(),
-  //           actividad: 'Alimentos y Bebidas',
-  //           clasificacion: clasificacion,
-  //           categoria: categoria,
-  //           razon_social: this.razon_social,
-  //           tipoSolicitud: tipo_tramite,
-  //           provincia: provincia.name.toUpperCase(),
-  //           canton: canton.name.toUpperCase(),
-  //           parroquia: parroquia.name.toUpperCase(),
-  //           callePrincipal: this.establishment_selected.address_main_street,
-  //           calleInterseccion: this.establishment_selected.address_secondary_street,
-  //           numeracion: this.establishment_selected.address_number,
-  //           thisYear: today.getFullYear(),
-  //           pdfBase64: pdfBase64,
-  //        };
-  //        this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r_mailer => {
-  //           this.guardando = false;
-  //           this.refresh();
-  //           this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
-  //           this.router.navigate(['/main']);
-  //        }).catch( e => { console.log(e); });
-  //     }).catch( e => { console.log(e); });
-  //  }).catch( e => {
-  //     this.guardando = false;
-  //     this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
-  //     return;
-   });
+    this.register_alimentos_bebidas_data_service.register_register_data(this.register_validated).then( r => {
+      this.attachments.floor_authorization_certificate.register_id = r.id;
+      this.guardarCertificadoUsoSuelos();
+      this.guardarListasPrecios(r.id);   
+      this.saveProcedure(r.id);  
+      this.buildTemplatePDF();
+    }).catch( e => {
+      this.guardando = false;
+      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+    });
   }
 
   saveOperacionIntermediacion() {

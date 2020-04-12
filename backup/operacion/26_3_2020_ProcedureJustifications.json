@@ -98,5 +98,15 @@
             "procedure_id": 4
         },
         "attach": []
+    },
+    {
+        "ProcedureJustification": {
+            "id": 11,
+            "created_at": "2020-03-17 20:28:37",
+            "updated_at": "2020-03-17 20:28:37",
+            "justification": "Registro",
+            "procedure_id": 6
+        },
+        "attach": []
     }
 ]

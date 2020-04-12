@@ -42,7 +42,6 @@ export class RucDataComponent implements OnInit {
   rucData = 'CONECTÁNDOSE AL SRI...';
   superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPAÑÍAS...';
   
-  razon_social = '';
   groupTypeSelected: GroupType = new GroupType();
 
   // CATALOGOS
@@ -137,7 +136,7 @@ export class RucDataComponent implements OnInit {
                const DC = entidad.filas.fila.columnas.columna;
                DC.forEach(element => {
                   if (element.campo == 'razonSocial') {
-                   this.razon_social = element.valor;
+                   this.ruc.razon_social = element.valor;
                      datosGenerales += '<strong>Razón Social: </strong> ' + element.valor + '<br/>';
                   }
                   if (element.campo == 'email') {
