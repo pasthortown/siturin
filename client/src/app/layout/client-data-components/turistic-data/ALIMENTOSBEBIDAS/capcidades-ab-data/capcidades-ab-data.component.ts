@@ -34,7 +34,6 @@ export class CapcidadesABDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCapacityTypes();
     this.refresh();
   }
 
@@ -85,6 +84,7 @@ export class CapcidadesABDataComponent implements OnInit {
       this.years.forEach(year => {
         let lista_precios_encontrada = false;
         this.listasPrecios.forEach(lista_precios => {
+          lista_precios.saved = true;
           if (lista_precios.year == year.value) {
             lista_precios_encontrada = true;
           }
@@ -93,6 +93,7 @@ export class CapcidadesABDataComponent implements OnInit {
           const newListaPrecios = new FoodDrinkAttachment();
           newListaPrecios.date = new Date();
           newListaPrecios.year = year.value;
+          newListaPrecios.saved = false;
           this.listasPrecios.push(newListaPrecios);
         }
         this.listasPrecios.forEach(lista_precios => {
@@ -139,6 +140,7 @@ export class CapcidadesABDataComponent implements OnInit {
         this.listaPrecios.food_drink_attachment_file_name = file.name;
         this.listaPrecios.type = 'Lista Precios';
         this.listaPrecios.date = new Date();
+        this.listaPrecios.saved = false;
         this.lista_precios.emit(this.listasPrecios);
       };
     }

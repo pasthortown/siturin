@@ -7,12 +7,14 @@ export class FoodDrinkAttachment {
    date: Date;
    register_id: number;
    year: number;
+   saved: boolean;
    constructor() {
       this.food_drink_attachment_file = '';
       this.food_drink_attachment_file_name = '';
       this.food_drink_attachment_file_type  = '';
       this.date = new Date();
       this.type = '';
+      this.saved = false;
       this.id = 0;
       const today = new Date();
       this.year = today.getFullYear();

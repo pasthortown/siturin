@@ -1,3 +1,7 @@
+import { FoodDrinkAttachmentService } from './../../../services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
+import { AuthorizationAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/authorizationattachment.service';
+import { PropertyTitleAttachmentService } from './../../../services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
+import { FloorAuthorizationCertificateService } from './../../../services/CRUD/BASE/floorauthorizationcertificate.service';
 import { Ubication } from './../../../models/BASE/Ubication';
 import { ProcedureJustification } from './../../../models/ALIMENTOSBEBIDAS/ProcedureJustification';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
@@ -103,6 +107,10 @@ export class TuristicDataComponent implements OnInit {
     private languageDataService: LanguageService,
     private register_operacion_intermediacion_data_service: RegisterOPService,
     private register_alimentos_bebidas_data_service: RegisterABService,
+    private foodDrinkAttachmentDataService: FoodDrinkAttachmentService,
+    private floorAuthorizationCertificateDataService: FloorAuthorizationCertificateService,
+    private propertyTitleAttachmentDataService: PropertyTitleAttachmentService,
+    private authorizationAttachmentDataService: AuthorizationAttachmentService,
     private register_alojamiento_data_service: RegisterALService) {
   }
 
@@ -823,6 +831,127 @@ export class TuristicDataComponent implements OnInit {
     toReturn.iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
     return toReturn;
   }
+  
+  validateAlimentosBebidasData(): boolean {
+    let toReturn = true;
+    if ((this.register_validated.kitchen_types_on_register === [] || 
+      this.register_validated.kitchen_types_on_register.length == 0)) {
+      if (this.classificationSelectedCode == '1.1' || 
+        this.classificationSelectedCode == '1.2' || 
+        this.classificationSelectedCode == '1.3' || 
+        this.classificationSelectedCode == '1.5' || 
+        this.classificationSelectedCode == '1.7' || 
+        this.classificationSelectedCode == '2.1' || 
+        this.classificationSelectedCode == '2.2' || 
+        this.classificationSelectedCode == '2.3' || 
+        this.classificationSelectedCode == '2.5' || 
+        this.classificationSelectedCode == '2.7')
+      {
+        this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
+        toReturn = false;  
+      }
+    }
+    if ((this.register_validated.service_types_on_register === [] ||
+      this.register_validated.service_types_on_register.length == 0)) {
+      if (
+        this.classificationSelectedCode == '1.1' || 
+        this.classificationSelectedCode == '1.2' || 
+        this.classificationSelectedCode == '1.3' || 
+        this.classificationSelectedCode == '2.1' || 
+        this.classificationSelectedCode == '2.2' || 
+        this.classificationSelectedCode == '2.3')
+      {
+        this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
+        toReturn = false;
+      }
+    }
+    if (this.classificationSelectedCode !== '1.7') {
+      if (!this.validateCapacidades()) {
+         this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
+         toReturn = false;
+      }   
+    }
+    let mostrarMensajeListaPrecios = false;
+    this.listasPrecios.forEach(element => {
+      if (element.food_drink_attachment_file === ''){
+        mostrarMensajeListaPrecios = true;
+      }
+    });
+    if (mostrarMensajeListaPrecios) {
+      this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
+      toReturn = false;
+    }
+    if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
+      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
+      toReturn = false;
+    }
+    if (!this.validateReclassificationRecategorization()) {
+      toReturn = false;
+    }
+    if (!this.validateRequisites()) {
+      toReturn = false;
+    }
+    return toReturn;
+  }
+
+  validateCapacidades(): boolean {
+    let toReturn = true;
+    this.register_validated.capacities_on_register.forEach(element => {
+      if (element.quantity_tables == 0 || element.quantity_spaces == 0) {
+        toReturn = false;
+      }
+    });
+    return toReturn;
+  }
+
+  buildTemplatePDF() {
+
+  }
+
+  guardarCertificadoUsoSuelos() {
+    if(this.attachments.floor_authorization_certificate.id == 0) {
+     this.floorAuthorizationCertificateDataService.post(this.attachments.floor_authorization_certificate).then( r => { 
+     }).catch( e => { console.log(e); });
+    } else {
+     this.floorAuthorizationCertificateDataService.put(this.attachments.floor_authorization_certificate).then( r => { 
+     }).catch( e => { console.log(e); });
+    }
+  }
+
+  guardarTituloPropiedad() {
+    if(this.attachments.property_title.id == 0) {
+    this.propertyTitleAttachmentDataService.post(this.attachments.property_title).then( r => { 
+    }).catch( e => { console.log(e); });
+    } else {
+    this.propertyTitleAttachmentDataService.put(this.attachments.property_title).then( r => { 
+    }).catch( e => { console.log(e); });
+    }
+  }
+
+  guardarAutorizacionCondominos() {
+    if(this.attachments.authorization_condominos.id == 0) {
+    this.authorizationAttachmentDataService.post(this.attachments.authorization_condominos).then( r => { 
+    }).catch( e => { console.log(e); });
+    } else {
+    this.authorizationAttachmentDataService.put(this.attachments.authorization_condominos).then( r => { 
+    }).catch( e => { console.log(e); });
+    }
+  }
+  
+  guardarListasPrecios(register_id: number) {
+    this.listasPrecios.forEach(listaPrecios => {
+      if (!listaPrecios.saved) {
+        listaPrecios.register_id = register_id;  
+        if(listaPrecios.id == 0) {
+          this.foodDrinkAttachmentDataService.post(listaPrecios).then( r => { 
+          }).catch( e => { console.log(e); });
+        } else {
+          this.foodDrinkAttachmentDataService.put(listaPrecios).then( r => { 
+          }).catch( e => { console.log(e); });
+        }
+      }
+    });
+  }
 
   saveAlojamiento() {
     console.log(this.register_validated);
@@ -838,7 +967,6 @@ export class TuristicDataComponent implements OnInit {
     const today = new Date();
     const actividad = 'ALOJAMIENTO';
     const ubicationData = this.getUbicationData();
-    return;
     this.languageDataService.save_languajes(this.establishment.id, this.establishment.languages_on_establishment).then( r => {
     }).catch( e => { console.log(e); });
     const tariffs: Tariff[] = [];
@@ -850,17 +978,17 @@ export class TuristicDataComponent implements OnInit {
       });
     });  
     this.register_validated.tarifario_rack = tariffs;
-    
-  //  this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
-  //     this.certificadoUsoSuelo.register_id = r.id;
-  //     if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
-  //        this.tituloPropiedad.register_id = r.id;
-  //        this.autorizacionCondomino.register_id = r.id;
-  //        this.guardarTituloPropiedad();
-  //        this.guardarAutorizacionCondominos();      
-  //     }
-  //     this.guardarRecepcionRoom(r.id);
-  //     this.guardarCertificadoUsoSuelos();
+    return;
+    this.register_alojamiento_data_service.register_register_data(this.register_validated).then( r => {
+      this.attachments.floor_authorization_certificate = r.id;
+      if (this.register_validated.register_type_id == 47 || 
+        this.register_validated.register_type_id == 46) {
+         this.attachments.authorization_condominos.register_id = r.id;
+         this.attachments.property_title.register_id = r.id;
+         this.guardarTituloPropiedad();
+         this.guardarAutorizacionCondominos();
+      }
+      this.guardarCertificadoUsoSuelos();
   //     let clasificacion = '';
   //     this.clasifications_registers.forEach(element => {
   //        if (element.code == this.categorySelectedCode) {
@@ -939,80 +1067,8 @@ export class TuristicDataComponent implements OnInit {
   //     this.guardando = false;
   //     this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
   //     return;
-  //  });
-  }
-
-  validateAlimentosBebidasData(): boolean {
-    let toReturn = true;
-    if ((this.register_validated.kitchen_types_on_register === [] || 
-      this.register_validated.kitchen_types_on_register.length == 0)) {
-      if (this.classificationSelectedCode == '1.1' || 
-        this.classificationSelectedCode == '1.2' || 
-        this.classificationSelectedCode == '1.3' || 
-        this.classificationSelectedCode == '1.5' || 
-        this.classificationSelectedCode == '1.7' || 
-        this.classificationSelectedCode == '2.1' || 
-        this.classificationSelectedCode == '2.2' || 
-        this.classificationSelectedCode == '2.3' || 
-        this.classificationSelectedCode == '2.5' || 
-        this.classificationSelectedCode == '2.7')
-      {
-        this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
-        toReturn = false;  
-      }
-    }
-    if ((this.register_validated.service_types_on_register === [] ||
-      this.register_validated.service_types_on_register.length == 0)) {
-      if (
-        this.classificationSelectedCode == '1.1' || 
-        this.classificationSelectedCode == '1.2' || 
-        this.classificationSelectedCode == '1.3' || 
-        this.classificationSelectedCode == '2.1' || 
-        this.classificationSelectedCode == '2.2' || 
-        this.classificationSelectedCode == '2.3')
-      {
-        this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
-        toReturn = false;
-      }
-    }
-    if (this.classificationSelectedCode !== '1.7') {
-      if (!this.validateCapacidades()) {
-         this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
-         toReturn = false;
-      }   
-    }
-    let mostrarMensajeListaPrecios = false;
-    this.listasPrecios.forEach(element => {
-      if (element.food_drink_attachment_file === ''){
-        mostrarMensajeListaPrecios = true;
-      }
     });
-    if (mostrarMensajeListaPrecios) {
-      this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
-      toReturn = false;
-    }
-    if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
-      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
-      toReturn = false;
-    }
-    if (!this.validateReclassificationRecategorization()) {
-      toReturn = false;
-    }
-    if (!this.validateRequisites()) {
-      toReturn = false;
-    }
-    return toReturn;
   }
-
-  validateCapacidades(): boolean {
-    let toReturn = true;
-    this.register_validated.capacities_on_register.forEach(element => {
-      if (element.quantity_tables == 0 || element.quantity_spaces == 0) {
-        toReturn = false;
-      }
-    });
-    return toReturn;
-   }
 
   saveAlimentosBebidas() {
     console.log(this.register_validated);
@@ -1035,13 +1091,10 @@ export class TuristicDataComponent implements OnInit {
       }
     });
     return;
-   
-
-  
-  //  this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
-  //     this.certificadoUsoSuelo.register_id = r.id;
-  //     this.guardarCertificadoUsoSuelos();
-  //     this.guardarListaPrecios(r.id);
+   this.register_alimentos_bebidas_data_service.register_register_data(this.register_validated).then( r => {
+     this.attachments.floor_authorization_certificate.register_id = r.id;
+     this.guardarCertificadoUsoSuelos();
+     this.guardarListasPrecios(r.id);
   //     let clasificacion = '';
   //     this.clasifications_registers.forEach(element => {
   //        if (element.code == this.categorySelectedCode) {
@@ -1122,7 +1175,7 @@ export class TuristicDataComponent implements OnInit {
   //     this.guardando = false;
   //     this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
   //     return;
-  //  });
+   });
   }
 
   saveOperacionIntermediacion() {
