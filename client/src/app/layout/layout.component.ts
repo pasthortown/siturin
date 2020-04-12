@@ -33,6 +33,9 @@ export class LayoutComponent implements OnInit {
     constructor(private toastr: ToastrManager, private chatDataService: ChatService, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
     ngOnInit() {
+        this.conversacion.push(
+            {from: 'SITURIN', message: 'Saludos, Hay algo en lo que te pueda servir?', time: new Date()}
+        );
         this.half = false;
         this.two = false;
         this.three = false;
