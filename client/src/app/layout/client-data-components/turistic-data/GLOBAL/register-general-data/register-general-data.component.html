@@ -76,7 +76,7 @@
         </div>
     </div>
     <div class="col-3">
-        <div class="form-group" [hidden]="register.activity_id == 3">
+        <div class="form-group" [hidden]="register.activity_id == 3 || register.activity_id == 2">
             <label>Categoría</label>
             <span *ngIf="register.register_type_id == 0" class="ml-2 badge badge-danger">Incorrecto</span>
             <select class="form-control" id="register_type_id" name="register_type_id" (change)="changeCategory()" [(ngModel)]="register.register_type_id"  [disabled]="!categoryEnable() || !editable">
