@@ -545,10 +545,6 @@ const routes: Routes = [
             path: 'cliente-externo',
             loadChildren: './EXTERNO/cliente-externo/cliente-externo.module#ClienteExternoModule'
          },
-         {
-            path: 'externo-dashboard',
-            loadChildren: './EXTERNO/dashboard/dashboard.module#DashboardModule'
-         },
 
          //DINARDAP
 
