@@ -1,3 +1,4 @@
+import { Ubication } from './../../../models/BASE/Ubication';
 import { ProcedureJustification } from './../../../models/ALIMENTOSBEBIDAS/ProcedureJustification';
 import { Tariff } from 'src/app/models/ALOJAMIENTO/Tariff';
 import { LanguageService } from './../../../services/CRUD/BASE/language.service';
@@ -21,6 +22,7 @@ import { Establishment } from './../../../models/BASE/Establishment';
 import { Ruc } from './../../../models/DINARDAP/Ruc';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Swal from 'sweetalert2';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 
 @Component({
   selector: 'app-turistic-data',
@@ -73,6 +75,7 @@ export class TuristicDataComponent implements OnInit {
   };
 
   register_types: any[] = [];
+  ubications: Ubication[] = [];
 
   attachments = {
     authorization_condominos: new AuthorizationAttachment(),
@@ -89,6 +92,7 @@ export class TuristicDataComponent implements OnInit {
   constructor(private toastr: ToastrManager,
     private consultorDataService: ConsultorService,
     private tariffTypeDataService: TariffTypeService,
+    private ubicationDataService: UbicationService,
     private requisite_operacion_intermediacion_data_service: RequisiteOPService,
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
     private requisite_alojamiento_data_service: RequisiteALService,
@@ -99,6 +103,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUbications();
     this.getRegisterTypes();
   }
 
@@ -109,6 +114,13 @@ export class TuristicDataComponent implements OnInit {
   refresh() {
     this.get_registers_on_establishment(); // Obtiene los Registros asociados al establecimiento
     this.validateInitialData();
+  }
+
+  getUbications() {
+    this.ubications = [];
+    this.ubicationDataService.get().then( r => {
+       this.ubications = r as Ubication[];
+    }).catch( e => { console.log(e); });
   }
 
   getRegisterTypes() {
@@ -763,6 +775,39 @@ export class TuristicDataComponent implements OnInit {
     return tipo_tramite;
   }
 
+  getUbicationData(): any {
+    const toReturn = {
+      provincia: new Ubication(),
+      canton: new Ubication(),
+      parroquia: new Ubication(),
+      zonal: new Ubication(),
+      iniciales_cordinacion_zonal: ''
+    };
+    this.ubications.forEach(element => {
+      if (element.id == this.establishment.ubication_id) {
+        toReturn.parroquia = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.parroquia.father_code) {
+        toReturn.canton = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.canton.father_code) {
+        toReturn.provincia = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.provincia.father_code) {
+        toReturn.zonal = element;
+      }
+    });
+    const zonalName = toReturn.zonal.name.split(' ');
+    toReturn.iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+    return toReturn;
+  }
+
   saveAlojamiento() {
     console.log(this.register_validated);
     console.log(this.tarifarioRack);
@@ -786,74 +831,9 @@ export class TuristicDataComponent implements OnInit {
     });  
     this.register_validated.tarifario_rack = tariffs;
     let tipo_tramite = this.getTipoTramite();
-    // let tipo_tramite = 'Registro';
-    // this.procedureJustification.justification = "Registro";
-    // this.rucEstablishmentRegisterSelected.status = 11;
-    // this.procedureJustification.procedure_id = 6;
-    // this.idCausal = 0;
-  //  if (this.actualizando){
-  //     tipo_tramite = 'Actualización';
-  //     this.procedureJustification.justification = "Actualización";
-  //     this.rucEstablishmentRegisterSelected.status = 41;
-  //     this.procedureJustification.procedure_id = 4;
-  //  }
-  //  if (this.activando){
-  //     tipo_tramite = 'Reingreso';
-  //     this.procedureJustification.justification = "Reingreso";
-  //     this.procedureJustification.procedure_id = 1;
-  //     this.rucEstablishmentRegisterSelected.status = 61;
-  //  }
-  //  if (this.inactivando){
-  //     tipo_tramite = 'Inactivación';
-  //     this.rucEstablishmentRegisterSelected.status = 51;
-  //     this.procedureJustification.procedure_id = 5;
-  //     this.procedureJustificationsToShow.forEach(element => {
-  //        if (element.id == this.idCausal) {
-  //           this.procedureJustification.justification = element.justification;
-  //        }
-  //     });
-  //  }
-  //  if (this.reclasificando){
-  //     tipo_tramite = 'Reclasificación';
-  //     this.rucEstablishmentRegisterSelected.status = 21;
-  //     this.procedureJustification.procedure_id = 2;
-  //     this.procedureJustification.justification = "Reclasificación";
-  //  }
-  //  if (this.recategorizando){
-  //     tipo_tramite = 'Recategorización';
-  //     this.rucEstablishmentRegisterSelected.status = 31;
-  //     this.procedureJustification.procedure_id = 3;
-  //     this.procedureJustification.justification = "Recategorización";
-  //  }
-  //  tipo_tramite = tipo_tramite.toUpperCase();
-
-  //  const today = new Date();
-  //     const actividad = 'ALOJAMIENTO';
-  //     let provincia = new Ubication();
-  //     let canton = new Ubication();
-  //     let parroquia = new Ubication();
-  //     let zonal = new Ubication();
-  //     let iniciales_cordinacion_zonal = '';
-  //     this.ubications.forEach(element => {
-  //        if (element.id == this.establishment_selected.ubication_id) {
-  //        parroquia = element;
-  //        }
-  //     });
-  //     this.ubications.forEach(element => {
-  //        if (element.code == parroquia.father_code) {
-  //        canton = element;
-  //        }
-  //     });
-  //     this.ubications.forEach(element => {
-  //        if (element.code == canton.father_code) {
-  //        provincia = element;
-  //        }
-  //     });
-  //     this.ubications.forEach(element => {
-  //        if (element.code == provincia.father_code) {
-  //        zonal = element;
-  //        }
-  //     });
+    const today = new Date();
+    const actividad = 'ALOJAMIENTO';
+    const ubicationData = this.getUbicationData();
   //  this.registerDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
   //     this.certificadoUsoSuelo.register_id = r.id;
   //     if (this.rucEstablishmentRegisterSelected.register_type_id == 47 || this.rucEstablishmentRegisterSelected.register_type_id == 46) {
@@ -876,8 +856,6 @@ export class TuristicDataComponent implements OnInit {
   //           categoria = element.name.toString();
   //        }
   //     });
-  //     const zonalName = zonal.name.split(' ');
-  //     iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
   //     let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
   //     const params = [{tipo_tramite: tipo_tramite},
   //        {fecha: today.toLocaleDateString().toUpperCase()},
@@ -947,11 +925,231 @@ export class TuristicDataComponent implements OnInit {
   //  });
   }
 
+  validateAlimentosBebidasData(): boolean {
+    let toReturn = true;
+    if ((this.register_validated.kitchen_types_on_register === [] || 
+      this.register_validated.kitchen_types_on_register.length == 0)) {
+      if (this.classificationSelectedCode == '1.1' || 
+        this.classificationSelectedCode == '1.2' || 
+        this.classificationSelectedCode == '1.3' || 
+        this.classificationSelectedCode == '1.5' || 
+        this.classificationSelectedCode == '1.7' || 
+        this.classificationSelectedCode == '2.1' || 
+        this.classificationSelectedCode == '2.2' || 
+        this.classificationSelectedCode == '2.3' || 
+        this.classificationSelectedCode == '2.5' || 
+        this.classificationSelectedCode == '2.7')
+      {
+        this.toastr.errorToastr('Existe inconsistencia en el tipo de cocina, seleccionado.', 'Nuevo');
+        toReturn = false;  
+      }
+    }
+    if ((this.register_validated.service_types_on_register === [] ||
+      this.register_validated.service_types_on_register.length == 0)) {
+      if (
+        this.classificationSelectedCode == '1.1' || 
+        this.classificationSelectedCode == '1.2' || 
+        this.classificationSelectedCode == '1.3' || 
+        this.classificationSelectedCode == '2.1' || 
+        this.classificationSelectedCode == '2.2' || 
+        this.classificationSelectedCode == '2.3')
+      {
+        this.toastr.errorToastr('Existe inconsistencia en el tipo de servicio, seleccionado.', 'Nuevo');
+        toReturn = false;
+      }
+    }
+    if (this.classificationSelectedCode !== '1.7') {
+      if (!this.validateCapacidades()) {
+         this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
+         toReturn = false;
+      }   
+    }
+    let mostrarMensajeListaPrecios = false;
+    this.listasPrecios.forEach(element => {
+      if (element.food_drink_attachment_file === ''){
+        mostrarMensajeListaPrecios = true;
+      }
+    });
+    if (mostrarMensajeListaPrecios) {
+      this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
+      toReturn = false;
+    }
+    if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
+      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
+      toReturn = false;
+    }
+
+    return toReturn;
+  }
+
+  validateCapacidades(): boolean {
+    let toReturn = true;
+    this.register_validated.capacities_on_register.forEach(element => {
+      if (element.quantity_tables == 0 || element.quantity_spaces == 0) {
+        toReturn = false;
+      }
+    });
+    return toReturn;
+   }
+
   saveAlimentosBebidas() {
     console.log(this.register_validated);
     console.log(this.attachments);
     console.log(this.establishment);
     console.log('alimentos');
+    if (!this.validateAlimentosBebidasData()) {
+      return;
+    }
+    return;
+    
+   
+   
+   
+  //  this.capacityTypesAB.forEach(element => {
+  //     if (element.register_type_id == this.rucEstablishmentRegisterSelected.register_type_id) {
+  //        this.rucEstablishmentRegisterSelected.capacities_on_register[0].capacity_type_id = element.id;
+  //     }
+  //  });
+  //  if (this.reclasificando) {
+  //     let newClassification = '';
+  //     this.clasifications_registers.forEach(element => {
+  //        if (element.code == this.categorySelectedCode) {
+  //           newClassification = element.name.toString();
+  //        }
+  //     });
+  //     if (this.selected_classification_catastro.toUpperCase() == newClassification.toUpperCase()) {
+  //        this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
+  //        return;
+  //     }
+  //  }
+  //  if (this.recategorizando) {
+  //     let newCategory = '';
+  //     this.categories_registers.forEach(element => {
+  //        if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+  //           newCategory = element.name.toString();
+  //        }
+  //     });
+  //     if (this.selected_category_catastro.toUpperCase() == newCategory.toUpperCase()) {
+  //        this.toastr.errorToastr('Debe seleccionar una Categoría diferente a la que ya posee.', 'RECATEGORIZACIÓN');
+  //        return;
+  //     }
+  //  }
+  //  if (!(this.actualizando || this.inactivando || this.actualizandoCapacidadesPrecios)) {
+  //     let mostradoError = false;
+  //     this.rucEstablishmentRegisterSelected.requisites.forEach(element => {
+  //        if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
+  //           element.value = 'true';
+  //        }
+  //        let esgrupo = false;
+  //        if (element.HTMLtype == "GRUPO 0" || element.HTMLtype == "GRUPO 1" || element.HTMLtype == "GRUPO 2" || element.HTMLtype == "GRUPO 3" || element.HTMLtype == "GRUPO 4" || element.HTMLtype == "GRUPO 5" || element.HTMLtype == "GRUPO 6") {
+  //           esgrupo = true;
+  //        }
+  //        if (!mostradoError && !esgrupo && element.mandatory && (element.value == 'false' || element.value == '0')) {
+  //           this.toastr.errorToastr('La repuesta seleccionada en los requisitos obligatorios no corresponde a la admitida para la categoría seleccionada.', 'Normativa');
+  //           mostradoError = true;
+  //        }
+  //     });
+  //     if (mostradoError) {
+  //        return;
+  //     }
+  //     this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
+
+  //     }).catch( e => { console.log(e); });
+  //  }
+  //  this.rucEstablishmentRegisterSelected.establishment_id = this.establishment_selected.id;
+  //  this.rucEstablishmentRegisterSelected.id = 0;
+
+  //   this.guardando = true;
+  //   let tipo_tramite = this.getTipoTramite();
+  //   const today = new Date();
+  //   const actividad = 'ALIMENTOS Y BEBIDAS';
+  //   const ubicationData = this.getUbicationData();
+
+  //  this.registerABDataService.register_register_data(this.rucEstablishmentRegisterSelected).then( r => {
+  //     this.certificadoUsoSuelo.register_id = r.id;
+  //     this.guardarCertificadoUsoSuelos();
+  //     this.guardarListaPrecios(r.id);
+  //     let clasificacion = '';
+  //     this.clasifications_registers.forEach(element => {
+  //        if (element.code == this.categorySelectedCode) {
+  //           clasificacion = element.name.toString();
+  //        }
+  //     });
+  //     let categoria = '';
+  //     this.categories_registers.forEach(element => {
+  //        if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
+  //           categoria = element.name.toString();
+  //        }
+  //     });
+  //     const zonalName = zonal.name.split(' ');
+  //     iniciales_cordinacion_zonal = zonalName[zonalName.length - 1].toUpperCase();
+  //     let qr_value = 'MT-' + iniciales_cordinacion_zonal + '-' + this.ruc_registro_selected.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+  //     const params = [{tipo_tramite: tipo_tramite},
+  //        {fecha: today.toLocaleDateString().toUpperCase()},
+  //        {representante_legal: this.user.name.toUpperCase()},
+  //        {nombre_comercial: this.establishment_selected.commercially_known_name.toUpperCase()},
+  //        {ruc: this.ruc_registro_selected.ruc.number},
+  //        {razon_social: this.razon_social},
+  //        {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+  //        {actividad: actividad},
+  //        {clasificacion: clasificacion.toUpperCase()},
+  //        {categoria: categoria.toUpperCase()},
+  //        {provincia: provincia.name.toUpperCase()},
+  //        {canton: canton.name.toUpperCase()},
+  //        {parroquia: parroquia.name.toUpperCase()},
+  //        {calle_principal: this.establishment_selected.address_main_street.toUpperCase()},
+  //        {numeracion: this.establishment_selected.address_number.toUpperCase()},
+  //        {calle_secundaria: this.establishment_selected.address_secondary_street.toUpperCase()}];
+  //     this.exporterDataService.template(10, true, qr_value, params).then( r_exporter => {
+  //        let pdfBase64 = r_exporter;
+  //        const byteCharacters = atob(r_exporter);
+  //        const byteNumbers = new Array(byteCharacters.length);
+  //        for (let i = 0; i < byteCharacters.length; i++) {
+  //           byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //        }
+  //        const byteArray = new Uint8Array(byteNumbers);
+  //        const blob = new Blob([byteArray], { type: 'application/pdf'});
+  //        if (this.idCausal !== 0) {
+  //           let newRegisterProcedure = new RegisterProcedure();
+  //           newRegisterProcedure.procedure_justification_id = this.idCausal;
+  //           newRegisterProcedure.register_id = this.certificadoUsoSuelo.register_id;
+  //           newRegisterProcedure.date = new Date();
+  //           this.registerProcedureABDataService.post(newRegisterProcedure).then( regProc => { 
+  //           }).catch( e => { console.log(e); });   
+  //        }
+  //        saveAs(blob, qr_value + '.pdf');
+  //        const information = {
+  //           para: this.user.name,
+  //           tramite: tipo_tramite,
+  //           ruc: this.user.ruc,
+  //           nombreComercial: this.establishment_selected.commercially_known_name,
+  //           fechaSolicitud: today.toLocaleString(),
+  //           actividad: 'Alimentos y Bebidas',
+  //           clasificacion: clasificacion,
+  //           categoria: categoria,
+  //           razon_social: this.razon_social,
+  //           tipoSolicitud: tipo_tramite,
+  //           provincia: provincia.name.toUpperCase(),
+  //           canton: canton.name.toUpperCase(),
+  //           parroquia: parroquia.name.toUpperCase(),
+  //           callePrincipal: this.establishment_selected.address_main_street,
+  //           calleInterseccion: this.establishment_selected.address_secondary_street,
+  //           numeracion: this.establishment_selected.address_number,
+  //           thisYear: today.getFullYear(),
+  //           pdfBase64: pdfBase64,
+  //        };
+  //        this.mailerDataService.sendMail('mail', this.user.email.toString(), 'Información de Detalle de Solicitud', information).then( r_mailer => {
+  //           this.guardando = false;
+  //           this.refresh();
+  //           this.toastr.successToastr('Solicitud Enviada, Satisfactoriamente.', 'Nuevo');
+  //           this.router.navigate(['/main']);
+  //        }).catch( e => { console.log(e); });
+  //     }).catch( e => { console.log(e); });
+  //  }).catch( e => {
+  //     this.guardando = false;
+  //     this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
+  //     return;
+  //  });
   }
 
   saveOperacionIntermediacion() {
