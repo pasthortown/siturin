@@ -62,6 +62,9 @@ export class ProfileComponent implements OnInit {
   getProfilePicture() {
     this.profilePictureDataService.get(this.user.id).then( r2 => {
       this.profilePicture = r2 as ProfilePicture;
+      if (this.profilePicture.id !== 0) {
+        this.profileImg = 'data:' + this.profilePicture.file_type + ';base64,' + this.profilePicture.file;
+      }
     }).catch( e => { console.log(e); });
   }
 

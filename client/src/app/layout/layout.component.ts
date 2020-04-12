@@ -47,7 +47,6 @@ export class LayoutComponent implements OnInit {
 
     getProfilePicture() {
         this.profilePictureDataService.get(this.user.id).then( r2 => {
-            console.log(r2);
             this.profile_picture = r2 as ProfilePicture;
         }).catch( e => { console.log(e); });
     }
