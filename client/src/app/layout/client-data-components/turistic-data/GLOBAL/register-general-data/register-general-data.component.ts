@@ -1,7 +1,7 @@
 import { RegisterType } from './../../../../../models/ALOJAMIENTO/RegisterType';
 import { Register } from './../../../../../models/ALOJAMIENTO/Register';
 import { Establishment } from './../../../../../models/BASE/Establishment';
-import { Ruc } from './../../../../../models/DINARDAP/Ruc';
+import { Ruc } from './../../../../../models/BASE/Ruc';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
