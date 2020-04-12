@@ -71,7 +71,7 @@
         <button type="button" class="btn btn-info mr-2" title="Anterior" (click)="previewPage()">
             <i class="fas fa-arrow-left"></i>&nbsp;Anterior
         </button>
-        <button [disabled]="guardando" *ngIf="validateRegisterDataToSave()" type="button" class="btn btn-success" title="Enviar Solicitud" (click)="guardarRegistro()">
+        <button [disabled]="guardando" type="button" class="btn btn-success" title="Enviar Solicitud" (click)="guardarRegistro()">
             <i class="fas fa-paper-plane"></i>&nbsp;Enviar Solicitud
         </button>
         <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">

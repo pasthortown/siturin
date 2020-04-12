@@ -6,7 +6,7 @@
 
 <app-agreement-data [user]="user" *ngIf="mostrarTerminosCondiciones" (checkAgreement)="checkTerminosCondiciones($event)"></app-agreement-data>
 <app-registers-data [user]="user" *ngIf="terminosCondiciones" (register_selected)="validateRegisterSelectedData($event)"></app-registers-data>
-<app-options-data *ngIf="mostrarOpciones" [register_state]="estado_registro" [register_activity]="actividadSelected" (select_option)="changeSelectedOption($event)"></app-options-data>
+<app-options-data *ngIf="mostrarOpciones" [system_source]="data_selected.register_selected.system_source" [register_state]="estado_registro" [register_activity]="actividadSelected" (select_option)="changeSelectedOption($event)"></app-options-data>
 
 <div class="row" *ngIf="mostrarIngresoDatos">
     <div class="col-12 text-left">
