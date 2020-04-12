@@ -28,7 +28,7 @@ export class LayoutComponent implements OnInit {
     today = new Date();
 
     user: User = new User();
-    profile_picture = null;
+    profile_picture = new ProfilePicture();
 
     constructor(private toastr: ToastrManager, private chatDataService: ChatService, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
