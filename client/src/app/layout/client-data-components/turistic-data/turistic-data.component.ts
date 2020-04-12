@@ -196,7 +196,13 @@ export class TuristicDataComponent implements OnInit {
     const solicitudes_pendientes = [];
     const id_register_pendientes = [];
     this.registers_by_ruc.forEach(element => {
-      console.log(element);
+      const textoEstado = element.status_register.state_id.toString();
+      const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
+      // if (digitoEstado == 3 || digitoEstado == 9) {
+      //   element.register.editable = true;
+      // } else {
+      //   element.register.editable = false;
+      // }
       if (element.establishment.id == this.establishment.id) {
         if (element.register.code == 'PENDIENTE' || element.register.code == '') {
           solicitudes_pendientes.push(element);
@@ -1011,6 +1017,7 @@ export class TuristicDataComponent implements OnInit {
       saveAs(blob, qr_value + '.pdf');
       this.buildMail(actividad, tipo_tramite, today, clasificacion, categoria, ubicationData, pdfBase64);
     }).catch( e => {
+      console.log(e);
       this.guardando = false;
       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
     });
@@ -1122,6 +1129,7 @@ export class TuristicDataComponent implements OnInit {
       this.saveProcedure(r.id);
       this.buildTemplatePDF(tipo_tramite);
     }).catch( e => {
+      console.log(e);
       this.guardando = false;
       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
     });
@@ -1147,6 +1155,7 @@ export class TuristicDataComponent implements OnInit {
       this.saveProcedure(r.id);  
       this.buildTemplatePDF(tipo_tramite);
     }).catch( e => {
+      console.log(e);
       this.guardando = false;
       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
     });
