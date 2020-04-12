@@ -267,7 +267,7 @@ export class TuristicDataComponent implements OnInit {
     this.registers_by_ruc.forEach(element => {
       const textoEstado = element.status_register.state_id.toString();
       const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
-      if (digitoEstado == 3 || digitoEstado == 9) {
+      if (digitoEstado == '9') {
         element.register.editable = true;
       } else {
         element.register.editable = false;
@@ -285,7 +285,10 @@ export class TuristicDataComponent implements OnInit {
             id_register_pendientes.push(element.register.id);
           }
         } else {
-          registros_establecimiento.push(element);
+          // Anular registros rechazados
+          if (digitoEstado !== '3') {
+            registros_establecimiento.push(element);
+          }
           let existe = false;
           register_codes_aviable.forEach(reg_code => {
             if (reg_code == element.register.code) {
@@ -300,7 +303,14 @@ export class TuristicDataComponent implements OnInit {
     });
     register_codes_aviable.forEach(reg_code => {
       let last_register_by_code = null;
+      let inactivado = false;
       registros_establecimiento.forEach(element => {
+        const textoEstado = element.status_register.state_id.toString();
+        const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
+        // Detectar registros inactivos
+        if (digitoEstado == '59') {
+          inactivado = true;
+        }
         if (element.register.code == reg_code) {
           if (last_register_by_code == null) {
             last_register_by_code = element;
@@ -319,7 +329,7 @@ export class TuristicDataComponent implements OnInit {
           existe = true;
         }
       });
-      if (!existe) {
+      if (!existe && !inactivado) {
         this.establishment_registers.push(last_register_by_code);
       }
     });
@@ -360,10 +370,10 @@ export class TuristicDataComponent implements OnInit {
         const textoEstado = element.status_register.state_id.toString();
         const digitoEstado = textoEstado.substring(textoEstado.length-1, textoEstado.length);
         toReturn = true;
-        if (digitoEstado == 3) {
+        if (digitoEstado == '3') {
           // INACTIVACION RECHAZADA
         } else {
-          if (digitoEstado == 9) {
+          if (digitoEstado == '9') {
             // INACTIVACION APROBADA
           } else {
             Swal.fire({
