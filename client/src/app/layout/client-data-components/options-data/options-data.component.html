@@ -25,17 +25,17 @@
                     Actualizar
                 </button>
                 
-                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="actividadSelected == '2' && select_option != 'actualization_costs' && register_state == 'ACTIVO'">
+                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="register_activity == '2' && select_option != 'actualization_costs' && register_state == 'ACTIVO'">
                     Actualizar Capacidades y Lista de Precios
                 </button>
-                <button class="btn btn-sm btn-secondary" *ngIf="actividadSelected == '2' && select_option == 'actualization_costs' && register_state == 'ACTIVO'" disabled>
+                <button class="btn btn-sm btn-secondary" *ngIf="register_activity == '2' && select_option == 'actualization_costs' && register_state == 'ACTIVO'" disabled>
                     Actualizar Capacidades y Lista de Precios
                 </button>
                 
-                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="actividadSelected == '1' && select_option != 'actualization_costs' && register_state == 'ACTIVO'">
+                <button class="btn btn-sm btn-light" (click)="actualizarCapacidadesPrecios()" *ngIf="register_activity == '1' && select_option != 'actualization_costs' && register_state == 'ACTIVO'">
                     Actualizar Capacidades y Tarifario Rack
                 </button>
-                <button class="btn btn-sm btn-secondary"  *ngIf="actividadSelected == '1' && select_option == 'actualization_costs' && register_state == 'ACTIVO'" disabled>
+                <button class="btn btn-sm btn-secondary"  *ngIf="register_activity == '1' && select_option == 'actualization_costs' && register_state == 'ACTIVO'" disabled>
                     Actualizar Capacidades y Tarifario Rack
                 </button>
                 

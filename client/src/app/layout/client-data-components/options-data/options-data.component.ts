@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class OptionsDataComponent implements OnInit {
 
-  @Input('register_activity') register_activity = '';
+  @Input('register_activity') register_activity = 0;
   @Input('register_state') register_state = '';
   @Input('system_source') system_source = 'SITURIN';
   @Output('select_option') change: EventEmitter<String> = new EventEmitter<String>();
