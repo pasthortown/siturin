@@ -47,7 +47,7 @@
                 <option value="0" selected>Seleccione...</option>
                 <option value="1" *ngIf="canAlojamiento && activate_alojamiento">Alojamiento Turístico</option>
                 <option value="2" *ngIf="canAlimentosBebidas && activate_alimentos_bebidas && regionSelectedCode == '1'">Alimentos y Bebidas</option>
-                <option value="3" *ngIf="canOperacionIntermediacion && activate_operacion_intermediacion && ruc.tax_payer_type_id == '2' ">Operación e Intermediación</option>          
+                <option value="3" *ngIf="canOperacionIntermediacion && activate_operacion_intermediacion && ruc.tax_payer_type_id == 2 ">Operación e Intermediación</option>          
             </select>
         </div>
         <small class="col-12">
@@ -57,7 +57,7 @@
             </div>
         </small>
         <small class="col-12">
-          <div class="alert alert-info mb-2" *ngIf="ruc.tax_payer_type_id == '1'" role="alert">
+          <div class="alert alert-info mb-2" *ngIf="ruc.tax_payer_type_id == 1" role="alert">
                 <label class="col-12 text-justify"><strong>Información</strong></label>
                 <p class="col-12 text-justify">Los trámites referentes a Operación e Intermediación, se encuentran disponibles únicamente para personerías jurídicas.</p>
           </div>
