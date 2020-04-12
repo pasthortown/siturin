@@ -27,6 +27,9 @@ export class LayoutComponent implements OnInit {
     enviandoTexto = false;
     today = new Date();
 
+    user: User = new User();
+    profile_picture = null;
+
     constructor(private toastr: ToastrManager, private chatDataService: ChatService, private catastroDataService: RegisterService, private profilePictureDataService: ProfilePictureService, private userDataService: UserService, private router: Router) {}
 
     ngOnInit() {
@@ -46,7 +49,7 @@ export class LayoutComponent implements OnInit {
         this.profilePictureDataService.get().then( r2 => {
             if ( typeof r2 !== 'undefined') {
                 if ( typeof r2.error === 'undefined' ) {
-                    sessionStorage.setItem('profilePicture', JSON.stringify(r2 as ProfilePicture));
+                    this.profile_picture = r2 as ProfilePicture;
                 }
             }
         }).catch( e => {
@@ -106,9 +109,9 @@ export class LayoutComponent implements OnInit {
     getUserInfo() {
         const userData = JSON.parse(sessionStorage.getItem('user'));
         this.userDataService.get(userData.id).then( r => {
-          const user = r as User;
+          this.user = r as User;
           const cuentaInterna = r.email.split('@')[1] == 'turismo.gob.ec';
-          this.catastroDataService.searchByRuc(user.ruc.toString()).then( r => {
+          this.catastroDataService.searchByRuc(this.user.ruc.toString()).then( r => {
               const registros = r as Register[];
               let toReturn = false;
               if (registros.length == 0 || r == 0) {
@@ -126,7 +129,7 @@ export class LayoutComponent implements OnInit {
               this.check_pendientes();
           }).catch( e => { console.log(e); });
           let redirigirProfile = false;
-          if(user.main_phone_number == '' || typeof user.main_phone_number == 'undefined' || user.main_phone_number == null) {
+          if(this.user.main_phone_number == '' || typeof this.user.main_phone_number == 'undefined' || this.user.main_phone_number == null) {
             redirigirProfile = true;
           }
           if (redirigirProfile) {

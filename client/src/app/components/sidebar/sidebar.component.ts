@@ -1,5 +1,6 @@
+import { User } from './../../models/profile/User';
 import { Router, NavigationEnd } from '@angular/router';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ProfilePicture } from 'src/app/models/profile/ProfilePicture';
 
 @Component({
@@ -12,7 +13,6 @@ export class SidebarComponent implements OnInit {
   collapsed: boolean;
   showMenu: string;
   pushRightClass: string;
-  user: any;
   profileImg = 'assets/images/accounts.png';
   roles: any;
   cuentaInterna: Boolean = false;
@@ -28,6 +28,9 @@ export class SidebarComponent implements OnInit {
   isGestorPag: Boolean = false;
   isExternal: Boolean = false;
   isCoordinadorZonal: Boolean = false;
+  
+  @Input('profile_picture') profile_picture = new ProfilePicture();
+  @Input('user') user = new User();
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -79,12 +82,10 @@ export class SidebarComponent implements OnInit {
   }
 
   refreshUser(): Boolean {
-    if ( JSON.parse(sessionStorage.getItem('user')) !== null ) {
-      this.user = JSON.parse(sessionStorage.getItem('user'));
-    }
-    if ( JSON.parse(sessionStorage.getItem('profilePicture')) !== null ) {
-      const profilePicture = JSON.parse(sessionStorage.getItem('profilePicture')) as ProfilePicture;
-      this.profileImg = 'data:' + profilePicture.file_type + ';base64,' + profilePicture.file;
+    if ( this.profile_picture.id == 0 ) {
+      this.profileImg = 'assets/images/accounts.png';
+    } else {
+      this.profileImg = 'data:' + this.profile_picture.file_type + ';base64,' + this.profile_picture.file;
     }
     return true;
   }
