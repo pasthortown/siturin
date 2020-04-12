@@ -156,16 +156,29 @@ export class ProfileComponent implements OnInit {
   }
 
   finCambios() {
-    Swal.fire({
-      title: 'Datos Guardados',
-      text: 'Datos guardados satisfactoriamente.',
-      type: 'success',
-      showCancelButton: false,
-      confirmButtonText: 'De acuerdo',
-      reverseButtons: true
-    }).then((result) => {
-      this.router.navigate(['/login']);
-    });
+    if (this.actualizando_clave) {
+      Swal.fire({
+        title: 'Datos Guardados',
+        text: 'Datos guardados satisfactoriamente. Utilice su nueva contraseña, para iniciar sesión.',
+        type: 'success',
+        showCancelButton: false,
+        confirmButtonText: 'De acuerdo',
+        reverseButtons: true
+      }).then((result) => {
+        this.router.navigate(['/login']);
+      });
+    } else {
+      Swal.fire({
+        title: 'Datos Guardados',
+        text: 'Datos guardados satisfactoriamente.',
+        type: 'success',
+        showCancelButton: false,
+        confirmButtonText: 'De acuerdo',
+        reverseButtons: true
+      }).then((result) => {
+        window.location.reload();
+      });
+    }
   }
 
   actualizarClave() {
