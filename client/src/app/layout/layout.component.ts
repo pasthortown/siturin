@@ -36,7 +36,6 @@ export class LayoutComponent implements OnInit {
         this.half = false;
         this.two = false;
         this.three = false;
-        this.getProfilePicture();
         this.getUserInfo();
         this.checkSessionTime();
     }
@@ -105,6 +104,7 @@ export class LayoutComponent implements OnInit {
         const userData = JSON.parse(sessionStorage.getItem('user'));
         this.userDataService.get(userData.id).then( r => {
           this.user = r as User;
+          this.getProfilePicture();
           const cuentaInterna = r.email.split('@')[1] == 'turismo.gob.ec';
           this.catastroDataService.searchByRuc(this.user.ruc.toString()).then( r => {
               const registros = r as Register[];
