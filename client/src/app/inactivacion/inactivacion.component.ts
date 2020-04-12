@@ -562,7 +562,7 @@ export class InactivacionComponent implements OnInit {
             const newEstablishmentRegistered = resp_est as Establishment;
             this.establishment_selected = newEstablishmentRegistered;
             this.declaration_selected.establishment_id = this.establishment_selected.id;
-            this.catastroRegisterDataService.update_ruc_code_id(this.selected_register_data.id, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {
+            this.catastroRegisterDataService.update_ruc_code_id(this.selected_register_data.id, this.establishment_selected.ruc_code_id).then( resp_cat => {
                this.declarationDataService.register_data(this.declaration_selected).then( r => {
                   if ( r === '0' ) {
                      this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Declaración');
@@ -672,7 +672,7 @@ export class InactivacionComponent implements OnInit {
       this.establishmentDataService.register_min_establishment(this.establishment_selected).then(resp_est => {
          const newEstablishmentRegistered = resp_est as Establishment;
          this.establishment_selected = newEstablishmentRegistered;
-         this.catastroRegisterDataService.update_ruc_code_id(this.selected_register_data.id, this.establishment_selected.ruc_code_id, this.establishment_selected.sri_state).then( resp_cat => {            
+         this.catastroRegisterDataService.update_ruc_code_id(this.selected_register_data.id, this.establishment_selected.ruc_code_id).then( resp_cat => {            
          }).catch(e=>{ console.log(e); }); 
       }).catch(e=>{ console.log(e); });
       this.userDataService.register_user_by_inactivation(this.user).then( r => {
