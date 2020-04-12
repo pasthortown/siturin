@@ -1127,8 +1127,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   saveAlimentosBebidas() {
-    console.log(this.ruc);
-    return;
     if (!this.validateAlimentosBebidasData()) {
       return;
     }
