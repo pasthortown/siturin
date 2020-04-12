@@ -1,3 +1,4 @@
+import { LanguageService } from './../../../services/CRUD/BASE/language.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { TariffType } from './../../../models/ALOJAMIENTO/TariffType';
 import { TariffTypeService } from './../../../services/CRUD/ALOJAMIENTO/tarifftype.service';
@@ -85,6 +86,7 @@ export class TuristicDataComponent implements OnInit {
     private requisite_operacion_intermediacion_data_service: RequisiteOPService,
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
     private requisite_alojamiento_data_service: RequisiteALService,
+    private languageDataService: LanguageService,
     private register_operacion_intermediacion_data_service: RegisterOPService,
     private register_alimentos_bebidas_data_service: RegisterABService,
     private register_alojamiento_data_service: RegisterALService) {
@@ -213,6 +215,7 @@ export class TuristicDataComponent implements OnInit {
         this.establishment_registers.push(last_register_by_id);
       }
     });
+    console.log(this.establishment_registers);
   }
 
   hasActiveRegisters(): boolean {
@@ -731,9 +734,8 @@ export class TuristicDataComponent implements OnInit {
     if (!this.validateAlojamientoData()) {
       return;
     }
-    // this.languageDataService.save_languajes(this.establishment_selected.id, this.establishment_selected.languages_on_establishment).then( r => {
-
-    // }).catch( e => { console.log(e); });
+    this.languageDataService.save_languajes(this.establishment.id, this.establishment.languages_on_establishment).then( r => {
+    }).catch( e => { console.log(e); });
   //  this.guardando = true;
   //  const tariffs: Tariff[] = [];
   //  this.tarifarioRack.valores.forEach(tarifRackValor => {
