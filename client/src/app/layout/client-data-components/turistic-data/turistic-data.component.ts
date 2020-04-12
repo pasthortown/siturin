@@ -618,54 +618,48 @@ export class TuristicDataComponent implements OnInit {
     return true;
   }
 
-  validateAlojamientoData(): boolean {
-    if (!this.validateTarifarioRackIngresado()){
-      this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
-      return false;
+  validateReclassificationRecategorization(): boolean {
+    let sourceArray = [];
+    if (this.register_validated.activity_id == 1) {
+      sourceArray = this.register_types_block.register_types_alojamiento;
     }
-    if (!this.validateHabitaciones()) {
-      this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
-      return false;
+    if (this.register_validated.activity_id == 2) {
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
     }
-    if (this.attachments.property_title.property_title_attachment_file === '' && (this.register_validated.register_type_id == 47 || this.register_validated.register_type_id == 46)){
-      this.toastr.errorToastr('Debe cargar el título de propiedad de su establecimiento.', 'Nuevo');
-      return false;
+    if (this.register_validated.activity_id == 3) {
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
     }
     if (this.opcion_seleccionada == 'reclassification') {
-      console.log(this.register.category_incomming);
-      console.log(this.register.classification_incomming);
-      //let newClassification = '';
-      
-      // this.clasifications_registers.forEach(element => {
-      //    if (element.code == this.categorySelectedCode) {
-      //       newClassification = element.name.toString();
-      //    }
-      // });
-      // if (this.selected_classification_catastro.toUpperCase() == newClassification.toUpperCase()) {
-      //    this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
-      //    return false;
-      // }
+      let newClassification = '';
+      sourceArray.forEach(element => {
+        if (element.code == this.classificationSelectedCode) {
+          newClassification = element.name;
+        }
+      });
+      if (this.register.classification_incomming.toUpperCase() == newClassification.toUpperCase()) {
+        this.toastr.errorToastr('Debe seleccionar una Clasificación diferente a la que ya posee.', 'RECLASIFICACIÓN');
+        return false;
+      }
     }
     if (this.opcion_seleccionada == 'recategorization') {
       console.log(this.register.category_incomming);
-      console.log(this.register.classification_incomming);
-      // let newCategory = '';
-      // this.categories_registers.forEach(element => {
-      //    if (element.id == this.rucEstablishmentRegisterSelected.register_type_id) {
-      //       newCategory = element.name.toString();
-      //    }
-      // });
-      // if (this.selected_category_catastro.toUpperCase() == newCategory.toUpperCase()) {
-      //    this.toastr.errorToastr('Debe seleccionar una Categoría diferente a la que ya posee.', 'RECATEGORIZACIÓN');
-      //    return false;
-      // }
-    }
-    if (!(this.opcion_seleccionada == 'actualization' || 
-        this.opcion_seleccionada == 'actualization_costs')) {
-      if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
-        this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
-        return false;
+      let newCategory = '';
+      sourceArray.forEach(element => {
+         if (element.id == this.register_validated.register_type_id) {
+            newCategory = element.name.toString();
+         }
+      });
+      if (this.register.category_incomming.toUpperCase() == newCategory.toUpperCase()) {
+         this.toastr.errorToastr('Debe seleccionar una Categoría diferente a la que ya posee.', 'RECATEGORIZACIÓN');
+         return false;
       }
+    }
+    return true;
+  }
+
+  validateRequisites(): boolean {
+    if (!(this.opcion_seleccionada == 'actualization' || 
+      this.opcion_seleccionada == 'actualization_costs')) {
       let mostradoError = false;
       this.register_validated.requisites.forEach(element => {
         if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
@@ -683,6 +677,32 @@ export class TuristicDataComponent implements OnInit {
       if (mostradoError) {
         return false;
       } 
+    }
+    return true;
+  }
+  
+  validateAlojamientoData(): boolean {
+    if (!this.validateTarifarioRackIngresado()){
+      this.toastr.errorToastr('Existe inconsistencia en los valores de las tarifas ingresadas.', 'Nuevo');
+      return false;
+    }
+    if (!this.validateHabitaciones()) {
+      this.toastr.errorToastr('Existe inconsistencia en los valores de las capacidades.', 'Nuevo');
+      return false;
+    }
+    if (this.attachments.property_title.property_title_attachment_file === '' && (this.register_validated.register_type_id == 47 || this.register_validated.register_type_id == 46)){
+      this.toastr.errorToastr('Debe cargar el título de propiedad de su establecimiento.', 'Nuevo');
+      return false;
+    }
+    if (!this.validateReclassificationRecategorization) {
+      return false;
+    }
+    if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
+      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
+      return false;
+    }
+    if (!this.validateRequisites()) {
+      return false;
     }
     return true;
   }
