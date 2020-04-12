@@ -552,6 +552,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   guardarRegistro() {
+    this.register_validated.requisites = this.requisites;
     Swal.fire({
       title: 'Confirmación',
       text: '¿Está seguro de enviar la solicitud al Ministerio de Turismo? Tome en cuenta que una vez enviada la solicitud, la información no podrá ser modificada; y ésta, será verificada mediante inspección.',
@@ -678,8 +679,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   validateRequisites(): boolean {
-    if (!(this.opcion_seleccionada == 'actualization' || 
-      this.opcion_seleccionada == 'actualization_costs')) {
+    if (!(this.opcion_seleccionada == 'actualization' || this.opcion_seleccionada == 'actualization_costs')) {
       let mostradoError = false;
       this.register_validated.requisites.forEach(element => {
         if (element.HTMLtype == 'TRUE / FALSE' && element.fullfill) {
