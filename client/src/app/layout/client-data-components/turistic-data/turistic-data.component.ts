@@ -43,6 +43,13 @@ export class TuristicDataComponent implements OnInit {
   tarifarioRack = {cabecera: [], valores: []};
   tarifas: any[] = [];
 
+  register_type_data_selected  = { 
+    register_type_id: 0,
+    register_classification: '',
+    register_region_code: '',
+    activity_id: 0
+  };
+
   listasPrecios: any[] = [];
 
   modules_activation: any = {
@@ -306,6 +313,12 @@ export class TuristicDataComponent implements OnInit {
     }
     this.classificationSelectedCode = event.register_classification;
     this.register_validated.register_type_id = event.register_type_id;
+    this.register_type_data_selected  = { 
+      register_type_id: event.register_type_id,
+      register_classification: event.register_classification,
+      register_region_code: event.register_region_code,
+      activity_id: event.activity_id
+    };
     this.searchForRegister(sourceArray, event.activity_id, event.register_classification, event.register_region_code);
   }
 
@@ -319,9 +332,9 @@ export class TuristicDataComponent implements OnInit {
       }
     });
     if (register_found != null) {
-      console.log('bien');
       this.register_validated = register_found.register;
       this.register.register_type_id = register_found.register.register_type_id;
+      this.register_validated.register_type_id = register_found.register.register_type_id;
       this.register_validated.complementary_service_types_on_register = []; 
       this.register_validated.service_types_on_register = [];
       this.register_validated.kitchen_types_on_register = [];
@@ -331,8 +344,8 @@ export class TuristicDataComponent implements OnInit {
       this.register_validated.turistic_guides = [];
       this.register_validated.transport_companies = [];
     } else {
-      console.log('mal');
       this.register_validated = new Register();
+      this.register_validated.register_type_id = this.register_type_data_selected.register_type_id;
     }
     if (activity_id == 1) {
       this.initTarifarioRack();
