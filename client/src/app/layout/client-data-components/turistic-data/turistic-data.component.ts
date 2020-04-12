@@ -1156,11 +1156,12 @@ export class TuristicDataComponent implements OnInit {
     }
     return;
     this.guardando = true;
+    let tipo_tramite = this.getTipoTramite();
     this.register_operacion_intermediacion_data_service.register_register_data(this.register_validated).then( r => {
       this.attachments.floor_authorization_certificate.register_id = r.id;
       this.guardarCertificadoUsoSuelos();
       this.saveProcedure(r.id);  
-      this.buildTemplatePDF();
+      this.buildTemplatePDF(tipo_tramite);
     }).catch( e => {
       this.guardando = false;
       this.toastr.errorToastr('Existe conflicto la información proporcionada.', 'Nuevo');
