@@ -163,7 +163,7 @@ export class LayoutComponent implements OnInit {
     enviarTextoChat() {
         this.enviandoTexto = true;
         this.chatDataService.enviar(this.textoEnviarIA).then( r => {
-            const newMessage = {from: 'Asistente Virtual', message: r.data, time: new Date()};
+            const newMessage = {from: 'SITURIN', message: r.data, time: new Date()};
             this.conversacion.push(newMessage);
             this.textoEnviarIA = '';
             this.enviandoTexto = false;
