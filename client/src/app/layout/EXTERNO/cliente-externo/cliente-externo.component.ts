@@ -51,6 +51,7 @@ export class ClienteExternoComponent implements OnInit {
   mostrarPasosInferiores = false;
   mostrarDeclarations = false;
   mostrarInformacionTuristica = false;
+  mostrarEstablecimientos = false;
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
   
@@ -87,6 +88,7 @@ export class ClienteExternoComponent implements OnInit {
 
   ruc_validated(event) {
     this.data_selected.ruc = event;
+    this.mostrarEstablecimientos = true;
     this.mostrarPasosInferiores = false;
   }
 
