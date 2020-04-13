@@ -40,7 +40,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     ConsultorService,
     StateALService,
     StateABService,
-    StateOPService,
+    StateOPService
   ]
 })
 export class ClienteInternoCoordinadorModule {}
