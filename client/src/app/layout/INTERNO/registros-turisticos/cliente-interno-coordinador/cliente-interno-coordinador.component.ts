@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
-import { User } from './../../../../models/profile/User';
+import { User } from 'src/app/models/profile/User';
 import { StateService as StateALService} from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
 import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/state.service';
-import { UserService } from './../../../../services/profile/user.service';
-import { ConsultorService } from './../../../../services/negocio/consultor.service';
+import { UserService } from 'src/app/services/profile/user.service';
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 
 @Component({
   selector: 'app-cliente-interno-coordinador',
