@@ -575,7 +575,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   startRequisitesByRegisterType(requisites_incommming?: RegisterRequisite[]) {
-    this.requisites = [];
     let filter = 0;
     this.showRequisites = false;
     if (this.register_validated.activity_id == 1) {
@@ -621,6 +620,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   organize_requisites(requisitesByRegisterType: any[], requisites_incommming?: RegisterRequisite[]) {
+    this.requisites = [];
     requisitesByRegisterType.forEach(element => {
       const newRegisterRequisite = new RegisterRequisite();
       newRegisterRequisite.to_approve = element.to_approve;
