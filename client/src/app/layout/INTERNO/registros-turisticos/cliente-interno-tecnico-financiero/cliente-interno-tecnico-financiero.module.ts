@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
 import { TecnicoFinancieroBandejasDataComponent } from './../components/tecnico-financiero/tecnico-financiero-bandejas-data/tecnico-financiero-bandejas-data.component';
-import { RegisterDataComponent } from './../components/register-data/';
+import { RegisterDataComponent } from './../components/register-data/register-data.component';
 import { ClienteInternoTecnicoFinancieroRoutingModule } from './cliente-interno-tecnico-financiero-routing.module';
 import { ClienteInternoTecnicoFinancieroComponent } from './cliente-interno-tecnico-financiero.component';
 
