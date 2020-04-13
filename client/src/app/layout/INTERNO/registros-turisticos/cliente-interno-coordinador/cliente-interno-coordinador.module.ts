@@ -80,8 +80,8 @@ import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.ser
     NgxQRCodeModule,
     Ng2TableModule,
     ScrollToModule.forRoot(),
-    ClienteInternoCoordinadorRoutingModule
-    RegisterDataModule,
+    ClienteInternoCoordinadorRoutingModule,
+    RegisterDataModule
   ],
   declarations: [ClienteInternoCoordinadorComponent, CoordinadorBandejasDataComponent],
   providers: [
