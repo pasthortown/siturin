@@ -500,6 +500,20 @@ const routes: Routes = [
 
          // INTERNO
          {
+            path: 'cliente-interno-coordinador',
+            loadChildren: './INTERNO/registros-turisticos/cliente-interno-coordinador/cliente-interno-coordinador.module#ClienteInternoCoordinadorModule'
+         },
+         {
+            path: 'cliente-interno-inspector',
+            loadChildren: './INTERNO/registros-turisticos/cliente-interno-inspector/cliente-interno-inspector.module#ClienteInternoInspectorModule'
+         },
+         {
+            path: 'cliente-interno-tecnico-financiero',
+            loadChildren: './INTERNO/registros-turisticos/cliente-interno-tecnico-financiero/cliente-interno-tecnico-financiero.module#ClienteInternoTecnicoFinancieroModule'
+         },
+
+         // INTERNO ANTIGUO
+         {
             path: 'interno-registro',
             loadChildren: './INTERNO/registro/registro.module#RegistroModule'
          },
