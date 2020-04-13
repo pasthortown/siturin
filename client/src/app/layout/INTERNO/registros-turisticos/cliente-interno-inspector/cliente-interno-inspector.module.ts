@@ -12,7 +12,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
 import { InspectorBandejasDataComponent } from './../components/inspector/inspector-bandejas-data/inspector-bandejas-data.component';
-import { RegisterDataComponent } from './../components/register-data/register-data.component';
 import { ClienteInternoInspectorRoutingModule } from './cliente-interno-inspector-routing.module';
 import { ClienteInternoInspectorComponent } from './cliente-interno-inspector.component';
 
@@ -80,7 +79,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     ScrollToModule.forRoot(),
     ClienteInternoInspectorRoutingModule
   ],
-  declarations: [ClienteInternoInspectorComponent, InspectorBandejasDataComponent, RegisterDataComponent],
+  declarations: [ClienteInternoInspectorComponent, InspectorBandejasDataComponent],
   providers: [
     NgbModal,
     UserService,
