@@ -9,7 +9,6 @@ import { AgmCoreModule } from '@agm/core';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
 import { TecnicoFinancieroBandejasDataComponent } from './../components/tecnico-financiero/tecnico-financiero-bandejas-data/tecnico-financiero-bandejas-data.component';
@@ -37,7 +36,6 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
   ],
   declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroBandejasDataComponent],
   providers: [
-    NgbModal,
     UserService,
     ConsultorService,
     StateALService,
