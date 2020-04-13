@@ -1,3 +1,4 @@
+import { TecnicoFinancieroBandejasDataComponent } from './../components/tecnico-financiero/tecnico-financiero-bandejas-data/tecnico-financiero-bandejas-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -6,6 +7,6 @@ import { ClienteInternoTecnicoFinancieroComponent } from './cliente-interno-tecn
 
 @NgModule({
   imports: [CommonModule, ClienteInternoTecnicoFinancieroRoutingModule],
-  declarations: [ClienteInternoTecnicoFinancieroComponent]
+  declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroBandejasDataComponent]
 })
 export class ClienteInternoTecnicoFinancieroModule {}

@@ -1,3 +1,4 @@
+import { InspectorBandejasDataComponent } from './../components/inspector/inspector-bandejas-data/inspector-bandejas-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -6,6 +7,6 @@ import { ClienteInternoInspectorComponent } from './cliente-interno-inspector.co
 
 @NgModule({
   imports: [CommonModule, ClienteInternoInspectorRoutingModule],
-  declarations: [ClienteInternoInspectorComponent]
+  declarations: [ClienteInternoInspectorComponent, InspectorBandejasDataComponent]
 })
 export class ClienteInternoInspectorModule {}

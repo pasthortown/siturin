@@ -1,3 +1,4 @@
+import { CoordinadorBandejasDataComponent } from './../components/coordinador/coordinador-bandejas-data/coordinador-bandejas-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -6,6 +7,6 @@ import { ClienteInternoCoordinadorComponent } from './cliente-interno-coordinado
 
 @NgModule({
   imports: [CommonModule, ClienteInternoCoordinadorRoutingModule],
-  declarations: [ClienteInternoCoordinadorComponent]
+  declarations: [ClienteInternoCoordinadorComponent, CoordinadorBandejasDataComponent]
 })
 export class ClienteInternoCoordinadorModule {}
