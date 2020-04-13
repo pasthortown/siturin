@@ -121,6 +121,5 @@ export class ClienteInternoInspectorComponent implements OnInit {
 
   register_selected(event) {
     this.data_selected = event;
-    console.log(event);
   }
 }

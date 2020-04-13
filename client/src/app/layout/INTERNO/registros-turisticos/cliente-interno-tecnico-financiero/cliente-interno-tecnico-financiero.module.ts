@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
 import { TecnicoFinancieroBandejasDataComponent } from './../components/tecnico-financiero/tecnico-financiero-bandejas-data/tecnico-financiero-bandejas-data.component';
+import { RegisterDataComponent } from './../components/register-data/register-data.component';
 import { ClienteInternoTecnicoFinancieroRoutingModule } from './cliente-interno-tecnico-financiero-routing.module';
 import { ClienteInternoTecnicoFinancieroComponent } from './cliente-interno-tecnico-financiero.component';
 
@@ -79,7 +80,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     ScrollToModule.forRoot(),
     ClienteInternoTecnicoFinancieroRoutingModule
   ],
-  declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroBandejasDataComponent],
+  declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroBandejasDataComponent, RegisterDataComponent],
   providers: [
     NgbModal,
     UserService,

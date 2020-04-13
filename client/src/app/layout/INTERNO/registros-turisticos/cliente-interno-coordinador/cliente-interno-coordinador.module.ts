@@ -1,3 +1,4 @@
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { environment } from 'src/environments/environment';
 
 import { CoordinadorBandejasDataComponent } from './../components/coordinador/coordinador-bandejas-data/coordinador-bandejas-data.component';
 import { ClienteInternoCoordinadorComponent } from './cliente-interno-coordinador.component';
+import { RegisterDataComponent } from './../components/register-data/register-data.component';
 import { ClienteInternoCoordinadorRoutingModule } from './cliente-interno-coordinador-routing.module';
 
 import { UserService } from 'src/app/services/profile/user.service';
@@ -80,7 +82,7 @@ import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.ser
     ScrollToModule.forRoot(),
     ClienteInternoCoordinadorRoutingModule
   ],
-  declarations: [ClienteInternoCoordinadorComponent, CoordinadorBandejasDataComponent],
+  declarations: [ClienteInternoCoordinadorComponent, CoordinadorBandejasDataComponent, RegisterDataComponent],
   providers: [
     NgbModal,
     UserService,

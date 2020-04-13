@@ -125,7 +125,6 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
 
   register_selected(event) {
     this.data_selected = event;
-    console.log(event);
   }
 
   financieros_change(event) {
