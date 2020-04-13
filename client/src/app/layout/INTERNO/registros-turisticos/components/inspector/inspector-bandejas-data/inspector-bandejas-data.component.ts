@@ -3,6 +3,7 @@ import { ConsultorService } from './../../../../../../services/negocio/consultor
 import { User } from './../../../../../../models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-inspector-bandejas-data',
@@ -12,7 +13,8 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 export class InspectorBandejasDataComponent implements OnInit {
   @Input('user') user: User = new User();
   @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
-
+  @Input('estados_tramites') estados_tramites: any[] = [];
+  
   @Input('states') states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
@@ -38,6 +40,8 @@ export class InspectorBandejasDataComponent implements OnInit {
   ubications: Ubication[] = [];
   
   registers_mintur = [];
+
+  idTramiteEstadoFilter= 0;
 
   constructor(private consultorDataService: ConsultorService,
     private ubicationDataService: UbicationService) {
@@ -68,6 +72,25 @@ export class InspectorBandejasDataComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
   
+  filterByTramiteState(tramite?: String) {
+    let filtroTexto: String = '';
+    this.estados_tramites.forEach(estado => {
+       if (estado.id == this.idTramiteEstadoFilter) {
+        filtroTexto = estado.name;
+       }
+    });
+    if(typeof tramite !== 'undefined') {
+       if (tramite == '-') {
+        this.config.filtering = {filterString: filtroTexto};
+       } else {
+        this.config.filtering = {filterString: filtroTexto + ' - ' + tramite};
+       }
+    } else {
+     this.config.filtering = {filterString: filtroTexto};
+    }
+    this.onChangeTable(this.config);
+  }
+
   getRegistersMintur() {
     this.registers_mintur = [];
     this.consultorDataService.get_registers_assigned_inspector_id(this.user.id).then( r => {

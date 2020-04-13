@@ -1,6 +1,7 @@
 import { ConsultorService } from './../../../../../../services/negocio/consultor.service';
 import { User } from './../../../../../../models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-tecnico-financiero-bandejas-data',
@@ -10,7 +11,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TecnicoFinancieroBandejasDataComponent implements OnInit {
   @Input('user') user: User = new User();
   @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
-
+  @Input('estados_tramites') estados_tramites: any[] = [];
+  
   @Input('states') states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],

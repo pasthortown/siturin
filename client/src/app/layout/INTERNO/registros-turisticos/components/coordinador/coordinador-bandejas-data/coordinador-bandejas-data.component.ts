@@ -6,6 +6,7 @@ import { AuthLocation } from './../../../../../../models/AUTH/AuthLocation';
 import { Ubication } from './../../../../../../models/BASE/Ubication';
 import { User } from './../../../../../../models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-coordinador-bandejas-data',
@@ -13,10 +14,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./coordinador-bandejas-data.component.scss']
 })
 export class CoordinadorBandejasDataComponent implements OnInit {
-  @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();cccc
+  @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
   @Output('inspectores_change') inspectores_change: EventEmitter<any> = new EventEmitter<any>();
   @Output('financieros_change') financieros_change: EventEmitter<any> = new EventEmitter<any>();
   @Input('user') user: User = new User();
+  @Input('estados_tramites') estados_tramites: any[] = [];
   
   @Input('states') states = { alojamiento: [],
     alimentos_bebidas: [],
@@ -48,6 +50,8 @@ export class CoordinadorBandejasDataComponent implements OnInit {
   financieros = [];
   inspectores = [];
   myAbleUbications: Ubication[] = [];
+
+  idTramiteEstadoFilter = 0;
 
   constructor(private consultorDataService: ConsultorService,
     private ubicationDataService: UbicationService,
@@ -281,6 +285,51 @@ export class CoordinadorBandejasDataComponent implements OnInit {
        });
        this.financieros_change.emit(this.financieros);
     }).catch( e => {console.log(e); });
+  }
+
+  BandejaToCSV() {
+    let output = '';
+    this.columns.forEach(column => {
+       output += column.title + ';';
+    });
+    output += '\n';
+    this.data.forEach(row => {
+       output += row.selected + ';' +
+       row.number + ';' +
+       row.ruc_code_id + ';' +
+       row.establishment + ';' +
+       row.status + ';' +
+       row.actividad + ';' +
+       row.provincia + ';' +
+       row.canton + ';' +
+       row.parroquia + ';' +
+       row.address + ';' +
+       row.category + ';' +
+       row.created_at + ';' +
+       row.code + '\n';
+    });
+    const blob = new Blob(["\ufeff", output], { type: 'text/plain' });
+    const fecha = new Date();
+    saveAs(blob, fecha.toLocaleDateString() + '_Bandejas.csv');
+  }
+
+  filterByTramiteState(tramite?: String) {
+    let filtroTexto: String = '';
+    this.estados_tramites.forEach(estado => {
+       if (estado.id == this.idTramiteEstadoFilter) {
+        filtroTexto = estado.name;
+       }
+    });
+    if(typeof tramite !== 'undefined') {
+       if (tramite == '-') {
+        this.config.filtering = {filterString: filtroTexto};
+       } else {
+        this.config.filtering = {filterString: filtroTexto + ' - ' + tramite};
+       }
+    } else {
+     this.config.filtering = {filterString: filtroTexto};
+    }
+    this.onChangeTable(this.config);
   }
 
   getRegistersMintur() {
