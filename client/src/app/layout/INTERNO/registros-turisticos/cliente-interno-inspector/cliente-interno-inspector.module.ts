@@ -1,3 +1,4 @@
+import { RegisterDataModule } from './../components/register-data/register-data.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +13,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
 import { InspectorBandejasDataComponent } from './../components/inspector/inspector-bandejas-data/inspector-bandejas-data.component';
-import { RegisterDataComponent } from './../components/register-data/register-data.component';
 import { ClienteInternoInspectorRoutingModule } from './cliente-interno-inspector-routing.module';
 import { ClienteInternoInspectorComponent } from './cliente-interno-inspector.component';
 
@@ -78,9 +78,10 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     NgxQRCodeModule,
     Ng2TableModule,
     ScrollToModule.forRoot(),
-    ClienteInternoInspectorRoutingModule
+    ClienteInternoInspectorRoutingModule,
+    RegisterDataModule,
   ],
-  declarations: [ClienteInternoInspectorComponent, InspectorBandejasDataComponent, RegisterDataComponent],
+  declarations: [ClienteInternoInspectorComponent, InspectorBandejasDataComponent],
   providers: [
     NgbModal,
     UserService,

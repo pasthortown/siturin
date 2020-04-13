@@ -1,4 +1,3 @@
-import { RegisterDataModule } from './../components/register-data/register-data.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,9 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 
-import { TecnicoFinancieroBandejasDataComponent } from './../components/tecnico-financiero/tecnico-financiero-bandejas-data/tecnico-financiero-bandejas-data.component';
-import { ClienteInternoTecnicoFinancieroRoutingModule } from './cliente-interno-tecnico-financiero-routing.module';
-import { ClienteInternoTecnicoFinancieroComponent } from './cliente-interno-tecnico-financiero.component';
+import { RegisterDataComponent } from './register-data.component';
 
 import { UserService } from 'src/app/services/profile/user.service';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
@@ -77,11 +74,9 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     AgmCoreModule.forRoot({apiKey: environment.gmapapiKey}),
     NgxQRCodeModule,
     Ng2TableModule,
-    ScrollToModule.forRoot(),
-    ClienteInternoTecnicoFinancieroRoutingModule,
-    RegisterDataModule
+    ScrollToModule.forRoot()
   ],
-  declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroBandejasDataComponent],
+  declarations: [RegisterDataComponent],
   providers: [
     NgbModal,
     UserService,
@@ -135,6 +130,9 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     StateALService,
     StateABService,
     StateOPService
+  ],
+  exports: [
+    RegisterDataComponent
   ]
 })
-export class ClienteInternoTecnicoFinancieroModule {}
+export class RegisterDataModule {}
