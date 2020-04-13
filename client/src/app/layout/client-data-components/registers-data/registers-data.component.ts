@@ -39,6 +39,10 @@ export class RegistersDataComponent implements OnInit {
    this.refresh();
   }
 
+  ngOnChanges() {
+    this.refresh();
+  }
+
   refresh() {
     this.registroNuevoEstablecimiento = false;
     this.register_selected = {register: null, isNew: this.registroNuevoEstablecimiento};

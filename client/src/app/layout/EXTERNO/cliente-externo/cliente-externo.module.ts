@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -10,10 +9,10 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 import { ClienteExternoRoutingModule } from './cliente-externo-routing.module';
 import { ClienteExternoComponent } from './cliente-externo.component';
-import { environment } from 'src/environments/environment';
 
 import { EstablishmentListDataComponent } from './../../client-data-components/establishment-list-data/establishment-list-data.component';
 import { DeclarationDataComponent } from './../../client-data-components/declaration-data/declaration-data.component';
@@ -60,11 +59,9 @@ import { FloorAuthorizationCertificateService } from 'src/app/services/CRUD/BASE
 import { PropertyTitleAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/propertytitleattachment.service';
 import { AuthorizationAttachmentService } from 'src/app/services/CRUD/ALOJAMIENTO/authorizationattachment.service';
 import { ComplementaryServiceTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicetype.service';
-
 import { RequisiteService as RequisiteOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
 import { RequisiteService as RequisiteALService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
 import { RequisiteService as RequisiteABService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
-
 import { LanguageService } from 'src/app/services/CRUD/BASE/language.service';
 import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
 import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
@@ -72,7 +69,6 @@ import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPER
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicefoodtype.service';
-
 import { ActivityTransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
 import { TransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
@@ -83,11 +79,9 @@ import { TariffTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/tarifftype.
 import { CapacityTypeService as CapacityTypeABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/capacitytype.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { MailerService } from 'src/app/services/negocio/mailer.service';
-
 import { RegisterProcedureService as RegisterProcedureABService} from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
-
 
 @NgModule({
   imports: [CommonModule, 

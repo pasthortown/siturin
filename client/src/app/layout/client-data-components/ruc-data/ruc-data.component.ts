@@ -58,11 +58,19 @@ export class RucDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ruc = new Ruc();
-    this.ruc.number = this.user.ruc;
-    this.groupTypeSelected = new GroupType();
-    this.getRuc(this.ruc.number);
-    this.getGroupTypes();
+     this.refresh();
+  }
+
+  ngOnChanges() {
+   this.refresh();
+  }
+
+  refresh() {
+   this.ruc = new Ruc();
+   this.ruc.number = this.user.ruc;
+   this.groupTypeSelected = new GroupType();
+   this.getRuc(this.ruc.number);
+   this.getGroupTypes();
   }
 
   getGroupTypes() {

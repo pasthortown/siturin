@@ -236,10 +236,10 @@ export class CoordinadorComponent implements OnInit {
    //RREGISTROS MINTUR
    registers_mintur = [];
    registerMinturSelected: any = null;
-   currentPageMinturRegisters = 1;
    razon_social = '';
-   lastPageMinturRegisters = 1;
    myAbleUbications: Ubication[] = [];
+   currentPageMinturRegisters = 1;
+   lastPageMinturRegisters = 1;
    recordsByPageRegisterMintur = 5;
    mostrarDataRegisterMintur = false;
    config: any = {
