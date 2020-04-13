@@ -15,6 +15,9 @@ import { ConsultorService } from './../../../../services/negocio/consultor.servi
 export class ClienteInternoCoordinadorComponent implements OnInit {
 
   user = new User();
+
+  data_selected = null;
+
   states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
@@ -29,6 +32,9 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
 
   estados_tramites= [];
 
+  tecnicosFinancieros = [];
+  tecnicosZonales = [];
+  
   constructor(private consultorDataService: ConsultorService,
     private state_alojamiento_DataService: StateALService,
     private state_alimentos_bebidas_DataService: StateABService,
@@ -115,5 +121,18 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
       }
       return 0;
     });
+  }
+
+  register_selected(event) {
+    this.data_selected = event;
+    console.log(event);
+  }
+
+  financieros_change(event) {
+    this.tecnicosFinancieros = event;
+  }
+
+  inspectores_change(event) {
+    this.tecnicosZonales = event;
   }
 }

@@ -117,4 +117,8 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
       return 0;
     });
   }
+
+  register_selected(event) {
+    console.log(event);
+  }
 }

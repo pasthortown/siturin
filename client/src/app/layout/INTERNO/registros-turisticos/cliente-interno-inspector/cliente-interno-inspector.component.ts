@@ -117,4 +117,8 @@ export class ClienteInternoInspectorComponent implements OnInit {
       return 0;
     });
   }
+
+  register_selected(event) {
+    console.log(event);
+  }
 }
