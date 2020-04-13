@@ -1,4 +1,3 @@
-import { RegisterDataModule } from './../components/register-data/register-data.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +9,7 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
+import { RegisterDataModule } from './../components/register-data/register-data.module';
 
 import { InspectorBandejasDataComponent } from './../components/inspector/inspector-bandejas-data/inspector-bandejas-data.component';
 import { ClienteInternoInspectorRoutingModule } from './cliente-interno-inspector-routing.module';
