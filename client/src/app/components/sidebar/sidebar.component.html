@@ -536,9 +536,9 @@
       </div>
       <div *ngIf="isAdmin" class="nested-menu">
          <a class="list-group-item" (click)="addExpandClass('Cliente Interno Nuevo')">
-            <span class="fas fa-database"></span>&nbsp;BDD Alojamiento
+            <span class="fas fa-database"></span>&nbsp;Cliente Interno Nuevo
          </a>
-         <li class="nested" [class.expand]="showMenu === 'bdd alojamiento'">
+         <li class="nested" [class.expand]="showMenu === 'Cliente Interno Nuevo'">
             <ul class="submenu">
                <li>
                   <a [routerLink]="['/cliente-interno-coordinador']" [routerLinkActive]="['router-link-active']" class="list-group-item">Coordinador</a>
