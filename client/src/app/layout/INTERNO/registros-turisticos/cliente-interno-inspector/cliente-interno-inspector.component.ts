@@ -15,7 +15,8 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 export class ClienteInternoInspectorComponent implements OnInit {
   
   user = new User();
-  
+  data_selected = {row: null, register: null};
+
   estados_tramites = [];
   
   states = { alojamiento: [],
@@ -119,6 +120,7 @@ export class ClienteInternoInspectorComponent implements OnInit {
   }
 
   register_selected(event) {
+    this.data_selected = event;
     console.log(event);
   }
 }

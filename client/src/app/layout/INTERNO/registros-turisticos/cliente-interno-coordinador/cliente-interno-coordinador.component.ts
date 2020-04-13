@@ -16,7 +16,7 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
 
   user = new User();
 
-  data_selected = null;
+  data_selected = {row: null, register: null};
 
   states = { alojamiento: [],
     alimentos_bebidas: [],
