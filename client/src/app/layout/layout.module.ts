@@ -1,4 +1,3 @@
-import { RegisterDataComponent } from './INTERNO/registros-turisticos/components/register-data/register-data.component';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from './../services/negocio/chat.service';
 import { ProfilePictureService } from 'src/app/services/profile/profilepicture.service';
@@ -16,7 +15,7 @@ import { RegisterService } from '../services/CRUD/CATASTRO/register.service';
 
 @NgModule({
     imports: [CommonModule, LayoutRoutingModule, NgbDropdownModule, HttpModule, FormsModule],
-    declarations: [LayoutComponent, NavbarComponent, SidebarComponent, RegisterDataComponent],
+    declarations: [LayoutComponent, NavbarComponent, SidebarComponent],
     providers: [ProfilePictureService, UserService, RegisterService, ChatService]
 })
 export class LayoutModule {}
