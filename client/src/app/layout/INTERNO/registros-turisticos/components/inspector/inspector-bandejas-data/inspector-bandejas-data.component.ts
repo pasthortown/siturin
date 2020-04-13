@@ -13,7 +13,7 @@ export class InspectorBandejasDataComponent implements OnInit {
   @Input('user') user: User = new User();
   @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input('sates') states = { alojamiento: [],
+  @Input('states') states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
   };

@@ -18,7 +18,7 @@ export class CoordinadorBandejasDataComponent implements OnInit {
   @Output('financieros_change') financieros_change: EventEmitter<any> = new EventEmitter<any>();
   @Input('user') user: User = new User();
   
-  @Input('sates') states = { alojamiento: [],
+  @Input('states') states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
   };
