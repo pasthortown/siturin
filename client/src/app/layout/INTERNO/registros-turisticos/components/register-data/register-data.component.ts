@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./register-data.component.scss']
 })
 export class RegisterDataComponent implements OnInit {
-  @Input('data_selected') data_selected: any = {row: null, register: null};
+  @Input('data_selected') data_selected = {row: null, register: null};
   
   constructor() {
     
