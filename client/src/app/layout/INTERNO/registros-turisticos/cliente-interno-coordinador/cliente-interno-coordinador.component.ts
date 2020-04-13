@@ -1,9 +1,11 @@
-import { ConsultorService } from './../../../../services/negocio/consultor.service';
 import { Component, OnInit } from '@angular/core';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
+import { User } from './../../../../models/profile/User';
 import { StateService as StateALService} from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
 import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/state.service';
+import { UserService } from './../../../../services/profile/user.service';
+import { ConsultorService } from './../../../../services/negocio/consultor.service';
 
 @Component({
   selector: 'app-cliente-interno-coordinador',
@@ -12,6 +14,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 })
 export class ClienteInternoCoordinadorComponent implements OnInit {
 
+  user = new User();
   states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
@@ -27,11 +30,19 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
   constructor(private consultorDataService: ConsultorService,
     private state_alojamiento_DataService: StateALService,
     private state_alimentos_bebidas_DataService: StateABService,
+    private userDataService: UserService,
     private state_operacion_intermediacion_DataService: StateOPService) {}
 
   ngOnInit() {
     this.getStates();
     this.getRegisterTypes();
+    this.getUser();
+  }
+
+  getUser() {
+    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
+      this.user = r as User;
+    }).catch( e => console.log(e));
   }
 
   getRegisterTypes() {

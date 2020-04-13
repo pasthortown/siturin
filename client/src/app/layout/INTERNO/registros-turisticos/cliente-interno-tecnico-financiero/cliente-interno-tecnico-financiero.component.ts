@@ -1,3 +1,5 @@
+import { User } from './../../../../models/profile/User';
+import { UserService } from './../../../../services/profile/user.service';
 import { ConsultorService } from './../../../../services/negocio/consultor.service';
 import { Component, OnInit } from '@angular/core';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
@@ -12,6 +14,8 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 })
 export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
   
+  user = new User();
+
   states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
@@ -27,11 +31,19 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
   constructor(private consultorDataService: ConsultorService,
     private state_alojamiento_DataService: StateALService,
     private state_alimentos_bebidas_DataService: StateABService,
+    private userDataService: UserService,
     private state_operacion_intermediacion_DataService: StateOPService) {}
 
   ngOnInit() {
     this.getStates();
     this.getRegisterTypes();
+    this.getUser();
+  }
+
+  getUser() {
+    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
+      this.user = r as User;
+    }).catch( e => console.log(e));
   }
 
   getRegisterTypes() {
