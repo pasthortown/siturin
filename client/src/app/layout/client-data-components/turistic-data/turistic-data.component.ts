@@ -644,7 +644,15 @@ export class TuristicDataComponent implements OnInit {
       if (newRegisterRequisite.HTMLtype == 'TRUE / FALSE') {
         newRegisterRequisite.value = 'false';
       }
-      this.requisites.push(newRegisterRequisite);
+      let existe = false;
+      this.requisites.forEach(requisites_added => {
+        if (newRegisterRequisite.requisite_id == requisites_added.id) {
+          existe = true;
+        }
+      });
+      if (!existe) {
+        this.requisites.push(newRegisterRequisite);
+      }
     });
     this.showRequisites = true;
     this.display_register_data = true;
