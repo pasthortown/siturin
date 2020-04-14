@@ -42,7 +42,6 @@ export class CapacidadesALDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadCatalogos();
     this.refresh();
   }
 
@@ -51,6 +50,7 @@ export class CapacidadesALDataComponent implements OnInit {
   }
 
   refresh() {
+    this.getCapacityTypes();
     const today = new Date();
     this.currentYear = today.getFullYear();
     this.getYears();
@@ -81,10 +81,6 @@ export class CapacidadesALDataComponent implements OnInit {
       });
       this.calcSpaces();
     }).catch( e => { console.log(e); });
-  }
- 
-  loadCatalogos() {
-   this.getCapacityTypes();
   }
 
   getCapacityTypes() {
