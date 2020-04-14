@@ -50,6 +50,7 @@ export class RegisterDataComponent implements OnInit {
   
   refresh() {
     console.log(this.data_selected_table);
+    this.user.ruc = this.data_selected_table.ruc.number;
   }
 
   showTuristicInformation(event) {
