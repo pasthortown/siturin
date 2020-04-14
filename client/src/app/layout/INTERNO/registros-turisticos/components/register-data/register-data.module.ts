@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
