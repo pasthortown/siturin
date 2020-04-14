@@ -163,7 +163,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log(this.register);
     this.get_registers_on_establishment(); // Obtiene los Registros asociados al establecimiento
     this.build_enable_classifications();
     this.validateInitialData();
@@ -704,6 +703,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   guardarRegistro() {
+    this.register_validated.code = this.register.code;
     this.register_validated.requisites = this.requisites;
     Swal.fire({
       title: 'Confirmación',
