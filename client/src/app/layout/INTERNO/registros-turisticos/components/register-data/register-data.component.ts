@@ -22,15 +22,6 @@ export class RegisterDataComponent implements OnInit {
   mostrarDeclarations = false;
   mostrarInformacionTuristica = false;
 
-  data_selected = {
-    register: new RegisterCatastro(),
-    is_new_register: true,
-    ruc: new Ruc(),
-    establishment: new Establishment(),
-    establishment_validated: new Establishment(),
-    register_selected: new Register() 
-  }
-
   mostrarIngresoDatos = false;
   tabActive = 'paso1';
   tabActiveSuperior = 'tab1';
@@ -65,10 +56,6 @@ export class RegisterDataComponent implements OnInit {
 
   establishment_validated(event) {
     this.mostrarDeclarations = event.showNext;
-    if (event.showNext) {
-      this.data_selected.establishment_validated = event.establishment;
-      this.data_selected.register_selected.provincia_code = this.data_selected.establishment_validated.provincia_code;
-    }
   }
 
   salir_turistic_information() {
@@ -102,7 +89,6 @@ export class RegisterDataComponent implements OnInit {
   }
 
   ruc_validated(event) {
-    this.data_selected.ruc = event;
     this.mostrarEstablecimientos = true;
     this.mostrarPasosInferiores = false;
   }

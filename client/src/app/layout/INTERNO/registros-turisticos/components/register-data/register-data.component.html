@@ -21,13 +21,13 @@
                     <ngb-tabset #pasos (tabChange)="changeTabActive($event)" *ngIf="mostrarPasosInferiores">
                         <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1">
                             <ng-template ngbTabContent>
-                                <app-establishment-data [min_data]="false" [ruc]="data_selected.ruc" [editable]="isEditable" [establishment]="data_selected.establishment" (establishment_validated)="establishment_validated($event)" (preview_page_button_click)="change_page_button_click($event)" (next_page_button_click)="change_page_button_click($event)"></app-establishment-data>
+                                <app-establishment-data [min_data]="false" [ruc]="data_selected_table.register.ruc" [editable]="isEditable" [establishment]="data_selected_table.register.establishment" (establishment_validated)="establishment_validated($event)" (preview_page_button_click)="change_page_button_click($event)" (next_page_button_click)="change_page_button_click($event)"></app-establishment-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2" *ngIf="mostrarDeclarations">
                             <ng-template ngbTabContent>
                                 <app-pay-list-data [ruc_number]="user.ruc"></app-pay-list-data>
-                                <app-declaration-data [editable]="isEditable" [ruc]="data_selected.ruc" [is_new_register]="false" [establishment]="data_selected.establishment_validated" (canContinue)="showTuristicInformation($event)" (preview_page_button_click)="change_page_button_click($event)" (next_page_button_click)="change_page_button_click($event)"></app-declaration-data>
+                                <app-declaration-data [editable]="isEditable" [ruc]="data_selected_table.register.ruc" [is_new_register]="false" [establishment]="data_selected_table.register.establishment" (canContinue)="showTuristicInformation($event)" (preview_page_button_click)="change_page_button_click($event)" (next_page_button_click)="change_page_button_click($event)"></app-declaration-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 3.- Información Turística del Establecimiento" id="paso3" *ngIf="mostrarInformacionTuristica && opcion_seleccionada != 'tax_declaration'">
