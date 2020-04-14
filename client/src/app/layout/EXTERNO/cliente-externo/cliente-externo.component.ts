@@ -1,14 +1,13 @@
-import { Establishment } from './../../../models/BASE/Establishment';
-import { Ruc } from './../../../models/BASE/Ruc';
-import { Register } from './../../../models/ALOJAMIENTO/Register';
-import { Register as RegisterCatastro} from './../../../models/CATASTRO/Register';
-import { User } from './../../../models/profile/User';
-import { UserService } from './../../../services/profile/user.service';
+import { Establishment } from 'src/app/models/BASE/Establishment';
+import { Ruc } from 'src/app/models/BASE/Ruc';
+import { Register } from 'src/app/models/ALOJAMIENTO/Register';
+import { Register as RegisterCatastro} from 'src/app/models/CATASTRO/Register';
+import { User } from 'src/app/models/profile/User';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { ConsultorService } from './../../../services/negocio/consultor.service';
+import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterService as CatastroRegisterService } from 'src/app/services/CRUD/CATASTRO/register.service';
-
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 
 @Component({
   selector: 'app-cliente-externo',

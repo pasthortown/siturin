@@ -1,5 +1,5 @@
 import { User } from 'src/app/models/profile/User';
-import { Agreement } from './../../../models/BASE/Agreement';
+import { Agreement } from 'src/app/models/BASE/Agreement';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 

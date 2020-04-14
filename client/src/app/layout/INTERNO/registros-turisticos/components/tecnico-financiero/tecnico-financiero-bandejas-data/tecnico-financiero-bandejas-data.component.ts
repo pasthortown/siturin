@@ -1,5 +1,5 @@
-import { ConsultorService } from './../../../../../../services/negocio/consultor.service';
-import { User } from './../../../../../../models/profile/User';
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
+import { User } from 'src/app/models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
