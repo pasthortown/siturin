@@ -1,3 +1,5 @@
+import { Ruc } from './../../../../../../models/BASE/Ruc';
+import { Establishment } from './../../../../../../models/BASE/Establishment';
 import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
@@ -74,6 +76,21 @@ export class CoordinadorBandejasDataComponent implements OnInit {
   }
 
   refresh() {
+    const toReturn = {row: null, 
+      register: {register: null,
+        activity_id: 0,
+        activity: '',
+        establishment: new Establishment(),
+        ruc: new Ruc(),
+        states: null,
+        register_data_on_catastro: null
+      }
+    };
+    this.inspectores = [];
+    this.financieros = [];
+    this.inspectores_change.emit(this.inspectores);
+    this.financieros_change.emit(this.financieros);
+    this.change.emit(toReturn);
     this.getRegistersMintur();
   }
 
@@ -582,8 +599,15 @@ export class CoordinadorBandejasDataComponent implements OnInit {
   onCellClick(event) {
     let activity = event.row.actividad;
     let idRegister = event.row.registerId;
-    const toReturn = {row: event.row,
-      register: null,
+    const toReturn = {row: null, 
+      register: {register: null,
+        activity_id: 0,
+        activity: '',
+        establishment: new Establishment(),
+        ruc: new Ruc(),
+        states: null,
+        register_data_on_catastro: null
+      }
     };
     this.rows.forEach(row => {
       if (event.row == row) {

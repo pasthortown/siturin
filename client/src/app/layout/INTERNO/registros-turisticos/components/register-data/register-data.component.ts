@@ -52,7 +52,6 @@ export class RegisterDataComponent implements OnInit {
   }
   
   refresh() {
-    console.log(this.data_selected_table);
     if (this.data_selected_table.register != null) {
       this.user.ruc = this.data_selected_table.register.ruc.number;
       this.data_selected_table.register.register.activity_id = this.data_selected_table.register.activity_id;

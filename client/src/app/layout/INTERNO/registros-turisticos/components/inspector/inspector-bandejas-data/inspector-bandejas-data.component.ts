@@ -1,3 +1,5 @@
+import { Ruc } from './../../../../../../models/BASE/Ruc';
+import { Establishment } from './../../../../../../models/BASE/Establishment';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { User } from 'src/app/models/profile/User';
@@ -61,6 +63,17 @@ export class InspectorBandejasDataComponent implements OnInit {
   }
 
   refresh() {
+    const toReturn = {row: null, 
+      register: {register: null,
+        activity_id: 0,
+        activity: '',
+        establishment: new Establishment(),
+        ruc: new Ruc(),
+        states: null,
+        register_data_on_catastro: null
+      }
+    };
+    this.change.emit(toReturn);
     this.getRegistersMintur();
   }
 
@@ -383,8 +396,15 @@ export class InspectorBandejasDataComponent implements OnInit {
   onCellClick(event) {
     let activity = event.row.actividad;
     let idRegister = event.row.registerId;
-    const toReturn = {row: event.row,
-      register: null,
+    const toReturn = {row: null, 
+      register: {register: null,
+        activity_id: 0,
+        activity: '',
+        establishment: new Establishment(),
+        ruc: new Ruc(),
+        states: null,
+        register_data_on_catastro: null
+      }
     };
     this.rows.forEach(row => {
       if (event.row == row) {
