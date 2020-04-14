@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
@@ -12,7 +13,8 @@ import { ClientDataModule } from './../../../../client-data-components/client-da
 import { RegisterDataComponent } from './register-data.component';
 
 @NgModule({
-  imports: [CommonModule, 
+  imports: [
+    CommonModule, 
     FormsModule,
     NgbModule,
     NgxBarcodeModule,

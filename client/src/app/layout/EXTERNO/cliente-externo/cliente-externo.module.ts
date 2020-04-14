@@ -24,7 +24,8 @@ import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { AgreementService } from 'src/app/services/CRUD/BASE/agreement.service';
 
 @NgModule({
-  imports: [CommonModule, 
+  imports: [
+    CommonModule, 
     FormsModule,
     NgbModule,
     NgxBarcodeModule,
