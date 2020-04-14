@@ -12,8 +12,8 @@ import { environment } from 'src/environments/environment';
 import { RegisterDataModule } from './../components/register-data/register-data.module';
 
 import { CoordinadorBandejasDataComponent } from './../components/coordinador/coordinador-bandejas-data/coordinador-bandejas-data.component';
-import { ClienteInternoCoordinadorComponent } from './cliente-interno-coordinador.component';
 import { ClienteInternoCoordinadorRoutingModule } from './cliente-interno-coordinador-routing.module';
+import { ClienteInternoCoordinadorComponent } from './cliente-interno-coordinador.component';
 
 import { UserService } from 'src/app/services/profile/user.service';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
