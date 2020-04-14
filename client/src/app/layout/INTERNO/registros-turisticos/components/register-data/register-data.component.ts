@@ -1,3 +1,4 @@
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Register } from 'src/app/models/ALOJAMIENTO/Register';
@@ -25,6 +26,8 @@ export class RegisterDataComponent implements OnInit {
     }
   };
   
+  registers_by_ruc = [];
+
   user = new User();
   mostrarEstablecimientos = false;
   mostrarPasosInferiores = false;
@@ -36,7 +39,7 @@ export class RegisterDataComponent implements OnInit {
   tabActiveSuperior = 'tab1';
   isEditable = false;
 
-  constructor() {
+  constructor(private consultorDataService: ConsultorService) {
     
   }
 
@@ -54,10 +57,17 @@ export class RegisterDataComponent implements OnInit {
       this.user.ruc = this.data_selected_table.register.ruc.number;
       this.data_selected_table.register.register.activity_id = this.data_selected_table.register.activity_id;
       this.mostrarIngresoDatos = true;
+      this.getRegistersByRuc();
     } else {
       this.user.ruc = '';
       this.mostrarIngresoDatos = false;
     }
+  }
+
+  getRegistersByRuc() {
+    this.consultorDataService.get_registers_by_ruc(this.user.ruc).then( r => {
+      this.registers_by_ruc = r as any[];
+    }).catch( e => { console.log(e); });
   }
 
   showTuristicInformation(event) {
