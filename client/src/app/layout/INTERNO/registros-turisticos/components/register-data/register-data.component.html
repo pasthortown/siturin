@@ -17,7 +17,10 @@
             </ngb-tab>
             <ngb-tab title="Paso II. Información del Establecimiento" id="pasoII" *ngIf="mostrarEstablecimientos">
                 <ng-template ngbTabContent>
-                    <app-establishment-list-data [ruc_number]="user.ruc" [ruc_code_id]="data_selected_table.register.establishment.ruc_id" (establishment_selected)="establishmentSelected($event)"></app-establishment-list-data>
+                    <app-establishment-list-data 
+                        [ruc_number]="user.ruc" 
+                        [ruc_code_id]="data_selected_table.register.establishment.ruc_code_id" 
+                        (establishment_selected)="establishmentSelected($event)"></app-establishment-list-data>
                     <ngb-tabset #pasos (tabChange)="changeTabActive($event)" *ngIf="mostrarPasosInferiores">
                         <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1">
                             <ng-template ngbTabContent>

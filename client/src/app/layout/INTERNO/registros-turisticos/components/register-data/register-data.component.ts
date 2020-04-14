@@ -20,7 +20,8 @@ export class RegisterDataComponent implements OnInit {
       ruc: new Ruc(),
       states: null,
       register_data_on_catastro: null
-  }};
+    }
+  };
   
   user = new User();
   mostrarEstablecimientos = false;
@@ -69,8 +70,6 @@ export class RegisterDataComponent implements OnInit {
   }
 
   establishmentSelected(event) {
-    const establishment_selected = event.establishment;
-    this.data_selected.establishment = establishment_selected;
     this.mostrarPasosInferiores = event.showData;
     this.mostrarDeclarations = false;
     this.mostrarInformacionTuristica = false;
