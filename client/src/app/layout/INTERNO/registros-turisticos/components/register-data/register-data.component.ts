@@ -52,7 +52,7 @@ export class RegisterDataComponent implements OnInit {
   }
   
   refresh() {
-    if (this.data_selected_table.register != null) {
+    if (this.data_selected_table.register.register != null) {
       this.user.ruc = this.data_selected_table.register.ruc.number;
       this.data_selected_table.register.register.activity_id = this.data_selected_table.register.activity_id;
       this.mostrarIngresoDatos = true;
