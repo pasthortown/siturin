@@ -22,12 +22,12 @@
                 <tr *ngFor="let register_requisite of requisites">
                     <td>
                         <label *ngIf="register_requisite.HTMLtype !== 'GRUPO 0' && register_requisite.HTMLtype !== 'GRUPO 1' && register_requisite.HTMLtype !== 'GRUPO 2' && register_requisite.HTMLtype !== 'GRUPO 3' && register_requisite.HTMLtype !== 'GRUPO 4' && register_requisite.HTMLtype !== 'GRUPO 5'">{{ register_requisite.requisite_name }}<strong *ngIf="register_requisite.mandatory" style="color: red;">*</strong>&nbsp;&nbsp; <strong class="badge badge-info" *ngIf="register.activity_id == 2 && register_requisite.HTMLtype !== 'YES / NO' && register_requisite.score > 0">Puntos: ({{register_requisite.score}})</strong></label>
-                        <h5><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></h5>
-                        <h6><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></h6>
-                        <strong *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong>
-                        <i><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></i>
-                        <i><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></i>
-                        <i><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{register_requisite.requisite_code}}.- {{ register_requisite.requisite_name }}</strong></i>
+                        <h5><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 0'">{{ register_requisite.requisite_name }}</strong></h5>
+                        <h6><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 1'">{{ register_requisite.requisite_name }}</strong></h6>
+                        <strong *ngIf="register_requisite.HTMLtype == 'GRUPO 2'">{{ register_requisite.requisite_name }}</strong>
+                        <i><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 3'">{{ register_requisite.requisite_name }}</strong></i>
+                        <i><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 4'">{{ register_requisite.requisite_name }}</strong></i>
+                        <i><strong *ngIf="register_requisite.HTMLtype == 'GRUPO 5'">{{ register_requisite.requisite_name }}</strong></i>
                     </td>
                     <td>
                         <div class="onoffswitch" *ngIf="register_requisite.HTMLtype == 'TRUE / FALSE'">
