@@ -155,6 +155,9 @@ export class EstablishmentListDataComponent implements OnInit {
           agregar = true;
         }
       } else {
+        // SI NO TIENE RUC ID
+        console.log(item);
+        console.log(this.registers_mintur);
         let tieneRegistro = false;
         this.registers_mintur.forEach( elem => {
           if (elem.establishment_ruc_code == item.ruc_code_id) {
