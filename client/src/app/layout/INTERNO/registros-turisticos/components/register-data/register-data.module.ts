@@ -1,5 +1,6 @@
-import { ClientDataModule } from './../../../../client-data-components/client-data.module';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ClientDataModule } from './../../../../client-data-components/client-data.module';
 import { RegisterDataComponent } from './register-data.component';
 
 @NgModule({
