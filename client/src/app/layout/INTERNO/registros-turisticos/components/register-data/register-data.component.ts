@@ -1,4 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Establishment } from 'src/app/models/BASE/Establishment';
+import { Ruc } from 'src/app/models/BASE/Ruc';
+import { Register } from 'src/app/models/ALOJAMIENTO/Register';
+import { Register as RegisterCatastro} from 'src/app/models/CATASTRO/Register';
+import { User } from 'src/app/models/profile/User';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-register-data',
@@ -6,8 +11,31 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./register-data.component.scss']
 })
 export class RegisterDataComponent implements OnInit {
-  @Input('data_selected') data_selected = {row: null, register: null};
+  @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
+  @ViewChild('pasos') pasosTabSet;
   
+  @Input('data_selected') data_selected_table = {row: null, register: null};
+  
+  user = new User();
+  mostrarEstablecimientos = false;
+  mostrarPasosInferiores = false;
+  mostrarDeclarations = false;
+  mostrarInformacionTuristica = false;
+
+  data_selected = {
+    register: new RegisterCatastro(),
+    is_new_register: true,
+    ruc: new Ruc(),
+    establishment: new Establishment(),
+    establishment_validated: new Establishment(),
+    register_selected: new Register() 
+  }
+
+  mostrarIngresoDatos = false;
+  tabActive = 'paso1';
+  tabActiveSuperior = 'tab1';
+  isEditable = false;
+
   constructor() {
     
   }
@@ -22,5 +50,61 @@ export class RegisterDataComponent implements OnInit {
   
   refresh() {
     console.log(this.data_selected);
+  }
+
+  showTuristicInformation(event) {
+    this.mostrarInformacionTuristica = event;
+  }
+
+  establishment_validated(event) {
+    this.mostrarDeclarations = event.showNext;
+    if (event.showNext) {
+      this.data_selected.establishment_validated = event.establishment;
+      this.data_selected.register_selected.provincia_code = this.data_selected.establishment_validated.provincia_code;
+    }
+  }
+
+  salir_turistic_information() {
+    this.pasosTabSet.select('paso2');
+  }
+  
+  establishmentSelected(event) {
+    const establishment_selected = event.establishment;
+    this.data_selected.establishment = establishment_selected;
+    this.mostrarPasosInferiores = event.showData;
+    this.mostrarDeclarations = false;
+    this.mostrarInformacionTuristica = false;
+  }
+
+  change_page_button_click(event) {
+    if (event == 'Paso I') {
+      this.pasosSuperioresTabSet.select('pasoI');
+    }
+    if (event == 'Paso II') {
+      this.pasosSuperioresTabSet.select('pasoII');
+    }
+    if (event == 'Paso 1') {
+      this.pasosTabSet.select('paso1');
+    }
+    if (event == 'Paso 2') {
+      this.pasosTabSet.select('paso2');
+    }
+    if (event == 'Paso 3') {
+      this.pasosTabSet.select('paso3');
+    }
+  }
+
+  ruc_validated(event) {
+    this.data_selected.ruc = event;
+    this.mostrarEstablecimientos = true;
+    this.mostrarPasosInferiores = false;
+  }
+
+  changeTabActive(event) {
+    this.tabActive = event.nextId;
+  }
+
+  changeTabActiveSuperior(event) {
+    this.tabActiveSuperior = event.nextId;
   }
 }
