@@ -14,7 +14,13 @@ export class RegisterDataComponent implements OnInit {
   @ViewChild('pasosSuperiores') pasosSuperioresTabSet;
   @ViewChild('pasos') pasosTabSet;
   
-  @Input('data_selected') data_selected_table = {row: null, register: null};
+  @Input('data_selected') data_selected_table = {row: null, 
+    register: {register: null,
+      establishment: new Establishment(),
+      ruc: new Ruc(),
+      states: null,
+      register_data_on_catastro: null
+  }};
   
   user = new User();
   mostrarEstablecimientos = false;
