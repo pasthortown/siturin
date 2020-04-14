@@ -16,6 +16,8 @@ export class RegisterDataComponent implements OnInit {
   
   @Input('data_selected') data_selected_table = {row: null, 
     register: {register: null,
+      activity_id: 0,
+      activity: '',
       establishment: new Establishment(),
       ruc: new Ruc(),
       states: null,
@@ -50,6 +52,7 @@ export class RegisterDataComponent implements OnInit {
     console.log(this.data_selected_table);
     if (this.data_selected_table.register != null) {
       this.user.ruc = this.data_selected_table.register.ruc.number;
+      this.data_selected_table.register.register.activity_id = this.data_selected_table.register.activity_id;
       this.mostrarIngresoDatos = true;
     } else {
       this.user.ruc = '';
