@@ -150,14 +150,11 @@ export class EstablishmentListDataComponent implements OnInit {
     const data = [];
     this.establishments.forEach(item => {
       let agregar = false;
-      if (typeof this.ruc_code_id !== 'undefined' && this.ruc_code_id !== '0' && this.ruc_code_id !== '-') { 
+      if (typeof this.ruc_code_id !== 'undefined' && this.ruc_code_id !== '0' && this.ruc_code_id !== '-' && this.ruc_code_id !== 'NULL') { 
         if (Number(item.ruc_code_id) == Number(this.ruc_code_id)) {
           agregar = true;
         }
       } else {
-        // SI NO TIENE RUC ID
-        console.log(item);
-        console.log(this.registers_mintur);
         let tieneRegistro = false;
         this.registers_mintur.forEach( elem => {
           if (elem.establishment_ruc_code == item.ruc_code_id) {
