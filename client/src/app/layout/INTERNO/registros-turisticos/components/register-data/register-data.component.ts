@@ -62,6 +62,7 @@ export class RegisterDataComponent implements OnInit {
   }
 
   establishment_validated(event) {
+    this.data_selected_table.register.register.provincia_code = event.establishment.provincia_code;
     this.mostrarDeclarations = event.showNext;
   }
 
