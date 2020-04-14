@@ -24,7 +24,6 @@ import { RegisterDataComponent } from './register-data.component';
     NgxQRCodeModule,
     Ng2TableModule,
     ScrollToModule.forRoot(),
-    ClienteExternoRoutingModule,
     ClientDataModule
   ],
   declarations: [RegisterDataComponent],
