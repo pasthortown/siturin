@@ -52,6 +52,7 @@ export class TuristicDataComponent implements OnInit {
   @Input('editable') editable: boolean = true;
   @Input('registers_by_ruc') registers_by_ruc: any[] = [];
   @Input('is_new_register') is_new_register: boolean = true;  
+  @Input('specific_register_type_id') specific_register_type_id: boolean = false;  
 
   @Output('salir_forced') salir_forced: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output('preview_page_button_click') preview_page_button_click: EventEmitter<string> = new EventEmitter<string>();
@@ -407,8 +408,10 @@ export class TuristicDataComponent implements OnInit {
             this.register.activity_id = this.activity_id_from_registers_actives;
           }
       } else {
-        if (!(this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN')) {
-          this.register.register_type_id = 0;
+        if (!this.specific_register_type_id) {
+          if (!(this.register.system_source == 'SIETE' || this.register.system_source == 'SITURIN')) {
+            this.register.register_type_id = 0;
+          }
         }
       }
     } else {
