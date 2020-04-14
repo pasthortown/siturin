@@ -10,9 +10,9 @@ import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { RegisterDataModule } from './../components/register-data/register-data.module';
+import { ClienteInternoCoordinadorRoutingModule } from './cliente-interno-coordinador-routing.module';
 
 import { CoordinadorBandejasDataComponent } from './../components/coordinador/coordinador-bandejas-data/coordinador-bandejas-data.component';
-import { ClienteInternoCoordinadorRoutingModule } from './cliente-interno-coordinador-routing.module';
 import { ClienteInternoCoordinadorComponent } from './cliente-interno-coordinador.component';
 
 import { UserService } from 'src/app/services/profile/user.service';
@@ -32,7 +32,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     Ng2TableModule,
     ScrollToModule.forRoot(),
     ClienteInternoCoordinadorRoutingModule,
-    RegisterDataModule
+    RegisterDataModule,
   ],
   declarations: [ClienteInternoCoordinadorComponent, CoordinadorBandejasDataComponent],
   providers: [
