@@ -163,6 +163,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   refresh() {
+    console.log(this.register);
     this.get_registers_on_establishment(); // Obtiene los Registros asociados al establecimiento
     this.build_enable_classifications();
     this.validateInitialData();
