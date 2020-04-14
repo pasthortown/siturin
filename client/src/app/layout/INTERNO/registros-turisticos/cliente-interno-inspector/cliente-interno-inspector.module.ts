@@ -9,10 +9,10 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
+import { ClienteInternoInspectorRoutingModule } from './cliente-interno-inspector-routing.module';
 import { RegisterDataModule } from './../components/register-data/register-data.module';
 
 import { InspectorBandejasDataComponent } from './../components/inspector/inspector-bandejas-data/inspector-bandejas-data.component';
-import { ClienteInternoInspectorRoutingModule } from './cliente-interno-inspector-routing.module';
 import { ClienteInternoInspectorComponent } from './cliente-interno-inspector.component';
 
 import { UserService } from 'src/app/services/profile/user.service';

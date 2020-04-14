@@ -9,8 +9,8 @@ import { CKEditorModule } from 'ngx-ckeditor';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
-import { RegisterDataModule } from './../components/register-data/register-data.module';
 import { ClienteInternoCoordinadorRoutingModule } from './cliente-interno-coordinador-routing.module';
+import { RegisterDataModule } from './../components/register-data/register-data.module';
 
 import { CoordinadorBandejasDataComponent } from './../components/coordinador/coordinador-bandejas-data/coordinador-bandejas-data.component';
 import { ClienteInternoCoordinadorComponent } from './cliente-interno-coordinador.component';
