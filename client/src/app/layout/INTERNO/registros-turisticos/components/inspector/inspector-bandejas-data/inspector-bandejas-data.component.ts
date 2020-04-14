@@ -1,9 +1,8 @@
-import { Ubication } from './../../../../../../models/BASE/Ubication';
-import { ConsultorService } from './../../../../../../services/negocio/consultor.service';
-import { User } from './../../../../../../models/profile/User';
+import { Ubication } from 'src/app/models/BASE/Ubication';
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
+import { User } from 'src/app/models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
-import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-inspector-bandejas-data',

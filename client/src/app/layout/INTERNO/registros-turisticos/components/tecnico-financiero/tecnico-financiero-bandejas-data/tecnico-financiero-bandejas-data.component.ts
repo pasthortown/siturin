@@ -1,7 +1,6 @@
 import { ConsultorService } from './../../../../../../services/negocio/consultor.service';
 import { User } from './../../../../../../models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-tecnico-financiero-bandejas-data',

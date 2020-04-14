@@ -1,10 +1,10 @@
-import { AuthLocationService } from './../../../../../../services/CRUD/AUTH/authlocation.service';
-import { ConsultorService } from './../../../../../../services/negocio/consultor.service';
+import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
+import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
-import { UserService } from './../../../../../../services/profile/user.service';
-import { AuthLocation } from './../../../../../../models/AUTH/AuthLocation';
-import { Ubication } from './../../../../../../models/BASE/Ubication';
-import { User } from './../../../../../../models/profile/User';
+import { UserService } from 'src/app/services/profile/user.service';
+import { AuthLocation } from 'src/app/models/AUTH/AuthLocation';
+import { Ubication } from 'src/app/models/BASE/Ubication';
+import { User } from 'src/app/models/profile/User';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
 

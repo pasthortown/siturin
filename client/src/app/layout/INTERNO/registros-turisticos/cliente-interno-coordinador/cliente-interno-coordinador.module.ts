@@ -20,6 +20,8 @@ import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { StateService as StateALService} from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
 import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/state.service';
+import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -40,7 +42,9 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     ConsultorService,
     StateALService,
     StateABService,
-    StateOPService
+    StateOPService,
+    AuthLocationService,
+    UbicationService
   ]
 })
 export class ClienteInternoCoordinadorModule {}
