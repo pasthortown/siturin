@@ -49,7 +49,7 @@ export class RegisterDataComponent implements OnInit {
   }
   
   refresh() {
-    console.log(this.data_selected);
+    console.log(this.data_selected_table);
   }
 
   showTuristicInformation(event) {
@@ -67,7 +67,7 @@ export class RegisterDataComponent implements OnInit {
   salir_turistic_information() {
     this.pasosTabSet.select('paso2');
   }
-  
+
   establishmentSelected(event) {
     const establishment_selected = event.establishment;
     this.data_selected.establishment = establishment_selected;
