@@ -103,8 +103,8 @@ export class ClienteExternoComponent implements OnInit {
       if ((typeof establishment_selected.ruc_code_id !== 'undefined') && (establishment_selected.ruc_code_id != '-') && (establishment_selected.ruc_code_id != '0' )) {
         this.catastroRegisterDataService.update_ruc_code_id(this.data_selected.register.id, establishment_selected.ruc_code_id).then( resp_cat => {
         }).catch(e => { console.log(e); });
-        establishment_selected.as_turistic_register_date = new Date(this.data_selected.register.as_turistic_date);
       }
+      establishment_selected.as_turistic_register_date = new Date(this.data_selected.register.as_turistic_date);
     }
     this.data_selected.establishment = establishment_selected;
     this.mostrarPasosInferiores = event.showData;
