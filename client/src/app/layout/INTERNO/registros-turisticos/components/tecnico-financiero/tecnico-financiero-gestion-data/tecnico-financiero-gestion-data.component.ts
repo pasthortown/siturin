@@ -52,7 +52,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   totalPayToPay = 0;
 
   inspectionState = 0;
-  
+
   ruc: Ruc = new Ruc();
   
   constructor(private toastr: ToastrManager,
@@ -459,6 +459,10 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
       }
     });
     return toReturn;
+  }
+
+  enviarEmailPago() {
+
   }
 
   descargarDocumentoDePago(paySelected: Pay) {
