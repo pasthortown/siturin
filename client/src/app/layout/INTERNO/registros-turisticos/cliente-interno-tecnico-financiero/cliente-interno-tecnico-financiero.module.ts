@@ -1,3 +1,4 @@
+import { TecnicoFinancieroGestionDataComponent } from './../components/tecnico-financiero/tecnico-financiero-gestion-data/tecnico-financiero-gestion-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +35,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
     ClienteInternoTecnicoFinancieroRoutingModule,
     RegisterDataModule
   ],
-  declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroBandejasDataComponent],
+  declarations: [ClienteInternoTecnicoFinancieroComponent, TecnicoFinancieroGestionDataComponent, TecnicoFinancieroBandejasDataComponent],
   providers: [
     UserService,
     ConsultorService,

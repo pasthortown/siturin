@@ -1,3 +1,4 @@
+import { CoordinadorGestionDataComponent } from './../components/coordinador/coordinador-gestion-data/coordinador-gestion-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +37,7 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     ClienteInternoCoordinadorRoutingModule,
     RegisterDataModule,
   ],
-  declarations: [ClienteInternoCoordinadorComponent, CoordinadorBandejasDataComponent],
+  declarations: [ClienteInternoCoordinadorComponent, CoordinadorGestionDataComponent, CoordinadorBandejasDataComponent],
   providers: [
     UserService,
     ConsultorService,

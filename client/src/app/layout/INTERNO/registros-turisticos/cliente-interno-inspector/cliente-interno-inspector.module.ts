@@ -1,3 +1,4 @@
+import { InspectorGestionDataComponent } from './../components/inspector/inspector-gestion-data/inspector-gestion-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +36,7 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     ClienteInternoInspectorRoutingModule,
     RegisterDataModule,
   ],
-  declarations: [ClienteInternoInspectorComponent, InspectorBandejasDataComponent],
+  declarations: [ClienteInternoInspectorComponent, InspectorGestionDataComponent,InspectorBandejasDataComponent],
   providers: [
     UserService,
     ConsultorService,
