@@ -890,7 +890,7 @@ export class TuristicDataComponent implements OnInit {
       this.procedureJustification.procedure_id = 1;
       this.register_validated.status = 61;
     }
-    if (this.opcion_seleccionada == 'actualization'){
+    if (this.opcion_seleccionada == 'actualization' || this.opcion_seleccionada == 'actualization_costs'){
       tipo_tramite = 'Actualización';
       this.procedureJustification.justification = "Actualización";
       this.register_validated.status = 41;
