@@ -1,3 +1,5 @@
+import { PayAttachmentService } from './../../../../../../services/CRUD/FINANCIERO/payattachment.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DeclarationItem } from 'src/app/models/FINANCIERO/DeclarationItem';
 import { DeclarationItemCategory } from './../../../../../../models/FINANCIERO/DeclarationItemCategory';
@@ -44,18 +46,34 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   declarationItemsCategories: DeclarationItemCategory[] = [];
   declarationItems: DeclarationItem[] = [];
 
+  totalPayBase = 0;
+  totalPayFines = 0;
+  totalPayTaxes = 0;
+  totalPayToPay = 0;
+
   ruc: Ruc = new Ruc();
   
-  constructor(private payTaxDataService: PayTaxService,
+  constructor(private toastr: ToastrManager,
+   private payTaxDataService: PayTaxService,
    private payDataService: PayService,
+   private payAttachmentDataService: PayAttachmentService,
    private exporterDataService: ExporterService) {
     
   }
 
   ngOnInit() {
     this.contactUser.id = 0;
+    this.refresh();
   }
 
+  ngOnChanges() {
+    this.refresh();
+  }
+
+  refresh() {
+
+  }
+  
   rechazarCheck() {
     this.registerApprovalFinanciero.notes = '';
   }
@@ -373,5 +391,96 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   actualizarValorPagar(pay: Pay) {
     pay.amount_to_pay = (pay.amount_to_pay_base*1) + (pay.amount_to_pay_fines*1) + (pay.amount_to_pay_taxes*1);
+  }
+
+  saveToPayValue() {
+    this.pay.ruc_id = this.ruc.id;
+    this.pay.amount_payed = -1;
+    this.pay.pay_date = null;
+    this.pay.code = this.ruc.number.substring(0, 10) + this.pays.length.toString() + 'CP';
+    this.pay.payed = false;
+    this.payDataService.post(this.pay).then( r => {
+      this.getPays();
+    }).catch( e => { console.log(e); });
+  }
+
+  CodeFileDocumentoPago(event, payselected: Pay) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        payselected.pay_attachment.pay_attachment_file_name = file.name;
+        payselected.pay_attachment.pay_attachment_file_type = file.type;
+        payselected.pay_attachment.pay_attachment_file = reader.result.toString().split(',')[1];
+        payselected.pay_attachment.pay_id = payselected.id;
+        this.payAttachmentDataService.post(payselected.pay_attachment).then( r=> {
+          this.toastr.successToastr('Documento de Pago Guardado Satisfactoriamente', 'Documento de Pago');
+        }).catch( e => { console.log(e); })
+      };
+    }
+  }
+
+  borrarOrdenDePago(paySelected: Pay) {
+    this.payDataService.delete(paySelected.id).then( r => {
+      this.toastr.errorToastr('Órden de Pago Eliminada Satisfactoriamente', 'Revisión, Técnico Financiero');
+      this.getPays();
+    }).catch( e => { console.log(e); });
+  }
+
+  calcTotales(): boolean {
+    this.totalPayBase = 0;
+    this.totalPayFines = 0;
+    this.totalPayTaxes = 0;
+    this.totalPayToPay = 0;
+    this.pays.forEach(pay => {
+      if (!pay.payed) {
+        this.totalPayToPay += pay.amount_to_pay*1;
+        this.totalPayBase += pay.amount_to_pay_base*1;
+        this.totalPayFines += pay.amount_to_pay_fines*1;
+        this.totalPayTaxes += pay.amount_to_pay_taxes*1;
+      }
+    });
+    return true;
+  }
+
+  cancelPayManual() {
+    this.pay = new Pay();
+    this.payManualAgreement = false;
+  }
+
+  pagado(): boolean {
+    let toReturn = true;
+    this.pays.forEach(pay => {
+      if (!pay.payed) {
+         toReturn = false;
+      }
+    });
+    return toReturn;
+  }
+
+  descargarDocumentoDePago(paySelected: Pay) {
+    this.downloadFile(
+      paySelected.pay_attachment.pay_attachment_file,
+      paySelected.pay_attachment.pay_attachment_file_type,
+      paySelected.pay_attachment.pay_attachment_file_name);   
+  }
+
+  downloadFile(file: any, type: any, name: any) {
+    const byteCharacters = atob(file);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: type });
+    saveAs(blob, name);
+  }
+
+  borrarDocumentoDePago(paySelected: Pay) {
+    this.payAttachmentDataService.delete(paySelected.pay_attachment.id).then( r => {
+      paySelected.pay_attachment = new PayAttachment();
+      this.toastr.warningToastr('Documento de Pago Borrado Satisfactoriamente', 'Documento de Pago');
+    }).catch( e => { console.log(e); });
   }
 }

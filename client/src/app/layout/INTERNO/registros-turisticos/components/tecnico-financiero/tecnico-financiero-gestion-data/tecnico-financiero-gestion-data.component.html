@@ -1,4 +1,4 @@
-<!-- <div class="row" *ngIf="(mostrarMotivoTramite) && (motivoTramite != '')">
+<div class="row" *ngIf="(mostrarMotivoTramite) && (motivoTramite != '')">
     <div class="col-12">
         <label class="col-form-label"><strong>Motivo de Trámite</strong></label>
         <div class="alert alert-info mt-2 mb-2" role="alert">
@@ -260,7 +260,7 @@
         <h4><strong>Resultado de la Revisión</strong> </h4>
     </div>
 </div>
-<div class="row mt-3">
+<!-- <div class="row mt-3">
     <div class="col-6">
         <label>Fecha de la Revisión</label>
         <input type="date" class="form-control" id="date_fullfill" name="date_fullfill" placeholder="Fecha de Revisión" [ngModel]="registerApprovalFinanciero.date_fullfill | date:'y-MM-dd'" (ngModelChange)="registerApprovalFinanciero.date_fullfill = $event">
