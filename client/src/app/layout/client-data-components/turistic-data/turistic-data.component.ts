@@ -144,7 +144,6 @@ export class TuristicDataComponent implements OnInit {
   ngOnInit() {
     this.loadCatalogos();
     this.getRegisterTypes();
-    console.log(this.establishment);
   }
 
   loadCatalogos() {
