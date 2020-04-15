@@ -1,8 +1,8 @@
-import { PayAttachmentService } from './../../../../../../services/CRUD/FINANCIERO/payattachment.service';
+import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DeclarationItem } from 'src/app/models/FINANCIERO/DeclarationItem';
-import { DeclarationItemCategory } from './../../../../../../models/FINANCIERO/DeclarationItemCategory';
+import { DeclarationItemCategory } from 'src/app/models/FINANCIERO/DeclarationItemCategory';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Pay } from 'src/app/models/FINANCIERO/Pay';

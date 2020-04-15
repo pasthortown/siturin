@@ -24,6 +24,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -47,6 +48,7 @@ import { ExporterService } from 'src/app/services/negocio/exporter.service';
     StateOPService,
     PayTaxService,
     PayService,
+    PayAttachmentService,
     ExporterService
   ]
 })
