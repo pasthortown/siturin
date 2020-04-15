@@ -22,6 +22,8 @@ import { StateService as StateALService} from 'src/app/services/CRUD/ALOJAMIENTO
 import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/state.service';
 import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
+import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -43,7 +45,9 @@ import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
     StateALService,
     StateABService,
     StateOPService,
-    PayTaxService
+    PayTaxService,
+    PayService,
+    ExporterService
   ]
 })
 export class ClienteInternoTecnicoFinancieroModule {}

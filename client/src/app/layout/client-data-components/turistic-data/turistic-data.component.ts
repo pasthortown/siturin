@@ -866,14 +866,16 @@ export class TuristicDataComponent implements OnInit {
       this.toastr.errorToastr('Debe cargar el título de propiedad de su establecimiento.', 'Nuevo');
       toReturn = false;
     }
+    if (this.opcion_seleccionada !== 'actualization' && this.opcion_seleccionada !== 'actualization_costs') {
+      if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
+        this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
+        toReturn = false;
+      }  
+      if (!this.validateRequisites()) {
+        toReturn = false;
+      }
+    }
     if (!this.validateReclassificationRecategorization()) {
-      toReturn = false;
-    }
-    if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
-      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
-      toReturn = false;
-    }
-    if (!this.validateRequisites()) {
       toReturn = false;
     }
     return toReturn;
@@ -1022,14 +1024,16 @@ export class TuristicDataComponent implements OnInit {
       this.toastr.errorToastr('Debe cargar la lista de precios.', 'Nuevo');
       toReturn = false;
     }
-    if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
-      this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
-      toReturn = false;
+    if (this.opcion_seleccionada !== 'actualization' && this.opcion_seleccionada !== 'actualization_costs') {
+      if (this.attachments.floor_authorization_certificate.floor_authorization_certificate_file === ''){
+        this.toastr.errorToastr('Debe cargar el certificado de uso de suelo.', 'Nuevo');
+        toReturn = false;
+      }  
+      if (!this.validateRequisites()) {
+        toReturn = false;
+      }
     }
     if (!this.validateReclassificationRecategorization()) {
-      toReturn = false;
-    }
-    if (!this.validateRequisites()) {
       toReturn = false;
     }
     return toReturn;

@@ -404,8 +404,8 @@
                         </div>
                         <div class="col-6">
                           <div class="form-group">
-                              <label *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 2">Anexar balance individual del establecimiento, suscrito por el representante legal*</label>
-                              <label *ngIf="ruc_registro_selected.ruc.tax_payer_type_id == 1">Anexar inventario valorado del establecimiento, suscrito por el propietario*</label>
+                              <label *ngIf="ruc.tax_payer_type_id == 2">Anexar balance individual del establecimiento, suscrito por el representante legal*</label>
+                              <label *ngIf="ruc.tax_payer_type_id == 1">Anexar inventario valorado del establecimiento, suscrito por el propietario*</label>
                               <span
                                 *ngIf="balance.declaration_attachment_file === ''"
                                 class="ml-2 badge badge-danger">Incorrecto</span>
