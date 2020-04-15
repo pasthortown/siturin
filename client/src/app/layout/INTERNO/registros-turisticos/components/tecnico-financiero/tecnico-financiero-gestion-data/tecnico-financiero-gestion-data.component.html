@@ -124,16 +124,24 @@
         <h4><strong>Insertar Órden de Pago Manual</strong></h4>
     </div>
     <div class="col-12">
-        <div class="form-group mt-3 text-center">
-            <label class="col-12"><strong>Deseo generar una órden de pago manual</strong></label>
-            <div class="onoffswitch">
-                <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" name="baised_accounting" [(ngModel)]="payManualAgreement">
-                <label class="onoffswitch-label" for="baised_accounting">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
-            </div>
-        </div>
+        <table class="table mt-2">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="onoffswitch">
+                            <input type="checkbox" class="onoffswitch-checkbox"  id="baised_accounting" name="baised_accounting" [(ngModel)]="payManualAgreement">
+                            <label class="onoffswitch-label" for="baised_accounting">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <strong>Deseo generar una órden de pago manual</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <div class="row" *ngIf="payManualAgreement">
