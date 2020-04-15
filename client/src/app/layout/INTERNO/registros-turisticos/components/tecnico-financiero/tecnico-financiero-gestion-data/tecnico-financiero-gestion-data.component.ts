@@ -51,6 +51,8 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   totalPayTaxes = 0;
   totalPayToPay = 0;
 
+  inspectionState = 0;
+  
   ruc: Ruc = new Ruc();
   
   constructor(private toastr: ToastrManager,
@@ -73,7 +75,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   refresh() {
 
   }
-  
+
   rechazarCheck() {
     this.registerApprovalFinanciero.notes = '';
   }

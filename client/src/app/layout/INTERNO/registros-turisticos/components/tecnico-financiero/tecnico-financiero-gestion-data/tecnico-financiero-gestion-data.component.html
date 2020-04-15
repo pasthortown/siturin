@@ -260,7 +260,7 @@
         <h4><strong>Resultado de la Revisión</strong> </h4>
     </div>
 </div>
-<!-- <div class="row mt-3">
+<div class="row mt-3">
     <div class="col-6">
         <label>Fecha de la Revisión</label>
         <input type="date" class="form-control" id="date_fullfill" name="date_fullfill" placeholder="Fecha de Revisión" [ngModel]="registerApprovalFinanciero.date_fullfill | date:'y-MM-dd'" (ngModelChange)="registerApprovalFinanciero.date_fullfill = $event">
@@ -278,12 +278,12 @@
         <label class="col-form-label">Observaciones</label>
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalFinanciero.notes"></ck-editor>
     </div>
-    <div class="col-12 text-center mb-3">
+    <!-- <div class="col-12 text-center mb-3">
         <button type="button" [disabled]="inspectionState == 0 || (!validateInspectionInfo() || guardandoFinanciero || stateTramit == 0)" class="btn btn-success" title="Guardar Información Revisión" (click)="guardarInspeccion()">
             <i class="fas fa-save"></i> Guardar Información
         </button>
         <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
             <i class="fas fa-times"></i> Cancelar
         </button>
-    </div>
-</div> -->
+    </div> -->
+</div>
