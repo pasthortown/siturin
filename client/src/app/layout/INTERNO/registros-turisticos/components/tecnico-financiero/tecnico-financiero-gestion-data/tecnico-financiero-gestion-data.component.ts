@@ -185,6 +185,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   loadCatalogs() {
     this.getUbications();
+    this.getZonales();
     this.getDeclarationCategories();
     this.getDeclarationItems();
   }
@@ -745,7 +746,6 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         datosZonal = element;
       }
     });
-    console.log(this.zonales);
     const czDireccion = datosZonal.address;
     const czTelefono = datosZonal.phone_number;
     const information = {
