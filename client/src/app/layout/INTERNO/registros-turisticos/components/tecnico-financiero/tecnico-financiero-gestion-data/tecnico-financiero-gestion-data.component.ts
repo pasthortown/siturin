@@ -928,7 +928,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     }
     newRegisterState.justification = 'Resultados de la Revisión de Técnico Financiero cargados en la fecha ' + today.toDateString();
     newRegisterState.register_id = this.registerApprovalFinanciero.register_id;
-    this.saveRegisterState(newRegisterState, 'Datos guardados satisfactoriamente.', 'Revisión, Técnico Financiero');
+    this.saveRegisterState(newRegisterState, 'Revisión, Técnico Financiero');
   }
 
   saveRegisterState(newRegisterState: RegisterState, messageToastr: string) {
