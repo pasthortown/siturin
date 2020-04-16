@@ -136,9 +136,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   ngOnInit() {
     this.loadCatalogs();
-    if (this.data_selected_table.register.states != null) {
-      this.refresh();
-    }
+    this.refresh();
   }
 
   ngOnChanges() {
@@ -146,6 +144,9 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   refresh() {
+    if (this.data_selected_table.register.states == null) {
+      return;
+    }
     this.contactUser = new User();
     this.contactUser.id = 0;
     this.mostrarMotivoTramite = false;
