@@ -76,6 +76,30 @@ export class CoordinadorBandejasDataComponent implements OnInit {
   }
 
   refresh() {
+    if (this.user == new User()) {
+      return;
+    }
+    if (this.estados_tramites == []) {
+      return;
+    }
+    if (this.states.alojamiento == []) {
+      return;
+    }
+    if (this.states.alimentos_bebidas == []) {
+      return;
+    }
+    if (this.states.operacion_intermediacion == []) {
+      return;
+    }
+    if (this.register_types_block.register_types_alojamiento == []) {
+      return;
+    }
+    if (this.register_types_block.register_types_alimentos_bebidas == []) {
+      return;
+    }
+    if (this.register_types_block.register_types_operacion_intermediacion == []) {
+      return;
+    }
     const toReturn = {row: null, 
       register: {register: null,
         activity_id: 0,

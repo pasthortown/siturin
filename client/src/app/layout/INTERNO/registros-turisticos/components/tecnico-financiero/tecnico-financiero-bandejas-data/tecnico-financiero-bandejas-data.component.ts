@@ -11,19 +11,19 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TecnicoFinancieroBandejasDataComponent implements OnInit {
   @Input('user') user: User = new User();
-  @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
   @Input('estados_tramites') estados_tramites: any[] = [];
-  
   @Input('states') states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
   };
-
   @Input('register_types_block') register_types_block = {
     register_types_alojamiento: [],
     register_types_alimentos_bebidas: [],
     register_types_operacion_intermediacion: []
   };
+
+  @Output('register_selected') change: EventEmitter<any> = new EventEmitter<any>();
+  
   
   config: any = {
     paging: true,
@@ -52,6 +52,30 @@ export class TecnicoFinancieroBandejasDataComponent implements OnInit {
   }
   
   refresh() {
+    if (this.user == new User()) {
+      return;
+    }
+    if (this.estados_tramites == []) {
+      return;
+    }
+    if (this.states.alojamiento == []) {
+      return;
+    }
+    if (this.states.alimentos_bebidas == []) {
+      return;
+    }
+    if (this.states.operacion_intermediacion == []) {
+      return;
+    }
+    if (this.register_types_block.register_types_alojamiento == []) {
+      return;
+    }
+    if (this.register_types_block.register_types_alimentos_bebidas == []) {
+      return;
+    }
+    if (this.register_types_block.register_types_operacion_intermediacion == []) {
+      return;
+    }
     const toReturn = {row: null, 
       register: {register: null,
         activity_id: 0,
