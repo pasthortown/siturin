@@ -37,6 +37,9 @@ import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
+import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
+import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -73,7 +76,10 @@ import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/
     ZoneService,
     RegisterProcedureALService,
     RegisterProcedureABService,
-    RegisterProcedureOPService
+    RegisterProcedureOPService,
+    DeclarationItemService,
+    DeclarationItemCategoryService,
+    DeclarationService
   ]
 })
 export class ClienteInternoTecnicoFinancieroModule {}

@@ -1,3 +1,10 @@
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
+import { ApprovalStateAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateAttachment';
+import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
+import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
+import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
@@ -76,6 +83,9 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   ubications: Ubication[] = [];
   zonales: Zone[] = [];
+  
+  declarationApprovalStateAttachment = new ApprovalStateAttachment();
+  payApprovalStateAttachment = new ApprovalStateAttachment();
 
   registerApprovalFinanciero: ApprovalState = new ApprovalState();
   contactUser: User = new User();
@@ -103,9 +113,15 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
    private payDataService: PayService,
    private payAttachmentDataService: PayAttachmentService,
    private exporterDataService: ExporterService,
+   private declarationDataService: DeclarationService,
+   private declarationItemCategoryDataService: DeclarationItemCategoryService,
+   private declarationItemDataService: DeclarationItemService,
    private approval_state_alojamiento_DataService: ApprovalStateALService,
    private approval_state_alimentos_bebidas_DataService: ApprovalStateABService,
    private approval_state_operacion_intermediacion_DataService: ApprovalStateOPService,
+   private approval_state_attachment_alojamiento_DataService: ApprovalStateAttachmentALService,
+   private approval_state_attachment_alimentos_bebidas_DataService: ApprovalStateAttachmentABService,
+   private approval_state_attachment_operacion_intermediacion_DataService: ApprovalStateAttachmentOPService,
    private register_state_alojamiento_DataService: RegisterStateALService,
    private register_state_alimentos_bebidas_DataService: RegisterStateABService,
    private register_state_operacion_intermediacion_DataService: RegisterStateOPService,
@@ -117,7 +133,6 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.contactUser.id = 0;
     this.loadCatalogs();
     this.refresh();
   }
@@ -127,13 +142,128 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   refresh() {
+    this.contactUser = new User();
+    this.contactUser.id = 0;
+    this.mostrarMotivoTramite = false;
+    this.estoyVacaciones = false;
+    this.payManualAgreement = false;
+    this.imprimiendoDeclaracion = false;
+    this.motivoTramite = '';
+    this.digito = '';
+    this.stateTramiteId = 0;
+    this.paytaxes = [];
+    this.pays = [];
+    this.pays_calc = [];
+    this.paySelectedOrders = new Pay();
+    this.pay = new Pay();
+    this.registerApprovalFinanciero = new ApprovalState();
+    this.fechaSolicitud = new Date();
+    this.as_turistic_date = new Date();
+    this.tipo_tramite = '';
+    this.declarations = [];
+    this.totalPayBase = 0;
+    this.totalPayFines = 0;
+    this.totalPayTaxes = 0;
+    this.totalPayToPay = 0;
+    this.inspectionState = 0;
     this.getContactUser();
+    this.stateTramiteId = this.data_selected_table.register.states.state_id;
+    const estado = this.stateTramiteId.toString();
+    this.digito = estado.substring(estado.length-1, estado.length);
+    this.checkMotivoTramite(estado);
+    this.fechaSolicitud = new Date(this.data_selected_table.register.register.created_at.toString());
+    this.getDeclarationsByEstablishment(this.data_selected_table.register.establishment.id);
+    this.getApprovalStates();
   }
 
   loadCatalogs() {
     this.getUbications();
+    this.getDeclarationCategories();
+    this.getDeclarationItems();
   }
   
+  getApprovalStates() {
+    this.registerApprovalFinanciero = new ApprovalState();
+    const idRegister = this.data_selected_table.register.register.id;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.get_by_register_id(idRegister).then( r => {
+         const registerApprovals = r;
+         this.approval_state_attachment_alojamiento_DataService.get_by_register_id(idRegister).then( r => {
+           const approvalStateAttachments = r as ApprovalStateAttachment[];
+           this.processApprovalData(registerApprovals, approvalStateAttachments);
+         }).catch( e => { console.log(e); });
+       }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.get_by_register_id(idRegister).then( r => {
+        const registerApprovals = r;
+        this.approval_state_attachment_alimentos_bebidas_DataService.get_by_register_id(idRegister).then( r => {
+          const approvalStateAttachments = r as ApprovalStateAttachment[];
+          this.processApprovalData(registerApprovals, approvalStateAttachments);
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.get_by_register_id(idRegister).then( r => {
+        const registerApprovals = r;
+        this.approval_state_attachment_operacion_intermediacion_DataService.get_by_register_id(idRegister).then( r => {
+          const approvalStateAttachments = r as ApprovalStateAttachment[];
+          this.processApprovalData(registerApprovals, approvalStateAttachments);
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+  }
+
+  processApprovalData(registerApprovals: any[], approvalStateAttachments: ApprovalStateAttachment[]) {
+    registerApprovals.forEach(element => {
+      if (element.approval_id == 2){
+        if (element.value) {
+          this.inspectionState = 1;
+        } else {
+          if (this.pays.length > 0) {
+            this.inspectionState = 2;
+          } else {
+            this.inspectionState = 0;
+          }
+          const estado: String = this.stateTramiteId.toString();
+          const digito = estado.substring(estado.length-1, estado.length);
+          if (digito == '8'){
+             this.inspectionState = 3;
+          }
+        }
+        if (approvalStateAttachments.length == 0) {
+          this.inspectionState = 0;
+          this.declarationApprovalStateAttachment = new ApprovalStateAttachment();
+          this.declarationApprovalStateAttachment.approval_state_id = element.id;
+          this.payApprovalStateAttachment = new ApprovalStateAttachment();
+          this.payApprovalStateAttachment.approval_state_id = element.id;
+        }
+        approvalStateAttachments.forEach(approvalStateAttachment => {
+          if (approvalStateAttachment.approval_state_id == element.id) {
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Informe') == 0) {
+              this.payApprovalStateAttachment = approvalStateAttachment;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) {
+              this.declarationApprovalStateAttachment = approvalStateAttachment;
+            }
+          }
+        });
+        this.registerApprovalFinanciero = element;
+        this.registerApprovalFinanciero.date_fullfill = new Date();
+        if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+          this.registerApprovalFinanciero.notes = '';
+        }
+      }
+    });
+  }
+
+  getDeclarationsByEstablishment(id: number) {
+    this.declarations = [];
+    this.declarationDataService.get_by_establishment(id).then( r => {
+      this.declarations = r as Declaration[];
+    }).catch( e => { console.log(e); });
+  }
+
   getUbications() {
     this.ubications = [];
     this.ubicationDataService.get().then( r => {
@@ -144,6 +274,18 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   getZonales() {
     this.zoneDataService.get().then( r => {
       this.zonales = r;
+    }).catch( e => { console.log(e); });
+  }
+
+  getDeclarationCategories() {
+    this.declarationItemCategoryDataService.get().then( r => {
+      this.declarationItemsCategories = r as DeclarationItemCategory[];
+    }).catch( e => { console.log(e); });
+  }
+ 
+  getDeclarationItems() {
+    this.declarationItemDataService.get().then( r => {
+      this.declarationItems = r as DeclarationItem[];
     }).catch( e => { console.log(e); });
   }
 
