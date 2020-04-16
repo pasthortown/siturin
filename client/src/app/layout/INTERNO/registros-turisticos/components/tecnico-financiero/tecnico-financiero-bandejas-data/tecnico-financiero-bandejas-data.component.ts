@@ -44,11 +44,10 @@ export class TecnicoFinancieroBandejasDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.refresh();
+    this.getRegistersMintur();
   }
 
   ngOnChanges() {
-    this.refresh();
   }
   
   refresh() {
@@ -68,7 +67,6 @@ export class TecnicoFinancieroBandejasDataComponent implements OnInit {
 
   getRegistersMintur() {
     this.registers_mintur = [];
-    console.log('entre');
     this.consultorDataService.get_registers_assigned_financial_id(this.user.id).then( r => {
        this.registers_mintur = r;
        this.buildDataTable();
