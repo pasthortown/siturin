@@ -147,6 +147,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     if (this.data_selected_table.register.states == null) {
       return;
     }
+    console.log(this.data_selected_table);
     this.contactUser = new User();
     this.contactUser.id = 0;
     this.mostrarMotivoTramite = false;
