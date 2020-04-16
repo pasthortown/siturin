@@ -17,7 +17,8 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 export class ClienteInternoCoordinadorComponent implements OnInit {
 
   showBandejas = false;
-
+  showDataRegisterSelected = false;
+  
   user = new User();
 
   data_selected = {row: null, 
@@ -143,6 +144,11 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
 
   register_selected(event) {
     this.data_selected = event;
+    if (event.row == null) {
+      this.showDataRegisterSelected = false;  
+    } else {
+      this.showDataRegisterSelected = true;  
+    }
   }
 
   financieros_change(event) {

@@ -5,9 +5,9 @@
     [register_types_block]="register_types_block" 
     [states]="states">
 </app-tecnico-financiero-bandejas-data>
-<app-tecnico-financiero-gestion-data 
+<app-tecnico-financiero-gestion-data *ngIf="showDataRegisterSelected" 
     [user]="user" 
     [data_selected]="data_selected" 
     [register_types_block]="register_types_block">
 </app-tecnico-financiero-gestion-data>
-<app-register-data [data_selected]="data_selected"></app-register-data>
+<app-register-data *ngIf="showDataRegisterSelected" [data_selected]="data_selected"></app-register-data>
