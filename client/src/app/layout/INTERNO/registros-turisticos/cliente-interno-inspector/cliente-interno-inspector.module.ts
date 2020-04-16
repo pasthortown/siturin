@@ -16,12 +16,28 @@ import { RegisterDataModule } from './../components/register-data/register-data.
 import { InspectorBandejasDataComponent } from './../components/inspector/inspector-bandejas-data/inspector-bandejas-data.component';
 import { ClienteInternoInspectorComponent } from './cliente-interno-inspector.component';
 
-import { UserService } from 'src/app/services/profile/user.service';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
 import { StateService as StateALService} from 'src/app/services/CRUD/ALOJAMIENTO/state.service';
 import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/state.service';
+import { DinardapService } from 'src/app/services/negocio/dinardap.service';
+import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
+import { UserService } from 'src/app/services/profile/user.service';
+import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
+import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -43,7 +59,23 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     StateALService,
     StateABService,
     StateOPService,
-    UbicationService
+    UbicationService,
+    DinardapService,
+    RegisterProcedureALService,
+    RegisterProcedureABService,
+    RegisterProcedureOPService,
+    ZoneService,
+    MailerService,
+    RegisterStateALService,
+    RegisterStateABService,
+    RegisterStateOPService,
+    ApprovalStateALService,
+    ApprovalStateABService,
+    ApprovalStateOPService,
+    ApprovalStateAttachmentALService,
+    ApprovalStateAttachmentABService,
+    ApprovalStateAttachmentOPService,
+    ExporterService
   ]
 })
 export class ClienteInternoInspectorModule {}

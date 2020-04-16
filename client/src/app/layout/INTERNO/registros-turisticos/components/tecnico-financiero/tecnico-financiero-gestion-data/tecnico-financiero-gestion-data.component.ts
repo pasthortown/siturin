@@ -1,6 +1,3 @@
-import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
-import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
-import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
@@ -17,6 +14,9 @@ import { RegisterStateService as RegisterStateOPService } from 'src/app/services
 import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
 import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
@@ -156,7 +156,6 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     this.imprimiendoDeclaracion = false;
     this.motivoTramite = '';
     this.digito = '';
-    this.stateTramiteId = 0;
     this.paytaxes = [];
     this.pays = [];
     this.pays_calc = [];
@@ -327,6 +326,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
           'La solicitud ha sido devuelta al Coordinador Zonal',
           'success'
         );
+        this.registerApprovalFinanciero.id_user = 0;
         this.registerApprovalFinanciero.date_assigment = null;
         this.registerApprovalFinanciero.notes = 'Devuelto: <strong>' + this.user.name + ':</strong> ' + this.registerApprovalFinanciero.notes;
         const newRegisterState = new RegisterState();
@@ -823,7 +823,6 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     if (estado == '70') {
       this.tipo_tramite = 'REINGRESO';
     }
-    this.data_selected_table.register.register_data_on_catastro;
     this.as_turistic_date = new Date();
     if (this.data_selected_table.register.establishment.as_turistic_register_date != null && typeof this.data_selected_table.register.establishment.as_turistic_register_date != 'undefined') {
       this.as_turistic_date = new Date(this.data_selected_table.register.establishment.as_turistic_register_date.toString());

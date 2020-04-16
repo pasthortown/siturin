@@ -1,4 +1,4 @@
-<!-- <div class="row" *ngIf="(mostrarMotivoTramite) && (motivoTramite != '')">
+<div class="row" *ngIf="(mostrarMotivoTramite) && (motivoTramite != '')">
     <div class="col-12">
         <label class="col-form-label"><strong>Motivo de Trámite</strong></label>
         <div class="alert alert-info mt-2 mb-2" role="alert">
@@ -42,7 +42,7 @@
     <div class="col-12">
         <h3>Inspección</h3>
     </div>
-    <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes != '' && !rechazarTramite">
+    <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes != ''">
         <strong>Motivo de devolución</strong>
         <div class="alert alert-info mt-2 mb-2" role="alert">
             <p class="col-12 text-justify" [innerHTML]="registerApprovalInspector.notes"></p>
@@ -194,4 +194,4 @@
             <i class="fas fa-times"></i> Cancelar
         </button>
     </div>
-</div> -->
+</div>
