@@ -40,6 +40,9 @@ import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -79,7 +82,10 @@ import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration
     RegisterProcedureOPService,
     DeclarationItemService,
     DeclarationItemCategoryService,
-    DeclarationService
+    DeclarationService,
+    ApprovalStateAttachmentALService,
+    ApprovalStateAttachmentABService,
+    ApprovalStateAttachmentOPService
   ]
 })
 export class ClienteInternoTecnicoFinancieroModule {}

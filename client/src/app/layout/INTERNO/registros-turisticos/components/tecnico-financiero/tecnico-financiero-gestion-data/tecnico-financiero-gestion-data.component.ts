@@ -1,18 +1,14 @@
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
-import { ApprovalStateAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateAttachment';
 import { DeclarationService } from 'src/app/services/CRUD/FINANCIERO/declaration.service';
 import { DeclarationItemService } from 'src/app/services/CRUD/FINANCIERO/declarationitem.service';
 import { DeclarationItemCategoryService } from 'src/app/services/CRUD/FINANCIERO/declarationitemcategory.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
-import { RegisterType } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
-import { Zone } from 'src/app/models/BASE/Zone';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
-import { Ubication } from 'src/app/models/BASE/Ubication';
 import { MailerService } from 'src/app/services/negocio/mailer.service';
 import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
@@ -21,25 +17,31 @@ import { RegisterStateService as RegisterStateOPService } from 'src/app/services
 import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
 import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
 import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
+import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
+
+import { ApprovalStateAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateAttachment';
+import { RegisterType } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
+import { Zone } from 'src/app/models/BASE/Zone';
+import { Ubication } from 'src/app/models/BASE/Ubication';
 import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
 import { Establishment } from 'src/app/models/BASE/Establishment';
-import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DeclarationItem } from 'src/app/models/FINANCIERO/DeclarationItem';
 import { DeclarationItemCategory } from 'src/app/models/FINANCIERO/DeclarationItemCategory';
-import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Pay } from 'src/app/models/FINANCIERO/Pay';
-import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
 import { Declaration } from 'src/app/models/FINANCIERO/Declaration';
 import { PayTax } from 'src/app/models/FINANCIERO/PayTax';
 import { ApprovalState } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalState';
-import { User } from 'src/app/models/profile/User';
-import { Component, OnInit, Input } from '@angular/core';
 import { PayAttachment } from 'src/app/models/FINANCIERO/PayAttachment';
+import { User } from 'src/app/models/profile/User';
+
+import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver/FileSaver';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 
 @Component({
