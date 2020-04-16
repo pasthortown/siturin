@@ -34,6 +34,9 @@ import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services
 import { MailerService } from 'src/app/services/negocio/mailer.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
+import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -67,7 +70,10 @@ import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
     ApprovalStateOPService,
     MailerService,
     UbicationService,
-    ZoneService
+    ZoneService,
+    RegisterProcedureALService,
+    RegisterProcedureABService,
+    RegisterProcedureOPService
   ]
 })
 export class ClienteInternoTecnicoFinancieroModule {}

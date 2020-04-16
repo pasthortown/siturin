@@ -1,4 +1,7 @@
-import { RegisterType } from './../../../../../../models/ALIMENTOSBEBIDAS/RegisterType';
+import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+import { RegisterType } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 import { Zone } from 'src/app/models/BASE/Zone';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
@@ -76,7 +79,10 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   registerApprovalFinanciero: ApprovalState = new ApprovalState();
   contactUser: User = new User();
-  
+  fechaSolicitud = new Date();
+  as_turistic_date = new Date();
+  tipo_tramite = '';
+
   declarations: Declaration[] = [];
   declarationItemsCategories: DeclarationItemCategory[] = [];
   declarationItems: DeclarationItem[] = [];
@@ -103,8 +109,11 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
    private register_state_alojamiento_DataService: RegisterStateALService,
    private register_state_alimentos_bebidas_DataService: RegisterStateABService,
    private register_state_operacion_intermediacion_DataService: RegisterStateOPService,
+   private register_procedure_alojamiento_DataService: RegisterProcedureALService,
+   private register_procedure_alimentos_bebidas_DataService: RegisterProcedureABService,
+   private register_procedure_operacion_intermediacion_DataService: RegisterProcedureOPService
    ) {
-    
+      
   }
 
   ngOnInit() {
@@ -624,11 +633,11 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
       amount_to_pay: this.totalPayToPay,
       ruc: this.data_selected_table.register.ruc.number,
       nombreComercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase(),
-      //fechaSolicitud: this.fechaSolicitud.toLocaleDateString(),
+      fechaSolicitud: this.fechaSolicitud.toLocaleDateString(),
       actividad: this.data_selected_table.register.activity.toUpperCase(),
       clasificacion: clasificacion.toUpperCase(),
       categoria: categoria.toUpperCase(),
-      //tipoSolicitud: this.tipo_tramite.toUpperCase(),
+      tipoSolicitud: this.tipo_tramite.toUpperCase(),
       provincia: provinciaName.toUpperCase(),
       canton: cantonName.toUpperCase(),
       parroquia: parroquiaName.toUpperCase(),
@@ -645,6 +654,77 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
 
+  checkMotivoTramite(estado: String) {
+    this.motivoTramite = '';
+    const PrimerDigito = estado.substring(0, 1);
+    if (PrimerDigito == '1') {
+      this.mostrarMotivoTramite = false;
+    } else {
+      this.mostrarMotivoTramite = true;
+    }
+    this.tipo_tramite = 'REGISTRO';
+    const primerdigito = estado.substring(0, 1);
+    if (primerdigito == '1') {
+      this.tipo_tramite = 'REGISTRO';
+    }
+    if (primerdigito == '2') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+    }
+    if (primerdigito == '3') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+    }
+    if (primerdigito == '4') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+    }
+    if (primerdigito == '5') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+    }
+    if (primerdigito == '6') {
+      this.tipo_tramite = 'REINGRESO';
+    }
+    if (estado == '20') {
+      this.tipo_tramite = 'REGISTRO';
+    }
+    if (estado == '30') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+    }
+    if (estado == '40') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+    }
+    if (estado == '50') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+    }
+    if (estado == '60') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+    }
+    if (estado == '70') {
+      this.tipo_tramite = 'REINGRESO';
+    }
+    this.data_selected_table.register.register_data_on_catastro;
+    this.as_turistic_date = new Date(this.data_selected_table.register.register_data_on_catastro.as_turistic_date.toString());
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.register_procedure_alojamiento_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
+        if (typeof r.id != 'undefined') {
+          this.motivoTramite = r.justification;
+        }
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.register_procedure_alimentos_bebidas_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
+        if (typeof r.id != 'undefined') {
+          this.motivoTramite = r.justification;
+        }
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.register_procedure_operacion_intermediacion_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
+        if (typeof r.id != 'undefined') {
+          this.motivoTramite = r.justification;
+        }
+      }).catch( e => { console.log(e); });
+    }
+  }
+  
   descargarDocumentoDePago(paySelected: Pay) {
     this.downloadFile(
       paySelected.pay_attachment.pay_attachment_file,
