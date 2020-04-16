@@ -16,6 +16,8 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 })
 export class ClienteInternoInspectorComponent implements OnInit {
   
+  showBandejas = false;
+
   user = new User();
   
   data_selected = {row: null, 
@@ -50,40 +52,8 @@ export class ClienteInternoInspectorComponent implements OnInit {
     private state_operacion_intermediacion_DataService: StateOPService) {}
 
   ngOnInit() {
+    this.showBandejas = false;
     this.getStates();
-    this.getRegisterTypes();
-    this.getUser();
-  }
-
-  getUser() {
-    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
-      this.user = r as User;
-    }).catch( e => console.log(e));
-  }
-
-  getRegisterTypes() {
-    this.register_types = [];
-    const register_types_alojamiento = [];
-    const register_types_alimentos_bebidas = [];
-    const register_types_operacion_intermediacion = [];
-    this.consultorDataService.get_all_register_types().then( r => {
-      // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3} 
-      this.register_types = r as any[];
-      this.register_types.forEach(element => {
-        if (element.activity_id == 1) {
-          register_types_alojamiento.push(element.register_type);
-        }
-        if (element.activity_id == 2) {
-          register_types_alimentos_bebidas.push(element.register_type);
-        }
-        if (element.activity_id == 3) {
-          register_types_operacion_intermediacion.push(element.register_type);
-        }
-      });
-      this.register_types_block.register_types_alojamiento = register_types_alojamiento;
-      this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
-      this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
-    }).catch( e => { console.log(e); });
   }
 
   getStates() {
@@ -95,16 +65,18 @@ export class ClienteInternoInspectorComponent implements OnInit {
     this.state_alojamiento_DataService.get().then( r => {
       this.states.alojamiento = r as State[];
       this.buildEstadostramite(this.states.alojamiento);
-    }).catch( e => { console.log(e); });
-    this.state_alimentos_bebidas_DataService.get().then( r => {
-      this.states.alimentos_bebidas = r as State[];
-      this.buildEstadostramite(this.states.alimentos_bebidas);
-    }).catch( e => { console.log(e); });
-    this.state_operacion_intermediacion_DataService.get().then( r => {
-      this.states.operacion_intermediacion = r as State[];
-      this.buildEstadostramite(this.states.operacion_intermediacion);
+      this.state_alimentos_bebidas_DataService.get().then( r => {
+        this.states.alimentos_bebidas = r as State[];
+        this.buildEstadostramite(this.states.alimentos_bebidas);
+        this.state_operacion_intermediacion_DataService.get().then( r => {
+          this.states.operacion_intermediacion = r as State[];
+          this.buildEstadostramite(this.states.operacion_intermediacion);
+          this.getRegisterTypes();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
     }).catch( e => { console.log(e); });
   }
+
   
   buildEstadostramite(sourceArray: any[]) {
     sourceArray.forEach(element => {
@@ -129,6 +101,39 @@ export class ClienteInternoInspectorComponent implements OnInit {
       }
       return 0;
     });
+  }
+
+  getRegisterTypes() {
+    this.register_types = [];
+    const register_types_alojamiento = [];
+    const register_types_alimentos_bebidas = [];
+    const register_types_operacion_intermediacion = [];
+    this.consultorDataService.get_all_register_types().then( r => {
+      // Cada item en la respuesta tiene la forma {register_type: new RegisterType(), activity_id: 1 2 o 3} 
+      this.register_types = r as any[];
+      this.register_types.forEach(element => {
+        if (element.activity_id == 1) {
+          register_types_alojamiento.push(element.register_type);
+        }
+        if (element.activity_id == 2) {
+          register_types_alimentos_bebidas.push(element.register_type);
+        }
+        if (element.activity_id == 3) {
+          register_types_operacion_intermediacion.push(element.register_type);
+        }
+      });
+      this.register_types_block.register_types_alojamiento = register_types_alojamiento;
+      this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
+      this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+      this.getUser();
+    }).catch( e => { console.log(e); });
+  }
+  
+  getUser() {
+    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
+      this.user = r as User;
+      this.showBandejas = true;
+    }).catch( e => console.log(e));
   }
 
   register_selected(event) {

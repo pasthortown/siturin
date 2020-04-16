@@ -1,9 +1,9 @@
-<app-tecnico-financiero-bandejas-data 
+<app-tecnico-financiero-bandejas-data *ngIf="showBandejas"
     (register_selected)="register_selected($event)" 
     [estados_tramites]="estados_tramites" 
     [user]="user" 
     [register_types_block]="register_types_block" 
-    [states]="states" *ngIf="showBandejas">
+    [states]="states">
 </app-tecnico-financiero-bandejas-data>
 <app-tecnico-financiero-gestion-data 
     [user]="user" 

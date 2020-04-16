@@ -17,7 +17,7 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
   
   showBandejas = false;
-  
+
   user = new User();
 
   data_selected = {row: null, 
@@ -56,11 +56,51 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
     this.getStates();
   }
 
-  getUser() {
-    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
-      this.user = r as User;
-      this.showBandejas = true;
-    }).catch( e => console.log(e));
+  getStates() {
+    this.estados_tramites = [];
+    this.states = { alojamiento: [],
+      alimentos_bebidas: [],
+      operacion_intermediacion: [],
+    };
+    this.state_alojamiento_DataService.get().then( r => {
+      this.states.alojamiento = r as State[];
+      this.buildEstadostramite(this.states.alojamiento);
+      this.state_alimentos_bebidas_DataService.get().then( r => {
+        this.states.alimentos_bebidas = r as State[];
+        this.buildEstadostramite(this.states.alimentos_bebidas);
+        this.state_operacion_intermediacion_DataService.get().then( r => {
+          this.states.operacion_intermediacion = r as State[];
+          this.buildEstadostramite(this.states.operacion_intermediacion);
+          this.getRegisterTypes();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }).catch( e => { console.log(e); });
+  }
+
+  
+  buildEstadostramite(sourceArray: any[]) {
+    sourceArray.forEach(element => {
+      if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
+        let existe_a = false;
+        this.estados_tramites.forEach(e1 => {
+          if (e1.name == element.name) {
+            existe_a = true;
+          }
+        });
+        if (!existe_a) {
+          this.estados_tramites.push(element);
+        }
+      } 
+    });
+    this.estados_tramites.sort( (s1, s2) => {
+      if (s1.name > s2.name) {
+        return 1;
+      }
+      if (s1.name < s2.name) {
+        return -1;
+      }
+      return 0;
+    });
   }
 
   getRegisterTypes() {
@@ -89,50 +129,11 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
     }).catch( e => { console.log(e); });
   }
   
-  getStates() {
-    this.estados_tramites = [];
-    this.states = { alojamiento: [],
-      alimentos_bebidas: [],
-      operacion_intermediacion: [],
-    };
-    this.state_alojamiento_DataService.get().then( r => {
-      this.states.alojamiento = r as State[];
-      this.buildEstadostramite(this.states.alojamiento);
-      this.state_alimentos_bebidas_DataService.get().then( r => {
-        this.states.alimentos_bebidas = r as State[];
-        this.buildEstadostramite(this.states.alimentos_bebidas);
-        this.state_operacion_intermediacion_DataService.get().then( r => {
-          this.states.operacion_intermediacion = r as State[];
-          this.buildEstadostramite(this.states.operacion_intermediacion);
-          this.getRegisterTypes();
-        }).catch( e => { console.log(e); });
-      }).catch( e => { console.log(e); });
-    }).catch( e => { console.log(e); });
-  }
-  
-  buildEstadostramite(sourceArray: any[]) {
-    sourceArray.forEach(element => {
-      if ((element.father_code == '-') && (element.name != 'Documentación Entregada')) {
-        let existe_a = false;
-        this.estados_tramites.forEach(e1 => {
-          if (e1.name == element.name) {
-            existe_a = true;
-          }
-        });
-        if (!existe_a) {
-          this.estados_tramites.push(element);
-        }
-      } 
-    });
-    this.estados_tramites.sort( (s1, s2) => {
-      if (s1.name > s2.name) {
-        return 1;
-      }
-      if (s1.name < s2.name) {
-        return -1;
-      }
-      return 0;
-    });
+  getUser() {
+    this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
+      this.user = r as User;
+      this.showBandejas = true;
+    }).catch( e => console.log(e));
   }
 
   register_selected(event) {
