@@ -468,6 +468,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   encerarDeclaracion(paySelected: Pay) {
+    paySelected.nuevo = true;
     paySelected.amount_to_pay_fines = 0;
     paySelected.amount_to_pay_taxes = 0;
     paySelected.amount_to_pay = paySelected.amount_to_pay_base + paySelected.amount_to_pay_fines + paySelected.amount_to_pay_taxes;

@@ -93,7 +93,7 @@
                     <td>{{paySelected.amount_to_pay | number: '1.2'}} USD</td>
                     <td>
                         <div class="onoffswitch">
-                            <input type="checkbox" class="onoffswitch-checkbox"  id="{{payIndex}}" name="esNuevo" [(ngModel)]="paySelected.nuevo">
+                            <input type="checkbox" class="onoffswitch-checkbox"  id="{{payIndex}}" name="esNuevo" [(ngModel)]="paySelected.nuevo" (change)="encerarDeclaracion(paySelected)">
                             <label class="onoffswitch-label" for="{{payIndex}}">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
@@ -104,9 +104,6 @@
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-success" title="Cargar Valor a Pagar" (click)="saveToPayValueCalc(paySelected)">
                                 <span class="fas fa-cloud-upload-alt"></span>
-                            </button>
-                            <button type="button" class="btn btn-warning" title="Es un Registro Nuevo" (click)="encerarDeclaracion(paySelected)">
-                                <span class="fas fa-file-export"></span>
                             </button>
                             <button type="button" class="btn btn-danger" title="Encerar Todo" (click)="encerarAllDeclaracion(paySelected)">
                                 <span class="fas fa-eraser"></span>
