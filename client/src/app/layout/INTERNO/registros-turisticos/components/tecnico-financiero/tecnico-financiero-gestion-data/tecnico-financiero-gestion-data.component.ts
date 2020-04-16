@@ -174,6 +174,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     this.fechaSolicitud = new Date(this.data_selected_table.register.register.created_at.toString());
     this.getDeclarationsByEstablishment(this.data_selected_table.register.establishment.id);
     this.getApprovalStates();
+    this.getPays();
   }
 
   loadCatalogs() {
