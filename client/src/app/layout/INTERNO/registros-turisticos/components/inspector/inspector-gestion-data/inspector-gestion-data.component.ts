@@ -292,10 +292,10 @@ export class InspectorGestionDataComponent implements OnInit {
       return;
     }
     this.rucData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al SRI...</strong></div>';
-    console.log(this.data_selected_table);
     if (this.data_selected_table.register.ruc.number.length !== 13) {
       this.rucValidated = false;
       this.consumoRuc = false;
+      this.rucData = '';
       return;
     }
     if (!this.consumoRuc) {
