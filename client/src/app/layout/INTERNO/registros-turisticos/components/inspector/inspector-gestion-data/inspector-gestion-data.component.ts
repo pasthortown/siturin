@@ -17,7 +17,7 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } fr
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 
-import { ApprovalStateReport } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateReport';
+import { ApprovalStateReport } from 'src/app/models/ALOJAMIENTO/ApprovalStateReport';
 import { ApprovalStateAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateAttachment';
 import { RegisterType } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
 import { Zone } from 'src/app/models/BASE/Zone';
