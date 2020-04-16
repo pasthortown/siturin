@@ -136,7 +136,9 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   ngOnInit() {
     this.loadCatalogs();
-    this.refresh();
+    if (this.data_selected_table.register.states != null) {
+      this.refresh();
+    }
   }
 
   ngOnChanges() {
