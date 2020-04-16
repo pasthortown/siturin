@@ -1,5 +1,5 @@
 [
-    {"Requisite":{"id":1,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"REQUISITOS OBLIGATORIOS CAFETERÍA (Anexo B)","description":"REQUISITOS OBLIGATORIOS CAFETERÍA (Anexo B)","father_code":"-","to_approve":40,"mandatory":false,"type":"GRUPO 0","params":"","code":"1","score":0,"register_type_id":2},"attach":[]},
+{"Requisite":{"id":1,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"REQUISITOS OBLIGATORIOS CAFETERÍA (Anexo B)","description":"REQUISITOS OBLIGATORIOS CAFETERÍA (Anexo B)","father_code":"-","to_approve":40,"mandatory":false,"type":"GRUPO 0","params":"","code":"1","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":2,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Certificado de informe de compatibilidad positiva o favorable de uso de suelo otorgado por el Gobierno Autónomo Descentralizado. ","description":"Certificado de informe de compatibilidad positiva o favorable de uso de suelo otorgado por el Gobierno Autónomo Descentralizado. ","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.1","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":3,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Cuenta con el 40% del personal que acredite su capacitación, formación profesional o que posea certificación de competencias laborales para ofertar el servicio de alimentos y bebidas","description":"Cuenta con el 40% del personal que acredite su capacitación, formación profesional o que posea certificación de competencias laborales para ofertar el servicio de alimentos y bebidas","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.2","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":4,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Tener acceso universal el establecimiento e instalaciones, con facilidades para el uso de personas con discapacidad. (En caso de establecimientos existentes contar con ayudas técnicas o servicio personalizado que haya aprobado el curso de atención al turista con discapacidades emitido por la autoridad competente.","description":"Tener acceso universal el establecimiento e instalaciones, con facilidades para el uso de personas con discapacidad. (En caso de establecimientos existentes contar con ayudas técnicas o servicio personalizado que haya aprobado el curso de atención al turista con discapacidades emitido por la autoridad competente.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.3","score":0,"register_type_id":2},"attach":[]},
@@ -16,8 +16,24 @@
 {"Requisite":{"id":15,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"La vajilla, cristalería, cubertería e implementos de cocina deben estar sobre estanterías o repisas en buenas condiciones, limpios y a una distancia mínima de 15 cm. del piso, 50 cm. entre hileras y 15 cm. de la pared. No deben estar en contacto con el piso.","description":"La vajilla, cristalería, cubertería e implementos de cocina deben estar sobre estanterías o repisas en buenas condiciones, limpios y a una distancia mínima de 15 cm. del piso, 50 cm. entre hileras y 15 cm. de la pared. No deben estar en contacto con el piso.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.11","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":16,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento de acuerdo a los establecido por la autoridad competente","description":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento de acuerdo a los establecido por la autoridad competente","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.12","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":17,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con sumideros en áreas de preparación de alimentos.","description":"Contar con sumideros en áreas de preparación de alimentos.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.13","score":0,"register_type_id":2},"attach":[]},
-{"Requisite":{"id":18,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente","description":"Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.14","score":0,"register_type_id":2},"attach":[]},
-{"Requisite":{"id":19,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.","description":"Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.15","score":0,"register_type_id":2},"attach":[]},
+{
+    "Requisite": {
+        "id": 18,
+        "created_at": "2020-02-14 09:40:21",
+        "updated_at": "2020-02-14 09:40:21",
+        "name": "Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.",
+        "description": "Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.",
+        "father_code": "3",
+        "to_approve": 1,
+        "mandatory": true,
+        "type": "TRUE / FALSE",
+        "params": "",
+        "code": "3,14",
+        "score": "0",
+        "register_type_id": 2
+    },
+    "attach": []
+},
 {"Requisite":{"id":20,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","description":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.16","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":21,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","description":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.17","score":0,"register_type_id":2},"attach":[]},
 {"Requisite":{"id":22,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","description":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.18","score":0,"register_type_id":2},"attach":[]},
@@ -151,8 +167,25 @@
 {"Requisite":{"id":150,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento.","description":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.12","score":0,"register_type_id":11},"attach":[]},
 {"Requisite":{"id":151,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Debe contar con sumideros en áreas de preparación de alimentos.","description":"Debe contar con sumideros en áreas de preparación de alimentos.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.13","score":0,"register_type_id":11},"attach":[]},
 {"Requisite":{"id":152,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Debe contar con un equipo que garantice la extracción de humos y olores de la zona de cocción.","description":"Debe contar con un equipo que garantice la extracción de humos y olores de la zona de cocción.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.14","score":0,"register_type_id":11},"attach":[]},
-{"Requisite":{"id":153,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. ","description":"Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. ","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.15","score":0,"register_type_id":11},"attach":[]},
-{"Requisite":{"id":154,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Nota: se exceptúa para los establecimientos que compartan baños","description":"Nota: se exceptúa para los establecimientos que compartan baños","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.16","score":0,"register_type_id":11},"attach":[]},
+
+{
+    "Requisite": {
+        "id": 153,
+        "created_at": "2020-02-14 09:40:21",
+        "updated_at": "2020-02-14 09:40:21",
+        "name": "Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los establecimientos que compartan baños",
+        "description": "Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los establecimientos que compartan baños",
+        "father_code": "3",
+        "to_approve": 1,
+        "mandatory": true,
+        "type": "TRUE / FALSE",
+        "params": "",
+        "code": "3,15",
+        "score": "0",
+        "register_type_id": 11
+    },
+    "attach": []
+},
 {"Requisite":{"id":155,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","description":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.17","score":0,"register_type_id":11},"attach":[]},
 {"Requisite":{"id":156,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","description":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.18","score":0,"register_type_id":11},"attach":[]},
 {"Requisite":{"id":157,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","description":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.19","score":0,"register_type_id":11},"attach":[]},
@@ -393,8 +426,25 @@
 {"Requisite":{"id":392,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"La vajilla, cristalería, cubertería e implementos de cocina deben estar sobre estanterías o repisas en buenas condiciones, limpios y a una distancia mínima de 15 cm. del piso, 50 cm. entre hileras y 15 cm. de la pared. No deben estar en contacto con el piso.","description":"La vajilla, cristalería, cubertería e implementos de cocina deben estar sobre estanterías o repisas en buenas condiciones, limpios y a una distancia mínima de 15 cm. del piso, 50 cm. entre hileras y 15 cm. de la pared. No deben estar en contacto con el piso.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.11","score":0,"register_type_id":33},"attach":[]},
 {"Requisite":{"id":393,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento de acuerdo a los establecido por la autoridad competente","description":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento de acuerdo a los establecido por la autoridad competente","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.12","score":0,"register_type_id":33},"attach":[]},
 {"Requisite":{"id":394,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con sumideros en áreas de preparación de alimentos.","description":"Contar con sumideros en áreas de preparación de alimentos.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.13","score":0,"register_type_id":33},"attach":[]},
-{"Requisite":{"id":395,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente","description":"Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.14","score":0,"register_type_id":33},"attach":[]},
-{"Requisite":{"id":396,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.","description":"Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.15","score":0,"register_type_id":33},"attach":[]},
+{
+    "Requisite": {
+        "id": 395,
+        "created_at": "2020-02-14 09:40:21",
+        "updated_at": "2020-02-14 09:40:21",
+        "name": "Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.",
+        "description": "Contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los centros comerciales y/o edificaciones que compartan baños que a su vez cumplan con el marco legal.",
+        "father_code": "3",
+        "to_approve": 1,
+        "mandatory": true,
+        "type": "TRUE / FALSE",
+        "params": "",
+        "code": "3,14",
+        "score": "0",
+        "register_type_id": 33
+    },
+    "attach": []
+},
+
 {"Requisite":{"id":397,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","description":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.16","score":0,"register_type_id":33},"attach":[]},
 {"Requisite":{"id":398,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","description":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.17","score":0,"register_type_id":33},"attach":[]},
 {"Requisite":{"id":399,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","description":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.18","score":0,"register_type_id":33},"attach":[]},
@@ -528,8 +578,25 @@
 {"Requisite":{"id":527,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento.","description":"Exhibir en un lugar visible al consumidor el aforo permitido en el establecimiento.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.12","score":0,"register_type_id":42},"attach":[]},
 {"Requisite":{"id":528,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Debe contar con sumideros en áreas de preparación de alimentos.","description":"Debe contar con sumideros en áreas de preparación de alimentos.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.13","score":0,"register_type_id":42},"attach":[]},
 {"Requisite":{"id":529,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Debe contar con un equipo que garantice la extracción de humos y olores de la zona de cocción.","description":"Debe contar con un equipo que garantice la extracción de humos y olores de la zona de cocción.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.14","score":0,"register_type_id":42},"attach":[]},
-{"Requisite":{"id":530,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. ","description":"Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. ","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.15","score":0,"register_type_id":42},"attach":[]},
-{"Requisite":{"id":531,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Nota: se exceptúa para los establecimientos que compartan baños","description":"Nota: se exceptúa para los establecimientos que compartan baños","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.16","score":0,"register_type_id":42},"attach":[]},
+{
+    "Requisite": {
+        "id": 530,
+        "created_at": "2020-02-14 09:40:21",
+        "updated_at": "2020-02-14 09:40:21",
+        "name": "Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los establecimientos que compartan baños",
+        "description": "Debe contar con baños y/o baterías sanitarias en cumplimiento con el marco legal vigente. <br /> Nota: se exceptúa para los establecimientos que compartan baños",
+        "father_code": "3",
+        "to_approve": 1,
+        "mandatory": true,
+        "type": "TRUE / FALSE",
+        "params": "",
+        "code": "3,15",
+        "score": "0",
+        "register_type_id": 42
+    },
+    "attach": []
+},
+
 {"Requisite":{"id":532,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","description":"Contar con menú de alimentos y bebidas que incluya precio con impuestos, exhibidos al público y legibles.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.17","score":0,"register_type_id":42},"attach":[]},
 {"Requisite":{"id":533,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","description":"Contar con personal uniformado de servicio: no uso de joyas, uso de uniforme limpio, uñas cortas, limpias, sin pintura de uñas.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.18","score":0,"register_type_id":42},"attach":[]},
 {"Requisite":{"id":534,"created_at":"2019-11-25 09:28:02","updated_at":"2019-11-25 09:28:02","name":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","description":"Personal que manipula alimentos: no uso de joyas, uñas cortas, limpias, sin pintura de uñas, uniforme limpio y sin maquillaje.","father_code":"1","to_approve":1,"mandatory":true,"type":"TRUE / FALSE","params":"","code":"1.19","score":0,"register_type_id":42},"attach":[]},
