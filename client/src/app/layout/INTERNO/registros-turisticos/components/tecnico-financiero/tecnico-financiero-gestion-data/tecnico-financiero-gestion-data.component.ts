@@ -745,6 +745,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         datosZonal = element;
       }
     });
+    console.log(this.zonales);
     const czDireccion = datosZonal.address;
     const czTelefono = datosZonal.phone_number;
     const information = {
