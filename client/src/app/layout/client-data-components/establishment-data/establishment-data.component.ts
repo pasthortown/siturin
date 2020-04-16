@@ -744,6 +744,7 @@ export class EstablishmentDataComponent implements OnInit {
     }
     this.establishmentDataService.register_establishment_data(this.establishment).then( r => {
        this.guardando = false;
+       this.establishment.id = r.id;
        this.canSiguiente = true;
        if ( r === '0' ) {
           this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Nuevo');
