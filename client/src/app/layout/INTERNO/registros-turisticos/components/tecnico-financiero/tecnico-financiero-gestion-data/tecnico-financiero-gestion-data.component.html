@@ -286,12 +286,12 @@
         <label class="col-form-label">Observaciones</label>
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalFinanciero.notes"></ck-editor>
     </div>
-    <!-- <div class="col-12 text-center mb-3">
-        <button type="button" [disabled]="inspectionState == 0 || (!validateInspectionInfo() || guardandoFinanciero || stateTramit == 0)" class="btn btn-success" title="Guardar Información Revisión" (click)="guardarInspeccion()">
+    <div class="col-12 text-center mb-3">
+        <button type="button" [disabled]="inspectionState == 0 || (!validateInspectionInfo() || guardandoFinanciero || stateTramiteId == 0)" class="btn btn-success" title="Guardar Información Revisión" (click)="guardarInspeccion()">
             <i class="fas fa-save"></i> Guardar Información
         </button>
         <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
             <i class="fas fa-times"></i> Cancelar
         </button>
-    </div> -->
+    </div>
 </div>

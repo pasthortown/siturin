@@ -68,6 +68,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     register_types_operacion_intermediacion: []
   };
 
+  guardandoFinanciero = false;
   mostrarMotivoTramite = false;
   estoyVacaciones = false;
   payManualAgreement = false;
@@ -327,7 +328,15 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         );
         this.registerApprovalFinanciero.date_assigment = null;
         this.registerApprovalFinanciero.notes = 'Devuelto: <strong>' + this.user.name + ':</strong> ' + this.registerApprovalFinanciero.notes;
-        this.saveRegisterStateDevolucionVacaciones();
+        const newRegisterState = new RegisterState();
+        newRegisterState.justification = 'El Técnico Financiero no se encuentra disponible por Vacaciones / Fuera de Oficina';
+        newRegisterState.register_id =  this.data_selected_table.register.register.id;
+        const estado: String = this.stateTramiteId.toString();
+        const digito = estado.substring(estado.length-1, estado.length);
+        if (digito == '7') {
+          newRegisterState.state_id = this.stateTramiteId + 3;
+        }     
+        this.saveRegisterState(newRegisterState, 'Devolución por Vacaciones / Fuera de Oficina');
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -338,41 +347,6 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         );
       }
     });
-  }
-
-  saveRegisterStateDevolucionVacaciones() {
-   const newRegisterState = new RegisterState();
-   newRegisterState.justification = 'El Técnico Financiero no se encuentra disponible por Vacaciones / Fuera de Oficina';
-   newRegisterState.register_id =  this.data_selected_table.register.register.id;
-   const estado: String = this.stateTramiteId.toString();
-   const digito = estado.substring(estado.length-1, estado.length);
-   if (digito == '7') {
-     newRegisterState.state_id = this.stateTramiteId + 3;
-   }
-   if (this.data_selected_table.register.activity_id == 1) {
-        this.approval_state_alojamiento_DataService.put(this.registerApprovalFinanciero).then( r => {
-          this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
-            this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
-            this.refresh();
-          }).catch( e => { console.log(e); });
-        }).catch( e => { console.log(e); });
-      }
-      if (this.data_selected_table.register.activity_id == 2) {
-        this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalFinanciero).then( r => {
-          this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
-            this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
-            this.refresh();
-          }).catch( e => { console.log(e); });
-        }).catch( e => { console.log(e); });
-      }
-      if (this.data_selected_table.register.activity_id == 3) {
-        this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalFinanciero).then( r => {
-          this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
-            this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
-            this.refresh();
-          }).catch( e => { console.log(e); });
-        }).catch( e => { console.log(e); });
-      }
   }
 
   buildPays() {
@@ -899,5 +873,91 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
       paySelected.pay_attachment = new PayAttachment();
       this.toastr.warningToastr('Documento de Pago Borrado Satisfactoriamente', 'Documento de Pago');
     }).catch( e => { console.log(e); });
+  }
+
+  validateInspectionInfo(): boolean {
+    return this.registerApprovalFinanciero.notes.length > 4;
+  }
+
+  guardarInspeccion() {
+    this.guardandoFinanciero = true;
+    const estado: String = this.stateTramiteId.toString();
+    const digito = estado.substring(estado.length-1, estado.length);
+    if ( this.inspectionState == 0) {
+      this.toastr.errorToastr('Debe seleccionar un estado de la revisión', 'Revisión, Técnico Financiero');
+      return;
+    }
+    const today = new Date();
+    this.registerApprovalFinanciero.date_fullfill = today;
+    let newRegisterState = new RegisterState();
+    if ( this.inspectionState == 1) {
+      this.registerApprovalFinanciero.value = true;
+      if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId;
+      }
+      if (digito == '7') {
+       newRegisterState.state_id = this.stateTramiteId + 3;
+      }
+      if (digito == '8') {
+       newRegisterState.state_id = this.stateTramiteId + 2;
+      }
+    }
+    if ( this.inspectionState == 2) {
+      this.registerApprovalFinanciero.value = false;
+      if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId;
+      }
+      if (digito == '7') {
+       newRegisterState.state_id = this.stateTramiteId + 3;
+      }
+      if (digito == '8') {
+       newRegisterState.state_id = this.stateTramiteId + 2;
+      }
+    }
+    if ( this.inspectionState == 3) {
+      this.registerApprovalFinanciero.value = false;
+      if (digito == '0') {
+       newRegisterState.state_id = this.stateTramiteId - 2;
+      }
+      if (digito == '7') {
+       newRegisterState.state_id = this.stateTramiteId + 1;
+      }
+      if (digito == '8') {
+       newRegisterState.state_id = this.stateTramiteId;
+      }
+    }
+    newRegisterState.justification = 'Resultados de la Revisión de Técnico Financiero cargados en la fecha ' + today.toDateString();
+    newRegisterState.register_id = this.registerApprovalFinanciero.register_id;
+    this.saveRegisterState(newRegisterState, 'Datos guardados satisfactoriamente.', 'Revisión, Técnico Financiero');
+  }
+
+  saveRegisterState(newRegisterState: RegisterState, messageToastr: string) {
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+          this.toastr.successToastr(messageToastr);
+          this.guardandoFinanciero = false;
+          this.refresh();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+          this.toastr.successToastr(messageToastr);
+          this.guardandoFinanciero = false;
+          this.refresh();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+          this.toastr.successToastr(messageToastr);
+          this.guardandoFinanciero = false;
+          this.refresh();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
   }
 }
