@@ -396,7 +396,7 @@ export class InspectorBandejasDataComponent implements OnInit {
   onCellClick(event) {
     let activity = event.row.actividad;
     let idRegister = event.row.registerId;
-    const toReturn = {row: null, 
+    const toReturn = {row: event.row, 
       register: {register: null,
         activity_id: 0,
         activity: '',
