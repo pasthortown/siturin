@@ -16,6 +16,8 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 })
 export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
   
+  showBandejas = false;
+  
   user = new User();
 
   data_selected = {row: null, 
@@ -50,14 +52,14 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
     private state_operacion_intermediacion_DataService: StateOPService) {}
 
   ngOnInit() {
+    this.showBandejas = false;
     this.getStates();
-    this.getRegisterTypes();
-    this.getUser();
   }
 
   getUser() {
     this.userDataService.get(JSON.parse(sessionStorage.getItem('user')).id).then( r => {
       this.user = r as User;
+      this.showBandejas = true;
     }).catch( e => console.log(e));
   }
 
@@ -83,6 +85,7 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
       this.register_types_block.register_types_alojamiento = register_types_alojamiento;
       this.register_types_block.register_types_alimentos_bebidas = register_types_alimentos_bebidas;
       this.register_types_block.register_types_operacion_intermediacion = register_types_operacion_intermediacion;
+      this.getUser();
     }).catch( e => { console.log(e); });
   }
   
@@ -95,14 +98,15 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
     this.state_alojamiento_DataService.get().then( r => {
       this.states.alojamiento = r as State[];
       this.buildEstadostramite(this.states.alojamiento);
-    }).catch( e => { console.log(e); });
-    this.state_alimentos_bebidas_DataService.get().then( r => {
-      this.states.alimentos_bebidas = r as State[];
-      this.buildEstadostramite(this.states.alimentos_bebidas);
-    }).catch( e => { console.log(e); });
-    this.state_operacion_intermediacion_DataService.get().then( r => {
-      this.states.operacion_intermediacion = r as State[];
-      this.buildEstadostramite(this.states.operacion_intermediacion);
+      this.state_alimentos_bebidas_DataService.get().then( r => {
+        this.states.alimentos_bebidas = r as State[];
+        this.buildEstadostramite(this.states.alimentos_bebidas);
+        this.state_operacion_intermediacion_DataService.get().then( r => {
+          this.states.operacion_intermediacion = r as State[];
+          this.buildEstadostramite(this.states.operacion_intermediacion);
+          this.getRegisterTypes();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
     }).catch( e => { console.log(e); });
   }
   
