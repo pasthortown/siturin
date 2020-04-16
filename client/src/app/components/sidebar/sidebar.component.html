@@ -171,7 +171,7 @@
       <a [routerLink]="['/bitacora']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isCoordinadorZonal || isTecnF || isInsp">
          <i class="far fa-address-card"></i>&nbsp; <span>Bitácora</span>
       </a>
-      <a [routerLink]="['/tecnico-financiero']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isTecnF">
+      <a [routerLink]="['/cliente-interno-tecnico-financiero']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isTecnF">
          <i class="fa fa-credit-card"></i>&nbsp; <span>Técnico financiero</span>
       </a>
       <a [routerLink]="['/inspector']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isInsp">
@@ -577,7 +577,7 @@
                   <a [routerLink]="['/inner-financial-account-admin']" [routerLinkActive]="['router-link-active']" class="list-group-item">Administración de Cuentas Técnicos Financieros</a>
                </li>
                <li>
-                  <a [routerLink]="['/tecnico-financiero']" [routerLinkActive]="['router-link-active']" class="list-group-item">Técnico Financiero</a>
+                  <a [routerLink]="['/cliente-interno-tecnico-financiero']" [routerLinkActive]="['router-link-active']" class="list-group-item">Técnico Financiero</a>
                </li>
                <li>
                   <a [routerLink]="['/pagos']" [routerLinkActive]="['router-link-active']" class="list-group-item">Pagos</a>
