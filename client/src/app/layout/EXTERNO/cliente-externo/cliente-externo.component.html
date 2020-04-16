@@ -22,16 +22,32 @@
         <ngb-tabset #pasosSuperiores (tabChange)="changeTabActiveSuperior($event)">
             <ngb-tab title="Paso I. Información de la Persona Natural / Jurídica" id="pasoI">
                 <ng-template ngbTabContent>
-                    <app-ruc-data [user]="user" [editable]="isEditable" (ruc_validated)="ruc_validated($event)" (next_page_button_click)="change_page_button_click($event)"></app-ruc-data>
+                    <app-ruc-data 
+                        [user]="user" 
+                        [editable]="isEditable" 
+                        (ruc_validated)="ruc_validated($event)" 
+                        (next_page_button_click)="change_page_button_click($event)"></app-ruc-data>
                 </ng-template>
             </ngb-tab>
             <ngb-tab title="Paso II. Información del Establecimiento" id="pasoII" *ngIf="mostrarEstablecimientos">
                 <ng-template ngbTabContent>
-                    <app-establishment-list-data [ruc_number]="user.ruc" [ruc_code_id]="data_selected.register.establishment_ruc_code" (establishment_selected)="establishmentSelected($event)"></app-establishment-list-data>
+                    <app-establishment-list-data 
+                        [ruc_number]="user.ruc" 
+                        [ruc_code_id]="data_selected.register.establishment_ruc_code" 
+                        (establishment_selected)="establishmentSelected($event)">
+                    </app-establishment-list-data>
                     <ngb-tabset #pasos (tabChange)="changeTabActive($event)" *ngIf="mostrarPasosInferiores">
                         <ngb-tab title="Paso 1.- Datos Generales del Establecimiento" id="paso1">
                             <ng-template ngbTabContent>
-                                <app-establishment-data [min_data]="false" [ruc]="data_selected.ruc" [editable]="isEditable" [establishment]="data_selected.establishment" (establishment_validated)="establishment_validated($event)" (preview_page_button_click)="change_page_button_click($event)" (next_page_button_click)="change_page_button_click($event)"></app-establishment-data>
+                                <app-establishment-data 
+                                    [min_data]="false" 
+                                    [ruc]="data_selected.ruc" 
+                                    [editable]="isEditable" 
+                                    [establishment]="data_selected.establishment" 
+                                    (establishment_validated)="establishment_validated($event)" 
+                                    (preview_page_button_click)="change_page_button_click($event)" 
+                                    (next_page_button_click)="change_page_button_click($event)">
+                                </app-establishment-data>
                             </ng-template>
                         </ngb-tab> 
                         <ngb-tab title="Paso 2.- Declaración de la Contribución Uno por Mil" id="paso2" *ngIf="mostrarDeclarations">
