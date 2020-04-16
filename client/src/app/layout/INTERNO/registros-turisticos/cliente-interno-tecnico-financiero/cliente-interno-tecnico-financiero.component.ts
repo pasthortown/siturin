@@ -139,6 +139,7 @@ export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
 
   register_selected(event) {
     this.data_selected = event;
+    console.log(event);
     if (event.row == null) {
       this.showDataRegisterSelected = false;  
     } else {
