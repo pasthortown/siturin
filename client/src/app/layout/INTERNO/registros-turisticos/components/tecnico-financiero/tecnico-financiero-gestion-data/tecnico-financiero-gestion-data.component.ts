@@ -1,3 +1,18 @@
+import { RegisterType } from './../../../../../../models/ALIMENTOSBEBIDAS/RegisterType';
+import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
+import { Zone } from 'src/app/models/BASE/Zone';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { Ubication } from 'src/app/models/BASE/Ubication';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
+import { UserService } from 'src/app/services/profile/user.service';
+import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
+import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
+import { Establishment } from 'src/app/models/BASE/Establishment';
 import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
@@ -11,10 +26,11 @@ import { Declaration } from 'src/app/models/FINANCIERO/Declaration';
 import { PayTax } from 'src/app/models/FINANCIERO/PayTax';
 import { ApprovalState } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalState';
 import { User } from 'src/app/models/profile/User';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PayAttachment } from 'src/app/models/FINANCIERO/PayAttachment';
 import Swal from 'sweetalert2';
 import { saveAs } from 'file-saver/FileSaver';
+
 
 @Component({
   selector: 'app-tecnico-financiero-gestion-data',
@@ -22,8 +38,23 @@ import { saveAs } from 'file-saver/FileSaver';
   styleUrls: ['./tecnico-financiero-gestion-data.component.scss']
 })
 export class TecnicoFinancieroGestionDataComponent implements OnInit {
-  user: User = new User();
-  registerMinturSelected = null;
+  @Input('user') user = new User(); 
+  @Input('data_selected') data_selected_table = {row: null, 
+     register: {register: null,
+       activity_id: 0,
+       activity: '',
+       establishment: new Establishment(),
+       ruc: new Ruc(),
+       states: null,
+       register_data_on_catastro: null
+     }
+  };
+  
+  @Input('register_types_block') register_types_block = {
+    register_types_alojamiento: [],
+    register_types_alimentos_bebidas: [],
+    register_types_operacion_intermediacion: []
+  };
 
   mostrarMotivoTramite = false;
   estoyVacaciones = false;
@@ -32,12 +63,16 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
 
   motivoTramite = '';
   digito = '';
+  stateTramiteId = 0;
 
   paytaxes: PayTax[] = [];
   pays: Pay[] = [];
   pays_calc = [];
   paySelectedOrders: Pay = new Pay();
   pay: Pay = new Pay();
+
+  ubications: Ubication[] = [];
+  zonales: Zone[] = [];
 
   registerApprovalFinanciero: ApprovalState = new ApprovalState();
   contactUser: User = new User();
@@ -52,19 +87,29 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   totalPayToPay = 0;
 
   inspectionState = 0;
-
-  ruc: Ruc = new Ruc();
   
   constructor(private toastr: ToastrManager,
+   private ubicationDataService: UbicationService,
+   private zoneDataService: ZoneService,
+   private userDataService: UserService,
+   private mailerDataService: MailerService,
    private payTaxDataService: PayTaxService,
    private payDataService: PayService,
    private payAttachmentDataService: PayAttachmentService,
-   private exporterDataService: ExporterService) {
+   private exporterDataService: ExporterService,
+   private approval_state_alojamiento_DataService: ApprovalStateALService,
+   private approval_state_alimentos_bebidas_DataService: ApprovalStateABService,
+   private approval_state_operacion_intermediacion_DataService: ApprovalStateOPService,
+   private register_state_alojamiento_DataService: RegisterStateALService,
+   private register_state_alimentos_bebidas_DataService: RegisterStateABService,
+   private register_state_operacion_intermediacion_DataService: RegisterStateOPService,
+   ) {
     
   }
 
   ngOnInit() {
     this.contactUser.id = 0;
+    this.loadCatalogs();
     this.refresh();
   }
 
@@ -73,7 +118,30 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   refresh() {
+    this.getContactUser();
+  }
 
+  loadCatalogs() {
+    this.getUbications();
+  }
+  
+  getUbications() {
+    this.ubications = [];
+    this.ubicationDataService.get().then( r => {
+      this.ubications = r as Ubication[];
+    }).catch( e => { console.log(e); });
+  }
+
+  getZonales() {
+    this.zoneDataService.get().then( r => {
+      this.zonales = r;
+    }).catch( e => { console.log(e); });
+  }
+
+  getContactUser() {
+   this.userDataService.get(this.data_selected_table.register.establishment.contact_user_id).then( r => {
+      this.contactUser = r as User;
+   }).catch( e => { console.log(e); });
   }
 
   rechazarCheck() {
@@ -81,69 +149,73 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   devolverVacaciones() {
-    // if(this.registerApprovalFinanciero.notes == '') {
-    //   this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Devolución por Vacaciones / Fuera de Oficina');
-    //   return;
-    // }
-    // Swal.fire({
-    //   title: 'Confirmación',
-    //   text: '¿Está seguro de devolver el trámite al Coordinador Zonal?, Recuerde que al hacerlo, la solicitud volverá a la Bandeja del Coordinador Zonal para una nueva asignación.',
-    //   type: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Si, continuar',
-    //   cancelButtonText: 'No, cancelar',
-    //   reverseButtons: true
-    // }).then((result) => {
-    //   if (result.value) {
-    //     Swal.fire(
-    //       'Trámite Devuelto!',
-    //       'La solicitud ha sido devuelta al Coordinador Zonal',
-    //       'success'
-    //     );
-    //     this.registerApprovalFinanciero.date_assigment = null;
-    //     this.registerApprovalFinanciero.notes = 'Devuelto: <strong>' + this.user.name + ':</strong> ' + this.registerApprovalFinanciero.notes;
-    //     if (this.activity == 'ALOJAMIENTO') {
-    //       this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
-    //         const newRegisterState = new RegisterState();
-    //         newRegisterState.justification = 'El Técnico Financiero no se encuentra disponible por Vacaciones / Fuera de Oficina';
-    //         newRegisterState.register_id =  this.idRegister;
-    //         const estado: String = this.stateTramiteId.toString();
-    //         const digito = estado.substring(estado.length-1, estado.length);
-    //         if (digito == '7') {
-    //           newRegisterState.state_id = this.stateTramiteId + 3;
-    //         }
-    //         this.registerStateDataService.post(newRegisterState).then( r1 => {
-    //           this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
-    //           this.refresh();
-    //         }).catch( e => { console.log(e); });
-    //       }).catch( e => { console.log(e); });
-    //     }
-    //     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-    //       this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
-    //         const newRegisterState = new RegisterState();
-    //         newRegisterState.justification = 'El Técnico Financiero no se encuentra disponible por Vacaciones / Fuera de Oficina';
-    //         newRegisterState.register_id =  this.idRegister;
-    //         const estado: String = this.stateTramiteId.toString();
-    //         const digito = estado.substring(estado.length-1, estado.length);
-    //         if (digito == '7') {
-    //           newRegisterState.state_id = this.stateTramiteId + 3;
-    //         }
-    //         this.registerStateABDataService.post(newRegisterState).then( r1 => {
-    //           this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
-    //           this.refresh();
-    //         }).catch( e => { console.log(e); });
-    //       }).catch( e => { console.log(e); });
-    //     }
-    //   } else if (
-    //     result.dismiss === Swal.DismissReason.cancel
-    //   ) {
-    //     Swal.fire(
-    //       'Cancelado',
-    //       '',
-    //       'error'
-    //     );
-    //   }
-    // });
+    if(this.registerApprovalFinanciero.notes == '') {
+      this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Devolución por Vacaciones / Fuera de Oficina');
+      return;
+    }
+    Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de devolver el trámite al Coordinador Zonal?, Recuerde que al hacerlo, la solicitud volverá a la Bandeja del Coordinador Zonal para una nueva asignación.',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Trámite Devuelto!',
+          'La solicitud ha sido devuelta al Coordinador Zonal',
+          'success'
+        );
+        this.registerApprovalFinanciero.date_assigment = null;
+        this.registerApprovalFinanciero.notes = 'Devuelto: <strong>' + this.user.name + ':</strong> ' + this.registerApprovalFinanciero.notes;
+        this.saveRegisterStateDevolucionVacaciones();
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+      }
+    });
+  }
+
+  saveRegisterStateDevolucionVacaciones() {
+   const newRegisterState = new RegisterState();
+   newRegisterState.justification = 'El Técnico Financiero no se encuentra disponible por Vacaciones / Fuera de Oficina';
+   newRegisterState.register_id =  this.data_selected_table.register.register.id;
+   const estado: String = this.stateTramiteId.toString();
+   const digito = estado.substring(estado.length-1, estado.length);
+   if (digito == '7') {
+     newRegisterState.state_id = this.stateTramiteId + 3;
+   }
+   if (this.data_selected_table.register.activity_id == 1) {
+        this.approval_state_alojamiento_DataService.put(this.registerApprovalFinanciero).then( r => {
+          this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+            this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
+            this.refresh();
+          }).catch( e => { console.log(e); });
+        }).catch( e => { console.log(e); });
+      }
+      if (this.data_selected_table.register.activity_id == 2) {
+        this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalFinanciero).then( r => {
+          this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+            this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
+            this.refresh();
+          }).catch( e => { console.log(e); });
+        }).catch( e => { console.log(e); });
+      }
+      if (this.data_selected_table.register.activity_id == 3) {
+        this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalFinanciero).then( r => {
+          this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+            this.toastr.warningToastr('Trámite devuelto al Coordinador Zonal, Satisfactoriamente.', 'Devolución por Vacaciones / Fuera de Oficina');
+            this.refresh();
+          }).catch( e => { console.log(e); });
+        }).catch( e => { console.log(e); });
+      }
   }
 
   buildPays() {
@@ -159,11 +231,11 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   calcTaxes(declaration: Declaration) {
     const toCalc = [];
     this.declarationItemsCategories.forEach(category => {
-      if (category.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+      if (category.tax_payer_type_id == this.data_selected_table.register.ruc.tax_payer_type_id) {
         const items = [];
         declaration.declaration_item_values_on_declaration.forEach(newValueItem => {
           this.declarationItems.forEach(item => {
-            if (item.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+            if (item.tax_payer_type_id == this.data_selected_table.register.ruc.tax_payer_type_id) {
                    if ((item.id == newValueItem.declaration_item_id) && (item.declaration_item_category_id == category.id)) {
                       items.push({declarationItem: item, valueItem: newValueItem});
                    }
@@ -254,10 +326,10 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   saveToPayValueCalc(paySelected: Pay) {
-    paySelected.ruc_id = this.ruc.id;
+    paySelected.ruc_id = this.data_selected_table.register.ruc.id;
     paySelected.amount_payed = -1;
     paySelected.pay_date = null;
-    paySelected.code = this.ruc.number.substring(0, 10) + this.pays.length.toString();
+    paySelected.code = this.data_selected_table.register.ruc.number.substring(0, 10) + this.pays.length.toString();
     paySelected.payed = false;
     this.payDataService.post(paySelected).then( r => {
       this.getPays();
@@ -273,7 +345,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   getPays() {
     this.payManualAgreement = false;
     this.paySelectedOrders = new Pay();
-    this.payDataService.get_by_ruc_id(this.ruc.id).then( r => {
+    this.payDataService.get_by_ruc_id(this.data_selected_table.register.ruc.id).then( r => {
       this.pays = r as Pay[];
       this.pays.forEach(pay => {
          if( pay.pay_attachment == null || typeof(pay.pay_attachment) == 'undefined') {
@@ -326,7 +398,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         const today = new Date();
         let year_fiscal = declaration.year;
         let tipo_persona = 'PERSONA NATURAL';
-        if (this.ruc.tax_payer_type_id == 1) {
+        if (this.data_selected_table.register.ruc.tax_payer_type_id == 1) {
           year_fiscal = declaration.year;
           tipo_persona = 'PERSONA NATURAL';
         } else {
@@ -339,22 +411,22 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         const params = [{year_declaration: declaration.year},
           {year_fiscal: year_fiscal},
           {tipo_persona: tipo_persona},
-          {razon_social: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase()},
-          {ruc: this.ruc.number},
+          {razon_social: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+          {ruc: this.data_selected_table.register.ruc.number},
           {nombre_responsable: this.user.name.toUpperCase()},
           {identificacion_responsable: this.user.identification},
-          {direccion: (this.registerMinturSelected.establishment.address_main_street + ' ' + this.registerMinturSelected.establishment.address_number + ' ' + this.registerMinturSelected.establishment.address_secondary_street).toUpperCase()},
-          {registro: this.registerMinturSelected.register.code},
-          {nombre_declarante: this.ruc.contact_user.name.toUpperCase()},
-          {identificacion_declarante: this.ruc.contact_user.identification}];
+          {direccion: (this.data_selected_table.register.establishment.address_main_street + ' ' + this.data_selected_table.register.establishment.address_number + ' ' + this.data_selected_table.register.establishment.address_secondary_street).toUpperCase()},
+          {registro: this.data_selected_table.register.register.code},
+          {nombre_declarante: this.data_selected_table.register.ruc.contact_user.name.toUpperCase()},
+          {identificacion_declarante: this.data_selected_table.register.ruc.contact_user.identification}];
         const parametrosQR = [{Año_Declaración: declaration.year},
           {Año_Fiscal: today.getFullYear()},
-          {Razón_Social: this.registerMinturSelected.establishment.commercially_known_name.toUpperCase()},
-          {RUC: this.ruc.number},
-          {Dirección: (this.registerMinturSelected.establishment.address_main_street + ' ' + this.registerMinturSelected.establishment.address_number + ' ' + this.registerMinturSelected.establishment.address_secondary_street).toUpperCase()},
-          {Registro: this.registerMinturSelected.register.code},
-          {Nombre_Declarante: this.ruc.contact_user.name.toUpperCase()},
-          {Identificación_Declarante: this.ruc.contact_user.identification},
+          {Razón_Social: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+          {RUC: this.data_selected_table.register.ruc.number},
+          {Dirección: (this.data_selected_table.register.establishment.address_main_street + ' ' + this.data_selected_table.register.establishment.address_number + ' ' + this.data_selected_table.register.establishment.address_secondary_street).toUpperCase()},
+          {Registro: this.data_selected_table.register.register.code},
+          {Nombre_Declarante: this.data_selected_table.register.ruc.contact_user.name.toUpperCase()},
+          {Identificación_Declarante: this.data_selected_table.register.ruc.contact_user.identification},
           {Valor_Pagar_Base: pay.amount_to_pay_base},
           {Valor_Pagar_Multas: pay.amount_to_pay_fines},
           {Valor_Pagar_Intereses: pay.amount_to_pay_taxes},
@@ -362,11 +434,11 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         const qr_value = JSON.stringify(parametrosQR);
         const declarationItemsToSend = [];
         this.declarationItemsCategories.forEach(category => {
-          if (category.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+          if (category.tax_payer_type_id == this.data_selected_table.register.ruc.tax_payer_type_id) {
             const items = [];
             declaration.declaration_item_values_on_declaration.forEach(newValueItem => {
               this.declarationItems.forEach(item => {
-                if (item.tax_payer_type_id == this.ruc.tax_payer_type_id) {
+                if (item.tax_payer_type_id == this.data_selected_table.register.ruc.tax_payer_type_id) {
                   if ((item.id == newValueItem.declaration_item_id) && (item.declaration_item_category_id == category.id)) {
                     items.push({declarationItem: item, valueItem: newValueItem});
                   }
@@ -384,7 +456,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
           }
           const byteArray = new Uint8Array(byteNumbers);
           const blob = new Blob([byteArray], { type: 'application/pdf'});
-          saveAs(blob, 'declaración_' + this.ruc.number + '_' + declaration.year + '.pdf');
+          saveAs(blob, 'declaración_' + this.data_selected_table.register.ruc.number + '_' + declaration.year + '.pdf');
           this.imprimiendoDeclaracion = false;
         }).catch( e => { console.log(e); });
       }
@@ -396,10 +468,10 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
   }
 
   saveToPayValue() {
-    this.pay.ruc_id = this.ruc.id;
+    this.pay.ruc_id = this.data_selected_table.register.ruc.id;
     this.pay.amount_payed = -1;
     this.pay.pay_date = null;
-    this.pay.code = this.ruc.number.substring(0, 10) + this.pays.length.toString() + 'CP';
+    this.pay.code = this.data_selected_table.register.ruc.number.substring(0, 10) + this.pays.length.toString() + 'CP';
     this.pay.payed = false;
     this.payDataService.post(this.pay).then( r => {
       this.getPays();
@@ -461,8 +533,116 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     return toReturn;
   }
 
-  enviarEmailPago() {
+  getClassificationCategoryFromCategoryID(register_type_id: number): any {
+    const toReturn = {category: new RegisterType(), classification: new RegisterType()};
+    let sourceArray = [];
+    if (this.data_selected_table.register.activity_id == 1) {
+      sourceArray = this.register_types_block.register_types_alojamiento;
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
+    }
+    sourceArray.forEach(element => {
+      if (register_type_id == element.id) {
+        toReturn.category = element;
+      }
+    });
+    sourceArray.forEach(element => {
+      if (toReturn.category.father_code == element.code) {
+        toReturn.classification = element;
+      }
+    });
+    return toReturn;
+  }
 
+  enviarEmailPago() {
+    let payCodes = '';
+    this.totalPayBase = 0;
+    this.totalPayFines = 0;
+    this.totalPayTaxes = 0;
+    this.totalPayToPay = 0;
+    this.pays.forEach(pay => {
+      if (!pay.payed) {
+        this.totalPayToPay += pay.amount_to_pay*1;
+        this.totalPayBase += pay.amount_to_pay_base*1;
+        this.totalPayFines += pay.amount_to_pay_fines*1;
+        this.totalPayTaxes += pay.amount_to_pay_taxes*1;
+        payCodes += pay.code + ', ';
+      }
+    });
+    payCodes = payCodes.trim().substr(0,payCodes.length - 1);
+    const today = new Date();
+    const classificationData = this.getClassificationCategoryFromCategoryID(this.data_selected_table.register.register.register_type_id);
+    const clasificacion = classificationData.classification.name;
+    const categoria =  classificationData.category.name;
+    let parroquiaName: String = '';
+    let parroquia: Ubication = new Ubication();
+    this.ubications.forEach(element => {
+      if (element.id == this.data_selected_table.register.establishment.ubication_id) {
+        parroquiaName = element.name;
+        parroquia = element;
+      }
+    });
+    let cantonName: String = '';
+    let canton: Ubication = new Ubication();
+    this.ubications.forEach(element => {
+      if (element.code == parroquia.father_code) {
+        cantonName = element.name;
+        canton = element;
+      }
+    });
+    let provinciaName: String = '';
+    let provincia: Ubication = new Ubication();
+    this.ubications.forEach(element => {
+      if (element.code == canton.father_code) {
+        provinciaName = element.name;
+        provincia = element;
+      }
+    });
+    let zonal: Ubication = new Ubication();
+    this.ubications.forEach(element => {
+      if (element.code == provincia.father_code){
+        zonal = element;
+      }
+    });
+    let datosZonal: Zone;
+    this.zonales.forEach(element => {
+      if (element.name == zonal.name) {
+        datosZonal = element;
+      }
+    });
+    const czDireccion = datosZonal.address;
+    const czTelefono = datosZonal.phone_number;
+    const information = {
+      para: this.contactUser.name.toUpperCase(),
+      amount_to_pay_base: this.totalPayBase,
+      amount_to_pay_fines: this.totalPayFines,
+      amount_to_pay_taxes: this.totalPayTaxes,
+      amount_to_pay: this.totalPayToPay,
+      ruc: this.data_selected_table.register.ruc.number,
+      nombreComercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase(),
+      //fechaSolicitud: this.fechaSolicitud.toLocaleDateString(),
+      actividad: this.data_selected_table.register.activity.toUpperCase(),
+      clasificacion: clasificacion.toUpperCase(),
+      categoria: categoria.toUpperCase(),
+      //tipoSolicitud: this.tipo_tramite.toUpperCase(),
+      provincia: provinciaName.toUpperCase(),
+      canton: cantonName.toUpperCase(),
+      parroquia: parroquiaName.toUpperCase(),
+      payCodes: payCodes,
+      callePrincipal: this.data_selected_table.register.establishment.address_main_street.toUpperCase(),
+      calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase(),
+      numeracion: this.data_selected_table.register.establishment.address_number,
+      czDireccion: czDireccion.toUpperCase(),
+      czTelefono: czTelefono,
+      thisYear: today.getFullYear()
+    };
+    this.mailerDataService.sendMail('pago', this.contactUser.email.toString(), 'Órden de Pago Registrada', information).then( r => {
+      this.toastr.successToastr('Información Guardada Satisfactoriamente', 'Revisión, Técnico Financiero');
+    }).catch( e => { console.log(e); });
   }
 
   descargarDocumentoDePago(paySelected: Pay) {

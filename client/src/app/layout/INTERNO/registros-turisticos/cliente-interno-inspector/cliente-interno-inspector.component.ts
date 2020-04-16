@@ -1,3 +1,5 @@
+import { Ruc } from 'src/app/models/BASE/Ruc';
+import { Establishment } from 'src/app/models/BASE/Establishment';
 import { User } from 'src/app/models/profile/User';
 import { UserService } from 'src/app/services/profile/user.service';
 import { ConsultorService } from 'src/app/services/negocio/consultor.service';
@@ -15,7 +17,17 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 export class ClienteInternoInspectorComponent implements OnInit {
   
   user = new User();
-  data_selected = {row: null, register: null};
+  
+  data_selected = {row: null, 
+    register: {register: null,
+      activity_id: 0,
+      activity: '',
+      establishment: new Establishment(),
+      ruc: new Ruc(),
+      states: null,
+      register_data_on_catastro: null
+    }
+  };
 
   estados_tramites = [];
   

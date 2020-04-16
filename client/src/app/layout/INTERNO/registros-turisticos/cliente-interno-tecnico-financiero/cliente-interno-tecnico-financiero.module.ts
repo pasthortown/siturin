@@ -25,6 +25,15 @@ import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
 import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattachment.service';
+import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
+import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
+import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -49,7 +58,16 @@ import { PayAttachmentService } from 'src/app/services/CRUD/FINANCIERO/payattach
     PayTaxService,
     PayService,
     PayAttachmentService,
-    ExporterService
+    ExporterService,
+    RegisterStateALService,
+    RegisterStateABService,
+    RegisterStateOPService,
+    ApprovalStateALService,
+    ApprovalStateABService,
+    ApprovalStateOPService,
+    MailerService,
+    UbicationService,
+    ZoneService
   ]
 })
 export class ClienteInternoTecnicoFinancieroModule {}

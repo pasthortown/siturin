@@ -1,3 +1,5 @@
+import { Ruc } from 'src/app/models/BASE/Ruc';
+import { Establishment } from 'src/app/models/BASE/Establishment';
 import { Component, OnInit } from '@angular/core';
 import { State } from 'src/app/models/ALOJAMIENTO/State';
 import { User } from 'src/app/models/profile/User';
@@ -15,7 +17,17 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 export class ClienteInternoTecnicoFinancieroComponent implements OnInit {
   
   user = new User();
-  data_selected = {row: null, register: null};
+
+  data_selected = {row: null, 
+    register: {register: null,
+      activity_id: 0,
+      activity: '',
+      establishment: new Establishment(),
+      ruc: new Ruc(),
+      states: null,
+      register_data_on_catastro: null
+    }
+  };
 
   estados_tramites = [];
 
