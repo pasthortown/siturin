@@ -548,8 +548,8 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
           {identificacion_responsable: this.user.identification},
           {direccion: (this.data_selected_table.register.establishment.address_main_street + ' ' + this.data_selected_table.register.establishment.address_number + ' ' + this.data_selected_table.register.establishment.address_secondary_street).toUpperCase()},
           {registro: this.data_selected_table.register.register.code},
-          {nombre_declarante: this.data_selected_table.register.ruc.contact_user.name.toUpperCase()},
-          {identificacion_declarante: this.data_selected_table.register.ruc.contact_user.identification}];
+          {nombre_declarante: this.contactUser.name.toUpperCase()},
+          {identificacion_declarante: this.contactUser.identification}];
         const parametrosQR = [{Año_Declaración: declaration.year},
           {Año_Fiscal: today.getFullYear()},
           {Razón_Social: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
