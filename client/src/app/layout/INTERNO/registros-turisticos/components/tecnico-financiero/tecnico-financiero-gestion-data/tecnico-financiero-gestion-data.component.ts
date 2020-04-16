@@ -938,7 +938,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
           this.toastr.successToastr(messageToastr);
           this.guardandoFinanciero = false;
-          this.refresh();
+          window.location.reload();
         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
     }
@@ -947,7 +947,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
           this.toastr.successToastr(messageToastr);
           this.guardandoFinanciero = false;
-          this.refresh();
+          window.location.reload();
         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
     }
@@ -956,7 +956,7 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
         this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
           this.toastr.successToastr(messageToastr);
           this.guardandoFinanciero = false;
-          this.refresh();
+          window.location.reload();
         }).catch( e => { console.log(e); });
       }).catch( e => { console.log(e); });
     }
