@@ -147,7 +147,6 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
     if (this.data_selected_table.register.states == null) {
       return;
     }
-    console.log(this.data_selected_table);
     this.contactUser = new User();
     this.contactUser.id = 0;
     this.mostrarMotivoTramite = false;
@@ -850,7 +849,10 @@ export class TecnicoFinancieroGestionDataComponent implements OnInit {
       this.tipo_tramite = 'REINGRESO';
     }
     this.data_selected_table.register.register_data_on_catastro;
-    this.as_turistic_date = new Date(this.data_selected_table.register.register_data_on_catastro.as_turistic_date.toString());
+    this.as_turistic_date = new Date();
+    if (this.data_selected_table.register.establishment.as_turistic_register_date != null && typeof this.data_selected_table.register.establishment.as_turistic_register_date != 'undefined') {
+      this.as_turistic_date = new Date(this.data_selected_table.register.establishment.as_turistic_register_date.toString());
+    }
     if (this.data_selected_table.register.activity_id == 1) {
       this.register_procedure_alojamiento_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
         if (typeof r.id != 'undefined') {
