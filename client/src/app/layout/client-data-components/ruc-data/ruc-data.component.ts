@@ -439,6 +439,7 @@ export class RucDataComponent implements OnInit {
     this.ruc.contact_user_id = this.user.id;
     if (typeof this.ruc.id === 'undefined') {
       this.rucDataService.register_ruc(this.ruc).then( r => {
+         this.ruc.id = r.id;
          this.guardando = false;
          if ( r === '0' ) {
             this.toastr.errorToastr('Existe conflicto con el correo de la persona de contacto ingresada.', 'Nuevo');
