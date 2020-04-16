@@ -1,1 +1,197 @@
-inspector-gestion-data dont works
+<div class="row" *ngIf="(mostrarMotivoTramite) && (motivoTramite != '')">
+    <div class="col-12">
+        <label class="col-form-label"><strong>Motivo de Trámite</strong></label>
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            {{motivoTramite}}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" *ngIf="digito == '7'">
+        <table class="table mt-2">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="onoffswitch">
+                            <input type="checkbox" class="onoffswitch-checkbox"  id="vacacionesCheck"
+                                name="vacacionesCheck" [(ngModel)]="estoyVacaciones" (change)="rechazarCheck()">
+                            <label class="onoffswitch-label" for="vacacionesCheck">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <strong>Devolver el trámite seleccionado</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 mt-5 mb-2" *ngIf="estoyVacaciones">
+        <label class="col-form-label">Motivo de la devolución del trámite</label>
+        <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
+    </div>
+    <div class="col-12 text-center mb-3">
+        <button type="button" class="btn btn-info" *ngIf="estoyVacaciones" title="Devolver a Coordinador Zonal" (click)="devolverVacaciones()">
+            <i class="fas fa-couch"></i> Devolver a Coordinador Zonal
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h3>Inspección</h3>
+    </div>
+    <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes != '' && !rechazarTramite">
+        <strong>Motivo de devolución</strong>
+        <div class="alert alert-info mt-2 mb-2" role="alert">
+            <p class="col-12 text-justify" [innerHTML]="registerApprovalInspector.notes"></p>
+        </div>
+    </div>
+    <div class="col-12 mb-2 mt-2">
+        <h4>Descarga de documentos para inspección/verificación</h4>
+    </div>
+    <div class="col-12">
+        <div class="input-group mb-3" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+            <div class="input-group-prepend">
+                <button type="button" [disabled]="!SRIOK || please_wait_requisites" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()">
+                    <i class="fas fa-print"></i>&nbsp;Formulario de Requisitos (Check List)
+                </button>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="button"  *ngIf="tipo_tramite_seleccionado !== 'inactivation'" [disabled]="!SRIOK || imprimiendo_acta || !hasdateByUserRequisites" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()">
+                    <i class="fas fa-file-powerpoint"></i>&nbsp;Acta de Notificación
+                </button>
+                <button type="button" *ngIf="tipo_tramite_seleccionado == 'inactivation'" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacionInactivacion()">
+                    <i class="fas fa-file-powerpoint"></i>&nbsp;Acta de Notificación
+                </button>
+            </div>
+        </div>
+        <small *ngIf="please_wait_requisites || imprimiendo_acta">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+                <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label>
+                <p class="col-12 text-justify">El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.</p>
+            </div>
+        </small>
+    </div>
+    <div class="col-12 mb-2 mt-2" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+        <h4>Resultado de la inspección/verificación</h4>
+    </div>
+    <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+        <label>Formulario de Requisitos (Check List)</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="button" [disabled]="!validateRequisitesFile()" class="btn btn-secondary" title="Descargar Formulario de Requisitos (Check List) Cargado" (click)="descargarRequisitos()">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button type="button" [disabled]="!validateRequisitesFile()" class="btn btn-danger" title="Borrar Formulario de Requisitos (Check List) Cargado" (click)="borrarRequisitos()">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <a *ngIf="false" href="assets/documents/docgeninsp.pdf" download="Formato - No Aplica Inspección.pdf" class="btn btn-info mr-2" title="Descargar Formato - No Aplica Inspección">
+                    <i class="fas fa-file-alt"></i>
+                </a>
+            </div>
+            <input type="file" class="form-control" id="requisitesFile" name="requisitesFile" accept="application/pdf" placeholder="Formulario de Revisión de Requisitos (Check List)" (change)="CodeFileRequisitesAttachment($event)">
+        </div>
+    </div>
+    <div class="col-12 mb-2">
+        <div class="form-control">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" title="Consultar con SRI" (click)="checkRuc()">
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+                <small>
+                    <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
+                    </div>
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <label>Estado de la Inspección</label>
+        <select class="form-control" id="stateInspection" name="stateInspection" [(ngModel)]="inspectionState">
+            <option *ngIf="activity=='ALOJAMIENTO'" value="0" selected>Solicitud en Trámite</option>
+            <option *ngIf="activity=='ALOJAMIENTO'" value="1" selected>Solicitud Aprobada</option>
+            <option *ngIf="activity=='ALOJAMIENTO'" value="2" selected>Solicitud Rechazada</option>
+            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'inactivation')" value="3" selected>Aplazada para Inspección (15 Días)</option>
+            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'inactivation')" value="4" selected>Aplazada para Inspección (6 Meses)</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="0" selected>Solicitud en Trámite</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="1" selected>Solicitud Aprobada</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="2" selected>Solicitud Rechazada</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'inactivation')" value="3" selected>Aplazada para Inspección (30 Días)</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'inactivation')" value="4" selected>Aplazada para Inspección (60 Días)</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="5" selected>No Cumple Inspección (No Turístico)</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 mt-3 mb-2" *ngIf="inspectionState == 3 || inspectionState == 4 || inspectionState == 2">
+        <label>Acta de Notificación</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="button" [disabled]="!validateActaNotificacionFile()" class="btn btn-secondary ml-2" title="Descargar Acta de Notificación Cargada" (click)="descargarActaNotificacion()">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button type="button" [disabled]="!validateActaNotificacionFile()" class="btn btn-danger" title="Borrar Acta de Notificación Cargada" (click)="borrarActaNotificacion()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <input type="file" class="form-control" id="actaFile" name="actaFile" accept="application/pdf" placeholder="Acta de Notificación" (change)="CodeFileActaNotificacionAttachment($event)">
+        </div>
+        <small *ngIf="!SRIOK">
+            <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
+            </div>
+        </small>
+        <small *ngIf="imprimiendo_acta">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+                <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label>
+                <p class="col-12 text-justify">El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.</p>
+            </div>
+        </small>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 mt-3 mb-2">
+        <label class="col-form-label">Conclusiones</label>
+        <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="report.conclution"></ck-editor>
+    </div>
+    <div class="col-12 mt-3 mb-2">
+        <label class="col-form-label">Recomendaciones</label>
+        <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="report.recomendation"></ck-editor>
+    </div>
+    <div class="col-12 mt-3 mb-2">
+        <label>Informe de Inspección</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="button" [disabled]="imprimiendo_informe || (inspectionState == 0)" class="btn btn-secondary" title="Imprimir Informe" (click)="imprimirInforme()">
+                    <i class="fas fa-print"></i>
+                </button>
+                <button type="button" [disabled]="!validateInformeFile()" class="btn btn-secondary ml-2" title="Descargar Informe Cargado" (click)="descargarInforme()">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button type="button" [disabled]="!validateInformeFile()" class="btn btn-danger" title="Borrar Informe Cargado" (click)="borrarInforme()">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <input type="file" class="form-control" id="informeFile" name="informeFile" accept="application/pdf" placeholder="Informe de Inspección" (change)="CodeFileInformeAttachment($event)">
+        </div>
+        <small *ngIf="imprimiendo_informe">
+            <div class="alert alert-info mt-2 mb-2" role="alert">
+                <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label>
+                <p class="col-12 text-justify">El sistema está generando el documento, ésto puede tardar algunos segundos. Por favor espere.</p>
+            </div>
+        </small>
+    </div>
+    <div class="col-12 text-center mb-3">
+        <button type="button" [disabled]="!validateInspectionInfo()" class="btn btn-success" title="Guardar Información de Inspección" (click)="guardarInspeccion()">
+            <i class="fas fa-save"></i> Guardar Información
+        </button>
+        <button type="button" class="btn btn-danger ml-2" title="Cancelar Cambios" (click)="refresh()">
+            <i class="fas fa-times"></i> Cancelar
+        </button>
+    </div>
+</div>
