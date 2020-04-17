@@ -22,8 +22,8 @@ import { PayService } from 'src/app/services/CRUD/FINANCIERO/pay.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { PayTaxService } from 'src/app/services/CRUD/FINANCIERO/paytax.service';
 
-import { ApprovalStateAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateAttachment';
-import { RegisterType } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
+import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStateAttachment';
+import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { Zone } from 'src/app/models/BASE/Zone';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
@@ -34,7 +34,7 @@ import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Pay } from 'src/app/models/FINANCIERO/Pay';
 import { Declaration } from 'src/app/models/FINANCIERO/Declaration';
 import { PayTax } from 'src/app/models/FINANCIERO/PayTax';
-import { ApprovalState } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalState';
+import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { PayAttachment } from 'src/app/models/FINANCIERO/PayAttachment';
 import { User } from 'src/app/models/profile/User';
 

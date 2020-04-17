@@ -21,14 +21,14 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } fr
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 
 import { ApprovalStateReport } from 'src/app/models/ALOJAMIENTO/ApprovalStateReport';
-import { ApprovalStateAttachment } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalStateAttachment';
-import { RegisterType } from 'src/app/models/ALIMENTOSBEBIDAS/RegisterType';
+import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStateAttachment';
+import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { Zone } from 'src/app/models/BASE/Zone';
 import { Ubication } from 'src/app/models/BASE/Ubication';
 import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { Ruc } from 'src/app/models/BASE/Ruc';
-import { ApprovalState } from 'src/app/models/ALIMENTOSBEBIDAS/ApprovalState';
+import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { User } from 'src/app/models/profile/User';
 
 import { Component, OnInit, Input } from '@angular/core';
