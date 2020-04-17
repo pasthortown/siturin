@@ -37,6 +37,9 @@ import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
+import { ApprovalStateReportService as ApprovalStateReportALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstatereport.service';
+import { ApprovalStateReportService as ApprovalStateReportABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
+import { ApprovalStateReportService as ApprovalStateReportOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstatereport.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 
 @NgModule({
@@ -75,6 +78,9 @@ import { ExporterService } from 'src/app/services/negocio/exporter.service';
     ApprovalStateAttachmentALService,
     ApprovalStateAttachmentABService,
     ApprovalStateAttachmentOPService,
+    ApprovalStateReportALService,
+    ApprovalStateReportABService,
+    ApprovalStateReportOPService,
     ExporterService
   ]
 })

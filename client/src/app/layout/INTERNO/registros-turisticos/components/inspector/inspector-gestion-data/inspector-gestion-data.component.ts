@@ -1,3 +1,6 @@
+import { ApprovalStateReportService as ApprovalStateReportALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstatereport.service';
+import { ApprovalStateReportService as ApprovalStateReportABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
+import { ApprovalStateReportService as ApprovalStateReportOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstatereport.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
@@ -109,7 +112,10 @@ export class InspectorGestionDataComponent implements OnInit {
     private register_state_operacion_intermediacion_DataService: RegisterStateOPService,
     private register_procedure_alojamiento_DataService: RegisterProcedureALService,
     private register_procedure_alimentos_bebidas_DataService: RegisterProcedureABService,
-    private register_procedure_operacion_intermediacion_DataService: RegisterProcedureOPService
+    private register_procedure_operacion_intermediacion_DataService: RegisterProcedureOPService,
+    private approval_state_report_alojamiento_DataService: ApprovalStateReportALService,
+    private approval_state_report_alimentos_bebidas_DataService: ApprovalStateReportABService,
+    private approval_state_report_operacion_intermediacion_DataService: ApprovalStateReportOPService,
    ) {
     
   }
@@ -170,11 +176,116 @@ export class InspectorGestionDataComponent implements OnInit {
     this.digito = estado.substring(estado.length-1, estado.length);
     this.checkMotivoTramite(estado);
     this.stateTramiteId = this.data_selected_table.register.states.state_id;
-    
+    this.getApprovalStates();
   }
 
   rechazarCheck() {
     this.registerApprovalInspector.notes = '';
+  }
+
+  getApprovalStates() {
+    this.registerApprovalInspector = new ApprovalState();
+    const idRegister = this.data_selected_table.register.register.id;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.get_by_register_id(idRegister).then( r => {
+         const registerApprovals = r;
+         this.approval_state_attachment_alojamiento_DataService.get_by_register_id(idRegister).then( r => {
+           const approvalStateAttachments = r as ApprovalStateAttachment[];
+           this.processApprovalData(registerApprovals, approvalStateAttachments);
+         }).catch( e => { console.log(e); });
+       }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.get_by_register_id(idRegister).then( r => {
+        const registerApprovals = r;
+        this.approval_state_attachment_alimentos_bebidas_DataService.get_by_register_id(idRegister).then( r => {
+          const approvalStateAttachments = r as ApprovalStateAttachment[];
+          this.processApprovalData(registerApprovals, approvalStateAttachments);
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.get_by_register_id(idRegister).then( r => {
+        const registerApprovals = r;
+        this.approval_state_attachment_operacion_intermediacion_DataService.get_by_register_id(idRegister).then( r => {
+          const approvalStateAttachments = r as ApprovalStateAttachment[];
+          this.processApprovalData(registerApprovals, approvalStateAttachments);
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+  }
+
+  processApprovalData(registerApprovals: any[], approvalStateAttachments: ApprovalStateAttachment[]) {
+    registerApprovals.forEach(element => {
+      if (element.approval_id == 1){
+        if (element.value) {
+          this.inspectionState = 1;
+        } else {
+          this.inspectionState = 2;
+          const estado: String = this.stateTramiteId.toString();
+          const digito = estado.substring(estado.length-1, estado.length);
+          if (digito == '5'){
+            this.inspectionState = 3;
+          }
+          if (digito == '6'){
+            this.inspectionState = 4;
+          }
+        }
+        if (approvalStateAttachments.length == 0) {
+          this.inspectionState = 0;
+          this.requisitosApprovalStateAttachment = new ApprovalStateAttachment();
+          this.requisitosApprovalStateAttachment.approval_state_id = element.id;
+          this.informeApprovalStateAttachment = new ApprovalStateAttachment();
+          this.informeApprovalStateAttachment.approval_state_id = element.id;
+          this.actaNotificacionApprovalStateAttachment = new ApprovalStateAttachment();
+          this.actaNotificacionApprovalStateAttachment.approval_state_id = element.id;
+        }
+        approvalStateAttachments.forEach(approvalStateAttachment => {
+          if (approvalStateAttachment.approval_state_id == element.id) {
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Informe') == 0) {
+              this.informeApprovalStateAttachment = approvalStateAttachment;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) {
+              this.requisitosApprovalStateAttachment = approvalStateAttachment;
+            }
+            if (approvalStateAttachment.approval_state_attachment_file_name.search('Acta') == 0) {
+              this.actaNotificacionApprovalStateAttachment = approvalStateAttachment;
+            }
+          }
+        });
+        this.registerApprovalInspector = element;
+        this.registerApprovalInspector.date_fullfill = new Date();
+        if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
+          this.registerApprovalInspector.notes = '';
+        }
+        if (this.data_selected_table.register.activity_id == 1) {
+          this.approval_state_report_alojamiento_DataService.get_by_approval_state_id(element.id).then( r => {
+            const reporte = r as ApprovalStateReport;
+            if (typeof reporte.id != 'undefined' || reporte.id != null) {
+              this.report = reporte;
+            }
+          }).catch( e => { console.log(e); });
+        }
+        if (this.data_selected_table.register.activity_id == 2) {
+          this.approval_state_report_alimentos_bebidas_DataService.get_by_approval_state_id(element.id).then( r => {
+            const reporte = r as ApprovalStateReport;
+            if (typeof reporte.id != 'undefined' || reporte.id != null) {
+              this.report = reporte;
+            }
+          }).catch( e => { console.log(e); });
+          
+        }
+        if (this.data_selected_table.register.activity_id == 3) {
+          this.approval_state_report_operacion_intermediacion_DataService.get_by_approval_state_id(element.id).then( r => {
+            const reporte = r as ApprovalStateReport;
+            if (typeof reporte.id != 'undefined' || reporte.id != null) {
+              this.report = reporte;
+            }
+          }).catch( e => { console.log(e); });
+
+        }
+      }
+    });
   }
 
   devolverVacaciones() {
