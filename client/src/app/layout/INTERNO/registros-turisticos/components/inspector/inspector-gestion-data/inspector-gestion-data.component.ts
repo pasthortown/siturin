@@ -580,11 +580,172 @@ export class InspectorGestionDataComponent implements OnInit {
   }
 
   imprimirActaNotificacion() {
-    //aqui
+    const today = new Date();
+    this.imprimiendo_acta = true;
+    const documentData = this.buildDocumentData();
+    const actividad = this.data_selected_table.register.activity.toString().toUpperCase();
+    let qr_value = 'MT-' + documentData.iniciales_cordinacion_zonal + '-' + this.data_selected_table.register.ruc.number + '-' + this.data_selected_table.register.establishment.ruc_code_id + '-ACTA-NOTIFICACION- ' + actividad + ' -' + documentData.iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let aclaracion_registro = '';
+    if (this.tipo_tramite == 'REGISTRO') {
+      aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
+    }
+    this.printActaNotificacion(documentData, actividad, qr_value, today, aclaracion_registro);
+  }
+
+  printActaNotificacion(documentData, actividad, qr_value, today, aclaracion_registro) {
+    this.documentDataService.get_doc_id(qr_value).then( respuesta => {
+      const codigo = 'MT-AN-' + documentData.iniciales_cordinacion_zonal + '-' + documentData.iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+      const params = [{canton: documentData.canton.name.toUpperCase()},
+        {fecha: this.dateByUserRequisites.toLocaleDateString()},
+        {codigo: codigo},
+        {numero_coordinacion_zonal: documentData.iniciales_cordinacion_zonal},
+        {aclaracion_registro: aclaracion_registro},
+        {razon_social: this.razon_social.toUpperCase()},
+        {tramite: this.tipo_tramite.toUpperCase()},
+        {nombre_comercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+        {representante_legal: this.representante_legal.toUpperCase()},
+        {direccion_establecimiento: this.data_selected_table.register.establishment.address_main_street.toUpperCase() + ' ' + this.data_selected_table.register.establishment.address_number.toUpperCase() + ' ' + this.data_selected_table.register.establishment.address_secondary_street.toUpperCase()},
+        {tipo_tramite: this.tipo_tramite.toUpperCase()}];
+      let document = new Documento();
+      document.activity =actividad;
+      document.code = qr_value;
+      document.document_type = 'ACTA NOTIFICACION';
+      let paramsToBuild = {
+         template: 1, qr: true, qr_value: qr_value, params: params
+      }
+      document.procedure_id = this.tipo_tramite.toUpperCase();
+      document.zonal = documentData.zonal.name;
+      document.user = documentData.iniciales_tecnico_zonal;
+      document.params = JSON.stringify(paramsToBuild);
+      this.documentDataService.post(document).then().catch( e => { console.log(e); });
+      this.exporterDataService.template(1, true, qr_value, params).then( r => {
+        const byteCharacters = atob(r);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf'});
+        saveAs(blob, qr_value + '.pdf');
+        this.imprimiendo_acta = false;
+      }).catch( e => { console.log(e); });
+    }).catch( e => { console.log(e); });
   }
 
   imprimirActaNotificacionInactivacion() {
-    //aqui
+    const today = new Date();
+    this.tipo_tramite = 'INACTIVACIÓN';
+    Swal.fire({
+      title: 'Ingreso de Información',
+      text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
+      type: 'warning',
+      inputValue: today.toLocaleDateString(),
+      input: 'text',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Por favor, ingrese la fecha.'
+        } else {
+          const dateParts = value.split('/'); 
+          if (dateParts.length != 3) {
+            return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+          }
+          let noAdmitido = false;
+          dateParts.forEach(element => {
+            if (this.stringHasLetter(element)){
+              noAdmitido = true;
+            }
+          });
+          if (parseInt(dateParts[0])>31) {
+            noAdmitido = true;
+          }
+          if (parseInt(dateParts[1])>12) {
+            noAdmitido = true;
+          }
+          if (dateParts[2].length > 4){
+            noAdmitido = true;
+          }
+          if (parseInt(dateParts[2])>9999) {
+            noAdmitido = true;
+          }
+          if (noAdmitido) {
+            return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+          }
+          const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+          this.hasdateByUserRequisites = true;
+          this.dateByUserRequisites = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+          if (dateByUser < today) {
+            this.hasdateByUserRequisites = false;
+            this.dateByUserRequisites = new Date();
+            return 'No se admiten fechas pasadas.';
+          }
+          this.please_wait_requisites = true;
+        }
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        const dateParts = result.value.split('/'); 
+        const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+        this.imprimiendo_acta = true;
+        const documentData = this.buildDocumentData();
+        const actividad = this.data_selected_table.register.activity.toString().toUpperCase();
+        let qr_value = 'MT-' + documentData.iniciales_cordinacion_zonal + '-' + this.data_selected_table.register.ruc.number + '-' + this.data_selected_table.register.establishment.ruc_code_id + '-ACTA-NOTIFICACION- ' + actividad + ' -' + documentData.iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let aclaracion_registro = '';
+        if (this.tipo_tramite == 'REGISTRO') {
+          aclaracion_registro = 'Es importante destacar que de no cumplir con lo indicado, lamentaremos tener que ejecutar las acciones determinadas en el Art. 52 de la Ley de Turismo en concordancia con el Art. 91 y 87 del Reglamento General a la Ley de Turismo a los establecimientos que incumplan con el marco legal vigente.';
+        }
+        this.printActaNotificacionInactivacion(documentData, actividad, qr_value, today, dateByUser, aclaracion_registro);
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+         Swal.fire(
+           'Cancelado',
+           '',
+           'error'
+         );
+      }
+    });
+  }
+
+  printActaNotificacionInactivacion(documentData, actividad, qr_value, today, dateByUser, aclaracion_registro) {
+    this.documentDataService.get_doc_id(qr_value).then( respuesta => {
+      const codigo = 'MT-AN-' + documentData.iniciales_cordinacion_zonal + '-' + documentData.iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+      const params = [{canton: documentData.canton.name.toUpperCase()},
+        {fecha: dateByUser.toLocaleDateString()},
+        {codigo: codigo},
+        {numero_coordinacion_zonal: documentData.iniciales_cordinacion_zonal},
+        {aclaracion_registro: aclaracion_registro},
+        {razon_social: this.razon_social.toUpperCase()},
+        {tramite: this.tipo_tramite.toUpperCase()},
+        {nombre_comercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+        {representante_legal: this.representante_legal.toUpperCase()},
+        {direccion_establecimiento: this.data_selected_table.register.establishment.address_main_street.toUpperCase() + ' ' + this.data_selected_table.register.establishment.address_number.toUpperCase() + ' ' + this.data_selected_table.register.establishment.address_secondary_street.toUpperCase()},
+        {tipo_tramite: this.tipo_tramite.toUpperCase()}];
+      let document = new Documento();
+      document.activity =actividad;
+      document.code = qr_value;
+      document.document_type = 'ACTA NOTIFICACION';
+      let paramsToBuild = {
+         template: 1, qr: true, qr_value: qr_value, params: params
+      }               
+      document.procedure_id = this.tipo_tramite.toUpperCase();
+      document.zonal = documentData.zonal.name;
+      document.user = documentData.iniciales_tecnico_zonal;
+      document.params = JSON.stringify(paramsToBuild);
+      this.documentDataService.post(document).then().catch( e => { console.log(e); });
+      this.exporterDataService.template(1, true, qr_value, params).then( r => {
+        const byteCharacters = atob(r);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf'});
+        saveAs(blob, qr_value + '.pdf');
+        this.imprimiendo_acta = false;
+      }).catch( e => { console.log(e); });
+    }).catch( e => { console.log(e); });
   }
 
   validateRequisitesFile(): Boolean {
