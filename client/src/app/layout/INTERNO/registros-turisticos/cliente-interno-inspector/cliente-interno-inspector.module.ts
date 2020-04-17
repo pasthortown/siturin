@@ -41,6 +41,7 @@ import { ApprovalStateReportService as ApprovalStateReportALService } from 'src/
 import { ApprovalStateReportService as ApprovalStateReportABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
 import { ApprovalStateReportService as ApprovalStateReportOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstatereport.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -81,7 +82,8 @@ import { ExporterService } from 'src/app/services/negocio/exporter.service';
     ApprovalStateReportALService,
     ApprovalStateReportABService,
     ApprovalStateReportOPService,
-    ExporterService
+    ExporterService,
+    DocumentService
   ]
 })
 export class ClienteInternoInspectorModule {}

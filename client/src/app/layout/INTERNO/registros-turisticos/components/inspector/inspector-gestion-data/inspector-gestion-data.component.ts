@@ -1,3 +1,5 @@
+import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
+import { UserService } from 'src/app/services/profile/user.service';
 import { ApprovalStateReportService as ApprovalStateReportALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstatereport.service';
 import { ApprovalStateReportService as ApprovalStateReportABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
 import { ApprovalStateReportService as ApprovalStateReportOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstatereport.service';
@@ -29,6 +31,7 @@ import { Establishment } from 'src/app/models/BASE/Establishment';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { User } from 'src/app/models/profile/User';
+import { Document as Documento } from 'src/app/models/EXPORTER/Document';
 
 import { Component, OnInit, Input } from '@angular/core';
 import Swal from 'sweetalert2';
@@ -75,7 +78,9 @@ export class InspectorGestionDataComponent implements OnInit {
 
   imprimiendo_informe = false;
   imprimiendo_acta = false;
+
   hasdateByUserRequisites = false;
+  dateByUserRequisites = new Date();
 
   tipo_tramite = 'pendiente';
   motivoTramite = '';
@@ -97,6 +102,7 @@ export class InspectorGestionDataComponent implements OnInit {
   report: ApprovalStateReport = new ApprovalStateReport();
 
   constructor(private toastr: ToastrManager,
+    private userDataService: UserService,
     private dinardapDataService: DinardapService,
     private zoneDataService: ZoneService,
     private ubicationDataService: UbicationService,
@@ -115,6 +121,8 @@ export class InspectorGestionDataComponent implements OnInit {
     private approval_state_report_alojamiento_DataService: ApprovalStateReportALService,
     private approval_state_report_alimentos_bebidas_DataService: ApprovalStateReportABService,
     private approval_state_report_operacion_intermediacion_DataService: ApprovalStateReportOPService,
+    private documentDataService: DocumentService,
+    private exporterDataService: ExporterService
    ) {
     
   }
@@ -328,8 +336,243 @@ export class InspectorGestionDataComponent implements OnInit {
     });
   }
 
+  stringHasLetter(stringToCheck: String) {
+    let toReturn = false;
+    for (let i = 0; i<stringToCheck.length; i++) {
+      if (stringToCheck[i].match(/[a-z]/i)) {
+        toReturn = true;
+      }
+    }
+    return toReturn;
+  }
+
   imprimirInforme() {
-    //aqui
+    const today = new Date();
+    Swal.fire({
+      title: 'Ingreso de Información',
+      text: '¿En que fecha usted ejecutará la inspección? (ejemplo: 15/09/2020)',
+      type: 'warning',
+      inputValue: today.toLocaleDateString(),
+      input: 'text',
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Por favor, ingrese la fecha.'
+        } else {
+          const dateParts = value.split('/'); 
+          if (dateParts.length != 3) {
+            return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+          }
+          let noAdmitido = false;
+          dateParts.forEach(element => {
+            if (this.stringHasLetter(element)){
+              noAdmitido = true;
+            }
+          });
+          if (parseInt(dateParts[0])>31) {
+            noAdmitido = true;
+          }
+          if (parseInt(dateParts[1])>12) {
+            noAdmitido = true;
+          }
+          if (dateParts[2].length > 4){
+            noAdmitido = true;
+          }
+          if (parseInt(dateParts[2])>9999) {
+            noAdmitido = true;
+          }
+          if (noAdmitido) {
+            return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+          }
+          this.hasdateByUserRequisites = true;
+          this.dateByUserRequisites = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+          this.please_wait_requisites = true;
+       }
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Si, continuar',
+    cancelButtonText: 'No, cancelar',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.value) {
+      const dateParts = result.value.split('/'); 
+      const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+      this.imprimiendo_informe = true;
+      const documentData = this.buildDocumentData();
+      const actividad = this.data_selected_table.register.activity.toString().toUpperCase();
+      let qr_value = 'MT-IN-' + documentData.iniciales_cordinacion_zonal + '-' + this.data_selected_table.register.ruc.number + '-' + this.data_selected_table.register.establishment.ruc_code_id + '-INFORME-' + actividad + '-' + documentData.iniciales_tecnico_zonal + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+      let resultado_aprobacion = '';
+      if (this.inspectionState == 1) {
+          resultado_aprobacion = 'APROBADA';
+      }
+      if (this.inspectionState == 2) {
+          resultado_aprobacion = 'NEGADA';
+      }
+      if (this.inspectionState == 3 && this.data_selected_table.register.activity_id == 1) {
+        resultado_aprobacion = 'APLAZADA PARA INSPECCIÓN (15 DÍAS)';
+      }
+      if (this.inspectionState == 3 && this.data_selected_table.register.activity_id == 2) {
+        resultado_aprobacion = 'APLAZADA PARA INSPECCIÓN (30 DÍAS)';
+      }
+      if (this.inspectionState == 3 && this.data_selected_table.register.activity_id == 3) {
+        resultado_aprobacion = 'APLAZADA PARA INSPECCIÓN (5 DÍAS)';
+      }
+      if (this.inspectionState == 4 && this.data_selected_table.register.activity_id == 1) {
+        resultado_aprobacion = 'APLAZADA PARA INSPECCIÓN (6 MESES)';
+      }
+      if (this.inspectionState == 4 && this.data_selected_table.register.activity_id == 2) {
+        resultado_aprobacion = 'APLAZADA PARA INSPECCIÓN (60 DÍAS)';
+      }
+      if (this.registerApprovalInspector.date_fullfill == null || typeof(this.registerApprovalInspector.date_fullfill.toString()) == 'undefined') {
+        this.registerApprovalInspector.date_fullfill = new Date();
+      }
+      this.userDataService.get(documentData.zone.id_coordinator).then( resp => {
+        let coordinator = resp as User;
+        this.printInforme(coordinator, documentData, actividad, qr_value, resultado_aprobacion, today, dateByUser);
+      }).catch( e=> { console.log(e); });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelado',
+        '',
+        'error'
+      );
+    }
+    });
+  }
+
+  buildDocumentData(): any {
+    const toReturn = {
+      clasificacion: '',
+      categoria: '',
+      provincia: new Ubication(),
+      canton: new Ubication(),
+      parroquia: new Ubication(),
+      zonal: new Ubication(),
+      iniciales_tecnico_zonal: '',
+      zone: new Zone(),
+      iniciales_cordinacion_zonal: ''
+    };
+    const classificationData = this.getClassificationCategoryFromCategoryID(this.data_selected_table.register.register.register_type_id);
+    toReturn.clasificacion = classificationData.classification.name;
+    if (this.inspectionState == 5 && this.data_selected_table.register.activity_id == 2) {
+      toReturn.clasificacion = 'No Cumple Inspección (No Turístico)';
+    }
+    toReturn.categoria =  classificationData.category.name;
+    this.ubications.forEach(element => {
+      if (element.id == this.data_selected_table.register.establishment.ubication_id) {
+        toReturn.parroquia = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.parroquia.father_code) {
+        toReturn.canton = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.canton.father_code) {
+        toReturn.provincia = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.provincia.father_code) {
+        toReturn.zonal = element;
+      }
+    });
+    this.user.name.split(' ').forEach(element => {
+      toReturn.iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
+    });
+    
+    toReturn.zone = new Zone();
+    this.zonales.forEach(element => {
+       if (element.ubication_id == toReturn.provincia.id) {
+        toReturn.zone = element;
+       }
+    });
+    toReturn.iniciales_cordinacion_zonal = toReturn.zone.acronym.toString();
+    return toReturn;
+  }
+
+  getClassificationCategoryFromCategoryID(register_type_id: number): any {
+    const toReturn = {category: new RegisterType(), classification: new RegisterType()};
+    let sourceArray = [];
+    if (this.data_selected_table.register.activity_id == 1) {
+      sourceArray = this.register_types_block.register_types_alojamiento;
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
+    }
+    sourceArray.forEach(element => {
+      if (register_type_id == element.id) {
+        toReturn.category = element;
+      }
+    });
+    sourceArray.forEach(element => {
+      if (toReturn.category.father_code == element.code) {
+        toReturn.classification = element;
+      }
+    });
+    return toReturn;
+  }
+
+  printInforme(coordinator, documentData, actividad, qr_value, resultado_aprobacion, today, dateByUser) {
+    const fecha_solicitud = new Date(this.data_selected_table.register.register.updated_at.toString());
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    this.documentDataService.get_doc_id(qr_value).then( respuesta => {
+      const codigo_informe = 'MT-' + documentData.iniciales_cordinacion_zonal + '-' + documentData.iniciales_tecnico_zonal + '-' + today.getFullYear() + '-' + respuesta.toString();
+      const params = [{codigo_informe: codigo_informe},
+        {canton: documentData.canton.name.toUpperCase()},
+        {fecha: today.toLocaleDateString().toUpperCase()},
+        {nombre_coordinador_zonal: coordinator.name.toUpperCase()},
+        {actividad: actividad},
+        {nombre_comercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+        {dia: fecha_solicitud.getDate()},
+        {mes: meses[fecha_solicitud.getMonth()].toUpperCase()},
+        {year: fecha_solicitud.getFullYear()},
+        {ruc: this.data_selected_table.register.ruc.number.toUpperCase()},
+        {provincia: documentData.provincia.name.toUpperCase()},
+        {fecha_solicitud: fecha_solicitud.toLocaleDateString().toUpperCase()},
+        {parroquia: documentData.parroquia.name.toUpperCase()},
+        {actividad: actividad},
+        {clasificacion: documentData.clasificacion},
+        {tipo_tramite: this.tipo_tramite},
+        {fecha_inspeccion: dateByUser.toLocaleDateString()},
+        {categoria: documentData.categoria},
+        {calle_principal: this.data_selected_table.register.establishment.address_main_street.toUpperCase()},            
+        {numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase()},
+        {calle_secundaria: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase()},
+        {resultado_aprobacion: resultado_aprobacion},
+        {identificacion: this.user.identification.toUpperCase()},
+        {conclusiones: this.report.conclution},
+        {recomendaciones: this.report.recomendation},
+        {nombre_tecnico_Zonal: this.user.name.toUpperCase()},
+        {zonal: documentData.iniciales_cordinacion_zonal.toUpperCase()}];
+      let document = new Documento();
+      document.activity = actividad;
+      document.code = qr_value;
+      document.document_type = 'INFORME';
+      let paramsToBuild = {
+          template: 11, qr: true, qr_value: qr_value, params: params
+      }
+      document.procedure_id = this.tipo_tramite.toUpperCase();
+      document.zonal = documentData.zonal.name;
+      document.user = documentData.iniciales_tecnico_zonal;
+      document.params = JSON.stringify(paramsToBuild);
+      this.documentDataService.post(document).then().catch( e => { console.log(e); });
+      this.exporterDataService.template(11, true, qr_value, params).then( r => {
+        const byteCharacters = atob(r);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf'});
+        saveAs(blob, qr_value + '.pdf');
+        this.please_wait_requisites = false;
+        this.imprimiendo_informe = false;
+      }).catch( e => { console.log(e); });
+    }).catch( e => { console.log(e); });
   }
 
   imprimirRequisitos() {
