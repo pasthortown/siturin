@@ -17,6 +17,13 @@ export class ApprovalStateReportService {
       this.options.headers.append('api_token', sessionStorage.getItem('api_token'));
    }
 
+   get_by_approval_state_id(id: number): Promise<any> {
+      return this.http.get(this.url + 'get_by_approval_state_id?id=' + id.toString(), this.options).toPromise()
+      .then( r => {
+         return r.json();
+      }).catch( error => { this.handledError(error.json());  });
+   }
+   
    get(id?: number): Promise<any> {
       if (typeof id === 'undefined') {
          return this.http.get(this.url, this.options).toPromise()
