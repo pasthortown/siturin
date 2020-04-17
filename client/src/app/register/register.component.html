@@ -31,7 +31,7 @@
         class="ml-2 badge badge-danger"
         >Incorrecto</span>
         <input type="text" class="form-control" maxlength="10" id="identification" placeholder="Número de Cédula"
-          [(ngModel)]="user.identification" (keyup)="checkCedula()"/>
+          [(ngModel)]="user.identification" (input)="checkCedula()"/>
       </div>
       <div class="col-12 mb-3" *ngIf="emailContactValidated && identificationValidated">
           <small id="cedulaRepresentanteHelp"
@@ -59,7 +59,7 @@
           <div class="input-group-prepend">
             <button type="button" class="btn btn-primary" (click)="checkRuc()"><span class="fas fa-sync"></span></button>
           </div>
-          <input type="text" class="form-control" maxlength="13" id="ruc" placeholder="Número de RUC" [(ngModel)]="ruc.number" (keyup)="checkRuc()"/>
+          <input type="text" class="form-control" maxlength="13" id="ruc" placeholder="Número de RUC" [(ngModel)]="ruc.number" (input)="checkRuc()"/>
         </div>
       </div>
       <div class="col-12 mb-3" *ngIf="emailContactValidated && rucValidated">
