@@ -75,7 +75,7 @@ export class InspectorGestionDataComponent implements OnInit {
   imprimiendo_acta = false;
   hasdateByUserRequisites = false;
 
-  tipo_tramite_seleccionado = 'pendiente';
+  tipo_tramite = 'pendiente';
   motivoTramite = '';
   digito = '';
   stateTramiteId = 0;
@@ -145,17 +145,32 @@ export class InspectorGestionDataComponent implements OnInit {
     if (this.data_selected_table.register.states == null) {
       return;
     }
+    this.mostrarMotivoTramite = false;
+    this.estoyVacaciones = false;
+    this.guardandoInspector = false;
+    this.please_wait_requisites = false;
+    this.consumoRuc = false;
+    this.SRIOK = false;
+    this.rucData = 'CONECTÁNDOSE AL SRI...';
+    this.superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPANÍAS...';
+    this.rucValidated = false;
+    this.razon_social = '';
+    this.representante_legal = '';
+    this.imprimiendo_informe = false;
+    this.imprimiendo_acta = false;
+    this.hasdateByUserRequisites = false;
+    this.tipo_tramite = 'pendiente';
+    this.motivoTramite = '';
+    this.digito = '';
+    this.stateTramiteId = 0;
+    this.inspectionState = 0;
     this.as_turistic_date = new Date();
-    if (this.data_selected_table.register.establishment.as_turistic_register_date != null && typeof this.data_selected_table.register.establishment.as_turistic_register_date != 'undefined') {
-      this.as_turistic_date = new Date(this.data_selected_table.register.establishment.as_turistic_register_date.toString());
-    }
     this.stateTramiteId = this.data_selected_table.register.states.state_id;
     const estado = this.stateTramiteId.toString();
     this.digito = estado.substring(estado.length-1, estado.length);
-    const primerDigito = estado.substring(0, estado.length-1);
-    if ((primerDigito == '5' || estado == '60') && (estado !== '50')) {
-      this.tipo_tramite_seleccionado = 'inactivation';
-    }
+    this.checkMotivoTramite(estado);
+    this.stateTramiteId = this.data_selected_table.register.states.state_id;
+    
   }
 
   rechazarCheck() {
@@ -287,6 +302,79 @@ export class InspectorGestionDataComponent implements OnInit {
     }
   }
  
+  checkMotivoTramite(estado: String) {
+    this.motivoTramite = '';
+    const PrimerDigito = estado.substring(0, 1);
+    if (PrimerDigito == '1') {
+      this.mostrarMotivoTramite = false;
+    } else {
+      this.mostrarMotivoTramite = true;
+    }
+    this.tipo_tramite = 'REGISTRO';
+    const primerdigito = estado.substring(0, 1);
+    if (primerdigito == '1') {
+      this.tipo_tramite = 'REGISTRO';
+    }
+    if (primerdigito == '2') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+    }
+    if (primerdigito == '3') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+    }
+    if (primerdigito == '4') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+    }
+    if (primerdigito == '5') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+    }
+    if (primerdigito == '6') {
+      this.tipo_tramite = 'REINGRESO';
+    }
+    if (estado == '20') {
+      this.tipo_tramite = 'REGISTRO';
+    }
+    if (estado == '30') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+    }
+    if (estado == '40') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+    }
+    if (estado == '50') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+    }
+    if (estado == '60') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+    }
+    if (estado == '70') {
+      this.tipo_tramite = 'REINGRESO';
+    }
+    this.as_turistic_date = new Date();
+    if (this.data_selected_table.register.establishment.as_turistic_register_date != null && typeof this.data_selected_table.register.establishment.as_turistic_register_date != 'undefined') {
+      this.as_turistic_date = new Date(this.data_selected_table.register.establishment.as_turistic_register_date.toString());
+    }
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.register_procedure_alojamiento_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
+        if (typeof r.id != 'undefined') {
+          this.motivoTramite = r.justification;
+        }
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.register_procedure_alimentos_bebidas_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
+        if (typeof r.id != 'undefined') {
+          this.motivoTramite = r.justification;
+        }
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.register_procedure_operacion_intermediacion_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
+        if (typeof r.id != 'undefined') {
+          this.motivoTramite = r.justification;
+        }
+      }).catch( e => { console.log(e); });
+    }
+  }
+
   checkRuc() {
     if (this.consumoRuc && this.SRIOK) {
       return;
@@ -445,7 +533,7 @@ export class InspectorGestionDataComponent implements OnInit {
   }
 
   validateInspectionInfo(): Boolean {
-    if (this.tipo_tramite_seleccionado !== 'inactivation') {
+    if (this.tipo_tramite !== 'INACTIVACIÓN') {
       return this.validateNotesInspection() && this.validateInformeFile() && this.validateRequisitesFile();
     } else {
       return this.validateNotesInspection() && this.validateInformeFile();   

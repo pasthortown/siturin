@@ -52,7 +52,7 @@
         <h4>Descarga de documentos para inspección/verificación</h4>
     </div>
     <div class="col-12">
-        <div class="input-group mb-3" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+        <div class="input-group mb-3" *ngIf="tipo_tramite_seleccionado !== 'INACTIVACIÓN'">
             <div class="input-group-prepend">
                 <button type="button" [disabled]="!SRIOK || please_wait_requisites" class="btn btn-secondary" title="Imprimir Formulario de Requisitos (Check List)" (click)="imprimirRequisitos()">
                     <i class="fas fa-print"></i>&nbsp;Formulario de Requisitos (Check List)
@@ -61,10 +61,10 @@
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <button type="button"  *ngIf="tipo_tramite_seleccionado !== 'inactivation'" [disabled]="!SRIOK || imprimiendo_acta || !hasdateByUserRequisites" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()">
+                <button type="button"  *ngIf="tipo_tramite_seleccionado !== 'INACTIVACIÓN'" [disabled]="!SRIOK || imprimiendo_acta || !hasdateByUserRequisites" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacion()">
                     <i class="fas fa-file-powerpoint"></i>&nbsp;Acta de Notificación
                 </button>
-                <button type="button" *ngIf="tipo_tramite_seleccionado == 'inactivation'" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacionInactivacion()">
+                <button type="button" *ngIf="tipo_tramite_seleccionado == 'INACTIVACIÓN'" [disabled]="!SRIOK || imprimiendo_acta" class="btn btn-secondary mr-2" title="Imprimir Acta de Notificación" (click)="imprimirActaNotificacionInactivacion()">
                     <i class="fas fa-file-powerpoint"></i>&nbsp;Acta de Notificación
                 </button>
             </div>
@@ -76,10 +76,10 @@
             </div>
         </small>
     </div>
-    <div class="col-12 mb-2 mt-2" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+    <div class="col-12 mb-2 mt-2" *ngIf="tipo_tramite_seleccionado !== 'INACTIVACIÓN'">
         <h4>Resultado de la inspección/verificación</h4>
     </div>
-    <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'inactivation'">
+    <div class="col-12" *ngIf="tipo_tramite_seleccionado !== 'INACTIVACIÓN'">
         <label>Formulario de Requisitos (Check List)</label>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -117,13 +117,13 @@
             <option *ngIf="activity=='ALOJAMIENTO'" value="0" selected>Solicitud en Trámite</option>
             <option *ngIf="activity=='ALOJAMIENTO'" value="1" selected>Solicitud Aprobada</option>
             <option *ngIf="activity=='ALOJAMIENTO'" value="2" selected>Solicitud Rechazada</option>
-            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'inactivation')" value="3" selected>Aplazada para Inspección (15 Días)</option>
-            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'inactivation')" value="4" selected>Aplazada para Inspección (6 Meses)</option>
+            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (15 Días)</option>
+            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="4" selected>Aplazada para Inspección (6 Meses)</option>
             <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="0" selected>Solicitud en Trámite</option>
             <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="1" selected>Solicitud Aprobada</option>
             <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="2" selected>Solicitud Rechazada</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'inactivation')" value="3" selected>Aplazada para Inspección (30 Días)</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'inactivation')" value="4" selected>Aplazada para Inspección (60 Días)</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (30 Días)</option>
+            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="4" selected>Aplazada para Inspección (60 Días)</option>
             <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="5" selected>No Cumple Inspección (No Turístico)</option>
         </select>
     </div>
