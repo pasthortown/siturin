@@ -7,8 +7,6 @@ import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
 import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
-import { MailerService } from 'src/app/services/negocio/mailer.service';
-import { UserService } from 'src/app/services/profile/user.service';
 import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
 import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
@@ -19,6 +17,7 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } fr
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
 
 import { ApprovalStateReport } from 'src/app/models/ALOJAMIENTO/ApprovalStateReport';
 import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStateAttachment';
