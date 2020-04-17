@@ -158,6 +158,7 @@ export class InspectorGestionDataComponent implements OnInit {
     if (this.data_selected_table.register.states == null) {
       return;
     }
+    console.log(this.data_selected_table);
     this.mostrarMotivoTramite = false;
     this.estoyVacaciones = false;
     this.guardandoInspector = false;
