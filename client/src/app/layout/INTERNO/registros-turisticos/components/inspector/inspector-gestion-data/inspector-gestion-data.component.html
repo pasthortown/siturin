@@ -146,10 +146,6 @@
             </div>
             <input type="file" class="form-control" id="actaFile" name="actaFile" accept="application/pdf" placeholder="Acta de Notificación" (change)="CodeFileActaNotificacionAttachment($event)">
         </div>
-        <small *ngIf="!SRIOK">
-            <div class="col-12 text-justify mt-2 mb-2" [innerHTML]="rucData">
-            </div>
-        </small>
         <small *ngIf="imprimiendo_acta">
             <div class="alert alert-info mt-2 mb-2" role="alert">
                 <label class="col-12 text-justify"><strong>INFORMACIÓN</strong></label>
