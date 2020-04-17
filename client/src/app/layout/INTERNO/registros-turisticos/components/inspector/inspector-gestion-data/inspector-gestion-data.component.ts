@@ -177,6 +177,7 @@ export class InspectorGestionDataComponent implements OnInit {
     this.checkMotivoTramite(estado);
     this.stateTramiteId = this.data_selected_table.register.states.state_id;
     this.getApprovalStates();
+    this.checkRuc();
   }
 
   rechazarCheck() {
