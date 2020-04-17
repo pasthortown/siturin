@@ -2284,40 +2284,40 @@ export class InspectorComponent implements OnInit {
          if (!value) {
            return 'Por favor, ingrese la fecha.'
          } else {
-            const dateParts = value.split('/'); 
-            if (dateParts.length != 3) {
-               return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
-            }
-            let noAdmitido = false;
-            dateParts.forEach(element => {
-               if (this.stringHasLetter(element)){
-                  noAdmitido = true;
-               }
-            });
-            if (parseInt(dateParts[0])>31) {
+           const dateParts = value.split('/'); 
+           if (dateParts.length != 3) {
+             return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+           }
+           let noAdmitido = false;
+           dateParts.forEach(element => {
+             if (this.stringHasLetter(element)){
                noAdmitido = true;
-            }
-            if (parseInt(dateParts[1])>12) {
-               noAdmitido = true;
-            }
-            if (dateParts[2].length > 4){
-               noAdmitido = true;
-            }
-            if (parseInt(dateParts[2])>9999) {
-               noAdmitido = true;
-            }
-            if (noAdmitido) {
-               return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
-            }
-            const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
-            this.hasdateByUserRequisites = true;
-            this.dateByUserRequisites = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
-            if (dateByUser < today) {
-               this.hasdateByUserRequisites = false;
-               this.dateByUserRequisites = new Date();
-               return 'No se admiten fechas pasadas.';
-            }
-            this.please_wait_requisites = true;
+             }
+           });
+           if (parseInt(dateParts[0])>31) {
+             noAdmitido = true;
+           }
+           if (parseInt(dateParts[1])>12) {
+             noAdmitido = true;
+           }
+           if (dateParts[2].length > 4){
+             noAdmitido = true;
+           }
+           if (parseInt(dateParts[2])>9999) {
+             noAdmitido = true;
+           }
+           if (noAdmitido) {
+             return 'Ingrese la fecha en el formato correcto. Ejemplo (15/09/2020)';
+           }
+           const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+           this.hasdateByUserRequisites = true;
+           this.dateByUserRequisites = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+           if (dateByUser < today) {
+             this.hasdateByUserRequisites = false;
+             this.dateByUserRequisites = new Date();
+             return 'No se admiten fechas pasadas.';
+           }
+           this.please_wait_requisites = true;
          }
       },
       showCancelButton: true,
@@ -2326,9 +2326,10 @@ export class InspectorComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-         const dateParts = result.value.split('/'); 
-         const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
-         if (this.activity == 'ALOJAMIENTO') {
+        const dateParts = result.value.split('/'); 
+        const dateByUser = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + ' 23:59:59');
+        
+        if (this.activity == 'ALOJAMIENTO') {
                this.registerDataService.get_register_data(this.registerMinturSelected.register.id).then( r0 => {
                this.establishmentDataService.get_filtered(this.registerMinturSelected.establishment.id).then( r2 => {
                   this.registerDataService.get_tarifario(this.registerMinturSelected.register.id).then( r3 => {
