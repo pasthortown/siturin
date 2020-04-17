@@ -42,6 +42,18 @@ import { ApprovalStateReportService as ApprovalStateReportABService } from 'src/
 import { ApprovalStateReportService as ApprovalStateReportOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstatereport.service';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service';
+import { RegisterService as RegisterALService } from 'src/app/services/CRUD/ALOJAMIENTO/register.service';
+import { RegisterService as RegisterABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/register.service';
+import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/register.service';
+import { EstablishmentService } from 'src/app/services/CRUD/BASE/establishment.service';
+import { CapacityTypeService as CapacityTypeALService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
+import { GenderService } from 'src/app/services/CRUD/BASE/gender.service';
+import { WorkerGroupService } from 'src/app/services/CRUD/BASE/workergroup.service';
+import { RequisiteService as RequisiteOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/requisite.service';
+import { RequisiteService as RequisiteALService } from 'src/app/services/CRUD/ALOJAMIENTO/requisite.service';
+import { RequisiteService as RequisiteABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/requisite.service';
+import { RucNameTypeService } from 'src/app/services/CRUD/BASE/rucnametype.service';
+import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicefoodtype.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -59,6 +71,8 @@ import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service
   declarations: [ClienteInternoInspectorComponent, InspectorGestionDataComponent,InspectorBandejasDataComponent],
   providers: [
     UserService,
+    RucNameTypeService,
+    EstablishmentService,
     ConsultorService,
     StateALService,
     StateABService,
@@ -69,7 +83,11 @@ import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service
     RegisterProcedureABService,
     RegisterProcedureOPService,
     ZoneService,
+    CapacityTypeALService,
     MailerService,
+    GenderService,
+    ComplementaryServiceFoodTypeService,
+    WorkerGroupService,
     RegisterStateALService,
     RegisterStateABService,
     RegisterStateOPService,
@@ -83,7 +101,13 @@ import { DocumentService } from 'src/app/services/CRUD/EXPORTER/document.service
     ApprovalStateReportABService,
     ApprovalStateReportOPService,
     ExporterService,
-    DocumentService
+    DocumentService,
+    RegisterALService,
+    RegisterABService,
+    RegisterOPService,
+    RequisiteOPService,
+    RequisiteALService,
+    RequisiteABService
   ]
 })
 export class ClienteInternoInspectorModule {}
