@@ -114,17 +114,21 @@
     <div class="col-12">
         <label>Estado de la Inspección</label>
         <select class="form-control" id="stateInspection" name="stateInspection" [(ngModel)]="inspectionState">
-            <option *ngIf="activity=='ALOJAMIENTO'" value="0" selected>Solicitud en Trámite</option>
-            <option *ngIf="activity=='ALOJAMIENTO'" value="1" selected>Solicitud Aprobada</option>
-            <option *ngIf="activity=='ALOJAMIENTO'" value="2" selected>Solicitud Rechazada</option>
-            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (15 Días)</option>
-            <option *ngIf="activity=='ALOJAMIENTO' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="4" selected>Aplazada para Inspección (6 Meses)</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="0" selected>Solicitud en Trámite</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="1" selected>Solicitud Aprobada</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="2" selected>Solicitud Rechazada</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (30 Días)</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS' && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="4" selected>Aplazada para Inspección (60 Días)</option>
-            <option *ngIf="activity=='ALIMENTOS Y BEBIDAS'" value="5" selected>No Cumple Inspección (No Turístico)</option>
+            <option *ngIf="data_selected_table.register.activity_id == 1" value="0" selected>Solicitud en Trámite</option>
+            <option *ngIf="data_selected_table.register.activity_id == 1" value="1" selected>Solicitud Aprobada</option>
+            <option *ngIf="data_selected_table.register.activity_id == 1" value="2" selected>Solicitud Rechazada</option>
+            <option *ngIf="data_selected_table.register.activity_id == 1 && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (15 Días)</option>
+            <option *ngIf="data_selected_table.register.activity_id == 1 && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="4" selected>Aplazada para Inspección (6 Meses)</option>
+            <option *ngIf="data_selected_table.register.activity_id == 2" value="0" selected>Solicitud en Trámite</option>
+            <option *ngIf="data_selected_table.register.activity_id == 2" value="1" selected>Solicitud Aprobada</option>
+            <option *ngIf="data_selected_table.register.activity_id == 2" value="2" selected>Solicitud Rechazada</option>
+            <option *ngIf="data_selected_table.register.activity_id == 2 && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (30 Días)</option>
+            <option *ngIf="data_selected_table.register.activity_id == 2 && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="4" selected>Aplazada para Inspección (60 Días)</option>
+            <option *ngIf="data_selected_table.register.activity_id == 2" value="5" selected>No Cumple Inspección (No Turístico)</option>
+            <option *ngIf="data_selected_table.register.activity_id == 3" value="0" selected>Solicitud en Trámite</option>
+            <option *ngIf="data_selected_table.register.activity_id == 3" value="1" selected>Solicitud Aprobada</option>
+            <option *ngIf="data_selected_table.register.activity_id == 3" value="2" selected>Solicitud Rechazada</option>
+            <option *ngIf="data_selected_table.register.activity_id == 3 && (tipo_tramite_seleccionado !== 'INACTIVACIÓN')" value="3" selected>Aplazada para Inspección (5 Días)</option>
         </select>
     </div>
 </div>
