@@ -156,7 +156,8 @@ export class InspectorGestionDataComponent implements OnInit {
     private requisite_alimentos_bebidas_data_service: RequisiteABService,
     private requisite_alojamiento_data_service: RequisiteALService,
     private rucNameTypeDataService: RucNameTypeService,
-    private complementaryServiceFoodTypeDataService: ComplementaryServiceFoodTypeService
+    private complementaryServiceFoodTypeDataService: ComplementaryServiceFoodTypeService,
+    private mailerDataService: MailerService
    ) {
     
   }
@@ -1555,7 +1556,424 @@ export class InspectorGestionDataComponent implements OnInit {
   }
 
   guardarInspeccion() {
-    //aqui
+    if ( this.inspectionState == 0) {
+      this.toastr.errorToastr('Debe seleccionar un estado de la inspección', 'Inspección');
+      return;
+    }
+    this.motivoTramite = '';
+    this.mostrarMotivoTramite = false;
+    const today = new Date();
+    const registerStateData = this.buildNewRegisterState();
+    Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de confirmar el resultado del trámite a su cargo?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.requisitosApprovalStateAttachment.approval_state_attachment_file_name = 'Formulario_Requisitos_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+        this.requisitosApprovalStateAttachment.approval_state_id = this.registerApprovalInspector.id;
+        this.informeApprovalStateAttachment.approval_state_attachment_file_name = 'Informe_Requisitos_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+        this.informeApprovalStateAttachment.approval_state_id = this.registerApprovalInspector.id;
+        if ( this.validateActaNotificacionFile() ) {
+          this.actaNotificacionApprovalStateAttachment.approval_state_attachment_file_name = 'Acta_Notificacion_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
+        }
+        if (this.data_selected_table.register.activity_id == 1) {
+          if (this.report.id == 0) {
+            this.approval_state_report_alojamiento_DataService.post(this.report).then().catch( e => { console.log(e); });
+          } else {
+            this.approval_state_report_alojamiento_DataService.put(this.report).then().catch( e => { console.log(e); });
+          }
+          this.saveInspeccionAlojamiento(registerStateData);
+        }
+        if (this.data_selected_table.register.activity_id == 2) {
+          if (this.report.id == 0) {
+            this.approval_state_report_alimentos_bebidas_DataService.post(this.report).then().catch( e => { console.log(e); });
+          } else {
+            this.approval_state_report_alimentos_bebidas_DataService.put(this.report).then().catch( e => { console.log(e); });
+          }
+          this.saveInspeccionAlimentosBebidas(registerStateData);
+        }
+        if (this.data_selected_table.register.activity_id == 3) {
+          if (this.report.id == 0) {
+            this.approval_state_report_operacion_intermediacion_DataService.post(this.report).then().catch( e => { console.log(e); });
+          } else {
+            this.approval_state_report_operacion_intermediacion_DataService.put(this.report).then().catch( e => { console.log(e); });
+          }
+          this.saveInspeccionOperacionIntermediacion(registerStateData);
+        }
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+      }
+    });
+    if (!registerStateData.enviarEmailUsuario) {
+      return;
+    }
+    const documentData = this.buildDocumentData();
+    let prorroga = '';
+    if (this.inspectionState == 3 && this.data_selected_table.register.activity_id == 1) {
+      prorroga = 'APLAZADA PARA INSPECCIÓN (15 DÍAS)';
+    }
+    if (this.inspectionState == 3 && this.data_selected_table.register.activity_id == 2) {
+      prorroga = 'APLAZADA PARA INSPECCIÓN (30 DÍAS)';
+    }
+    if (this.inspectionState == 3 && this.data_selected_table.register.activity_id == 3) {
+      prorroga = 'APLAZADA PARA INSPECCIÓN (5 DÍAS)';
+    }
+    if (this.inspectionState == 4 && this.data_selected_table.register.activity_id == 1) {
+      prorroga = 'APLAZADA PARA INSPECCIÓN (6 MESES)';
+    }
+    if (this.inspectionState == 4 && this.data_selected_table.register.activity_id == 2) {
+      prorroga = 'APLAZADA PARA INSPECCIÓN (60 DÍAS)';
+    }
+    let observaciones = this.registerApprovalInspector.notes;
+    this.userDataService.get(this.data_selected_table.register.establishment.contact_user_id).then( r => {
+      const information = {
+        para: r.name,
+        tramite: this.tipo_tramite,
+        ruc: this.data_selected_table.register.ruc.number,
+        nombreComercial: this.data_selected_table.register.establishment.commercially_known_name,
+        fechaSolicitud: today.toLocaleString(),
+        actividad: this.data_selected_table.register.activity,
+        clasificacion: documentData.clasificacion,
+        categoria: documentData.categoria,
+        tipoSolicitud: this.tipo_tramite,
+        provincia: documentData.provincia.name,
+        canton: documentData.canton.name,
+        prorroga: prorroga,
+        parroquia: documentData.parroquia.name,
+        observaciones: observaciones,
+        callePrincipal: this.data_selected_table.register.establishment.address_main_street,
+        calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street,
+        numeracion: this.data_selected_table.register.establishment.address_number,
+        thisYear: today.getFullYear()
+      };
+      this.mailerDataService.sendMail('prorroga', r.email.toString(), 'Prórroga en su Trámite', information).then( r => {
+        this.toastr.successToastr('Usuario Notificado Satisfactoriamente.', 'Notificación al Usuario');
+        this.refresh();
+      }).catch( e => { console.log(e); });
+    }).catch( e => {console.log(e); });
+  }
+
+  saveInspeccionOperacionIntermediacion(registerStateData) {
+    this.register_state_operacion_intermediacion_DataService.post(registerStateData.newRegisterState).then().catch( e => { console.log(e); });
+    this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalInspector).then( r => {
+      if (this.requisitosApprovalStateAttachment.id == 0) {
+        this.approval_state_attachment_operacion_intermediacion_DataService.post(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
+          this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+          if (this.informeApprovalStateAttachment.id == 0) {
+            this.approval_state_attachment_operacion_intermediacion_DataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          } else {
+            this.approval_state_attachment_operacion_intermediacion_DataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          }
+          Swal.fire(
+            'Confirmado!',
+            'El resultado del trámite ha sido almacenado',
+            'success'
+          );
+          window.location.reload();
+        }).catch( e => { console.log(e); });
+      } else {
+        this.approval_state_attachment_operacion_intermediacion_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
+          this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+          if (this.informeApprovalStateAttachment.id == 0) {
+            this.approval_state_attachment_operacion_intermediacion_DataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          } else {
+            this.approval_state_attachment_operacion_intermediacion_DataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_operacion_intermediacion_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          }
+          Swal.fire(
+            'Confirmado!',
+            'El resultado del trámite ha sido almacenado',
+            'success'
+          );
+          window.location.reload();
+        }).catch( e => { console.log(e); });
+      }
+    }).catch( e => { console.log(e); });
+  }
+
+  saveInspeccionAlimentosBebidas(registerStateData) {
+    this.register_state_alimentos_bebidas_DataService.post(registerStateData.newRegisterState).then().catch( e => { console.log(e); });
+    this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalInspector).then( r => {
+      if (this.requisitosApprovalStateAttachment.id == 0) {
+        this.approval_state_attachment_alimentos_bebidas_DataService.post(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
+          this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+          if (this.informeApprovalStateAttachment.id == 0) {
+            this.approval_state_attachment_alimentos_bebidas_DataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          } else {
+            this.approval_state_attachment_alimentos_bebidas_DataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          }
+          Swal.fire(
+            'Confirmado!',
+            'El resultado del trámite ha sido almacenado',
+            'success'
+          );
+          window.location.reload();
+        }).catch( e => { console.log(e); });
+      } else {
+        this.approval_state_attachment_alimentos_bebidas_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
+          this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+          if (this.informeApprovalStateAttachment.id == 0) {
+            this.approval_state_attachment_alimentos_bebidas_DataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          } else {
+            this.approval_state_attachment_alimentos_bebidas_DataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alimentos_bebidas_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          }
+          Swal.fire(
+            'Confirmado!',
+            'El resultado del trámite ha sido almacenado',
+            'success'
+          );
+          window.location.reload();
+        }).catch( e => { console.log(e); });
+      }
+    }).catch( e => { console.log(e); });
+  }
+
+  saveInspeccionAlojamiento(registerStateData) {
+    this.register_state_alojamiento_DataService.post(registerStateData.newRegisterState).then().catch( e => { console.log(e); });
+    this.approval_state_alojamiento_DataService.put(this.registerApprovalInspector).then( r => {
+      if (this.requisitosApprovalStateAttachment.id == 0) {
+        this.approval_state_attachment_alojamiento_DataService.post(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
+          this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+          if (this.informeApprovalStateAttachment.id == 0) {
+            this.approval_state_attachment_alojamiento_DataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          } else {
+            this.approval_state_attachment_alojamiento_DataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          }
+          Swal.fire(
+            'Confirmado!',
+            'El resultado del trámite ha sido almacenado',
+            'success'
+          );
+          window.location.reload();
+        }).catch( e => { console.log(e); });
+      } else {
+        this.approval_state_attachment_alojamiento_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
+          this.toastr.successToastr('Inspección Guardada Satisfactoriamente', 'Inspección');
+          if (this.informeApprovalStateAttachment.id == 0) {
+            this.approval_state_attachment_alojamiento_DataService.post(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          } else {
+            this.approval_state_attachment_alojamiento_DataService.put(this.informeApprovalStateAttachment).then( r_attach_2 => {
+              if ( this.validateActaNotificacionFile() ) { 
+                this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
+                if (this.actaNotificacionApprovalStateAttachment.id == 0) {
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                } else {
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                }
+              }
+            }).catch( e => { console.log(e); });
+          }
+          Swal.fire(
+            'Confirmado!',
+            'El resultado del trámite ha sido almacenado',
+            'success'
+          );
+          window.location.reload();
+        }).catch( e => { console.log(e); });
+      }
+    }).catch( e => { console.log(e); });
+  }
+
+  buildNewRegisterState(): any {
+    const toReturn = {
+      enviarEmailUsuario: false,
+      newRegisterState: new RegisterState()
+    };
+    const estado: String = this.stateTramiteId.toString();
+    const digito = estado.substring(estado.length-1, estado.length);
+    if ( this.inspectionState == 1) {
+      this.registerApprovalInspector.value = true;
+      if (digito == '4') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 6;
+      }
+      if (digito == '5') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 5;
+      }
+      if (digito == '6') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 4;
+      }
+      if (digito == '0') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId;
+      }
+    }
+    if ( this.inspectionState == 2) {
+      this.registerApprovalInspector.value = false;
+      if (digito == '4') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 6;
+      }
+      if (digito == '5') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 5;
+      }
+      if (digito == '6') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 4;
+      }
+      if (digito == '0') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId;
+      }
+    }
+    if ( this.inspectionState == 3) {
+      this.registerApprovalInspector.value = false;
+      toReturn.enviarEmailUsuario = true;
+      if (digito == '4') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 1;
+      }
+      if (digito == '5') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId;
+      }
+      if (digito == '6') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId - 1;
+      }
+      if (digito == '0') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId - 5;
+      }
+    }
+    if ( this.inspectionState == 4) {
+      this.registerApprovalInspector.value = false;
+      toReturn.enviarEmailUsuario = true;
+      if (digito == '4') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 2;
+      }
+      if (digito == '5') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 1;
+      }
+      if (digito == '6') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId;
+      }
+      if (digito == '0') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId - 4;
+      }
+    }
+    if (this.inspectionState == 5) {
+      this.registerApprovalInspector.value = true;
+      toReturn.enviarEmailUsuario = false;
+      this.register_alimentos_bebidas_DataService.isNotTuristic(this.data_selected_table.register.register.id).then().catch( e => { console.log(e); });
+      if (digito == '4') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 6;
+      }
+      if (digito == '5') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 5;
+      }
+      if (digito == '6') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId + 4;
+      }
+      if (digito == '0') {
+        toReturn.newRegisterState.state_id = this.stateTramiteId;
+      }
+    }
+    toReturn.newRegisterState.justification = 'Resultados de la Inspección cargados en la fecha ' + new Date(this.registerApprovalInspector.date_fullfill).toDateString();
+    toReturn.newRegisterState.register_id = this.registerApprovalInspector.register_id;
+    this.registerApprovalInspector.notes = '';
+    this.report.approval_state_id = this.registerApprovalInspector.id;
+    return toReturn;
   }
 
   saveRegisterState(newRegisterState: RegisterState, messageToastr: string) {
