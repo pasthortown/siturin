@@ -1029,7 +1029,7 @@ export class InspectorGestionDataComponent implements OnInit {
        {telefono_principal: this.contactUser.main_phone_number.toUpperCase()},
        {local: local.toUpperCase()},
        {pagina_web: this.data_selected_table.register.establishment.url_web.toUpperCase()},
-       {numero_registro: this.data_selected_table.register.register.register.code.toUpperCase()},
+       {numero_registro: this.data_selected_table.register.register.code.toUpperCase()},
        {fecha_registro: fecha_registro.toUpperCase()},
        {tipo_tramite: this.tipo_tramite.toUpperCase()},
        {clasificacion: documentData.clasificacion.toUpperCase()},
