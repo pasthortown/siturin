@@ -513,7 +513,7 @@ const routes: Routes = [
          },
 
          // INTERNO ANTIGUO
-         
+
          {
             path: 'bitacora',
             loadChildren: './INTERNO/bitacora/bitacora.module#BitacoraModule'
@@ -533,10 +533,6 @@ const routes: Routes = [
          {
             path: 'inner-financial-account-admin',
             loadChildren: './INTERNO/inner-financial-account-admin/inner-financial-account-admin.module#InnerFinancialAccountAdminModule'
-         },
-         {
-            path: 'tecnico-financiero',
-            loadChildren: './INTERNO/tecnico-financiero/tecnico-financiero.module#TecnicoFinancieroModule'
          },
          {
             path: 'pagos',
