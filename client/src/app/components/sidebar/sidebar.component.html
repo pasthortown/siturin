@@ -174,7 +174,7 @@
       <a [routerLink]="['/cliente-interno-tecnico-financiero']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isTecnF">
          <i class="fa fa-credit-card"></i>&nbsp; <span>Técnico financiero</span>
       </a>
-      <a [routerLink]="['/inspector']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isInsp">
+      <a [routerLink]="['/cliente-interno-inspector']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isInsp">
          <i class="fa fa-user-secret"></i>&nbsp; <span>Técnico Zonal</span>
       </a>
       <a [routerLink]="['/pagos']" [routerLinkActive]="['router-link-active']" class="list-group-item" *ngIf="isGestorPag">
@@ -543,12 +543,6 @@
                <li>
                   <a [routerLink]="['/cliente-interno-coordinador']" [routerLinkActive]="['router-link-active']" class="list-group-item">Coordinador</a>
                </li>
-               <li>
-                  <a [routerLink]="['/cliente-interno-inspector']" [routerLinkActive]="['router-link-active']" class="list-group-item">Inspector</a>
-               </li>
-               <li>
-                  <a [routerLink]="['/cliente-interno-tecnico-financiero']" [routerLinkActive]="['router-link-active']" class="list-group-item">Técnico Financiero</a>
-               </li>
             </ul>
          </li>
       </div>
@@ -559,13 +553,10 @@
          <li class="nested" [class.expand]="showMenu === 'interno'">
             <ul class="submenu">
                <li>
-                  <a [routerLink]="['/interno-registro']" [routerLinkActive]="['router-link-active']" class="list-group-item">Registro</a>
-               </li>
-               <li>
                   <a [routerLink]="['/coordinador']" [routerLinkActive]="['router-link-active']" class="list-group-item">Coordinador Zonal</a>
                </li>
                <li>
-                  <a [routerLink]="['/inspector']" [routerLinkActive]="['router-link-active']" class="list-group-item">Técnico Zonal</a>
+                  <a [routerLink]="['/cliente-interno-inspector']" [routerLinkActive]="['router-link-active']" class="list-group-item">Técnico Zonal</a>
                </li>
                <li>
                   <a [routerLink]="['/interno-account-admin']" [routerLinkActive]="['router-link-active']" class="list-group-item">Administración de Cuentas Externas</a>

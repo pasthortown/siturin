@@ -513,10 +513,7 @@ const routes: Routes = [
          },
 
          // INTERNO ANTIGUO
-         {
-            path: 'interno-registro',
-            loadChildren: './INTERNO/registro/registro.module#RegistroModule'
-         },
+         
          {
             path: 'bitacora',
             loadChildren: './INTERNO/bitacora/bitacora.module#BitacoraModule'
@@ -524,10 +521,6 @@ const routes: Routes = [
          {
             path: 'coordinador',
             loadChildren: './INTERNO/coordinador/coordinador.module#CoordinadorModule'
-         },
-         {
-            path: 'inspector',
-            loadChildren: './INTERNO/inspector/inspector.module#InspectorModule'
          },
          {
             path: 'interno-account-admin',
