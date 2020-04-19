@@ -1320,6 +1320,7 @@ export class InspectorGestionDataComponent implements OnInit {
   checkMotivoTramite(estado: String) {
     this.motivoTramite = '';
     const PrimerDigito = estado.substring(0, 1);
+    console.log(estado);
     if (PrimerDigito == '1') {
       this.mostrarMotivoTramite = false;
     } else {
