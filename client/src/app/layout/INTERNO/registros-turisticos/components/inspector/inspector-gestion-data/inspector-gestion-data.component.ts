@@ -1327,23 +1327,22 @@ export class InspectorGestionDataComponent implements OnInit {
       this.mostrarMotivoTramite = true;
     }
     this.tipo_tramite = 'REGISTRO';
-    const primerdigito = estado.substring(0, 1);
-    if (primerdigito == '1') {
+    if (PrimerDigito == '1') {
       this.tipo_tramite = 'REGISTRO';
     }
-    if (primerdigito == '2') {
+    if (PrimerDigito == '2') {
       this.tipo_tramite = 'RECLASIFICACIÓN';
     }
-    if (primerdigito == '3') {
+    if (PrimerDigito == '3') {
       this.tipo_tramite = 'RECATEGORIZACIÓN';
     }
-    if (primerdigito == '4') {
+    if (PrimerDigito == '4') {
       this.tipo_tramite = 'ACTUALIZACIÓN';
     }
-    if (primerdigito == '5') {
+    if (PrimerDigito == '5') {
       this.tipo_tramite = 'INACTIVACIÓN';
     }
-    if (primerdigito == '6') {
+    if (PrimerDigito == '6') {
       this.tipo_tramite = 'REINGRESO';
     }
     if (estado == '20') {
