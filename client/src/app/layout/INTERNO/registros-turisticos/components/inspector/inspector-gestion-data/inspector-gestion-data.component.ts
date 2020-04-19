@@ -1362,7 +1362,6 @@ export class InspectorGestionDataComponent implements OnInit {
     if (estado == '70') {
       this.tipo_tramite = 'REINGRESO';
     }
-    this.motivoTramite = this.tipo_tramite;
     this.as_turistic_date = new Date();
     if (this.data_selected_table.register.establishment.as_turistic_register_date != null && typeof this.data_selected_table.register.establishment.as_turistic_register_date != 'undefined') {
       this.as_turistic_date = new Date(this.data_selected_table.register.establishment.as_turistic_register_date.toString());
