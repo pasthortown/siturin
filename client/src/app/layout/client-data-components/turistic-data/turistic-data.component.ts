@@ -1,3 +1,5 @@
+import { EstablishmentService } from './../../../services/CRUD/BASE/establishment.service';
+import { Language } from './../../../models/BASE/Language';
 import { Router } from '@angular/router';
 import { MailerService } from 'src/app/services/negocio/mailer.service';
 import { RegisterProcedure } from 'src/app/models/ALOJAMIENTO/RegisterProcedure';
@@ -119,6 +121,7 @@ export class TuristicDataComponent implements OnInit {
 
   constructor(private toastr: ToastrManager,
     private router: Router,
+    private establishmentDataService: EstablishmentService,
     private consultorDataService: ConsultorService,
     private tariffTypeDataService: TariffTypeService,
     private capacityTypeABDataService: CapacityTypeABService,
@@ -163,7 +166,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log(this.establishment);
     this.get_registers_on_establishment(); // Obtiene los Registros asociados al establecimiento
     this.build_enable_classifications();
     this.validateInitialData();
@@ -506,7 +508,10 @@ export class TuristicDataComponent implements OnInit {
     if (register_found == null) {
       this.display_register_data = true;
     }
-    this.showRegisterData();
+    this.establishmentDataService.get_filtered(this.establishment.id).then( r => {
+      this.establishment.languages_on_establishment = r.languages_on_establishment as Language[];
+      this.showRegisterData();
+    }).catch( e => { console.log(e); });
   }
 
   getClassificationFromRegisterType(register_types_array: RegisterType[] , register_type_id: number): String {
