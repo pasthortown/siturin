@@ -1263,7 +1263,6 @@ export class TuristicDataComponent implements OnInit {
   }
 
   saveOperacionIntermediacion() {
-    console.log(this.register_validated);
     if (!this.validateOperacionIntermediacionData()) {
       return;
     }
