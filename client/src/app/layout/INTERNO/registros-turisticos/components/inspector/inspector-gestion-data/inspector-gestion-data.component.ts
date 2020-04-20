@@ -16,9 +16,6 @@ import { ApprovalStateReportService as ApprovalStateReportALService } from 'src/
 import { ApprovalStateReportService as ApprovalStateReportABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstatereport.service';
 import { ApprovalStateReportService as ApprovalStateReportOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstatereport.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
-import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
-import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
-import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
 import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
@@ -137,9 +134,6 @@ export class InspectorGestionDataComponent implements OnInit {
     private register_state_alojamiento_DataService: RegisterStateALService,
     private register_state_alimentos_bebidas_DataService: RegisterStateABService,
     private register_state_operacion_intermediacion_DataService: RegisterStateOPService,
-    private register_procedure_alojamiento_DataService: RegisterProcedureALService,
-    private register_procedure_alimentos_bebidas_DataService: RegisterProcedureABService,
-    private register_procedure_operacion_intermediacion_DataService: RegisterProcedureOPService,
     private approval_state_report_alojamiento_DataService: ApprovalStateReportALService,
     private approval_state_report_alimentos_bebidas_DataService: ApprovalStateReportABService,
     private approval_state_report_operacion_intermediacion_DataService: ApprovalStateReportOPService,

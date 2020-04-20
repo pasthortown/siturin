@@ -36,6 +36,9 @@ import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
+import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -68,7 +71,10 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } fr
     ApprovalStateOPService,
     ApprovalStateAttachmentALService,
     ApprovalStateAttachmentABService,
-    ApprovalStateAttachmentOPService
+    ApprovalStateAttachmentOPService,
+    RegisterStateALService,
+    RegisterStateABService,
+    RegisterStateOPService
   ]
 })
 export class ClienteInternoCoordinadorModule {}

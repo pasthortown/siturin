@@ -8,13 +8,20 @@ import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
 import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
+import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
+import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
+import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
 
 import { Establishment } from 'src/app/models/BASE/Establishment';
+import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
 import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStateAttachment';
 import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { Ruc } from 'src/app/models/BASE/Ruc';
+import { User } from 'src/app/models/profile/User';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-coordinador-asignacion-data',
@@ -22,6 +29,7 @@ import { saveAs } from 'file-saver/FileSaver';
   styleUrls: ['./coordinador-asignacion-data.component.scss']
 })
 export class CoordinadorAsignacionDataComponent implements OnInit {
+  @Input('user') user: User = new User();
   @Input('data_selected') data_selected_table = {row: null, 
     register: {register: null,
       activity_id: 0,
@@ -45,7 +53,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   };
 
   rechazarTramite = false;
-
+  guardando_no_requiere_inspeccion = false;
   mostrarMotivoTramite = false;
   tipo_tramite = 'pendiente';
   digito = '';
@@ -65,6 +73,13 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   hasInform  = false;
   hasRequisites = false;
   hasActaNotificacion = false;
+
+  asignandoFinanciero = false;
+  desasignandoFinanciero = false;
+
+  asignandoInspector = false;
+  desasignandoInspector = false;
+
   registerApprovalInspector: ApprovalState = new ApprovalState();
   registerApprovalFinanciero: ApprovalState = new ApprovalState();
   registerApprovalCoordinador: ApprovalState = new ApprovalState();
@@ -80,7 +95,9 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     private approval_state_attachment_alojamiento_DataService: ApprovalStateAttachmentALService,
     private approval_state_attachment_alimentos_bebidas_DataService: ApprovalStateAttachmentABService,
     private approval_state_attachment_operacion_intermediacion_DataService: ApprovalStateAttachmentOPService,
-    
+    private register_state_alojamiento_DataService: RegisterStateALService,
+    private register_state_alimentos_bebidas_DataService: RegisterStateABService,
+    private register_state_operacion_intermediacion_DataService: RegisterStateOPService,
     private register_procedure_alojamiento_DataService: RegisterProcedureALService,
     private register_procedure_alimentos_bebidas_DataService: RegisterProcedureABService,
     private register_procedure_operacion_intermediacion_DataService: RegisterProcedureOPService) {
@@ -426,6 +443,107 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
 
   rechazarCheck() {
     this.registerApprovalInspector.notes = '';
+  }
+
+  noRequiereInspeccion() {
+    this.guardando_no_requiere_inspeccion = true;
+    Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro que el trámite no requiere revisión por parte del Técnico Zonal?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Aprobado!',
+          'El trámite se encuentra listo para ser asignado a un Técnico Financiero',
+          'success'
+        );
+        const today = new Date();
+        this.registerApprovalInspector.id_user = 9999999;
+        this.registerApprovalInspector.date_assigment = today;
+        this.registerApprovalInspector.notes = 'NO REQUIERE INSPECCIÓN';
+        this.registerApprovalInspector.value = true;
+        this.registerApprovalInspector.date_fullfill = today;
+        const newRegisterState = new RegisterState();
+        newRegisterState.justification = 'No se requiere inspección - fecha:' + this.registerApprovalInspector.date_assigment.toDateString();
+        newRegisterState.register_id = this.data_selected_table.register.register.id;
+        newRegisterState.state_id = this.stateTramiteId + 9;
+        this.registerApprovalCoordinador.id_user = this.user.id;
+        this.registerApprovalCoordinador.notes = 'NO REQUIERE INSPECCIÓN';
+        this.registerApprovalCoordinador.date_assigment = today;
+        this.registerApprovalCoordinador.date_fullfill = today;
+        this.registerApprovalCoordinador.value = true;
+        if (this.data_selected_table.register.activity_id == 1) {
+          this.approval_state_alojamiento_DataService.put(this.registerApprovalInspector).then( r => {
+            this.approval_state_alojamiento_DataService.put(this.registerApprovalCoordinador).then( r1 => {
+              this.register_state_alojamiento_DataService.post(newRegisterState).then( r2 => {
+                this.guardando_no_requiere_inspeccion = false;
+                window.location.reload();
+              }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+          }).catch( e => { console.log(e); });
+        }
+        if (this.data_selected_table.register.activity_id == 2) {
+          this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalInspector).then( r => {
+            this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalCoordinador).then( r1 => {
+              this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r2 => {
+                this.guardando_no_requiere_inspeccion = false;
+                window.location.reload();
+              }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+          }).catch( e => { console.log(e); });
+        }
+        if (this.data_selected_table.register.activity_id == 3) {
+          this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalInspector).then( r => {
+            this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalCoordinador).then( r1 => {
+              this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r2 => {
+                this.guardando_no_requiere_inspeccion = false;
+                window.location.reload();
+              }).catch( e => { console.log(e); });
+            }).catch( e => { console.log(e); });
+          }).catch( e => { console.log(e); });
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+        this.guardando_no_requiere_inspeccion = false;
+      }
+    });
+  }
+
+  asignarInspector() {
+    //aqui
+  }
+
+  desasignarInspector() {
+    //aqui
+  }
+
+  aceptarTramite() {
+    //aqui
+  }
+
+  confirmarRechazoTramite() {
+    //aqui
+  }
+
+  asignarFinanciero() {
+    //aqui
+  }
+
+  desasignarFinanciero() {
+    //aqui
+  }
+
+  confirmarRechazoTramiteFinanciero() {
+    //aqui
   }
 
   descargarRequisitos() {

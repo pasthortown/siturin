@@ -21,9 +21,6 @@ import { StateService as StateALService} from 'src/app/services/CRUD/ALOJAMIENTO
 import { StateService as StateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/state.service';
 import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/state.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
-import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
-import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
-import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
 import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 import { MailerService } from 'src/app/services/negocio/mailer.service';
@@ -79,9 +76,6 @@ import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJA
     StateOPService,
     UbicationService,
     DinardapService,
-    RegisterProcedureALService,
-    RegisterProcedureABService,
-    RegisterProcedureOPService,
     ZoneService,
     CapacityTypeALService,
     MailerService,
