@@ -1841,9 +1841,13 @@ export class InspectorGestionDataComponent implements OnInit {
               if ( this.validateActaNotificacionFile() ) { 
                 this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
                 if (this.actaNotificacionApprovalStateAttachment.id == 0) {
-                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 } else {
-                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 }
               }
             }).catch( e => { console.log(e); });
@@ -1852,23 +1856,17 @@ export class InspectorGestionDataComponent implements OnInit {
               if ( this.validateActaNotificacionFile() ) { 
                 this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
                 if (this.actaNotificacionApprovalStateAttachment.id == 0) {
-                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 } else {
-                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 }
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire({
-            title: 'Confirmado!',
-            text: 'El resultado del trámite ha sido almacenado',
-            type: 'success',
-            showCancelButton: false,
-            confirmButtonText: 'De acuerdo',
-            reverseButtons: true
-          }).then((result) => {
-            window.location.reload();
-          });
         }).catch( e => { console.log(e); });
       } else {
         this.approval_state_attachment_alojamiento_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
@@ -1878,9 +1876,13 @@ export class InspectorGestionDataComponent implements OnInit {
               if ( this.validateActaNotificacionFile() ) { 
                 this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
                 if (this.actaNotificacionApprovalStateAttachment.id == 0) {
-                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 } else {
-                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 }
               }
             }).catch( e => { console.log(e); });
@@ -1889,23 +1891,17 @@ export class InspectorGestionDataComponent implements OnInit {
               if ( this.validateActaNotificacionFile() ) { 
                 this.actaNotificacionApprovalStateAttachment.approval_state_id = this.informeApprovalStateAttachment.approval_state_id;
                 if (this.actaNotificacionApprovalStateAttachment.id == 0) {
-                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.post(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 } else {
-                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then().catch( e => { console.log(e); });
+                  this.approval_state_attachment_alojamiento_DataService.put(this.actaNotificacionApprovalStateAttachment).then( ans => {
+                    this.reloadWindow();
+                  }).catch( e => { console.log(e); });
                 }
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire({
-            title: 'Confirmado!',
-            text: 'El resultado del trámite ha sido almacenado',
-            type: 'success',
-            showCancelButton: false,
-            confirmButtonText: 'De acuerdo',
-            reverseButtons: true
-          }).then((result) => {
-            window.location.reload();
-          });
         }).catch( e => { console.log(e); });
       }
     }).catch( e => { console.log(e); });
