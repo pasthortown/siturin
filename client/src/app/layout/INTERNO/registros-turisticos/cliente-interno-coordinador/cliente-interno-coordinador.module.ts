@@ -1,3 +1,5 @@
+import { CoordinadorEntregaDataComponent } from './../components/coordinador/coordinador-entrega-data - copia/coordinador-entrega-data.component';
+import { CoordinadorAsignacionDataComponent } from './../components/coordinador/coordinador-asignacion-data/coordinador-asignacion-data.component';
 import { CoordinadorGestionDataComponent } from './../components/coordinador/coordinador-gestion-data/coordinador-gestion-data.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -37,7 +39,7 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     ClienteInternoCoordinadorRoutingModule,
     RegisterDataModule,
   ],
-  declarations: [ClienteInternoCoordinadorComponent, CoordinadorGestionDataComponent, CoordinadorBandejasDataComponent],
+  declarations: [ClienteInternoCoordinadorComponent, CoordinadorGestionDataComponent, CoordinadorBandejasDataComponent, CoordinadorAsignacionDataComponent, CoordinadorEntregaDataComponent],
   providers: [
     UserService,
     ConsultorService,
