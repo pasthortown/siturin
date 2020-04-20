@@ -30,6 +30,12 @@ import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -56,7 +62,13 @@ import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/
     DinardapService,
     RegisterProcedureALService,
     RegisterProcedureABService,
-    RegisterProcedureOPService
+    RegisterProcedureOPService,
+    ApprovalStateALService,
+    ApprovalStateABService,
+    ApprovalStateOPService,
+    ApprovalStateAttachmentALService,
+    ApprovalStateAttachmentABService,
+    ApprovalStateAttachmentOPService
   ]
 })
 export class ClienteInternoCoordinadorModule {}

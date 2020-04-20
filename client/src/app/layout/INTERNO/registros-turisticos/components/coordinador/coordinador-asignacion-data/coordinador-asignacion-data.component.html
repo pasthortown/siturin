@@ -23,74 +23,96 @@
         </div>
     </div>
 </div>
-<!-- <div class="row">
+<div class="row">
     <div class="col-12" *ngIf="registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN'">
-      <label class="col-form-label"><strong>Técnico Zonal Asignado</strong></label>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <button [disabled]="isAssigned || (digito !== '1' && digito !== '4') || desasignandoInspector" type="button" title="No se requiere Inspección de Técnico Zonal" class="mr-2 btn btn-warning" (click)="noRequiereInspeccion()"><span class="fas fa-user-check"></span></button>
-          <button [disabled]="isAssigned || (inspectorSelectedId == 0) || (digito !== '1') || asignandoInspector" type="button" title="Asignar" class="btn btn-success" (click)="asignarInspector()"><span class="fas fa-user-plus"></span></button>
-          <button [disabled]="!isAssigned || (inspectorSelectedId == 0) || desasignandoInspector || registerApprovalInspector.value || (digito !== '4')" type="button" title="Remover" class="btn btn-danger" (click)="desasignarInspector()"><span class="fas fa-user-minus"></span></button>
+        <label class="col-form-label"><strong>Técnico Zonal Asignado</strong></label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button [disabled]="isAssignedInspector || (digito !== '1' && digito !== '4') || desasignandoInspector" type="button" title="No se requiere Inspección de Técnico Zonal" class="mr-2 btn btn-warning" (click)="noRequiereInspeccion()">
+                    <span class="fas fa-user-check"></span>
+                </button>
+                <button [disabled]="isAssignedInspector || (inspectorSelectedId == 0) || (digito !== '1') || asignandoInspector" type="button" title="Asignar" class="btn btn-success" (click)="asignarInspector()">
+                    <span class="fas fa-user-plus"></span>
+                </button>
+                <button [disabled]="!isAssignedInspector || (inspectorSelectedId == 0) || desasignandoInspector || registerApprovalInspector.value || (digito !== '4')" type="button" title="Remover" class="btn btn-danger" (click)="desasignarInspector()">
+                    <span class="fas fa-user-minus"></span>
+                </button>
+            </div>
+            <select [disabled]="isAssignedInspector" class="form-control" id="idInspector" name="idInspector" [(ngModel)]="inspectorSelectedId">
+                <option value="0" selected>Seleccione...</option>
+                <option *ngFor="let inspector of inspectores" value="{{inspector.id}}">{{inspector.name}} - {{inspector.province}} - {{inspector.email}}</option>
+            </select>
         </div>
-        <select [disabled]="isAssigned" class="form-control" id="idInspector" name="idInspector" [(ngModel)]="inspectorSelectedId">
-          <option value="0" selected>Seleccione...</option>
-          <option *ngFor="let inspector of inspectores" value="{{inspector.id}}">{{inspector.name}} - {{inspector.province}} - {{inspector.email}}</option>
-        </select>
-      </div>
     </div>
     <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN' && (registerApprovalInspector.notes != '' && !rechazarTramite && digito != '4')">
-      <strong>Motivo de devolución de trámite</strong>
-        <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes">
+        <strong>Motivo de devolución de trámite</strong>
+        <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes"></div>
+    </div>
+    <div class="col-12" *ngIf="isAssignedInspector && (registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN')">
+        <div class="col-12" *ngIf="hasRequisites">
+            <span class="badge badge-info" style="cursor:pointer;" (click)="descargarRequisitos()"><span class="fas fa-file-pdf" (click)="descargarRequisitos()"></span>&nbsp; Revisión de Requisitos</span> 
+        </div>
+        <div class="col-12" *ngIf="hasInform">
+            <span class="badge badge-info" style="cursor:pointer;" (click)="descargarInforme()"><span class="fas fa-file-pdf" (click)="descargarRequisitos()"></span>&nbsp; Informe</span>
+        </div>
+        <div class="col-12" *ngIf="hasActaNotificacion">
+            <span class="badge badge-info" style="cursor:pointer;" (click)="descargarActa()"><span class="fas fa-file-pdf" (click)="descargarActa()"></span>&nbsp; Acta de Notificación</span> 
+        </div>
+        <div class="col-12" *ngIf="isAssignedInspector">
+            <small><strong>Fecha de Asignación:</strong>&nbsp;<i>{{registerApprovalInspector.date_assigment | date:'y-MM-dd'}}</i></small>
+        </div>
+        <div class="col-12" *ngIf="hasInform">
+            <small><strong>Fecha de Inspección:</strong>&nbsp;<i>{{registerApprovalInspector.date_fullfill | date:'y-MM-dd'}}</i></small>
+        </div>
+        <div class="col-12" *ngIf="hasInform">
+            <small><strong>Estado Inspección:</strong>&nbsp;
+                <span class="badge badge-success" *ngIf="registerApprovalInspector.value">Aprobado</span> 
+                <span class="badge badge-danger" *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</span> 
+            </small>
+        </div>
+        <div class="col-12 text-center mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
+            <button type="button" class="btn btn-success" title="Anterior" (click)="aceptarTramite()">
+                <i class="fas fa-check-double"></i>&nbsp;Aprobar Estado de Inspección&nbsp;
+                <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
+                <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
+            </button>
+        </div>
+        <div class="col-12 text-center mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
+            <table class="table mt-2">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="onoffswitch">
+                                <input type="checkbox" class="onoffswitch-checkbox"  id="vacacionesCheck"
+                                    name="vacacionesCheck" [(ngModel)]="rechazarTramite" (change)="rechazarCheck()">
+                                <label class="onoffswitch-label" for="vacacionesCheck">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>Rechazar y Devolver el trámite seleccionado</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 mt-5 mb-2" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
+            <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
+            <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
+        </div>
+        <div class="col-12 text-center" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
+            <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramite">
+                <i class="fas fa-trash"></i>&nbsp;Rechazar Estado de Inspección&nbsp;
+                <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
+                <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
+            </button>
         </div>
     </div>
-    <div class="col-12" *ngIf="isAssigned && (registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN')">
-      <div class="col-12" *ngIf="hasRequisites">
-        <span class="badge badge-info" style="cursor:pointer;" (click)="descargarRequisitos()"><span class="fas fa-file-pdf" (click)="descargarRequisitos()"></span>&nbsp; Revisión de Requisitos</span> 
-      </div>
-      <div class="col-12" *ngIf="hasInform">
-        <span class="badge badge-info" style="cursor:pointer;" (click)="descargarInforme()"><span class="fas fa-file-pdf" (click)="descargarRequisitos()"></span>&nbsp; Informe</span>
-      </div>
-      <div class="col-12" *ngIf="hasActaNotificacion">
-        <span class="badge badge-info" style="cursor:pointer;" (click)="descargarActa()"><span class="fas fa-file-pdf" (click)="descargarActa()"></span>&nbsp; Acta de Notificación</span> 
-      </div>
-      <div class="col-12" *ngIf="isAssigned">
-        <small><strong>Fecha de Asignación:</strong>&nbsp;<i>{{registerApprovalInspector.date_assigment | date:'y-MM-dd'}}</i></small>
-      </div>
-      <div class="col-12" *ngIf="hasInform">
-        <small><strong>Fecha de Inspección:</strong>&nbsp;<i>{{registerApprovalInspector.date_fullfill | date:'y-MM-dd'}}</i></small>
-      </div>
-      <div class="col-12" *ngIf="hasInform">
-        <small><strong>Estado Inspección:</strong>&nbsp;
-          <span class="badge badge-success" *ngIf="registerApprovalInspector.value">Aprobado</span> 
-          <span class="badge badge-danger" *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</span> 
-        </small>
-      </div>
-      <div class="col-12 text-center mb-3" *ngIf="isAssigned && digito == '0' && registerApprovalCoordinador.id_user == 0">
-          <button type="button" class="btn btn-success" title="Anterior"
-            (click)="aceptarTramite()">
-            <i class="fas fa-check-double"></i>&nbsp;Aprobar Estado de Inspección&nbsp;
-            <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
-            <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
-          </button>
-      </div>
-      <div class="col-12 text-center mb-3" *ngIf="isAssigned && digito == '0' && registerApprovalCoordinador.id_user == 0">
-          <input type="checkbox" name="vacacionesCheck" id="vacacionesCheck" [(ngModel)]="rechazarTramite" (change)="rechazarCheck()"> Rechazar y devolver traḿite
-      </div>
-      <div class="col-12 mt-5 mb-2" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
-        <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
-        <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
-      </div>
-      <div class="col-12 text-center" *ngIf="isAssigned && digito == '0' && registerApprovalCoordinador.id_user == 0">
-          <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="
-              confirmarRechazoTramite()
-            " *ngIf="rechazarTramite">
-            <i class="fas fa-trash"></i>&nbsp;Rechazar Estado de Inspección&nbsp;
-            <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
-            <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
-          </button>
-      </div>
-    </div>
-    <div class="col-12" *ngIf="registerApprovalCoordinador.id_user != 0 && registerApprovalInspector.value">
+</div>
+
+<!--    <div class="col-12" *ngIf="registerApprovalCoordinador.id_user != 0 && registerApprovalInspector.value">
         <label class="col-form-label"><strong>Técnico Financiero Asignado</strong></label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">

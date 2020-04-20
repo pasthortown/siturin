@@ -2,8 +2,16 @@ import { DinardapService } from 'src/app/services/negocio/dinardap.service';
 import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
 import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+import { ApprovalStateService as ApprovalStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstate.service';
+import { ApprovalStateService as ApprovalStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstate.service';
+import { ApprovalStateService as ApprovalStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstate.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentALService } from 'src/app/services/CRUD/ALOJAMIENTO/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/approvalstateattachment.service';
+import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/approvalstateattachment.service';
 
 import { Establishment } from 'src/app/models/BASE/Establishment';
+import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStateAttachment';
+import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -27,6 +35,14 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   @Input('tecnicos_financieros') tecnicosFinancieros = [];
   @Input('tecnicos_zonales') tecnicosZonales = [];
 
+  approvalStateAttachmentsProcessed = {
+    informeApprovalStateAttachment: new ApprovalStateAttachment(),
+    requisitosApprovalStateAttachment: new ApprovalStateAttachment(),
+    actaNotificacionApprovalStateAttachment: new ApprovalStateAttachment(),
+    registroApprovalStateAttachment: new ApprovalStateAttachment(),
+    tarifarioRackApprovalStateAttachment: new ApprovalStateAttachment(),
+  };
+
   mostrarMotivoTramite = false;
   tipo_tramite = 'pendiente';
   digito = '';
@@ -40,8 +56,28 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   razon_social = '';
   representante_legal = '';
 
+  isAssignedInspector = false;
+  isAssignedFinancial = false;
+  hasIspectionDate  = false;
+  hasInform  = false;
+  hasRequisites = false;
+  hasActaNotificacion = false;
+  registerApprovalInspector: ApprovalState = new ApprovalState();
+  registerApprovalFinanciero: ApprovalState = new ApprovalState();
+  registerApprovalCoordinador: ApprovalState = new ApprovalState();
+
+  inspectorSelectedId = 0;
+  financialSelectedId = 0;
+
   constructor(
     private dinardapDataService: DinardapService,
+    private approval_state_alojamiento_DataService: ApprovalStateALService,
+    private approval_state_alimentos_bebidas_DataService: ApprovalStateABService,
+    private approval_state_operacion_intermediacion_DataService: ApprovalStateOPService,
+    private approval_state_attachment_alojamiento_DataService: ApprovalStateAttachmentALService,
+    private approval_state_attachment_alimentos_bebidas_DataService: ApprovalStateAttachmentABService,
+    private approval_state_attachment_operacion_intermediacion_DataService: ApprovalStateAttachmentOPService,
+    
     private register_procedure_alojamiento_DataService: RegisterProcedureALService,
     private register_procedure_alimentos_bebidas_DataService: RegisterProcedureABService,
     private register_procedure_operacion_intermediacion_DataService: RegisterProcedureOPService) {
@@ -78,11 +114,135 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     this.stateTramiteId = this.data_selected_table.register.states.state_id;
     const estado = this.stateTramiteId.toString();
     this.digito = estado.substring(estado.length-1, estado.length);
+    this.isAssignedInspector = false;
+    this.isAssignedFinancial = false;
+    this.hasIspectionDate  = false;
+    this.hasInform  = false;
+    this.hasRequisites = false;
+    this.hasActaNotificacion = false;
+    this.inspectorSelectedId = 0;
+    this.financialSelectedId = 0;
+    this.registerApprovalInspector = new ApprovalState();
+    this.registerApprovalFinanciero = new ApprovalState();
+    this.registerApprovalCoordinador = new ApprovalState();
     this.checkMotivoTramite(estado);
     this.checkRuc();
+    this.getApprovalStates();
     console.log(this.tecnicosFinancieros);
     console.log(this.tecnicosZonales);
     console.log(this.data_selected_table);
+  }
+
+  getApprovalStates() {
+    const idRegister = this.data_selected_table.register.register.id;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.get_by_register_id(idRegister).then( r => {
+         const registerApprovals = r;
+         this.approval_state_attachment_alojamiento_DataService.get_by_register_id(idRegister).then( r => {
+           const approvalStateAttachments = r as ApprovalStateAttachment[];
+           this.processApprovalData(registerApprovals, approvalStateAttachments);
+         }).catch( e => { console.log(e); });
+       }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.get_by_register_id(idRegister).then( r => {
+        const registerApprovals = r;
+        this.approval_state_attachment_alimentos_bebidas_DataService.get_by_register_id(idRegister).then( r => {
+          const approvalStateAttachments = r as ApprovalStateAttachment[];
+          this.processApprovalData(registerApprovals, approvalStateAttachments);
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.get_by_register_id(idRegister).then( r => {
+        const registerApprovals = r;
+        this.approval_state_attachment_operacion_intermediacion_DataService.get_by_register_id(idRegister).then( r => {
+          const approvalStateAttachments = r as ApprovalStateAttachment[];
+          this.processApprovalData(registerApprovals, approvalStateAttachments);
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+  }
+
+  processApprovalData(registerApprovals: any[], approvalStateAttachments: ApprovalStateAttachment[]) {
+    registerApprovals.forEach(element => {
+      if(element.approval_id == 1){
+        this.registerApprovalInspector = element;
+        if (typeof this.registerApprovalInspector.notes == 'undefined' || this.registerApprovalInspector.notes == null) {
+          this.registerApprovalInspector.notes = '';
+        }
+        this.inspectorSelectedId = this.registerApprovalInspector.id_user;
+        this.checkIfIsAssignedInspector();
+        this.checkAttachmentsInspector(approvalStateAttachments);
+      }
+      if(element.approval_id == 2){
+        this.registerApprovalFinanciero = element;
+        if (typeof this.registerApprovalFinanciero.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+          this.registerApprovalFinanciero.notes = '';
+        }
+        this.financialSelectedId = this.registerApprovalFinanciero.id_user;
+        if (this.registerApprovalFinanciero.notes.search('Devuelto: ') == 0) {
+          this.registerApprovalFinanciero.id_user = 0;
+          this.financialSelectedId = 0;
+        }
+        this.checkIfIsAssignedFinanciero();
+      }
+      if(element.approval_id == 3){
+        this.registerApprovalCoordinador = element;
+        if (typeof this.registerApprovalCoordinador.notes == 'undefined' || this.registerApprovalFinanciero.notes == null) {
+          this.registerApprovalCoordinador.notes = '';
+        }
+      }
+    });
+  }
+
+  checkIfIsAssignedInspector() {
+    if (this.inspectorSelectedId !== 0) {
+      this.isAssignedInspector = true;
+    } else {
+      this.isAssignedInspector = false;
+    }
+  }
+
+  checkAttachmentsInspector(approvalStateAttachments: ApprovalStateAttachment[]) {
+    if (this.data_selected_table.register.states.state_id == 11 ||
+       this.data_selected_table.register.states.state_id == 21 ||
+       this.data_selected_table.register.states.state_id == 31 ||
+       this.data_selected_table.register.states.state_id == 41 ||
+       this.data_selected_table.register.states.state_id == 51 ||
+       this.data_selected_table.register.states.state_id == 61
+       ) {
+       this.hasRequisites = false;
+       return;
+    }
+    approvalStateAttachments.forEach(approvalStateAttachment => {
+        if (approvalStateAttachment.approval_state_attachment_file_name.search('Informe') == 0) {
+          this.approvalStateAttachmentsProcessed.informeApprovalStateAttachment = approvalStateAttachment;
+          this.hasInform = true;
+        }
+        if ((approvalStateAttachment.approval_state_attachment_file_name.search('Formulario') == 0) && (approvalStateAttachment.approval_state_attachment_file !== '')) {
+          this.approvalStateAttachmentsProcessed.requisitosApprovalStateAttachment = approvalStateAttachment;
+          this.hasRequisites = true;
+        }
+        if (approvalStateAttachment.approval_state_attachment_file_name.search('Acta') == 0) {
+          this.approvalStateAttachmentsProcessed.actaNotificacionApprovalStateAttachment = approvalStateAttachment;
+          this.hasActaNotificacion = true;
+        }
+        if (approvalStateAttachment.approval_state_attachment_file_name.search('Registro') == 0) {
+          this.approvalStateAttachmentsProcessed.registroApprovalStateAttachment = approvalStateAttachment;
+        }
+        if (approvalStateAttachment.approval_state_attachment_file_name.search('Tarifario') == 0) {
+          this.approvalStateAttachmentsProcessed.tarifarioRackApprovalStateAttachment = approvalStateAttachment;
+        }
+    });
+  }
+
+  checkIfIsAssignedFinanciero() {
+    if (this.financialSelectedId !== 0) {
+      this.isAssignedFinancial = true;
+    } else {
+      this.isAssignedFinancial = false;
+    }
   }
 
   checkMotivoTramite(estado: String) {
