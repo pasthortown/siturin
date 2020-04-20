@@ -40,7 +40,7 @@
             </div>
             <select [disabled]="isAssignedInspector" class="form-control" id="idInspector" name="idInspector" [(ngModel)]="inspectorSelectedId">
                 <option value="0" selected>Seleccione...</option>
-                <option *ngFor="let inspector of inspectores" value="{{inspector.id}}">{{inspector.name}} - {{inspector.province}} - {{inspector.email}}</option>
+                <option *ngFor="let inspector of tecnicosZonales" value="{{inspector.id}}">{{inspector.name}} - {{inspector.province}} - {{inspector.email}}</option>
             </select>
         </div>
     </div>
