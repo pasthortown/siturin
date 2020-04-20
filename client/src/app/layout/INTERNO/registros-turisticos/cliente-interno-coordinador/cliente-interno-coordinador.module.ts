@@ -26,6 +26,10 @@ import { StateService as StateOPService } from 'src/app/services/CRUD/OPERACIONI
 import { AuthLocationService } from 'src/app/services/CRUD/AUTH/authlocation.service';
 import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 
+import { RegisterProcedureService as RegisterProcedureALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerprocedure.service';
+import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerprocedure.service';
+
 @NgModule({
   imports: [CommonModule, 
     FormsModule,
@@ -47,7 +51,10 @@ import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
     StateABService,
     StateOPService,
     AuthLocationService,
-    UbicationService
+    UbicationService,
+    RegisterProcedureALService,
+    RegisterProcedureABService,
+    RegisterProcedureOPService
   ]
 })
 export class ClienteInternoCoordinadorModule {}

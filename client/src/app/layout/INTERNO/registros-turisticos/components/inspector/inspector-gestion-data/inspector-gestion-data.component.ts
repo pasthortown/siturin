@@ -99,7 +99,6 @@ export class InspectorGestionDataComponent implements OnInit {
   dateByUserRequisites = new Date();
 
   tipo_tramite = 'pendiente';
-  motivoTramite = '';
   digito = '';
   stateTramiteId = 0;
   inspectionState = 0;
@@ -255,9 +254,6 @@ export class InspectorGestionDataComponent implements OnInit {
     this.imprimiendo_acta = false;
     this.hasdateByUserRequisites = false;
     this.tipo_tramite = 'pendiente';
-    this.motivoTramite = '';
-    this.digito = '';
-    this.stateTramiteId = 0;
     this.inspectionState = 0;
     this.as_turistic_date = new Date();
     this.stateTramiteId = this.data_selected_table.register.states.state_id;
@@ -1319,7 +1315,6 @@ export class InspectorGestionDataComponent implements OnInit {
   }
  
   checkMotivoTramite(estado: String) {
-    this.motivoTramite = '';
     const PrimerDigito = estado.substring(0, 1);
     if (PrimerDigito == '1') {
       this.mostrarMotivoTramite = false;
@@ -1366,27 +1361,6 @@ export class InspectorGestionDataComponent implements OnInit {
     this.as_turistic_date = new Date();
     if (this.data_selected_table.register.establishment.as_turistic_register_date != null && typeof this.data_selected_table.register.establishment.as_turistic_register_date != 'undefined') {
       this.as_turistic_date = new Date(this.data_selected_table.register.establishment.as_turistic_register_date.toString());
-    }
-    if (this.data_selected_table.register.activity_id == 1) {
-      this.register_procedure_alojamiento_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
-        if (typeof r.id != 'undefined') {
-          this.motivoTramite = r.justification;
-        }
-      }).catch( e => { console.log(e); });
-    }
-    if (this.data_selected_table.register.activity_id == 2) {
-      this.register_procedure_alimentos_bebidas_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
-        if (typeof r.id != 'undefined') {
-          this.motivoTramite = r.justification;
-        }
-      }).catch( e => { console.log(e); });
-    }
-    if (this.data_selected_table.register.activity_id == 3) {
-      this.register_procedure_operacion_intermediacion_DataService.get_by_register_id(this.data_selected_table.register.register.id.toString()).then( r => {
-        if (typeof r.id != 'undefined') {
-          this.motivoTramite = r.justification;
-        }
-      }).catch( e => { console.log(e); });
     }
   }
 
@@ -1560,7 +1534,6 @@ export class InspectorGestionDataComponent implements OnInit {
       this.toastr.errorToastr('Debe seleccionar un estado de la inspección', 'Inspección');
       return;
     }
-    this.motivoTramite = '';
     this.mostrarMotivoTramite = false;
     const today = new Date();
     const registerStateData = this.buildNewRegisterState();

@@ -32,6 +32,9 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
     }
   };
 
+  tecnicosFinancieros = [];
+  tecnicosZonales = [];
+  
   states = { alojamiento: [],
     alimentos_bebidas: [],
     operacion_intermediacion: [],
@@ -45,9 +48,6 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
   };
 
   estados_tramites= [];
-
-  tecnicosFinancieros = [];
-  tecnicosZonales = [];
   
   constructor(
     private consultorDataService: ConsultorService,
