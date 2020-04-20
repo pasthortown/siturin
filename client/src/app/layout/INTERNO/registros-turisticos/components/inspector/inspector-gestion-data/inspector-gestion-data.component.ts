@@ -1682,6 +1682,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           } else {
@@ -1697,6 +1699,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           }
@@ -1717,6 +1721,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           } else {
@@ -1732,6 +1738,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           }
@@ -1759,6 +1767,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           } else {
@@ -1774,6 +1784,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           }
@@ -1794,6 +1806,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           } else {
@@ -1809,6 +1823,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           }
@@ -1849,6 +1865,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           } else {
@@ -1864,6 +1882,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           }
@@ -1884,6 +1904,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           } else {
@@ -1899,6 +1921,8 @@ export class InspectorGestionDataComponent implements OnInit {
                     this.reloadWindow();
                   }).catch( e => { console.log(e); });
                 }
+              } else {
+                this.reloadWindow();
               }
             }).catch( e => { console.log(e); });
           }
