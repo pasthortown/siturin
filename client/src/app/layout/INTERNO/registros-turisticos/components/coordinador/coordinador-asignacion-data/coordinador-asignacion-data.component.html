@@ -71,13 +71,6 @@
             <span class="badge badge-danger" *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</span> 
         </small>
     </div>
-    <div class="col-12 text-center mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0 && !rechazarTramite">
-        <button type="button" class="btn btn-success" title="Anterior" (click)="aceptarTramite()">
-            <i class="fas fa-check-double"></i>&nbsp;Aprobar Estado de Inspección&nbsp;
-            <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
-            <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
-        </button>
-    </div>
     <div class="col-3"></div>
     <div class="col-6 text-center mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
         <table class="table mt-2">
@@ -101,6 +94,13 @@
         </table>
     </div>
     <div class="col-3"></div>
+    <div class="col-12 text-center mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0 && !rechazarTramite">
+        <button type="button" class="btn btn-success" title="Anterior" (click)="aceptarTramite()">
+            <i class="fas fa-check-double"></i>&nbsp;Aprobar Estado de Inspección&nbsp;
+            <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
+            <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
+        </button>
+    </div>
     <div class="col-12 mt-5 mb-3" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
         <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>

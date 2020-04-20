@@ -45,7 +45,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   };
 
   rechazarTramite = false;
-  
+
   mostrarMotivoTramite = false;
   tipo_tramite = 'pendiente';
   digito = '';
@@ -422,6 +422,10 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
         this.SRIOK = false;
       });
     }
+  }
+
+  rechazarCheck() {
+    this.registerApprovalInspector.notes = '';
   }
 
   descargarRequisitos() {
