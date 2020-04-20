@@ -148,9 +148,6 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     this.checkMotivoTramite(estado);
     this.checkRuc();
     this.getApprovalStates();
-    console.log(this.tecnicosFinancieros);
-    console.log(this.tecnicosZonales);
-    console.log(this.data_selected_table);
   }
 
   getApprovalStates() {
