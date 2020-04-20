@@ -14,6 +14,7 @@ import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStat
 import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Component, OnInit, Input } from '@angular/core';
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'app-coordinador-asignacion-data',
@@ -419,5 +420,37 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
         this.SRIOK = false;
       });
     }
+  }
+
+  descargarRequisitos() {
+    this.downloadFile(
+      this.approvalStateAttachmentsProcessed.requisitosApprovalStateAttachment.approval_state_attachment_file,
+      this.approvalStateAttachmentsProcessed.requisitosApprovalStateAttachment.approval_state_attachment_file_type,
+      this.approvalStateAttachmentsProcessed.requisitosApprovalStateAttachment.approval_state_attachment_file_name);
+  }
+
+  descargarInforme() {
+    this.downloadFile(
+      this.approvalStateAttachmentsProcessed.informeApprovalStateAttachment.approval_state_attachment_file,
+      this.approvalStateAttachmentsProcessed.informeApprovalStateAttachment.approval_state_attachment_file_type,
+      this.approvalStateAttachmentsProcessed.informeApprovalStateAttachment.approval_state_attachment_file_name);
+  }
+
+  descargarActa() {
+    this.downloadFile(
+      this.approvalStateAttachmentsProcessed.actaNotificacionApprovalStateAttachment.approval_state_attachment_file,
+      this.approvalStateAttachmentsProcessed.actaNotificacionApprovalStateAttachment.approval_state_attachment_file_type,
+      this.approvalStateAttachmentsProcessed.actaNotificacionApprovalStateAttachment.approval_state_attachment_file_name);
+  }
+
+  downloadFile(file: any, type: any, name: any) {
+    const byteCharacters = atob(file);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: type });
+    saveAs(blob, name);
   }
 }
