@@ -7,7 +7,11 @@
     [register_types_block]="register_types_block" 
     [states]="states">
 </app-coordinador-bandejas-data>
-<app-coordinador-asignacion-data *ngIf="showDataRegisterSelected"></app-coordinador-asignacion-data>
+<app-coordinador-asignacion-data *ngIf="showDataRegisterSelected"
+    [data_selected]="data_selected"
+    [tecnicos_financieros]="tecnicosFinancieros" 
+    [tecnicos_zonales]="tecnicosZonales">
+</app-coordinador-asignacion-data>
 <app-coordinador-gestion-data *ngIf="showDataRegisterSelected"></app-coordinador-gestion-data>
 <app-coordinador-entrega-data *ngIf="showDataRegisterSelected"></app-coordinador-entrega-data>
 <app-register-data *ngIf="showDataRegisterSelected" [data_selected]="data_selected"></app-register-data>
