@@ -88,6 +88,7 @@ export class InspectorGestionDataComponent implements OnInit {
   superciasData = 'CONECTÁNDOSE A LA SUPERINTENDENCIA DE COMPANÍAS...';
   rucValidated = false;
 
+  guardando = false;
   razon_social = '';
   representante_legal = '';
 
@@ -1573,6 +1574,7 @@ export class InspectorGestionDataComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
+        this.guardando = true;
         this.requisitosApprovalStateAttachment.approval_state_attachment_file_name = 'Formulario_Requisitos_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
         this.requisitosApprovalStateAttachment.approval_state_id = this.registerApprovalInspector.id;
         this.informeApprovalStateAttachment.approval_state_attachment_file_name = 'Informe_Requisitos_' + this.user.identification + '_' + today.getFullYear().toString() + '_' + (today.getMonth() + 1).toString() + '_' + today.getDate().toString()+'.pdf';
@@ -1612,6 +1614,7 @@ export class InspectorGestionDataComponent implements OnInit {
           '',
           'error'
         );
+        this.guardando = false;
       }
     });
     if (!registerStateData.enviarEmailUsuario) {
@@ -1834,6 +1837,7 @@ export class InspectorGestionDataComponent implements OnInit {
   }
 
   reloadWindow() {  
+    this.guardando = false;
     Swal.fire({
       title: 'Confirmado!',
       text: 'El resultado del trámite ha sido almacenado',
