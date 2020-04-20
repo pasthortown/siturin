@@ -1692,12 +1692,16 @@ export class InspectorGestionDataComponent implements OnInit {
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire(
-            'Confirmado!',
-            'El resultado del trámite ha sido almacenado',
-            'success'
-          );
-          window.location.reload();
+          Swal.fire({
+            title: 'Confirmado!',
+            text: 'El resultado del trámite ha sido almacenado',
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'De acuerdo',
+            reverseButtons: true
+          }).then((result) => {
+            window.location.reload();
+          });
         }).catch( e => { console.log(e); });
       } else {
         this.approval_state_attachment_operacion_intermediacion_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
@@ -1725,12 +1729,16 @@ export class InspectorGestionDataComponent implements OnInit {
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire(
-            'Confirmado!',
-            'El resultado del trámite ha sido almacenado',
-            'success'
-          );
-          window.location.reload();
+          Swal.fire({
+            title: 'Confirmado!',
+            text: 'El resultado del trámite ha sido almacenado',
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'De acuerdo',
+            reverseButtons: true
+          }).then((result) => {
+            window.location.reload();
+          });
         }).catch( e => { console.log(e); });
       }
     }).catch( e => { console.log(e); });
@@ -1765,12 +1773,16 @@ export class InspectorGestionDataComponent implements OnInit {
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire(
-            'Confirmado!',
-            'El resultado del trámite ha sido almacenado',
-            'success'
-          );
-          window.location.reload();
+          Swal.fire({
+            title: 'Confirmado!',
+            text: 'El resultado del trámite ha sido almacenado',
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'De acuerdo',
+            reverseButtons: true
+          }).then((result) => {
+            window.location.reload();
+          });
         }).catch( e => { console.log(e); });
       } else {
         this.approval_state_attachment_alimentos_bebidas_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
@@ -1798,12 +1810,16 @@ export class InspectorGestionDataComponent implements OnInit {
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire(
-            'Confirmado!',
-            'El resultado del trámite ha sido almacenado',
-            'success'
-          );
-          window.location.reload();
+          Swal.fire({
+            title: 'Confirmado!',
+            text: 'El resultado del trámite ha sido almacenado',
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'De acuerdo',
+            reverseButtons: true
+          }).then((result) => {
+            window.location.reload();
+          });
         }).catch( e => { console.log(e); });
       }
     }).catch( e => { console.log(e); });
@@ -1838,12 +1854,16 @@ export class InspectorGestionDataComponent implements OnInit {
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire(
-            'Confirmado!',
-            'El resultado del trámite ha sido almacenado',
-            'success'
-          );
-          window.location.reload();
+          Swal.fire({
+            title: 'Confirmado!',
+            text: 'El resultado del trámite ha sido almacenado',
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'De acuerdo',
+            reverseButtons: true
+          }).then((result) => {
+            window.location.reload();
+          });
         }).catch( e => { console.log(e); });
       } else {
         this.approval_state_attachment_alojamiento_DataService.put(this.requisitosApprovalStateAttachment).then( r_attach_1 => {
@@ -1871,12 +1891,16 @@ export class InspectorGestionDataComponent implements OnInit {
               }
             }).catch( e => { console.log(e); });
           }
-          Swal.fire(
-            'Confirmado!',
-            'El resultado del trámite ha sido almacenado',
-            'success'
-          );
-          window.location.reload();
+          Swal.fire({
+            title: 'Confirmado!',
+            text: 'El resultado del trámite ha sido almacenado',
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'De acuerdo',
+            reverseButtons: true
+          }).then((result) => {
+            window.location.reload();
+          });
         }).catch( e => { console.log(e); });
       }
     }).catch( e => { console.log(e); });
