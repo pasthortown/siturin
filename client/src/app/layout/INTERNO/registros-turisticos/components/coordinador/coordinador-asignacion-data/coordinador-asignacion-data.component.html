@@ -127,7 +127,7 @@
             </div>
             <select [disabled]="isAssignedFinancial" class="form-control" id="idFinancial" name="idFinancial" [(ngModel)]="financialSelectedId">
                 <option value="0" selected>Seleccione...</option>
-                <option *ngFor="let financiero of financieros" value="{{financiero.id}}">{{financiero.name}} - {{financiero.email}}</option>
+                <option *ngFor="let financiero of tecnicosFinancieros" value="{{financiero.id}}">{{financiero.name}} - {{financiero.email}}</option>
             </select>
         </div>
     </div>
@@ -163,7 +163,7 @@
                     <td>
                         <div class="onoffswitch">
                             <input type="checkbox" class="onoffswitch-checkbox"  id="devolverFinanciero"
-                                name="devolverFinanciero" [(ngModel)]="rechazarTramiteFinanciero" (change)="rechazarCheck()">
+                                name="devolverFinanciero" [(ngModel)]="rechazarTramiteFinanciero">
                             <label class="onoffswitch-label" for="devolverFinanciero">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
@@ -183,7 +183,7 @@
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
     </div>
     <div class="col-12 text-center" *ngIf="rechazarTramiteFinanciero">
-        <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramiteFinanciero()" *ngIf="rechazarTramiteFinanciero">
+        <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramiteFinanciero()">
             <i class="fas fa-trash"></i>&nbsp;Rechazar resultado y devolver el trámite al técnico financiero
         </button>
     </div>
