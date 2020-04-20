@@ -62,6 +62,9 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   refresh() {
+    if (this.data_selected_table.register.states == null) {
+      return;
+    }
     this.mostrarMotivoTramite = false;
     this.tipo_tramite = 'pendiente';
     this.as_turistic_date = new Date();
