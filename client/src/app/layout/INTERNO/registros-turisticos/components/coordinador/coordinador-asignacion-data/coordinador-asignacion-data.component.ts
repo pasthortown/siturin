@@ -44,6 +44,8 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     tarifarioRackApprovalStateAttachment: new ApprovalStateAttachment(),
   };
 
+  rechazarTramite = false;
+  
   mostrarMotivoTramite = false;
   tipo_tramite = 'pendiente';
   digito = '';
