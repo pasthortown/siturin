@@ -94,7 +94,7 @@
         </table>
     </div>
     <div class="col-3"></div>
-    <div class="col-12 mt-5 mb-3" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
+    <div class="col-12 mt-2 mb-3" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
         <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
     </div>
