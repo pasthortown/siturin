@@ -1266,6 +1266,7 @@ export class TuristicDataComponent implements OnInit {
     if (!this.validateOperacionIntermediacionData()) {
       return;
     }
+    console.log(this.register_validated);
     return;
     this.guardando = true;
     let tipo_tramite = this.getTipoTramite();
