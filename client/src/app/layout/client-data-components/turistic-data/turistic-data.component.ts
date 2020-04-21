@@ -501,6 +501,13 @@ export class TuristicDataComponent implements OnInit {
     if (activity_id == 1) {
       this.initTarifarioRack();
     }
+    if (activity_id == 3) {
+      register_types_array.forEach( element => {
+        if (element.father_code == classificationSelectedCode) {
+          this.register_validated.register_type_id = element.id;
+        }
+      });
+    }
     this.register_validated.activity_id = activity_id;
     this.register_validated.classification_selected_code = classificationSelectedCode;
     this.register_validated.region_selected_code = regionSelectedCode;
@@ -1046,6 +1053,7 @@ export class TuristicDataComponent implements OnInit {
   }
 
   validateOperacionIntermediacionData(): boolean {
+
     return true;
   }
 
