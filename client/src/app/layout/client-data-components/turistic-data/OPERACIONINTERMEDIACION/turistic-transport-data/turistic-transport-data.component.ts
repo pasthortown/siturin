@@ -1,9 +1,5 @@
 import { SIITService } from './../../../../../services/negocio/siit.service';
 import { DinardapService } from 'src/app/services/negocio/dinardap.service';
-import { ActivityTransportTypeService } from './../../../../../services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
-import { TransportTypeService } from './../../../../../services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
-import { ActivityTransportType } from './../../../../../models/OPERACIONINTERMEDIACION/ActivityTransportType';
-import { TransportType } from './../../../../../models/OPERACIONINTERMEDIACION/TransportType';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TuristicTransport } from './../../../../../models/OPERACIONINTERMEDIACION/TuristicTransport';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -31,20 +27,14 @@ export class TuristicTransportDataComponent implements OnInit {
 
   rucDataTuristicTransport = 'CONECTÁNDOSE AL SRI...';
 
-  transport_types: TransportType[] = [];
-  activity_transport_types: ActivityTransportType[] = [];
-
   constructor(private toastr: ToastrManager, 
     private modalService: NgbModal,
-    private transportTypeDataService: TransportTypeService,
     private dinardapDataService: DinardapService,
-    private siitDataService: SIITService,
-    private activityTransportTypeDataService: ActivityTransportTypeService) {
+    private siitDataService: SIITService) {
     
   }
 
   ngOnInit() {
-    this.loadCatalogos();
     this.refresh();
   }
 
@@ -53,25 +43,16 @@ export class TuristicTransportDataComponent implements OnInit {
   }
 
   refresh() {
-  }
-
-  loadCatalogos() {
-    this.getTransportTypes();
-    this.getActivityTransportTypes();  
-  }
-
-  getTransportTypes() {
-    this.transportTypeDataService.get().then( r => {
-       this.transport_types = r as TransportType[];
-    }).catch( e => { console.log(e); });
-  }
- 
-  getActivityTransportTypes() {
-    this.activityTransportTypeDataService.get().then( r => {
-       this.activity_transport_types = r as ActivityTransportType[];
-    }).catch( e => { console.log(e); });
+    if (!this.editable) {
+      this.validateCompaniasSIIT();
+    }
   }
   
+  validateCompaniasSIIT() {
+    // aqui web service para validar todos las companias de transporte
+    // DEL SIIT O SIETE O DONDE SEA TRAER NUMERO DE CREDENCIAL Y FECHA DE EMISION
+  }
+
   addCompaniaTransporte(content) {
     this.SRIOKTuristicTransport = false;
     this.consumoRucTuristicTransport = false;
@@ -174,6 +155,12 @@ export class TuristicTransportDataComponent implements OnInit {
             datosGenerales += '<strong>Estado Contribuyente: </strong> ' + element.valor + '<br/>';
           }
           if (element.campo == 'personaSociedad') {
+            
+            if (element.valor == 'PNL') {
+              this.newTuristicTransport.tax_payer_type_id = 1;
+            } else {
+              this.newTuristicTransport.tax_payer_type_id = 2;
+            }
             datosGenerales += '<strong>Tipo de Contribuyente: </strong> ' + element.valor + '<br/>';
           }
           this.rucDataTuristicTransport = datosGenerales + datosAE + datosContactoSRI;
