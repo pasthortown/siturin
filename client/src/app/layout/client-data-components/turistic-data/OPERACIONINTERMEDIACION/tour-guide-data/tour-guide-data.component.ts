@@ -55,6 +55,7 @@ export class TourGuideDataComponent implements OnInit {
 
   validateGuiasSIIT() {
     // aqui web service para validar todos los guias
+    // DEL SIIT O SIETE O DONDE SEA TRAER NUMERO DE CREDENCIAL Y FECHA DE EMISION
   }
 
   addGuiaTurismo(content) {

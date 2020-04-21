@@ -37,14 +37,19 @@
                 <th>Identificación</th>
                 <th>Nombre Completo</th>
                 <th *ngIf="!editable">Número de Credencial</th>
+                <th *ngIf="!editable">Fecha de Emisión de Credencial</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
                 <tr *ngFor="let turistic_guide of register.turistic_guides">
                     <td>{{turistic_guide.identification}}</td>
                     <td>{{turistic_guide.fullname}}</td>
-                    <td>
+                    <td *ngIf="!editable">
                         <span *ngIf="turistic_guide.credential_number != ''">{{turistic_guide.credential_number}}</span>
+                        <span class="badge badge-danger" *ngIf="turistic_guide.credential_number == ''">Guía No Registrado</span>
+                    </td>
+                    <td *ngIf="!editable">
+                        <span *ngIf="turistic_guide.credential_number != ''">{{turistic_guide.credential_date | date: 'y-MM-dd'}}</span>
                         <span class="badge badge-danger" *ngIf="turistic_guide.credential_number == ''">Guía No Registrado</span>
                     </td>
                     <td>
