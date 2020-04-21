@@ -36,26 +36,17 @@
             <thead>
                 <th>Identificación</th>
                 <th>Nombre Completo</th>
-                <th>Clasificación</th>
-                <th>Ámbito de Aplicación</th>
-                <th>Número de Credencial</th>
-                <th>Fecha de Emisión de Credencial</th>
-                <th>Provincia</th>
-                <th>Cantón</th>
-                <th>Parroquia</th>
+                <th *ngIf="!editable">Número de Credencial</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
                 <tr *ngFor="let turistic_guide of register.turistic_guides">
                     <td>{{turistic_guide.identification}}</td>
                     <td>{{turistic_guide.fullname}}</td>
-                    <td>{{turistic_guide.clasificacion}}</td>
-                    <td>{{turistic_guide.ambitoAplicacion}}</td>
-                    <td>{{turistic_guide.credential_number}}</td>
-                    <td>{{turistic_guide.credential_date}}</td>
-                    <td>{{turistic_guide.provincia}}</td>
-                    <td>{{turistic_guide.canton}}</td>
-                    <td>{{turistic_guide.parroquia}}</td>
+                    <td>
+                        <span *ngIf="turistic_guide.credential_number != ''">{{turistic_guide.credential_number}}</span>
+                        <span class="badge badge-danger" *ngIf="turistic_guide.credential_number == ''">Guía No Registrado</span>
+                    </td>
                     <td>
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group mr-2" role="group">
@@ -83,91 +74,15 @@
                 <div class="form-group">
                     <label for="exampleInputPassword1">Identificación</label>
                     <input type="text" maxlength="10" (keyup)="checkIdentificacionGuia()" class="form-control" id="identificationTuristicGuide" [(ngModel)]="newTuristicGuide.identification">
+                    <small id="cedulaRepresentanteHelp" class="form-text text-muted" [innerHTML]="CedulaData"></small>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Nombre Completo</label>
+                    <label for="exampleInputPassword1" *ngIf="identificationGuideValidated">Nombre Completo</label>
                     <input type="text" disabled class="form-control" id="fullnameTuristicGuide" [(ngModel)]="newTuristicGuide.fullname">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Clasificación</label>
-                    <select class="form-control" id="classificationTuristicGuide" name="classificationTuristicGuide" [(ngModel)]="newTuristicGuide.clasificacion" disabled>
-                        <option value="0" selected>Seleccione...</option>
-                        <option *ngFor="let turistic_classification of turistic_classifications" value="{{ turistic_classification.id }}">
-                            {{ turistic_classification.name }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Número de Credencial</label>
-                    <input type="text" disabled class="form-control" id="credentialCodeTuristicGuide" [(ngModel)]="newTuristicGuide.credential_number">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Fecha de Emisión de Credencial</label>
-                    <input type="date" disabled class="form-control" id="credentialDateTuristicGuide" [ngModel]="newTuristicGuide.credential_date | date: 'y-MM-dd'" (ngModelChange)="newTuristicGuide.credential_date = $event">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Ámbito de Aplicación</label>
-                    <select class="form-control" disabled id="ambitoAplicacionTuristicGuide" name="ambitoAplicacionTuristicGuide" (change)="getProvinciasGuide(newTuristicGuide.ambitoAplicacion)" [(ngModel)]="newTuristicGuide.ambitoAplicacion">
-                        <option value="-" selected>Seleccione...</option>
-                        <option *ngFor="let register_type of regiones" value="{{ register_type.code }}">
-                            {{ register_type.name }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Provincia</label>
-                    <select class="form-control" id="provinciaTuristicGuide" name="provinciaTuristicGuide" [(ngModel)]="newTuristicGuide.provincia" (change)="getCantonesGuide(newTuristicGuide.provincia)" [disabled]="!editable">
-                        <option value="-" selected>Seleccione...</option>
-                        <option *ngFor="let provincia of provinciasGuide" value="{{ provincia.code }}">
-                            {{ provincia.name }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Cantón</label>
-                    <select class="form-control" id="cantonTuristicGuide" name="cantonTuristicGuide" [(ngModel)]="newTuristicGuide.canton" (change)="getParroquiasGuide(newTuristicGuide.canton)" [disabled]="!editable">
-                        <option value="-" selected>Seleccione...</option>
-                        <option *ngFor="let canton of cantonesGuide" value="{{ canton.code }}">
-                            {{ canton.name }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Parroquia</label>
-                    <select class="form-control" id="parroquiaTuristicGuide" name="parroquiaTuristicGuide" [(ngModel)]="newTuristicGuide.ubication_id" [disabled]="!editable">
-                        <option value="0" selected>Seleccione...</option>
-                        <option *ngFor="let parroquia of parroquiasGuide" value="{{ parroquia.id }}">
-                            {{ parroquia.name }}
-                        </option>
-                    </select>
                 </div>
             </div>
         </div>

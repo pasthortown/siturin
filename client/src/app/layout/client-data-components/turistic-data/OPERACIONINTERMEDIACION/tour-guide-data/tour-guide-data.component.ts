@@ -1,11 +1,8 @@
-import { SIITService } from './../../../../../services/negocio/siit.service';
-import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
-import { Ubication } from 'src/app/models/BASE/Ubication';
-import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
+import { DinardapService } from 'src/app/services/negocio/dinardap.service';
+import { SIITService } from 'src/app/services/negocio/siit.service';
 import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
-import { GuideType } from './../../../../../models/OPERACIONINTERMEDIACION/GuideType';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TourGuide } from './../../../../../models/OPERACIONINTERMEDIACION/TourGuide';
+import { TourGuide } from 'src/app/models/OPERACIONINTERMEDIACION/TourGuide';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Register } from 'src/app/models/ALOJAMIENTO/Register';
 import { Component, OnInit, Input } from '@angular/core';
@@ -30,30 +27,19 @@ export class TourGuideDataComponent implements OnInit {
   newTuristicGuide: TourGuide = new TourGuide();
 
   identificationGuideValidated = false;
-  SIITOKIdentificationGuide = false;
+  REGCIVILOK = false;
   consumoIdentificationGuide = false;
 
-  turistic_classifications: GuideType[] = [];
-
-  regiones: RegisterType[] = [];
-
-  ubications: Ubication[] = [];
-  zonales: Ubication[] = [];
-  provincias: Ubication[] = [];
-  provinciasGuide: Ubication[] = [];
-  cantonesGuide: Ubication[] = [];
-  parroquiasGuide: Ubication[] = [];
-
+  CedulaData = '';
+  
   constructor(private toastr: ToastrManager,
     private modalService: NgbModal,
-    private guideTypeDataService: GuideTypeService,
     private siitDataService: SIITService,
-    private ubicationDataService: UbicationService) {
+    private dinardapDataService: DinardapService) {
     
   }
 
   ngOnInit() {
-    this.loadCatalogos();
     this.refresh();
   }
 
@@ -62,69 +48,17 @@ export class TourGuideDataComponent implements OnInit {
   }
 
   refresh() {
+    if (!this.editable) {
+      this.validateGuiasSIIT();
+    }
   }
 
-  loadCatalogos() {
-    this.getGuideTypes();
-    this.getRegiones();
-    this.getUbications();
-  }
-
-  getUbications() {
-    this.ubications = [];
-    this.ubicationDataService.get().then( r => {
-       this.ubications = r as Ubication[];
-       this.getZonales();
-    }).catch( e => { console.log(e); });
-  }
-
-  getZonales() {
-    // UBICACION: Zonal->Provincia->Canton->Parroquia
-    this.zonales = [];
-    this.provincias = [];
-    this.ubications.forEach( element => {
-      if (element.father_code == '-') {
-        this.zonales.push(element);
-      }
-    });
-    this.zonales.forEach(zonal => {
-      this.ubications.forEach(ubication => {
-        if (ubication.father_code == zonal.code) {
-          this.provincias.push(ubication);
-       }
-      });
-    });
-    this.provincias.sort(function(a, b) {
-      const nameA = a.name.toLowerCase().trim();
-      const nameB = b.name.toLowerCase().trim();
-      if (nameA < nameB) {
-         return -1;
-      }
-      if (nameA > nameB) {
-         return 1;
-      }
-      return 0;
-    });
-  }
-
-  getRegiones() {
-    this.regiones = [];
-    this.register_types_block.register_types_alojamiento.forEach(element => {
-      if (element.father_code == '-') {
-        this.regiones.push(element);
-      }
-    });
-  }
-
-  getGuideTypes() {
-    this.guideTypeDataService.get().then( r => {
-       this.turistic_classifications = r as GuideType[];
-       
-    }).catch( e => { console.log(e); });
+  validateGuiasSIIT() {
+    // aqui web service para validar todos los guias
   }
 
   addGuiaTurismo(content) {
-    this.SIITOKIdentificationGuide = false;
+    this.REGCIVILOK = false;
     this.consumoIdentificationGuide = false;
     this.newTuristicGuide = new TourGuide();
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
@@ -138,7 +72,7 @@ export class TourGuideDataComponent implements OnInit {
   editGuiaTurismo(content, turistic_guide) {
     let initialData = turistic_guide;
     this.newTuristicGuide = turistic_guide;
-    this.SIITOKIdentificationGuide = false;
+    this.REGCIVILOK = false;
     this.consumoIdentificationGuide = false;
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
@@ -154,7 +88,7 @@ export class TourGuideDataComponent implements OnInit {
  
   deleteGuiaTurismo(turistic_guide) {
     const new_turistic_guides = [];
-    this.SIITOKIdentificationGuide = false;
+    this.REGCIVILOK = false;
     this.consumoIdentificationGuide = false;
     this.register.turistic_guides.forEach(element => {
        if (element != turistic_guide) {
@@ -165,39 +99,6 @@ export class TourGuideDataComponent implements OnInit {
     this.toastr.successToastr('Guía de Turismo removido satisfactoriamente.', 'Guía de Turismo');
   }
 
-  getProvinciasGuide(code) {
-    this.provinciasGuide = [];
-    this.provincias.forEach(ubication => {
-       if (code == '1') {
-          if (ubication.code !== '0820') {
-             this.provinciasGuide.push(ubication);
-          }
-       } else {
-          if (ubication.code == '0820') {
-             this.provinciasGuide.push(ubication);
-          }
-       }
-    });
-  }
-
-  getCantonesGuide(code) {
-    this.cantonesGuide = [];
-    this.ubications.forEach(ubication => {
-       if (ubication.father_code == code) {
-          this.cantonesGuide.push(ubication);
-       }
-    });
-  }
-
-  getParroquiasGuide(code) {
-    this.parroquiasGuide = [];
-    this.ubications.forEach(ubication => {
-       if (ubication.father_code == code) {
-          this.parroquiasGuide.push(ubication);
-       }
-    });
-  }
-
   checkIdentificacionGuia() {
     this.newTuristicGuide.identification = this.newTuristicGuide.identification.replace(/[^\d]/, '');
     if (this.newTuristicGuide.identification.length !== 10) {
@@ -205,23 +106,41 @@ export class TourGuideDataComponent implements OnInit {
        this.consumoIdentificationGuide = false;
        return;
     }
-    if (this.consumoIdentificationGuide && this.SIITOKIdentificationGuide) {
+    if (this.consumoIdentificationGuide && this.REGCIVILOK) {
        return;
     }
-    this.siitDataService.guiaTurismo(this.newTuristicGuide.identification).then( guiaResponse => {
-       this.SIITOKIdentificationGuide = true;
-       this.consumoIdentificationGuide = true;
-       this.identificationGuideValidated = true;
-       Swal.fire(
-          'Guía de Turísmo no encontrado!',
-          'La identificación ingresada, no corresponde a un Guía de Turísmo registrado por el Ministerio de Turismo.',
-          'error'
-       );
-       console.log('Traer a partir de la identificación del web service la información de SIIT sino mostrar mensaje de registrarlo en siit');
-    }).catch( e => {
-       this.SIITOKIdentificationGuide = false;
-       this.consumoIdentificationGuide = false;
-       console.log(e);
-    });
+    this.CedulaData = '<div class=\"progress mb-3\"><div class=\"progress-bar progress-bar-striped progress-bar-animated bg-warning col-12\">Espere...</div></div><div class="col-12 text-center"><strong>Conectándose al Registro Civil...</strong></div>';
+    if (!this.consumoIdentificationGuide) {
+      this.identificationGuideValidated = true;
+      this.consumoIdentificationGuide = true;
+      this.dinardapDataService.get_cedula(this.newTuristicGuide.identification).then( guiaResponse => {
+         const registros = guiaResponse.original.entidades.entidad.filas.fila.columnas.columna;
+         this.CedulaData = '';
+         this.REGCIVILOK = true;
+         registros.forEach(element => {
+            if (element.campo === 'cedula') {
+               if (element.valor === this.newTuristicGuide.identification) {
+                 this.toastr.successToastr('La cédula ingresada es correcta.', 'Registro Civil');
+                 this.identificationGuideValidated = true;
+               } else {
+                 this.toastr.errorToastr('La cédula ingresada no es correcta.', 'Registro Civil');
+                 this.identificationGuideValidated = false;
+               }
+            }
+            if (this.identificationGuideValidated) {
+               if (element.campo === 'nombre') {
+                  this.newTuristicGuide.fullname = element.valor;
+               }
+            }
+         });
+      }).catch( e => {
+         this.toastr.errorToastr('La cédula ingresada no es correcta.', 'Registro Civil');
+         this.CedulaData = '<div class="alert alert-danger" role="alert">El Registro Civil, no respondió. Vuelva a intentarlo.</div>';
+         this.REGCIVILOK = false;
+         this.consumoIdentificationGuide = false;
+         this.identificationGuideValidated = false;
+         console.log(e);
+      });
+    }
   }
 }
