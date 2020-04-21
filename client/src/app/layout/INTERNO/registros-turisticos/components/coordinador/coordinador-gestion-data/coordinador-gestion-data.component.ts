@@ -57,10 +57,6 @@ export class CoordinadorGestionDataComponent implements OnInit {
   }
 
   refresh() {
-    console.log(this.approval_states);
-    console.log(this.data_selected_table);
-    console.log(this.attachments);
-    console.log(this.user);
   }
 
   guardarTramite() {
