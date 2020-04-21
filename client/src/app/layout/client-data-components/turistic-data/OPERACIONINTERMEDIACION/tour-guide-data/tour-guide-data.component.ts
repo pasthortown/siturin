@@ -76,6 +76,7 @@ export class TourGuideDataComponent implements OnInit {
     this.newTuristicGuide = turistic_guide;
     this.REGCIVILOK = false;
     this.consumoIdentificationGuide = false;
+    this.identificationGuideValidated = true;
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
           this.toastr.successToastr('Datos guardados satisfactoriamente.', 'Guía de Turismo');
