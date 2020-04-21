@@ -598,6 +598,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       {representante_legal: this.representante_legal.toUpperCase()},
       {nombre_comercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
       {ruc: this.data_selected_table.register.ruc.number},
+      {razon_social: this.razon_social},
       {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
       {actividad: actividad.toUpperCase()},
       {clasificacion: documentData.clasificacion.toUpperCase()},
@@ -765,7 +766,128 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   confirmarRechazoTramite() {
-    //aqui
+    // if(this.registerApprovalInspector.notes == '') {
+    //   this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
+    //   return;
+    // }
+    // Swal.fire({
+    //   title: 'Confirmación',
+    //   text: '¿Está seguro de Rechazar el resultado emitido por el Técnico Zonal?',
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Si, continuar',
+    //   cancelButtonText: 'No, cancelar',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.value) {
+    //     Swal.fire(
+    //       'Rechazado!',
+    //       'El resultado emitido por el Técnico Zonal ha sido rechazado y devuelto al Técnico Zonal para su revisión',
+    //       'success'
+    //     );
+    //     this.isAssignedInspector = true;
+    //     this.registerApprovalInspector.id_user = this.inspectorSelectedId;
+    //     this.registerApprovalInspector.date_assigment = new Date();
+    //     if (this.activity == 'ALOJAMIENTO') {
+    //      this.approvalStateDataService.put(this.registerApprovalInspector).then( r => {
+    //         const newRegisterState = new RegisterState();
+    //         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+    //         newRegisterState.register_id = this.idRegister;          
+    //         newRegisterState.state_id = this.stateTramiteId - 6;
+    //           this.registerStateDataService.post(newRegisterState).then( r1 => {
+    //           }).catch( e => { console.log(e); });
+    //       }).catch( e => { console.log(e); });
+    //     }
+    //     if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+    //      this.approvalStateABDataService.put(this.registerApprovalInspector).then( r => {
+    //         const newRegisterState = new RegisterState();
+    //         newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+    //         newRegisterState.register_id = this.idRegister;          
+    //         newRegisterState.state_id = this.stateTramiteId - 6;
+    //           this.registerStateABDataService.post(newRegisterState).then( r1 => {
+    //           }).catch( e => { console.log(e); });
+    //       }).catch( e => { console.log(e); });
+    //     }
+    //     const today = new Date();
+    //      let clasificacion: String = '';
+    //      let categoria: String = '';
+    //      let category: RegisterType = new RegisterType();
+    //      this.register_types_AB.forEach(element => {
+    //         if (this.registerMinturSelected.register.register_type_id == element.id) {
+    //            category = element;
+    //            categoria = element.name;
+    //         }
+    //      });
+    //      this.register_types_AB.forEach(element => {
+    //         if (category.father_code == element.code) {
+    //            clasificacion = element.name;
+    //         }
+    //      });
+    //      let parroquiaName: String = '';
+    //      let parroquia: Ubication = new Ubication();
+    //      this.ubications.forEach(element => {
+    //         if (element.id == this.registerMinturSelected.establishment.ubication_id) {
+    //            parroquiaName = element.name;
+    //            parroquia = element;
+    //         }
+    //      });
+    //      let cantonName: String = '';
+    //      let canton: Ubication = new Ubication();
+    //      this.ubications.forEach(element => {
+    //         if (element.code == parroquia.father_code) {
+    //            cantonName = element.name;
+    //            canton = element;
+    //         }
+    //      });
+    //      let provinciaName: String = '';
+    //      this.ubications.forEach(element => {
+    //         if (element.code == canton.father_code) {
+    //            provinciaName = element.name;
+    //         }
+    //      });
+    //      let inspector = new User();
+    //      this.inspectores.forEach(element => {
+    //         if (element.id == this.inspectorSelectedId) {
+    //            inspector = element;
+    //         }
+    //      });
+    //      let motivoRechazo = this.registerApprovalInspector.notes;
+    //      motivoRechazo = motivoRechazo.replace('<p>', '');
+    //      motivoRechazo = motivoRechazo.replace('</p>', '');
+    //      const information = {
+    //         para: inspector.name,
+    //         tramite: this.tipo_tramite.toUpperCase(),
+    //         motivoRechazo: motivoRechazo,
+    //         ruc: this.ruc_registro_selected.ruc.number,
+    //         nombreComercial: this.registerMinturSelected.establishment.commercially_known_name,
+    //         fechaSolicitud: today.toLocaleString(),
+    //         actividad: this.registerMinturSelected.activity.toUpperCase(),
+    //         clasificacion: clasificacion,
+    //         categoria: categoria,
+    //         tipoSolicitud: this.tipo_tramite.toUpperCase(),
+    //         provincia: provinciaName,
+    //         canton: cantonName,
+    //         parroquia: parroquiaName,
+    //         callePrincipal: this.registerMinturSelected.establishment.address_main_street,
+    //         calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street,
+    //         numeracion: this.registerMinturSelected.establishment.address_number,
+    //         thisYear:today.getFullYear()
+    //      };
+    //      this.mailerDataService.sendMail('rechazo_informe_tz', inspector.email.toString(), 'Rechazo y reasignación de trámite para su revisión', information).then( r => {
+    //         this.toastr.successToastr('Técnico Zonal Asignado Satisfactoriamente.', 'Asignación de Técnico Zonal');
+    //         this.refresh();
+    //      }).catch( e => { console.log(e); });
+         
+    //   } else if (
+    //     result.dismiss === Swal.DismissReason.cancel
+    //   ) {
+    //     Swal.fire(
+    //       'Cancelado',
+    //       '',
+    //       'error'
+    //     );
+    //   }
+    // });
   }
 
   asignarFinanciero() {
