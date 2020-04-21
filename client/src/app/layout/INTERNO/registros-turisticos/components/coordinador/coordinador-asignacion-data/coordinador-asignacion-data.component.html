@@ -49,7 +49,7 @@
         <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes"></div>
     </div>
 </div>
-<div class="row" *ngIf="isAssignedInspector && (registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN')">
+<div class="row" *ngIf="(isAssignedInspector && (registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN')) && digito != '4'">
     <div class="col-12" *ngIf="hasRequisites">
         <span class="badge badge-info" style="cursor:pointer;" (click)="descargarRequisitos()"><span class="fas fa-file-pdf" (click)="descargarRequisitos()"></span>&nbsp; Revisión de Requisitos</span> 
     </div>
@@ -131,11 +131,11 @@
             </select>
         </div>
     </div>
-    <div class="col-12 mt-3" *ngIf="registerApprovalInspector.value && registerApprovalFinanciero.notes.search('Devuelto: ') == 0 && !registerApprovalFinanciero.value">
+    <div class="col-12 mt-3" *ngIf="(registerApprovalInspector.value && registerApprovalFinanciero.notes.search('Devuelto: ') == 0 && !registerApprovalFinanciero.value) && digito != '7' && digito != '8'">
         <strong>Motivo de devolución de trámite</strong>
         <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalFinanciero.notes"></div>
     </div>
-    <div class="col-12" *ngIf="isAssignedFinancial">
+    <div class="col-12" *ngIf="isAssignedFinancial && digito != '7' && digito != '8'">
         <div class="col-12" *ngIf="isAssignedFinancial">
             <small><strong>Fecha de Asignación:</strong>&nbsp;<i>{{registerApprovalFinanciero.date_assigment | date:'y-MM-dd'}}</i></small>
         </div>
@@ -154,7 +154,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="digito != '7' && digito != '8'">
     <div class="col-3"></div>
     <div class="col-6 text-center" *ngIf="!(registerApprovalFinanciero.notes.search('Devuelto: ') == 0) && (registerApprovalFinanciero.notes != '') && (digito == '0')">
         <table class="table mt-2">
