@@ -79,6 +79,7 @@
                <th>description</th>
                <th>to_approve</th>
                <th>mandatory</th>
+               <th>is_adventure_requisite</th>
                <th>type</th>
                <th>params</th>
                <th>score</th>
@@ -93,6 +94,7 @@
                <td>{{requisite.description}}</td>
                <td>{{requisite.to_approve}}</td>
                <td>{{requisite.mandatory}}</td>
+               <td>{{requisite.is_adventure_requisite}}</td>
                <td>{{requisite.type}}</td>
                <td>{{requisite.params}}</td>
                <td>{{requisite.score}}</td>
@@ -160,6 +162,12 @@
                <label for="mandatory" class="col-4 col-form-label">mandatory</label>
                <div class="col-8">
                   <label class="switch"><input type="checkbox"id="mandatory" name="mandatory" [(ngModel)]="requisiteSelected.mandatory"><span class="slider round"></span></label>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="is_adventure_requisite" class="col-4 col-form-label">is_adventure_requisite</label>
+               <div class="col-8">
+                  <label class="switch"><input type="checkbox"id="is_adventure_requisite" name="is_adventure_requisite" [(ngModel)]="requisiteSelected.is_adventure_requisite"><span class="slider round"></span></label>
                </div>
             </div>
             <div class="form-group row">

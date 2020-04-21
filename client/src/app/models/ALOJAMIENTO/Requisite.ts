@@ -10,6 +10,7 @@ export class Requisite {
    mandatory: Boolean;
    type: String;
    params: String;
+   is_adventure_requisite: Boolean;
    constructor() {
       this.register_type_id = 0;
       this.father_code = '-';
@@ -19,5 +20,6 @@ export class Requisite {
       this.mandatory = false;
       this.type = '';
       this.params = '';
+      this.is_adventure_requisite = false;
    }
 }

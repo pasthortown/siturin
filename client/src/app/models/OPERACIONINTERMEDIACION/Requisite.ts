@@ -11,6 +11,8 @@ export class Requisite {
    type: String;
    params: String;
    score: number;
+   is_adventure_requisite: Boolean;
+   
    constructor() {
       this.register_type_id = 0;
       this.father_code = '-';
@@ -21,5 +23,6 @@ export class Requisite {
       this.type = '';
       this.params = '';
       this.score = 0;
+      this.is_adventure_requisite = false;
    }
 }

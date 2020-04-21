@@ -10,4 +10,5 @@ export class Requisite {
    code: String;
    score: number;
    register_type_id: number;
+   is_adventure_requisite: Boolean;
 }
