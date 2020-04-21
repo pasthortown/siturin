@@ -640,7 +640,71 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
   
   desasignarInspector() {
-    //aqui
+    this.desasignandoInspector = true;
+    this.isAssignedInspector = false;
+    const today = new Date();
+    this.inspectorSelectedId = 0;
+    this.registerApprovalInspector.id_user = 0;
+    this.registerApprovalInspector.date_assigment = null;
+    const newRegisterState = new RegisterState();
+    newRegisterState.justification = 'Técnico Zonal removido en la fecha ' + today.toDateString();
+    newRegisterState.register_id =  this.data_selected_table.register.register.id;
+    newRegisterState.state_id = this.stateTramiteId - 3;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.put(this.registerApprovalInspector).then( r => {
+        this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+          this.unassignInspector();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalInspector).then( r => {
+        this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+          this.unassignInspector();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalInspector).then( r => {
+        this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+          this.unassignInspector();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+  }
+
+  unassignInspector() {
+    const today = new Date();
+    const documentData = this.buildDocumentData();
+    let inspector = new User();
+    this.tecnicosZonales.forEach(element => {
+      if (element.id == this.inspectorSelectedId) {
+        inspector = element;
+      }
+    });
+    const information = {
+      para: inspector.name.toUpperCase(),
+      tramite: this.tipo_tramite.toUpperCase(),
+      ruc: this.data_selected_table.register.ruc.number,
+      nombreComercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase(),
+      fechaSolicitud: today.toLocaleString(),
+      actividad: this.data_selected_table.register.activity.toUpperCase(),
+      clasificacion: documentData.clasificacion.toUpperCase(),
+      categoria: documentData.categoria.toUpperCase(),
+      tipoSolicitud: this.tipo_tramite.toUpperCase(),
+      provincia: documentData.provincia.name.toUpperCase(),
+      canton: documentData.canton.name.toUpperCase(),
+      parroquia: documentData.parroquia.name.toUpperCase(),
+      callePrincipal: this.data_selected_table.register.establishment.address_main_street,
+      calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street,
+      numeracion: this.data_selected_table.register.establishment.address_number,
+      thisYear:today.getFullYear()
+    };
+    this.mailerDataService.sendMail('desasignacion', inspector.email.toString(), 'Desasignación de trámite', information).then( r => {
+      this.toastr.warningToastr('Técnico Zonal Desasignado Satisfactoriamente.', 'Desasignación de Técnico Zonal');
+      this.desasignandoInspector = false;
+      window.location.reload();
+    }).catch( e => { console.log(e); });
   }
 
   aceptarTramite() {
