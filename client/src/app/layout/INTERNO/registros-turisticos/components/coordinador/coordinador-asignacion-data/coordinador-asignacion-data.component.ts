@@ -71,6 +71,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   mostrarMotivoTramite = false;
   confirmandoAceptarTramiteInspector = false;
   confirmandoRechazoTramiteInspector = false;
+  confirmandoRechazoTramiteFinanciero = false;
   tipo_tramite = 'pendiente';
   digito = '';
   stateTramiteId = 0;
@@ -920,6 +921,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
        {ruc: this.data_selected_table.register.ruc.number},
        {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
        {actividad: actividad},
+       {razon_social: this.razon_social},
        {clasificacion: documentData.clasificacion.toUpperCase()},
        {categoria: documentData.categoria.toUpperCase()},
        {provincia: documentData.provincia.name.toUpperCase()},
@@ -1026,128 +1028,129 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   confirmarRechazoTramiteFinanciero() {
-  //   if (this.registerApprovalFinanciero.notes == '') {
-  //     this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
-  //     return;
-  //   }
-  //   Swal.fire({
-  //     title: 'Confirmación',
-  //     text: '¿Está seguro de Rechazar el resultado emitido por el Técnico Financiero?',
-  //     type: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Si, continuar',
-  //     cancelButtonText: 'No, cancelar',
-  //     reverseButtons: true
-  //  }).then((result) => {
-  //     if (result.value) {
-  //        Swal.fire(
-  //        'Rechazado!',
-  //        'El resultado emitido por el Técnico Financiero ha sido rechazado y devuelto al Técnico Financiero para su revisión',
-  //        'success'
-  //        );
-  //        this.isAssigned = true;
-  //        this.registerApprovalFinanciero.id_user = this.financialSelectedId;
-  //        this.registerApprovalFinanciero.date_assigment = new Date();
-  //        if (this.activity == 'ALOJAMIENTO') {
-  //           this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
-  //              const newRegisterState = new RegisterState();
-  //              newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
-  //              newRegisterState.register_id = this.idRegister;          
-  //              newRegisterState.state_id = this.stateTramiteId - 3;
-  //                 this.registerStateDataService.post(newRegisterState).then( r1 => {
-  //                 }).catch( e => { console.log(e); });
-  //           }).catch( e => { console.log(e); });
-  //        }
-  //        if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-  //           this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
-  //              const newRegisterState = new RegisterState();
-  //              newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
-  //              newRegisterState.register_id = this.idRegister;          
-  //              newRegisterState.state_id = this.stateTramiteId - 3;
-  //                 this.registerStateABDataService.post(newRegisterState).then( r1 => {
-  //                 }).catch( e => { console.log(e); });
-  //           }).catch( e => { console.log(e); });
-  //        }
-  //        const today = new Date();
-  //        let clasificacion: String = '';
-  //        let categoria: String = '';
-  //        let category: RegisterType = new RegisterType();
-  //        this.register_types_AB.forEach(element => {
-  //           if (this.registerMinturSelected.register.register_type_id == element.id) {
-  //              category = element;
-  //              categoria = element.name;
-  //           }
-  //        });
-  //        this.register_types_AB.forEach(element => {
-  //           if (category.father_code == element.code) {
-  //              clasificacion = element.name;
-  //           }
-  //        });
-  //        let parroquiaName: String = '';
-  //        let parroquia: Ubication = new Ubication();
-  //        this.ubications.forEach(element => {
-  //           if (element.id == this.registerMinturSelected.establishment.ubication_id) {
-  //              parroquiaName = element.name;
-  //              parroquia = element;
-  //           }
-  //        });
-  //        let cantonName: String = '';
-  //        let canton: Ubication = new Ubication();
-  //        this.ubications.forEach(element => {
-  //           if (element.code == parroquia.father_code) {
-  //              cantonName = element.name;
-  //              canton = element;
-  //           }
-  //        });
-  //        let provinciaName: String = '';
-  //        this.ubications.forEach(element => {
-  //           if (element.code == canton.father_code) {
-  //              provinciaName = element.name;
-  //           }
-  //        });
-  //        let financiero = new User();
-  //        this.financieros.forEach(element => {
-  //           if (element.id == this.financialSelectedId) {
-  //              financiero = element;
-  //           }
-  //        });
-  //        let motivoRechazo = this.registerApprovalFinanciero.notes;
-  //        motivoRechazo = motivoRechazo.replace('<p>', '');
-  //        motivoRechazo = motivoRechazo.replace('</p>', '');
-  //        const information = {
-  //           para: financiero.name,
-  //           tramite: this.tipo_tramite.toUpperCase(),
-  //           motivoRechazo: motivoRechazo,
-  //           ruc: this.ruc_registro_selected.ruc.number,
-  //           nombreComercial: this.registerMinturSelected.establishment.commercially_known_name,
-  //           fechaSolicitud: today.toLocaleString(),
-  //           actividad: this.registerMinturSelected.activity.toUpperCase(),
-  //           clasificacion: clasificacion,
-  //           categoria: categoria,
-  //           tipoSolicitud: this.tipo_tramite.toUpperCase(),
-  //           provincia: provinciaName,
-  //           canton: cantonName,
-  //           parroquia: parroquiaName,
-  //           callePrincipal: this.registerMinturSelected.establishment.address_main_street,
-  //           calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street,
-  //           numeracion: this.registerMinturSelected.establishment.address_number,
-  //           thisYear:today.getFullYear()
-  //        };
-  //        this.mailerDataService.sendMail('rechazo_informe_tf', financiero.email.toString(), 'Rechazo y reasignación de trámite para su revisión', information).then( r => {
-  //           this.toastr.successToastr('Técnico Financiero Asignado Satisfactoriamente.', 'Asignación de Técnico Financiero');
-  //           this.refresh();
-  //        }).catch( e => { console.log(e); });
+    // if (this.registerApprovalFinanciero.notes == '') {
+    //   this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
+    //   return;
+    // }
+    // this.confirmandoRechazoTramiteFinanciero = false;
+    // Swal.fire({
+    //   title: 'Confirmación',
+    //   text: '¿Está seguro de Rechazar el resultado emitido por el Técnico Financiero?',
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Si, continuar',
+    //   cancelButtonText: 'No, cancelar',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.value) {
+    //     Swal.fire(
+    //       'Rechazado!',
+    //       'El resultado emitido por el Técnico Financiero ha sido rechazado y devuelto al Técnico Financiero para su revisión',
+    //       'success'
+    //     );
+    //     this.isAssignedFinancial = true;
+    //      this.registerApprovalFinanciero.id_user = this.financialSelectedId;
+    //      this.registerApprovalFinanciero.date_assigment = new Date();
+    //      if (this.activity == 'ALOJAMIENTO') {
+    //         this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
+    //            const newRegisterState = new RegisterState();
+    //            newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+    //            newRegisterState.register_id = this.idRegister;          
+    //            newRegisterState.state_id = this.stateTramiteId - 3;
+    //               this.registerStateDataService.post(newRegisterState).then( r1 => {
+    //               }).catch( e => { console.log(e); });
+    //         }).catch( e => { console.log(e); });
+    //      }
+    //      if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+    //         this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
+    //            const newRegisterState = new RegisterState();
+    //            newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+    //            newRegisterState.register_id = this.idRegister;          
+    //            newRegisterState.state_id = this.stateTramiteId - 3;
+    //               this.registerStateABDataService.post(newRegisterState).then( r1 => {
+    //               }).catch( e => { console.log(e); });
+    //         }).catch( e => { console.log(e); });
+    //      }
+    //      const today = new Date();
+    //      let clasificacion: String = '';
+    //      let categoria: String = '';
+    //      let category: RegisterType = new RegisterType();
+    //      this.register_types_AB.forEach(element => {
+    //         if (this.registerMinturSelected.register.register_type_id == element.id) {
+    //            category = element;
+    //            categoria = element.name;
+    //         }
+    //      });
+    //      this.register_types_AB.forEach(element => {
+    //         if (category.father_code == element.code) {
+    //            clasificacion = element.name;
+    //         }
+    //      });
+    //      let parroquiaName: String = '';
+    //      let parroquia: Ubication = new Ubication();
+    //      this.ubications.forEach(element => {
+    //         if (element.id == this.registerMinturSelected.establishment.ubication_id) {
+    //            parroquiaName = element.name;
+    //            parroquia = element;
+    //         }
+    //      });
+    //      let cantonName: String = '';
+    //      let canton: Ubication = new Ubication();
+    //      this.ubications.forEach(element => {
+    //         if (element.code == parroquia.father_code) {
+    //            cantonName = element.name;
+    //            canton = element;
+    //         }
+    //      });
+    //      let provinciaName: String = '';
+    //      this.ubications.forEach(element => {
+    //         if (element.code == canton.father_code) {
+    //            provinciaName = element.name;
+    //         }
+    //      });
+    //      let financiero = new User();
+    //      this.financieros.forEach(element => {
+    //         if (element.id == this.financialSelectedId) {
+    //            financiero = element;
+    //         }
+    //      });
+    //      let motivoRechazo = this.registerApprovalFinanciero.notes;
+    //      motivoRechazo = motivoRechazo.replace('<p>', '');
+    //      motivoRechazo = motivoRechazo.replace('</p>', '');
+    //      const information = {
+    //         para: financiero.name,
+    //         tramite: this.tipo_tramite.toUpperCase(),
+    //         motivoRechazo: motivoRechazo,
+    //         ruc: this.ruc_registro_selected.ruc.number,
+    //         nombreComercial: this.registerMinturSelected.establishment.commercially_known_name,
+    //         fechaSolicitud: today.toLocaleString(),
+    //         actividad: this.registerMinturSelected.activity.toUpperCase(),
+    //         clasificacion: clasificacion,
+    //         categoria: categoria,
+    //         tipoSolicitud: this.tipo_tramite.toUpperCase(),
+    //         provincia: provinciaName,
+    //         canton: cantonName,
+    //         parroquia: parroquiaName,
+    //         callePrincipal: this.registerMinturSelected.establishment.address_main_street,
+    //         calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street,
+    //         numeracion: this.registerMinturSelected.establishment.address_number,
+    //         thisYear:today.getFullYear()
+    //      };
+    //      this.mailerDataService.sendMail('rechazo_informe_tf', financiero.email.toString(), 'Rechazo y reasignación de trámite para su revisión', information).then( r => {
+    //         this.toastr.successToastr('Técnico Financiero Asignado Satisfactoriamente.', 'Asignación de Técnico Financiero');
+    //         this.refresh();
+    //      }).catch( e => { console.log(e); });
          
-  //     } else if (
-  //        result.dismiss === Swal.DismissReason.cancel
-  //     ) {
-  //        Swal.fire(
-  //        'Cancelado',
-  //        '',
-  //        'error'
-  //        );
-  //     }
-  //   });
+    //   } else if (
+    //      result.dismiss === Swal.DismissReason.cancel
+    //   ) {
+    //      Swal.fire(
+    //      'Cancelado',
+    //      '',
+    //      'error'
+    //      );
+    //   }
+    // });
   }
 
   buildDocumentData(): any {
