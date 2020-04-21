@@ -65,7 +65,6 @@ import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servi
 import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicefoodtype.service';
 import { ActivityTransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
 import { TransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
-import { GuideTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 import { SIITService } from 'src/app/services/negocio/siit.service';
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { CapacityTypeService as CapacityTypeALService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
@@ -154,7 +153,6 @@ import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/
     UbicationService,
     ActivityTransportTypeService,
     TransportTypeService,
-    GuideTypeService,
     SIITService
   ],
   exports: [
