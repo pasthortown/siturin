@@ -39,6 +39,9 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } fr
 import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
 import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
+import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
 
 @NgModule({
   imports: [CommonModule, 
@@ -74,7 +77,10 @@ import { RegisterStateService as RegisterStateOPService } from 'src/app/services
     ApprovalStateAttachmentOPService,
     RegisterStateALService,
     RegisterStateABService,
-    RegisterStateOPService
+    RegisterStateOPService,
+    ZoneService,
+    ExporterService,
+    MailerService
   ]
 })
 export class ClienteInternoCoordinadorModule {}

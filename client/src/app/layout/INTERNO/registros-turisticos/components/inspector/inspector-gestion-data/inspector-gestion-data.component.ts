@@ -218,6 +218,7 @@ export class InspectorGestionDataComponent implements OnInit {
   }
 
   getZonales() {
+    this.zonales = [];
     this.zoneDataService.get().then( r => {
       this.zonales = r;
     }).catch( e => { console.log(e); });

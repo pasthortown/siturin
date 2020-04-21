@@ -11,6 +11,8 @@ import { ApprovalStateAttachmentService as ApprovalStateAttachmentOPService } fr
 import { RegisterStateService as RegisterStateALService } from 'src/app/services/CRUD/ALOJAMIENTO/registerstate.service';
 import { RegisterStateService as RegisterStateABService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/registerstate.service';
 import { RegisterStateService as RegisterStateOPService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/registerstate.service';
+import { ZoneService } from 'src/app/services/CRUD/BASE/zone.service';
+import { UbicationService } from 'src/app/services/CRUD/BASE/ubication.service';
 
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { RegisterState } from 'src/app/models/ALOJAMIENTO/RegisterState';
@@ -18,10 +20,16 @@ import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStat
 import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { User } from 'src/app/models/profile/User';
+import { Zone } from 'src/app/models/BASE/Zone';
+import { Ubication } from 'src/app/models/BASE/Ubication';
+import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
+import { ExporterService } from 'src/app/services/negocio/exporter.service';
+import { MailerService } from 'src/app/services/negocio/mailer.service';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
 import Swal from 'sweetalert2';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 @Component({
   selector: 'app-coordinador-asignacion-data',
@@ -30,6 +38,12 @@ import Swal from 'sweetalert2';
 })
 export class CoordinadorAsignacionDataComponent implements OnInit {
   @Input('user') user: User = new User();
+  @Input('register_types_block') register_types_block = {
+    register_types_alojamiento: [],
+    register_types_alimentos_bebidas: [],
+    register_types_operacion_intermediacion: []
+  };
+
   @Input('data_selected') data_selected_table = {row: null, 
     register: {register: null,
       activity_id: 0,
@@ -86,9 +100,16 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
 
   inspectorSelectedId = 0;
   financialSelectedId = 0;
+  ubications: Ubication[] = [];
+  zonales = [];
 
   constructor(
+    private toastr: ToastrManager,
     private dinardapDataService: DinardapService,
+    private zoneDataService: ZoneService,
+    private ubicationDataService: UbicationService,
+    private exporterDataService: ExporterService,
+    private mailerDataService: MailerService,
     private approval_state_alojamiento_DataService: ApprovalStateALService,
     private approval_state_alimentos_bebidas_DataService: ApprovalStateABService,
     private approval_state_operacion_intermediacion_DataService: ApprovalStateOPService,
@@ -114,7 +135,22 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   loadCatalogos() {
+    this.getUbications();
+    this.getZonales();
+  }
 
+  getUbications() {
+    this.ubications = [];
+    this.ubicationDataService.get().then( r => {
+      this.ubications = r as Ubication[];
+    }).catch( e => { console.log(e); });
+  }
+
+  getZonales() {
+    this.zonales = [];
+    this.zoneDataService.get().then( r => {
+      this.zonales = r;
+    }).catch( e => { console.log(e); });
   }
 
   refresh() {
@@ -516,9 +552,93 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   asignarInspector() {
-    //aqui
+    this.asignandoInspector = true;
+    this.isAssignedInspector = true;
+    this.registerApprovalInspector.id_user = this.inspectorSelectedId;
+    this.registerApprovalInspector.date_assigment = new Date();
+    this.registerApprovalInspector.notes = '';
+    const newRegisterState = new RegisterState();
+    newRegisterState.justification = 'Técnico Zonal asignado en la fecha ' + this.registerApprovalInspector.date_assigment.toDateString();
+    newRegisterState.register_id = this.data_selected_table.register.register.id;
+    newRegisterState.state_id = this.stateTramiteId + 3;
+    this.asignandoInspector = false;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.put(this.registerApprovalInspector).then( r => {
+        this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+          this.assignInspector();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalInspector).then( r => {
+        this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+          this.assignInspector();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalInspector).then( r => {
+        this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+          this.assignInspector();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
   }
 
+  assignInspector() {
+    const documentData = this.buildDocumentData();
+    let inspector = new User();
+    this.tecnicosZonales.forEach(element => {
+      if (element.id == this.inspectorSelectedId) {
+        inspector = element;
+      }
+    });  
+    const today = new Date();
+    const actividad = this.data_selected_table.register.activity.toUpperCase();
+    let qr_value = 'MT-CZ' + documentData.iniciales_cordinacion_zonal + '-' + this.data_selected_table.register.ruc.number + '-SOLICITUD-' + actividad + '-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    const params = [{tipo_tramite: this.tipo_tramite.toUpperCase()},
+      {fecha: today.toLocaleDateString().toUpperCase()},
+      {representante_legal: this.representante_legal.toUpperCase()},
+      {nombre_comercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+      {ruc: this.data_selected_table.register.ruc.number},
+      {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+      {actividad: actividad.toUpperCase()},
+      {clasificacion: documentData.clasificacion.toUpperCase()},
+      {categoria: documentData.categoria.toUpperCase()},
+      {provincia: documentData.provincia.name.toUpperCase()},
+      {canton: documentData.canton.name.toUpperCase()},
+      {parroquia: documentData.parroquia.name.toUpperCase()},
+      {calle_principal: this.data_selected_table.register.establishment.address_main_street.toUpperCase()},
+      {numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase()},
+      {calle_secundaria: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase()}];
+    this.exporterDataService.template(10, true, qr_value, params).then( r => {
+      let pdfBase64 = r;
+      const information = {
+        para: inspector.name,
+        tramite: this.tipo_tramite.toUpperCase(),
+        ruc: this.data_selected_table.register.ruc.number,
+        nombreComercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase(),
+        fechaSolicitud: today.toLocaleString(),
+        actividad: this.data_selected_table.register.activity.toUpperCase(),
+        clasificacion: documentData.clasificacion.toUpperCase(),
+        categoria: documentData.categoria.toUpperCase(),
+        tipoSolicitud: this.tipo_tramite.toUpperCase(),
+        provincia: documentData.provincia.name.toUpperCase(),
+        canton: documentData.canton.name.toUpperCase(),
+        parroquia: documentData.parroquia.name.toUpperCase(),
+        callePrincipal: this.data_selected_table.register.establishment.address_main_street.toUpperCase(),
+        calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase(),
+        numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase(),
+        thisYear:today.getFullYear(),
+        pdfBase64: pdfBase64,
+      };
+      this.mailerDataService.sendMail('asignacion', inspector.email.toString(), 'Asignación de trámite para su revisión', information).then( r => {
+        this.toastr.successToastr('Técnico Zonal Asignado Satisfactoriamente.', 'Asignación de Técnico Zonal');
+        window.location.reload();
+      }).catch( e => { console.log(e); });
+    }).catch( e => { console.log(e); });
+  }
+  
   desasignarInspector() {
     //aqui
   }
@@ -541,6 +661,80 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
 
   confirmarRechazoTramiteFinanciero() {
     //aqui
+  }
+
+  buildDocumentData(): any {
+    const toReturn = {
+      clasificacion: '',
+      categoria: '',
+      provincia: new Ubication(),
+      canton: new Ubication(),
+      parroquia: new Ubication(),
+      zonal: new Ubication(),
+      iniciales_tecnico_zonal: '',
+      zone: new Zone(),
+      iniciales_cordinacion_zonal: ''
+    };
+    const classificationData = this.getClassificationCategoryFromCategoryID(this.data_selected_table.register.register.register_type_id);
+    toReturn.clasificacion = classificationData.classification.name;
+    toReturn.categoria =  classificationData.category.name;
+    this.ubications.forEach(element => {
+      if (element.id == this.data_selected_table.register.establishment.ubication_id) {
+        toReturn.parroquia = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.parroquia.father_code) {
+        toReturn.canton = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.canton.father_code) {
+        toReturn.provincia = element;
+      }
+    });
+    this.ubications.forEach(element => {
+      if (element.code == toReturn.provincia.father_code) {
+        toReturn.zonal = element;
+      }
+    });
+    this.user.name.split(' ').forEach(element => {
+      toReturn.iniciales_tecnico_zonal += element.substring(0, 1).toUpperCase();
+    });
+    
+    toReturn.zone = new Zone();
+    this.zonales.forEach(element => {
+       if (element.ubication_id == toReturn.provincia.id) {
+        toReturn.zone = element;
+       }
+    });
+    toReturn.iniciales_cordinacion_zonal = toReturn.zone.acronym.toString();
+    return toReturn;
+  }
+
+  getClassificationCategoryFromCategoryID(register_type_id: number): any {
+    const toReturn = {category: new RegisterType(), classification: new RegisterType()};
+    let sourceArray = [];
+    if (this.data_selected_table.register.activity_id == 1) {
+      sourceArray = this.register_types_block.register_types_alojamiento;
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      sourceArray = this.register_types_block.register_types_alimentos_bebidas;
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      sourceArray = this.register_types_block.register_types_operacion_intermediacion;
+    }
+    sourceArray.forEach(element => {
+      if (register_type_id == element.id) {
+        toReturn.category = element;
+      }
+    });
+    sourceArray.forEach(element => {
+      if (toReturn.category.father_code == element.code) {
+        toReturn.classification = element;
+      }
+    });
+    return toReturn;
   }
 
   descargarRequisitos() {
