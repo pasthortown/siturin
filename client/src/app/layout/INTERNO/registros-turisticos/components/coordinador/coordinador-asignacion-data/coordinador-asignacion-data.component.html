@@ -106,7 +106,7 @@
         </button>
     </div>
     <div class="col-12 text-center mt-2 mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
-        <button [disabled]="confirmandoRechazoTramite"  type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramite">
+        <button [disabled]="confirmandoRechazoTramiteInspector"  type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramite">
             <i class="fas fa-trash"></i>&nbsp;Rechazar Estado de Inspección&nbsp;
             <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
             <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>

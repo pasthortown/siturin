@@ -69,8 +69,8 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   rechazarTramite = false;
   guardando_no_requiere_inspeccion = false;
   mostrarMotivoTramite = false;
-  confirmandoAceptarTramite = false;
-  confirmandoRechazoTramite = false;
+  confirmandoAceptarTramiteInspector = false;
+  confirmandoRechazoTramiteInspector = false;
   tipo_tramite = 'pendiente';
   digito = '';
   stateTramiteId = 0;
@@ -708,7 +708,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   aceptarTramite() {
-    this.confirmandoAceptarTramite = true;
+    this.confirmandoAceptarTramiteInspector = true;
     Swal.fire({
       title: 'Confirmación',
       text: '¿Está seguro de Aprobar el resultado emitido por el Técnico Zonal?',
@@ -738,7 +738,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
           this.approval_state_alojamiento_DataService.put(this.registerApprovalCoordinador).then( r => {
             this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
-              this.confirmandoAceptarTramite = false;
+              this.confirmandoAceptarTramiteInspector = false;
               window.location.reload();
             }).catch( e => { console.log(e); });
           }).catch( e => { console.log(e); });
@@ -747,7 +747,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
           this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalCoordinador).then( r => {
             this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
-              this.confirmandoAceptarTramite = false;
+              this.confirmandoAceptarTramiteInspector = false;
               window.location.reload();
             }).catch( e => { console.log(e); });
           }).catch( e => { console.log(e); });
@@ -756,7 +756,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
           this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalCoordinador).then( r => {
             this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
-              this.confirmandoAceptarTramite = false;
+              this.confirmandoAceptarTramiteInspector = false;
               window.location.reload();
             }).catch( e => { console.log(e); });
           }).catch( e => { console.log(e); });
@@ -767,7 +767,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
           '',
           'error'
         );
-        this.confirmandoAceptarTramite = false;
+        this.confirmandoAceptarTramiteInspector = false;
       }
     });
   }
@@ -777,7 +777,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
       return;
     }
-    this.confirmandoRechazoTramite = true;
+    this.confirmandoRechazoTramiteInspector = true;
     Swal.fire({
       title: 'Confirmación',
       text: '¿Está seguro de Rechazar el resultado emitido por el Técnico Zonal?',
@@ -827,7 +827,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
           '',
           'error'
         );
-        this.confirmandoRechazoTramite = false;
+        this.confirmandoRechazoTramiteInspector = false;
       }
     });
   }
@@ -957,6 +957,38 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
      }).catch( e => { console.log(e); });
   }
 
+  desasignarFinanciero() {
+    this.desasignandoFinanciero = true;
+    const today = new Date();
+    this.registerApprovalFinanciero.id_user = 0;
+    this.registerApprovalFinanciero.date_assigment = null;
+    const newRegisterState = new RegisterState();
+    newRegisterState.justification = 'Técnico Financiero removido en la fecha ' + today.toDateString();
+    newRegisterState.register_id =  this.data_selected_table.register.register.id;
+    newRegisterState.state_id = this.stateTramiteId + 3;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+          this.unassignFinanciero();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }  
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+          this.unassignFinanciero();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+          this.unassignFinanciero();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+  }
+
   unassignFinanciero() {
     const today = new Date();
     let financiero = new User();
@@ -983,49 +1015,139 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase(),
       numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase(),
       thisYear:today.getFullYear()
-   };
-   this.mailerDataService.sendMail('desasignacion', financiero.email.toString(), 'Desasignación de trámite', information).then( r => {
+    };
+    this.mailerDataService.sendMail('desasignacion', financiero.email.toString(), 'Desasignación de trámite', information).then( r => {
       this.toastr.warningToastr('Técnico Financiero Desasignado Satisfactoriamente.', 'Desasignación de Técnico Financiero');
       this.desasignandoFinanciero = false;
       this.isAssignedFinancial = false;
       this.financialSelectedId = 0;
       window.location.reload();
-   }).catch( e => { console.log(e); });
-  }
-
-  desasignarFinanciero() {
-    this.desasignandoFinanciero = true;
-    const today = new Date();
-  //  this.registerApprovalFinanciero.id_user = 0;
-  //  this.registerApprovalFinanciero.date_assigment = null;
-  //  if (this.activity == 'ALOJAMIENTO') {
-  //     this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
-  //        const newRegisterState = new RegisterState();
-  //        newRegisterState.justification = 'Técnico Financiero removido en la fecha ' + today.toDateString();
-  //        newRegisterState.register_id =  this.idRegister;
-  //        newRegisterState.state_id = this.stateTramiteId + 3;
-  //        this.desasignandoFinanciero = false;
-  //        this.registerStateDataService.post(newRegisterState).then( r1 => {
-          
-  //        }).catch( e => { console.log(e); });
-  //       }).catch( e => { console.log(e); });
-  //  }  
-  //  if (this.activity == 'ALIMENTOS Y BEBIDAS') {
-  //     this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
-  //        const newRegisterState = new RegisterState();
-  //        newRegisterState.justification = 'Técnico Financiero removido en la fecha ' + today.toDateString();
-  //        newRegisterState.register_id =  this.idRegister;
-  //        newRegisterState.state_id = this.stateTramiteId + 3;
-  //        this.desasignandoFinanciero = false;
-  //           this.registerStateABDataService.post(newRegisterState).then( r1 => {
-  //           }).catch( e => { console.log(e); });
-           
-  //       }).catch( e => { console.log(e); });
-  //   } 
+    }).catch( e => { console.log(e); });
   }
 
   confirmarRechazoTramiteFinanciero() {
-    //aqui
+  //   if (this.registerApprovalFinanciero.notes == '') {
+  //     this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
+  //     return;
+  //   }
+  //   Swal.fire({
+  //     title: 'Confirmación',
+  //     text: '¿Está seguro de Rechazar el resultado emitido por el Técnico Financiero?',
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'Si, continuar',
+  //     cancelButtonText: 'No, cancelar',
+  //     reverseButtons: true
+  //  }).then((result) => {
+  //     if (result.value) {
+  //        Swal.fire(
+  //        'Rechazado!',
+  //        'El resultado emitido por el Técnico Financiero ha sido rechazado y devuelto al Técnico Financiero para su revisión',
+  //        'success'
+  //        );
+  //        this.isAssigned = true;
+  //        this.registerApprovalFinanciero.id_user = this.financialSelectedId;
+  //        this.registerApprovalFinanciero.date_assigment = new Date();
+  //        if (this.activity == 'ALOJAMIENTO') {
+  //           this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
+  //              const newRegisterState = new RegisterState();
+  //              newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+  //              newRegisterState.register_id = this.idRegister;          
+  //              newRegisterState.state_id = this.stateTramiteId - 3;
+  //                 this.registerStateDataService.post(newRegisterState).then( r1 => {
+  //                 }).catch( e => { console.log(e); });
+  //           }).catch( e => { console.log(e); });
+  //        }
+  //        if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+  //           this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
+  //              const newRegisterState = new RegisterState();
+  //              newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+  //              newRegisterState.register_id = this.idRegister;          
+  //              newRegisterState.state_id = this.stateTramiteId - 3;
+  //                 this.registerStateABDataService.post(newRegisterState).then( r1 => {
+  //                 }).catch( e => { console.log(e); });
+  //           }).catch( e => { console.log(e); });
+  //        }
+  //        const today = new Date();
+  //        let clasificacion: String = '';
+  //        let categoria: String = '';
+  //        let category: RegisterType = new RegisterType();
+  //        this.register_types_AB.forEach(element => {
+  //           if (this.registerMinturSelected.register.register_type_id == element.id) {
+  //              category = element;
+  //              categoria = element.name;
+  //           }
+  //        });
+  //        this.register_types_AB.forEach(element => {
+  //           if (category.father_code == element.code) {
+  //              clasificacion = element.name;
+  //           }
+  //        });
+  //        let parroquiaName: String = '';
+  //        let parroquia: Ubication = new Ubication();
+  //        this.ubications.forEach(element => {
+  //           if (element.id == this.registerMinturSelected.establishment.ubication_id) {
+  //              parroquiaName = element.name;
+  //              parroquia = element;
+  //           }
+  //        });
+  //        let cantonName: String = '';
+  //        let canton: Ubication = new Ubication();
+  //        this.ubications.forEach(element => {
+  //           if (element.code == parroquia.father_code) {
+  //              cantonName = element.name;
+  //              canton = element;
+  //           }
+  //        });
+  //        let provinciaName: String = '';
+  //        this.ubications.forEach(element => {
+  //           if (element.code == canton.father_code) {
+  //              provinciaName = element.name;
+  //           }
+  //        });
+  //        let financiero = new User();
+  //        this.financieros.forEach(element => {
+  //           if (element.id == this.financialSelectedId) {
+  //              financiero = element;
+  //           }
+  //        });
+  //        let motivoRechazo = this.registerApprovalFinanciero.notes;
+  //        motivoRechazo = motivoRechazo.replace('<p>', '');
+  //        motivoRechazo = motivoRechazo.replace('</p>', '');
+  //        const information = {
+  //           para: financiero.name,
+  //           tramite: this.tipo_tramite.toUpperCase(),
+  //           motivoRechazo: motivoRechazo,
+  //           ruc: this.ruc_registro_selected.ruc.number,
+  //           nombreComercial: this.registerMinturSelected.establishment.commercially_known_name,
+  //           fechaSolicitud: today.toLocaleString(),
+  //           actividad: this.registerMinturSelected.activity.toUpperCase(),
+  //           clasificacion: clasificacion,
+  //           categoria: categoria,
+  //           tipoSolicitud: this.tipo_tramite.toUpperCase(),
+  //           provincia: provinciaName,
+  //           canton: cantonName,
+  //           parroquia: parroquiaName,
+  //           callePrincipal: this.registerMinturSelected.establishment.address_main_street,
+  //           calleInterseccion: this.registerMinturSelected.establishment.address_secondary_street,
+  //           numeracion: this.registerMinturSelected.establishment.address_number,
+  //           thisYear:today.getFullYear()
+  //        };
+  //        this.mailerDataService.sendMail('rechazo_informe_tf', financiero.email.toString(), 'Rechazo y reasignación de trámite para su revisión', information).then( r => {
+  //           this.toastr.successToastr('Técnico Financiero Asignado Satisfactoriamente.', 'Asignación de Técnico Financiero');
+  //           this.refresh();
+  //        }).catch( e => { console.log(e); });
+         
+  //     } else if (
+  //        result.dismiss === Swal.DismissReason.cancel
+  //     ) {
+  //        Swal.fire(
+  //        'Cancelado',
+  //        '',
+  //        'error'
+  //        );
+  //     }
+  //   });
   }
 
   buildDocumentData(): any {
