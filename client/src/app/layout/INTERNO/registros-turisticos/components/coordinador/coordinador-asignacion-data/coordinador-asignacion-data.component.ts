@@ -641,9 +641,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   
   desasignarInspector() {
     this.desasignandoInspector = true;
-    this.isAssignedInspector = false;
     const today = new Date();
-    this.inspectorSelectedId = 0;
     this.registerApprovalInspector.id_user = 0;
     this.registerApprovalInspector.date_assigment = null;
     const newRegisterState = new RegisterState();
@@ -681,7 +679,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       if (element.id == this.inspectorSelectedId) {
         inspector = element;
       }
-    });  
+    });
     const information = {
       para: inspector.name.toUpperCase(),
       tramite: this.tipo_tramite.toUpperCase(),
@@ -703,6 +701,8 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     this.mailerDataService.sendMail('desasignacion', inspector.email.toString(), 'Desasignación de trámite', information).then( r => {
       this.toastr.warningToastr('Técnico Zonal Desasignado Satisfactoriamente.', 'Desasignación de Técnico Zonal');
       this.desasignandoInspector = false;
+      this.isAssignedInspector = false;
+      this.inspectorSelectedId = 0;
       window.location.reload();
     }).catch( e => { console.log(e); });
   }
