@@ -165,14 +165,6 @@ export class TuristicTransportDataComponent implements OnInit {
           }
           this.rucDataTuristicTransport = datosGenerales + datosAE + datosContactoSRI;
         });
-        this.siitDataService.transporteTurismo(this.newTuristicTransport.ruc).then( transportResponse => {
-          Swal.fire(
-            'Compañía de Transporte Turístico no encontrada!',
-            'El RUC ingresado, no corresponde a una Compañía de Transporte Turístico registrada por el Ministerio de Turismo.',
-            'error'
-          );
-          console.log('Traer a partir del RUC del web service la información de SIIT sino mostrar mensaje de registrarlo en siit');
-        });
       }).catch( e => {
         console.log(e);
         this.rucDataTuristicTransport = '<div class="alert alert-danger" role="alert">El SRI, no respondió. Vuelva a intentarlo.</div>';
