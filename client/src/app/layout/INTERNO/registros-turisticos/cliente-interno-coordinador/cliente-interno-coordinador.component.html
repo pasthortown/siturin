@@ -16,6 +16,11 @@
     (approval_states)="getApprovalStates($event)"
     (attachments)="getAttachments($event)">
 </app-coordinador-asignacion-data>
-<app-coordinador-gestion-data *ngIf="showDataRegisterSelected"></app-coordinador-gestion-data>
+<app-coordinador-gestion-data *ngIf="showCoordinatorGestionData()"
+    [data_selected]="data_selected"
+    [user]="user" 
+    [attachments]="approvalStateAttachmentsProcessed"
+    [approval_states]="approval_states">
+</app-coordinador-gestion-data>
 <app-coordinador-entrega-data *ngIf="showDataRegisterSelected"></app-coordinador-entrega-data>
 <app-register-data *ngIf="showDataRegisterSelected" [data_selected]="data_selected"></app-register-data>

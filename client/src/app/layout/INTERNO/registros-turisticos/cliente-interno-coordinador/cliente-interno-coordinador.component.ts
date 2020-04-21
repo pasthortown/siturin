@@ -42,7 +42,7 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
     tarifarioRackApprovalStateAttachment: new ApprovalStateAttachment(),
   };
 
-  register_approvals = {
+  approval_states = {
     coordinador: new ApprovalState(),
     inspector: new ApprovalState(),
     financiero: new ApprovalState()
@@ -176,10 +176,17 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
   }
 
   getApprovalStates(event) {
-    this.approvalStateAttachmentsProcessed = event;
+    this.approval_states = event;
   }
   
   getAttachments(event) {
-    this.register_approvals = event;
+    this.approvalStateAttachmentsProcessed = event;
+  }
+
+  showCoordinatorGestionData(): boolean {
+    if (!this.showDataRegisterSelected) {
+      return false;
+    }
+    return true;
   }
 }
