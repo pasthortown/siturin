@@ -20,6 +20,10 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
 
   showBandejas = false;
   showDataRegisterSelected = false;
+
+  tipo_tramite = 'pendiente';
+  digito = '';
+  stateTramiteId = 0;
   
   user = new User();
 
@@ -163,7 +167,52 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
     if (event.row == null) {
       this.showDataRegisterSelected = false;  
     } else {
-      this.showDataRegisterSelected = true;  
+      this.showDataRegisterSelected = true;
+      this.stateTramiteId = this.data_selected.register.states.state_id;
+      const estado = this.stateTramiteId.toString();
+      this.digito = estado.substring(estado.length-1, estado.length);
+      this.checkMotivoTramite(estado);
+    }
+  }
+
+  checkMotivoTramite(estado: String) {
+    const PrimerDigito = estado.substring(0, 1);
+    this.tipo_tramite = 'REGISTRO';
+    if (PrimerDigito == '1') {
+      this.tipo_tramite = 'REGISTRO';
+    }
+    if (PrimerDigito == '2') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+    }
+    if (PrimerDigito == '3') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+    }
+    if (PrimerDigito == '4') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+    }
+    if (PrimerDigito == '5') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+    }
+    if (PrimerDigito == '6') {
+      this.tipo_tramite = 'REINGRESO';
+    }
+    if (estado == '20') {
+      this.tipo_tramite = 'REGISTRO';
+    }
+    if (estado == '30') {
+      this.tipo_tramite = 'RECLASIFICACIÓN';
+    }
+    if (estado == '40') {
+      this.tipo_tramite = 'RECATEGORIZACIÓN';
+    }
+    if (estado == '50') {
+      this.tipo_tramite = 'ACTUALIZACIÓN';
+    }
+    if (estado == '60') {
+      this.tipo_tramite = 'INACTIVACIÓN';
+    }
+    if (estado == '70') {
+      this.tipo_tramite = 'REINGRESO';
     }
   }
 
@@ -187,6 +236,12 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
     if (!this.showDataRegisterSelected) {
       return false;
     }
-    return true;
+    if (this.digito == '0') {
+      if ((!this.approval_states.inspector.value && this.approval_states.coordinador.id_user != 0) ||
+        (this.approval_states.inspector.value && this.approval_states.financiero.notes != '')) {
+          return true;
+        }
+    }
+    return false;
   }
 }

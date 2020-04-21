@@ -1,1 +1,22 @@
-coordinador-gestion-data dont works
+<div class="row">
+    <div class="col-12">
+        <label>Estado del Trámite</label>
+        <select class="form-control" id="stateTramite" name="stateTramite" [(ngModel)]="stateTramite">
+            <option value="0" selected>Pendiente</option>
+            <option value="1" *ngIf="approval_states.financiero.value && approval_states.inspector.value">Solicitud Aprobada</option>
+            <option value="2">Solicitud Rechazada</option>
+        </select>
+    </div>
+    <div class="col-12 mt-3 mb-2">
+        <label class="col-form-label">Observaciones</label>
+        <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="approval_states.coordinador.notes"></ck-editor>
+    </div>
+    <div class="col-12 text-center mb-3">
+        <button type="button" class="btn btn-success" [disabled]="guardandoTramite" *ngIf="stateTramite != 0" title="Guardar Información" (click)="guardarTramite()">
+            <i class="fas fa-save"></i> Guardar Información
+        </button>
+        <button type="button" class="btn btn-danger ml-2" *ngIf="digito != '9'" title="Cancelar Cambios" (click)="reload()">
+            <i class="fas fa-times"></i> Cancelar
+        </button>
+    </div>
+</div>

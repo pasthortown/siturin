@@ -37,6 +37,9 @@ export class CoordinadorGestionDataComponent implements OnInit {
     financiero: new ApprovalState()
   };
 
+  stateTramite: number = 0;
+  guardandoTramite = false;
+
   constructor() {
     
   }
@@ -60,4 +63,11 @@ export class CoordinadorGestionDataComponent implements OnInit {
     console.log(this.user);
   }
 
+  guardarTramite() {
+    console.log('AQUI');
+  }
+
+  reload() {
+    window.location.reload();
+  }
 }
