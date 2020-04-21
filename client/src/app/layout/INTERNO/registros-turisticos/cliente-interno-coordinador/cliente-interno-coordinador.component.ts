@@ -242,6 +242,7 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
           return true;
         }
     }
+    console.log(this.digito);
     return false;
   }
 }
