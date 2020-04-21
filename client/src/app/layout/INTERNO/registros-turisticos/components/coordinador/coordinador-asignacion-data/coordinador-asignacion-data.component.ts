@@ -371,9 +371,6 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
               entidad.filas.fila.columnas.columna.forEach(element => {
                 if (element.campo == 'expediente') {
                   this.superciasData += '<strong>Número de Expediente: </strong> ' + element.valor + '<br/>';
-                  if (JSON.stringify(element.valor) !== '{}') {
-                    this.data_selected_table.register.ruc.group_given.register_code = element.valor;
-                  }
                 }
                 if (element.campo == 'objeto_social') {
                   this.superciasData += '<strong>Objeto Social: </strong> ' + element.valor + '<br/>';
