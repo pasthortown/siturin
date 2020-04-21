@@ -158,4 +158,12 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
   inspectores_change(event) {
     this.tecnicosZonales = event;
   }
+
+  getApprovalStates(event) {
+    console.log(event);
+  }
+  
+  getAttachments(event) {
+    console.log(event);
+  }
 }

@@ -26,7 +26,7 @@ import { RegisterType } from 'src/app/models/ALOJAMIENTO/RegisterType';
 import { ExporterService } from 'src/app/services/negocio/exporter.service';
 import { MailerService } from 'src/app/services/negocio/mailer.service';
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver/FileSaver';
 import Swal from 'sweetalert2';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -53,10 +53,13 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       states: null,
       register_data_on_catastro: null
     }
- };
+  };
 
   @Input('tecnicos_financieros') tecnicosFinancieros = [];
   @Input('tecnicos_zonales') tecnicosZonales = [];
+
+  @Output('attachments') attachments: EventEmitter<any> = new EventEmitter<any>();
+  @Output('approval_states') approval_states: EventEmitter<any> = new EventEmitter<any>();
 
   approvalStateAttachmentsProcessed = {
     informeApprovalStateAttachment: new ApprovalStateAttachment(),
@@ -230,7 +233,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
         }
         this.inspectorSelectedId = this.registerApprovalInspector.id_user;
         this.checkIfIsAssignedInspector();
-        this.checkAttachmentsInspector(approvalStateAttachments);
+        this.checkAttachments(approvalStateAttachments);
       }
       if(element.approval_id == 2){
         this.registerApprovalFinanciero = element;
@@ -251,6 +254,13 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
         }
       }
     });
+    const toEmitApprovals = {
+      coordinador: this.registerApprovalCoordinador,
+      inspector: this.registerApprovalInspector,
+      financiero: this.registerApprovalFinanciero
+    };
+    this.approval_states.emit(toEmitApprovals);
+    this.attachments.emit(this.approvalStateAttachmentsProcessed);
   }
 
   checkIfIsAssignedInspector() {
@@ -261,7 +271,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     }
   }
 
-  checkAttachmentsInspector(approvalStateAttachments: ApprovalStateAttachment[]) {
+  checkAttachments(approvalStateAttachments: ApprovalStateAttachment[]) {
     if (this.data_selected_table.register.states.state_id == 11 ||
        this.data_selected_table.register.states.state_id == 21 ||
        this.data_selected_table.register.states.state_id == 31 ||

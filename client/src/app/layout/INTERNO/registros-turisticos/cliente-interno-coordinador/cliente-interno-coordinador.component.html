@@ -12,7 +12,9 @@
     [user]="user" 
     [register_types_block]="register_types_block" 
     [tecnicos_financieros]="tecnicosFinancieros" 
-    [tecnicos_zonales]="tecnicosZonales">
+    [tecnicos_zonales]="tecnicosZonales"
+    (approval_states)="getApprovalStates($event)"
+    (attachments)="getAttachments($event)">
 </app-coordinador-asignacion-data>
 <app-coordinador-gestion-data *ngIf="showDataRegisterSelected"></app-coordinador-gestion-data>
 <app-coordinador-entrega-data *ngIf="showDataRegisterSelected"></app-coordinador-entrega-data>
