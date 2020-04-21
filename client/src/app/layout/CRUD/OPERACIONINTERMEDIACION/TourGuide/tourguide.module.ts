@@ -7,7 +7,6 @@ import { TourGuideComponent } from './tourguide.component';
 import { TourGuideService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/tourguide.service';
 import { environment } from 'src/environments/environment';
 import { RegisterService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/register.service';
-import { GuideTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDIACION/guidetype.service';
 
 @NgModule({
    imports: [CommonModule,
@@ -17,7 +16,6 @@ import { GuideTypeService } from './../../../../services/CRUD/OPERACIONINTERMEDI
    providers: [
                NgbModal,
                RegisterService,
-               GuideTypeService,
                TourGuideService
                ]
 })
