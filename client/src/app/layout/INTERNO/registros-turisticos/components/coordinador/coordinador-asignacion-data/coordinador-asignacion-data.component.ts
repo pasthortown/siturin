@@ -69,6 +69,8 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   rechazarTramite = false;
   guardando_no_requiere_inspeccion = false;
   mostrarMotivoTramite = false;
+  confirmandoAceptarTramite = false;
+  confirmandoRechazoTramite = false;
   tipo_tramite = 'pendiente';
   digito = '';
   stateTramiteId = 0;
@@ -679,7 +681,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       if (element.id == this.inspectorSelectedId) {
         inspector = element;
       }
-    });
+    });  
     const information = {
       para: inspector.name.toUpperCase(),
       tramite: this.tipo_tramite.toUpperCase(),
@@ -706,6 +708,7 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   aceptarTramite() {
+    this.confirmandoAceptarTramite = true;
     Swal.fire({
       title: 'Confirmación',
       text: '¿Está seguro de Aprobar el resultado emitido por el Técnico Zonal?',
@@ -734,24 +737,27 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
         if (this.data_selected_table.register.activity_id == 1) {
           this.approval_state_alojamiento_DataService.put(this.registerApprovalCoordinador).then( r => {
             this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
-               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
-               window.location.reload();
+              this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
+              this.confirmandoAceptarTramite = false;
+              window.location.reload();
             }).catch( e => { console.log(e); });
           }).catch( e => { console.log(e); });
         }
         if (this.data_selected_table.register.activity_id == 2) {
           this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalCoordinador).then( r => {
             this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
-               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
-               window.location.reload();
+              this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
+              this.confirmandoAceptarTramite = false;
+              window.location.reload();
             }).catch( e => { console.log(e); });
           }).catch( e => { console.log(e); });
         }
         if (this.data_selected_table.register.activity_id == 3) {
           this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalCoordinador).then( r => {
             this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
-               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
-               window.location.reload();
+              this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
+              this.confirmandoAceptarTramite = false;
+              window.location.reload();
             }).catch( e => { console.log(e); });
           }).catch( e => { console.log(e); });
         }
@@ -761,15 +767,17 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
           '',
           'error'
         );
+        this.confirmandoAceptarTramite = false;
       }
     });
   }
 
   confirmarRechazoTramite() {
-    // if(this.registerApprovalInspector.notes == '') {
-    //   this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
-    //   return;
-    // }
+    if(this.registerApprovalInspector.notes == '') {
+      this.toastr.errorToastr('Debe indicar la justificación para la devolución del trámite.', 'Rechazo de Trámite');
+      return;
+    }
+    this.confirmandoRechazoTramite = true;
     // Swal.fire({
     //   title: 'Confirmación',
     //   text: '¿Está seguro de Rechazar el resultado emitido por el Técnico Zonal?',

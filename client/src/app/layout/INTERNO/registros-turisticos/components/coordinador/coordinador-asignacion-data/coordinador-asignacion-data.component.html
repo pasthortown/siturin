@@ -99,14 +99,14 @@
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
     </div>
     <div class="col-12 text-center mt-2 mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0 && !rechazarTramite">
-        <button type="button" class="btn btn-success" title="Anterior" (click)="aceptarTramite()">
+        <button [disabled]="confirmandoAceptarTramite" type="button" class="btn btn-success" title="Anterior" (click)="aceptarTramite()">
             <i class="fas fa-check-double"></i>&nbsp;Aprobar Estado de Inspección&nbsp;
             <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
             <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
         </button>
     </div>
     <div class="col-12 text-center mt-2 mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
-        <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramite">
+        <button [disabled]="confirmandoRechazoTramite"  type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramite">
             <i class="fas fa-trash"></i>&nbsp;Rechazar Estado de Inspección&nbsp;
             <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
             <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
