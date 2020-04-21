@@ -66,7 +66,8 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
     tarifarioRackApprovalStateAttachment: new ApprovalStateAttachment(),
   };
 
-  rechazarTramite = false;
+  rechazarTramiteFinanciero = false;
+  rechazarTramiteInspector = false;
   guardando_no_requiere_inspeccion = false;
   mostrarMotivoTramite = false;
   confirmandoAceptarTramiteInspector = false;
