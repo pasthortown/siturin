@@ -183,7 +183,7 @@
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
     </div>
     <div class="col-12 text-center" *ngIf="rechazarTramiteFinanciero">
-        <button type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramiteFinanciero()">
+        <button type="button" [disabled]="confirmandoRechazoTramiteFinanciero" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramiteFinanciero()">
             <i class="fas fa-trash"></i>&nbsp;Rechazar resultado y devolver el trámite al técnico financiero
         </button>
     </div>
