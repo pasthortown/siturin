@@ -870,11 +870,158 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   asignarFinanciero() {
-    //aqui
+    this.asignandoFinanciero = true;
+    this.isAssignedFinancial = true;
+    this.registerApprovalFinanciero.id_user = this.financialSelectedId;
+    this.registerApprovalFinanciero.date_assigment = new Date();
+    this.registerApprovalFinanciero.notes = '';
+    const newRegisterState = new RegisterState();
+    newRegisterState.justification = 'Técnico Financiero asignado en la fecha ' + this.registerApprovalFinanciero.date_assigment.toDateString();
+    newRegisterState.register_id =  this.data_selected_table.register.register.id;
+    newRegisterState.state_id = this.stateTramiteId - 3;
+    if (this.data_selected_table.register.activity_id == 1) {
+      this.approval_state_alojamiento_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+          this.assignFinancial();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 2) {
+      this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+          this.assignFinancial();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+    if (this.data_selected_table.register.activity_id == 3) {
+      this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalFinanciero).then( r => {
+        this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+          this.assignFinancial();
+        }).catch( e => { console.log(e); });
+      }).catch( e => { console.log(e); });
+    }
+  }
+
+  assignFinancial() {
+    const today = new Date();
+    const documentData = this.buildDocumentData();
+    const actividad = this.data_selected_table.register.activity.toUpperCase();
+    let financiero = new User();
+    this.tecnicosFinancieros.forEach(element => {
+       if (element.id == this.financialSelectedId) {
+          financiero = element;
+       }
+    });
+    let qr_value = 'MT-CZ' + documentData.iniciales_cordinacion_zonal + '-' + this.data_selected_table.register.ruc.number + '-SOLICITUD-ALOJAMIENTO-' + today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    const params = [{tipo_tramite: this.tipo_tramite.toUpperCase()},
+       {fecha: today.toLocaleDateString().toUpperCase()},
+       {representante_legal: this.user.name.toUpperCase()},
+       {nombre_comercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase()},
+       {ruc: this.data_selected_table.register.ruc.number},
+       {fecha_solicitud: today.toLocaleDateString().toUpperCase()},
+       {actividad: actividad},
+       {clasificacion: documentData.clasificacion.toUpperCase()},
+       {categoria: documentData.categoria.toUpperCase()},
+       {provincia: documentData.provincia.name.toUpperCase()},
+       {canton: documentData.canton.name.toUpperCase()},
+       {parroquia: documentData.parroquia.name.toUpperCase()},
+       {calle_principal: this.data_selected_table.register.establishment.address_main_street.toUpperCase()},
+       {numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase()},
+       {calle_secundaria: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase()}];
+       this.exporterDataService.template(10, true, qr_value, params).then( r => {
+          let pdfBase64 = r;
+          const information = {
+             para: financiero.name,
+             tramite: this.tipo_tramite.toUpperCase(),
+             ruc: this.data_selected_table.register.ruc.number,
+             nombreComercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase(),
+             fechaSolicitud: today.toLocaleString(),
+             actividad: this.data_selected_table.register.activity.toUpperCase(),
+             clasificacion: documentData.clasificacion.toUpperCase(),
+             categoria: documentData.categoria.toUpperCase(),
+             tipoSolicitud: this.tipo_tramite.toUpperCase(),
+             provincia: documentData.provincia.name.toUpperCase(),
+             canton: documentData.canton.name.toUpperCase(),
+             parroquia: documentData.parroquia.name.toUpperCase(),
+             callePrincipal: this.data_selected_table.register.establishment.address_main_street.toUpperCase(),
+             calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase(),
+             numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase(),
+             thisYear:today.getFullYear(),
+             pdfBase64: pdfBase64,
+          };
+          this.mailerDataService.sendMail('asignacion', financiero.email.toString(), 'Asignación de trámite para su revisión', information).then( r => {
+            this.toastr.successToastr('Técnico Financiero Asignado Satisfactoriamente.', 'Asignación de Técnico Financiero');
+            this.asignandoFinanciero = false;
+            window.location.reload();
+          }).catch( e => { console.log(e); });
+     }).catch( e => { console.log(e); });
+  }
+
+  unassignFinanciero() {
+    const today = new Date();
+    let financiero = new User();
+    this.tecnicosFinancieros.forEach(element => {
+      if (element.id == this.financialSelectedId) {
+        financiero = element;
+      }
+    });
+    const documentData = this.buildDocumentData();
+    const information = {
+      para: financiero.name.toUpperCase(),
+      tramite: this.tipo_tramite.toUpperCase(),
+      ruc: this.data_selected_table.register.ruc.number,
+      nombreComercial: this.data_selected_table.register.establishment.commercially_known_name.toUpperCase(),
+      fechaSolicitud: today.toLocaleString(),
+      actividad: this.data_selected_table.register.activity.toUpperCase(),
+      clasificacion: documentData.clasificacion.toUpperCase(),
+      categoria: documentData.categoria.toUpperCase(),
+      tipoSolicitud: this.tipo_tramite.toUpperCase(),
+      provincia: documentData.provincia.name.toUpperCase(),
+      canton: documentData.canton.name.toUpperCase(),
+      parroquia: documentData.parroquia.name.toUpperCase(),
+      callePrincipal: this.data_selected_table.register.establishment.address_main_street.toUpperCase(),
+      calleInterseccion: this.data_selected_table.register.establishment.address_secondary_street.toUpperCase(),
+      numeracion: this.data_selected_table.register.establishment.address_number.toUpperCase(),
+      thisYear:today.getFullYear()
+   };
+   this.mailerDataService.sendMail('desasignacion', financiero.email.toString(), 'Desasignación de trámite', information).then( r => {
+      this.toastr.warningToastr('Técnico Financiero Desasignado Satisfactoriamente.', 'Desasignación de Técnico Financiero');
+      this.desasignandoFinanciero = false;
+      this.isAssignedFinancial = false;
+      this.financialSelectedId = 0;
+      window.location.reload();
+   }).catch( e => { console.log(e); });
   }
 
   desasignarFinanciero() {
-    //aqui
+    this.desasignandoFinanciero = true;
+    const today = new Date();
+  //  this.registerApprovalFinanciero.id_user = 0;
+  //  this.registerApprovalFinanciero.date_assigment = null;
+  //  if (this.activity == 'ALOJAMIENTO') {
+  //     this.approvalStateDataService.put(this.registerApprovalFinanciero).then( r => {
+  //        const newRegisterState = new RegisterState();
+  //        newRegisterState.justification = 'Técnico Financiero removido en la fecha ' + today.toDateString();
+  //        newRegisterState.register_id =  this.idRegister;
+  //        newRegisterState.state_id = this.stateTramiteId + 3;
+  //        this.desasignandoFinanciero = false;
+  //        this.registerStateDataService.post(newRegisterState).then( r1 => {
+          
+  //        }).catch( e => { console.log(e); });
+  //       }).catch( e => { console.log(e); });
+  //  }  
+  //  if (this.activity == 'ALIMENTOS Y BEBIDAS') {
+  //     this.approvalStateABDataService.put(this.registerApprovalFinanciero).then( r => {
+  //        const newRegisterState = new RegisterState();
+  //        newRegisterState.justification = 'Técnico Financiero removido en la fecha ' + today.toDateString();
+  //        newRegisterState.register_id =  this.idRegister;
+  //        newRegisterState.state_id = this.stateTramiteId + 3;
+  //        this.desasignandoFinanciero = false;
+  //           this.registerStateABDataService.post(newRegisterState).then( r1 => {
+  //           }).catch( e => { console.log(e); });
+           
+  //       }).catch( e => { console.log(e); });
+  //   } 
   }
 
   confirmarRechazoTramiteFinanciero() {
