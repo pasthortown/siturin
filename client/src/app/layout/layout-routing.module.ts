@@ -193,14 +193,6 @@ const routes: Routes = [
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/RegisterTypeImage/registertypeimage.module#RegisterTypeImageModule'
          },
          {
-            path: 'activity_transport_type_op',
-            loadChildren: './CRUD/OPERACIONINTERMEDIACION/ActivityTransportType/activitytransporttype.module#ActivityTransportTypeModule'
-         },
-         {
-            path: 'transport_type_op',
-            loadChildren: './CRUD/OPERACIONINTERMEDIACION/TransportType/transporttype.module#TransportTypeModule'
-         },
-         {
             path: 'complementary_service_type_op',
             loadChildren: './CRUD/OPERACIONINTERMEDIACION/ComplementaryServiceType/complementaryservicetype.module#ComplementaryServiceTypeModule'
          },

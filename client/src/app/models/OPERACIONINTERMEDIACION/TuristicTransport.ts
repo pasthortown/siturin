@@ -6,8 +6,6 @@ export class TuristicTransport {
    register_date: Date;
    social_name: String; 
    register_id: number;
-   activity_transport_type_id: number;
-   transport_type_id: number;
    
    constructor() {
       this.id = 0;
@@ -16,7 +14,5 @@ export class TuristicTransport {
       this.register_code = '';
       this.register_date = new Date();
       this.social_name = ''; 
-      this.activity_transport_type_id = 0;
-      this.transport_type_id = 0; 
    }
 }

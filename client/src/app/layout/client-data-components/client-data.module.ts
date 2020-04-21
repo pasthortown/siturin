@@ -63,8 +63,6 @@ import { RegisterService as RegisterOPService } from 'src/app/services/CRUD/OPER
 import { KitchenTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/kitchentype.service';
 import { ServiceTypeService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/servicetype.service';
 import { ComplementaryServiceFoodTypeService } from 'src/app/services/CRUD/ALOJAMIENTO/complementaryservicefoodtype.service';
-import { ActivityTransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/activitytransporttype.service';
-import { TransportTypeService } from 'src/app/services/CRUD/OPERACIONINTERMEDIACION/transporttype.service';
 import { SIITService } from 'src/app/services/negocio/siit.service';
 import { FoodDrinkAttachmentService } from 'src/app/services/CRUD/ALIMENTOSBEBIDAS/fooddrinkattachment.service';
 import { CapacityTypeService as CapacityTypeALService } from 'src/app/services/CRUD/ALOJAMIENTO/capacitytype.service';
@@ -151,8 +149,6 @@ import { RegisterProcedureService as RegisterProcedureOPService } from 'src/app/
     RegisterABService,
     RegisterOPService,
     UbicationService,
-    ActivityTransportTypeService,
-    TransportTypeService,
     SIITService
   ],
   exports: [
