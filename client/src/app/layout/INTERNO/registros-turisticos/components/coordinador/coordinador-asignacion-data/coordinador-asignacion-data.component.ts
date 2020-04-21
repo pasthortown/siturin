@@ -705,7 +705,63 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
   }
 
   aceptarTramite() {
-    //aqui
+    Swal.fire({
+      title: 'Confirmación',
+      text: '¿Está seguro de Aprobar el resultado emitido por el Técnico Zonal?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, continuar',
+      cancelButtonText: 'No, cancelar',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Aprobado!',
+          'El resultado emitido por el Técnico Zonal ha sido aprobado',
+          'success'
+        );
+        this.registerApprovalCoordinador.id_user = this.user.id;
+        this.registerApprovalCoordinador.notes = '';
+        const today = new Date();
+        this.registerApprovalCoordinador.date_assigment = today;
+        this.registerApprovalCoordinador.date_fullfill = today;
+        this.registerApprovalCoordinador.value = this.registerApprovalInspector.value;
+        const newRegisterState = new RegisterState();
+        newRegisterState.justification = 'Coordinador Zonal aprueba el estado de inspección en la fecha ' + this.registerApprovalCoordinador.date_assigment.toDateString();
+        newRegisterState.register_id = this.data_selected_table.register.register.id;
+        newRegisterState.state_id = this.stateTramiteId;
+        if (this.data_selected_table.register.activity_id == 1) {
+          this.approval_state_alojamiento_DataService.put(this.registerApprovalCoordinador).then( r => {
+            this.register_state_alojamiento_DataService.post(newRegisterState).then( r1 => {
+               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
+               window.location.reload();
+            }).catch( e => { console.log(e); });
+          }).catch( e => { console.log(e); });
+        }
+        if (this.data_selected_table.register.activity_id == 2) {
+          this.approval_state_alimentos_bebidas_DataService.put(this.registerApprovalCoordinador).then( r => {
+            this.register_state_alimentos_bebidas_DataService.post(newRegisterState).then( r1 => {
+               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
+               window.location.reload();
+            }).catch( e => { console.log(e); });
+          }).catch( e => { console.log(e); });
+        }
+        if (this.data_selected_table.register.activity_id == 3) {
+          this.approval_state_operacion_intermediacion_DataService.put(this.registerApprovalCoordinador).then( r => {
+            this.register_state_operacion_intermediacion_DataService.post(newRegisterState).then( r1 => {
+               this.toastr.successToastr('Aprobado el Estado de la Inspección Satisfactoriamente.', 'Aprobación de Coordinador Zonal');
+               window.location.reload();
+            }).catch( e => { console.log(e); });
+          }).catch( e => { console.log(e); });
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        );
+      }
+    });
   }
 
   confirmarRechazoTramite() {
