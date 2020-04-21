@@ -1,3 +1,5 @@
+import { ApprovalState } from 'src/app/models/ALOJAMIENTO/ApprovalState';
+import { ApprovalStateAttachment } from 'src/app/models/ALOJAMIENTO/ApprovalStateAttachment';
 import { Ruc } from 'src/app/models/BASE/Ruc';
 import { Establishment } from 'src/app/models/BASE/Establishment';
 import { User } from 'src/app/models/profile/User';
@@ -30,6 +32,20 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
       states: null,
       register_data_on_catastro: null
     }
+  };
+
+  approvalStateAttachmentsProcessed = {
+    informeApprovalStateAttachment: new ApprovalStateAttachment(),
+    requisitosApprovalStateAttachment: new ApprovalStateAttachment(),
+    actaNotificacionApprovalStateAttachment: new ApprovalStateAttachment(),
+    registroApprovalStateAttachment: new ApprovalStateAttachment(),
+    tarifarioRackApprovalStateAttachment: new ApprovalStateAttachment(),
+  };
+
+  register_approvals = {
+    coordinador: new ApprovalState(),
+    inspector: new ApprovalState(),
+    financiero: new ApprovalState()
   };
 
   tecnicosFinancieros = [];
@@ -160,10 +176,10 @@ export class ClienteInternoCoordinadorComponent implements OnInit {
   }
 
   getApprovalStates(event) {
-    console.log(event);
+    this.approvalStateAttachmentsProcessed = event;
   }
   
   getAttachments(event) {
-    console.log(event);
+    this.register_approvals = event;
   }
 }
