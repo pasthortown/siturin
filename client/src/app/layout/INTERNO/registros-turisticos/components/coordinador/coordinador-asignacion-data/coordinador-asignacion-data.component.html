@@ -44,7 +44,7 @@
             </select>
         </div>
     </div>
-    <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN' && (registerApprovalInspector.notes != '' && !rechazarTramite && digito != '4')">
+    <div class="col-12 mt-3" *ngIf="registerApprovalInspector.notes !== 'NO REQUIERE INSPECCIÓN' && (registerApprovalInspector.notes != '' && !rechazarTramiteInspector && digito != '4')">
         <strong>Motivo de devolución de trámite</strong>
         <div class="alert alert-info" role="alert" [innerHTML]="registerApprovalInspector.notes"></div>
     </div>
@@ -79,7 +79,7 @@
                     <td>
                         <div class="onoffswitch">
                             <input type="checkbox" class="onoffswitch-checkbox"  id="vacacionesCheck"
-                                name="vacacionesCheck" [(ngModel)]="rechazarTramite" (change)="rechazarCheck()">
+                                name="vacacionesCheck" [(ngModel)]="rechazarTramiteInspector" (change)="rechazarCheck()">
                             <label class="onoffswitch-label" for="vacacionesCheck">
                                 <span class="onoffswitch-inner"></span>
                                 <span class="onoffswitch-switch"></span>
@@ -94,11 +94,11 @@
         </table>
     </div>
     <div class="col-3"></div>
-    <div class="col-12 mt-2 mb-3" *ngIf="rechazarTramite && digito == '0' && registerApprovalCoordinador.id_user == 0">
+    <div class="col-12 mt-2 mb-3" *ngIf="rechazarTramiteInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
         <label class="col-form-label">Motivo de rechazo y devolución del trámite</label>
         <ck-editor id="notes" name="notes" skin="moono-lisa" [(ngModel)]="registerApprovalInspector.notes"></ck-editor>
     </div>
-    <div class="col-12 text-center mt-2 mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0 && !rechazarTramite">
+    <div class="col-12 text-center mt-2 mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0 && !rechazarTramiteInspector">
         <button [disabled]="confirmandoAceptarTramite" type="button" class="btn btn-success" title="Anterior" (click)="aceptarTramite()">
             <i class="fas fa-check-double"></i>&nbsp;Aprobar Estado de Inspección&nbsp;
             <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
@@ -106,7 +106,7 @@
         </button>
     </div>
     <div class="col-12 text-center mt-2 mb-3" *ngIf="isAssignedInspector && digito == '0' && registerApprovalCoordinador.id_user == 0">
-        <button [disabled]="confirmandoRechazoTramiteInspector"  type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramite">
+        <button [disabled]="confirmandoRechazoTramiteInspector"  type="button" class="btn btn-danger" title="Cancelar Cambios" (click)="confirmarRechazoTramite()" *ngIf="rechazarTramiteInspector">
             <i class="fas fa-trash"></i>&nbsp;Rechazar Estado de Inspección&nbsp;
             <b *ngIf="registerApprovalInspector.value">Aprobado</b> 
             <b *ngIf="!registerApprovalInspector.value && hasInform">Rechazado</b>
