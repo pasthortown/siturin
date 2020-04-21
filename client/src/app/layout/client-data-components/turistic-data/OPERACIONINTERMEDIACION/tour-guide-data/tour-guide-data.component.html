@@ -79,9 +79,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" *ngIf="identificationGuideValidated">
                 <div class="form-group">
-                    <label for="exampleInputPassword1" *ngIf="identificationGuideValidated">Nombre Completo</label>
+                    <label for="exampleInputPassword1">Nombre Completo</label>
                     <input type="text" disabled class="form-control" id="fullnameTuristicGuide" [(ngModel)]="newTuristicGuide.fullname">
                 </div>
             </div>
