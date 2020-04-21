@@ -61,6 +61,7 @@ export class TourGuideDataComponent implements OnInit {
   addGuiaTurismo(content) {
     this.REGCIVILOK = false;
     this.consumoIdentificationGuide = false;
+    this.identificationGuideValidated = false;
     this.newTuristicGuide = new TourGuide();
     this.modalService.open(content, { centered: true, size: 'lg' }).result.then(( response => {
        if ( response === 'Guardar click' ) {
@@ -91,6 +92,7 @@ export class TourGuideDataComponent implements OnInit {
     const new_turistic_guides = [];
     this.REGCIVILOK = false;
     this.consumoIdentificationGuide = false;
+    this.identificationGuideValidated = false;
     this.register.turistic_guides.forEach(element => {
        if (element != turistic_guide) {
           new_turistic_guides.push(element);

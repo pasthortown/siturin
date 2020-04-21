@@ -37,10 +37,8 @@
                 <th>RUC</th>
                 <th>Razón Social</th>
                 <th>Tipo Contribuyente</th>
-                <th>Número de Registro</th>
-                <th>Fecha de Registro</th>
-                <th>Tipo de Actividad</th>
-                <th>Categoría</th>
+                <th *ngIf="!editable">Número de Registro</th>
+                <th *ngIf="!editable">Fecha de Registro</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
@@ -48,10 +46,14 @@
                     <td>{{transport_company.ruc}}</td>
                     <td>{{transport_company.social_name}}</td>
                     <td>{{transport_company.tax_payer_type_id}}</td>
-                    <td>{{transport_company.register_code}}</td>
-                    <td>{{transport_company.register_date}}</td>
-                    <td>{{transport_company.activity_transport_type_id}}</td>
-                    <td>{{transport_company.transport_type_id}}</td>
+                    <td *ngIf="!editable">
+                        <span *ngIf="transport_company.register_code != ''">{{transport_company.register_code}}</span>
+                        <span class="badge badge-danger" *ngIf="transport_company.register_code == ''">Guía No Registrado</span>
+                    </td>
+                    <td *ngIf="!editable">
+                        <span *ngIf="transport_company.register_code != ''">{{transport_company.register_date | date: 'y-MM-dd'}}</span>
+                        <span class="badge badge-danger" *ngIf="transport_company.register_code == ''">Compañía de Transporte No Registrada</span>
+                    </td>
                     <td>
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group mr-2" role="group">
