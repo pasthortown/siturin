@@ -1122,7 +1122,6 @@ export class CoordinadorAsignacionDataComponent implements OnInit {
       this.toastr.successToastr('Técnico Financiero Asignado Satisfactoriamente.', 'Asignación de Técnico Financiero');
       this.confirmandoRechazoTramiteFinanciero = false;
       window.location.reload();
-      //aqui
     }).catch( e => { console.log(e); });
   }
 
